@@ -391,7 +391,7 @@ a:hover { color: var(--color-accent-hover); }
 }
 
 .site-sections,
-.post-breadcrumb, .post-meta, .post-card-meta, .post-card-date, .post-kicker,
+.post-breadcrumb, .post-card-meta, .post-kicker,
 .chip, .chip sup,
 .site-footer, .share-label,
 .masthead-kicker, .masthead-dateline, .landing-issue-label,
@@ -477,33 +477,6 @@ a:hover { color: var(--color-accent-hover); }
   gap: 0.25rem;
 }
 
-.site-masthead-byline {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-style: normal;
-  color: var(--color-muted);
-  text-align: center;
-  margin: 0;
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75em;
-  align-self: center;
-}
-.site-masthead-byline em {
-  font-style: italic;
-  color: var(--color-fg);
-  font-weight: 400;
-}
-.site-masthead-byline .rule {
-  display: inline-block;
-  width: 2rem;
-  height: 1px;
-  background: var(--color-border-bold);
-  margin-block-end: 3px;
-}
-
 .site-sections {
   display: flex;
   flex-wrap: wrap;
@@ -570,13 +543,6 @@ a:hover { color: var(--color-accent-hover); }
   margin-block-end: var(--space-7);
   max-width: var(--content-reading);
   margin-inline: auto;
-}
-
-.post-meta {
-  font-size: var(--text-meta);
-  color: var(--color-muted);
-  letter-spacing: var(--tracking-meta);
-  margin-block-end: var(--space-3);
 }
 
 .post-description {
@@ -651,13 +617,6 @@ a.post-card-title:hover { color: var(--color-accent); }
   }
 }
 
-/* Legacy .post-card-date (kept for any stray usage) */
-.post-card-date {
-  font-size: var(--text-meta);
-  color: var(--color-muted);
-  letter-spacing: var(--tracking-meta);
-}
-
 /* ===== Chips ===== */
 .chip {
   display: inline-flex; align-items: center;
@@ -704,7 +663,7 @@ a.post-card-title:hover { color: var(--color-accent); }
 }
 
 /* Tabular numerals in metadata, dates, times, code */
-.post-meta, .post-card-date, .uses-meta,
+.uses-meta,
 .year-heading, .section-eyebrow, .related-meta,
 time, pre, code, .chip {
   font-variant-numeric: tabular-nums;
@@ -1129,13 +1088,6 @@ article > section,
 article > div,
 .chip-row,
 .related-posts {
-  max-width: var(--content-reading);
-  margin-inline: auto;
-}
-
-/* Card grids and project layouts can be slightly wider but still centered */
-.card-grid,
-.card-grid-3 {
   max-width: var(--content-reading);
   margin-inline: auto;
 }
@@ -1598,11 +1550,8 @@ h1, h2, h3, .post-card-title {
   .theme-transition .site-footer,
   .theme-transition .card,
   .theme-transition .chip,
-  .theme-transition .callout,
   .theme-transition .prose :where(pre),
   .theme-transition .prose :where(code):not(:where(pre *)),
-  .theme-transition .btn-filled,
-  .theme-transition .btn-outlined,
   .theme-transition a {
     transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
   }

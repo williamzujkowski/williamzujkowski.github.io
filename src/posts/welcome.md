@@ -36,7 +36,7 @@ My entire site builds in under 100ms. Coming from webpack-based tools, this feel
 
 This site is more than just a blog. It's:
 
-- **A knowledge repository** – My [Resources](/resources/) page catalogs tools and references I've found invaluable
+- **A knowledge repository** – My [Uses](/uses/) page catalogs tools and references I've found invaluable
 - **A professional portfolio** – The [About](/about/) section showcases my experience and projects
 - **A learning platform** – Each blog post represents hours of research and hands-on experience
 - **An experiment in web craft** – From the glass morphism effects to the responsive design, every detail is intentional

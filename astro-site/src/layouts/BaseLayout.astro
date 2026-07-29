@@ -150,9 +150,8 @@ function isActiveLink(linkHref: string): boolean {
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https:; connect-src 'self'; object-src 'none'; base-uri 'self'"
     />
-    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
+    <!-- GitHub Pages can't send real response headers; only the CSP meta and referrer meta are effective here. -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
 
     <title>{pageTitle}</title>
     <link rel="canonical" href={canonicalUrl} />
@@ -254,7 +253,7 @@ function isActiveLink(linkHref: string): boolean {
             <span class="site-nameplate-title"><em>Field</em> Notes</span>
           </a>
           <div class="site-masthead-tools-right">
-            <Search client:load />
+            <Search client:idle />
             <ThemeDeck variant="header" />
             <ThemeToggle />
           </div>

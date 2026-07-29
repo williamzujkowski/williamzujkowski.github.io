@@ -11,7 +11,7 @@ tags:
 ---
 ## The Problem: AI Tools That Forget Everything
 
-I built a standards repository that reduced Claude CLI token usage by 90% and automated NIST 800-53r5 compliance checks. This complements [progressive context loading](/posts/2025-10-17-progressive-context-loading-llm-workflows) for efficient LLM workflow optimization, and integrates with [mastering prompt engineering](/posts/2024-04-19-mastering-prompt-engineering-llms) and [local LLM deployment](/posts/2025-06-25-local-llm-deployment-privacy-first). The result: 15-minute project setup instead of 2 hours, automatic violation detection across 55 blog posts, and persistent context that survives sessions.
+I built a standards repository that reduced Claude CLI token usage by 90% and automated NIST 800-53r5 compliance checks. This complements [progressive context loading](/posts/2025-10-17-progressive-context-loading-llm-workflows) for efficient LLM workflow optimization, and integrates with [mastering prompt engineering](/posts/2024-04-19-mastering-prompt-engineering-llms) and [local LLM deployment](/posts/2025-06-25-local-llm-deployment-privacy-first). The result: 15-minute project setup instead of 2 hours, automatic violation detection across my blog posts, and persistent context that survives sessions.
 
 **Why it matters:** AI tools forget everything between sessions. You explain coding standards repeatedly. Context explodes token budgets. Consistency depends on human memory.
 
@@ -220,7 +220,7 @@ I've found the benefits outweigh the costs.
 
 ### False Positive Hell
 
-My initial validation script flagged **312 "violations"** across all 55 blog posts. I manually reviewed each one. Turns out **276 were false positives**, an 88% false positive rate.
+My initial validation script flagged **312 "violations"** across every blog post I had at the time. I manually reviewed each one. Turns out **276 were false positives**, an 88% false positive rate.
 
 I spent 3 days tuning regex patterns and adjusting thresholds to get the FP rate down to 4%. That was tedious work.
 
