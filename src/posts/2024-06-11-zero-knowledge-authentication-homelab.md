@@ -54,26 +54,16 @@ My homelab SSO replaces password transmission with ZK-SNARK proof generation and
 
 **System design:**
 
-```mermaid
-flowchart LR
-    User[User Browser] -->|Username| Client[ZK Client\nJavaScript]
-    Client -->|Password\nlocal only| ProofGen[Proof Generator\nzk-SNARK]
-    ProofGen -->|Proof π| Server[Auth Server]
-    Server -->|Verify π| Verifier[ZK Verifier]
-    Verifier -->|Valid?| TokenIssue[JWT Issuer]
-    TokenIssue -->|Session Token| User
-
-    DB[(User DB\nPublic Keys Only)]
-    Server -.->|Lookup public key| DB
-
-    classDef client fill:#3498db,color:#fff
-    classDef server fill:#e74c3c,color:#fff
-    classDef crypto fill:#9b59b6,color:#fff
-
-    class User,Client,ProofGen client
-    class Server,Verifier,TokenIssue server
-    class DB crypto
-```
+<div class="flow">
+  <div class="flow-node">User Browser</div>
+  <div class="flow-node"><b>ZK Client</b><i>JavaScript; username, password local only</i></div>
+  <div class="flow-node"><b>Proof Generator</b><i>zk-SNARK proof π</i></div>
+  <div class="flow-node">Auth Server</div>
+  <div class="flow-node"><b>User DB</b><i>public keys only</i></div>
+  <div class="flow-node is-gate"><b>ZK Verifier</b><i>verify π</i></div>
+  <div class="flow-node is-good">JWT Issuer</div>
+  <div class="flow-node">Session Token</div>
+</div>
 
 **How it works:**
 

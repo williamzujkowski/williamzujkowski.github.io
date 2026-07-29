@@ -48,25 +48,16 @@ names, internal network topology. Local LLM inference keeps all data in homelab.
 
 **Ollama architecture:**
 
-```mermaid
-flowchart LR
-    Alerts[Security Alerts\nWazuh/Suricata] -->|JSON| Processor[Alert Processor\nPython]
-    Processor -->|Prompt| Ollama[Ollama Server\nLocal LLM]
-    Ollama -->|Classification| DB[(SQLite\nAlert DB)]
-    DB -->|High Priority| Slack[Slack Notification]
-    DB -->|All Alerts| Dashboard[Grafana Dashboard]
-
-    GPU[NVIDIA GPU\n8GB VRAM]
-    Ollama -.->|Inference| GPU
-
-    classDef local fill:#3498db,color:#fff
-    classDef alert fill:#e74c3c,color:#fff
-    classDef output fill:#2ecc71,color:#000
-
-    class Processor,Ollama,GPU local
-    class Alerts,DB alert
-    class Slack,Dashboard output
-```
+<div class="flow">
+  <div class="flow-node"><b>Security Alerts</b><i>Wazuh / Suricata JSON</i></div>
+  <div class="flow-node"><b>Alert Processor</b><i>Python prompt</i></div>
+  <div class="flow-node"><b>Ollama Server</b><i>local LLM; NVIDIA GPU inference, 8GB VRAM</i></div>
+  <div class="flow-node"><b>SQLite</b><i>alert DB classification</i></div>
+  <div class="flow-parallel">
+    <div class="flow-node is-bad"><b>Slack Notification</b><i>high priority</i></div>
+    <div class="flow-node"><b>Grafana Dashboard</b><i>all alerts</i></div>
+  </div>
+</div>
 
 **How it works:**
 
@@ -231,22 +222,13 @@ Large Language Models benefit from context. Retrieval-Augmented Generation (RAG)
 
 **RAG architecture:**
 
-```mermaid
-flowchart LR
-    Alert[New Alert] -->|Query| Retriever[Vector DB\nChroma]
-    Retriever -->|Similar Alerts| Context[Context Builder]
-    Context -->|Enriched Prompt| LLM[Ollama LLM]
-    LLM -->|Classification| Output[Triage Decision]
-
-    HistoricalDB[(Historical Alerts\n30 days)]
-    ThreatIntel[(Threat Intel\nMISP/OTX)]
-
-    HistoricalDB -.->|Embeddings| Retriever
-    ThreatIntel -.->|IOCs| Context
-
-    classDef rag fill:#9b59b6,color:#fff
-    class Retriever,Context rag
-```
+<div class="flow">
+  <div class="flow-node">New Alert</div>
+  <div class="flow-node"><b>Vector DB</b><i>Chroma query; 30 days historical alert embeddings</i></div>
+  <div class="flow-node"><b>Context Builder</b><i>similar alerts + MISP / OTX IOCs</i></div>
+  <div class="flow-node"><b>Ollama LLM</b><i>enriched prompt</i></div>
+  <div class="flow-node"><b>Triage Decision</b><i>classification</i></div>
+</div>
 
 **How RAG improves triage:**
 

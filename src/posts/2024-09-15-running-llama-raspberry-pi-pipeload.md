@@ -99,26 +99,19 @@ Combined with layer unloading, peak memory usage drops by 90.3% for GPT-style mo
 
 ⚠️ **Warning:** This diagram demonstrates layer-wise loading architecture for educational purposes. Implementation requires proper memory management and hardware configuration.
 
-```mermaid
-flowchart TD
-    A[Input Tokens] --> B[Layer 0]
-    B --> C[Unload Layer 0]
-    C --> D[Load Layer 1 in parallel]
-    D --> E[Layer 1]
-    E --> F[Unload Layer 1]
-    F --> G[Load Layer 2 in parallel]
-    G --> H[Layer 2]
-    H --> I[...]
-    I --> J[Layer 31]
-    J --> K[Output Tokens]
-
-    classDef layerStyle fill:#10b981,color:#fff
-    classDef unloadStyle fill:#ef4444,color:#fff
-    classDef loadStyle fill:#3b82f6,color:#fff
-    class B,E,H,J layerStyle
-    class C,F unloadStyle
-    class D,G loadStyle
-```
+<div class="flow">
+  <div class="flow-node">Input Tokens</div>
+  <div class="flow-node">Layer 0</div>
+  <div class="flow-node">Unload Layer 0</div>
+  <div class="flow-node">Load Layer 1 in parallel</div>
+  <div class="flow-node">Layer 1</div>
+  <div class="flow-node">Unload Layer 1</div>
+  <div class="flow-node">Load Layer 2 in parallel</div>
+  <div class="flow-node">Layer 2</div>
+  <div class="flow-node">...</div>
+  <div class="flow-node">Layer 31</div>
+  <div class="flow-node">Output Tokens</div>
+</div>
 
 **Key insight:** By the time layer N completes execution, layer N+1 is already loaded and ready. No idle CPU cycles waiting for I/O.
 

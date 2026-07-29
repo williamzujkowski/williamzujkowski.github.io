@@ -95,25 +95,16 @@ I started verifying model checksums obsessively after reading this.
 
 ## Local LLM Tools: The Privacy Reality Check
 
-```mermaid
-flowchart LR
-    User([User Prompt]) --> LocalInference
-
-    subgraph LocalInference["Local Inference Pipeline"]
-        direction TB
-        A[System Prompt + Filters] --> B[Tokenizer]
-        B --> C[GPU VRAM — Model Weights]
-        C --> D[KV Cache — Attention States]
-        D --> E[Token Sampling]
-        E --> F[Detokenizer]
-    end
-
-    LocalInference --> Response([Response])
-
-    style LocalInference fill:#1a1a2e,color:#e0e0e0
-    style C fill:#e74c3c,color:#fff
-    style D fill:#f39c12,color:#fff
-```
+<div class="flow">
+  <div class="flow-node">User Prompt</div>
+  <div class="flow-node">System Prompt + Filters</div>
+  <div class="flow-node">Tokenizer</div>
+  <div class="flow-node">GPU VRAM — Model Weights</div>
+  <div class="flow-node">KV Cache — Attention States</div>
+  <div class="flow-node">Token Sampling</div>
+  <div class="flow-node">Detokenizer</div>
+  <div class="flow-node is-good">Response</div>
+</div>
 
 Not all "local" LLM tools are created equal. I tested seven popular options and found massive differences in their actual privacy practices.
 

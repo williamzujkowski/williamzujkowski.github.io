@@ -28,32 +28,18 @@ Container security isn't binary. You can't just "enable security" and assume you
 - **Network segmentation** contains lateral movement
 - **Resource limits** stop resource exhaustion attacks
 
-```mermaid
-graph TB
-    Attacker([Attacker]) --> L1
-    subgraph Layers["Eight Defense Layers"]
-        direction TB
-        L1["Layer 1: Minimal Base Images<br/>Reduced attack surface"]
-        L2["Layer 2: User Namespaces<br/>No real root privileges"]
-        L3["Layer 3: Seccomp Profiles<br/>Blocked dangerous syscalls"]
-        L4["Layer 4: AppArmor / SELinux<br/>Mandatory access control"]
-        L5["Layer 5: Capability Dropping<br/>Fine-grained privilege removal"]
-        L6["Layer 6: Read-Only Filesystem<br/>No persistence possible"]
-        L7["Layer 7: Network Segmentation<br/>No lateral movement"]
-        L8["Layer 8: Resource Limits<br/>No resource exhaustion"]
-    end
-    L1 --> L2 --> L3 --> L4 --> L5 --> L6 --> L7 --> L8
-    L8 --> App([Protected Application])
-
-    style L1 fill:#e74c3c,color:#fff
-    style L2 fill:#e67e22,color:#fff
-    style L3 fill:#f39c12,color:#fff
-    style L4 fill:#f1c40f,color:#000
-    style L5 fill:#2ecc71,color:#fff
-    style L6 fill:#1abc9c,color:#fff
-    style L7 fill:#3498db,color:#fff
-    style L8 fill:#9b59b6,color:#fff
-```
+<div class="flow">
+  <div class="flow-node is-bad">Attacker</div>
+  <div class="flow-node"><b>Layer 1: Minimal Base Images</b><i>reduced attack surface</i></div>
+  <div class="flow-node"><b>Layer 2: User Namespaces</b><i>no real root privileges</i></div>
+  <div class="flow-node"><b>Layer 3: Seccomp Profiles</b><i>blocked dangerous syscalls</i></div>
+  <div class="flow-node"><b>Layer 4: AppArmor / SELinux</b><i>mandatory access control</i></div>
+  <div class="flow-node"><b>Layer 5: Capability Dropping</b><i>fine-grained privilege removal</i></div>
+  <div class="flow-node"><b>Layer 6: Read-Only Filesystem</b><i>no persistence possible</i></div>
+  <div class="flow-node"><b>Layer 7: Network Segmentation</b><i>no lateral movement</i></div>
+  <div class="flow-node"><b>Layer 8: Resource Limits</b><i>no resource exhaustion</i></div>
+  <div class="flow-node is-good">Protected Application</div>
+</div>
 
 **Why it matters:** Single-layer security is brittle. Attackers bypass one control and own your system. Multiple independent layers mean they need to break through all defenses.
 
@@ -392,23 +378,13 @@ docker run \
 
 ## Implementation Strategy
 
-```mermaid
-flowchart LR
-    W1["Week 1<br/>Base Images +<br/>Resource Limits"] --> W2["Week 2<br/>User<br/>Namespaces"]
-    W2 --> W3["Week 3<br/>Cap Drop +<br/>Read-Only FS"]
-    W3 --> W4["Week 4<br/>Seccomp +<br/>AppArmor"]
-    W4 --> W5["Week 5<br/>Network<br/>Segmentation"]
-
-    W1 -.- T1["Low disruption"]
-    W3 -.- T2["Medium disruption"]
-    W5 -.- T3["Full defense-in-depth"]
-
-    style W1 fill:#2ecc71,color:#fff
-    style W2 fill:#27ae60,color:#fff
-    style W3 fill:#f39c12,color:#fff
-    style W4 fill:#e67e22,color:#fff
-    style W5 fill:#e74c3c,color:#fff
-```
+<div class="flow">
+  <div class="flow-node"><b>Week 1</b><i>Base Images + Resource Limits; Low disruption</i></div>
+  <div class="flow-node"><b>Week 2</b><i>User Namespaces</i></div>
+  <div class="flow-node"><b>Week 3</b><i>Cap Drop + Read-Only FS; Medium disruption</i></div>
+  <div class="flow-node"><b>Week 4</b><i>Seccomp + AppArmor</i></div>
+  <div class="flow-node"><b>Week 5</b><i>Network Segmentation; Full defense-in-depth</i></div>
+</div>
 
 Don't enable all layers simultaneously. Incremental hardening prevents breaking production workloads.
 

@@ -139,30 +139,13 @@ Memory persistence adds overhead, and token costs scale with context size.
 
 ## SPARC Development Methodology
 
-```mermaid
-flowchart LR
-    S[📋 Specification] --> P[🔢 Pseudocode]
-    P --> A[🏛️ Architecture]
-    A --> R[🔧 Refinement]
-    R --> C[✅ Completion]
-
-    S -.-> M1[Define Requirements]
-    P -.-> M2[Design Algorithms]
-    A -.-> M3[System Structure]
-    R -.-> M4[TDD & Iteration]
-    C -.-> M5[Integration & Deploy]
-
-    classDef blueNode fill:#e3f2fd,color:#000,stroke:#1976d2,stroke-width:2px
-    classDef purpleNode fill:#f3e5f5,color:#000,stroke:#7b1fa2,stroke-width:2px
-    classDef orangeNode fill:#fff3e0,color:#000,stroke:#f57c00,stroke-width:2px
-    classDef greenNode fill:#e8f5e9,color:#000,stroke:#388e3c,stroke-width:2px
-    classDef redNode fill:#ffebee,color:#000,stroke:#d32f2f,stroke-width:2px
-    class S blueNode
-    class P purpleNode
-    class A orangeNode
-    class R greenNode
-    class C redNode
-```
+<div class="flow">
+  <div class="flow-node"><b>📋 Specification</b><i>Define Requirements</i></div>
+  <div class="flow-node"><b>🔢 Pseudocode</b><i>Design Algorithms</i></div>
+  <div class="flow-node"><b>🏛️ Architecture</b><i>System Structure</i></div>
+  <div class="flow-node"><b>🔧 Refinement</b><i>TDD &amp; Iteration</i></div>
+  <div class="flow-node is-good"><b>✅ Completion</b><i>Integration &amp; Deploy</i></div>
+</div>
 
 ## Practical Use Cases
 

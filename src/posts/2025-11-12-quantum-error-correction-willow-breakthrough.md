@@ -59,24 +59,11 @@ Google's Willow chip finally cracked the code. They built logical qubits using s
 
 **The breakthrough:** As they increased from 3x3 to 5x5 to 7x7, the logical error rate decreased exponentially. Adding more physical qubits made the logical qubit more reliable, not less.
 
-```mermaid
-flowchart LR
-    subgraph A["3x3 Array"]
-        A1["9 Physical Qubits<br/>Higher Error Rate"]
-    end
-    subgraph B["5x5 Array"]
-        B1["25 Physical Qubits<br/>Lower Error Rate"]
-    end
-    subgraph C["7x7 Array"]
-        C1["49 Physical Qubits<br/>Lowest Error Rate"]
-    end
-
-    A -->|"Error rate<br/>decreases"| B -->|"Exponential<br/>suppression"| C
-
-    style A fill:#e74c3c,color:#fff
-    style B fill:#f39c12,color:#fff
-    style C fill:#2ecc71,color:#fff
-```
+<div class="flow">
+  <div class="flow-node is-bad"><b>3x3 Array</b><i>9 Physical Qubits; Higher Error Rate</i></div>
+  <div class="flow-node"><b>5x5 Array</b><i>25 Physical Qubits; Lower Error Rate</i></div>
+  <div class="flow-node is-good"><b>7x7 Array</b><i>49 Physical Qubits; Lowest Error Rate</i></div>
+</div>
 
 This is the "below threshold" operation that quantum error correction theory predicted. Willow's physical qubit error rates (0.1-0.2%) are well below the surface code threshold (~1%), enabling exponential error suppression.
 
@@ -90,24 +77,14 @@ The paper (["Quantum error correction below the surface code threshold"](https:/
 
 ## Why This Changes Everything
 
-```mermaid
-graph TB
-    subgraph Stack["Quantum Computing Stack"]
-        direction TB
-        Apps["Applications<br/>Drug Discovery, Crypto, AI, Climate"]
-        Algo["Quantum Algorithms<br/>Shor's, Grover's, VQE"]
-        Logic["Logical Qubits<br/>Error-Corrected Computation"]
-        QEC["Quantum Error Correction<br/>Surface Codes — Willow Breakthrough"]
-        Phys["Physical Qubits<br/>Superconducting Transmons"]
-        HW["Hardware<br/>Dilution Refrigerator at 15 mK"]
-    end
-
-    Apps --> Algo --> Logic --> QEC --> Phys --> HW
-
-    style QEC fill:#e74c3c,color:#fff,stroke:#c0392b,stroke-width:3px
-    style Logic fill:#f39c12,color:#fff
-    style Apps fill:#3498db,color:#fff
-```
+<div class="flow">
+  <div class="flow-node"><b>Applications</b><i>Drug Discovery, Crypto, AI, Climate</i></div>
+  <div class="flow-node"><b>Quantum Algorithms</b><i>Shor's, Grover's, VQE</i></div>
+  <div class="flow-node"><b>Logical Qubits</b><i>Error-Corrected Computation</i></div>
+  <div class="flow-node"><b>Quantum Error Correction</b><i>Surface Codes — Willow Breakthrough</i></div>
+  <div class="flow-node"><b>Physical Qubits</b><i>Superconducting Transmons</i></div>
+  <div class="flow-node"><b>Hardware</b><i>Dilution Refrigerator at 15 mK</i></div>
+</div>
 
 Think of this like the moment transistors became reliable enough for integrated circuits. We've proven the fundamental scaling law that makes quantum computing work.
 
