@@ -959,6 +959,41 @@ article .prose > p:first-of-type::first-letter {
 .prose .arch-chip.is-bad { border-color: var(--color-error); color: var(--color-error); }
 /* .arch captions use the canonical `.prose :where(figcaption)` styling. */
 
+/* ===== Native sequence diagrams (issue #421) — a vertical, numbered exchange
+ * that reads top-to-bottom on a phone, replacing horizontal Mermaid sequence
+ * diagrams (which never fit a phone with 4+ actors). Steps are numbered; notes
+ * and alt/else labels are not. Token-based; all text >= 0.8125rem. */
+.prose ol.seq {
+  list-style: none; counter-reset: seq; padding: 0;
+  margin-block: var(--space-6); display: flex; flex-direction: column; gap: 0.4rem;
+  font-family: var(--font-body);
+}
+.prose .seq .seq-step {
+  position: relative; padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: var(--radius-md); font-size: 0.95rem; line-height: 1.35;
+}
+.prose .seq .seq-step::before {
+  counter-increment: seq; content: counter(seq);
+  position: absolute; left: 0.7rem; top: 0.5rem;
+  font-family: var(--font-mono); font-size: 0.8125rem; font-weight: 600;
+  color: var(--color-muted);
+}
+.prose .seq .seq-step b { font-weight: 600; }
+.prose .seq .seq-step span {
+  display: block; margin-top: 0.1rem; font-size: 0.875rem; color: var(--color-fg-muted);
+}
+.prose .seq .seq-note {
+  padding: 0.4rem 0.75rem; font-style: italic; font-size: 0.875rem;
+  color: var(--color-fg-muted); background: var(--color-bg-subtle);
+  border-left: 2px dashed var(--color-border-bold); border-radius: var(--radius-sm);
+}
+.prose .seq .seq-label {
+  font-family: var(--font-mono); font-size: 0.8125rem;
+  letter-spacing: var(--tracking-meta); text-transform: uppercase;
+  color: var(--color-accent); padding: 0.5rem 0 0.1rem;
+}
+
 /* ===== Footer ===== */
 .site-footer {
   margin-block-start: var(--space-8);
