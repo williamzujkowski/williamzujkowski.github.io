@@ -117,19 +117,21 @@ I installed all three scanners on my Ubuntu 22.04 homelab server. The process to
 
 The pipeline orchestrates three scanners in parallel with a final quality gate:
 
-```mermaid
-flowchart LR
-    A[Git Push/PR] --> B{Trigger Pipeline}
-    B --> C[OSV: Dependency Scan]
-    B --> D[Grype: Container Scan]
-    B --> E[Trivy: Filesystem Scan]
-    C --> F[Upload SARIF]
-    D --> F
-    E --> F
-    F --> G{Security Gate}
-    G -->|Pass| H[Deploy]
-    G -->|Critical Found| I[Block & Alert]
-```
+<div class="flow">
+  <div class="flow-node">Git Push / PR</div>
+  <div class="flow-node is-gate">Trigger Pipeline</div>
+  <div class="flow-parallel">
+    <div class="flow-node"><b>OSV</b><i>dependency scan</i></div>
+    <div class="flow-node"><b>Grype</b><i>container scan</i></div>
+    <div class="flow-node"><b>Trivy</b><i>filesystem scan</i></div>
+  </div>
+  <div class="flow-node">Upload SARIF</div>
+  <div class="flow-node is-gate">Security Gate</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Pass"><div class="flow-node is-good">Deploy</div></div>
+    <div class="flow-leg" data-branch="Critical"><div class="flow-node is-bad">Block &amp; Alert</div></div>
+  </div>
+</div>
 
 **Key workflow features:** Triggers on push, pull requests, and daily at 2 AM UTC. Parallel scanner execution completes in 2-3 minutes total runtime. SARIF reports upload to GitHub Security tab automatically. Hard blocks occur on critical/high vulnerabilities. Slack notifications alert on failure.
 
