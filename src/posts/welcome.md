@@ -1,13 +1,16 @@
 ---
 date: 2025-01-01
 author: William Zujkowski
-description: Build privacy-respecting sites with Eleventy—create fast, accessible static websites with zero tracking and excellent Core Web Vitals.
+description: How this site began — a privacy-first, zero-tracking static digital garden. Originally built with Eleventy; since rebuilt on Astro.
 tags:
 - web-development
 - eleventy
+- astro
 - open-source
 title: Building My Digital Garden with Eleventy
 ---
+> **Update (2026):** One of the first posts here, from when the site ran on [Eleventy](https://www.11ty.dev/). It's since been rebuilt on **[Astro](https://astro.build/)** — Svelte islands for the few interactive bits, hand-written CSS on the Remarque design system, still statically generated and hosted on GitHub Pages. The zero-tracking, privacy-first, fast-by-default philosophy below hasn't changed; only the build tool did. I've left the original text as a record of where it started.
+
 Welcome to my digital corner of the internet! After years of working in security engineering and incident response, I decided it was time to create a proper home for my thoughts, projects, and learnings. This site documents [my secure homelab journey](/posts/2025-04-24-building-secure-homelab-adventure/), development workflows, and technical experiments.
 
 ## The Journey to Eleventy
