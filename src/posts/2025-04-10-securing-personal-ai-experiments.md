@@ -57,13 +57,13 @@ My first rule: AI experiments run in isolation.
 
 This approach adds operational complexity, trading convenience for security. But isolation prevents one compromised experiment from cascading across your network — and a compromised experiment with 24GB of VRAM and no rate limit is not something you want loose.
 
-<script src="https://gist.github.com/williamzujkowski/d8ad8f2e7cb5431e0def2c94283d4ce5.js"></script>
+🔖 [Secure AI sandbox isolation setup ↗](https://gist.github.com/williamzujkowski/d8ad8f2e7cb5431e0def2c94283d4ce5)
 
 ### Network Segmentation for AI Workloads
 
 AI experiments get their own VLAN with strict firewall rules:
 
-<script src="https://gist.github.com/williamzujkowski/6eaf1ebe4f96aad330fc23fc5b57c671.js"></script>
+🔖 [AI workload VLAN segmentation rules ↗](https://gist.github.com/williamzujkowski/6eaf1ebe4f96aad330fc23fc5b57c671)
 
 ## Securing Local LLM Deployments
 
@@ -71,19 +71,19 @@ Running LLMs locally (like LLaMA or Mistral) requires special consideration:
 
 ### Safe Model Loading
 
-<script src="https://gist.github.com/williamzujkowski/139b291b7ab1aaf8188ae9d66370a018.js"></script>
+🔖 [Safe local LLM model loading workflow ↗](https://gist.github.com/williamzujkowski/139b291b7ab1aaf8188ae9d66370a018)
 
 ### Prompt Injection Protection
 
 When building AI applications, protecting against prompt injection is crucial:
 
-<script src="https://gist.github.com/williamzujkowski/5c97f26a169c386e822ffe9a77e48507.js"></script>
+🔖 [Prompt injection protection examples ↗](https://gist.github.com/williamzujkowski/5c97f26a169c386e822ffe9a77e48507)
 
 ## Monitoring AI Resource Usage
 
 AI workloads can consume significant resources. Here's how I monitor them:
 
-<script src="https://gist.github.com/williamzujkowski/328c43577820c92437ed40c58e276ae8.js"></script>
+🔖 [AI resource usage monitoring scripts ↗](https://gist.github.com/williamzujkowski/328c43577820c92437ed40c58e276ae8)
 
 ## Data Privacy in AI Experiments
 
@@ -91,13 +91,13 @@ AI workloads can consume significant resources. Here's how I monitor them:
 
 When experimenting with AI, especially when using family photos or documents:
 
-<script src="https://gist.github.com/williamzujkowski/271230bd22778b63d2645fb63570b3bf.js"></script>
+🔖 [AI experiment data leakage prevention workflow ↗](https://gist.github.com/williamzujkowski/271230bd22778b63d2645fb63570b3bf)
 
 ### Secure API Key Management
 
 For cloud AI services, proper API key management is essential:
 
-<script src="https://gist.github.com/williamzujkowski/9321cf345abbe8ae554d4d106645a0db.js"></script>
+🔖 [Secure AI API key management examples ↗](https://gist.github.com/williamzujkowski/9321cf345abbe8ae554d4d106645a0db)
 
 ## Family-Safe AI Guidelines
 
@@ -105,7 +105,7 @@ When kids want to experiment with AI, additional safeguards are needed:
 
 ### Content Filtering for AI Outputs
 
-<script src="https://gist.github.com/williamzujkowski/cda8c25a0a3b3596aa38207ad76769a8.js"></script>
+🔖 [Family-safe AI output filtering examples ↗](https://gist.github.com/williamzujkowski/cda8c25a0a3b3596aa38207ad76769a8)
 
 ## Lessons Learned
 

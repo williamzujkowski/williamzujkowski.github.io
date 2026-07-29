@@ -81,17 +81,17 @@ I run Vaultwarden for resource efficiency and deployment simplicity. My Proxmox 
 
 ### Docker Compose Deployment
 
-<script src="https://gist.github.com/williamzujkowski/dc0728c2908e4689896f35bec5f3855a.js"></script>
+🔖 [Vaultwarden Docker Compose deployment ↗](https://gist.github.com/williamzujkowski/dc0728c2908e4689896f35bec5f3855a)
 
 ### Deploy the Stack
 
-<script src="https://gist.github.com/williamzujkowski/b8cb1cd1d6ff8f64425f02ec912a6d1a.js"></script>
+🔖 [Vaultwarden stack deployment commands ↗](https://gist.github.com/williamzujkowski/b8cb1cd1d6ff8f64425f02ec912a6d1a)
 
 ## Reverse Proxy Configuration
 
 ### Nginx with TLS
 
-<script src="https://gist.github.com/williamzujkowski/f11619209152dd8cf3ed558335ac7a3f.js"></script>
+🔖 [Vaultwarden Nginx TLS reverse proxy configuration ↗](https://gist.github.com/williamzujkowski/f11619209152dd8cf3ed558335ac7a3f)
 
 ## Security Hardening
 
@@ -99,7 +99,7 @@ I run Vaultwarden for resource efficiency and deployment simplicity. My Proxmox 
 
 Protect against brute-force attacks:
 
-<script src="https://gist.github.com/williamzujkowski/28d9a26bcff2a02c2d0aabbaf570b409.js"></script>
+🔖 [Vaultwarden Fail2ban configuration ↗](https://gist.github.com/williamzujkowski/28d9a26bcff2a02c2d0aabbaf570b409)
 
 Restart Fail2ban:
 
@@ -112,7 +112,7 @@ sudo fail2ban-client status vaultwarden
 
 For complete firewall configuration and network segmentation strategies:
 
-<script src="https://gist.github.com/williamzujkowski/0549ee4b142ddff4d684e8ec21fb0317.js"></script>
+🔖 [Vaultwarden firewall and network segmentation rules ↗](https://gist.github.com/williamzujkowski/0549ee4b142ddff4d684e8ec21fb0317)
 
 ### Two-Factor Authentication
 
@@ -427,7 +427,7 @@ shred -vfz -n 10 lastpass-export.csv
 
 ### Automated Database Backups
 
-<script src="https://gist.github.com/williamzujkowski/f007271e97105ae16de1d28a2cfbe9d7.js"></script>
+🔖 [Automated Vaultwarden database backup script ↗](https://gist.github.com/williamzujkowski/f007271e97105ae16de1d28a2cfbe9d7)
 
 Schedule with cron:
 
@@ -438,7 +438,7 @@ Schedule with cron:
 
 ### Testing Backup Restoration
 
-<script src="https://gist.github.com/williamzujkowski/327bbe4806d93f947478373788a4ede5.js"></script>
+🔖 [Vaultwarden backup restoration test workflow ↗](https://gist.github.com/williamzujkowski/327bbe4806d93f947478373788a4ede5)
 
 **Test your backups regularly!** A backup you haven't tested is just wishful thinking.
 
@@ -448,7 +448,7 @@ Continuous monitoring is critical for self-hosted infrastructure. Learn more abo
 
 ### Health Check Script
 
-<script src="https://gist.github.com/williamzujkowski/b5fd9b8c6991a5e43587cb78f30ff344.js"></script>
+🔖 [Vaultwarden health check script ↗](https://gist.github.com/williamzujkowski/b5fd9b8c6991a5e43587cb78f30ff344)
 
 ### Prometheus Metrics
 
@@ -493,7 +493,7 @@ Export metrics for monitoring:
 
 ### CLI Client
 
-<script src="https://gist.github.com/williamzujkowski/4b8fc96deb050dd4376e396d71044031.js"></script>
+🔖 [Bitwarden CLI client setup commands ↗](https://gist.github.com/williamzujkowski/4b8fc96deb050dd4376e396d71044031)
 
 ## Disaster Recovery Plan
 
