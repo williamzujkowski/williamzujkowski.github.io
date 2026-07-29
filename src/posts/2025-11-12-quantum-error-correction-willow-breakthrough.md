@@ -111,21 +111,10 @@ The winner gets cryptographic dominance, AI acceleration, and materials science 
 
 ## What This Means for Your Future
 
-```mermaid
-timeline
-    title Quantum Computing Roadmap
-    2025 : Willow proves error correction scales
-         : 105 physical qubits
-    2027-2030 : 1M physical qubits targeted
-              : ~1000 logical qubits
-              : Post-quantum crypto migration urgent
-    2030-2035 : Quantum advantage in optimization
-              : Drug discovery acceleration
-              : AI training with quantum speedups
-    2035+ : Fault-tolerant quantum computers
-          : Climate modeling breakthroughs
-          : Cryptography fundamentally quantum
-```
+- **2025** — Willow proves error correction scales with 105 physical qubits.
+- **2027-2030** — 1M physical qubits targeted, about 1000 logical qubits, and post-quantum crypto migration becomes urgent.
+- **2030-2035** — Quantum advantage in optimization, drug discovery acceleration, and AI training with quantum speedups.
+- **2035+** — Fault-tolerant quantum computers, climate modeling breakthroughs, and fundamentally quantum cryptography.
 
 **Short term (2-5 years):** Start planning post-quantum cryptography migration. NIST's quantum-resistant algorithms aren't theoretical anymore. They're necessary preparation.
 

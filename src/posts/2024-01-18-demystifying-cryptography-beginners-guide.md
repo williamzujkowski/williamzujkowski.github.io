@@ -104,33 +104,22 @@ I used to think of encryption like placing letters in sealed envelopes, but my r
 - The mathematics that seemed abstract suddenly had concrete benefits
 - Users trusted the system because we couldn't read their messages
 
-```mermaid
-sequenceDiagram
-    participant Alice
-    participant Server
-    participant Bob
-
-    Note over Alice,Bob: Hybrid Encryption (TLS-style)
-
-    Alice->>Bob: 1. Request Bob's public key
-    Bob-->>Alice: 2. Bob's public key (RSA/ECC)
-
-    rect rgb(232, 245, 233)
-        Note over Alice: 3. Generate random AES-256 session key
-        Alice->>Alice: 4. Encrypt session key with Bob's public key
-        Alice->>Server: 5. Send encrypted session key + AES-encrypted message
-    end
-
-    rect rgb(227, 242, 253)
-        Server->>Bob: 6. Forward (server cannot read contents)
-        Bob->>Bob: 7. Decrypt session key with private key
-        Bob->>Bob: 8. Decrypt message with AES session key
-    end
-
-    Note over Alice,Bob: All subsequent messages use fast AES-256
-    Alice->>Server: AES-encrypted data →
-    Server->>Bob: → AES-encrypted data
-```
+<ol class="seq" aria-label="hybrid encryption exchange">
+  <li class="seq-note">Hybrid encryption, TLS-style</li>
+  <li class="seq-step"><b>Alice &rarr; Bob</b><span>Request Bob's public key</span></li>
+  <li class="seq-step"><b>Bob &rarr; Alice</b><span>Return public key (RSA/ECC)</span></li>
+  <li class="seq-label">Then</li>
+  <li class="seq-note">Alice generates a random AES-256 session key</li>
+  <li class="seq-step"><b>Alice &rarr; Alice</b><span>Encrypt session key with Bob's public key</span></li>
+  <li class="seq-step"><b>Alice &rarr; Server</b><span>Send encrypted session key and AES-encrypted message</span></li>
+  <li class="seq-label">Then</li>
+  <li class="seq-step"><b>Server &rarr; Bob</b><span>Forward unreadable payload</span></li>
+  <li class="seq-step"><b>Bob &rarr; Bob</b><span>Decrypt session key with private key</span></li>
+  <li class="seq-step"><b>Bob &rarr; Bob</b><span>Decrypt message with AES session key</span></li>
+  <li class="seq-note">All subsequent messages use fast AES-256</li>
+  <li class="seq-step"><b>Alice &rarr; Server</b><span>AES-encrypted data</span></li>
+  <li class="seq-step"><b>Server &rarr; Bob</b><span>AES-encrypted data</span></li>
+</ol>
 
 ## Hashing: Digital Fingerprints That Never Lie
 
@@ -335,19 +324,6 @@ Implementing cryptography in real systems taught me lessons no textbook could:
 ### Standards Evolve: Algorithms Age Poorly
 
 **My personal algorithm deprecation timeline:**
-
-```mermaid
-timeline
-    title Algorithm Deprecation Timeline
-    2010 : MD5 "mostly harmless" for checksums
-    2012 : SHA-1 still acceptable for Git
-    2015 : TLS 1.0 required for legacy browsers
-    2017 : MD5 banned — collision attacks practical
-    2019 : SHA-1 removed from Git (Google collision demo)
-    2020 : TLS 1.0/1.1 deprecated by browsers
-    2023 : RSA-1024 keys rejected by most CAs
-    Future : Post-quantum migration begins
-```
 
 - **2010**: MD5 considered "mostly harmless" for checksums
 - **2012**: SHA-1 still acceptable for Git commits

@@ -154,23 +154,21 @@ Biomimetic sensors enable capabilities beyond human senses. Animals like bats, e
 - Touch/Whiskers: Contact confirmation and texture analysis
 - Integration: Redundant sensing for robust operation
 
-```mermaid
-flowchart TD
-    ENV["Environment"] -->|"light, sound,\ncontact, RF"| S1["Visual /\nNeuromorphic"]
-    ENV --> S2["LIDAR /\nEcholocation"]
-    ENV --> S3["Touch /\nWhiskers"]
-    S1 --> FUSE["Sensor Fusion\nEngine"]
-    S2 --> FUSE
-    S3 --> FUSE
-    FUSE --> PLAN["Motion\nPlanning"]
-    PLAN --> ACT["Actuators\n(soft / rigid)"]
-    ACT -->|"proprioceptive\nfeedback"| FUSE
-    ACT -->|"physical\ninteraction"| ENV
-    style ENV fill:#264653,color:#fff
-    style FUSE fill:#2a9d8f,color:#fff
-    style PLAN fill:#e9c46a,color:#000
-    style ACT fill:#e76f51,color:#fff
-```
+<div class="flow" role="group" aria-label="biomimetic sensor fusion control loop">
+  <div class="flow-node"><b>Environment</b><i>light, sound, contact, RF</i></div>
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
+    <div class="flow-node"><b>Visual / Neuromorphic</b><i>long-range recognition</i></div>
+    <div class="flow-node"><b>LIDAR / Echolocation</b><i>3D mapping</i></div>
+    <div class="flow-node"><b>Touch / Whiskers</b><i>contact confirmation</i></div>
+  </div>
+  <div class="flow-node">Sensor Fusion Engine</div>
+  <div class="flow-node">Motion Planning</div>
+  <div class="flow-node"><b>Actuators</b><i>soft / rigid</i></div>
+  <div class="flow-parallel" role="group" aria-label="Feedback paths">
+    <div class="flow-node"><b>Proprioceptive Feedback</b><i>back to fusion</i></div>
+    <div class="flow-node"><b>Physical Interaction</b><i>back to environment</i></div>
+  </div>
+</div>
 
 ## Swarm Intelligence: The Power of Many Simple Agents
 
@@ -193,25 +191,21 @@ flowchart TD
 - Robust to individual unit failures
 - Scalable from dozens to thousands of agents
 
-```mermaid
-flowchart LR
-    subgraph Swarm["Swarm of Simple Agents"]
-        direction TB
-        R1["Agent"] ---|"IR"| R2["Agent"]
-        R2 ---|"IR"| R3["Agent"]
-        R3 ---|"IR"| R4["Agent"]
-        R4 ---|"IR"| R1
-        R1 ---|"IR"| R3
-    end
-    RULES["Local Rules\n1. Avoid collisions\n2. Align with neighbors\n3. Move toward center"] --> Swarm
-    Swarm --> EMERGE["Emergent\nGlobal Behavior"]
-    EMERGE --> T1["Shape\nFormation"]
-    EMERGE --> T2["Adaptive\nForaging"]
-    EMERGE --> T3["Fault-Tolerant\nNavigation"]
-    style RULES fill:#774936,color:#fff
-    style Swarm fill:#a68a64,color:#000
-    style EMERGE fill:#656d4a,color:#fff
-```
+<div class="flow" role="group" aria-label="swarm intelligence behavior path">
+  <div class="flow-node"><b>Local Rules</b><i>avoid collisions, align with neighbors, move toward center</i></div>
+  <div class="flow-parallel" role="group" aria-label="Swarm agents">
+    <div class="flow-node"><b>Agent</b><i>IR neighbor link</i></div>
+    <div class="flow-node"><b>Agent</b><i>IR neighbor link</i></div>
+    <div class="flow-node"><b>Agent</b><i>IR neighbor link</i></div>
+    <div class="flow-node"><b>Agent</b><i>IR neighbor link</i></div>
+  </div>
+  <div class="flow-node"><b>Emergent</b><i>global behavior</i></div>
+  <div class="flow-parallel" role="group" aria-label="Emergent outcomes">
+    <div class="flow-node">Shape Formation</div>
+    <div class="flow-node">Adaptive Foraging</div>
+    <div class="flow-node">Fault-Tolerant Navigation</div>
+  </div>
+</div>
 
 **[Morphological computation in swarms](https://www.science.org/doi/10.1126/scirobotics.abo6140) findings:**
 - Swarm intelligence increases with size

@@ -112,32 +112,20 @@ Three voting strategies exist: majority (>50%), supermajority (>66%), and unanim
 
 The key learning: **multi-model consensus catches blind spots that any single model misses.** The disagreements are often more valuable than the agreements. I covered [the research and practical patterns behind consensus voting](/posts/2026-01-28-consensus-voting-ai-models-multi-agent/) in a separate post.
 
-```mermaid
-sequenceDiagram
-    participant P as Proposal
-    participant O as Orchestrator
-    participant A as Architect<br/>(Claude)
-    participant S as Security<br/>(Gemini)
-    participant D as DevEx<br/>(Codex)
-    participant PM as PM<br/>(Claude)
-    participant C as Catfish<br/>(Gemini)
-    participant V as Vote Aggregator
-
-    P->>O: Submit proposal + threshold
-    O->>A: Evaluate (round-robin assignment)
-    O->>S: Evaluate
-    O->>D: Evaluate
-    O->>PM: Evaluate
-    O->>C: Find flaws (adversarial)
-
-    A->>V: APPROVE (92%)
-    S->>V: APPROVE (88%)
-    D->>V: REJECT (71%)
-    PM->>V: APPROVE (85%)
-    C->>V: REJECT (67%)
-
-    V->>O: 3-2 APPROVED<br/>(supermajority met)
-```
+<ol class="seq" aria-label="multi-agent proposal vote">
+  <li class="seq-step"><b>Proposal &rarr; Orchestrator</b><span>Submit proposal and threshold</span></li>
+  <li class="seq-step"><b>Orchestrator &rarr; Architect (Claude)</b><span>Evaluate by round-robin assignment</span></li>
+  <li class="seq-step"><b>Orchestrator &rarr; Security (Gemini)</b><span>Evaluate</span></li>
+  <li class="seq-step"><b>Orchestrator &rarr; DevEx (Codex)</b><span>Evaluate</span></li>
+  <li class="seq-step"><b>Orchestrator &rarr; PM (Claude)</b><span>Evaluate</span></li>
+  <li class="seq-step"><b>Orchestrator &rarr; Catfish (Gemini)</b><span>Find flaws adversarially</span></li>
+  <li class="seq-step"><b>Architect (Claude) &rarr; Vote Aggregator</b><span>APPROVE (92%)</span></li>
+  <li class="seq-step"><b>Security (Gemini) &rarr; Vote Aggregator</b><span>APPROVE (88%)</span></li>
+  <li class="seq-step"><b>DevEx (Codex) &rarr; Vote Aggregator</b><span>REJECT (71%)</span></li>
+  <li class="seq-step"><b>PM (Claude) &rarr; Vote Aggregator</b><span>APPROVE (85%)</span></li>
+  <li class="seq-step"><b>Catfish (Gemini) &rarr; Vote Aggregator</b><span>REJECT (67%)</span></li>
+  <li class="seq-step"><b>Vote Aggregator &rarr; Orchestrator</b><span>3-2 APPROVED: supermajority met</span></li>
+</ol>
 
 ## The Adaptive Feedback Loop
 
@@ -177,25 +165,15 @@ const workflow = new GraphBuilder()
 
 Checkpointing saves progress after each node, so if the pipeline crashes mid-execution, it resumes from the last checkpoint instead of starting over. Seven built-in templates cover common patterns: code review, security scanning, architecture analysis, and more.
 
-```mermaid
-graph LR
-    subgraph "Graph Workflow Execution"
-        A["Analyze<br/>Codebase"] --> R["Generate<br/>Report"]
-        S["Security<br/>Scan"] --> R
-        A --> F["Draft<br/>Fixes"]
-        S --> F
-        F --> V["Validate<br/>Compilation"]
-        V --> R
-    end
-
-    CP["Checkpoint<br/>Store"] -.->|"Save after<br/>each node"| A & S & F & V & R
-
-    style A fill:#264653,color:#fff
-    style S fill:#e76f51,color:#fff
-    style F fill:#2a9d8f,color:#fff
-    style V fill:#e9c46a,color:#000
-    style R fill:#f4a261,color:#000
-```
+<div class="flow" role="group" aria-label="graph workflow execution path">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
+    <div class="flow-node"><b>Analyze</b><i>codebase</i></div>
+    <div class="flow-node"><b>Security</b><i>scan</i></div>
+  </div>
+  <div class="flow-node">Draft Fixes</div>
+  <div class="flow-node">Validate Compilation</div>
+  <div class="flow-node"><b>Generate Report</b><i>checkpoint store saves after each node</i></div>
+</div>
 
 ## What 22,000 Tests Taught Me
 

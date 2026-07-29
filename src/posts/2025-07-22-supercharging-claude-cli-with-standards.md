@@ -174,34 +174,25 @@ Related standard: [CS:caching + SEC:session-management]
 
 The validation and enforcement pipeline that I built (and repeatedly broke) works as follows:
 
-```mermaid
-sequenceDiagram
-    participant Dev as Developer
-    participant Git as Git Hook
-    participant Val as Validation Script
-    participant Std as Standards Repo
-    participant CI as CI Pipeline
-
-    Dev->>Git: git commit
-    Git->>Val: Pre-commit trigger
-    Val->>Std: Load active standards
-    Std-->>Val: Rules + thresholds
-    Val->>Val: Scan files for violations
-    alt Violations Found
-        Val-->>Git: Exit code 1 (block)
-        Git-->>Dev: Commit rejected<br/>with violation report
-    else Clean
-        Val-->>Git: Exit code 0 (pass)
-        Git-->>Dev: Commit accepted
-        Dev->>CI: Push to remote
-        CI->>Val: Re-validate in CI
-        alt CI Violations
-            CI-->>Dev: PR blocked
-        else CI Clean
-            CI-->>Dev: PR approved
-        end
-    end
-```
+<ol class="seq" aria-label="standards validation enforcement pipeline">
+  <li class="seq-step"><b>Developer &rarr; Git Hook</b><span>git commit</span></li>
+  <li class="seq-step"><b>Git Hook &rarr; Validation Script</b><span>Pre-commit trigger</span></li>
+  <li class="seq-step"><b>Validation Script &rarr; Standards Repo</b><span>Load active standards</span></li>
+  <li class="seq-step"><b>Standards Repo &rarr; Validation Script</b><span>Rules and thresholds</span></li>
+  <li class="seq-step"><b>Validation Script &rarr; Validation Script</b><span>Scan files for violations</span></li>
+  <li class="seq-label">If: violations found</li>
+  <li class="seq-step"><b>Validation Script &rarr; Git Hook</b><span>Exit code 1, block</span></li>
+  <li class="seq-step"><b>Git Hook &rarr; Developer</b><span>Commit rejected with violation report</span></li>
+  <li class="seq-label">Else: clean</li>
+  <li class="seq-step"><b>Validation Script &rarr; Git Hook</b><span>Exit code 0, pass</span></li>
+  <li class="seq-step"><b>Git Hook &rarr; Developer</b><span>Commit accepted</span></li>
+  <li class="seq-step"><b>Developer &rarr; CI Pipeline</b><span>Push to remote</span></li>
+  <li class="seq-step"><b>CI Pipeline &rarr; Validation Script</b><span>Re-validate in CI</span></li>
+  <li class="seq-label">If: CI violations</li>
+  <li class="seq-step"><b>CI Pipeline &rarr; Developer</b><span>PR blocked</span></li>
+  <li class="seq-label">Else: CI clean</li>
+  <li class="seq-step"><b>CI Pipeline &rarr; Developer</b><span>PR approved</span></li>
+</ol>
 
 ### The Pre-Commit Hook Trap
 

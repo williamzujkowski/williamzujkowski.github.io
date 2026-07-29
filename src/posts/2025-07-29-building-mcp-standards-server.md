@@ -72,28 +72,21 @@ Yeah, it got away from me a bit.
 
 The MCP protocol defines a standard communication flow between an LLM client and external tool servers:
 
-```mermaid
-sequenceDiagram
-    participant User as User / Claude CLI
-    participant LLM as Claude LLM
-    participant MCP as MCP Standards Server
-    participant Cache as Redis Cache
-    participant Store as Standards Store
-
-    User->>LLM: "Set up a secure Python API"
-    LLM->>MCP: tools/call: get_standard<br/>{"context": "python,api,security"}
-    MCP->>Cache: Check cache (30min TTL)
-    alt Cache Hit
-        Cache-->>MCP: Cached standards
-    else Cache Miss
-        MCP->>Store: Load standards files
-        Store-->>MCP: Raw standards
-        MCP->>Cache: Store in cache
-    end
-    MCP->>MCP: Token compression<br/>(5000 → 500 tokens)
-    MCP-->>LLM: Compressed standards payload
-    LLM-->>User: Project structure with<br/>security controls applied
-```
+<ol class="seq" aria-label="MCP standards request flow">
+  <li class="seq-step"><b>User / Claude CLI &rarr; Claude LLM</b><span>"Set up a secure Python API"</span></li>
+  <li class="seq-step"><b>Claude LLM &rarr; MCP Standards Server</b><span>tools/call: get_standard with python, API, security context</span></li>
+  <li class="seq-step"><b>MCP Standards Server &rarr; Redis Cache</b><span>Check cache (30 min TTL)</span></li>
+  <li class="seq-label">If: cache hit</li>
+  <li class="seq-step"><b>Redis Cache &rarr; MCP Standards Server</b><span>Cached standards</span></li>
+  <li class="seq-label">Else: cache miss</li>
+  <li class="seq-step"><b>MCP Standards Server &rarr; Standards Store</b><span>Load standards files</span></li>
+  <li class="seq-step"><b>Standards Store &rarr; MCP Standards Server</b><span>Raw standards</span></li>
+  <li class="seq-step"><b>MCP Standards Server &rarr; Redis Cache</b><span>Store in cache</span></li>
+  <li class="seq-label">Then</li>
+  <li class="seq-step"><b>MCP Standards Server &rarr; MCP Standards Server</b><span>Compress tokens from 5000 to 500</span></li>
+  <li class="seq-step"><b>MCP Standards Server &rarr; Claude LLM</b><span>Compressed standards payload</span></li>
+  <li class="seq-step"><b>Claude LLM &rarr; User / Claude CLI</b><span>Project structure with security controls applied</span></li>
+</ol>
 
 ## The Architecture Journey
 
@@ -361,16 +354,14 @@ The honest status:
 
 The value delivered per version illustrates classic diminishing returns from scope creep:
 
-```mermaid
-quadrantChart
-    title Version Value vs Complexity
-    x-axis "Low Complexity" --> "High Complexity"
-    y-axis "Low Value" --> "High Value"
-    "V1: Simple wrapper": [0.15, 0.75]
-    "V2: + Redis cache": [0.35, 0.78]
-    "V3: + Vector search": [0.65, 0.30]
-    "V4: + React UI": [0.90, 0.55]
-```
+Version value versus complexity:
+
+| Version | Complexity | Value | Read |
+|---|---:|---:|---|
+| V1: Simple wrapper | 0.15 | 0.75 | Low complexity, high value |
+| V2: + Redis cache | 0.35 | 0.78 | Moderate complexity, high value |
+| V3: + Vector search | 0.65 | 0.30 | Higher complexity, low value |
+| V4: + React UI | 0.90 | 0.55 | Highest complexity, middling value |
 
 | Week | Scope creep timeline | Actual value added |
 |---|---|---|

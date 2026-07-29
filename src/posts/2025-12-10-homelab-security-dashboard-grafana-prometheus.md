@@ -181,25 +181,16 @@ I tested this approach by running Nmap scans against my firewall. Custom exporte
 
 ### Security Dashboard Layout
 
-```mermaid
-block-beta
-    columns 3
-    block:row1:3
-        columns 3
-        A["Auth Overview<br/>SSH attempts by source"] B["Network Activity<br/>Firewall drops"] C["Service Health<br/>Availability checks"]
-    end
-    block:row2:3
-        columns 3
-        D["Anomaly Detection<br/>Time-based patterns"] E["Alert Status<br/>Warning / Critical"] F["Response Metrics<br/>MTTD / MTTR"]
-    end
+Security dashboard layout:
 
-    style A fill:#e74c3c,color:#fff
-    style B fill:#e74c3c,color:#fff
-    style C fill:#f39c12,color:#fff
-    style D fill:#f39c12,color:#fff
-    style E fill:#e74c3c,color:#fff
-    style F fill:#3498db,color:#fff
-```
+| Row | Column | Panel | Focus | Priority |
+|---:|---:|---|---|---|
+| 1 | 1 | Auth Overview | SSH attempts by source | Critical |
+| 1 | 2 | Network Activity | Firewall drops | Critical |
+| 1 | 3 | Service Health | Availability checks | Attention |
+| 2 | 1 | Anomaly Detection | Time-based patterns | Attention |
+| 2 | 2 | Alert Status | Warning / Critical | Critical |
+| 2 | 3 | Response Metrics | MTTD / MTTR | Informational |
 
 My main security dashboard has 6 panels:
 

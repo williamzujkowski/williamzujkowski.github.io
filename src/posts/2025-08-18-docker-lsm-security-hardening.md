@@ -409,41 +409,27 @@ I ran 6 months of simulated attacks against hardened vs unhardened containers. H
 
 **Time to detection:** Hardened containers generated AppArmor/seccomp violation logs instantly. Unhardened containers showed no anomalies until full compromise — the quiet ones were the ones that should have worried me.
 
-```mermaid
-sequenceDiagram
-    participant A as Attacker (RCE)
-    participant C as Container
-    participant AA as AppArmor
-    participant SC as Seccomp
-    participant CP as Capabilities
-    participant NS as User Namespace
-    participant FS as Read-Only FS
-    participant H as Host
-
-    A->>C: Command injection achieved
-    A->>C: cat /etc/shadow
-    C->>AA: open("/etc/shadow", O_RDONLY)
-    AA-->>C: DENIED (deny /etc/shadow r)
-    Note over AA: Logged to audit.log
-
-    A->>C: mount -t tmpfs tmpfs /mnt
-    C->>AA: mount() syscall
-    AA->>SC: Passed AppArmor
-    SC-->>C: DENIED (mount not in allowlist)
-    Note over SC: Logged to audit.log
-
-    A->>C: Load kernel module
-    C->>AA: init_module() syscall
-    AA->>SC: Passed AppArmor
-    SC->>CP: Passed Seccomp
-    CP-->>C: DENIED (CAP_SYS_MODULE dropped)
-
-    A->>C: Write backdoor to /usr/bin
-    C->>FS: open("/usr/bin/backdoor", O_WRONLY)
-    FS-->>C: EROFS (Read-only filesystem)
-
-    Note over A,H: All escape attempts blocked.<br/>Host never reached.
-```
+<ol class="seq" aria-label="container escape attempts blocked by hardening layers">
+  <li class="seq-step"><b>Attacker (RCE) &rarr; Container</b><span>Command injection achieved</span></li>
+  <li class="seq-step"><b>Attacker (RCE) &rarr; Container</b><span>cat /etc/shadow</span></li>
+  <li class="seq-step"><b>Container &rarr; AppArmor</b><span>open("/etc/shadow", O_RDONLY)</span></li>
+  <li class="seq-step"><b>AppArmor &rarr; Container</b><span>DENIED: deny /etc/shadow r</span></li>
+  <li class="seq-note">AppArmor logs the denial to audit.log</li>
+  <li class="seq-step"><b>Attacker (RCE) &rarr; Container</b><span>mount -t tmpfs tmpfs /mnt</span></li>
+  <li class="seq-step"><b>Container &rarr; AppArmor</b><span>mount() syscall</span></li>
+  <li class="seq-step"><b>AppArmor &rarr; Seccomp</b><span>Passed AppArmor</span></li>
+  <li class="seq-step"><b>Seccomp &rarr; Container</b><span>DENIED: mount not in allowlist</span></li>
+  <li class="seq-note">Seccomp logs the denial to audit.log</li>
+  <li class="seq-step"><b>Attacker (RCE) &rarr; Container</b><span>Load kernel module</span></li>
+  <li class="seq-step"><b>Container &rarr; AppArmor</b><span>init_module() syscall</span></li>
+  <li class="seq-step"><b>AppArmor &rarr; Seccomp</b><span>Passed AppArmor</span></li>
+  <li class="seq-step"><b>Seccomp &rarr; Capabilities</b><span>Passed Seccomp</span></li>
+  <li class="seq-step"><b>Capabilities &rarr; Container</b><span>DENIED: CAP_SYS_MODULE dropped</span></li>
+  <li class="seq-step"><b>Attacker (RCE) &rarr; Container</b><span>Write backdoor to /usr/bin</span></li>
+  <li class="seq-step"><b>Container &rarr; Read-Only FS</b><span>open("/usr/bin/backdoor", O_WRONLY)</span></li>
+  <li class="seq-step"><b>Read-Only FS &rarr; Container</b><span>EROFS: read-only filesystem</span></li>
+  <li class="seq-note">All escape attempts blocked. Host never reached.</li>
+</ol>
 
 Each attack is stopped at a different layer, demonstrating why defense-in-depth is essential: no single mechanism covers all vectors.
 

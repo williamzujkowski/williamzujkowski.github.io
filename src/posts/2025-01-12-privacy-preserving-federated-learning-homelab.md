@@ -86,37 +86,29 @@ The Dell R910 aggregator then:
 3. **Trains a global model** using the aggregated coarse representations
 4. **Distributes updated model weights** back to participants
 
-```mermaid
-sequenceDiagram
-    participant Pi1 as Raspberry Pi 1
-    participant Pi2 as Raspberry Pi 2
-    participant Pi3 as Raspberry Pi 3
-    participant R910 as Dell R910 Aggregator
-
-    Note over Pi1,Pi3: Round N begins
-    par Local Training
-        Pi1->>Pi1: Train on local data (14 min)
-        Pi2->>Pi2: Train on local data (14 min)
-        Pi3->>Pi3: Train on local data (14 min)
-    end
-    par Granular-Ball Computation
-        Pi1->>Pi1: K-means clustering (9 min)
-        Pi2->>Pi2: K-means clustering (9 min)
-        Pi3->>Pi3: K-means clustering (9 min)
-    end
-    Pi1->>Pi1: Filter clusters (variance > 0.03)
-    Pi2->>Pi2: Filter clusters (variance > 0.03)
-    Pi3->>Pi3: Filter clusters (variance > 0.03)
-    Pi1->>R910: Cluster stats (center, variance, radius)
-    Pi2->>R910: Cluster stats (center, variance, radius)
-    Pi3->>R910: Cluster stats (center, variance, radius)
-    R910->>R910: Merge overlapping clusters (21 min)
-    R910->>R910: Train global model
-    R910->>Pi1: Updated model weights
-    R910->>Pi2: Updated model weights
-    R910->>Pi3: Updated model weights
-    Note over Pi1,Pi3: Round N+1 begins
-```
+<ol class="seq" aria-label="federated learning training round">
+  <li class="seq-note">Round N begins</li>
+  <li class="seq-label">Parallel: local training</li>
+  <li class="seq-step"><b>Raspberry Pi 1 &rarr; Raspberry Pi 1</b><span>Train on local data (14 min)</span></li>
+  <li class="seq-step"><b>Raspberry Pi 2 &rarr; Raspberry Pi 2</b><span>Train on local data (14 min)</span></li>
+  <li class="seq-step"><b>Raspberry Pi 3 &rarr; Raspberry Pi 3</b><span>Train on local data (14 min)</span></li>
+  <li class="seq-label">Parallel: granular-ball computation</li>
+  <li class="seq-step"><b>Raspberry Pi 1 &rarr; Raspberry Pi 1</b><span>K-means clustering (9 min)</span></li>
+  <li class="seq-step"><b>Raspberry Pi 2 &rarr; Raspberry Pi 2</b><span>K-means clustering (9 min)</span></li>
+  <li class="seq-step"><b>Raspberry Pi 3 &rarr; Raspberry Pi 3</b><span>K-means clustering (9 min)</span></li>
+  <li class="seq-step"><b>Raspberry Pi 1 &rarr; Raspberry Pi 1</b><span>Filter clusters with variance &gt; 0.03</span></li>
+  <li class="seq-step"><b>Raspberry Pi 2 &rarr; Raspberry Pi 2</b><span>Filter clusters with variance &gt; 0.03</span></li>
+  <li class="seq-step"><b>Raspberry Pi 3 &rarr; Raspberry Pi 3</b><span>Filter clusters with variance &gt; 0.03</span></li>
+  <li class="seq-step"><b>Raspberry Pi 1 &rarr; Dell R910 Aggregator</b><span>Cluster stats: center, variance, radius</span></li>
+  <li class="seq-step"><b>Raspberry Pi 2 &rarr; Dell R910 Aggregator</b><span>Cluster stats: center, variance, radius</span></li>
+  <li class="seq-step"><b>Raspberry Pi 3 &rarr; Dell R910 Aggregator</b><span>Cluster stats: center, variance, radius</span></li>
+  <li class="seq-step"><b>Dell R910 Aggregator &rarr; Dell R910 Aggregator</b><span>Merge overlapping clusters (21 min)</span></li>
+  <li class="seq-step"><b>Dell R910 Aggregator &rarr; Dell R910 Aggregator</b><span>Train global model</span></li>
+  <li class="seq-step"><b>Dell R910 Aggregator &rarr; Raspberry Pi 1</b><span>Updated model weights</span></li>
+  <li class="seq-step"><b>Dell R910 Aggregator &rarr; Raspberry Pi 2</b><span>Updated model weights</span></li>
+  <li class="seq-step"><b>Dell R910 Aggregator &rarr; Raspberry Pi 3</b><span>Updated model weights</span></li>
+  <li class="seq-note">Round N+1 begins</li>
+</ol>
 
 **Key insight:** The variance threshold controls the privacy-accuracy trade-off. Lower thresholds preserve more information (better accuracy, weaker privacy). Higher thresholds increase privacy but lose more signal.
 
@@ -241,13 +233,14 @@ Each training round (1 epoch across 3 Pis) took roughly 47 minutes:
 - **Network transfer:** 3.1 minutes (410 MB cluster stats to server)
 - **Server aggregation:** 21.3 minutes (merging clusters, updating global model)
 
-```mermaid
-pie title Training Round Time Breakdown (47 min total)
-    "Local Training" : 14.2
-    "Clustering (k-means)" : 8.7
-    "Network Transfer" : 3.1
-    "Server Aggregation" : 21.3
-```
+Training round time breakdown, using the measured 47.3 minutes:
+
+| Phase | Minutes | Share |
+|---|---:|---:|
+| Local Training | 14.2 | 30.0% |
+| Clustering (k-means) | 8.7 | 18.4% |
+| Network Transfer | 3.1 | 6.6% |
+| Server Aggregation | 21.3 | 45.0% |
 
 **Bottleneck:** Server aggregation was surprisingly slow. The Dell R910 spent most of its time merging overlapping clusters from 3 Pis. Probably a CPU-bound operation that doesn't parallelize well. I didn't optimize this part, so there's likely room for improvement.
 

@@ -378,33 +378,23 @@ When I deployed a production ML model to edge devices in March 2024, it reduced 
 
 The implementation follows a phased approach from assessment through long-term transformation:
 
-```mermaid
-gantt
-    title Sustainable Computing Implementation Timeline
-    dateFormat X
-    axisFormat %s months
+Sustainable computing implementation timeline:
 
-    section Assessment
-    Baseline measurement          :a1, 0, 2
-    Stakeholder engagement        :a2, 1, 3
-
-    section Quick Wins (0-6mo)
-    Right-size cloud resources    :b1, 2, 4
-    Power management              :b2, 2, 3
-    Database optimization         :b3, 3, 5
-    Renewable energy switch       :b4, 4, 6
-
-    section Medium-term (6-18mo)
-    Carbon-aware computing        :c1, 6, 10
-    Application redesign          :c2, 8, 14
-    Edge computing deployment     :c3, 10, 16
-    Sustainability metrics        :c4, 12, 18
-
-    section Long-term (18mo+)
-    Renewable data centers        :d1, 18, 24
-    Sustainability governance     :d2, 20, 26
-    Carbon-neutral products       :d3, 22, 30
-```
+| Phase | Work item | Start month | End month | Duration |
+|---|---|---:|---:|---:|
+| Assessment | Baseline measurement | 0 | 2 | 2 months |
+| Assessment | Stakeholder engagement | 1 | 3 | 2 months |
+| Quick Wins (0-6mo) | Right-size cloud resources | 2 | 4 | 2 months |
+| Quick Wins (0-6mo) | Power management | 2 | 3 | 1 month |
+| Quick Wins (0-6mo) | Database optimization | 3 | 5 | 2 months |
+| Quick Wins (0-6mo) | Renewable energy switch | 4 | 6 | 2 months |
+| Medium-term (6-18mo) | Carbon-aware computing | 6 | 10 | 4 months |
+| Medium-term (6-18mo) | Application redesign | 8 | 14 | 6 months |
+| Medium-term (6-18mo) | Edge computing deployment | 10 | 16 | 6 months |
+| Medium-term (6-18mo) | Sustainability metrics | 12 | 18 | 6 months |
+| Long-term (18mo+) | Renewable data centers | 18 | 24 | 6 months |
+| Long-term (18mo+) | Sustainability governance | 20 | 26 | 6 months |
+| Long-term (18mo+) | Carbon-neutral products | 22 | 30 | 8 months |
 
 ### Assessment Phase
 
