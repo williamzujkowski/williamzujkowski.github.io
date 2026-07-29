@@ -382,7 +382,7 @@ First mention of technical term = brief definition. Subsequent uses = assume fam
 ✅ **Concrete Examples:**
 - Gists for complete configurations
 - Command output showing actual results
-- Mermaid diagrams for architecture visualization
+- Native `.arch` / `.flow` diagrams, with Mermaid legacy only for true node graphs
 - Performance metrics from real testing
 
 **Example (Suricata post):**
@@ -521,7 +521,7 @@ Create "Industry Standards References" section for each security post:
 ✅ **Excellent:**
 - Homelab attribution for security research (100% NDA compliance)
 - Concrete measurements and performance data
-- Mermaid architecture diagrams showing system-level thinking
+- Native `.arch` / `.flow` diagrams showing system-level thinking, with Mermaid legacy only for true node graphs
 - Honest failure narratives and debugging stories
 - Trade-off discussions (SPAN port vs Network TAP)
 - Version-specific configurations with tested commands
@@ -558,7 +558,7 @@ Create "Industry Standards References" section for each security post:
 
 | Criterion | Current Blog Status | Evidence |
 |-----------|-------------------|----------|
-| System-level architecture thinking | ✅ Excellent | Multi-layer Mermaid diagrams in all posts |
+| System-level architecture thinking | ✅ Excellent | Multi-layer native `.arch` / `.flow` diagrams, with Mermaid legacy only for true node graphs |
 | Production experience signals | ✅ Excellent | Quantified debugging time, hardware specs |
 | Acknowledges complexity | ✅ Excellent | Trade-off discussions, failure stories |
 | Version-specific behaviors | ✅ Excellent | Kernel versions, OS distributions documented |

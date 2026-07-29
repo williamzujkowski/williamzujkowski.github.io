@@ -23,16 +23,16 @@ Comprehensive link validation infrastructure for maintaining citation quality an
    - Fast batch validation with concurrent requests
    - Basic status checking for quick scans
 
-4. **content-relevance-checker.py**
-   - Verifies linked content matches citation context
-   - Uses NLP similarity scoring (TF-IDF when available)
-   - Domain reliability scoring
-
-5. **citation-repair.py**
+4. **citation-repair.py**
    - Finds replacements for broken academic citations
    - Searches arXiv, CrossRef, Semantic Scholar
    - Wayback Machine integration for archived content
    - DOI resolution and open access alternatives
+
+5. **citation-report.py**
+   - Generates citation validation reports for GitHub Actions
+   - Combines validation results with extracted citation metadata
+   - Produces markdown summaries for CI output
 
 6. **link-report-generator.py**
    - Generates comprehensive reports in multiple formats
@@ -44,85 +44,9 @@ Comprehensive link validation infrastructure for maintaining citation quality an
    - Applies repairs based on confidence thresholds
    - Creates backups before modifications
 
-### Specialized Validators
-
-8. **specialized-validators.py**
-   - GitHub repository and file validation
-   - YouTube video availability checking
-   - Documentation version currency
-   - Social media link validation
-   - Image link validation
-
-### Monitoring Tools
-
-9. **link-monitor.py**
-   - Continuous health monitoring
-   - Alert generation for degraded/broken links
-   - Response time tracking
-   - Webhook and email notifications
-
-10. **citation-updater.py**
-    - Updates citations to newer versions
-    - Resolves DOIs to current URLs
-    - Finds open access alternatives
-    - Updates documentation links to latest versions
-
-11. **wayback-archiver.py**
-    - Archives critical links to Wayback Machine
-    - Retrieves archived versions of broken links
-    - Batch archiving with rate limiting
-
-12. **internal-link-validator.py** ⭐ NEW
-    - Validates existing internal links between blog posts
-    - Suggests new internal links based on research recommendations
-    - Tracks implementation progress toward 6-10 links/post target
-    - Generates prioritized recommendations (P0, P1, P2)
-    - Phase-based implementation planning
-    - Progress metrics and gap analysis
-
 ## Quick Start
 
-### Internal Link Optimization (NEW)
-
-```bash
-# Check current internal link status
-python scripts/link-validation/internal-link-validator.py --progress
-
-# Validate existing internal links
-python scripts/link-validation/internal-link-validator.py --validate
-
-# Analyze link coverage per post
-python scripts/link-validation/internal-link-validator.py --analyze
-
-# Show recommendations for specific post
-python scripts/link-validation/internal-link-validator.py --recommend --post 2025-04-24-building-secure-homelab-adventure
-
-# Show P0 priority recommendations
-python scripts/link-validation/internal-link-validator.py --recommend --priority P0
-
-# Show Phase 1 recommendations
-python scripts/link-validation/internal-link-validator.py --recommend --phase Phase_1
-
-# Full batch analysis
-python scripts/link-validation/internal-link-validator.py --batch
-
-# JSON output for automation
-python scripts/link-validation/internal-link-validator.py --progress --json
-```
-
-### Current Internal Link Status
-- **Total Links**: 23 (0.37/post)
-- **Target**: 378 links (6/post minimum)
-- **Progress**: 6.1% complete
-- **Posts Meeting Target**: 3/63 (4.8%)
-- **Gap**: 355 links needed
-
-### Implementation Strategy
-1. **Phase 1**: Hub posts (15 posts) - P0/P1 links
-2. **Phase 2**: Bridge posts (18 posts) - P1/P2 links
-3. **Phase 3**: Spoke posts (30 posts) - P2 links
-
-## Quick Start (External Links)
+Current post count: **87**.
 
 ### 1. Extract Links
 ```bash
@@ -142,7 +66,7 @@ python scripts/link-validation/simple-validator.py \
 pip install playwright
 playwright install chromium
 python scripts/link-validation/link-validator.py \
-  --links links.json \
+  --input links.json \
   --output validation.json
 ```
 
@@ -202,18 +126,21 @@ The `.github/workflows/link-monitor.yml` workflow:
 - Auto-fixes high-confidence repairs
 - Creates issues for critical problems
 
-### Local Monitoring
+### Local Check
 ```bash
-# Single check
-python scripts/link-validation/link-monitor.py \
-  --links links.json \
-  --once \
-  --output monitoring-report.json
+# Extract and validate current links
+python scripts/link-validation/link-extractor.py \
+  --posts-dir src/posts \
+  --output links.json
 
-# Continuous monitoring (every hour)
-python scripts/link-validation/link-monitor.py \
+python scripts/link-validation/simple-validator.py \
   --links links.json \
-  --interval 60
+  --output validation.json
+
+python scripts/link-validation/citation-report.py \
+  --input validation.json \
+  --links links.json \
+  --output citation-report.md
 ```
 
 ## Configuration
@@ -271,11 +198,15 @@ cat reports/manual_review.md
 - GitHub repositories
 - Important blog posts
 
-### Archive Command
+### Archive Handling
+
+There is no standalone local archiver script. Run repair discovery to find archived alternatives for broken citations:
+
 ```bash
-python scripts/link-validation/wayback-archiver.py \
+python scripts/link-validation/citation-repair.py \
   --links links.json \
-  --output archive-report.json
+  --validation validation.json \
+  --output repairs.json
 ```
 
 ## Statistics from Latest Run

@@ -469,9 +469,9 @@ This report synthesizes peer-reviewed research, industry studies, and technical 
 | Algorithms | Flowcharts + pseudocode | 60% prefer | Well-known algorithms (sorting) |
 
 **Your Current Practice (Session 21 findings):**
-- eBPF post: 97.3% Mermaid diagrams (DIAGRAM-HEAVY policy exception)
+- eBPF post: 97.3% diagrams (historical DIAGRAM-HEAVY policy exception)
 - Proves educational value of diagram-heavy content
-- >80% Mermaid + <10% actual code = valid approach for architectural posts
+- Current authoring standard: follow `docs/content-visuals.md` with native `.flow` / `.arch` first; Mermaid remains legacy for genuine node graphs.
 
 **Developer Content Research:**
 - Diagrams reduce cognitive load for complex systems (Tubik Studio, 2024)
@@ -503,7 +503,7 @@ This report synthesizes peer-reviewed research, industry studies, and technical 
   - Replace long code examples showing architecture with system diagrams
 - Create diagram template library:
   - Common patterns (auth flows, data pipelines, deployment diagrams)
-  - Reusable Mermaid snippets
+  - Reusable `.flow` and `.arch` examples aligned with `docs/content-visuals.md`
 
 **P2 (Future):**
 - Add interactive diagrams (zoom, clickable elements)
@@ -540,7 +540,7 @@ This report synthesizes peer-reviewed research, industry studies, and technical 
 - Conceptual posts: Lower density (1 per 800-1,200 words)
 
 **Your DIAGRAM-HEAVY Policy:**
-- >80% Mermaid + <10% actual code = educational exception
+- >80% diagrams + <10% actual code = educational exception
 - eBPF post example validates this for architectural content
 - **Insight:** Not all "high ratio" content is problematic if it's educational diagrams
 
@@ -553,11 +553,14 @@ This report synthesizes peer-reviewed research, industry studies, and technical 
   - **Experience:** 1 visual per 600 words (support narrative)
   - **Architecture:** Diagram-heavy allowed (>50% if educational)
 - Types of visuals counted:
-  - Mermaid diagrams
+  - Native `.flow` diagrams
+  - Native `.arch` diagrams
+  - Markdown tables used as visual matrices
+  - Zine doodles
+  - Legacy Mermaid diagrams
   - Screenshots
   - Charts/graphs
-  - Architecture diagrams
-  - Hero images (not counted in ratio)
+  - Build-generated OG cards (not authored hero images)
 
 **P1 (Next Quarter):**
 - Review posts with <1 visual per 1,000 words (likely too text-heavy)
@@ -613,18 +616,11 @@ This report synthesizes peer-reviewed research, industry studies, and technical 
 
 **P0 (Immediate):**
 - Standardize image placement:
-  1. **Hero image:** All posts (1200×630px, optimized for social shares)
-  2. **First diagram:** After introduction, before main content (~20-30% down page)
-  3. **Section breaks:** After every 2nd or 3rd H2 heading (for posts >1,500 words)
-  4. **Inline screenshots:** Immediately after step description in tutorials
-- Add to blog post template:
-  ```markdown
-  ## [Section Title]
-
-  ![Section break image](...)
-
-  [Content...]
-  ```
+  1. **Zine doodle:** Place one after the introduction when it carries a specific visual metaphor.
+  2. **First diagram:** Use native `.flow` / `.arch` after the introduction when structure or process needs a visual.
+  3. **Matrices:** Use Markdown tables for comparisons and decision grids.
+  4. **Inline screenshots:** Immediately after step description in tutorials.
+- Social cards are build-generated OG images, not authored `hero-image` frontmatter.
 
 **P1 (Next Quarter):**
 - Audit top 10 posts for image placement patterns
@@ -643,7 +639,7 @@ This report synthesizes peer-reviewed research, industry studies, and technical 
 
 ---
 
-### 3.3 Mermaid Diagram Best Practices
+### 3.3 Content Visual Decision Rule
 
 **Research Findings:**
 
@@ -653,27 +649,15 @@ This report synthesizes peer-reviewed research, industry studies, and technical 
 - **Visual consistency:** Reinforces professionalism
 - **Simplicity:** Max 7-9 elements per diagram (working memory limit)
 
-**Mermaid-Specific Best Practices:**
+**Current Authoring Standard:**
 
-1. **Flowcharts:**
-   - Max 10-12 nodes (beyond this, split into multiple diagrams)
-   - Use consistent shapes (rectangle=process, diamond=decision, circle=start/end)
-   - Direction: Top-to-bottom or left-to-right (avoid diagonal)
+Follow `docs/content-visuals.md`:
 
-2. **Sequence Diagrams:**
-   - Max 5-6 participants (actors/systems)
-   - Use activation boxes to show duration of operations
-   - Add notes for complex interactions
-
-3. **Class Diagrams:**
-   - Max 6-8 classes per diagram
-   - Show only relevant methods/properties (not complete API)
-   - Use inheritance and composition clearly
-
-4. **State Diagrams:**
-   - Max 8-10 states
-   - Label all transitions clearly
-   - Use notes for complex state logic
+1. **Processes:** Use native `.flow` visuals.
+2. **Architectures:** Use native `.arch` visuals.
+3. **Matrices:** Use Markdown tables.
+4. **Dense diagrams:** Split them before they become wall art with homework.
+5. **Mermaid:** Legacy path only for genuine node graphs that the native formats cannot express cleanly.
 
 **Accessibility:**
 - Add alt text summarizing diagram purpose
@@ -683,27 +667,25 @@ This report synthesizes peer-reviewed research, industry studies, and technical 
 **Your Current Practice:**
 - Session 20-22: Mermaid v10 migration completed
 - eBPF post: Excellent example of diagram-heavy educational content
-- **Status:** ✅ Good foundation, needs standardization
+- **Status:** ✅ Historical foundation; current standard is `docs/content-visuals.md`.
 
 **Recommendations:**
 
 **P0 (Immediate):**
 - Enforce complexity limits:
-  - Flowcharts: ≤12 nodes (split if larger)
-  - Sequence diagrams: ≤6 participants
-  - Class diagrams: ≤8 classes
-  - State diagrams: ≤10 states
+  - `.flow`: Split branching processes before they exceed a readable single path.
+  - `.arch`: Split layers/zones when trust boundaries blur.
+  - Tables: Use for matrices instead of diagramming rows and columns.
+  - Mermaid: Keep only for unavoidable node graphs; otherwise migrate to native visuals.
 - Add alt text to all diagrams:
   ```markdown
-  ```mermaid
-  [diagram code]
-  ```
+  [native visual block]
   *Figure 1: System architecture showing three-tier deployment*
   ```
-- Create Mermaid snippet library (common patterns)
+- Create native visual examples for common `.flow` and `.arch` patterns.
 
 **P1 (Next Quarter):**
-- Develop Mermaid style guide:
+- Develop visual style guidance:
   - Color palette (consistent across blog)
   - Font sizes and styles
   - Spacing standards
@@ -711,9 +693,9 @@ This report synthesizes peer-reviewed research, industry studies, and technical 
 - Audit existing diagrams for complexity (split if >thresholds)
 
 **P2 (Future):**
-- Add interactive Mermaid diagrams (clickable nodes, expandable sections)
+- Add interactive diagrams (clickable nodes, expandable sections)
 - Create diagram version control (track changes over time)
-- Build diagram testing suite (validate Mermaid syntax on commit)
+- Build visual validation that covers native diagrams and any legacy Mermaid syntax.
 
 **Citations:**
 - Archbee. (2024). "Using Diagrams in Software Documentation: Best Practices"
@@ -762,7 +744,7 @@ This report synthesizes peer-reviewed research, industry studies, and technical 
   2. **Format:**
      - UI/text → PNG-8 (or WebP if supported)
      - Photos → JPEG 80% quality (or WebP)
-  3. **Resize:** Max 800px width (inline), 1200px (hero)
+  3. **Resize:** Max 800px width for inline screenshots; OG cards are build-generated
   4. **Compress:** Use ImageOptim, TinyPNG, or similar
   5. **Alt text:** Descriptive summary (10-15 words)
   6. **Filename:** Descriptive, kebab-case (`docker-compose-config.png`)
@@ -770,7 +752,7 @@ This report synthesizes peer-reviewed research, industry studies, and technical 
 
 **P1 (Next Quarter):**
 - Audit existing screenshots:
-  - Check file sizes (flag >200KB for inline, >500KB for hero)
+  - Check file sizes (flag >200KB for inline authored images)
   - Convert PNG-24 → PNG-8 where appropriate
   - Test WebP adoption (modern browser support >95%)
 - Create screenshot style guide:
@@ -1689,8 +1671,11 @@ These can be implemented today with minimal effort:
 
 **Visual Content Metrics:**
 - Images per post (target: 1 per 400-800 words depending on type)
-- Diagram usage (% posts with Mermaid diagrams)
-- Image file sizes (target: <200KB inline, <500KB hero)
+- Native `.flow` usage
+- Native `.arch` usage
+- Markdown tables used as visual matrices
+- Zine doodle usage
+- Legacy Mermaid usage tracked separately
 - Alt text coverage (target: 100%)
 
 **Code Quality Metrics:**
