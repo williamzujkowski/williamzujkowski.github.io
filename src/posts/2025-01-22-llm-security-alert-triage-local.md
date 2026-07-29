@@ -48,7 +48,7 @@ names, internal network topology. Local LLM inference keeps all data in homelab.
 
 **Ollama architecture:**
 
-<div class="flow">
+<div class="flow" role="group" aria-label="Ollama alert triage architecture">
   <div class="flow-node"><b>Security Alerts</b><i>Wazuh / Suricata JSON</i></div>
   <div class="flow-node"><b>Alert Processor</b><i>Python prompt</i></div>
   <div class="flow-node"><b>Ollama Server</b><i>local LLM; NVIDIA GPU inference, 8GB VRAM</i></div>
@@ -222,7 +222,7 @@ Large Language Models benefit from context. Retrieval-Augmented Generation (RAG)
 
 **RAG architecture:**
 
-<div class="flow">
+<div class="flow" role="group" aria-label="RAG alert context pipeline">
   <div class="flow-node">New Alert</div>
   <div class="flow-node"><b>Vector DB</b><i>Chroma query; 30 days historical alert embeddings</i></div>
   <div class="flow-node"><b>Context Builder</b><i>similar alerts + MISP / OTX IOCs</i></div>

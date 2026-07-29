@@ -102,7 +102,7 @@ Not every paper I read was useful. A few approaches I tried and discarded:
 
 ## The Full Pipeline
 
-<div class="flow" aria-label="RouteLLM contextual bandit routing pipeline">
+<div class="flow" role="group" aria-label="RouteLLM contextual bandit routing pipeline">
   <div class="flow-node">Task Input</div>
   <div class="flow-node">Budget Router</div>
   <div class="flow-node">Zero Router</div>

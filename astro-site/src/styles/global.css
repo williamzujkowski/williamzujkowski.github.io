@@ -935,7 +935,6 @@ article .prose > p:first-of-type::first-letter {
   display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; width: 100%;
 }
 .prose .flow-parallel .flow-node { flex: 1 1 7rem; min-width: 6rem; margin-top: 0; }
-.prose .flow-parallel .flow-node::before, .prose .flow-parallel .flow-node::after { content: none; }
 /* two-way branch — legs wrap/stack; each carries a labelled pill */
 .prose .flow-branch {
   display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; width: 100%;
@@ -999,10 +998,7 @@ article .prose > p:first-of-type::first-letter {
 .prose .arch-chip.is-guard { border-style: dashed; border-color: var(--color-accent); }
 .prose .arch-chip.is-warn { border-color: var(--color-warning); color: var(--color-warning); }
 .prose .arch-chip.is-bad { border-color: var(--color-error); color: var(--color-error); }
-.prose .arch-fig figcaption {
-  color: var(--color-fg-muted); font-size: 0.8125rem; font-style: italic;
-  text-align: center; margin-top: 0.6rem;
-}
+/* .arch captions use the canonical `.prose :where(figcaption)` styling. */
 
 /* ===== Footer ===== */
 .site-footer {

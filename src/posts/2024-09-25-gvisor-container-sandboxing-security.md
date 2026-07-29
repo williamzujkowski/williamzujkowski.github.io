@@ -47,11 +47,11 @@ Containers share the host kernel. One bad syscall can break containment. This is
 **But:** All these run in the kernel. Kernel bugs bypass them.
 
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="Traditional container isolation stack">
-  <section class="arch-tier" data-label="Workload"><span class="arch-chip is-primary">Container Process</span></section>
-  <section class="arch-tier" data-label="Kernel Isolation Controls"><span class="arch-chip is-guard">Namespaces</span><span class="arch-chip is-guard">Cgroups</span><span class="arch-chip is-guard">Seccomp-BPF</span><span class="arch-chip is-guard">AppArmor / SELinux</span></section>
-  <section class="arch-tier" data-label="Shared Boundary"><span class="arch-chip is-bad">Host Kernel</span></section>
-  <section class="arch-tier" data-label="Platform"><span class="arch-chip">Hardware</span></section>
+<div class="arch is-stack" role="group" aria-label="Traditional container isolation stack">
+  <section class="arch-tier" data-label="Workload" role="group" aria-label="Workload"><span class="arch-chip is-primary">Container Process</span></section>
+  <section class="arch-tier" data-label="Kernel Isolation Controls" role="group" aria-label="Kernel Isolation Controls"><span class="arch-chip is-guard">Namespaces</span><span class="arch-chip is-guard">Cgroups</span><span class="arch-chip is-guard">Seccomp-BPF</span><span class="arch-chip is-guard">AppArmor / SELinux</span></section>
+  <section class="arch-tier" data-label="Shared Boundary" role="group" aria-label="Shared Boundary"><span class="arch-chip is-bad">Host Kernel</span></section>
+  <section class="arch-tier" data-label="Platform" role="group" aria-label="Platform"><span class="arch-chip">Hardware</span></section>
 </div>
 <figcaption>Traditional containers add multiple guardrails, but every path still terminates at the shared host kernel.</figcaption>
 </figure>
@@ -84,10 +84,10 @@ Container → gVisor Sentry (userspace) → Host Kernel
 - Cannot access host filesystem directly
 
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="gVisor container sandbox architecture">
-  <section class="arch-tier" data-label="Container Sandbox"><span class="arch-chip is-primary">Container App</span></section>
-  <section class="arch-tier" data-label="gVisor Userspace Kernel"><span class="arch-chip is-guard"><b>Sentry</b><i>Go userspace kernel; 200+ syscalls reimplemented</i></span><span class="arch-chip is-guard"><b>Gofer</b><i>9P filesystem proxy; minimal privileges</i></span></section>
-  <section class="arch-tier" data-label="Host"><span class="arch-chip"><b>Host Kernel</b><i>limited syscall surface</i></span><span class="arch-chip">Host Filesystem</span></section>
+<div class="arch is-stack" role="group" aria-label="gVisor container sandbox architecture">
+  <section class="arch-tier" data-label="Container Sandbox" role="group" aria-label="Container Sandbox"><span class="arch-chip is-primary">Container App</span></section>
+  <section class="arch-tier" data-label="gVisor Userspace Kernel" role="group" aria-label="gVisor Userspace Kernel"><span class="arch-chip is-guard"><b>Sentry</b><i>Go userspace kernel; 200+ syscalls reimplemented</i></span><span class="arch-chip is-guard"><b>Gofer</b><i>9P filesystem proxy; minimal privileges</i></span></section>
+  <section class="arch-tier" data-label="Host" role="group" aria-label="Host"><span class="arch-chip"><b>Host Kernel</b><i>limited syscall surface</i></span><span class="arch-chip">Host Filesystem</span></section>
 </div>
 <figcaption>Container syscalls hit Sentry first; only safe host syscalls and scoped file requests continue into the host.</figcaption>
 </figure>
@@ -347,24 +347,24 @@ docker run --rm --runtime=runsc alpine sh -c "echo 'exploit' | tee /proc/self/me
 
 **My decision tree:**
 
-<div class="flow" aria-label="Container runtime selection decision path">
+<div class="flow" role="group" aria-label="Container runtime selection decision path">
   <div class="flow-node">New Workload</div>
   <div class="flow-node is-gate">Untrusted image?</div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-good">Use gVisor</div></div>
-    <div class="flow-leg" data-branch="No"><div class="flow-node is-gate">Internet-facing?</div></div>
+    <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good">Use gVisor</div></div>
+    <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node is-gate">Internet-facing?</div></div>
   </div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-good">Use gVisor</div></div>
-    <div class="flow-leg" data-branch="No"><div class="flow-node is-gate">Needs native performance?</div></div>
+    <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good">Use gVisor</div></div>
+    <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node is-gate">Needs native performance?</div></div>
   </div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Yes"><div class="flow-node">Use runc</div></div>
-    <div class="flow-leg" data-branch="No"><div class="flow-node is-gate">Syscall-heavy?</div></div>
+    <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node">Use runc</div></div>
+    <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node is-gate">Syscall-heavy?</div></div>
   </div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Yes"><div class="flow-node">Use runc</div></div>
-    <div class="flow-leg" data-branch="No"><div class="flow-node"><b>Use runc</b><i>principle of least surprise</i></div></div>
+    <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node">Use runc</div></div>
+    <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node"><b>Use runc</b><i>principle of least surprise</i></div></div>
   </div>
 </div>
 
@@ -438,12 +438,12 @@ G-Fuzz demonstrates that even secure-by-design systems need adversarial testing.
 - [Tetragon](https://github.com/cilium/tetragon) for eBPF observability
 
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="Container defense in depth stack">
-  <section class="arch-tier" data-label="Admission Control"><span class="arch-chip is-guard">OPA / Kyverno</span></section>
-  <section class="arch-tier" data-label="Runtime Sandbox"><span class="arch-chip is-primary">gVisor Sentry + Gofer</span></section>
-  <section class="arch-tier" data-label="Runtime Detection"><span class="arch-chip is-warn">Falco / Tetragon</span></section>
-  <section class="arch-tier" data-label="Network Policy"><span class="arch-chip is-guard">Cilium / Calico</span></section>
-  <section class="arch-tier" data-label="Vulnerability Scanning"><span class="arch-chip">Grype / Trivy</span></section>
+<div class="arch is-stack" role="group" aria-label="Container defense in depth stack">
+  <section class="arch-tier" data-label="Admission Control" role="group" aria-label="Admission Control"><span class="arch-chip is-guard">OPA / Kyverno</span></section>
+  <section class="arch-tier" data-label="Runtime Sandbox" role="group" aria-label="Runtime Sandbox"><span class="arch-chip is-primary">gVisor Sentry + Gofer</span></section>
+  <section class="arch-tier" data-label="Runtime Detection" role="group" aria-label="Runtime Detection"><span class="arch-chip is-warn">Falco / Tetragon</span></section>
+  <section class="arch-tier" data-label="Network Policy" role="group" aria-label="Network Policy"><span class="arch-chip is-guard">Cilium / Calico</span></section>
+  <section class="arch-tier" data-label="Vulnerability Scanning" role="group" aria-label="Vulnerability Scanning"><span class="arch-chip">Grype / Trivy</span></section>
 </div>
 <figcaption>Attackers should be blocked at admission or runtime, detected by monitoring, and contained by network policy before scanning closes the loop.</figcaption>
 </figure>

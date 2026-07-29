@@ -33,12 +33,12 @@ That gap is closing. VLA models combine three capabilities:
 - **Action**: Generating physical control signals for robotic systems
 
 <figure class="arch-fig">
-<div class="flow" aria-label="Traditional AI agent path">
+<div class="flow" role="group" aria-label="Traditional AI agent path">
   <div class="flow-node">Text Input</div>
   <div class="flow-node">Language Model</div>
   <div class="flow-node">Text Output</div>
 </div>
-<div class="flow" aria-label="Vision-Language-Action model path">
+<div class="flow" role="group" aria-label="Vision-Language-Action model path">
   <div class="flow-parallel">
     <div class="flow-node">Visual Input</div>
     <div class="flow-node">Language Input</div>
@@ -139,11 +139,11 @@ Formal safety frameworks for robotics exist, but most VLA deployments lack rigor
 ⚠️ **Warning:** Embodied AI systems that interact with the physical world require extensive safety testing. Physical robotics experiments must follow proper safety protocols and risk assessments.
 
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="Embodied AI safety layers">
-  <section class="arch-tier" data-label="Model"><span class="arch-chip is-primary">VLA Model</span></section>
-  <section class="arch-tier" data-label="Runtime Guards"><span class="arch-chip is-guard">Action Filter</span><span class="arch-chip is-guard">Collision Detection</span><span class="arch-chip is-guard">Force Limits</span><span class="arch-chip is-warn">Safety Monitor</span></section>
-  <section class="arch-tier" data-label="Stop Controls"><span class="arch-chip is-bad">Emergency Stop</span><span class="arch-chip is-guard">Human Supervisor</span></section>
-  <section class="arch-tier" data-label="Actuator"><span class="arch-chip">Physical Robot</span></section>
+<div class="arch is-stack" role="group" aria-label="Embodied AI safety layers">
+  <section class="arch-tier" data-label="Model" role="group" aria-label="Model"><span class="arch-chip is-primary">VLA Model</span></section>
+  <section class="arch-tier" data-label="Runtime Guards" role="group" aria-label="Runtime Guards"><span class="arch-chip is-guard">Action Filter</span><span class="arch-chip is-guard">Collision Detection</span><span class="arch-chip is-guard">Force Limits</span><span class="arch-chip is-warn">Safety Monitor</span></section>
+  <section class="arch-tier" data-label="Stop Controls" role="group" aria-label="Stop Controls"><span class="arch-chip is-bad">Emergency Stop</span><span class="arch-chip is-guard">Human Supervisor</span></section>
+  <section class="arch-tier" data-label="Actuator" role="group" aria-label="Actuator"><span class="arch-chip">Physical Robot</span></section>
 </div>
 <figcaption>Model output passes through runtime guards and stop controls before it can move the physical robot.</figcaption>
 </figure>

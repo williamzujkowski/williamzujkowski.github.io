@@ -22,17 +22,17 @@ arrow characters or connector markup.
 Class contract:
 
 ```html
-<div class="flow" aria-label="Short diagram purpose">
+<div class="flow" role="group" aria-label="Short diagram purpose">
   <div class="flow-node">Step</div>
   <div class="flow-node is-gate">Decision / gate</div>
   <div class="flow-parallel">
     <div class="flow-node">Parallel step</div>
   </div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Pass">
+    <div class="flow-leg" data-branch="Pass" role="group" aria-label="Pass">
       <div class="flow-node is-good">Good result</div>
     </div>
-    <div class="flow-leg" data-branch="Fail">
+    <div class="flow-leg" data-branch="Fail" role="group" aria-label="Fail">
       <div class="flow-node is-bad">Bad result</div>
     </div>
   </div>
@@ -52,7 +52,7 @@ Raw HTML rules:
 Copy-paste example:
 
 ```html
-<div class="flow" aria-label="Security scanning pipeline">
+<div class="flow" role="group" aria-label="Security scanning pipeline">
   <div class="flow-node">Git Push / PR</div>
   <div class="flow-node is-gate">Trigger Pipeline</div>
   <div class="flow-parallel">
@@ -63,8 +63,8 @@ Copy-paste example:
   <div class="flow-node">Upload SARIF</div>
   <div class="flow-node is-gate">Security Gate</div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Pass"><div class="flow-node is-good">Deploy</div></div>
-    <div class="flow-leg" data-branch="Critical"><div class="flow-node is-bad">Block &amp; Alert</div></div>
+    <div class="flow-leg" data-branch="Pass" role="group" aria-label="Pass"><div class="flow-node is-good">Deploy</div></div>
+    <div class="flow-leg" data-branch="Critical" role="group" aria-label="Critical"><div class="flow-node is-bad">Block &amp; Alert</div></div>
   </div>
 </div>
 ```
@@ -79,8 +79,8 @@ Class contract:
 
 ```html
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="Short diagram purpose">
-  <section class="arch-tier" data-label="Tier label">
+<div class="arch is-stack" role="group" aria-label="Short diagram purpose">
+  <section class="arch-tier" data-label="Tier label" role="group" aria-label="Tier label">
     <span class="arch-chip is-primary"><b>Main component</b><i>second line</i></span>
     <span class="arch-chip is-guard">Guardrail</span>
     <span class="arch-chip is-warn">Warning</span>
@@ -104,18 +104,18 @@ Raw HTML rules:
 - Use no blank lines inside the block.
 - Use 2-space indentation.
 - Escape HTML-sensitive characters: `&` -> `&amp;`, `<` -> `&lt;`, `>` -> `&gt;`.
-- Set `aria-label` on the `.arch` when the diagram needs a text purpose.
+- Set `role="group"` and `aria-label` on the `.arch`.
 
 Copy-paste example:
 
 ```html
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="Self-hosted vault architecture">
-  <section class="arch-tier" data-label="Client Access"><span class="arch-chip">Web Vault</span><span class="arch-chip">Mobile Apps</span><span class="arch-chip">Browser Extensions</span></section>
-  <section class="arch-tier" data-label="Ingress Protection"><span class="arch-chip is-guard">Firewall Rules</span><span class="arch-chip is-guard">TLS 1.3</span><span class="arch-chip is-guard">Fail2ban</span></section>
-  <section class="arch-tier" data-label="Application Edge"><span class="arch-chip">Nginx Reverse Proxy</span></section>
-  <section class="arch-tier" data-label="Vault Service"><span class="arch-chip is-primary">Vaultwarden</span></section>
-  <section class="arch-tier" data-label="Data Store"><span class="arch-chip"><b>SQLite / PostgreSQL</b><i>encrypted at rest</i></span></section>
+<div class="arch is-stack" role="group" aria-label="Self-hosted vault architecture">
+  <section class="arch-tier" data-label="Client Access" role="group" aria-label="Client Access"><span class="arch-chip">Web Vault</span><span class="arch-chip">Mobile Apps</span><span class="arch-chip">Browser Extensions</span></section>
+  <section class="arch-tier" data-label="Ingress Protection" role="group" aria-label="Ingress Protection"><span class="arch-chip is-guard">Firewall Rules</span><span class="arch-chip is-guard">TLS 1.3</span><span class="arch-chip is-guard">Fail2ban</span></section>
+  <section class="arch-tier" data-label="Application Edge" role="group" aria-label="Application Edge"><span class="arch-chip">Nginx Reverse Proxy</span></section>
+  <section class="arch-tier" data-label="Vault Service" role="group" aria-label="Vault Service"><span class="arch-chip is-primary">Vaultwarden</span></section>
+  <section class="arch-tier" data-label="Data Store" role="group" aria-label="Data Store"><span class="arch-chip"><b>SQLite / PostgreSQL</b><i>encrypted at rest</i></span></section>
 </div>
 <figcaption>Clients enter through the protected edge; the vault service writes to a private database.</figcaption>
 </figure>
@@ -181,5 +181,6 @@ from the post metadata. Do not add hero-image frontmatter.
   `fill:#hex`, inline SVG colors, or theme-specific CSS.
 - Keep all visual text at `0.8125rem` or larger. That is the USWDS 13px floor.
 - Diagrams must reflow on mobile without horizontal scroll.
-- Set an `aria-label` on diagrams when the purpose is not obvious.
+- Keep diagram `aria-label` text concise and purpose-focused.
+- Root `.flow` / `.arch` need `role="group"` + `aria-label`; mirror each `.arch-tier` `data-label` and `.flow-leg` `data-branch` into `role="group"` + `aria-label`. CSS `::before` labels are visual-only.
 - Add a `<figcaption>` when interpretation helps.

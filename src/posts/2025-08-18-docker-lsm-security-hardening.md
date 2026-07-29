@@ -37,15 +37,15 @@ FS privilege escalation
 
 **What I needed:** Defense-in-depth without K8s. Standalone Docker hardening using Linux Security Modules (LSM), seccomp, capabilities, and filesystem restrictions.
 
-<div class="flow" aria-label="Container syscall security checkpoints">
+<div class="flow" role="group" aria-label="Container syscall security checkpoints">
   <div class="flow-node"><b>Docker Container</b><i>application process in user space</i></div>
   <div class="flow-node"><b>Syscall Entry</b><i>open, mount, ptrace</i></div>
   <div class="flow-node is-gate">LSM Hooks</div>
   <div class="flow-node is-gate">Seccomp BPF</div>
   <div class="flow-node is-gate">Capability Check</div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Denied"><div class="flow-node is-bad"><b>EACCES / EPERM</b><i>operation blocked</i></div></div>
-    <div class="flow-leg" data-branch="Allowed"><div class="flow-node is-good">Execute Syscall</div></div>
+    <div class="flow-leg" data-branch="Denied" role="group" aria-label="Denied"><div class="flow-node is-bad"><b>EACCES / EPERM</b><i>operation blocked</i></div></div>
+    <div class="flow-leg" data-branch="Allowed" role="group" aria-label="Allowed"><div class="flow-node is-good">Execute Syscall</div></div>
   </div>
 </div>
 
@@ -94,7 +94,7 @@ I combine multiple isolation mechanisms for defense-in-depth. If attacker bypass
 
 **Security layers:**
 
-<div class="flow">
+<div class="flow" role="group" aria-label="Layered Docker security controls">
   <div class="flow-node">Docker Container</div>
   <div class="flow-node is-bad"><b>Attacker with RCE</b><i>try to escape</i></div>
   <div class="flow-node"><b>Layer 1: AppArmor Profile</b><i>file system access control</i></div>

@@ -18,7 +18,7 @@ That learning experience taught me something critical. Quantum computing isn't j
 
 ## How It Works
 
-<div class="flow" aria-label="Two-qubit quantum circuit path">
+<div class="flow" role="group" aria-label="Two-qubit quantum circuit path">
   <div class="flow-parallel">
     <div class="flow-node">Qubit 0: Zero State</div>
     <div class="flow-node">Qubit 1: Zero State</div>

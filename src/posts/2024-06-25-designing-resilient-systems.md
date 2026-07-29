@@ -22,7 +22,7 @@ On paper, the system had everything — load balancers, database replicas, circu
 5. Circuit breakers open, but fallback services are also overwhelmed
 6. Total platform outage
 
-<div class="flow">
+<div class="flow" role="group" aria-label="Cascade failure sequence">
   <div class="flow-node is-bad">DB Timeout</div>
   <div class="flow-node">Connection Pools Fill Up</div>
   <div class="flow-node">Health Checks Fail</div>

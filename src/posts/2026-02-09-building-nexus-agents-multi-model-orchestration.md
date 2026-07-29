@@ -36,11 +36,11 @@ MCP gave me a standard interface that any compatible client could use. Claude Co
 An [STPA safety analysis of MCP](https://arxiv.org/abs/2601.08012) later validated some of my security concerns about the protocol. More on that below.
 
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="Nexus-Agents MCP orchestration architecture">
-  <section class="arch-tier" data-label="MCP Clients"><span class="arch-chip">Claude Code</span><span class="arch-chip">Cursor</span><span class="arch-chip">Windsurf</span></section>
-  <section class="arch-tier" data-label="Nexus-Agents MCP Server"><span class="arch-chip is-primary"><b>MCP Protocol Layer</b><i>25 tools</i></span><span class="arch-chip">Orchestrator</span><span class="arch-chip">CompositeRouter - 5-Stage Pipeline</span><span class="arch-chip">Consensus Engine</span><span class="arch-chip">Graph Workflows</span><span class="arch-chip">Plugin Pipeline</span></section>
-  <section class="arch-tier" data-label="CLI Adapters"><span class="arch-chip">Claude Adapter</span><span class="arch-chip">Gemini Adapter</span><span class="arch-chip">Codex Adapter</span><span class="arch-chip">OpenCode Adapter</span></section>
-  <section class="arch-tier" data-label="AI Models"><span class="arch-chip is-primary">Claude Opus / Sonnet</span><span class="arch-chip is-primary">Gemini Pro / Flash</span><span class="arch-chip is-primary">Codex</span></section>
+<div class="arch is-stack" role="group" aria-label="Nexus-Agents MCP orchestration architecture">
+  <section class="arch-tier" data-label="MCP Clients" role="group" aria-label="MCP Clients"><span class="arch-chip">Claude Code</span><span class="arch-chip">Cursor</span><span class="arch-chip">Windsurf</span></section>
+  <section class="arch-tier" data-label="Nexus-Agents MCP Server" role="group" aria-label="Nexus-Agents MCP Server"><span class="arch-chip is-primary"><b>MCP Protocol Layer</b><i>25 tools</i></span><span class="arch-chip">Orchestrator</span><span class="arch-chip">CompositeRouter - 5-Stage Pipeline</span><span class="arch-chip">Consensus Engine</span><span class="arch-chip">Graph Workflows</span><span class="arch-chip">Plugin Pipeline</span></section>
+  <section class="arch-tier" data-label="CLI Adapters" role="group" aria-label="CLI Adapters"><span class="arch-chip">Claude Adapter</span><span class="arch-chip">Gemini Adapter</span><span class="arch-chip">Codex Adapter</span><span class="arch-chip">OpenCode Adapter</span></section>
+  <section class="arch-tier" data-label="AI Models" role="group" aria-label="AI Models"><span class="arch-chip is-primary">Claude Opus / Sonnet</span><span class="arch-chip is-primary">Gemini Pro / Flash</span><span class="arch-chip is-primary">Codex</span></section>
 </div>
 <figcaption>MCP clients enter through the server, the orchestrator selects routing, consensus, workflow, or plugin tools, and adapters call the underlying models.</figcaption>
 </figure>
@@ -77,7 +77,7 @@ Picking the right model for a task isn't simple. I built a five-stage routing pi
 
 The entire pipeline runs in under 10ms. I was surprised how fast TOPSIS is when you're only ranking 6-8 models. The routing decision is nearly free compared to actual model inference. I wrote a [deeper dive on the routing research](/posts/2026-01-15-routellm-contextual-bandits-model-router-research/) separately, including the approaches that didn't work.
 
-<div class="flow" aria-label="Nexus-Agents five-stage routing pipeline">
+<div class="flow" role="group" aria-label="Nexus-Agents five-stage routing pipeline">
   <div class="flow-node">Incoming Task</div>
   <div class="flow-node"><b>1. Budget</b><i>Router</i></div>
   <div class="flow-node"><b>2. Zero</b><i>Router</i></div>

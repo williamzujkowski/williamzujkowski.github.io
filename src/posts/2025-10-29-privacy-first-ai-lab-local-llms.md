@@ -34,10 +34,10 @@ But privacy isn't just about where the compute happens. It's about the entire st
 After that wake-up call, I rebuilt my thinking around three distinct threat layers:
 
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="Local LLM privacy threat model layers">
-  <section class="arch-tier" data-label="Network Layer"><span class="arch-chip is-guard">Endpoint Access Control</span><span class="arch-chip is-guard">Telemetry Monitoring</span><span class="arch-chip is-guard">Network Boundary Rules</span></section>
-  <section class="arch-tier" data-label="Storage Layer"><span class="arch-chip is-guard">Prompt / Response Encryption</span><span class="arch-chip is-guard">Docker Volume Protection</span><span class="arch-chip is-guard">Model File Integrity</span></section>
-  <section class="arch-tier" data-label="Inference Layer"><span class="arch-chip is-primary">GPU Memory Isolation</span><span class="arch-chip is-primary">KV Cache Protection</span><span class="arch-chip is-primary">Process Sandboxing</span></section>
+<div class="arch is-stack" role="group" aria-label="Local LLM privacy threat model layers">
+  <section class="arch-tier" data-label="Network Layer" role="group" aria-label="Network Layer"><span class="arch-chip is-guard">Endpoint Access Control</span><span class="arch-chip is-guard">Telemetry Monitoring</span><span class="arch-chip is-guard">Network Boundary Rules</span></section>
+  <section class="arch-tier" data-label="Storage Layer" role="group" aria-label="Storage Layer"><span class="arch-chip is-guard">Prompt / Response Encryption</span><span class="arch-chip is-guard">Docker Volume Protection</span><span class="arch-chip is-guard">Model File Integrity</span></section>
+  <section class="arch-tier" data-label="Inference Layer" role="group" aria-label="Inference Layer"><span class="arch-chip is-primary">GPU Memory Isolation</span><span class="arch-chip is-primary">KV Cache Protection</span><span class="arch-chip is-primary">Process Sandboxing</span></section>
 </div>
 <figcaption>The model is only private when controls hold at the network, storage, and inference layers.</figcaption>
 </figure>
@@ -80,7 +80,7 @@ I started verifying model checksums obsessively after reading this.
 
 ## Local LLM Tools: The Privacy Reality Check
 
-<div class="flow">
+<div class="flow" role="group" aria-label="Local LLM inference path">
   <div class="flow-node">User Prompt</div>
   <div class="flow-node">System Prompt + Filters</div>
   <div class="flow-node">Tokenizer</div>
@@ -204,11 +204,11 @@ Maybe in 3-5 years this'll be viable for homelab use. For now, it's research-onl
 Here's how I actually locked things down. This took about 6 hours to configure properly, but it's the foundation of everything else.
 
 <figure class="arch-fig">
-<div class="arch" aria-label="AI lab VLAN zones">
-  <section class="arch-tier" data-label="VLAN 1 - Main Network"><span class="arch-chip">Laptop / Desktop</span></section>
-  <section class="arch-tier" data-label="VLAN 10 - DMZ"><span class="arch-chip is-bad">IoT Devices</span></section>
-  <section class="arch-tier" data-label="VLAN 20 - AI Services"><span class="arch-chip">Proxmox Host</span><span class="arch-chip">Ubuntu VM + RTX 3090</span><span class="arch-chip is-primary">Ollama / LM Studio</span></section>
-  <section class="arch-tier" data-label="VLAN 30 - Monitoring"><span class="arch-chip is-guard">Wazuh SIEM</span><span class="arch-chip is-guard">Prometheus</span></section>
+<div class="arch" role="group" aria-label="AI lab VLAN zones">
+  <section class="arch-tier" data-label="VLAN 1 - Main Network" role="group" aria-label="VLAN 1 - Main Network"><span class="arch-chip">Laptop / Desktop</span></section>
+  <section class="arch-tier" data-label="VLAN 10 - DMZ" role="group" aria-label="VLAN 10 - DMZ"><span class="arch-chip is-bad">IoT Devices</span></section>
+  <section class="arch-tier" data-label="VLAN 20 - AI Services" role="group" aria-label="VLAN 20 - AI Services"><span class="arch-chip">Proxmox Host</span><span class="arch-chip">Ubuntu VM + RTX 3090</span><span class="arch-chip is-primary">Ollama / LM Studio</span></section>
+  <section class="arch-tier" data-label="VLAN 30 - Monitoring" role="group" aria-label="VLAN 30 - Monitoring"><span class="arch-chip is-guard">Wazuh SIEM</span><span class="arch-chip is-guard">Prometheus</span></section>
 </div>
 <figcaption>VLAN 20 accepts main-network access only over VPN, exports metrics to monitoring, and blocks DMZ and internet paths by policy.</figcaption>
 </figure>
@@ -309,16 +309,16 @@ Running everything locally means I'm limited to models that fit in 24GB VRAM ful
 
 I use a separate Claude subscription for this blog writing. None of my sensitive homelab data ever touches cloud APIs.
 
-<div class="flow" aria-label="Local versus cloud LLM routing decision">
+<div class="flow" role="group" aria-label="Local versus cloud LLM routing decision">
   <div class="flow-node is-gate">What data are you processing?</div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Sensitive / Regulated"><div class="flow-node is-good"><b>Local Processing</b><i>GPU hardware or CPU-only inference</i></div></div>
-    <div class="flow-leg" data-branch="Public / Non-sensitive"><div class="flow-node"><b>Cloud Processing</b><i>Cloud API or managed service</i></div></div>
+    <div class="flow-leg" data-branch="Sensitive / Regulated" role="group" aria-label="Sensitive / Regulated"><div class="flow-node is-good"><b>Local Processing</b><i>GPU hardware or CPU-only inference</i></div></div>
+    <div class="flow-leg" data-branch="Public / Non-sensitive" role="group" aria-label="Public / Non-sensitive"><div class="flow-node"><b>Cloud Processing</b><i>Cloud API or managed service</i></div></div>
   </div>
   <div class="flow-node is-gate">Match budget and capability needs</div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Local"><div class="flow-node is-good"><b>Harden</b><i>VLAN + encryption + DP + monitoring</i></div></div>
-    <div class="flow-leg" data-branch="Cloud"><div class="flow-node"><b>Choose service</b><i>405B+ API or general managed use</i></div></div>
+    <div class="flow-leg" data-branch="Local" role="group" aria-label="Local"><div class="flow-node is-good"><b>Harden</b><i>VLAN + encryption + DP + monitoring</i></div></div>
+    <div class="flow-leg" data-branch="Cloud" role="group" aria-label="Cloud"><div class="flow-node"><b>Choose service</b><i>405B+ API or general managed use</i></div></div>
   </div>
   <div class="flow-node is-good">Production Ready</div>
 </div>

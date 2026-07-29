@@ -23,14 +23,14 @@ All because I put it on the same network as my trusted devices. That camera is n
 ## Zero Trust Network Architecture
 
 <figure class="arch-fig">
-<div class="arch" aria-label="Zero trust VLAN segmentation zones">
-  <section class="arch-tier" data-label="Internet Edge"><span class="arch-chip">WAN Connection</span><span class="arch-chip is-primary">Dream Machine Pro</span></section>
-  <section class="arch-tier" data-label="Management VLAN 10"><span class="arch-chip is-guard">Admin Devices</span><span class="arch-chip">Proxmox Host</span><span class="arch-chip">Network Switches</span></section>
-  <section class="arch-tier" data-label="Trusted VLAN 20"><span class="arch-chip">Workstations</span><span class="arch-chip">Laptops</span><span class="arch-chip">Personal Phones</span></section>
-  <section class="arch-tier" data-label="Server VLAN 30"><span class="arch-chip">Web Servers</span><span class="arch-chip">Databases</span><span class="arch-chip">Applications</span></section>
-  <section class="arch-tier" data-label="IoT VLAN 40"><span class="arch-chip is-warn">IP Cameras</span><span class="arch-chip is-warn">Smart Devices</span><span class="arch-chip is-warn">IoT Sensors</span></section>
-  <section class="arch-tier" data-label="Guest VLAN 50"><span class="arch-chip is-bad">Guest Devices</span></section>
-  <section class="arch-tier" data-label="Security Services"><span class="arch-chip is-guard">Firewall Rules</span><span class="arch-chip is-guard">Suricata IDS</span><span class="arch-chip is-guard">Pi-hole DNS</span></section>
+<div class="arch" role="group" aria-label="Zero trust VLAN segmentation zones">
+  <section class="arch-tier" data-label="Internet Edge" role="group" aria-label="Internet Edge"><span class="arch-chip">WAN Connection</span><span class="arch-chip is-primary">Dream Machine Pro</span></section>
+  <section class="arch-tier" data-label="Management VLAN 10" role="group" aria-label="Management VLAN 10"><span class="arch-chip is-guard">Admin Devices</span><span class="arch-chip">Proxmox Host</span><span class="arch-chip">Network Switches</span></section>
+  <section class="arch-tier" data-label="Trusted VLAN 20" role="group" aria-label="Trusted VLAN 20"><span class="arch-chip">Workstations</span><span class="arch-chip">Laptops</span><span class="arch-chip">Personal Phones</span></section>
+  <section class="arch-tier" data-label="Server VLAN 30" role="group" aria-label="Server VLAN 30"><span class="arch-chip">Web Servers</span><span class="arch-chip">Databases</span><span class="arch-chip">Applications</span></section>
+  <section class="arch-tier" data-label="IoT VLAN 40" role="group" aria-label="IoT VLAN 40"><span class="arch-chip is-warn">IP Cameras</span><span class="arch-chip is-warn">Smart Devices</span><span class="arch-chip is-warn">IoT Sensors</span></section>
+  <section class="arch-tier" data-label="Guest VLAN 50" role="group" aria-label="Guest VLAN 50"><span class="arch-chip is-bad">Guest Devices</span></section>
+  <section class="arch-tier" data-label="Security Services" role="group" aria-label="Security Services"><span class="arch-chip is-guard">Firewall Rules</span><span class="arch-chip is-guard">Suricata IDS</span><span class="arch-chip is-guard">Pi-hole DNS</span></section>
 </div>
 <figcaption>The firewall mediates traffic between peer VLAN zones, with IDS and DNS controls attached as shared security services.</figcaption>
 </figure>

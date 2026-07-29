@@ -21,11 +21,11 @@ I run local LLMs up to 34B parameters on my RTX 3090 (24GB VRAM), completely off
 ## Local LLM Architecture
 
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="Local LLM deployment architecture">
-  <section class="arch-tier" data-label="Hardware"><span class="arch-chip is-primary">GPU/TPU</span><span class="arch-chip">CPU</span><span class="arch-chip">Memory</span></section>
-  <section class="arch-tier" data-label="Model Layer"><span class="arch-chip">Model Files</span><span class="arch-chip">Weights</span><span class="arch-chip">Configuration</span></section>
-  <section class="arch-tier" data-label="Inference"><span class="arch-chip is-primary">Inference Engine</span><span class="arch-chip">Token Cache</span><span class="arch-chip">Batch Processing</span></section>
-  <section class="arch-tier" data-label="Interface"><span class="arch-chip is-primary">REST API</span><span class="arch-chip">Web UI</span><span class="arch-chip">CLI Tool</span></section>
+<div class="arch is-stack" role="group" aria-label="Local LLM deployment architecture">
+  <section class="arch-tier" data-label="Hardware" role="group" aria-label="Hardware"><span class="arch-chip is-primary">GPU/TPU</span><span class="arch-chip">CPU</span><span class="arch-chip">Memory</span></section>
+  <section class="arch-tier" data-label="Model Layer" role="group" aria-label="Model Layer"><span class="arch-chip">Model Files</span><span class="arch-chip">Weights</span><span class="arch-chip">Configuration</span></section>
+  <section class="arch-tier" data-label="Inference" role="group" aria-label="Inference"><span class="arch-chip is-primary">Inference Engine</span><span class="arch-chip">Token Cache</span><span class="arch-chip">Batch Processing</span></section>
+  <section class="arch-tier" data-label="Interface" role="group" aria-label="Interface"><span class="arch-chip is-primary">REST API</span><span class="arch-chip">Web UI</span><span class="arch-chip">CLI Tool</span></section>
 </div>
 <figcaption>Hardware and model files feed the inference engine, which exposes batch output through local API, web, and CLI interfaces.</figcaption>
 </figure>

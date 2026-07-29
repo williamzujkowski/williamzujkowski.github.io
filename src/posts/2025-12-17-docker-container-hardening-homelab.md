@@ -28,7 +28,7 @@ Container security isn't binary. You can't just "enable security" and assume you
 - **Network segmentation** contains lateral movement
 - **Resource limits** stop resource exhaustion attacks
 
-<div class="flow">
+<div class="flow" role="group" aria-label="Container defense-in-depth layers">
   <div class="flow-node is-bad">Attacker</div>
   <div class="flow-node"><b>Layer 1: Minimal Base Images</b><i>reduced attack surface</i></div>
   <div class="flow-node"><b>Layer 2: User Namespaces</b><i>no real root privileges</i></div>
@@ -273,10 +273,10 @@ docker run \
 ## Layer 7: Network Segmentation
 
 <figure class="arch-fig">
-<div class="arch" aria-label="Docker frontend and backend network zones">
-  <section class="arch-tier" data-label="Internet Edge"><span class="arch-chip">Internet</span><span class="arch-chip">Load Balancer</span></section>
-  <section class="arch-tier" data-label="frontend-network - 172.20.1.0/24"><span class="arch-chip">Nginx Reverse Proxy</span><span class="arch-chip is-primary">Web Application</span></section>
-  <section class="arch-tier" data-label="backend-network - 172.20.2.0/24 (internal)"><span class="arch-chip is-primary">API Server</span><span class="arch-chip is-guard">PostgreSQL</span><span class="arch-chip is-guard">Redis</span></section>
+<div class="arch" role="group" aria-label="Docker frontend and backend network zones">
+  <section class="arch-tier" data-label="Internet Edge" role="group" aria-label="Internet Edge"><span class="arch-chip">Internet</span><span class="arch-chip">Load Balancer</span></section>
+  <section class="arch-tier" data-label="frontend-network - 172.20.1.0/24" role="group" aria-label="frontend-network - 172.20.1.0/24"><span class="arch-chip">Nginx Reverse Proxy</span><span class="arch-chip is-primary">Web Application</span></section>
+  <section class="arch-tier" data-label="backend-network - 172.20.2.0/24 (internal)" role="group" aria-label="backend-network - 172.20.2.0/24 (internal)"><span class="arch-chip is-primary">API Server</span><span class="arch-chip is-guard">PostgreSQL</span><span class="arch-chip is-guard">Redis</span></section>
 </div>
 <figcaption>The frontend can reach the API on port 8080; direct Nginx-to-database and internet-to-backend paths stay blocked.</figcaption>
 </figure>
@@ -340,7 +340,7 @@ docker run \
 
 ## Implementation Strategy
 
-<div class="flow">
+<div class="flow" role="group" aria-label="Container hardening rollout plan">
   <div class="flow-node"><b>Week 1</b><i>Base Images + Resource Limits; Low disruption</i></div>
   <div class="flow-node"><b>Week 2</b><i>User Namespaces</i></div>
   <div class="flow-node"><b>Week 3</b><i>Cap Drop + Read-Only FS; Medium disruption</i></div>

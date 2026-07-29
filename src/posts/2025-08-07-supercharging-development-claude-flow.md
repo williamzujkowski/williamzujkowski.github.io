@@ -48,10 +48,10 @@ Claude-Flow supports multiple swarm topologies, each optimized for different sce
 ## System Architecture Overview
 
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="Claude-Flow swarm architecture">
-  <section class="arch-tier" data-label="Swarm Topologies"><span class="arch-chip">Mesh - P2P Collaboration</span><span class="arch-chip">Hierarchical - Queen/Worker</span><span class="arch-chip">Ring - Sequential Pipeline</span><span class="arch-chip">Star - Centralized Control</span></section>
-  <section class="arch-tier" data-label="Core Agents"><span class="arch-chip is-primary">🎭 Orchestrator</span><span class="arch-chip">🔍 Researcher</span><span class="arch-chip">🏗️ Architect</span><span class="arch-chip">💻 Coder</span><span class="arch-chip">🧪 Tester</span></section>
-  <section class="arch-tier" data-label="Intelligence Layer"><span class="arch-chip is-guard">💾 Persistent Memory</span><span class="arch-chip is-guard">🧠 Neural Training</span><span class="arch-chip is-guard">🔄 Pattern Recognition</span></section>
+<div class="arch is-stack" role="group" aria-label="Claude-Flow swarm architecture">
+  <section class="arch-tier" data-label="Swarm Topologies" role="group" aria-label="Swarm Topologies"><span class="arch-chip">Mesh - P2P Collaboration</span><span class="arch-chip">Hierarchical - Queen/Worker</span><span class="arch-chip">Ring - Sequential Pipeline</span><span class="arch-chip">Star - Centralized Control</span></section>
+  <section class="arch-tier" data-label="Core Agents" role="group" aria-label="Core Agents"><span class="arch-chip is-primary">🎭 Orchestrator</span><span class="arch-chip">🔍 Researcher</span><span class="arch-chip">🏗️ Architect</span><span class="arch-chip">💻 Coder</span><span class="arch-chip">🧪 Tester</span></section>
+  <section class="arch-tier" data-label="Intelligence Layer" role="group" aria-label="Intelligence Layer"><span class="arch-chip is-guard">💾 Persistent Memory</span><span class="arch-chip is-guard">🧠 Neural Training</span><span class="arch-chip is-guard">🔄 Pattern Recognition</span></section>
 </div>
 <figcaption>Topology choices feed the orchestrator, which coordinates specialized agents and writes learning back into the intelligence layer.</figcaption>
 </figure>
@@ -104,7 +104,7 @@ Memory persistence adds overhead, and token costs scale with context size.
 
 ## SPARC Development Methodology
 
-<div class="flow">
+<div class="flow" role="group" aria-label="SPARC development methodology">
   <div class="flow-node"><b>📋 Specification</b><i>Define Requirements</i></div>
   <div class="flow-node"><b>🔢 Pseudocode</b><i>Design Algorithms</i></div>
   <div class="flow-node"><b>🏛️ Architecture</b><i>System Structure</i></div>

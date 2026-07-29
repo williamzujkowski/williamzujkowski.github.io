@@ -25,7 +25,7 @@ I built an automated security pipeline that scans every commit with Grype, OSV-S
 
 ⚠️ **Warning:** Security scanning pipelines must be configured with appropriate policies and approval gates. Automated remediation should include review processes for production environments.
 
-<div class="flow" aria-label="Automated security scanning pipeline">
+<div class="flow" role="group" aria-label="Automated security scanning pipeline">
   <div class="flow-parallel">
     <div class="flow-node">Git Push</div>
     <div class="flow-node">Pull Request</div>
@@ -47,8 +47,8 @@ I built an automated security pipeline that scans every commit with Grype, OSV-S
   </div>
   <div class="flow-node is-gate">Quality Gates</div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Critical"><div class="flow-node is-bad">Block on Critical</div></div>
-    <div class="flow-leg" data-branch="Review"><div class="flow-node">Manual Review</div></div>
+    <div class="flow-leg" data-branch="Critical" role="group" aria-label="Critical"><div class="flow-node is-bad">Block on Critical</div></div>
+    <div class="flow-leg" data-branch="Review" role="group" aria-label="Review"><div class="flow-node">Manual Review</div></div>
   </div>
 </div>
 
@@ -84,7 +84,7 @@ I installed all three scanners on my Ubuntu 22.04 homelab server. The process to
 
 The pipeline orchestrates three scanners in parallel with a final quality gate:
 
-<div class="flow">
+<div class="flow" role="group" aria-label="GitHub Actions security scanning pipeline">
   <div class="flow-node">Git Push / PR</div>
   <div class="flow-node is-gate">Trigger Pipeline</div>
   <div class="flow-parallel">
@@ -95,8 +95,8 @@ The pipeline orchestrates three scanners in parallel with a final quality gate:
   <div class="flow-node">Upload SARIF</div>
   <div class="flow-node is-gate">Security Gate</div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Pass"><div class="flow-node is-good">Deploy</div></div>
-    <div class="flow-leg" data-branch="Critical"><div class="flow-node is-bad">Block &amp; Alert</div></div>
+    <div class="flow-leg" data-branch="Pass" role="group" aria-label="Pass"><div class="flow-node is-good">Deploy</div></div>
+    <div class="flow-leg" data-branch="Critical" role="group" aria-label="Critical"><div class="flow-node is-bad">Block &amp; Alert</div></div>
   </div>
 </div>
 
