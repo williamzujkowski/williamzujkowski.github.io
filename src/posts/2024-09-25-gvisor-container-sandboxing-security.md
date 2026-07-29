@@ -350,19 +350,19 @@ docker run --rm --runtime=runsc alpine sh -c "echo 'exploit' | tee /proc/self/me
 <div class="flow" role="group" aria-label="Container runtime selection decision path">
   <div class="flow-node">New Workload</div>
   <div class="flow-node is-gate">Untrusted image?</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good">Use gVisor</div></div>
     <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node is-gate">Internet-facing?</div></div>
   </div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good">Use gVisor</div></div>
     <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node is-gate">Needs native performance?</div></div>
   </div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node">Use runc</div></div>
     <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node is-gate">Syscall-heavy?</div></div>
   </div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node">Use runc</div></div>
     <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node"><b>Use runc</b><i>principle of least surprise</i></div></div>
   </div>

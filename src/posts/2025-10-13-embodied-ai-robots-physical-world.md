@@ -39,7 +39,7 @@ That gap is closing. VLA models combine three capabilities:
   <div class="flow-node">Text Output</div>
 </div>
 <div class="flow" role="group" aria-label="Vision-Language-Action model path">
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node">Visual Input</div>
     <div class="flow-node">Language Input</div>
   </div>

@@ -42,7 +42,7 @@ These findings led to two design decisions: role-based agent assignment with rou
 <div class="flow" role="group" aria-label="Consensus voting decision workflow">
   <div class="flow-node">Proposal Text</div>
   <div class="flow-node">Round-Robin Model Assignment</div>
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node">Architect</div>
     <div class="flow-node">Security Engineer</div>
     <div class="flow-node">DevEx Advocate</div>
@@ -51,7 +51,7 @@ These findings led to two design decisions: role-based agent assignment with rou
   </div>
   <div class="flow-node">Vote Aggregation</div>
   <div class="flow-node is-gate">Strategy Threshold</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Met" role="group" aria-label="Met"><div class="flow-node is-good">APPROVED</div></div>
     <div class="flow-leg" data-branch="Not Met" role="group" aria-label="Not Met"><div class="flow-node is-bad">REJECTED</div></div>
   </div>

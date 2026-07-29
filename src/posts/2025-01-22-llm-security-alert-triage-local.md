@@ -53,7 +53,7 @@ names, internal network topology. Local LLM inference keeps all data in homelab.
   <div class="flow-node"><b>Alert Processor</b><i>Python prompt</i></div>
   <div class="flow-node"><b>Ollama Server</b><i>local LLM; NVIDIA GPU inference, 8GB VRAM</i></div>
   <div class="flow-node"><b>SQLite</b><i>alert DB classification</i></div>
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node is-bad"><b>Slack Notification</b><i>high priority</i></div>
     <div class="flow-node"><b>Grafana Dashboard</b><i>all alerts</i></div>
   </div>

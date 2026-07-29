@@ -51,7 +51,7 @@ PromSketch sits between Grafana and Prometheus as a caching proxy. It uses proba
   <div class="flow-node">PromSketch Proxy</div>
   <div class="flow-node">Query Optimizer</div>
   <div class="flow-node is-gate">Sketch-eligible?</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good"><b>Sketch Cache</b><i>approximation</i></div></div>
     <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node"><b>Prometheus</b><i>exact data</i></div></div>
   </div>

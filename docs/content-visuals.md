@@ -25,10 +25,10 @@ Class contract:
 <div class="flow" role="group" aria-label="Short diagram purpose">
   <div class="flow-node">Step</div>
   <div class="flow-node is-gate">Decision / gate</div>
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node">Parallel step</div>
   </div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Pass" role="group" aria-label="Pass">
       <div class="flow-node is-good">Good result</div>
     </div>
@@ -55,14 +55,14 @@ Copy-paste example:
 <div class="flow" role="group" aria-label="Security scanning pipeline">
   <div class="flow-node">Git Push / PR</div>
   <div class="flow-node is-gate">Trigger Pipeline</div>
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>OSV</b><i>dependency scan</i></div>
     <div class="flow-node"><b>Grype</b><i>container scan</i></div>
     <div class="flow-node"><b>Trivy</b><i>filesystem scan</i></div>
   </div>
   <div class="flow-node">Upload SARIF</div>
   <div class="flow-node is-gate">Security Gate</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Pass" role="group" aria-label="Pass"><div class="flow-node is-good">Deploy</div></div>
     <div class="flow-leg" data-branch="Critical" role="group" aria-label="Critical"><div class="flow-node is-bad">Block &amp; Alert</div></div>
   </div>

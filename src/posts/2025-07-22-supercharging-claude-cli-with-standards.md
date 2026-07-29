@@ -114,7 +114,7 @@ The standards system works through a context-aware loading pipeline that detects
   <div class="flow-node">Context Detection</div>
   <div class="flow-node"><b>Parse Project Signals</b><i>files, imports, config</i></div>
   <div class="flow-node is-gate">Standard Matching Engine</div>
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>CS:python</b><i>CS:api</i></div>
     <div class="flow-node"><b>SEC:auth</b><i>SEC:payments</i></div>
     <div class="flow-node">TS:integration</div>

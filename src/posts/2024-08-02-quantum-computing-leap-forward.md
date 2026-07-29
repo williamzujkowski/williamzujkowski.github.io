@@ -19,14 +19,14 @@ That learning experience taught me something critical. Quantum computing isn't j
 ## How It Works
 
 <div class="flow" role="group" aria-label="Two-qubit quantum circuit path">
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node">Qubit 0: Zero State</div>
     <div class="flow-node">Qubit 1: Zero State</div>
   </div>
   <div class="flow-node">Hadamard Gate</div>
   <div class="flow-node">CNOT Gate</div>
   <div class="flow-node is-gate">Measurement</div>
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node">Classical Bit 0</div>
     <div class="flow-node">Classical Bit 1</div>
   </div>

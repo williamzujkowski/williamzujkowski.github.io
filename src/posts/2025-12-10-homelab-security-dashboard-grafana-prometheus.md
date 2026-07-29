@@ -336,11 +336,11 @@ groups:
   <div class="flow-node">Security Event</div>
   <div class="flow-node">Prometheus Evaluates Rules</div>
   <div class="flow-node is-gate">Exceeds Threshold?</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node">Log Only - Info</div></div>
     <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-gate">Severity?</div></div>
   </div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Critical" role="group" aria-label="Critical"><div class="flow-node is-bad"><b>Immediate Notification</b><i>webhook, respond now</i></div></div>
     <div class="flow-leg" data-branch="Warning" role="group" aria-label="Warning"><div class="flow-node"><b>Hourly Summary Batch</b><i>investigate within 4h</i></div></div>
   </div>
@@ -506,14 +506,14 @@ def geolocate_ip(ip_address):
 ### Correlation Dashboard
 
 <div class="flow" role="group" aria-label="Security signal correlation workflow">
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node">SSH Failed Logins</div>
     <div class="flow-node">Port Scans</div>
     <div class="flow-node">DNS Anomalies</div>
     <div class="flow-node">Unusual Processes</div>
   </div>
   <div class="flow-node is-gate"><b>Correlation Engine</b><i>PromQL join on source_ip</i></div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="1 signal" role="group" aria-label="1 signal"><div class="flow-node">Opportunistic Scan</div></div>
     <div class="flow-leg" data-branch="2 signals" role="group" aria-label="2 signals"><div class="flow-node">Targeted Probe</div></div>
     <div class="flow-leg" data-branch="3+ signals" role="group" aria-label="3+ signals"><div class="flow-node is-bad">Active Compromise</div></div>

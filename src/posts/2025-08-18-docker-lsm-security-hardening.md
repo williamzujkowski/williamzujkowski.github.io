@@ -43,7 +43,7 @@ FS privilege escalation
   <div class="flow-node is-gate">LSM Hooks</div>
   <div class="flow-node is-gate">Seccomp BPF</div>
   <div class="flow-node is-gate">Capability Check</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Denied" role="group" aria-label="Denied"><div class="flow-node is-bad"><b>EACCES / EPERM</b><i>operation blocked</i></div></div>
     <div class="flow-leg" data-branch="Allowed" role="group" aria-label="Allowed"><div class="flow-node is-good">Execute Syscall</div></div>
   </div>

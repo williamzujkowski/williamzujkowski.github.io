@@ -27,19 +27,19 @@ According to [Giuseppe Riva's groundbreaking research](https://arxiv.org/abs/250
 
 <figure class="arch-fig">
 <div class="flow" role="group" aria-label="Traditional infrastructure enablement path">
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>Physical Roads</b><i>enable commerce</i></div>
     <div class="flow-node"><b>Electricity Grid</b><i>powers industry</i></div>
     <div class="flow-node"><b>Telecommunications</b><i>enable communication</i></div>
   </div>
 </div>
 <div class="flow" role="group" aria-label="Cognitive infrastructure mediation path">
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node">AI Systems</div>
     <div class="flow-node">Machine Learning</div>
     <div class="flow-node">Natural Language Processing</div>
   </div>
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node">Memory</div>
     <div class="flow-node">Decision Making</div>
     <div class="flow-node">Analysis</div>
@@ -96,12 +96,12 @@ The concept of "epistemic agency" (your ability to determine what's true and rel
 <div class="flow" role="group" aria-label="AI-mediated information access path">
   <div class="flow-node">User Query/Interest</div>
   <div class="flow-node is-gate">AI Analysis</div>
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>Relevance Filtering</b><i>visible options / hidden options</i></div>
     <div class="flow-node"><b>Priority Ranking</b><i>first results / later results</i></div>
     <div class="flow-node"><b>Personalization</b><i>filter bubble / echo chamber</i></div>
   </div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Seen" role="group" aria-label="Seen"><div class="flow-node is-good">User Decision</div></div>
     <div class="flow-leg" data-branch="Filtered" role="group" aria-label="Filtered"><div class="flow-node is-bad"><b>Lost Possibilities</b><i>never seen or rarely seen</i></div></div>
     <div class="flow-leg" data-branch="Reinforced" role="group" aria-label="Reinforced"><div class="flow-node">Echo Chamber</div></div>

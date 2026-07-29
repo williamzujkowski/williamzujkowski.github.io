@@ -305,14 +305,14 @@ The integration between quantum and classical HPC systems has evolved rapidly ov
 <div class="flow" role="group" aria-label="Quantum-classical hybrid solving path">
   <div class="flow-node">Problem Definition</div>
   <div class="flow-node"><b>Classical Preprocessor</b><i>Problem Decomposition</i></div>
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>Classical Solver</b><i>Standard Subproblems</i></div>
     <div class="flow-node"><b>Quantum Circuit Compiler</b><i>Quantum-Suitable Subproblems</i></div>
   </div>
   <div class="flow-node"><b>Quantum Processor</b><i>VQE / QAOA Execution</i></div>
   <div class="flow-node"><b>Error Mitigation</b><i>Zero-Noise Extrapolation</i></div>
   <div class="flow-node is-gate">Converged?</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node is-gate"><b>Repeat Quantum Compile</b><i>run another iteration</i></div></div>
     <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good"><b>Result Aggregation</b><i>Final Solution</i></div></div>
   </div>
