@@ -91,7 +91,7 @@ Select provider or enter custom: [https://dns.google/dns-query](https://dns.goog
 
 For system-wide protection, I use `cloudflared`:
 
-<script src="https://gist.github.com/williamzujkowski/9ca841f8bdea7bced7c797ee2cfa5597.js"></script>
+🔖 [System-wide DoH setup with cloudflared ↗](https://gist.github.com/williamzujkowski/9ca841f8bdea7bced7c797ee2cfa5597)
 
 ### Windows DoH Setup
 
@@ -161,7 +161,7 @@ sudo systemctl enable dnsdist && sudo systemctl start dnsdist
 
 ### Verify DoH is Working
 
-<script src="https://gist.github.com/williamzujkowski/82e4d29a006b6fc5b20b881760d6deb9.js"></script>
+🔖 [DNS-over-HTTPS validation and monitoring tools ↗](https://gist.github.com/williamzujkowski/82e4d29a006b6fc5b20b881760d6deb9)
 
 ### Performance Monitoring
 
@@ -195,7 +195,7 @@ Provider Comparison:
 
 Ensure all DNS queries use DoH:
 
-<script src="https://gist.github.com/williamzujkowski/48bd7c6e1d18e0d12cfcad67ff4a644c.js"></script>
+🔖 [DNS-over-HTTPS bypass prevention rules ↗](https://gist.github.com/williamzujkowski/48bd7c6e1d18e0d12cfcad67ff4a644c)
 
 ### 3. Certificate Pinning
 
@@ -203,7 +203,7 @@ For self-hosted DoH, implement certificate pinning (see Python script in the sec
 
 ## Troubleshooting Common Issues
 
-<script src="https://gist.github.com/williamzujkowski/365d9b3a0dc812e93ec8177e5bf84922.js"></script>
+🔖 [DNS-over-HTTPS troubleshooting configurations ↗](https://gist.github.com/williamzujkowski/365d9b3a0dc812e93ec8177e5bf84922)
 
 ### 1. Slow Initial Queries
 
@@ -219,7 +219,7 @@ Some corporate networks block DoH. See the corporate network detection script in
 
 ## Advanced Configurations
 
-<script src="https://gist.github.com/williamzujkowski/8749d27f31c0c222e79033fc978069bd.js"></script>
+🔖 [Advanced DNS-over-HTTPS routing configurations ↗](https://gist.github.com/williamzujkowski/8749d27f31c0c222e79033fc978069bd)
 
 ### Load Balancing Multiple DoH Providers
 

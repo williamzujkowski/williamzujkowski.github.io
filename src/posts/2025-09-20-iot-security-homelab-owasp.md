@@ -48,7 +48,7 @@ Here's my home lab IoT security setup using VLANs and a dedicated analysis subne
 
 These tools catch the common IoT vulnerability classes well. For additional automation approaches, check out my post on [automating home network security with Python](/posts/2025-02-10-automating-home-network-security). The complete lab setup script includes tool installation, IoTGoat deployment, and firmware analysis commands:
 
-<script src="https://gist.github.com/williamzujkowski/680213bdd6d4a52ef369d1f2801cb9b4.js"></script>
+🔖 [IoTGoat lab setup and firmware analysis script ↗](https://gist.github.com/williamzujkowski/680213bdd6d4a52ef369d1f2801cb9b4)
 
 ## Deploying OWASP IoTGoat
 
@@ -66,7 +66,7 @@ I ran a password audit on my 23 IoT devices. Eight were still using default cred
 
 Here's a toolkit for testing IoT vulnerabilities including default credentials, MQTT discovery, and command injection:
 
-<script src="https://gist.github.com/williamzujkowski/8d96ac97bbb24da06b9b381c4b46b441.js"></script>
+🔖 [IoT vulnerability testing toolkit ↗](https://gist.github.com/williamzujkowski/8d96ac97bbb24da06b9b381c4b46b441)
 
 ### 2. Insecure MQTT Communications
 
@@ -171,7 +171,7 @@ The **trade-off** between usability and security is constant in IoT. Manufacture
 
 Here's a practical monitoring setup I use in my home lab for real-time packet analysis and anomaly detection. This complements the network traffic analysis techniques I cover in my [Suricata lab guide](/posts/2025-08-25-network-traffic-analysis-suricata-homelab):
 
-<script src="https://gist.github.com/williamzujkowski/369cedae8893df3807bc6fb66870c8e8.js"></script>
+🔖 [IoT packet analysis and anomaly detection setup ↗](https://gist.github.com/williamzujkowski/369cedae8893df3807bc6fb66870c8e8)
 
 ## Lessons Learned
 

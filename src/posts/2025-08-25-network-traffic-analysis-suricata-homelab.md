@@ -71,7 +71,7 @@ I run Suricata on my Dell R910 with:
 
 ### Installing Suricata
 
-<script src="https://gist.github.com/williamzujkowski/ac871dd21758d0f1f44986c4ee6e21e7.js"></script>
+🔖 [Suricata installation and configuration script ↗](https://gist.github.com/williamzujkowski/ac871dd21758d0f1f44986c4ee6e21e7)
 
 ## Writing Custom Suricata Rules
 
@@ -89,15 +89,15 @@ action protocol source_ip source_port -> dest_ip dest_port (rule options)
 
 One particularly valuable use case is detecting suspicious IoT device behavior — the kind that got this whole project started. After working through [lessons from OWASP IoTGoat on IoT security](/posts/2025-09-20-iot-security-homelab-owasp), I developed custom rules to catch the most common IoT attack patterns:
 
-<script src="https://gist.github.com/williamzujkowski/fdd48db6a837ca02c00c79f7c4fd6cde.js"></script>
+🔖 [Custom Suricata IoT detection rules ↗](https://gist.github.com/williamzujkowski/fdd48db6a837ca02c00c79f7c4fd6cde)
 
 ## Testing and Validation
 
-<script src="https://gist.github.com/williamzujkowski/55bec7428ee6cb7ba25a59a6aabca57d.js"></script>
+🔖 [Suricata testing and validation workflow ↗](https://gist.github.com/williamzujkowski/55bec7428ee6cb7ba25a59a6aabca57d)
 
 ## Integration with SIEM
 
-<script src="https://gist.github.com/williamzujkowski/4f6b12b16ec06c596b3baefe837ecf95.js"></script>
+🔖 [Suricata SIEM integration configuration ↗](https://gist.github.com/williamzujkowski/4f6b12b16ec06c596b3baefe837ecf95)
 
 ## Visualization with Kibana
 
@@ -110,15 +110,15 @@ sudo filebeat setup --dashboards -E output.elasticsearch.hosts=["10.0.1.5:9200"]
 
 Custom visualization queries:
 
-<script src="https://gist.github.com/williamzujkowski/35c585bdda7f328093d18b40c29ccb22.js"></script>
+🔖 [Kibana visualization queries for Suricata ↗](https://gist.github.com/williamzujkowski/35c585bdda7f328093d18b40c29ccb22)
 
 ## Advanced Detection Techniques
 
-<script src="https://gist.github.com/williamzujkowski/a6630cefcbe03030515d0b3310251b7a.js"></script>
+🔖 [Advanced Suricata detection techniques ↗](https://gist.github.com/williamzujkowski/a6630cefcbe03030515d0b3310251b7a)
 
 ## Operational Best Practices
 
-<script src="https://gist.github.com/williamzujkowski/d370286436bb31c998340c63afe8e501.js"></script>
+🔖 [Suricata operational best practices ↗](https://gist.github.com/williamzujkowski/d370286436bb31c998340c63afe8e501)
 
 ## Rule Update Security (CRITICAL)
 
