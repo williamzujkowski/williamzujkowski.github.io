@@ -70,6 +70,26 @@ ACCENT_CANDIDATES = [
 FG_ON_BG_FLOOR = 7.0      # AAA body text
 ACCENT_FLOOR = 4.5        # links / interactive
 MUTED_FLOOR = 4.5         # meta text is still text
+TEXT_FLOOR = 4.5          # syntax and state labels
+BORDER_FLOOR = 3.0        # WCAG 1.4.11 non-text contrast
+CONTRAST_MARGIN = 0.03    # survive CSS rounding without visible overcorrection
+
+STATE_SLOTS = {
+    "--color-error": "red",
+    "--color-success": "green",
+    "--color-warning": "yellow",
+}
+
+SYNTAX_SLOTS = {
+    "--color-syntax-keyword": "blue",
+    "--color-syntax-string": "green",
+    "--color-syntax-constant": "yellow",
+    "--color-syntax-comment": "brightBlack",
+    "--color-syntax-function": "purple",
+    "--color-syntax-type": "cyan",
+    "--color-syntax-punctuation": "brightBlack",
+    "--color-syntax-variable": "foreground",
+}
 
 
 # --- oklch -> sRGB (standard Björn Ottosson matrices) ---------------------
@@ -111,19 +131,84 @@ def css(lch):
     return f"oklch({l:.4f} {c:.4f} {h:.1f})"
 
 
+def rounded(lch):
+    l, c, h = lch
+    return (round(l, 4), round(c, 4), round(h % 360, 1))
+
+
 def as_lch(color):
     o = color["oklch"]
     return (o["l"], o["c"], o["h"])
 
 
-def find_mix_share(fg, bg, start_share, floor):
-    """Smallest fg share >= start_share whose mix clears the contrast floor."""
-    share = start_share
-    while share <= 1.0:
-        if contrast(mix(fg, bg, share), bg) >= floor:
-            return share
-        share += 0.05
-    raise SystemExit(f"cannot reach contrast {floor} even at 100% fg")
+def find_precise_mix_share(fg, bg, start_share, floor):
+    """Minimal fg share >= start_share whose rounded mix clears the floor."""
+    if contrast(rounded(mix(fg, bg, start_share)), bg) >= floor:
+        return start_share
+    lo, hi = start_share, 1.0
+    if contrast(rounded(mix(fg, bg, hi)), bg) < floor:
+        raise SystemExit(f"cannot reach contrast {floor} even at 100% fg")
+    target = floor + CONTRAST_MARGIN
+    for _ in range(40):
+        mid = (lo + hi) / 2
+        if contrast(rounded(mix(fg, bg, mid)), bg) >= target:
+            hi = mid
+        else:
+            lo = mid
+    return hi
+
+
+def solve_contrast_lch(lch, backgrounds, floor):
+    """Adjust OKLCH lightness only, preserving hue/chroma, until all floors pass."""
+    candidate = rounded(lch)
+    if all(contrast(candidate, bg) >= floor for bg in backgrounds):
+        return candidate
+
+    bg_lum = sum(luminance(bg) for bg in backgrounds) / len(backgrounds)
+    lighten = bg_lum < 0.5
+    l, c, h = lch
+    target = floor + CONTRAST_MARGIN
+
+    def passes(value):
+        return all(contrast(value, bg) >= target for bg in backgrounds)
+
+    extreme_l = 1.0 if lighten else 0.0
+    if not passes(rounded((extreme_l, c, h))):
+        # Some high-chroma hues clip hard near L=0/L=1. Preserve chroma
+        # unless that clipping makes the contrast floor unreachable, then
+        # reduce chroma only enough for the lightness solve to work.
+        lo_c, hi_c = 0.0, c
+        if not passes(rounded((extreme_l, lo_c, h))):
+            direction = "lightening" if lighten else "darkening"
+            raise SystemExit(f"{css(lch)} cannot reach contrast {floor}:1 by {direction}")
+        for _ in range(40):
+            mid_c = (lo_c + hi_c) / 2
+            if passes(rounded((extreme_l, mid_c, h))):
+                lo_c = mid_c
+            else:
+                hi_c = mid_c
+        c = lo_c
+
+    if lighten:
+        lo, hi = l, 1.0
+        for _ in range(48):
+            mid = (lo + hi) / 2
+            trial = rounded((mid, c, h))
+            if passes(trial):
+                hi = mid
+            else:
+                lo = mid
+        return rounded((hi, c, h))
+
+    lo, hi = 0.0, l
+    for _ in range(48):
+        mid = (lo + hi) / 2
+        trial = rounded((mid, c, h))
+        if passes(trial):
+            lo = mid
+        else:
+            hi = mid
+    return rounded((lo, c, h))
 
 
 def deepen(lch, fg, bg):
@@ -166,6 +251,31 @@ def pick_accent(colors, bg, fg, slug):
     return accent[3], hover, accent[2]
 
 
+def validate_theme_tokens(slug, tokens):
+    checks = [
+        ("--color-fg", "--color-bg", FG_ON_BG_FLOOR),
+        ("--color-fg-muted", "--color-bg", MUTED_FLOOR),
+        ("--color-muted", "--color-bg", MUTED_FLOOR),
+        ("--color-accent", "--color-bg", ACCENT_FLOOR),
+        ("--color-accent-hover", "--color-bg", ACCENT_FLOOR),
+        ("--color-code-fg", "--color-code-bg", TEXT_FLOOR),
+        ("--color-border", "--color-bg", BORDER_FLOOR),
+        ("--color-border-bold", "--color-bg", BORDER_FLOOR),
+    ]
+    checks += [(token, "--color-bg", TEXT_FLOOR) for token in STATE_SLOTS]
+    checks += [(token, "--color-surface", TEXT_FLOOR) for token in STATE_SLOTS]
+    checks += [(token, "--color-code-bg", TEXT_FLOOR) for token in SYNTAX_SLOTS]
+    checks.append(("--color-syntax-link", "--color-code-bg", TEXT_FLOOR))
+
+    failures = []
+    for fg_token, bg_token, floor in checks:
+        ratio = contrast(tokens[fg_token], tokens[bg_token])
+        if ratio < floor:
+            failures.append(f"{fg_token}/{bg_token} = {ratio:.2f}:1 < {floor}:1")
+    if failures:
+        raise SystemExit(f"{slug}: contrast validation failed:\n  " + "\n  ".join(failures))
+
+
 def build_theme(t):
     colors = t["colors"]
     bg = as_lch(colors["background"])
@@ -178,12 +288,15 @@ def build_theme(t):
     if css(accent) == css(hover):
         raise SystemExit(f"{t['slug']}: accent and accent-hover are identical")
 
-    fg_muted = mix(fg, bg, find_mix_share(fg, bg, 0.70, MUTED_FLOOR))
-    muted = mix(fg, bg, find_mix_share(fg, bg, 0.55, MUTED_FLOOR))
+    fg_muted = mix(fg, bg, find_precise_mix_share(fg, bg, 0.70, MUTED_FLOOR))
+    muted = mix(fg, bg, find_precise_mix_share(fg, bg, 0.55, MUTED_FLOOR))
 
     selection = as_lch(colors["selection"])
     if contrast(fg, selection) < ACCENT_FLOOR:
         selection = mix(accent, bg, 0.25)  # dataset selection too close to fg — derive instead
+
+    surface = mix(fg, bg, 0.04)
+    code_bg = mix(fg, bg, 0.06)
 
     tokens = {
         "--color-bg": bg,
@@ -191,15 +304,25 @@ def build_theme(t):
         "--color-fg": fg,
         "--color-fg-muted": fg_muted,
         "--color-muted": muted,
-        "--color-border": mix(fg, bg, 0.15),
-        "--color-border-bold": mix(fg, bg, 0.40),
-        "--color-surface": mix(fg, bg, 0.04),
+        "--color-border": mix(fg, bg, find_precise_mix_share(fg, bg, 0.15, BORDER_FLOOR)),
+        "--color-border-bold": mix(fg, bg, find_precise_mix_share(fg, bg, 0.40, BORDER_FLOOR)),
+        "--color-surface": surface,
         "--color-accent": accent,
         "--color-accent-hover": hover,
-        "--color-code-bg": mix(fg, bg, 0.06),
+        "--color-code-bg": code_bg,
         "--color-code-fg": fg,
         "--color-selection-bg": selection,
     }
+
+    for token, slot in STATE_SLOTS.items():
+        tokens[token] = solve_contrast_lch(as_lch(colors[slot]), [bg, surface], TEXT_FLOOR)
+
+    for token, slot in SYNTAX_SLOTS.items():
+        tokens[token] = solve_contrast_lch(as_lch(colors[slot]), [code_bg], TEXT_FLOOR)
+    tokens["--color-syntax-link"] = solve_contrast_lch(accent, [code_bg], TEXT_FLOOR)
+
+    tokens = {k: rounded(v) for k, v in tokens.items()}
+    validate_theme_tokens(t["slug"], tokens)
 
     ansi = [css(as_lch(colors[s])) for s in
             ("black", "red", "green", "yellow", "blue", "purple", "cyan", "white")]
@@ -246,7 +369,8 @@ def main():
     lines = [
         "/* GENERATED by scripts/theme-deck/generate.py — do not edit by hand.",
         " * Token values are resolved oklch() literals, contrast-validated at",
-        " * generation time (fg/bg >= 7, accent & muted >= 4.5). */",
+        " * generation time (fg/bg >= 7, text/state/syntax/accent/muted >= 4.5,",
+        " * borders >= 3). */",
         "",
     ]
     for theme in built:
