@@ -126,32 +126,16 @@ I combine multiple isolation mechanisms for defense-in-depth. If attacker bypass
 
 **Security layers:**
 
-```mermaid
-flowchart TB
-    Container[Docker Container]
-
-    Container --> Layer1[Layer 1: AppArmor Profile\nFile system access control]
-    Layer1 --> Layer2[Layer 2: Seccomp Filter\nSyscall restrictions]
-    Layer2 --> Layer3[Layer 3: Capabilities\nRemove dangerous privileges]
-    Layer3 --> Layer4[Layer 4: User Namespaces\nNon-root UID mapping]
-    Layer4 --> Layer5[Layer 5: Read-Only Root FS\nImmutable container]
-
-    Attacker[Attacker with RCE]
-    Attacker -.->|Try to escape| Layer1
-    Layer1 -.->|Bypass AppArmor?| Layer2
-    Layer2 -.->|Bypass seccomp?| Layer3
-    Layer3 -.->|Bypass caps?| Layer4
-    Layer4 -.->|Bypass user NS?| Layer5
-    Layer5 -.->|Blocked| Host[Host Protected]
-
-    classDef layer fill:#3498db,color:#fff
-    classDef attack fill:#e74c3c,color:#fff
-    classDef safe fill:#2ecc71,color:#000
-
-    class Layer1,Layer2,Layer3,Layer4,Layer5 layer
-    class Attacker attack
-    class Host safe
-```
+<div class="flow">
+  <div class="flow-node">Docker Container</div>
+  <div class="flow-node is-bad"><b>Attacker with RCE</b><i>try to escape</i></div>
+  <div class="flow-node"><b>Layer 1: AppArmor Profile</b><i>file system access control</i></div>
+  <div class="flow-node"><b>Layer 2: Seccomp Filter</b><i>syscall restrictions</i></div>
+  <div class="flow-node"><b>Layer 3: Capabilities</b><i>remove dangerous privileges</i></div>
+  <div class="flow-node"><b>Layer 4: User Namespaces</b><i>non-root UID mapping</i></div>
+  <div class="flow-node"><b>Layer 5: Read-Only Root FS</b><i>immutable container</i></div>
+  <div class="flow-node is-good">Host Protected</div>
+</div>
 
 **How defense-in-depth works:**
 

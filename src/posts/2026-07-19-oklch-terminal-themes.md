@@ -67,17 +67,17 @@ The dataset also tags each theme with plain WCAG contrast ratios. `classify.ts` 
 
 For each curated theme, the script derives a dozen CSS tokens — muted text, borders, code background, accent, accent-hover — by mixing the theme's foreground and background in OKLCH space, with shortest-arc hue interpolation so a blend never takes the scenic route around the color wheel. Every derived token gets checked against the same floors as the source data. If a mixed color can't clear its floor, the script raises and the build fails. That's the actual payoff of all of this: not that OKLCH computes contrast for you (plain luminance math does that, color-space agnostic), but that colors nobody hand-picked stay predictable enough to gate a build on.
 
-```mermaid
-flowchart LR
-    U["12 upstream repos<br/>(sources.json, pinned SHAs)"] --> F["fetch-upstream.ts"]
-    F --> B["build.ts<br/>hex to OKLCH (culori)"]
-    B --> C["classify.ts<br/>WCAG tags, isDark, chroma"]
-    C --> V["validate.ts<br/>ΔE2000 < 1.0, Zod schema"]
-    V --> D[("themes.json<br/>545 records")]
-    D --> G["generate.py<br/>curate 12, contrast-validate"]
-    G --> T["theme-deck.json / theme-deck.css"]
-    T --> P["ThemeDeck.astro<br/>this site's header picker"]
-```
+<div class="flow">
+  <div class="flow-node"><b>12 upstream repos</b><i>sources.json, pinned SHAs</i></div>
+  <div class="flow-node">fetch-upstream.ts</div>
+  <div class="flow-node"><b>build.ts</b><i>hex to OKLCH (culori)</i></div>
+  <div class="flow-node"><b>classify.ts</b><i>WCAG tags, isDark, chroma</i></div>
+  <div class="flow-node"><b>validate.ts</b><i>ΔE2000 &lt; 1.0, Zod schema</i></div>
+  <div class="flow-node"><b>themes.json</b><i>545 records</i></div>
+  <div class="flow-node"><b>generate.py</b><i>curate 12, contrast-validate</i></div>
+  <div class="flow-node">theme-deck.json / theme-deck.css</div>
+  <div class="flow-node"><b>ThemeDeck.astro</b><i>this site's header picker</i></div>
+</div>
 
 Everything left of `themes.json` lives in the `oklch-terminal-themes` repo and runs weekly, unattended. Everything right of it lives in this repo and runs once per manual invocation — the part where 545 rows of somebody else's color choices turn into twelve you can actually click.
 

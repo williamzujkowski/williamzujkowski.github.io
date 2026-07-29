@@ -22,19 +22,16 @@ On paper, the system had everything — load balancers, database replicas, circu
 5. Circuit breakers open, but fallback services are also overwhelmed
 6. Total platform outage
 
-```mermaid
-flowchart TD
-    A["DB Timeout"] --> B["Connection Pools Fill Up"]
-    B --> C["Health Checks Fail"]
-    C --> D["Auto-Scaling Triggers"]
-    D --> E["New Instances Overwhelm DB"]
-    E --> F["Circuit Breakers Open"]
-    F --> G["Fallback Services Overwhelmed"]
-    G --> H["Total Platform Outage"]
-
-    style A fill:#e74c3c,color:#fff
-    style H fill:#c0392b,color:#fff
-```
+<div class="flow">
+  <div class="flow-node is-bad">DB Timeout</div>
+  <div class="flow-node">Connection Pools Fill Up</div>
+  <div class="flow-node">Health Checks Fail</div>
+  <div class="flow-node">Auto-Scaling Triggers</div>
+  <div class="flow-node">New Instances Overwhelm DB</div>
+  <div class="flow-node">Circuit Breakers Open</div>
+  <div class="flow-node">Fallback Services Overwhelmed</div>
+  <div class="flow-node is-bad">Total Platform Outage</div>
+</div>
 
 The postmortem revealed something uncomfortable: every safety mechanism *amplified* the original failure. Auto-scaling made it worse by piling more connections onto a dying database. Circuit breakers triggered, but their fallback services shared the same overwhelmed infrastructure. The "resilient" architecture had created a tightly-coupled system wearing a distributed costume.
 

@@ -122,25 +122,20 @@ git commit -m "Add user auth"
 
 The standards system works through a context-aware loading pipeline that detects what you are working on and serves relevant standards:
 
-```mermaid
-flowchart TD
-    INPUT["Developer Input<br/>'I'm building a secure API'"] --> DETECT["Context Detection"]
-    DETECT --> PARSE["Parse Project Signals<br/>(files, imports, config)"]
-    PARSE --> MATCH["Standard Matching Engine"]
-    MATCH --> CS["CS:python<br/>CS:api"]
-    MATCH --> SEC["SEC:auth<br/>SEC:payments"]
-    MATCH --> TS["TS:integration"]
-    MATCH --> COMP["COMPLIANCE:pci"]
-
-    CS --> COMPRESS["Token Compression<br/>5000 → 500 tokens"]
-    SEC --> COMPRESS
-    TS --> COMPRESS
-    COMP --> COMPRESS
-    COMPRESS --> CLI["Claude CLI<br/>Context Window"]
-
-    style COMPRESS fill:#27ae60,color:#fff
-    style CLI fill:#3498db,color:#fff
-```
+<div class="flow">
+  <div class="flow-node"><b>Developer Input</b><i>'I'm building a secure API'</i></div>
+  <div class="flow-node">Context Detection</div>
+  <div class="flow-node"><b>Parse Project Signals</b><i>files, imports, config</i></div>
+  <div class="flow-node is-gate">Standard Matching Engine</div>
+  <div class="flow-parallel">
+    <div class="flow-node"><b>CS:python</b><i>CS:api</i></div>
+    <div class="flow-node"><b>SEC:auth</b><i>SEC:payments</i></div>
+    <div class="flow-node">TS:integration</div>
+    <div class="flow-node">COMPLIANCE:pci</div>
+  </div>
+  <div class="flow-node is-good"><b>Token Compression</b><i>5000 → 500 tokens</i></div>
+  <div class="flow-node"><b>Claude CLI</b><i>Context Window</i></div>
+</div>
 
 ## My Favorite Features
 
@@ -339,19 +334,11 @@ curl -O [https://raw.githubusercontent.com/williamzujkowski/standards/master/doc
 
 The following diagram shows the evolution of CLAUDE.md and the standards system over six months:
 
-```mermaid
-flowchart LR
-    V1["v1.0<br/>120 lines<br/>Python only"] --> V2["v2.0<br/>~800 lines<br/>Multi-language"]
-    V2 --> V3["v3.0<br/>2,847 lines<br/>Full enforcement"]
-
-    V1 --- N1["87 violations found<br/>4.5 hrs to fix"]
-    V2 --- N2["312 flagged<br/>88% false positives"]
-    V3 --- N3["FP rate: 4%<br/>12s validation"]
-
-    style V1 fill:#e74c3c,color:#fff
-    style V2 fill:#f39c12,color:#fff
-    style V3 fill:#27ae60,color:#fff
-```
+<div class="flow">
+  <div class="flow-node is-bad"><b>v1.0</b><i>120 lines, Python only; 87 violations found, 4.5 hrs to fix</i></div>
+  <div class="flow-node"><b>v2.0</b><i>~800 lines, multi-language; 312 flagged, 88% false positives</i></div>
+  <div class="flow-node is-good"><b>v3.0</b><i>2,847 lines, full enforcement; FP rate: 4%, 12s validation</i></div>
+</div>
 
 ## Real-World Impact: The Numbers
 
