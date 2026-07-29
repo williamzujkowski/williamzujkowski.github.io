@@ -1,8 +1,8 @@
 # Agent Instructions
 
 **Status:** Authoritative
-**Last Updated:** 2026-04-22
-**Project:** Personal website and technical blog (Astro 6 + Svelte 5 + hand-written CSS / Remarque design tokens)
+**Last Updated:** 2026-07-29
+**Project:** Personal website and technical blog (Astro 7 + Svelte 5 + hand-written CSS / Remarque design tokens)
 
 This file is the canonical guidance for AI coding agents working in this repo (Claude Code, Codex, Cursor, Aider, etc.). Harness-specific entry points (e.g. `CLAUDE.md`) import this file — edit here, not there.
 
@@ -29,12 +29,11 @@ pnpm check           # Astro type checking
 
 ```
 ├── src/                       # Content collections (loaded by astro-site)
-│   ├── posts/                 # Blog posts (Markdown) — astro-site/src/content.config.ts globs ../src/posts
-│   └── projects/              # Project entries (Markdown)
-├── astro-site/                # Website source (Astro 6 + Svelte 5)
+│   └── posts/                 # Blog posts (Markdown) — astro-site/src/content.config.ts globs ../src/posts
+├── astro-site/                # Website source (Astro 7 + Svelte 5)
 │   ├── src/
 │   │   ├── components/        # Svelte & Astro components
-│   │   ├── content.config.ts  # Content collection schemas (points at ../src/posts, ../src/projects)
+│   │   ├── content.config.ts  # Content collection schemas (points at ../src/posts)
 │   │   ├── layouts/           # Page layouts (BaseLayout.astro)
 │   │   ├── pages/             # Route pages
 │   │   └── styles/            # Global CSS (hand-written; Remarque design tokens)
@@ -147,6 +146,7 @@ The old rule was right about precision and wrong to strip out the personality. K
 - Blog posts require frontmatter: title, date, description, tags
 - Citations required for technical claims (target 90%+ coverage)
 - Social images are generated per post at build time (`/og/<slug>.png`) — no hero-image frontmatter
+- **Visuals:** follow `docs/content-visuals.md` — `.flow` for processes, `.arch` for layers/zones, Markdown tables for matrices, split dense diagrams; Mermaid is legacy for genuine node graphs. Zine doodles must carry the idea visually (a specific metaphor), never a stamped label. All authored visuals use `var(--color-*)` tokens (never hardcoded colors), stay ≥0.8125rem, and reflow on mobile.
 - SEO: canonical URLs, Open Graph, Twitter Cards, structured data
 
 ---
