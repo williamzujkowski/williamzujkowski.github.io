@@ -835,17 +835,6 @@ article .prose > p:first-of-type::first-letter {
      markers, out of scope; they fall back to inherited foreground. */
 }
 
-/* Mermaid Diagrams — inline SVG, recolored via CSS custom properties
- * (rehypeMermaidThemeVars in astro.config.mjs) so ONE render adapts to
- * light, dark, and all 12 theme-deck palettes (issue #283 item 3).
- * `.scroll-wrap` (rehypeScrollWrap) already supplies overflow-x + the
- * margin-block this used to get from `.mermaid-themed`. */
-.prose :where(.scroll-wrap svg[id^='mermaid-']) {
-  display: block; max-width: 100%; height: auto;
-  margin: 0 auto; border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border);
-}
-
 /* ===== Native flow diagrams (issue #414) — theme-token HTML flows that
  * reshape wide Mermaid flowcharts into a vertical, phone-legible column.
  * Authored as raw HTML in posts (like .zine-doodle); no build step, real
