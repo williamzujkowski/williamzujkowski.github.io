@@ -38,12 +38,12 @@ Both use agent-based collection, centralized storage, and web UI. Architectures 
 **Wazuh architecture:**
 
 <div class="flow" role="group" aria-label="Wazuh log collection architecture">
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>Wazuh Agent</b><i>Host 1 logs</i></div>
     <div class="flow-node"><b>Wazuh Agent</b><i>Host 2 logs</i></div>
   </div>
   <div class="flow-node">Wazuh Manager</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Index" role="group" aria-label="Index"><div class="flow-node"><b>Wazuh Indexer</b><i>OpenSearch</i></div></div>
     <div class="flow-leg" data-branch="Alerts" role="group" aria-label="Alerts"><div class="flow-node"><b>Wazuh Dashboard</b><i>queries indexer</i></div></div>
   </div>
@@ -52,12 +52,12 @@ Both use agent-based collection, centralized storage, and web UI. Architectures 
 **Graylog architecture:**
 
 <div class="flow" role="group" aria-label="Graylog log collection architecture">
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>Filebeat</b><i>Host 1 syslog</i></div>
     <div class="flow-node"><b>Filebeat</b><i>Host 2 syslog</i></div>
   </div>
   <div class="flow-node">Graylog Server</div>
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>MongoDB</b><i>store</i></div>
     <div class="flow-node"><b>Elasticsearch</b><i>index</i></div>
     <div class="flow-node"><b>Graylog Web</b><i>search</i></div>

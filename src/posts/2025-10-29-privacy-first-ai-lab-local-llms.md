@@ -311,12 +311,12 @@ I use a separate Claude subscription for this blog writing. None of my sensitive
 
 <div class="flow" role="group" aria-label="Local versus cloud LLM routing decision">
   <div class="flow-node is-gate">What data are you processing?</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Sensitive / Regulated" role="group" aria-label="Sensitive / Regulated"><div class="flow-node is-good"><b>Local Processing</b><i>GPU hardware or CPU-only inference</i></div></div>
     <div class="flow-leg" data-branch="Public / Non-sensitive" role="group" aria-label="Public / Non-sensitive"><div class="flow-node"><b>Cloud Processing</b><i>Cloud API or managed service</i></div></div>
   </div>
   <div class="flow-node is-gate">Match budget and capability needs</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Local" role="group" aria-label="Local"><div class="flow-node is-good"><b>Harden</b><i>VLAN + encryption + DP + monitoring</i></div></div>
     <div class="flow-leg" data-branch="Cloud" role="group" aria-label="Cloud"><div class="flow-node"><b>Choose service</b><i>405B+ API or general managed use</i></div></div>
   </div>

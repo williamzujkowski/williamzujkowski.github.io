@@ -165,7 +165,7 @@ Choosing data center locations based on carbon intensity:
 The following diagram shows how carbon-aware workload scheduling interacts with renewable energy availability:
 
 <div class="flow" role="group" aria-label="Carbon-aware scheduling decision path">
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>Solar Generation</b><i>Peak: 11AM-3PM</i></div>
     <div class="flow-node"><b>Wind Generation</b><i>Peak: 2AM-6AM</i></div>
     <div class="flow-node"><b>Grid Electricity</b><i>Variable Carbon</i></div>
@@ -173,7 +173,7 @@ The following diagram shows how carbon-aware workload scheduling interacts with 
   <div class="flow-node"><b>Carbon Intensity API</b><i>WattTime</i></div>
   <div class="flow-node">Workload Queue</div>
   <div class="flow-node is-gate">Carbon Intensity Below Threshold?</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good"><b>Run Workload Now</b><i>Low Carbon</i></div></div>
     <div class="flow-leg" data-branch="No, deferrable" role="group" aria-label="No, deferrable"><div class="flow-node is-gate">Defer to Low-Carbon Window</div></div>
     <div class="flow-leg" data-branch="No, urgent" role="group" aria-label="No, urgent"><div class="flow-node">Migrate to Green Region</div></div>

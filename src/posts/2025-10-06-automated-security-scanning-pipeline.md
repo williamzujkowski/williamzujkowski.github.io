@@ -26,7 +26,7 @@ I built an automated security pipeline that scans every commit with Grype, OSV-S
 ⚠️ **Warning:** Security scanning pipelines must be configured with appropriate policies and approval gates. Automated remediation should include review processes for production environments.
 
 <div class="flow" role="group" aria-label="Automated security scanning pipeline">
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node">Git Push</div>
     <div class="flow-node">Pull Request</div>
   </div>
@@ -34,19 +34,19 @@ I built an automated security pipeline that scans every commit with Grype, OSV-S
   <div class="flow-node">Build Stage</div>
   <div class="flow-node">Test Stage</div>
   <div class="flow-node is-gate">Security Scan Stage</div>
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>Grype</b><i>container scanning</i></div>
     <div class="flow-node"><b>OSV-Scanner</b><i>dependency scanning</i></div>
     <div class="flow-node"><b>Trivy</b><i>multi-scanner</i></div>
   </div>
   <div class="flow-node">SARIF Reports</div>
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node">GitHub Security</div>
     <div class="flow-node">Slack Alerts</div>
     <div class="flow-node">Wazuh SIEM</div>
   </div>
   <div class="flow-node is-gate">Quality Gates</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Critical" role="group" aria-label="Critical"><div class="flow-node is-bad">Block on Critical</div></div>
     <div class="flow-leg" data-branch="Review" role="group" aria-label="Review"><div class="flow-node">Manual Review</div></div>
   </div>
@@ -87,14 +87,14 @@ The pipeline orchestrates three scanners in parallel with a final quality gate:
 <div class="flow" role="group" aria-label="GitHub Actions security scanning pipeline">
   <div class="flow-node">Git Push / PR</div>
   <div class="flow-node is-gate">Trigger Pipeline</div>
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>OSV</b><i>dependency scan</i></div>
     <div class="flow-node"><b>Grype</b><i>container scan</i></div>
     <div class="flow-node"><b>Trivy</b><i>filesystem scan</i></div>
   </div>
   <div class="flow-node">Upload SARIF</div>
   <div class="flow-node is-gate">Security Gate</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Pass" role="group" aria-label="Pass"><div class="flow-node is-good">Deploy</div></div>
     <div class="flow-leg" data-branch="Critical" role="group" aria-label="Critical"><div class="flow-node is-bad">Block &amp; Alert</div></div>
   </div>

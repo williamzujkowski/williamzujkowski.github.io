@@ -38,14 +38,14 @@ The math is simple and it's called [Mosca's Theorem](https://globalriskinstitute
 
 <figure class="arch-fig">
 <div class="flow" role="group" aria-label="Mosca theorem migration timing test">
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>X: Data Secrecy Requirement</b><i>10-30 years</i></div>
     <div class="flow-node"><b>Y: Migration Time Needed</b><i>5-15 years</i></div>
     <div class="flow-node"><b>Z: Quantum Computer Arrival</b><i>2033-2040?</i></div>
   </div>
   <div class="flow-node">X + Y</div>
   <div class="flow-node is-gate">X + Y &gt; Z?</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-bad"><b>Already Behind</b><i>schedule</i></div></div>
     <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node is-good"><b>Time Remaining</b><i>to migrate</i></div></div>
   </div>
@@ -636,7 +636,7 @@ The migration strategy follows four phases, prioritizing services by their expos
   <div class="flow-node"><b>Phase 1: Test</b><i>Weekend 1; isolated Ubuntu 24.04 VM, Caddy 2.10, verify x25519_kyber768 handshake</i></div>
   <div class="flow-node"><b>Phase 2: Certificates</b><i>Weekend 1; classical certs, PQC key exchange with ML-KEM-768, future ML-DSA certs in 2026-2027</i></div>
   <div class="flow-node is-gate"><b>Phase 3: Rollout</b><i>Weekend 2</i></div>
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node is-bad"><b>High Priority</b><i>Bitwarden, TrueNAS, VPN</i></div>
     <div class="flow-node"><b>Medium Priority</b><i>Nextcloud, Wikis</i></div>
     <div class="flow-node is-good"><b>Lower Priority</b><i>Jellyfin, Grafana</i></div>

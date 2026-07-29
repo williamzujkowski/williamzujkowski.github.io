@@ -233,12 +233,12 @@ If hashing creates fingerprints, digital signatures are like notarizing those fi
   <div class="flow-node">✍️ Digital Signature</div>
   <div class="flow-node">📦 Document + Signature</div>
   <div class="flow-node"><b>Receiver</b><i>split document and signature</i></div>
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>📄 Document</b><i>SHA-256 Hash, then Hash Digest</i></div>
     <div class="flow-node"><b>✍️ Signature</b><i>Decrypt with 🔓 Public Key, then Hash Digest</i></div>
   </div>
   <div class="flow-node is-gate">Match?</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good">✅ Authentic &amp; Unaltered</div></div>
     <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node is-bad">❌ Tampered or Forged</div></div>
   </div>

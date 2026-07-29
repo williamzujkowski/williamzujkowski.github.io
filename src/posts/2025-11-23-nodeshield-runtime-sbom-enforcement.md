@@ -55,7 +55,7 @@ NodeShield uses V8 engine hooks to intercept `require()` calls. When a module tr
   <div class="flow-node">Node.js App</div>
   <div class="flow-node">NodeShield Hook</div>
   <div class="flow-node is-gate">Check CBOM Policy</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Authorized" role="group" aria-label="Authorized"><div class="flow-node is-good">Load Module</div></div>
     <div class="flow-leg" data-branch="Unauthorized" role="group" aria-label="Unauthorized"><div class="flow-node is-bad">Block + Log</div></div>
   </div>

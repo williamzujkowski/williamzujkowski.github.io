@@ -157,7 +157,7 @@ Task flow:
   <div class="flow-node is-gate">Determine Skills</div>
   <div class="flow-node is-good"><b>Load Primary Skills</b><i>2K tokens</i></div>
   <div class="flow-node is-gate">Task Complete?</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good">Return Result</div></div>
     <div class="flow-leg" data-branch="Need Context" role="group" aria-label="Need Context"><div class="flow-node"><b>Load Dependencies</b><i>+3K tokens, then re-check task</i></div></div>
     <div class="flow-leg" data-branch="No Context" role="group" aria-label="No Context"><div class="flow-node">Request Clarification</div></div>

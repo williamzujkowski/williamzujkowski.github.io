@@ -63,12 +63,12 @@ I ran each test for at least 30 minutes to capture steady-state behavior. Repeat
   <section class="arch-tier" data-label="Observability" role="group" aria-label="Observability"><span class="arch-chip">Prometheus</span><span class="arch-chip">Grafana Dashboards</span><span class="arch-chip is-warn">Telegram Alerts</span></section>
 </div>
 <div class="flow" role="group" aria-label="GPU telemetry collection path">
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>Kill-A-Watt</b><i>total system watts</i></div>
     <div class="flow-node"><b>UPS</b><i>UPS metrics</i></div>
     <div class="flow-node"><b>RTX 3090</b><i>GPU telemetry</i></div>
   </div>
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>nvidia-smi</b><i>GPU power, temp, clock</i></div>
     <div class="flow-node">DCGM Exporter</div>
     <div class="flow-node"><b>Custom Python</b><i>timestamped CSV</i></div>
@@ -196,13 +196,13 @@ These safeguards probably seem obvious to DevOps professionals, but they weren't
   <div class="flow-node"><b>GPU Running</b><i>Batch Job</i></div>
   <div class="flow-node"><b>Prometheus</b><i>scrapes nvidia-smi every 2s</i></div>
   <div class="flow-node is-gate"><b>Grafana Alert Rule</b><i>Power &gt; 300W for &gt; 2 hours?</i></div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node">Continue Polling</div></div>
     <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-gate">Telegram Notification</div></div>
   </div>
   <div class="flow-node">Owner Checks</div>
   <div class="flow-node is-gate">Legitimate workload?</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good">Snooze Alert</div></div>
     <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node is-bad">Kill Runaway Job</div></div>
   </div>
@@ -211,7 +211,7 @@ These safeguards probably seem obvious to DevOps professionals, but they weren't
 <div class="flow" role="group" aria-label="GPU timeout abort path">
   <div class="flow-node"><b>GPU Running</b><i>also checked</i></div>
   <div class="flow-node is-gate">Job Timeout Exceeded?</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-bad"><b>Auto-Abort Job</b><i>+ Checkpoint State</i></div></div>
     <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node">Continue Running</div></div>
   </div>
@@ -252,18 +252,18 @@ For these micro-tasks, CPU is 4x more energy-efficient despite being slower. I'm
 <div class="flow" role="group" aria-label="Power-aware model routing decision path">
   <div class="flow-node">Incoming Query</div>
   <div class="flow-node is-gate">Token estimate?</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="&lt; 100 tokens" role="group" aria-label="&lt; 100 tokens"><div class="flow-node is-good"><b>Route to CPU</b><i>llama.cpp on i9-9900K; 95W / 2.3 tok/s</i></div></div>
     <div class="flow-leg" data-branch="100+ tokens" role="group" aria-label="100+ tokens"><div class="flow-node is-gate">Task complexity?</div></div>
   </div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Simple summarization, Q&amp;A" role="group" aria-label="Simple summarization, Q&amp;A"><div class="flow-node is-good"><b>Phi-3 Mini 3.8B</b><i>276W avg</i></div></div>
     <div class="flow-leg" data-branch="General chat, writing" role="group" aria-label="General chat, writing"><div class="flow-node"><b>Llama 3.1 8B</b><i>312W avg</i></div></div>
     <div class="flow-leg" data-branch="Complex code gen, analysis" role="group" aria-label="Complex code gen, analysis"><div class="flow-node is-bad"><b>Llama 3.1 70B Q4</b><i>347W avg</i></div></div>
   </div>
   <div class="flow-node">Return Response</div>
   <div class="flow-node is-gate">Idle &gt; 15 min?</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good"><b>Unload Model</b><i>Drop to 52W baseline</i></div></div>
     <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node"><b>Keep Model Loaded</b><i>87W standby</i></div></div>
   </div>

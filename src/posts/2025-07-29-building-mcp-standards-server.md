@@ -217,12 +217,12 @@ standard = get_standard("react-patterns", format="compressed")
 <div class="flow" role="group" aria-label="Redis L1 and L2 cache lookup path">
   <div class="flow-node">Incoming Request</div>
   <div class="flow-node is-gate"><b>L1 Cache</b><i>in-memory</i></div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Hit" role="group" aria-label="Hit"><div class="flow-node is-good">Return Cached</div></div>
     <div class="flow-leg" data-branch="Miss" role="group" aria-label="Miss"><div class="flow-node"><b>L2 Cache</b><i>Redis</i></div></div>
   </div>
   <div class="flow-node is-gate">L2 Result</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Hit" role="group" aria-label="Hit"><div class="flow-node is-good"><b>Promote to L1</b><i>return cached</i></div></div>
     <div class="flow-leg" data-branch="Miss" role="group" aria-label="Miss"><div class="flow-node"><b>Load from Disk</b><i>store in L1 + L2 with 30-min TTL</i></div></div>
   </div>

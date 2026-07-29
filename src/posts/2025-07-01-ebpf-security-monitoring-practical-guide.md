@@ -44,7 +44,7 @@ With eBPF monitoring on an identical honeypot, the same attack was detected in 1
 
 <figure>
 <div class="flow" role="group" aria-label="Traditional monitoring latency path">
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>Application Logs</b><i>Delayed</i></div>
     <div class="flow-node"><b>System Logs</b><i>Can be tampered</i></div>
     <div class="flow-node"><b>Network Logs</b><i>After the fact</i></div>

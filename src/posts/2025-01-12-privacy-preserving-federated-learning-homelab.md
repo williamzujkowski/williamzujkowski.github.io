@@ -33,7 +33,7 @@ This approach breaks privacy in obvious ways. If I'm training a medical diagnosi
 
 <figure>
 <div class="flow" role="group" aria-label="Centralized training data path">
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node">Hospital A Data</div>
     <div class="flow-node">Hospital B Data</div>
     <div class="flow-node">Hospital C Data</div>
@@ -42,7 +42,7 @@ This approach breaks privacy in obvious ways. If I'm training a medical diagnosi
   <div class="flow-node">Train Model</div>
 </div>
 <div class="flow" role="group" aria-label="Federated training update path">
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>Hospital A Data</b><i>Local Model A</i></div>
     <div class="flow-node"><b>Hospital B Data</b><i>Local Model B</i></div>
     <div class="flow-node"><b>Hospital C Data</b><i>Local Model C</i></div>
@@ -256,17 +256,17 @@ pie title Training Round Time Breakdown (47 min total)
 <div class="flow" role="group" aria-label="Granular-ball segmentation privacy path">
   <div class="flow-node"><b>Raw Training Data</b><i>Individual examples</i></div>
   <div class="flow-node">Granular-Ball Segmentation</div>
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>Cluster 1</b><i>center, variance, radius</i></div>
     <div class="flow-node"><b>Cluster 2</b><i>center, variance, radius</i></div>
     <div class="flow-node"><b>Cluster N</b><i>center, variance, radius</i></div>
   </div>
   <div class="flow-node is-gate">Variance &gt; threshold?</div>
-  <div class="flow-branch">
+  <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good"><b>Shared with aggregator</b><i>Aggregation Server</i></div></div>
     <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node is-bad">Dropped — never leaves device</div></div>
   </div>
-  <div class="flow-parallel">
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node is-good"><b>Reconstruction Attack</b><i>Fails</i></div>
     <div class="flow-node is-good"><b>Gradient Inversion</b><i>Not applicable</i></div>
   </div>
