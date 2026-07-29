@@ -47,49 +47,14 @@ Claude-Flow supports multiple swarm topologies, each optimized for different sce
 
 ## System Architecture Overview
 
-```mermaid
-flowchart TB
-    subgraph swarmtopologies["Swarm Topologies"]
-        Mesh[Mesh - P2P Collaboration]
-        Hier[Hierarchical - Queen/Worker]
-        Ring[Ring - Sequential Pipeline]
-        Star[Star - Centralized Control]
-    end
-    subgraph coreagents["Core Agents"]
-        Orch[🎭 Orchestrator]
-        Research[🔍 Researcher]
-        Arch[🏗️ Architect]
-        Coder[💻 Coder]
-        Tester[🧪 Tester]
-    end
-    subgraph intelligencelayer["Intelligence Layer"]
-        Memory[(💾 Persistent Memory)]
-        Neural[🧠 Neural Training]
-        Pattern[🔄 Pattern Recognition]
-    end
-
-    Mesh --> Orch
-    Hier --> Orch
-    Ring --> Orch
-    Star --> Orch
-
-    Orch --> Research
-    Orch --> Arch
-    Orch --> Coder
-    Orch --> Tester
-
-    Research --> Memory
-    Arch --> Pattern
-    Coder --> Neural
-    Tester --> Memory
-
-    classDef purpleNode fill:#9c27b0,stroke:#fff,stroke-width:2px,color:#fff
-    classDef yellowNode fill:#ffd54f,color:#000,stroke:#333,stroke-width:2px
-    classDef greenNode fill:#4caf50,stroke:#fff,stroke-width:2px,color:#fff
-    class Orch purpleNode
-    class Memory yellowNode
-    class Neural greenNode
-```
+<figure class="arch-fig">
+<div class="arch is-stack" aria-label="Claude-Flow swarm architecture">
+  <section class="arch-tier" data-label="Swarm Topologies"><span class="arch-chip">Mesh - P2P Collaboration</span><span class="arch-chip">Hierarchical - Queen/Worker</span><span class="arch-chip">Ring - Sequential Pipeline</span><span class="arch-chip">Star - Centralized Control</span></section>
+  <section class="arch-tier" data-label="Core Agents"><span class="arch-chip is-primary">🎭 Orchestrator</span><span class="arch-chip">🔍 Researcher</span><span class="arch-chip">🏗️ Architect</span><span class="arch-chip">💻 Coder</span><span class="arch-chip">🧪 Tester</span></section>
+  <section class="arch-tier" data-label="Intelligence Layer"><span class="arch-chip is-guard">💾 Persistent Memory</span><span class="arch-chip is-guard">🧠 Neural Training</span><span class="arch-chip is-guard">🔄 Pattern Recognition</span></section>
+</div>
+<figcaption>Topology choices feed the orchestrator, which coordinates specialized agents and writes learning back into the intelligence layer.</figcaption>
+</figure>
 
 **Swarm Initialization & Agent Spawning Examples:**
 

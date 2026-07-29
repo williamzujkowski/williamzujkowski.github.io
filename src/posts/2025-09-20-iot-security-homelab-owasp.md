@@ -33,18 +33,16 @@ Before diving into vulnerabilities, let's set up a proper isolated environment. 
 
 Here's my home lab IoT security setup using VLANs and a dedicated analysis subnet. I moved all IoT devices to a separate VLAN (192.168.50.0/24) with firewall rules blocking LAN access. My Nest thermostat immediately stopped working until I allowed specific port 443 traffic to Google servers. The **trade-off**: security versus convenience. You gain isolation **but** lose easy device-to-device communication. For a complete approach to this architecture, see my guide on [building a security-focused homelab](/posts/2025-04-24-building-secure-homelab-adventure).
 
-```mermaid
-flowchart TD
-    A[Main Network<br/>VLAN 10] -->|Firewall| F[pfSense/OPNsense]
-    B[IoT Production<br/>VLAN 20] -->|Isolated| F
-    C[IoT Testing<br/>VLAN 666] -->|No Internet| F
-    D[Analysis VM<br/>VLAN 30] -->|Monitor Only| F
-    C --> E[IoTGoat Device]
-    C --> G[Packet Capture]
-    D --> H[Burp Suite]
-    D --> I[Wireshark]
-    D --> J[MQTT Explorer]
-```
+<figure class="arch-fig">
+<div class="arch" aria-label="IoT security lab network zones">
+  <section class="arch-tier" data-label="Firewall"><span class="arch-chip is-primary">pfSense/OPNsense</span></section>
+  <section class="arch-tier" data-label="Main Network VLAN 10"><span class="arch-chip">Main Network</span></section>
+  <section class="arch-tier" data-label="IoT Production VLAN 20"><span class="arch-chip is-guard">Isolated</span></section>
+  <section class="arch-tier" data-label="IoT Testing VLAN 666"><span class="arch-chip is-bad">No Internet</span><span class="arch-chip">IoTGoat Device</span><span class="arch-chip">Packet Capture</span></section>
+  <section class="arch-tier" data-label="Analysis VM VLAN 30"><span class="arch-chip is-guard">Monitor Only</span><span class="arch-chip">Burp Suite</span><span class="arch-chip">Wireshark</span><span class="arch-chip">MQTT Explorer</span></section>
+</div>
+<figcaption>The firewall separates the main network, production IoT, vulnerable testing devices, and analysis tooling into peer zones.</figcaption>
+</figure>
 
 ### Essential Tools Setup
 
@@ -208,4 +206,3 @@ Remember: in IoT security, paranoia is just good planning. Or maybe it's overkil
 2. **[IoT Security Foundation Best Practice Guidelines](https://www.iotsecurityfoundation.org/best-practice-guidelines/)** (2024)
    - IoT Security Foundation
    - *Industry Security Standards*
-

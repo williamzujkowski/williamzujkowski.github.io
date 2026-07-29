@@ -38,25 +38,25 @@ I used to think of encryption like placing letters in sealed envelopes, but my r
 
 ### Symmetric Encryption: Speed vs. Key Distribution
 
-```mermaid
-flowchart LR
-    subgraph Symmetric["Symmetric Encryption (AES-256)"]
-        direction LR
-        A["🔑 Shared Secret Key"] --- E1["Encrypt"]
-        A --- D1["Decrypt"]
-        P1["Plaintext"] --> E1 --> C1["Ciphertext"] --> D1 --> P2["Plaintext"]
-    end
-
-    subgraph Asymmetric["Asymmetric Encryption (RSA/ECC)"]
-        direction LR
-        PubK["🔓 Public Key"] --- E2["Encrypt"]
-        PrivK["🔐 Private Key"] --- D2["Decrypt"]
-        P3["Plaintext"] --> E2 --> C2["Ciphertext"] --> D2 --> P4["Plaintext"]
-    end
-
-    style Symmetric fill:#e8f5e9,color:#000,stroke:#2e7d32
-    style Asymmetric fill:#e3f2fd,color:#000,stroke:#1565c0
-```
+<figure>
+<div class="flow" aria-label="Symmetric encryption path">
+  <div class="flow-node"><b>🔑 Shared Secret Key</b><i>used to encrypt and decrypt</i></div>
+  <div class="flow-node">Plaintext</div>
+  <div class="flow-node">Encrypt</div>
+  <div class="flow-node">Ciphertext</div>
+  <div class="flow-node">Decrypt</div>
+  <div class="flow-node">Plaintext</div>
+</div>
+<div class="flow" aria-label="Asymmetric encryption path">
+  <div class="flow-node"><b>🔓 Public Key</b><i>used to encrypt</i></div>
+  <div class="flow-node">Plaintext</div>
+  <div class="flow-node">Encrypt</div>
+  <div class="flow-node">Ciphertext</div>
+  <div class="flow-node"><b>Decrypt</b><i>with 🔐 Private Key</i></div>
+  <div class="flow-node">Plaintext</div>
+</div>
+<figcaption>Symmetric encryption shares one secret key; asymmetric encryption separates the public encryption key from the private decryption key.</figcaption>
+</figure>
 
 **How it works:** Same key locks and unlocks data (like two people sharing a secret handshake)
 
@@ -147,29 +147,11 @@ My introduction to hashing came through password storage, and I made every begin
 - **Fixed output size**: SHA-256 always produces 256 bits, regardless of input size
 - **Collision resistance**: Practically impossible to find two inputs with same hash
 
-```mermaid
-flowchart LR
-    subgraph Inputs
-        I1["'Hello World'"]
-        I2["'Hello World!'"]
-        I3["500 MB file"]
-    end
-
-    H["SHA-256<br/>Hash Function"]
-
-    subgraph Outputs["Fixed 256-bit Output"]
-        O1["a591a6d40bf4..."]
-        O2["7f83b1657ff1..."]
-        O3["e3b0c44298fc..."]
-    end
-
-    I1 --> H --> O1
-    I2 --> H --> O2
-    I3 --> H --> O3
-
-    style H fill:#fff3e0,color:#000,stroke:#e65100,stroke-width:2px
-    style Outputs fill:#f3e5f5,color:#000,stroke:#6a1b9a
-```
+| Input | Function | Fixed 256-bit output |
+|---|---|---|
+| `'Hello World'` | SHA-256 | `a591a6d40bf4...` |
+| `'Hello World!'` | SHA-256 | `7f83b1657ff1...` |
+| `500 MB file` | SHA-256 | `e3b0c44298fc...` |
 
 ### The Database Corruption Detective Story
 
@@ -243,37 +225,24 @@ If hashing creates fingerprints, digital signatures are like notarizing those fi
 
 ### How Digital Signatures Work
 
-```mermaid
-flowchart TB
-    subgraph Signing["Sender: Sign Document"]
-        direction TB
-        DOC1["📄 Original Document"] --> HASH1["SHA-256 Hash"]
-        HASH1 --> DIGEST1["Hash Digest<br/>a591a6d4..."]
-        DIGEST1 --> ENCRYPT["Encrypt with<br/>🔐 Private Key"]
-        ENCRYPT --> SIG["✍️ Digital Signature"]
-        DOC1 --> BUNDLE["📦 Document + Signature"]
-        SIG --> BUNDLE
-    end
-
-    BUNDLE -->|"Send"| VERIFY
-
-    subgraph VERIFY["Receiver: Verify Signature"]
-        direction TB
-        RECV["📦 Document + Signature"] --> SPLIT1["📄 Document"]
-        RECV --> SPLIT2["✍️ Signature"]
-        SPLIT1 --> HASH2["SHA-256 Hash"]
-        HASH2 --> DIGEST2["Hash Digest"]
-        SPLIT2 --> DECRYPT["Decrypt with<br/>🔓 Public Key"]
-        DECRYPT --> DIGEST3["Hash Digest"]
-        DIGEST2 --> COMPARE{"Match?"}
-        DIGEST3 --> COMPARE
-        COMPARE -->|"Yes"| VALID["✅ Authentic & Unaltered"]
-        COMPARE -->|"No"| INVALID["❌ Tampered or Forged"]
-    end
-
-    style Signing fill:#e8f5e9,color:#000,stroke:#2e7d32
-    style VERIFY fill:#e3f2fd,color:#000,stroke:#1565c0
-```
+<div class="flow" aria-label="Digital signature signing and verification path">
+  <div class="flow-node"><b>📄 Original Document</b><i>sender</i></div>
+  <div class="flow-node">SHA-256 Hash</div>
+  <div class="flow-node"><b>Hash Digest</b><i>a591a6d4...</i></div>
+  <div class="flow-node"><b>Encrypt</b><i>with 🔐 Private Key</i></div>
+  <div class="flow-node">✍️ Digital Signature</div>
+  <div class="flow-node">📦 Document + Signature</div>
+  <div class="flow-node"><b>Receiver</b><i>split document and signature</i></div>
+  <div class="flow-parallel">
+    <div class="flow-node"><b>📄 Document</b><i>SHA-256 Hash, then Hash Digest</i></div>
+    <div class="flow-node"><b>✍️ Signature</b><i>Decrypt with 🔓 Public Key, then Hash Digest</i></div>
+  </div>
+  <div class="flow-node is-gate">Match?</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-good">✅ Authentic &amp; Unaltered</div></div>
+    <div class="flow-leg" data-branch="No"><div class="flow-node is-bad">❌ Tampered or Forged</div></div>
+  </div>
+</div>
 
 **The process is elegant in its simplicity:**
 - Hash the message first (creates fixed-size fingerprint)

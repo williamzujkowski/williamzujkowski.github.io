@@ -37,31 +37,32 @@ Both use agent-based collection, centralized storage, and web UI. Architectures 
 
 **Wazuh architecture:**
 
-```mermaid
-flowchart LR
-    Agent1[Wazuh Agent\nHost 1] -->|Logs| Manager[Wazuh Manager]
-    Agent2[Wazuh Agent\nHost 2] -->|Logs| Manager
-    Manager -->|Index| Indexer[Wazuh Indexer\nOpenSearch]
-    Manager -->|Alerts| Dashboard[Wazuh Dashboard]
-    Dashboard -->|Query| Indexer
-
-    classDef wazuh fill:#3498db,color:#fff
-    class Agent1,Agent2,Manager,Indexer,Dashboard wazuh
-```
+<div class="flow" aria-label="Wazuh log collection architecture">
+  <div class="flow-parallel">
+    <div class="flow-node"><b>Wazuh Agent</b><i>Host 1 logs</i></div>
+    <div class="flow-node"><b>Wazuh Agent</b><i>Host 2 logs</i></div>
+  </div>
+  <div class="flow-node">Wazuh Manager</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Index"><div class="flow-node"><b>Wazuh Indexer</b><i>OpenSearch</i></div></div>
+    <div class="flow-leg" data-branch="Alerts"><div class="flow-node"><b>Wazuh Dashboard</b><i>queries indexer</i></div></div>
+  </div>
+</div>
 
 **Graylog architecture:**
 
-```mermaid
-flowchart LR
-    Beats1[Filebeat\nHost 1] -->|Syslog| Graylog[Graylog Server]
-    Beats2[Filebeat\nHost 2] -->|Syslog| Graylog
-    Graylog -->|Store| Mongo[(MongoDB)]
-    Graylog -->|Index| Elastic[(Elasticsearch)]
-    Graylog -->|Search| WebUI[Graylog Web]
-
-    classDef graylog fill:#e74c3c,color:#fff
-    class Beats1,Beats2,Graylog,Mongo,Elastic,WebUI graylog
-```
+<div class="flow" aria-label="Graylog log collection architecture">
+  <div class="flow-parallel">
+    <div class="flow-node"><b>Filebeat</b><i>Host 1 syslog</i></div>
+    <div class="flow-node"><b>Filebeat</b><i>Host 2 syslog</i></div>
+  </div>
+  <div class="flow-node">Graylog Server</div>
+  <div class="flow-parallel">
+    <div class="flow-node"><b>MongoDB</b><i>store</i></div>
+    <div class="flow-node"><b>Elasticsearch</b><i>index</i></div>
+    <div class="flow-node"><b>Graylog Web</b><i>search</i></div>
+  </div>
+</div>
 
 **Key differences:**
 
@@ -336,20 +337,15 @@ Some teams run Wazuh + Graylog together. Wazuh handles threat detection, Graylog
 
 **Hybrid architecture:**
 
-```mermaid
-flowchart LR
-    Hosts[Homelab Hosts] -->|Security Logs| Wazuh[Wazuh Manager]
-    Hosts -->|Application Logs| Graylog[Graylog Server]
-
-    Wazuh -->|Alerts| Alerts[Alert Dashboard]
-    Graylog -->|Search| Investigate[Investigation UI]
-
-    Wazuh -.->|Forward Alerts| Graylog
-    Graylog -.->|Enrich| Wazuh
-
-    classDef hybrid fill:#9b59b6,color:#fff
-    class Wazuh,Graylog hybrid
-```
+<figure class="arch-fig">
+<div class="arch" aria-label="Hybrid Wazuh and Graylog deployment">
+  <section class="arch-tier" data-label="Inputs"><span class="arch-chip">Homelab Hosts</span></section>
+  <section class="arch-tier" data-label="Security Path"><span class="arch-chip is-primary">Wazuh Manager</span><span class="arch-chip">Alert Dashboard</span></section>
+  <section class="arch-tier" data-label="Application Path"><span class="arch-chip is-primary">Graylog Server</span><span class="arch-chip">Investigation UI</span></section>
+  <section class="arch-tier" data-label="Integration"><span class="arch-chip is-guard">Forward Wazuh Alerts to Graylog</span><span class="arch-chip is-guard">Enrich Graylog Events in Wazuh</span></section>
+</div>
+<figcaption>Security logs flow to Wazuh, application logs flow to Graylog, and the two systems exchange alerts for unified investigation.</figcaption>
+</figure>
 
 **Integration patterns:**
 

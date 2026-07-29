@@ -27,48 +27,14 @@ Imagine having X-ray vision into your kernel, seeing every system call, network 
 
 ⚠️ **Warning:** The following diagrams and examples demonstrate security monitoring concepts for educational purposes. eBPF programs require kernel privileges and should only be deployed in controlled environments with proper authorization.
 
-```mermaid
-flowchart TB
-    subgraph attacksurface["Attack Surface"]
-        A1[Process Execution]
-        A2[Network Connections]
-        A3[File Operations]
-        A4[Privilege Changes]
-    end
-    subgraph kernelspace["Kernel Space"]
-        KP[Kernel Probes]
-        BPF[eBPF VM]
-        Maps[(BPF Maps)]
-        Verifier[BPF Verifier]
-    end
-    subgraph userspace["User Space"]
-        Loader[BPF Loader]
-        Monitor[Event Monitor]
-        AI[AI/ML Analysis]
-        SIEM[SIEM Integration]
-    end
-
-    A1 --> KP
-    A2 --> KP
-    A3 --> KP
-    A4 --> KP
-
-    KP --> Verifier
-    Verifier -->|Safe| BPF
-    BPF --> Maps
-
-    Loader -->|Load Program| Verifier
-    Maps -->|Poll Events| Monitor
-    Monitor --> AI
-    AI --> SIEM
-
-    classDef bpfStyle fill:#ff9800,color:#000
-    classDef aiStyle fill:#9c27b0,color:#fff
-    classDef siemStyle fill:#4caf50,color:#fff
-    class BPF bpfStyle
-    class AI aiStyle
-    class SIEM siemStyle
-```
+<figure class="arch-fig">
+<div class="arch is-stack" aria-label="eBPF security monitoring architecture">
+  <section class="arch-tier" data-label="Attack Surface"><span class="arch-chip">Process Execution</span><span class="arch-chip">Network Connections</span><span class="arch-chip">File Operations</span><span class="arch-chip">Privilege Changes</span></section>
+  <section class="arch-tier" data-label="Kernel Space"><span class="arch-chip">Kernel Probes</span><span class="arch-chip is-primary">eBPF VM</span><span class="arch-chip">BPF Maps</span><span class="arch-chip is-guard">BPF Verifier</span></section>
+  <section class="arch-tier" data-label="User Space"><span class="arch-chip">BPF Loader</span><span class="arch-chip">Event Monitor</span><span class="arch-chip is-primary">AI/ML Analysis</span><span class="arch-chip is-primary">SIEM Integration</span></section>
+</div>
+<figcaption>Kernel probes collect activity, the verifier gates safe eBPF execution, and user-space monitors poll maps for analysis and SIEM delivery.</figcaption>
+</figure>
 
 ## Why Traditional Monitoring Falls Short
 
@@ -76,36 +42,24 @@ Let me share a story from my research lab. I once set up a honeypot with traditi
 
 With eBPF monitoring on an identical honeypot, the same attack was detected in 1.3 seconds. Here's what makes the difference:
 
-```mermaid
-flowchart LR
-    subgraph traditionalmonitoring["Traditional Monitoring"]
-        T1[Application Logs]
-        T2[System Logs]
-        T3[Network Logs]
-        T4[SIEM Aggregation]
-        T5[Alert Generation]
-
-        T1 -->|Delayed| T4
-        T2 -->|Can be tampered| T4
-        T3 -->|After the fact| T4
-        T4 -->|Minutes to hours| T5
-    end
-    subgraph ebpfmonitoring["eBPF Monitoring"]
-        E1[Kernel Events]
-        E2[Real-time Processing]
-        E3[In-kernel Filtering]
-        E4[Instant Detection]
-
-        E1 -->|Nanoseconds| E2
-        E2 -->|Microseconds| E3
-        E3 -->|Milliseconds| E4
-    end
-
-    classDef traditionalStyle fill:#f44336,color:#fff
-    classDef ebpfStyle fill:#4caf50,color:#fff
-    class T5 traditionalStyle
-    class E4 ebpfStyle
-```
+<figure>
+<div class="flow" aria-label="Traditional monitoring latency path">
+  <div class="flow-parallel">
+    <div class="flow-node"><b>Application Logs</b><i>Delayed</i></div>
+    <div class="flow-node"><b>System Logs</b><i>Can be tampered</i></div>
+    <div class="flow-node"><b>Network Logs</b><i>After the fact</i></div>
+  </div>
+  <div class="flow-node">SIEM Aggregation</div>
+  <div class="flow-node is-bad"><b>Alert Generation</b><i>Minutes to hours</i></div>
+</div>
+<div class="flow" aria-label="eBPF monitoring latency path">
+  <div class="flow-node"><b>Kernel Events</b><i>Nanoseconds</i></div>
+  <div class="flow-node"><b>Real-time Processing</b><i>Microseconds</i></div>
+  <div class="flow-node"><b>In-kernel Filtering</b><i>Milliseconds</i></div>
+  <div class="flow-node is-good">Instant Detection</div>
+</div>
+<figcaption>Traditional monitoring waits for logs to aggregate; eBPF starts at kernel events and filters before user-space alerting.</figcaption>
+</figure>
 
 ## Real-World Detection Patterns
 

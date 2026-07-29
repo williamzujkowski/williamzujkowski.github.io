@@ -25,43 +25,15 @@ That has implications far beyond finance, though I'm still figuring out where th
 
 ## How It Actually Works (From My Test Network)
 
-```mermaid
-flowchart TD
-    subgraph network["Network Layer"]
-        P2P[P2P Network]
-        Gossip[Gossip Protocol]
-    end
-
-    subgraph consensus["Consensus"]
-        Mining[Mining/Validation]
-        Consensus[Consensus Algorithm]
-    end
-
-    subgraph data["Data Layer"]
-        Blocks[Blocks]
-        Chain[Blockchain]
-        State[State Tree]
-    end
-
-    subgraph app["Application"]
-        Smart[Smart Contracts]
-        DApp[DApps]
-    end
-
-    P2P --> Gossip
-    Gossip --> Mining
-    Mining --> Consensus
-    Consensus --> Blocks
-    Blocks --> Chain
-    Chain --> State
-    State --> Smart
-    Smart --> DApp
-
-    classDef orange fill:#ff9800,color:#000,stroke:#e65100,stroke-width:2px
-    classDef purple fill:#9c27b0,color:#fff,stroke:#6a1b9a,stroke-width:2px
-    class Consensus orange
-    class Smart purple
-```
+<figure class="arch-fig">
+<div class="arch is-stack" aria-label="Blockchain system layers">
+  <section class="arch-tier" data-label="Network Layer"><span class="arch-chip">P2P Network</span><span class="arch-chip">Gossip Protocol</span></section>
+  <section class="arch-tier" data-label="Consensus"><span class="arch-chip">Mining/Validation</span><span class="arch-chip is-primary">Consensus Algorithm</span></section>
+  <section class="arch-tier" data-label="Data Layer"><span class="arch-chip">Blocks</span><span class="arch-chip">Blockchain</span><span class="arch-chip">State Tree</span></section>
+  <section class="arch-tier" data-label="Application"><span class="arch-chip is-primary">Smart Contracts</span><span class="arch-chip">DApps</span></section>
+</div>
+<figcaption>Blockchain systems build from peer networking through consensus and state storage into smart-contract applications.</figcaption>
+</figure>
 
 My local testnet processed about 47 transactions per second on the Dell R910, which sounds impressive until you compare it to Visa's 24,000 tps. Scalability remains a real challenge, and I'm not convinced we've solved it yet.
 

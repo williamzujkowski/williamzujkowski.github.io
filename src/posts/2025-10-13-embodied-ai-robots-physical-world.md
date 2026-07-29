@@ -32,26 +32,23 @@ That gap is closing. VLA models combine three capabilities:
 - **Language**: Processing natural language instructions and context
 - **Action**: Generating physical control signals for robotic systems
 
-```mermaid
-flowchart LR
-    subgraph traditionalaiagents["Traditional AI Agents"]
-        A[Text Input] --> B[Language Model]
-        B --> C[Text Output]
-    end
-    subgraph visionlanguageactionmodels["Vision-Language-Action Models"]
-        D[Visual Input] --> E[VLA Model]
-        F[Language Input] --> E
-        E --> G[Physical Actions]
-        G --> H[Robot Control]
-    end
-
-    C -.evolves into.-> E
-
-    classDef highlight1 fill:#e11d48,color:#fff
-    classDef highlight2 fill:#10b981,color:#fff
-    class E highlight1
-    class H highlight2
-```
+<figure class="arch-fig">
+<div class="flow" aria-label="Traditional AI agent path">
+  <div class="flow-node">Text Input</div>
+  <div class="flow-node">Language Model</div>
+  <div class="flow-node">Text Output</div>
+</div>
+<div class="flow" aria-label="Vision-Language-Action model path">
+  <div class="flow-parallel">
+    <div class="flow-node">Visual Input</div>
+    <div class="flow-node">Language Input</div>
+  </div>
+  <div class="flow-node is-gate">VLA Model</div>
+  <div class="flow-node">Physical Actions</div>
+  <div class="flow-node is-good">Robot Control</div>
+</div>
+<figcaption>Traditional agents end at text output; VLA systems add perception and language inputs that become robot control.</figcaption>
+</figure>
 
 The breakthrough: direct mapping from perception and language to low-level robotic control. Traditional robotics required extensive programming for each task. VLA models learn generalizable manipulation skills from demonstration data.
 
@@ -141,29 +138,15 @@ Formal safety frameworks for robotics exist, but most VLA deployments lack rigor
 
 ⚠️ **Warning:** Embodied AI systems that interact with the physical world require extensive safety testing. Physical robotics experiments must follow proper safety protocols and risk assessments.
 
-```mermaid
-flowchart TB
-    subgraph safetylayers["Safety Layers"]
-        A[VLA Model] --> B[Action Filter]
-        B --> C[Collision Detection]
-        C --> D[Force Limits]
-        D --> E[Emergency Stop]
-        E --> F[Physical Robot]
-    end
-
-    G[Safety Monitor] --> B
-    G --> C
-    G --> D
-
-    H[Human Supervisor] --> E
-
-    classDef highlight1 fill:#3b82f6,color:#fff
-    classDef highlight2 fill:#ef4444,color:#fff
-    classDef highlight3 fill:#f59e0b,color:#000
-    class A highlight1
-    class E highlight2
-    class G highlight3
-```
+<figure class="arch-fig">
+<div class="arch is-stack" aria-label="Embodied AI safety layers">
+  <section class="arch-tier" data-label="Model"><span class="arch-chip is-primary">VLA Model</span></section>
+  <section class="arch-tier" data-label="Runtime Guards"><span class="arch-chip is-guard">Action Filter</span><span class="arch-chip is-guard">Collision Detection</span><span class="arch-chip is-guard">Force Limits</span><span class="arch-chip is-warn">Safety Monitor</span></section>
+  <section class="arch-tier" data-label="Stop Controls"><span class="arch-chip is-bad">Emergency Stop</span><span class="arch-chip is-guard">Human Supervisor</span></section>
+  <section class="arch-tier" data-label="Actuator"><span class="arch-chip">Physical Robot</span></section>
+</div>
+<figcaption>Model output passes through runtime guards and stop controls before it can move the physical robot.</figcaption>
+</figure>
 
 **Required safety layers:**
 

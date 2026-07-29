@@ -17,36 +17,14 @@ In late 2018, I implemented my first Transformer from scratch for a machine tran
 
 ## How It Works
 
-```mermaid
-flowchart TD
-    subgraph input["Input"]
-        Tokens[Token Embeddings]
-        Pos[Positional Encoding]
-    end
-    subgraph encoderstack["Encoder Stack"]
-        MHA1[Multi-Head Attention]
-        FFN1[Feed Forward]
-        Norm1[Layer Norm]
-    end
-    subgraph decoderstack["Decoder Stack"]
-        MHA2[Masked Attention]
-        Cross[Cross Attention]
-        FFN2[Feed Forward]
-    end
-
-    Tokens --> Pos
-    Pos --> MHA1
-    MHA1 --> FFN1
-    FFN1 --> Norm1
-    Norm1 --> Cross
-    MHA2 --> Cross
-    Cross --> FFN2
-
-    classDef orange fill:#ff9800,color:#000,stroke:#e65100,stroke-width:2px
-    classDef purple fill:#9c27b0,color:#fff,stroke:#6a1b9a,stroke-width:2px
-    class MHA1 orange
-    class Cross purple
-```
+<figure class="arch-fig">
+<div class="arch is-stack" aria-label="Transformer encoder and decoder architecture">
+  <section class="arch-tier" data-label="Input"><span class="arch-chip">Token Embeddings</span><span class="arch-chip">Positional Encoding</span></section>
+  <section class="arch-tier" data-label="Encoder Stack"><span class="arch-chip is-primary">Multi-Head Attention</span><span class="arch-chip">Feed Forward</span><span class="arch-chip">Layer Norm</span></section>
+  <section class="arch-tier" data-label="Decoder Stack"><span class="arch-chip">Masked Attention</span><span class="arch-chip is-primary">Cross Attention</span><span class="arch-chip">Feed Forward</span></section>
+</div>
+<figcaption>Token and position inputs move through the encoder stack before decoder attention combines masked and cross-attention paths.</figcaption>
+</figure>
 
 ## The Frustration That Led to Revolution
 

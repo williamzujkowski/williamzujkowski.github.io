@@ -31,28 +31,26 @@ Traditional machine learning requires aggregating all training data in one place
 
 This approach breaks privacy in obvious ways. If I'm training a medical diagnosis model, I need patient data from multiple hospitals. But centralizing that data means hospitals lose control, increase their breach surface, and violate privacy regulations.
 
-```mermaid
-graph LR
-    subgraph Centralized Training
-        A[Hospital A Data] -->|Upload| D[(Central Dataset)]
-        B[Hospital B Data] -->|Upload| D
-        C[Hospital C Data] -->|Upload| D
-        D --> M[Train Model]
-    end
-    subgraph Federated Training
-        A2[Hospital A Data] --> M2A[Local Model A]
-        B2[Hospital B Data] --> M2B[Local Model B]
-        C2[Hospital C Data] --> M2C[Local Model C]
-        M2A -->|Gradients only| AGG[Aggregator]
-        M2B -->|Gradients only| AGG
-        M2C -->|Gradients only| AGG
-        AGG -->|Updated weights| M2A
-        AGG -->|Updated weights| M2B
-        AGG -->|Updated weights| M2C
-    end
-    style D fill:#f96,color:#000,stroke:#333
-    style AGG fill:#6b6,color:#fff,stroke:#333
-```
+<figure>
+<div class="flow" aria-label="Centralized training data path">
+  <div class="flow-parallel">
+    <div class="flow-node">Hospital A Data</div>
+    <div class="flow-node">Hospital B Data</div>
+    <div class="flow-node">Hospital C Data</div>
+  </div>
+  <div class="flow-node is-bad"><b>Central Dataset</b><i>uploaded data</i></div>
+  <div class="flow-node">Train Model</div>
+</div>
+<div class="flow" aria-label="Federated training update path">
+  <div class="flow-parallel">
+    <div class="flow-node"><b>Hospital A Data</b><i>Local Model A</i></div>
+    <div class="flow-node"><b>Hospital B Data</b><i>Local Model B</i></div>
+    <div class="flow-node"><b>Hospital C Data</b><i>Local Model C</i></div>
+  </div>
+  <div class="flow-node is-good"><b>Aggregator</b><i>gradients only in; updated weights out</i></div>
+</div>
+<figcaption>Centralized training uploads raw hospital data; federated training keeps data local and exchanges gradients plus updated weights.</figcaption>
+</figure>
 
 **The dilemma:** How do you train accurate models without seeing the raw data?
 
@@ -255,27 +253,24 @@ pie title Training Round Time Breakdown (47 min total)
 
 ### Privacy Guarantees
 
-```mermaid
-flowchart TD
-    RAW[Raw Training Data<br/>Individual examples] --> GB[Granular-Ball Segmentation]
-    GB --> C1[Cluster 1<br/>center, variance, radius]
-    GB --> C2[Cluster 2<br/>center, variance, radius]
-    GB --> C3[Cluster N<br/>center, variance, radius]
-    C1 --> VT{Variance > threshold?}
-    C2 --> VT
-    C3 --> VT
-    VT -->|Yes| SEND[Shared with aggregator]
-    VT -->|No| DROP[Dropped — never leaves device]
-    SEND --> AGG[Aggregation Server]
-
-    ATK[Reconstruction Attack] -.->|Fails| SEND
-    ATK2[Gradient Inversion] -.->|Not applicable| SEND
-
-    style DROP fill:#f66,stroke:#333,color:#fff
-    style SEND fill:#6b6,stroke:#333,color:#fff
-    style ATK stroke-dasharray: 5 5,fill:#fee
-    style ATK2 stroke-dasharray: 5 5,fill:#fee
-```
+<div class="flow" aria-label="Granular-ball segmentation privacy path">
+  <div class="flow-node"><b>Raw Training Data</b><i>Individual examples</i></div>
+  <div class="flow-node">Granular-Ball Segmentation</div>
+  <div class="flow-parallel">
+    <div class="flow-node"><b>Cluster 1</b><i>center, variance, radius</i></div>
+    <div class="flow-node"><b>Cluster 2</b><i>center, variance, radius</i></div>
+    <div class="flow-node"><b>Cluster N</b><i>center, variance, radius</i></div>
+  </div>
+  <div class="flow-node is-gate">Variance &gt; threshold?</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-good"><b>Shared with aggregator</b><i>Aggregation Server</i></div></div>
+    <div class="flow-leg" data-branch="No"><div class="flow-node is-bad">Dropped — never leaves device</div></div>
+  </div>
+  <div class="flow-parallel">
+    <div class="flow-node is-good"><b>Reconstruction Attack</b><i>Fails</i></div>
+    <div class="flow-node is-good"><b>Gradient Inversion</b><i>Not applicable</i></div>
+  </div>
+</div>
 
 The GrBFL paper proves that reconstructing individual training examples from granular-ball statistics is computationally infeasible under certain assumptions. Specifically:
 
@@ -395,4 +390,3 @@ The server aggregation bottleneck is fixable with parallelization, but I didn't 
 - [**K3s Lightweight Kubernetes**](https://k3s.io/) - What I use for orchestrating multi-Pi experiments
 
 - [**Raspberry Pi 5 Specifications**](https://www.raspberrypi.com/products/raspberry-pi-5/) - Hardware details for the 16GB model
-

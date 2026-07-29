@@ -45,32 +45,10 @@ Container security isn't binary. You can't just "enable security" and assume you
 
 ## Layer 1: Minimal Base Images
 
-```mermaid
-flowchart LR
-    subgraph Before["Ubuntu Base — 72 MB"]
-        direction TB
-        OS1[OS Libraries]
-        PM1[Package Manager]
-        Shell1[Shell — bash, sh]
-        Utils1[Utilities — curl, wget, etc.]
-        App1[Application]
-    end
-
-    subgraph After["Distroless — 12 MB"]
-        direction TB
-        RT[Minimal Runtime]
-        App2[Application]
-    end
-
-    Before -->|"Multi-stage build"| After
-    Before -.-|"43 CVEs"| X1((X))
-    After -.-|"2 CVEs"| Check1((OK))
-
-    style Before fill:#e74c3c,color:#fff
-    style After fill:#2ecc71,color:#fff
-    style X1 fill:#c0392b,color:#fff
-    style Check1 fill:#27ae60,color:#fff
-```
+| Image | Size | Contents | CVE Count | Build path |
+|---|---:|---|---:|---|
+| Ubuntu Base | 72 MB | OS libraries, package manager, shell, utilities, application | 43 | Source stage |
+| Distroless | 12 MB | Minimal runtime, application | 2 | Multi-stage output |
 
 Smaller images = smaller attack surface. I switched from full OS base images to distroless containers.
 
@@ -294,30 +272,14 @@ docker run \
 
 ## Layer 7: Network Segmentation
 
-```mermaid
-graph TB
-    Internet([Internet]) --> LB[Load Balancer]
-
-    subgraph Frontend["frontend-network — 172.20.1.0/24"]
-        LB --> Nginx[Nginx Reverse Proxy]
-        Nginx --> WebApp[Web Application]
-    end
-
-    subgraph Backend["backend-network — 172.20.2.0/24 (internal)"]
-        API[API Server]
-        DB[(PostgreSQL)]
-        Cache[(Redis)]
-        API --> DB
-        API --> Cache
-    end
-
-    WebApp -->|"Allowed: port 8080"| API
-    Nginx -.->|"BLOCKED"| DB
-    Internet -.->|"BLOCKED"| Backend
-
-    style Frontend fill:#3498db,color:#fff
-    style Backend fill:#2c3e50,color:#ecf0f1
-```
+<figure class="arch-fig">
+<div class="arch" aria-label="Docker frontend and backend network zones">
+  <section class="arch-tier" data-label="Internet Edge"><span class="arch-chip">Internet</span><span class="arch-chip">Load Balancer</span></section>
+  <section class="arch-tier" data-label="frontend-network - 172.20.1.0/24"><span class="arch-chip">Nginx Reverse Proxy</span><span class="arch-chip is-primary">Web Application</span></section>
+  <section class="arch-tier" data-label="backend-network - 172.20.2.0/24 (internal)"><span class="arch-chip is-primary">API Server</span><span class="arch-chip is-guard">PostgreSQL</span><span class="arch-chip is-guard">Redis</span></section>
+</div>
+<figcaption>The frontend can reach the API on port 8080; direct Nginx-to-database and internet-to-backend paths stay blocked.</figcaption>
+</figure>
 
 Isolate containers using custom Docker networks. Default bridge network allows all containers to communicate, which creates risk for lateral movement.
 

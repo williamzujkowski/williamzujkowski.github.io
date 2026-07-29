@@ -18,36 +18,19 @@ That learning experience taught me something critical. Quantum computing isn't j
 
 ## How It Works
 
-```mermaid
-flowchart LR
-    subgraph initialization["Initialization"]
-        Q0[Qubit 0: Zero State]
-        Q1[Qubit 1: Zero State]
-    end
-    subgraph quantumgates["Quantum Gates"]
-        H[Hadamard Gate]
-        CNOT[CNOT Gate]
-        M[Measurement]
-    end
-    subgraph classicaloutput["Classical Output"]
-        C0[Classical Bit 0]
-        C1[Classical Bit 1]
-    end
-
-    Q0 --> H
-    H --> CNOT
-    Q1 --> CNOT
-    CNOT --> M
-    M --> C0
-    M --> C1
-
-    classDef hadamardStyle fill:#2196f3,color:#fff
-    classDef cnotStyle fill:#9c27b0,color:#fff
-    classDef measureStyle fill:#4caf50,color:#fff
-    class H hadamardStyle
-    class CNOT cnotStyle
-    class M measureStyle
-```
+<div class="flow" aria-label="Two-qubit quantum circuit path">
+  <div class="flow-parallel">
+    <div class="flow-node">Qubit 0: Zero State</div>
+    <div class="flow-node">Qubit 1: Zero State</div>
+  </div>
+  <div class="flow-node">Hadamard Gate</div>
+  <div class="flow-node">CNOT Gate</div>
+  <div class="flow-node is-gate">Measurement</div>
+  <div class="flow-parallel">
+    <div class="flow-node">Classical Bit 0</div>
+    <div class="flow-node">Classical Bit 1</div>
+  </div>
+</div>
 
 ## The Quantum Breakthrough: From Theory to Reality
 

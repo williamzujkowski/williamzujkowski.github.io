@@ -20,51 +20,15 @@ I run local LLMs up to 34B parameters on my RTX 3090 (24GB VRAM), completely off
 
 ## Local LLM Architecture
 
-```mermaid
-flowchart TB
-    subgraph hardware["Hardware"]
-        GPU[GPU/TPU]
-        CPU[CPU]
-        RAM[Memory]
-    end
-    subgraph modellayer["Model Layer"]
-        Models[(Model Files)]
-        Weights[Weights]
-        Config[Configuration]
-    end
-    subgraph inference["Inference"]
-        Engine[Inference Engine]
-        Cache[Token Cache]
-        Batch[Batch Processing]
-    end
-    subgraph interface["Interface"]
-        API[REST API]
-        UI[Web UI]
-        CLI[CLI Tool]
-    end
-
-    GPU --> Engine
-    CPU --> Engine
-    RAM --> Cache
-
-    Models --> Engine
-    Weights --> Engine
-    Config --> Engine
-
-    Engine --> Cache
-    Engine --> Batch
-
-    Batch --> API
-    API --> UI
-    API --> CLI
-
-    classDef orangeNode fill:#ff9800,color:#000
-    classDef greenNode fill:#4caf50,color:#fff
-    classDef blueNode fill:#2196f3,color:#fff
-    class GPU orangeNode
-    class Engine greenNode
-    class API blueNode
-```
+<figure class="arch-fig">
+<div class="arch is-stack" aria-label="Local LLM deployment architecture">
+  <section class="arch-tier" data-label="Hardware"><span class="arch-chip is-primary">GPU/TPU</span><span class="arch-chip">CPU</span><span class="arch-chip">Memory</span></section>
+  <section class="arch-tier" data-label="Model Layer"><span class="arch-chip">Model Files</span><span class="arch-chip">Weights</span><span class="arch-chip">Configuration</span></section>
+  <section class="arch-tier" data-label="Inference"><span class="arch-chip is-primary">Inference Engine</span><span class="arch-chip">Token Cache</span><span class="arch-chip">Batch Processing</span></section>
+  <section class="arch-tier" data-label="Interface"><span class="arch-chip is-primary">REST API</span><span class="arch-chip">Web UI</span><span class="arch-chip">CLI Tool</span></section>
+</div>
+<figcaption>Hardware and model files feed the inference engine, which exposes batch output through local API, web, and CLI interfaces.</figcaption>
+</figure>
 
 
 ## Why I Made the Switch

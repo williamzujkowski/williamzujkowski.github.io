@@ -35,36 +35,14 @@ My setup runs on a single Dell R910:
 
 This single node handles 30+ VMs and containers comfortably. With 256GB RAM, careful resource allocation is key, but it's more than sufficient for a full-featured homelab. Uptime averages 99.7% - better than some cloud providers I've used.
 
-```mermaid
-graph TB
-    subgraph "Dell R910"
-        PVE["Proxmox VE Host<br/>4x Xeon E7540<br/>256GB RAM"]
-        subgraph "Compute"
-            VMs["30+ VMs"]
-            LXC["LXC Containers"]
-        end
-        NVMe["ZFS Pool<br/>OS + VM Storage"]
-        HDD["12TB HDD<br/>Bulk Storage"]
-    end
-
-    subgraph "Network - Ubiquiti"
-        UDM["UDM Pro<br/>Firewall / Router"]
-        USW["UniFi Switch 24 PoE"]
-    end
-
-    subgraph "Storage Server"
-        TN["TrueNAS Core<br/>~30TB Usable (RAIDZ2)"]
-    end
-
-    PVE -->|"Manages"| VMs
-    PVE -->|"Manages"| LXC
-    PVE --- NVMe
-    PVE --- HDD
-    PVE -->|"10GbE iSCSI"| TN
-    PVE -->|"Mgmt"| USW
-    USW --- UDM
-    VMs -->|"Traffic"| USW
-```
+<figure class="arch-fig">
+<div class="arch" aria-label="Private cloud physical architecture">
+  <section class="arch-tier" data-label="Dell R910"><span class="arch-chip is-primary"><b>Proxmox VE Host</b><i>4x Xeon E7540, 256GB RAM</i></span><span class="arch-chip">30+ VMs</span><span class="arch-chip">LXC Containers</span><span class="arch-chip">ZFS Pool - OS + VM Storage</span><span class="arch-chip">12TB HDD - Bulk Storage</span></section>
+  <section class="arch-tier" data-label="Network - Ubiquiti"><span class="arch-chip is-guard">UDM Pro - Firewall / Router</span><span class="arch-chip">UniFi Switch 24 PoE</span></section>
+  <section class="arch-tier" data-label="Storage Server"><span class="arch-chip is-primary"><b>TrueNAS Core</b><i>~30TB usable, RAIDZ2</i></span></section>
+</div>
+<figcaption>Proxmox manages compute locally, connects to Ubiquiti for management and VM traffic, and uses TrueNAS over 10GbE iSCSI for shared storage.</figcaption>
+</figure>
 
 ### Storage Architecture That Actually Works
 
@@ -82,30 +60,14 @@ Proxmox supports multiple storage backends. I tested five configurations over 12
 
 **Winner:** ZFS over iSCSI. My TrueNAS Core server provides ~30TB usable storage (from 40TB raw) with RAIDZ2 protection. Proxmox sees it as shared block storage, perfect for VM disks and backups.
 
-```mermaid
-graph LR
-    subgraph "Proxmox Host"
-        PVE["Proxmox VE"]
-    end
-
-    subgraph "Local Storage"
-        NVMe["ZFS Pool<br/>VM Disks (Fast)"]
-        HDD["12TB HDD<br/>Bulk / ISOs"]
-    end
-
-    subgraph "Network Storage"
-        TN["TrueNAS Core"]
-        RAIDZ2["RAIDZ2 Pool<br/>40TB Raw → 30TB Usable"]
-    end
-
-    PVE -->|"Direct"| NVMe
-    PVE -->|"Direct"| HDD
-    PVE -->|"iSCSI over 10GbE"| TN
-    TN --- RAIDZ2
-
-    style NVMe fill:#2d6a4f,color:#fff
-    style RAIDZ2 fill:#1b4332,color:#fff
-```
+<figure class="arch-fig">
+<div class="arch" aria-label="Proxmox storage architecture">
+  <section class="arch-tier" data-label="Proxmox Host"><span class="arch-chip is-primary">Proxmox VE</span></section>
+  <section class="arch-tier" data-label="Local Storage"><span class="arch-chip"><b>ZFS Pool</b><i>VM disks, fast</i></span><span class="arch-chip"><b>12TB HDD</b><i>bulk / ISOs</i></span></section>
+  <section class="arch-tier" data-label="Network Storage"><span class="arch-chip is-primary">TrueNAS Core</span><span class="arch-chip is-guard"><b>RAIDZ2 Pool</b><i>40TB raw to 30TB usable</i></span></section>
+</div>
+<figcaption>Proxmox uses local disks directly and reaches the TrueNAS RAIDZ2 pool over 10GbE iSCSI.</figcaption>
+</figure>
 
 ### Network Segmentation Strategy
 
@@ -140,45 +102,17 @@ I implemented five VLANs using my Ubiquiti Dream Machine Pro and UniFi Switch 24
 
 Each VLAN has specific firewall rules enforced by the Dream Machine Pro. Cross-VLAN communication requires explicit allow rules. The UniFi ecosystem makes this manageable through a single interface.
 
-```mermaid
-graph TB
-    Internet["Internet"]
-    UDM["UDM Pro<br/>Firewall / Router"]
-    Internet --- UDM
-
-    subgraph "VLAN 10 - Management<br/>192.168.10.0/24"
-        PVE["Proxmox Host"]
-        TN["TrueNAS"]
-        Bastion["Bastion Host"]
-    end
-
-    subgraph "VLAN 20 - Services<br/>192.168.20.0/24"
-        GitLab["GitLab CE"]
-        BookStack["BookStack"]
-        Jellyfin["Jellyfin"]
-    end
-
-    subgraph "VLAN 30 - IoT<br/>192.168.30.0/24"
-        HA["Home Assistant"]
-        Devices["Smart Devices"]
-    end
-
-    subgraph "VLAN 40 - Guest<br/>192.168.40.0/24"
-        Guest["Guest Devices<br/>Internet Only"]
-    end
-
-    subgraph "VLAN 50 - Lab<br/>192.168.50.0/24"
-        K3s["K3s Cluster<br/>3x Pi 5 + 1x Pi 4"]
-    end
-
-    UDM --- PVE
-    UDM --- GitLab
-    UDM --- HA
-    UDM --- Guest
-    UDM --- K3s
-    HA -.->|"Bridge"| GitLab
-    Bastion -.->|"SSH"| PVE
-```
+<figure class="arch-fig">
+<div class="arch" aria-label="Private cloud VLAN segmentation">
+  <section class="arch-tier" data-label="Edge"><span class="arch-chip">Internet</span><span class="arch-chip is-guard"><b>UDM Pro</b><i>firewall / router</i></span></section>
+  <section class="arch-tier" data-label="VLAN 10 - Management - 192.168.10.0/24"><span class="arch-chip is-primary">Proxmox Host</span><span class="arch-chip">TrueNAS</span><span class="arch-chip is-guard">Bastion Host</span></section>
+  <section class="arch-tier" data-label="VLAN 20 - Services - 192.168.20.0/24"><span class="arch-chip">GitLab CE</span><span class="arch-chip">BookStack</span><span class="arch-chip">Jellyfin</span></section>
+  <section class="arch-tier" data-label="VLAN 30 - IoT - 192.168.30.0/24"><span class="arch-chip">Home Assistant</span><span class="arch-chip is-warn">Smart Devices</span></section>
+  <section class="arch-tier" data-label="VLAN 40 - Guest - 192.168.40.0/24"><span class="arch-chip is-guard">Guest Devices - Internet Only</span></section>
+  <section class="arch-tier" data-label="VLAN 50 - Lab - 192.168.50.0/24"><span class="arch-chip"><b>K3s Cluster</b><i>3x Pi 5 + 1x Pi 4</i></span></section>
+</div>
+<figcaption>The UDM Pro routes each VLAN; Home Assistant bridges only to approved services, and bastion SSH is the management entry point.</figcaption>
+</figure>
 
 ## Security Hardening That Matters
 
@@ -265,35 +199,15 @@ Backups are boring until you need them. I learned this during a storage controll
 
 **Tier 3 - Offsite replication:** Restic backups to Backblaze B2. Critical data encrypted and synced daily, full backups weekly. 90-day retention with versioning.
 
-```mermaid
-flowchart LR
-    subgraph Tier1["Tier 1 — Local"]
-        ZSnap["ZFS Snapshots<br/>Every Hour<br/>48h Retention"]
-    end
-
-    subgraph Tier2["Tier 2 — On-Site"]
-        Full["Weekly Full Backup"]
-        Inc["Daily Incrementals"]
-        Store["TrueNAS RAIDZ2<br/>30-day Retention"]
-    end
-
-    subgraph Tier3["Tier 3 — Offsite"]
-        Restic["Restic Encrypted"]
-        B2["Backblaze B2<br/>90-day Retention"]
-    end
-
-    VMs["VMs &<br/>Containers"] --> ZSnap
-    VMs --> Full
-    VMs --> Inc
-    Full --> Store
-    Inc --> Store
-    Store -->|"Daily Sync"| Restic
-    Restic --> B2
-
-    style Tier1 fill:#1a1a2e,color:#fff
-    style Tier2 fill:#16213e,color:#fff
-    style Tier3 fill:#0f3460,color:#fff
-```
+<figure class="arch-fig">
+<div class="arch is-stack" aria-label="Three-tier Proxmox backup strategy">
+  <section class="arch-tier" data-label="Source"><span class="arch-chip is-primary">VMs &amp; Containers</span></section>
+  <section class="arch-tier" data-label="Tier 1 - Local"><span class="arch-chip"><b>ZFS Snapshots</b><i>every hour, 48h retention</i></span></section>
+  <section class="arch-tier" data-label="Tier 2 - On-Site"><span class="arch-chip">Weekly Full Backup</span><span class="arch-chip">Daily Incrementals</span><span class="arch-chip is-guard"><b>TrueNAS RAIDZ2</b><i>30-day retention</i></span></section>
+  <section class="arch-tier" data-label="Tier 3 - Offsite"><span class="arch-chip is-guard">Restic Encrypted</span><span class="arch-chip is-primary"><b>Backblaze B2</b><i>90-day retention</i></span></section>
+</div>
+<figcaption>Local snapshots handle fast rollback, on-site backups cover VM recovery, and encrypted Restic syncs critical data offsite.</figcaption>
+</figure>
 
 ### Backup Testing (The Part Everyone Skips)
 

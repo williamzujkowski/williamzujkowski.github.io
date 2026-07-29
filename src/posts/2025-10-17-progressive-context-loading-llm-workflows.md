@@ -34,25 +34,10 @@ Traditional LLM workflows suffer from "context obesity": stuffing every possible
 
 ⚠️ **Warning:** This diagram illustrates LLM context loading strategies for educational purposes. Implement proper security controls and access restrictions when deploying progressive loading systems in production environments.
 
-```mermaid
-flowchart TD
-    A[Context Loading Strategy] --> B[Monolithic Load]
-    A --> C[Progressive Load]
-
-    B --> D[Pros: Complete info upfront]
-    B --> E[Cons: 150K tokens, slow, expensive]
-
-    C --> F[Pros: 2K initial, fast, cheap]
-    C --> G[Cons: Must predict needs]
-
-    E --> H[99% unused context]
-    G --> I[98% accuracy in prediction]
-
-    classDef monolithicStyle fill:#ff6b6b,color:#fff
-    classDef progressiveStyle fill:#51cf66,color:#000
-    class E monolithicStyle
-    class G progressiveStyle
-```
+| Context loading strategy | Pros | Cons | Outcome |
+|---|---|---|---|
+| Monolithic Load | Complete info upfront | 150K tokens, slow, expensive | 99% unused context |
+| Progressive Load | 2K initial, fast, cheap | Must predict needs | 98% accuracy in prediction |
 
 **My homelab challenge**:
 - Enforce coding standards across 47 file types
@@ -165,26 +150,19 @@ The design goal: preserve critical context, discard irrelevant information, and 
 
 Task flow:
 
-```mermaid
-flowchart LR
-    A[Task Arrives] --> B{Parse File Types}
-    B --> C[Query Product Matrix]
-    C --> D{Determine Skills}
-    D --> E[Load Primary Skills 2K tokens]
-    E --> F{Task Complete?}
-    F -->|Yes| G[Return Result]
-    F -->|No| H{Need More Context?}
-    H -->|Yes| I[Load Dependencies +3K tokens]
-    I --> F
-    H -->|No| J[Request Clarification]
-
-    classDef primaryStyle fill:#51cf66,color:#000
-    classDef dependencyStyle fill:#ffd93d,color:#000
-    classDef clarificationStyle fill:#6bcfff,color:#000
-    class E primaryStyle
-    class I dependencyStyle
-    class J clarificationStyle
-```
+<div class="flow" aria-label="Dynamic context assembly workflow">
+  <div class="flow-node">Task Arrives</div>
+  <div class="flow-node is-gate">Parse File Types</div>
+  <div class="flow-node">Query Product Matrix</div>
+  <div class="flow-node is-gate">Determine Skills</div>
+  <div class="flow-node is-good"><b>Load Primary Skills</b><i>2K tokens</i></div>
+  <div class="flow-node is-gate">Task Complete?</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-good">Return Result</div></div>
+    <div class="flow-leg" data-branch="Need Context"><div class="flow-node"><b>Load Dependencies</b><i>+3K tokens, then re-check task</i></div></div>
+    <div class="flow-leg" data-branch="No Context"><div class="flow-node">Request Clarification</div></div>
+  </div>
+</div>
 
 **Performance** (measured in my homelab):
 - Simple tasks: 2K tokens

@@ -25,44 +25,30 @@ According to [Giuseppe Riva's groundbreaking research](https://arxiv.org/abs/250
 
 ⚠️ **Warning:** These diagrams illustrate AI cognitive infrastructure concepts for educational analysis. Understanding these systems' influence requires critical evaluation and awareness of algorithmic mediation.
 
-```mermaid
-flowchart TB
-    subgraph traditionalinfrastructure["Traditional Infrastructure"]
-        Roads[Physical Roads]
-        Power[Electricity Grid]
-        Telecom[Telecommunications]
-    end
-    subgraph cognitiveinfrastructure["Cognitive Infrastructure"]
-        AI[AI Systems]
-        ML[Machine Learning]
-        NLP[Natural Language Processing]
-    end
-    subgraph humancognition["Human Cognition"]
-        Memory[Memory]
-        Decision[Decision Making]
-        Analysis[Analysis]
-        Creativity[Creativity]
-    end
-
-    Roads --> Commerce[Enable Commerce]
-    Power --> Industry[Power Industry]
-    Telecom --> Communication[Enable Communication]
-
-    AI --> Memory
-    ML --> Decision
-    NLP --> Analysis
-    AI --> Creativity
-
-    Memory --> Thinking[Augmented Thinking]
-    Decision --> Thinking
-    Analysis --> Thinking
-    Creativity --> Thinking
-
-    classDef aiStyle fill:#e11d48,color:#fff
-    classDef thinkStyle fill:#10b981,color:#fff
-    class AI,ML,NLP aiStyle
-    class Thinking thinkStyle
-```
+<figure class="arch-fig">
+<div class="flow" aria-label="Traditional infrastructure enablement path">
+  <div class="flow-parallel">
+    <div class="flow-node"><b>Physical Roads</b><i>enable commerce</i></div>
+    <div class="flow-node"><b>Electricity Grid</b><i>powers industry</i></div>
+    <div class="flow-node"><b>Telecommunications</b><i>enable communication</i></div>
+  </div>
+</div>
+<div class="flow" aria-label="Cognitive infrastructure mediation path">
+  <div class="flow-parallel">
+    <div class="flow-node">AI Systems</div>
+    <div class="flow-node">Machine Learning</div>
+    <div class="flow-node">Natural Language Processing</div>
+  </div>
+  <div class="flow-parallel">
+    <div class="flow-node">Memory</div>
+    <div class="flow-node">Decision Making</div>
+    <div class="flow-node">Analysis</div>
+    <div class="flow-node">Creativity</div>
+  </div>
+  <div class="flow-node is-good">Augmented Thinking</div>
+</div>
+<figcaption>Traditional infrastructure moves goods, power, and signals; cognitive infrastructure mediates memory, decisions, analysis, and creativity.</figcaption>
+</figure>
 
 **Three mechanisms define cognitive infrastructure:**
 
@@ -107,36 +93,20 @@ The concept of "epistemic agency" (your ability to determine what's true and rel
 
 ⚠️ **Warning:** This diagram demonstrates how AI systems influence information access and decision-making. Users should maintain awareness of algorithmic filtering and actively seek diverse information sources.
 
-```mermaid
-flowchart TD
-    User[User Query/Interest] --> AI{AI Analysis}
-
-    AI --> Filter[Relevance Filtering]
-    AI --> Rank[Priority Ranking]
-    AI --> Personal[Personalization]
-
-    Filter --> Visible[Visible Options]
-    Filter --> Hidden[Hidden Options]
-
-    Rank --> First[First Results]
-    Rank --> Later[Later Results]
-
-    Personal --> Bubble[Filter Bubble]
-    Personal --> Echo[Echo Chamber]
-
-    Visible --> Decision[User Decision]
-    First --> Decision
-    Bubble --> Decision
-
-    Hidden -.->|Never Seen| Void[Lost Possibilities]
-    Later -.->|Rarely Seen| Void
-    Echo -.->|Reinforcement| Decision
-
-    classDef redStyle fill:#ef4444,color:#fff
-    classDef orangeStyle fill:#f59e0b,color:#000
-    class Hidden,Void redStyle
-    class Bubble,Echo orangeStyle
-```
+<div class="flow" aria-label="AI-mediated information access path">
+  <div class="flow-node">User Query/Interest</div>
+  <div class="flow-node is-gate">AI Analysis</div>
+  <div class="flow-parallel">
+    <div class="flow-node"><b>Relevance Filtering</b><i>visible options / hidden options</i></div>
+    <div class="flow-node"><b>Priority Ranking</b><i>first results / later results</i></div>
+    <div class="flow-node"><b>Personalization</b><i>filter bubble / echo chamber</i></div>
+  </div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Seen"><div class="flow-node is-good">User Decision</div></div>
+    <div class="flow-leg" data-branch="Filtered"><div class="flow-node is-bad"><b>Lost Possibilities</b><i>never seen or rarely seen</i></div></div>
+    <div class="flow-leg" data-branch="Reinforced"><div class="flow-node">Echo Chamber</div></div>
+  </div>
+</div>
 
 This isn't conspiracy. It's architecture. The structure of AI-mediated information access shapes what you can know and think. When AI determines relevance, it's not organizing information. It's organizing thought itself.
 

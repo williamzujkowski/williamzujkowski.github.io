@@ -46,29 +46,15 @@ Containers share the host kernel. One bad syscall can break containment. This is
 
 **But:** All these run in the kernel. Kernel bugs bypass them.
 
-```mermaid
-graph TB
-    subgraph "Traditional Container Isolation"
-        C1[Container Process] --> NS[Namespaces]
-        C1 --> CG[Cgroups]
-        C1 --> SC[Seccomp-BPF]
-        C1 --> MAC[AppArmor / SELinux]
-        NS --> K[Host Kernel]
-        CG --> K
-        SC --> K
-        MAC --> K
-        K --> HW[Hardware]
-    end
-
-    style K fill:#f66,stroke:#333,color:#fff
-    style HW fill:#999,stroke:#333,color:#fff
-    style C1 fill:#6af,stroke:#333,color:#fff
-
-    classDef danger fill:#f66,stroke:#333,color:#fff
-    K:::danger
-
-    linkStyle 4,5,6,7 stroke:#f66,stroke-width:2px
-```
+<figure class="arch-fig">
+<div class="arch is-stack" aria-label="Traditional container isolation stack">
+  <section class="arch-tier" data-label="Workload"><span class="arch-chip is-primary">Container Process</span></section>
+  <section class="arch-tier" data-label="Kernel Isolation Controls"><span class="arch-chip is-guard">Namespaces</span><span class="arch-chip is-guard">Cgroups</span><span class="arch-chip is-guard">Seccomp-BPF</span><span class="arch-chip is-guard">AppArmor / SELinux</span></section>
+  <section class="arch-tier" data-label="Shared Boundary"><span class="arch-chip is-bad">Host Kernel</span></section>
+  <section class="arch-tier" data-label="Platform"><span class="arch-chip">Hardware</span></section>
+</div>
+<figcaption>Traditional containers add multiple guardrails, but every path still terminates at the shared host kernel.</figcaption>
+</figure>
 
 > All isolation mechanisms run inside the kernel. A single kernel vulnerability bypasses every layer.
 
@@ -97,33 +83,14 @@ Container → gVisor Sentry (userspace) → Host Kernel
 - Runs with minimal privileges
 - Cannot access host filesystem directly
 
-```mermaid
-graph LR
-    subgraph "Container Sandbox"
-        APP[Container App]
-    end
-
-    subgraph "gVisor Userspace Kernel"
-        SENTRY[Sentry<br/>Go userspace kernel<br/>200+ syscalls reimplemented]
-        GOFER[Gofer<br/>9P filesystem proxy<br/>minimal privileges]
-    end
-
-    subgraph "Host"
-        HK[Host Kernel<br/>limited syscall surface]
-        FS[Host Filesystem]
-    end
-
-    APP -- "All syscalls" --> SENTRY
-    SENTRY -- "Safe syscalls only" --> HK
-    SENTRY -- "File I/O requests" --> GOFER
-    GOFER -- "Scoped file access" --> FS
-
-    style APP fill:#6af,stroke:#333,color:#fff
-    style SENTRY fill:#6c6,stroke:#333,color:#fff
-    style GOFER fill:#6c6,stroke:#333,color:#fff
-    style HK fill:#fc6,color:#000,stroke:#333
-    style FS fill:#fc6,color:#000,stroke:#333
-```
+<figure class="arch-fig">
+<div class="arch is-stack" aria-label="gVisor container sandbox architecture">
+  <section class="arch-tier" data-label="Container Sandbox"><span class="arch-chip is-primary">Container App</span></section>
+  <section class="arch-tier" data-label="gVisor Userspace Kernel"><span class="arch-chip is-guard"><b>Sentry</b><i>Go userspace kernel; 200+ syscalls reimplemented</i></span><span class="arch-chip is-guard"><b>Gofer</b><i>9P filesystem proxy; minimal privileges</i></span></section>
+  <section class="arch-tier" data-label="Host"><span class="arch-chip"><b>Host Kernel</b><i>limited syscall surface</i></span><span class="arch-chip">Host Filesystem</span></section>
+</div>
+<figcaption>Container syscalls hit Sentry first; only safe host syscalls and scoped file requests continue into the host.</figcaption>
+</figure>
 
 **Key insight:** Even if a container exploits a syscall bug, it's exploiting Go code in userspace, not the kernel. No privilege escalation to host.
 
@@ -380,23 +347,26 @@ docker run --rm --runtime=runsc alpine sh -c "echo 'exploit' | tee /proc/self/me
 
 **My decision tree:**
 
-```mermaid
-flowchart TD
-    START([New Workload]) --> Q1{Untrusted image?}
-    Q1 -- Yes --> GVISOR[Use gVisor]
-    Q1 -- No --> Q2{Internet-facing?}
-    Q2 -- Yes --> GVISOR
-    Q2 -- No --> Q3{Needs native<br/>performance?}
-    Q3 -- Yes --> RUNC[Use runc]
-    Q3 -- No --> Q4{Syscall-heavy?}
-    Q4 -- Yes --> RUNC
-    Q4 -- No --> RUNC2[Use runc<br/>principle of least surprise]
-
-    style GVISOR fill:#6c6,stroke:#333,color:#fff
-    style RUNC fill:#fc6,color:#000,stroke:#333
-    style RUNC2 fill:#fc6,color:#000,stroke:#333
-    style START fill:#6af,stroke:#333,color:#fff
-```
+<div class="flow" aria-label="Container runtime selection decision path">
+  <div class="flow-node">New Workload</div>
+  <div class="flow-node is-gate">Untrusted image?</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-good">Use gVisor</div></div>
+    <div class="flow-leg" data-branch="No"><div class="flow-node is-gate">Internet-facing?</div></div>
+  </div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-good">Use gVisor</div></div>
+    <div class="flow-leg" data-branch="No"><div class="flow-node is-gate">Needs native performance?</div></div>
+  </div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Yes"><div class="flow-node">Use runc</div></div>
+    <div class="flow-leg" data-branch="No"><div class="flow-node is-gate">Syscall-heavy?</div></div>
+  </div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Yes"><div class="flow-node">Use runc</div></div>
+    <div class="flow-leg" data-branch="No"><div class="flow-node"><b>Use runc</b><i>principle of least surprise</i></div></div>
+  </div>
+</div>
 
 **Trade-off:** Security vs performance. I choose security for attack surfaces, performance for internal services.
 
@@ -467,31 +437,16 @@ G-Fuzz demonstrates that even secure-by-design systems need adversarial testing.
 - [Open Policy Agent](https://www.openpolicyagent.org/) for admission control
 - [Tetragon](https://github.com/cilium/tetragon) for eBPF observability
 
-```mermaid
-graph TB
-    subgraph "Defense in Depth Stack"
-        direction TB
-        L1[Admission Control<br/>OPA / Kyverno]
-        L2[Runtime Sandbox<br/>gVisor Sentry + Gofer]
-        L3[Runtime Detection<br/>Falco / Tetragon]
-        L4[Network Policy<br/>Cilium / Calico]
-        L5[Vulnerability Scanning<br/>Grype / Trivy]
-    end
-
-    L1 --> L2 --> L3 --> L4 --> L5
-
-    ATK([Attacker]) -.->|blocked| L1
-    ATK -.->|blocked| L2
-    ATK -.->|detected| L3
-    ATK -.->|contained| L4
-
-    style L1 fill:#69c,stroke:#333,color:#fff
-    style L2 fill:#6c6,stroke:#333,color:#fff
-    style L3 fill:#c96,stroke:#333,color:#fff
-    style L4 fill:#c6c,stroke:#333,color:#fff
-    style L5 fill:#cc6,color:#000,stroke:#333
-    style ATK fill:#f66,stroke:#333,color:#fff
-```
+<figure class="arch-fig">
+<div class="arch is-stack" aria-label="Container defense in depth stack">
+  <section class="arch-tier" data-label="Admission Control"><span class="arch-chip is-guard">OPA / Kyverno</span></section>
+  <section class="arch-tier" data-label="Runtime Sandbox"><span class="arch-chip is-primary">gVisor Sentry + Gofer</span></section>
+  <section class="arch-tier" data-label="Runtime Detection"><span class="arch-chip is-warn">Falco / Tetragon</span></section>
+  <section class="arch-tier" data-label="Network Policy"><span class="arch-chip is-guard">Cilium / Calico</span></section>
+  <section class="arch-tier" data-label="Vulnerability Scanning"><span class="arch-chip">Grype / Trivy</span></section>
+</div>
+<figcaption>Attackers should be blocked at admission or runtime, detected by monitoring, and contained by network policy before scanning closes the loop.</figcaption>
+</figure>
 
 **No silver bullet.** Security is understanding your threat model and layering controls.
 

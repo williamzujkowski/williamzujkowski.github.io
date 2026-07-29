@@ -102,25 +102,17 @@ Not every paper I read was useful. A few approaches I tried and discarded:
 
 ## The Full Pipeline
 
-```mermaid
-flowchart LR
-    Task[Task Input] --> BR[Budget Router]
-    BR --> ZR[Zero Router]
-    ZR --> PR[Preference Router]
-    PR --> TR[TOPSIS Router]
-    TR --> LB[LinUCB Bandit]
-    LB --> Model[Selected Model]
-    Model --> Exec[Execute Task]
-    Exec --> Outcome[Task Outcome]
-    Outcome -.->|reward signal| LB
-
-    classDef routerNode fill:#4f46e5,stroke:#fff,stroke-width:2px,color:#fff
-    classDef ioNode fill:#f59e0b,color:#000,stroke:#333,stroke-width:2px
-    classDef adaptNode fill:#10b981,stroke:#fff,stroke-width:2px,color:#fff
-    class BR,ZR,PR,TR routerNode
-    class Task,Model,Exec,Outcome ioNode
-    class LB adaptNode
-```
+<div class="flow" aria-label="RouteLLM contextual bandit routing pipeline">
+  <div class="flow-node">Task Input</div>
+  <div class="flow-node">Budget Router</div>
+  <div class="flow-node">Zero Router</div>
+  <div class="flow-node">Preference Router</div>
+  <div class="flow-node">TOPSIS Router</div>
+  <div class="flow-node is-gate">LinUCB Bandit</div>
+  <div class="flow-node">Selected Model</div>
+  <div class="flow-node">Execute Task</div>
+  <div class="flow-node is-good"><b>Task Outcome</b><i>reward signal updates LinUCB</i></div>
+</div>
 
 The final router runs five stages in sequence:
 

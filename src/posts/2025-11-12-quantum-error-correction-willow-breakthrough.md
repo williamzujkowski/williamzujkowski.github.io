@@ -21,35 +21,14 @@ Here's the catch that almost doomed the field: traditional error correction make
 
 The theoretical solution has been known since the 1990s: surface codes and logical qubits. Instead of using individual physical qubits for computation, you use groups of physical qubits to create one "logical qubit" protected by quantum error correction. The math said this should work below a critical error threshold around 1%.
 
-```mermaid
-graph TB
-    subgraph Surface["Surface Code Layout"]
-        direction TB
-        D1((D)) --- S1{S} --- D2((D))
-        D2 --- S2{S} --- D3((D))
-        D3 --- S3{S} --- D4((D))
-        D4 --- S4{S} --- D5((D))
-    end
-
-    subgraph Logical["Logical Qubit"]
-        LQ[1 Logical Qubit]
-    end
-
-    Surface -->|"Error correction<br/>decoding"| Logical
-
-    note1["D = Data Qubit<br/>S = Syndrome (Ancilla) Qubit"]
-
-    style D1 fill:#3498db,color:#fff
-    style D2 fill:#3498db,color:#fff
-    style D3 fill:#3498db,color:#fff
-    style D4 fill:#3498db,color:#fff
-    style D5 fill:#3498db,color:#fff
-    style S1 fill:#e74c3c,color:#fff
-    style S2 fill:#e74c3c,color:#fff
-    style S3 fill:#e74c3c,color:#fff
-    style S4 fill:#e74c3c,color:#fff
-    style LQ fill:#2ecc71,color:#fff
-```
+<figure class="arch-fig">
+<div class="arch is-stack" aria-label="Surface code error correction path">
+  <section class="arch-tier" data-label="Surface Code Layout"><span class="arch-chip is-primary"><b>D</b><i>Data Qubit</i></span><span class="arch-chip is-guard"><b>S</b><i>Syndrome Ancilla</i></span><span class="arch-chip is-primary"><b>D</b><i>Data Qubit</i></span><span class="arch-chip is-guard"><b>S</b><i>Syndrome Ancilla</i></span><span class="arch-chip is-primary"><b>D</b><i>Data Qubit</i></span></section>
+  <section class="arch-tier" data-label="Error Correction"><span class="arch-chip is-guard">Syndrome Measurement</span><span class="arch-chip is-guard">Decoding</span></section>
+  <section class="arch-tier" data-label="Logical Qubit"><span class="arch-chip is-primary">1 Logical Qubit</span></section>
+</div>
+<figcaption>Physical data qubits and syndrome ancillas form a surface-code layout that decodes into one protected logical qubit.</figcaption>
+</figure>
 
 **The problem:** Nobody could prove it actually worked at scale. Every demonstration either used too few qubits or showed errors getting worse as systems grew larger.
 

@@ -35,47 +35,15 @@ MCP gave me a standard interface that any compatible client could use. Claude Co
 
 An [STPA safety analysis of MCP](https://arxiv.org/abs/2601.08012) later validated some of my security concerns about the protocol. More on that below.
 
-```mermaid
-graph TB
-    subgraph Clients["MCP Clients"]
-        CC["Claude Code"]
-        Cursor["Cursor"]
-        WS["Windsurf"]
-    end
-
-    subgraph "Nexus-Agents MCP Server"
-        MCP["MCP Protocol Layer<br/>25 Tools"]
-        Orch["Orchestrator"]
-        Router["CompositeRouter<br/>5-Stage Pipeline"]
-        Consensus["Consensus Engine"]
-        Graph["Graph Workflows"]
-        Pipeline["Plugin Pipeline"]
-    end
-
-    subgraph Adapters["CLI Adapters"]
-        Claude["Claude Adapter"]
-        Gemini["Gemini Adapter"]
-        Codex["Codex Adapter"]
-        OC["OpenCode Adapter"]
-    end
-
-    subgraph Models["AI Models"]
-        M1["Claude Opus / Sonnet"]
-        M2["Gemini Pro / Flash"]
-        M3["Codex"]
-    end
-
-    CC & Cursor & WS -->|"MCP (stdio/SSE)"| MCP
-    MCP --> Orch
-    Orch --> Router
-    Orch --> Consensus
-    Orch --> Graph
-    Orch --> Pipeline
-    Router --> Claude & Gemini & Codex & OC
-    Claude --> M1
-    Gemini --> M2
-    Codex --> M3
-```
+<figure class="arch-fig">
+<div class="arch is-stack" aria-label="Nexus-Agents MCP orchestration architecture">
+  <section class="arch-tier" data-label="MCP Clients"><span class="arch-chip">Claude Code</span><span class="arch-chip">Cursor</span><span class="arch-chip">Windsurf</span></section>
+  <section class="arch-tier" data-label="Nexus-Agents MCP Server"><span class="arch-chip is-primary"><b>MCP Protocol Layer</b><i>25 tools</i></span><span class="arch-chip">Orchestrator</span><span class="arch-chip">CompositeRouter - 5-Stage Pipeline</span><span class="arch-chip">Consensus Engine</span><span class="arch-chip">Graph Workflows</span><span class="arch-chip">Plugin Pipeline</span></section>
+  <section class="arch-tier" data-label="CLI Adapters"><span class="arch-chip">Claude Adapter</span><span class="arch-chip">Gemini Adapter</span><span class="arch-chip">Codex Adapter</span><span class="arch-chip">OpenCode Adapter</span></section>
+  <section class="arch-tier" data-label="AI Models"><span class="arch-chip is-primary">Claude Opus / Sonnet</span><span class="arch-chip is-primary">Gemini Pro / Flash</span><span class="arch-chip is-primary">Codex</span></section>
+</div>
+<figcaption>MCP clients enter through the server, the orchestrator selects routing, consensus, workflow, or plugin tools, and adapters call the underlying models.</figcaption>
+</figure>
 
 ### CLI Adapter Pattern
 
@@ -109,31 +77,15 @@ Picking the right model for a task isn't simple. I built a five-stage routing pi
 
 The entire pipeline runs in under 10ms. I was surprised how fast TOPSIS is when you're only ranking 6-8 models. The routing decision is nearly free compared to actual model inference. I wrote a [deeper dive on the routing research](/posts/2026-01-15-routellm-contextual-bandits-model-router-research/) separately, including the approaches that didn't work.
 
-```mermaid
-flowchart LR
-    Task["Incoming Task"]
-
-    subgraph Pipeline["5-Stage Routing Pipeline"]
-        direction LR
-        S1["1. Budget<br/>Router"]
-        S2["2. Zero<br/>Router"]
-        S3["3. Preference<br/>Router"]
-        S4["4. TOPSIS<br/>Router"]
-        S5["5. LinUCB<br/>Bandit"]
-        S1 --> S2 --> S3 --> S4 --> S5
-    end
-
-    Task --> S1
-    S5 --> Selected["Selected<br/>Model"]
-
-    Feedback["Outcome<br/>Feedback"] -.->|"Adjusts Weights"| S5
-
-    style S1 fill:#264653,color:#fff
-    style S2 fill:#2a9d8f,color:#fff
-    style S3 fill:#e9c46a,color:#000
-    style S4 fill:#f4a261,color:#000
-    style S5 fill:#e76f51,color:#fff
-```
+<div class="flow" aria-label="Nexus-Agents five-stage routing pipeline">
+  <div class="flow-node">Incoming Task</div>
+  <div class="flow-node"><b>1. Budget</b><i>Router</i></div>
+  <div class="flow-node"><b>2. Zero</b><i>Router</i></div>
+  <div class="flow-node"><b>3. Preference</b><i>Router</i></div>
+  <div class="flow-node"><b>4. TOPSIS</b><i>Router</i></div>
+  <div class="flow-node is-gate"><b>5. LinUCB</b><i>Bandit</i></div>
+  <div class="flow-node is-good"><b>Selected Model</b><i>outcome feedback adjusts LinUCB weights</i></div>
+</div>
 
 ## Consensus Voting: Multiple Perspectives on Hard Decisions
 

@@ -36,32 +36,27 @@ According to RAND Corporation's analysis,[^rand-analysis] if your data needs to 
 
 The math is simple and it's called [Mosca's Theorem](https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/): If **X** (how long your data must stay secret) + **Y** (how long it takes to migrate) > **Z** (when quantum computers arrive), you're already behind schedule.
 
-```mermaid
-flowchart LR
-    subgraph Mosca["Mosca's Theorem: X + Y > Z = Already Behind"]
-        X["X: Data Secrecy<br/>Requirement<br/>(10-30 years)"]
-        Y["Y: Migration<br/>Time Needed<br/>(5-15 years)"]
-        Z["Z: Quantum Computer<br/>Arrival<br/>(2033-2040?)"]
-    end
-
-    X --> SUM["X + Y"]
-    Y --> SUM
-    SUM --> CMP{"X + Y > Z?"}
-    CMP -- "Yes" --> LATE["Already Behind<br/>Schedule"]
-    CMP -- "No" --> SAFE["Time Remaining<br/>to Migrate"]
-
-    subgraph SNDL["Store Now, Decrypt Later"]
-        CAP["Adversary Captures<br/>Encrypted Traffic<br/>(Today)"]
-        WAIT["Stores Until Quantum<br/>Computer Available"]
-        CRACK["Decrypts Historical<br/>Traffic"]
-    end
-
-    CAP --> WAIT --> CRACK
-
-    style LATE fill:#e74c3c,color:#fff
-    style SAFE fill:#27ae60,color:#fff
-    style SNDL fill:#f39c12,color:#000
-```
+<figure class="arch-fig">
+<div class="flow" aria-label="Mosca theorem migration timing test">
+  <div class="flow-parallel">
+    <div class="flow-node"><b>X: Data Secrecy Requirement</b><i>10-30 years</i></div>
+    <div class="flow-node"><b>Y: Migration Time Needed</b><i>5-15 years</i></div>
+    <div class="flow-node"><b>Z: Quantum Computer Arrival</b><i>2033-2040?</i></div>
+  </div>
+  <div class="flow-node">X + Y</div>
+  <div class="flow-node is-gate">X + Y &gt; Z?</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-bad"><b>Already Behind</b><i>schedule</i></div></div>
+    <div class="flow-leg" data-branch="No"><div class="flow-node is-good"><b>Time Remaining</b><i>to migrate</i></div></div>
+  </div>
+</div>
+<div class="flow" aria-label="Store Now Decrypt Later attack path">
+  <div class="flow-node"><b>Adversary Captures Encrypted Traffic</b><i>today</i></div>
+  <div class="flow-node"><b>Stores Until Quantum Computer</b><i>available</i></div>
+  <div class="flow-node is-bad">Decrypts Historical Traffic</div>
+</div>
+<figcaption>Mosca's timing test explains whether migration is already late; the SNDL path explains why old encrypted traffic is still at risk.</figcaption>
+</figure>
 
 For my homelab, that meant my encrypted backups, my self-hosted Bitwarden vault snapshots, and even my personal notes stored on TrueNAS, all potentially exposed if someone's recording my network traffic today. That realization made spending three weekends on PQC suddenly feel a lot more urgent.
 
@@ -69,26 +64,15 @@ For my homelab, that meant my encrypted backups, my self-hosted Bitwarden vault 
 
 The following diagram compares the three NIST-standardized post-quantum algorithms and their roles:
 
-```mermaid
-flowchart TD
-    NIST["NIST PQC Standards<br/>(August 2024)"]
-
-    NIST --> KEM["ML-KEM (FIPS 203)<br/>Key Encapsulation"]
-    NIST --> DSA["ML-DSA (FIPS 204)<br/>Digital Signatures"]
-    NIST --> SLH["SLH-DSA (FIPS 205)<br/>Hash-Based Signatures"]
-
-    KEM --> KEM_USE["Replaces: ECDH / X25519<br/>Used in: TLS handshakes<br/>Key sizes: 800-1568 bytes"]
-    DSA --> DSA_USE["Replaces: RSA / ECDSA<br/>Used in: Certificates, code signing<br/>Sig sizes: 2420-4595 bytes"]
-    SLH --> SLH_USE["Backup for: ML-DSA<br/>Used in: Long-term archival<br/>Based on: Hash functions only"]
-
-    KEM_USE --> LATTICE["Lattice-Based Math<br/>(Learning With Errors)"]
-    DSA_USE --> LATTICE
-    SLH_USE --> HASH["Hash Functions<br/>(Different math basis)"]
-
-    style KEM fill:#3498db,color:#fff
-    style DSA fill:#27ae60,color:#fff
-    style SLH fill:#f39c12,color:#fff
-```
+<figure class="arch-fig">
+<div class="arch is-stack" aria-label="NIST post-quantum cryptography standards">
+  <section class="arch-tier" data-label="Standards"><span class="arch-chip is-primary"><b>NIST PQC Standards</b><i>August 2024</i></span></section>
+  <section class="arch-tier" data-label="Algorithms"><span class="arch-chip"><b>ML-KEM (FIPS 203)</b><i>key encapsulation</i></span><span class="arch-chip"><b>ML-DSA (FIPS 204)</b><i>digital signatures</i></span><span class="arch-chip"><b>SLH-DSA (FIPS 205)</b><i>hash-based signatures</i></span></section>
+  <section class="arch-tier" data-label="Uses"><span class="arch-chip"><b>ML-KEM</b><i>replaces ECDH / X25519; TLS handshakes; 800-1568 byte keys</i></span><span class="arch-chip"><b>ML-DSA</b><i>replaces RSA / ECDSA; certificates and code signing; 2420-4595 byte signatures</i></span><span class="arch-chip"><b>SLH-DSA</b><i>backup for ML-DSA; long-term archival; hash functions only</i></span></section>
+  <section class="arch-tier" data-label="Math Basis"><span class="arch-chip is-guard"><b>Lattice-Based Math</b><i>Learning With Errors</i></span><span class="arch-chip is-guard"><b>Hash Functions</b><i>different math basis</i></span></section>
+</div>
+<figcaption>ML-KEM and ML-DSA rely on lattice-based assumptions; SLH-DSA provides a hash-based signature fallback.</figcaption>
+</figure>
 
 NIST's standardization process evaluated 82 algorithms over eight years and selected three winners. Here's what actually made it to production. If you need a refresher on the classical cryptography these algorithms are replacing, check out my [cryptography fundamentals guide](/posts/2024-01-18-demystifying-cryptography-beginners-guide).
 
@@ -648,40 +632,17 @@ My personal risk tolerance says these trade-offs are acceptable for homelab expe
 
 The migration strategy follows four phases, prioritizing services by their exposure to Store Now, Decrypt Later attacks:
 
-```mermaid
-flowchart TD
-    subgraph Phase1["Phase 1: Test (Weekend 1)"]
-        VM["Isolated VM<br/>Ubuntu 24.04"]
-        VM --> CADDY["Install Caddy 2.10<br/>PQC enabled by default"]
-        CADDY --> VERIFY["Verify x25519_kyber768<br/>in handshake"]
-    end
-
-    subgraph Phase2["Phase 2: Certificates (Weekend 1)"]
-        CLASSICAL["Classical Certs<br/>(RSA/ECDSA)"]
-        CLASSICAL --> HYBRID_KE["+ PQC Key Exchange<br/>(ML-KEM-768)"]
-        HYBRID_KE --> FUTURE["Future: ML-DSA Certs<br/>(2026-2027)"]
-    end
-
-    subgraph Phase3["Phase 3: Rollout (Weekend 2)"]
-        HIGH["High Priority<br/>Bitwarden, TrueNAS, VPN"]
-        MED["Medium Priority<br/>Nextcloud, Wikis"]
-        LOW["Lower Priority<br/>Jellyfin, Grafana"]
-        HIGH --> MED --> LOW
-    end
-
-    subgraph Phase4["Phase 4: Monitor (Ongoing)"]
-        MON["Prometheus + Grafana"]
-        MON --> HANDSHAKE["Track handshake latency"]
-        MON --> COMPAT["Monitor client failures"]
-        MON --> CERTS["Certificate expiration"]
-    end
-
-    Phase1 --> Phase2 --> Phase3 --> Phase4
-
-    style HIGH fill:#e74c3c,color:#fff
-    style MED fill:#f39c12,color:#fff
-    style LOW fill:#27ae60,color:#fff
-```
+<div class="flow" aria-label="Post-quantum cryptography homelab migration phases">
+  <div class="flow-node"><b>Phase 1: Test</b><i>Weekend 1; isolated Ubuntu 24.04 VM, Caddy 2.10, verify x25519_kyber768 handshake</i></div>
+  <div class="flow-node"><b>Phase 2: Certificates</b><i>Weekend 1; classical certs, PQC key exchange with ML-KEM-768, future ML-DSA certs in 2026-2027</i></div>
+  <div class="flow-node is-gate"><b>Phase 3: Rollout</b><i>Weekend 2</i></div>
+  <div class="flow-parallel">
+    <div class="flow-node is-bad"><b>High Priority</b><i>Bitwarden, TrueNAS, VPN</i></div>
+    <div class="flow-node"><b>Medium Priority</b><i>Nextcloud, Wikis</i></div>
+    <div class="flow-node is-good"><b>Lower Priority</b><i>Jellyfin, Grafana</i></div>
+  </div>
+  <div class="flow-node"><b>Phase 4: Monitor</b><i>ongoing; Prometheus + Grafana, handshake latency, client failures, certificate expiration</i></div>
+</div>
 
 Here's the process I'd follow if I had to start over, knowing what I know now:
 

@@ -23,63 +23,16 @@ This incident became a driving force behind [building a security-focused homelab
 
 ## High Availability Architecture
 
-```mermaid
-flowchart TB
-    subgraph clusternodes["Cluster Nodes"]
-        Node1[Proxmox Node 1<br/>Dell R910]
-        Node2[Proxmox Node 2<br/>Dell R730]
-        Node3[Proxmox Node 3<br/>Custom Build]
-    end
-    subgraph sharedstorage["Shared Storage"]
-        Ceph[(Ceph Cluster<br/>Distributed Storage)]
-    end
-    subgraph networkinfrastructure["Network Infrastructure"]
-        Switch1[10Gb Switch<br/>Primary]
-        Switch2[1Gb Switch<br/>Management]
-    end
-    subgraph haservices["HA Services"]
-        Corosync[Corosync<br/>Cluster Communication]
-        PVE[PVE HA Manager<br/>Failover Orchestration]
-        Fencing[Fencing Agent<br/>Split-Brain Prevention]
-    end
-    subgraph vmswithha["VMs with HA"]
-        DNS[Pi-hole DNS]
-        Vault[Bitwarden]
-        Monitor[Wazuh SIEM]
-        Web[Web Services]
-    end
-
-    Node1 --> Ceph
-    Node2 --> Ceph
-    Node3 --> Ceph
-
-    Node1 --> Switch1
-    Node2 --> Switch1
-    Node3 --> Switch1
-
-    Node1 --> Switch2
-    Node2 --> Switch2
-    Node3 --> Switch2
-
-    Corosync --> Node1
-    Corosync --> Node2
-    Corosync --> Node3
-
-    PVE --> Corosync
-    Fencing --> PVE
-
-    Ceph --> DNS
-    Ceph --> Vault
-    Ceph --> Monitor
-    Ceph --> Web
-
-    classDef greenNode fill:#4caf50,color:#fff
-    classDef blueNode fill:#2196f3,color:#fff
-    classDef redNode fill:#f44336,color:#fff
-    class Ceph greenNode
-    class Corosync blueNode
-    class Fencing redNode
-```
+<figure class="arch-fig">
+<div class="arch" aria-label="Proxmox high availability homelab architecture">
+  <section class="arch-tier" data-label="Cluster Nodes"><span class="arch-chip"><b>Proxmox Node 1</b><i>Dell R910</i></span><span class="arch-chip"><b>Proxmox Node 2</b><i>Dell R730</i></span><span class="arch-chip"><b>Proxmox Node 3</b><i>Custom Build</i></span></section>
+  <section class="arch-tier" data-label="Shared Storage"><span class="arch-chip is-primary"><b>Ceph Cluster</b><i>distributed storage</i></span></section>
+  <section class="arch-tier" data-label="Network Infrastructure"><span class="arch-chip"><b>10Gb Switch</b><i>primary</i></span><span class="arch-chip"><b>1Gb Switch</b><i>management</i></span></section>
+  <section class="arch-tier" data-label="HA Services"><span class="arch-chip is-guard"><b>Corosync</b><i>cluster communication</i></span><span class="arch-chip is-primary"><b>PVE HA Manager</b><i>failover orchestration</i></span><span class="arch-chip is-bad"><b>Fencing Agent</b><i>split-brain prevention</i></span></section>
+  <section class="arch-tier" data-label="VMs with HA"><span class="arch-chip">Pi-hole DNS</span><span class="arch-chip">Bitwarden</span><span class="arch-chip">Wazuh SIEM</span><span class="arch-chip">Web Services</span></section>
+</div>
+<figcaption>Cluster nodes share storage and network fabric while HA services coordinate failover for the protected VMs.</figcaption>
+</figure>
 
 ## Planning Your HA Cluster
 
