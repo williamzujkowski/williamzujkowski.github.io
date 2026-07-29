@@ -14,7 +14,6 @@ on:
   pull_request:
     paths:
       - 'src/posts/**/*.md'
-      - 'src/pages/**/*.md'
 
 # Default to least privilege. The check-links job opens an issue on scheduled
 # failures (issues: write) and comments on PRs (pull-requests: write); the
