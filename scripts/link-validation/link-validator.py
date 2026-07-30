@@ -161,6 +161,42 @@ class LinkValidator:
         if self.browser:
             await self.browser.close()
 
+    # Anti-bot / rate-limit HTTP codes: the resource still exists for a human
+    # reader, but CI can't verify it. IEEE Xplore answers automated checkers
+    # with 202 ("Accepted") or 418 ("I'm a teapot"); LinkedIn returns 999;
+    # generic rate limiting is 429. These must not inflate the broken count.
+    ANTIBOT_CODES = frozenset({202, 418, 429, 999})
+
+    @staticmethod
+    def classify_http_status(status_code: int, has_paywall: bool = False,
+                             is_redirect: bool = False):
+        """Map a final HTTP status to (status, issue_type). Pure -- no network.
+
+        Only genuinely-dead responses are 'broken': 404 and 5xx (plus ssl_error /
+        dns_error / timeout, which callers handle separately). 403/401/paywall
+        and the anti-bot/rate-limit codes in ANTIBOT_CODES are 'restricted'
+        (unverifiable, advisory) so the weekly citation report only alarms on
+        real breakage rather than on publisher bot challenges. See #366 / #391.
+        """
+        if status_code == 200:
+            if has_paywall:
+                return 'restricted', 'paywall'
+            if is_redirect:
+                return 'redirect', 'redirect'
+            return 'valid', None
+        if status_code == 404:
+            return 'broken', '404'
+        if status_code == 403:
+            return 'restricted', '403'
+        if status_code == 401:
+            return 'restricted', 'http_401'
+        # Checked before the >=500 branch because 999 would otherwise be swept up.
+        if status_code in LinkValidator.ANTIBOT_CODES:
+            return 'restricted', f'http_{status_code}'
+        if status_code >= 500:
+            return 'broken', f'{status_code}_error'
+        return 'broken', f'http_{status_code}'
+
     async def validate_batch(self, links: List[Dict]) -> List[ValidationResult]:
         """Validate a batch of links"""
         results = []
@@ -284,39 +320,11 @@ class LinkValidator:
                 title_match = re.search(r'<title>([^<]+)</title>', content, re.IGNORECASE)
                 page_title = title_match.group(1) if title_match else None
 
-                # Determine status and issue type
-                #
-                # 403/401/paywall are access-restricted responses (publisher WAF
-                # blocks, login walls) that a human reader can usually still see
-                # fine -- CI simply can't verify them. Classify those as
-                # 'restricted' (unverifiable, advisory) rather than 'broken'
-                # (genuinely dead) so the weekly report only alarms on real
-                # breakage: 404 / 5xx / ssl_error / dns_error / timeout.
-                if response.status == 200:
-                    if has_paywall:
-                        status = 'restricted'
-                        issue_type = 'paywall'
-                    elif is_redirect:
-                        status = 'redirect'
-                        issue_type = 'redirect'
-                    else:
-                        status = 'valid'
-                        issue_type = None
-                elif response.status == 404:
-                    status = 'broken'
-                    issue_type = '404'
-                elif response.status == 403:
-                    status = 'restricted'
-                    issue_type = '403'
-                elif response.status == 401:
-                    status = 'restricted'
-                    issue_type = 'http_401'
-                elif response.status >= 500:
-                    status = 'broken'
-                    issue_type = f'{response.status}_error'
-                else:
-                    status = 'broken'
-                    issue_type = f'http_{response.status}'
+                # Map the final HTTP status to a classification (see
+                # classify_http_status for the broken-vs-restricted taxonomy).
+                status, issue_type = self.classify_http_status(
+                    response.status, has_paywall=has_paywall, is_redirect=is_redirect
+                )
 
                 return ValidationResult(
                     url=url,
