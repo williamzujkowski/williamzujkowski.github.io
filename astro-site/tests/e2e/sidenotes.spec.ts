@@ -208,16 +208,41 @@ test.describe('sidenotes — narrow viewport (inline fallback)', () => {
     await expect(page.locator('a.remarque-sidenote-ref').first()).toBeVisible();
   });
 
-  test('the on-this-page TOC is a plain collapsible <details>, open by default, no JS required', async ({
+  test('the on-this-page TOC collapses on mobile (progressive enhancement, issue #438)', async ({
     page,
   }) => {
     await page.goto(PILOT_POST);
     const details = page.locator('nav.remarque-toc-rail details');
     await expect(details).toHaveCount(1);
-    // <details open> is the module's static default at every viewport —
-    // no breakpoint-crossing script re-opens it (that inline <script> is
-    // deleted; see TableOfContents.astro).
+    // The inline enhancement script (TableOfContents.astro) clears `open`
+    // below the 80rem rail breakpoint so the TOC doesn't dominate the top of
+    // the article at phone width. The static no-JS fallback stays
+    // <details open> — see the JS-disabled fallback test below.
+    await expect(details).toHaveJSProperty('open', false);
+  });
+});
+
+test.describe('TOC — progressive enhancement (issue #438)', () => {
+  test('stays an expanded rail at the desktop rail breakpoint', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.goto(PILOT_POST);
+    const details = page.locator('nav.remarque-toc-rail details');
+    await expect(details).toHaveCount(1);
     await expect(details).toHaveJSProperty('open', true);
+  });
+
+  test('falls back to <details open> when JavaScript is disabled', async ({ browser }) => {
+    // No-JS baseline: the static markup is <details open>, so a reader
+    // without JS still sees the full TOC (the pre-#438 behavior) rather than
+    // a collapsed one they cannot expand.
+    const context = await browser.newContext({
+      javaScriptEnabled: false,
+      viewport: { width: 375, height: 812 },
+    });
+    const page = await context.newPage();
+    await page.goto(PILOT_POST);
+    await expect(page.locator('nav.remarque-toc-rail details')).toHaveJSProperty('open', true);
+    await context.close();
   });
 });
 

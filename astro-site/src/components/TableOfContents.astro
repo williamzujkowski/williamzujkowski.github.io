@@ -1,15 +1,21 @@
 ---
-// All presentation (mono voice, true small caps, disclosure marker, sticky
-// rail placement at >=80rem) now comes from remarque-tokens/essay.css's
-// `.remarque-toc-rail` rules (imported in global.css) — issue #378. This
-// component used to carry its own <style> block plus an inline <script>
-// that force-opened the native `open` attribute on every breakpoint
-// crossing (`matchMedia('(min-width: 1280px)')`). The module holds to
-// "no JS required" instead: `<details open>` below is the accepted static
-// default (see REMARQUE.md's "Breakpoint behavior" / essay.css's header
-// comment for the one accepted trade-off — a reader who manually collapses
-// the rail below the breakpoint and then widens their window keeps it
-// collapsed until clicked again).
+// Presentation (mono voice, small caps, disclosure marker, sticky rail at
+// >=80rem) comes from remarque-tokens/essay.css's `.remarque-toc-rail` rules
+// (imported in global.css) — issue #378.
+//
+// Breakpoint behavior (issue #438): the static baseline is `<details open>`,
+// which is the correct no-JS fallback essay.css documents — an expanded rail
+// at >=80rem, and an expandable (but open-by-default) block below it. The
+// no-JS default alone left the TOC expanded on mobile, which reads as noise
+// above the article. So we layer a tiny progressive-enhancement inline script
+// (essay.css's header comment calls this exact approach "what the flagship
+// does"): it clears `open` below the 80rem rail breakpoint and restores it
+// at/above, syncing on breakpoint crossings via matchMedia. Readers without
+// JS keep the fully-static `<details open>` behavior; readers with JS get a
+// collapsed TOC on phones and the expanded rail on wide screens. We
+// deliberately do NOT chase a CSS-only force-open — a closed <details> is not
+// reliably re-openable via CSS on modern Chromium (`::details-content`
+// content-visibility), so the enhancement is the robust path.
 
 interface Heading {
   depth: number;
@@ -42,6 +48,18 @@ const showToc = filteredHeadings.length >= 3;
           ))}
         </ul>
       </details>
+      <script is:inline>
+        (function () {
+          var s = document.currentScript;
+          var details = s && s.parentElement && s.parentElement.querySelector('details');
+          if (!details || !window.matchMedia) return;
+          var mq = window.matchMedia('(min-width: 80rem)');
+          function sync(e) { details.open = e.matches; }
+          sync(mq);
+          if (mq.addEventListener) mq.addEventListener('change', sync);
+          else if (mq.addListener) mq.addListener(sync);
+        })();
+      </script>
     </nav>
   )
 }
