@@ -58,6 +58,13 @@ jobs:
         run: cd astro-site && pnpm install --frozen-lockfile
       - name: Install Playwright chromium
         run: cd astro-site && pnpm exec playwright install --with-deps chromium
+      - name: Cache Astro font downloads (issue #408 — avoid transient jsdelivr fetch)
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6.1.0
+        with:
+          path: astro-site/node_modules/.astro/fonts
+          key: astro-fonts-${{ hashFiles('astro-site/astro.config.mjs', 'astro-site/pnpm-lock.yaml') }}
+          restore-keys: |
+            astro-fonts-
       - name: Build site
         run: cd astro-site && pnpm build
       - name: Run full Playwright suite (smoke + a11y + theme-deck)
