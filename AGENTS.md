@@ -167,6 +167,14 @@ The Layer-1 skills are author-local tooling in `~/.claude/skills/blog-*/`
 │     blog-llm-tells      → voice/prose LLM-tell scrub              │
 │     blog-nda-check      → contextual NDA-compliance               │
 │     blog-argument-shape → thesis + evidence + falsifiability      │
+│     blog-visuals        → zine doodle, diagram a11y, tokens       │
+│                                                                   │
+│   blog-deep-review (separate, deliberate, expensive):             │
+│     4 parallel adversarial reviewers — reason-to-exist,           │
+│     fact-check vs primary source, prose/structure, prior-art +    │
+│     fairness + ethics. For load-bearing posts and the back        │
+│     catalogue. The gate passes posts that are wrong; this is      │
+│     what finds them.                                              │
 └───────────────────────────────────────────────────────────────────┘
                             │ author commits
                             ▼
@@ -210,6 +218,8 @@ The Layer-1 skills are author-local tooling in `~/.claude/skills/blog-*/`
 | Citation link health (HTTP) | Layer 4 (`link-monitor.yml`) | Cheap, automated, scales |
 | Topic overlap with prior posts | Layer 1 (`blog-overlap`) | Author decides refinement vs new arg |
 | Thesis / evidence / falsifiability | Layer 1 (`blog-argument-shape`) | Author-time editorial judgment |
+| Visual coverage, diagram a11y, design tokens | Layer 1 (`blog-visuals`) | The prose audits all pass on a wall of text |
+| Unanswered objections, uncited prior art, self-flattering arithmetic, claims that outlived their evidence | Layer 1 (`blog-deep-review`) | Needs adversarial judgment and a web search; too expensive per-commit. **Reviewers are confidently wrong — recompute every challenged number from raw inputs before accepting a correction.** |
 | Build correctness | Layer 2 (pre-commit) | Fast, blocks bad commits |
 | Astro design tokens | Layer 3 (`audits.yml`) | Per-commit, blocks broken design |
 | Accessibility | Layer 3 (`a11y.yml`) | Per-commit, axe-playwright |

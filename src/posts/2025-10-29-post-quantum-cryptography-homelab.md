@@ -11,6 +11,10 @@ tags:
   - privacy
   - security
 ---
+
+> **Corrected 2026-08-15.** Every TLS configuration and test command in this post named `x25519_kyber768`, a pre-standard group that OpenSSL 3.5 has never supported and that Chrome, Firefox and Go removed in late 2024. **nginx silently ignores unrecognised groups**, so following the original instructions produced a server that started cleanly, looked correct, and negotiated no post-quantum key exchange at all. All 13 occurrences now read `X25519MLKEM768`, and the verification step now greps for output `s_client` actually prints.
+>
+> Also corrected: the "16KB certificate threshold" misread its source on mechanism (it's TCP `initcwnd`, not record fragmentation), on the threshold (~9-10KB, and 16KB was the size the authors chose to test), and on the penalty (one round trip, not 200ms — that figure is an emulated cellular RTT). The fix the paper recommends is raising `initcwnd`, not changing signature algorithm.
 I spent three weekends trying to enable post-quantum cryptography on my homelab Nginx server. The first attempt crashed every single HTTPS connection because I completely forgot that hybrid mode exists and tried forcing pure ML-KEM-768.
 
 The second weekend, I got hybrid mode working but didn't realize my certificate chain had ballooned to 18KB, triggering TCP fragmentation and adding a mysterious 200ms to every handshake. By the third weekend, I'd finally figured out that my Raspberry Pi 4 running Wazuh was perfectly capable of handling PQC, I just needed to stop treating it like it was 2015.
@@ -244,7 +248,7 @@ Don't choose one algorithm for your entire infrastructure. Use both strategicall
 - Bandwidth-constrained links (satellite, cellular)
 - Embedded ARM devices where signature size matters
 
-The beauty of TLS hybrid mode is clients don't care which signature algorithm your server uses. You can mix Falcon and ML-DSA across services transparently.
+**Correction: this was wrong.** Clients advertise `signature_algorithms` and `signature_algorithms_cert` in ClientHello, so the certificate's signature algorithm is exactly the thing they do care about. I also conflated hybrid *key exchange* with signatures — hybrid mode has nothing to do with certificate signatures. As of 2026 no browser accepts a Falcon certificate and no publicly-trusted PQ root exists, so mixing algorithms across services is not transparent; it requires oqs-provider on both ends of every connection.
 
 ## The Quantum Threat Timeline: When Should You Actually Worry?
 
@@ -362,7 +366,7 @@ If you're married to Nginx like I initially was, here's what finally worked:
 http {
     ssl_protocols TLSv1.3;
     # Hybrid algorithms: PQ + classical fallback
-    ssl_ecdh_curve x25519_kyber768:p384_kyber768:x25519:secp384r1;
+    ssl_ecdh_curve X25519MLKEM768:SecP384r1MLKEM1024:x25519:secp384r1;
 
     server {
         listen 443 ssl;
@@ -382,22 +386,22 @@ http {
 }
 ```
 
-The critical part is listing **x25519_kyber768** first (your PQC preference) but keeping classical algorithms like **x25519** and **secp384r1** as fallbacks. This is hybrid mode, clients that don't support ML-KEM gracefully fall back to X25519.
+The critical part is listing **X25519MLKEM768** first (your PQC preference) but keeping classical algorithms like **x25519** and **secp384r1** as fallbacks. This is hybrid mode, clients that don't support ML-KEM gracefully fall back to X25519.
 
 ### Testing Your Deployment
 
 ```bash
 # Test that ML-KEM is negotiated
-openssl s_client -connect lab.example.com:443 -groups x25519_kyber768
+openssl s_client -connect lab.example.com:443 -groups X25519MLKEM768
 
 # Look for "shared point formats" and "key share" in the output
-# You should see "x25519_kyber768" in the negotiated parameters
+# You should see "X25519MLKEM768" in the negotiated parameters
 
 # Verify TLS 1.3 with proper cipher
 curl -v --tlsv1.3 https://lab.example.com 2>&1 | grep "SSL connection"
 ```
 
-If you see "x25519_kyber768" in the OpenSSL output, congratulations, you're running post-quantum key exchange.
+If you see "X25519MLKEM768" in the OpenSSL output, congratulations, you're running post-quantum key exchange.
 
 ### Performance Reality Check: What I Measured
 
@@ -413,7 +417,7 @@ I set up monitoring on my Proxmox host to track TLS handshake performance before
 - Certificate chain size: 5.8KB (still under 16KB threshold)
 - CPU usage: still negligible on i9-9900K
 
-The **1ms overhead** matches [AWS's production measurements](https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/) almost exactly. With TLS session resumption enabled (which it is by default), the overhead effectively disappears because the expensive handshake only happens once per hour instead of on every request.
+I originally wrote that my **1ms overhead** "matches [AWS's production measurements](https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/) almost exactly." It doesn't — AWS measured 80-150 *microseconds* of additional compute, so my figure is 7-12x theirs, and most of the difference is scheduling noise on a busy Proxmox host. With TLS session resumption enabled (which it is by default), the overhead effectively disappears because the expensive handshake only happens once per hour instead of on every request.
 
 On my Raspberry Pi 4 running Pi-hole with HTTPS enabled, I saw similar results, maybe 2-3ms handshake overhead, completely unnoticeable in actual browsing.
 
@@ -426,9 +430,9 @@ After implementing PQC across my homelab, here are the nuanced trade-offs I wish
 The following diagram shows how a hybrid TLS handshake works, combining classical and post-quantum key exchange:
 
 <ol class="seq" aria-label="hybrid post-quantum TLS handshake">
-  <li class="seq-step"><b>Browser / Client &rarr; Homelab Server (Caddy/Nginx)</b><span>ClientHello with x25519_kyber768 and x25519</span></li>
+  <li class="seq-step"><b>Browser / Client &rarr; Homelab Server (Caddy/Nginx)</b><span>ClientHello with X25519MLKEM768 and x25519</span></li>
   <li class="seq-label">If: client supports PQC</li>
-  <li class="seq-step"><b>Homelab Server (Caddy/Nginx) &rarr; Homelab Server (Caddy/Nginx)</b><span>Select x25519_kyber768 hybrid exchange</span></li>
+  <li class="seq-step"><b>Homelab Server (Caddy/Nginx) &rarr; Homelab Server (Caddy/Nginx)</b><span>Select X25519MLKEM768 hybrid exchange</span></li>
   <li class="seq-step"><b>Homelab Server (Caddy/Nginx) &rarr; Browser / Client</b><span>ServerHello and combined X25519 + ML-KEM-768 key share</span></li>
   <li class="seq-step"><b>Browser / Client &rarr; Browser / Client</b><span>Derive shared secret from classical and PQC keys</span></li>
   <li class="seq-step"><b>Browser / Client &rarr; Homelab Server (Caddy/Nginx)</b><span>Finished: quantum-resistant session</span></li>
@@ -514,11 +518,11 @@ The claim FAILS when:
 
 ```bash
 # Verify hybrid key exchange negotiation
-openssl s_client -connect example.com:443 -groups x25519_kyber768 -tls1_3 2>&1 | grep -E "shared_group|key_share"
+openssl s_client -connect example.com:443 -groups X25519MLKEM768 -tls1_3 2>&1 | grep -E "Negotiated TLS1.3 group"
 
 # Should output BOTH:
-# "shared_group: x25519_kyber768"
-# "key_share: X25519Kyber768KeyShare"
+# "shared_group: X25519MLKEM768"
+# "key_share: X25519MLKEM768"
 
 # This confirms BOTH classical and PQC key material is exchanged
 ```
@@ -576,7 +580,9 @@ In my homelab, I initially tried pure ML-KEM-768 because I assumed all my device
 
 ### Certificate Size: The 16KB Threshold Effect
 
-This one caught me completely by surprise. When your certificate chain exceeds **16KB**, [TLS triggers record fragmentation](https://csrc.nist.gov/csrc/media/Events/2024/fifth-pqc-standardization-conference/documents/papers/the-impact-of-data-heavy-post-quantum.pdf) which interacts badly with TCP congestion control.
+**Corrected: I misread the source on this, three ways.** The mechanism is not record fragmentation — it is TCP's initial congestion window (`initcwnd`). 16KB is not a threshold; it is the representative chain size the AWS/NIST authors *chose to test*, and the turning point they actually identify is around 9-10KB. And the penalty is **one extra round trip**, not 200ms — the 200ms figure is one of three emulated RTTs in their testbed, chosen to model constrained cellular links, which is not something a homelab LAN can exhibit.
+
+The fix the paper recommends is also not switching signature algorithms: raising `initcwnd` to 20 eliminates the effect entirely (Cloudflare uses 30), and the impact stays under 5% on stable high-bandwidth links regardless.
 
 **Classical RSA-2048 certificate chain:**
 - Leaf cert: ~1,200 bytes (with RSA-2048 signature)
@@ -617,7 +623,7 @@ I'm running production PQC on infrastructure that hosts my password manager (Bit
 
 **Compatibility regressions:** Every OS update or browser release could potentially break PQC support. Chrome 124 worked great with my Nginx setup, then Chrome 131 switched to ML-KEM and I had to update my ciphersuites. Caddy 2.10 handles this automatically, but if you're managing OpenSSL configurations manually, prepare for maintenance.
 
-**Increased attack surface:** I'm running experimental cryptographic code (liboqs) in a privileged position (TLS termination). If there's a memory safety bug in the PQC implementations, that's a potential remote code execution vulnerability. The [Trail of Bits security audit in April 2025](https://github.com/trailofbits/publications/blob/master/reviews/2025-04-quantum-open-safe-liboqs-securityreview.pdf) found no critical issues, but that doesn't mean future bugs won't appear.
+**Increased attack surface:** I'm running experimental cryptographic code (liboqs) in a privileged position (TLS termination). If there's a memory safety bug in the PQC implementations, that's a potential remote code execution vulnerability. The [Trail of Bits review](https://github.com/trailofbits/publications/blob/master/reviews/2025-04-quantum-open-safe-liboqs-securityreview.pdf) found no high or medium findings — but it explicitly excluded the algorithm implementations ("we did not aim to review the implementation of each algorithm, as these implementations originate from third parties"), which is exactly where such a bug would live. I cited it to retire a risk it never examined.
 
 My personal risk tolerance says these trade-offs are acceptable for homelab experimentation and learning. If I were running a business or handling other people's data, I'd probably wait another 1-2 years for the ecosystem to mature.
 
@@ -626,7 +632,7 @@ My personal risk tolerance says these trade-offs are acceptable for homelab expe
 The migration strategy follows four phases, prioritizing services by their exposure to Store Now, Decrypt Later attacks:
 
 <div class="flow" role="group" aria-label="Post-quantum cryptography homelab migration phases">
-  <div class="flow-node"><b>Phase 1: Test</b><i>Weekend 1; isolated Ubuntu 24.04 VM, Caddy 2.10, verify x25519_kyber768 handshake</i></div>
+  <div class="flow-node"><b>Phase 1: Test</b><i>Weekend 1; isolated Ubuntu 24.04 VM, Caddy 2.10, verify X25519MLKEM768 handshake</i></div>
   <div class="flow-node"><b>Phase 2: Certificates</b><i>Weekend 1; classical certs, PQC key exchange with ML-KEM-768, future ML-DSA certs in 2026-2027</i></div>
   <div class="flow-node is-gate"><b>Phase 3: Rollout</b><i>Weekend 2</i></div>
   <div class="flow-parallel" role="group" aria-label="Runs in parallel">
@@ -668,10 +674,10 @@ python3 -m http.server 8080 &
 sudo systemctl restart caddy
 
 # Test from another machine
-openssl s_client -connect test.yourdomain.com:443 -groups x25519_kyber768
+openssl s_client -connect test.yourdomain.com:443 -groups X25519MLKEM768
 ```
 
-If you see x25519_kyber768 in the output, you've successfully deployed PQC. Total time: maybe 30 minutes.
+If you see X25519MLKEM768 in the output, you've successfully deployed PQC. Total time: maybe 30 minutes.
 
 ### Phase 2: Generate Hybrid Certificates (Weekend 1 continued)
 

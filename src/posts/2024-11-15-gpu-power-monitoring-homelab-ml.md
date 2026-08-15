@@ -9,6 +9,10 @@ tags:
   - homelab
   - sustainability
 ---
+
+> **Corrected 2026-08-15.** A misplaced decimal inverted one of this post's named recommendations. "Strategy 3: CPU offloading" reported the GPU using 4.59Wh for a 100-token task; the true figure is **0.46Wh**, exactly ten times smaller. So the CPU does not use 4x less energy — it uses **2.5x more**, while also being eight times slower. Anyone who built that routing layer spent energy to save energy.
+>
+> Also corrected: a "$17" runaway-job cost that is **$1.38**; "37% of a US household's annual electricity emissions" that is **4.6%** by the EPA figures this post itself cites; and tokens/Wh figures roughly 22x high that contradicted another section by 45x.
 I opened my October 2024 electricity bill: $187, a $43 jump from September's $144. I'd been running [Ollama](/posts/2025-06-25-local-llm-deployment-privacy-first) on my RTX 3090 for a month. That shock sparked a three-month deep dive into GPU power consumption. I instrumented my entire [homelab](/posts/2025-04-24-building-secure-homelab-adventure) with monitoring gear and spent evenings staring at Grafana dashboards. My assumptions about AI workload efficiency were mostly wrong.
 
 The 312W average power draw during LLM inference wasn't shocking. I knew the RTX 3090 was power-hungry. The massive variability caught me off guard: idle Ollama consumed 87W, fine-tuning a LoRA adapter spiked to 394W before power limits kicked in. These weren't abstract spec sheet numbers. Real watts flowing through my Kill-A-Watt P4400 meter, translating to dollars at $0.12/kWh.
@@ -86,7 +90,9 @@ I ran each test for at least 30 minutes to capture steady-state behavior. Repeat
 
 I assumed Ollama's GPU would drop to near-zero power when not generating tokens. Completely wrong.
 
-Ollama running but idle (model loaded in VRAM, no active requests) drew 87W continuously. That's 2.09 kWh per day, or $7.51/month just to keep the model ready. Over a year, keeping Ollama perpetually ready costs roughly $90, more than a ChatGPT Plus subscription.
+Ollama running but idle (model loaded in VRAM, no active requests) drew 87W continuously. That's 2.09 kWh per day, or $7.51/month just to keep the model ready. Over a year that gross figure is roughly $90 — though the honest number is the *marginal* one: idle-with-GPU-present is 52W, so keeping a model resident costs about 35W, or **$37/year**. That is a fraction of a $240/year ChatGPT Plus subscription, not more than it.
+
+Worth adding, because it undercuts this whole finding: **Ollama unloads idle models after five minutes by default.** An 87W round-the-clock baseline means `keep_alive` was set to -1, which I had done months earlier chasing cold-start latency. I spent a week measuring the cost of my own configuration.
 
 The culprit: GPU memory doesn't sleep. Once you load a model into VRAM, the GPU maintains that state at significant power cost. I verified this by unloading models (`ollama stop`), which dropped system power to 52W (my baseline idle with GPU present but not loaded).
 
@@ -110,10 +116,10 @@ The 70B model only consumed 11% more power than the 8B model despite being nearl
 
 However, the catch is that the 70B model generated tokens at only 4.2 tokens/second compared to 18.7 tokens/second for the 8B model. When I calculated efficiency as tokens generated per watt-hour:
 
-- Llama 3.1 8B: 4,820 tokens/Wh
-- Llama 3.1 70B: 1,150 tokens/Wh
+- Llama 3.1 8B: 216 tokens/Wh
+- Llama 3.1 70B: 44 tokens/Wh
 
-The smaller model was 4.2x more energy-efficient per token. For most of my use cases, where the 8B model's quality was sufficient, running the larger model was environmentally and financially wasteful.
+The smaller model was 4.9x more energy-efficient per token. For most of my use cases, where the 8B model's quality was sufficient, running the larger model was environmentally and financially wasteful.
 
 To make this concrete: generating a 500-word blog post summary takes the 70B model about 2.8 minutes and consumes 16.2Wh of energy. The 8B model completes the same task in 0.7 minutes using 3.6Wh. For 80% of my summarization tasks, the 8B output quality is indistinguishable from 70B, making the larger model a 4.5x waste of electricity.
 
@@ -182,7 +188,7 @@ The fix was embarrassingly simple: I improved case airflow by adding two 140mm i
 
 My most expensive mistake happened in late September. I started a batch processing job for 200 PDF documents using Llama 3.1 70B. I estimated it would take 4-5 hours based on my earlier benchmarks, kicked it off around 10 PM, and went to bed.
 
-I woke up at 7 AM to discover the job was still running. A bug in my script had caused it to re-process documents that failed extraction, creating an infinite retry loop. For 9 hours, my GPU churned at 347W, consuming 3.12 kWh and costing me roughly $0.37. Not catastrophic for one night, but I let it run for another day before noticing. Total damage: approximately 28 kWh and $17 in electricity.
+I woke up at 7 AM to discover the job was still running. A bug in my script had caused it to re-process documents that failed extraction, creating an infinite retry loop. For 9 hours, my GPU churned at 347W, consuming 3.12 kWh and costing me roughly $0.37. Not catastrophic for one night, but I let it run for another day before noticing. Total damage: about 33 hours at 347W, so roughly **11.5 kWh and $1.38**. (I originally wrote 28 kWh and $17. Neither survives the arithmetic — $17 at $0.12/kWh would need seventeen days, not one. The guardrail I was missing is the point; the cost never was.)
 
 This failure taught me to add:
 - Timeout limits on all batch jobs
@@ -244,10 +250,12 @@ Previously, I defaulted to the 70B model for everything, thinking "bigger is bet
 For queries under 100 tokens (yes/no questions, simple classifications), I route them to `llama.cpp` running on my i9-9900K instead of spinning up the GPU. CPU-only inference draws about 95W total system power versus 312W for GPU inference.
 
 The trade-off: CPU inference is slower (2.3 tokens/second vs 18.7), but for tiny tasks, total time is comparable.
-- CPU: 100 tokens at 2.3 tok/s = 43 seconds, 1.13Wh energy
-- GPU: 100 tokens at 18.7 tok/s = 5.3 seconds, 4.59Wh energy
+- CPU: 100 tokens at 2.3 tok/s = 43 seconds, 1.15Wh energy
+- GPU: 100 tokens at 18.7 tok/s = 5.3 seconds, **0.46Wh** energy
 
-For these micro-tasks, CPU is 4x more energy-efficient despite being slower. I'm not sure this would scale to longer queries, but for quick lookups, it's a clear win.
+**This strategy does not work, and I had the arithmetic backwards.** I originally wrote 4.59Wh for the GPU, which is exactly ten times the real figure — a misplaced decimal. Corrected, the GPU uses **0.46Wh against the CPU's 1.15Wh**: the CPU burns 2.5x *more* energy while also taking eight times as long. Drawing fewer watts for much longer is not efficiency, it is a longer bill.
+
+The lesson is the one I thought I was teaching, aimed the other way. Energy is power multiplied by time, and I spent a month watching only the first term — then published a recommendation built on the same mistake.
 
 <div class="flow" role="group" aria-label="Power-aware model routing decision path">
   <div class="flow-node">Incoming Query</div>
@@ -313,7 +321,7 @@ My calculations (approximate, using EPA averages):
 
 To put this in perspective, 220 kg CO2 is roughly equivalent to:
 - Driving 550 miles in an average gasoline car
-- 37% of the average American's annual household electricity emissions
+- About 5% of the average American household's annual electricity emissions (EPA puts a US home at 12,194 kWh/year, or ~4,800 kg CO2)
 - The carbon footprint of flying from New York to Miami (one-way)
 
 These numbers are probably on the high side since I'm in a region with relatively clean grid power (mix of natural gas and renewables), but they're sobering nonetheless. Running AI at home isn't environmentally neutral.

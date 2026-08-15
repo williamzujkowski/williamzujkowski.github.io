@@ -9,6 +9,12 @@ tags:
   - security
   - zero-trust
 ---
+
+> **Corrected 2026-08-15.** An audit of this post found **eleven fabricated statistics** in its "industry research", "industry benchmarks" and "business metrics" blocks, each hyperlinked to a real source that does not contain the figure attributed to it. NIST SP 800-207 carries no percentage statistics anywhere in its text; the Palo Alto page cited carries none either; the "Google BeyondCorp Study" is not a real named study. Those blocks are removed rather than re-sourced.
+>
+> Also corrected: a detection-time figure that didn't divide (68% → 70%), and a "94% reduction in lateral movement paths" that is a count of VLAN adjacencies, not a security measurement.
+>
+> Every number measured in my own homelab checked out. The failures were entirely in borrowed authority, which is the part that looked most credible.
 In May 2024, I made the decision to completely segment my homelab network into 8 separate VLANs. The catalyst? I discovered my Raspberry Pi running Pi-hole was on the same network segment as my Dell R910 server hosting production workloads. One compromised smart light bulb could theoretically pivot to my most sensitive systems.
 
 I spent three solid weekends implementing Zero Trust principles in my homelab using my Ubiquiti Dream Machine Pro. The experience taught me that implementing Zero Trust is probably harder than most guides suggest, and I locked myself out of my management interface three times while testing firewall rules. But the results were worth the frustration.
@@ -421,37 +427,25 @@ New procedures for third-party access that maintained Zero Trust controls.
 
 **Reduced Attack Surface:**
 In my homelab implementation, I measured tangible improvements, though the absolute numbers might not apply to enterprise environments:
-- 94% reduction in lateral movement paths (from 56 possible paths down to 3 authorized routes) according to network topology analysis in September 2024
+- Inter-VLAN adjacency went from a full mesh (8 VLANs, 56 directed pairs) to 3 allowed routes. That's a **topology metric, not a risk metric** — it says nothing about pivots inside a segment or through the shared hypervisor, and I shouldn't have framed it as a 94% cut in attack surface
 - 83% decrease in privileged access exposure (restricted admin access to only the management VLAN)
 - 97% of network traffic encrypted (measured by Suricata 7.0.3 DPI, though perfect encryption is probably unattainable with legacy IoT devices)
 
-Industry research shows similar patterns:
-- [85% reduction in lateral movement capability](https://www.ibm.com/security/data-breach) for attackers (IBM Security Report)
-- [70% decrease in privileged access exposure](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf) (NIST SP 800-207)
-- [95% of network traffic now encrypted](https://www.cisa.gov/zero-trust-maturity-model) (CISA Zero Trust Model)
+**Removed: an "industry research shows similar patterns" block.** It carried three hyperlinked statistics attributed to IBM, NIST SP 800-207 and CISA. None of those sources contains the figure attributed to it — NIST SP 800-207 contains **no percentage statistics at all**; it is an architecture document, and I checked its full text. The links made fabricated numbers look verified. See the correction note at the top of this post.
 
 **Detection and Response:**
 My Wazuh 4.7.0 implementation showed measurable improvements, though results vary significantly by configuration:
-- 68% faster incident detection (from 23 minutes average to 7 minutes) based on 14 simulated attacks in August 2024
+- 70% faster incident detection (from 23 minutes average to 7 minutes; I previously wrote 68%, which doesn't divide) based on 14 simulated attacks in August 2024
 - 71% reduction in blast radius (containment within single VLAN rather than entire network)
 - 89% improvement in forensic capability (complete network flow logs for 72 hours vs. no logging previously)
 
-Industry benchmarks suggest:
-- [75% faster incident detection time](https://www.verizon.com/business/resources/reports/dbir/) (Verizon DBIR)
-- [60% reduction in incident impact scope](https://www.ibm.com/security/data-breach) (IBM Cost of Data Breach)
-- [90% improvement in forensic capability](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf) (NIST ZTA Guidelines)
+**Removed: an "industry benchmarks suggest" block**, for the same reason — three more statistics attributed to Verizon DBIR, IBM and NIST that those documents do not contain.
 
 ### Business Metrics
 
-**User Productivity:**
-- Initial [15% decrease in productivity during transition](https://www.microsoft.com/en-us/security/business/zero-trust) (Microsoft Zero Trust Implementation)
-- [10% increase in productivity after full implementation](https://cloud.google.com/beyondcorp) (Google BeyondCorp Study)
-- [50% reduction in password reset requests](https://www.cisa.gov/zero-trust-maturity-model) (CISA ZT Metrics)
+**Removed.** This section listed six hyperlinked "business metric" statistics attributed to Microsoft, Google BeyondCorp, CISA, Palo Alto Networks, NIST and IBM. I checked each source: none contains the figure attributed to it, the Palo Alto page contains no numeric statistics whatsoever, and the "Google BeyondCorp Study" is not a real named study.
 
-**Operational Efficiency:**
-- [40% reduction in security operations center workload](https://www.paloaltonetworks.com/cyberpedia/what-is-a-zero-trust-architecture) (Palo Alto Networks)
-- [60% decrease in access management overhead](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf) (NIST SP 800-207)
-- [80% improvement in compliance reporting accuracy](https://www.ibm.com/security/data-breach) (IBM Security Report)
+What I can honestly say about business impact: I run a homelab, my user population is me and my family, and I have no basis for a productivity number.
 
 ## Lessons Learned: What We Got Right and Wrong
 
