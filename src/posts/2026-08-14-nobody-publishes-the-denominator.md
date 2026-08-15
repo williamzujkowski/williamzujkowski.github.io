@@ -17,6 +17,9 @@ Before you can sample from a population you have to know what the population is.
 
 It does not have an agreed answer. On npm the two best sources differ by more than the entire contents of PyPI.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/counted-anyway.png'); width: min(320px, 76%); aspect-ratio: 420/209; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">unpublished, and still on the tally</p>
+
 ## Two counts, one registry
 
 npm's own replication database, `replicate.npmjs.com/_all_docs`, enumerates **4,288,093** package names. [ecosyste.ms](https://ecosyste.ms/) — the cross-registry index that a great deal of supply-chain research now runs on, mine included — reports **5,732,659**.
@@ -29,6 +32,15 @@ The obvious explanation is lag: the aggregator is a superset, npm has deleted so
 | ecosyste.ms | 5,732,659 | |
 | in ecosyste.ms, **absent from npm** | 1,633,803 | 28.5% of ecosyste.ms |
 | in npm, **absent from ecosyste.ms** | 189,237 | 4.4% of npm |
+
+<figure class="arch-fig">
+<div class="arch" role="group" aria-label="How the two npm frames decompose into three disjoint zones">
+  <section class="arch-tier" data-label="Only in npm's _all_docs" role="group" aria-label="Only in npm's _all_docs"><span class="arch-chip is-warn"><b>189,237</b><i>live packages the aggregator has no row for</i></span></section>
+  <section class="arch-tier" data-label="In both" role="group" aria-label="In both"><span class="arch-chip is-primary"><b>4,098,856</b><i>the packages everyone agrees exist</i></span></section>
+  <section class="arch-tier" data-label="Only in ecosyste.ms" role="group" aria-label="Only in ecosyste.ms"><span class="arch-chip is-bad"><b>1,633,803</b><i>~89% tombstones: a name, and nothing behind it</i></span></section>
+</div>
+<figcaption>Three disjoint zones, not a superset and a subset. Both totals reconcile on the middle one: 4,288,093 − 189,237 and 5,732,659 − 1,633,803 are the same number.</figcaption>
+</figure>
 
 That second row is the one that kills the simple story. If the aggregator were merely a stale superset, it would be zero. Instead 189,237 packages that are live on npm right now are missing from it, and the two differences net out to the headline gap, which is exactly why comparing the totals looks like ordinary lag and isn't.
 
