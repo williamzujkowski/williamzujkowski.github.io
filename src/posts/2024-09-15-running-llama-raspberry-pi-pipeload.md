@@ -15,11 +15,13 @@ tags:
 
 ## Bottom Line Up Front
 
-I ran a 7 billion parameter language model on an 8GB Raspberry Pi 4 using PIPELOAD's memory-efficient pipeline inference mechanism. Results: **90.3% memory reduction** compared to standard PyTorch, **4.24x faster inference** for BERT-style models, and **2.5 tokens/second** for generative inference on LLaMA 2 7B.
+I ran a 7 billion parameter language model on an 8GB Raspberry Pi 4 using a layer-streaming inference approach modelled on PIPELOAD. On my hardware the memory reduction was **88.6%** against loading the whole model, and BERT-style inference came out **4.25x** faster than the swap-thrashing baseline.
+
+The generation throughput I originally reported here doesn't survive its own arithmetic, so I've pulled it: at the 120-180ms per-layer load time I measured, a 32-layer model cannot stream faster than about 0.2 tokens/second, and every token re-reads every layer. The figure I published was an order of magnitude above that. I'd rather leave a gap than a number I can't reconstruct.
 
 **Why it matters:** Edge AI deployment typically fails due to memory constraints. A standard 7B model requires 14-28GB RAM for full-precision inference. PIPELOAD's dynamic memory management and parallel model loading reduce this to under 3GB, making edge deployment practical on consumer hardware.
 
-**The catch:** 12% latency overhead per token and limited to models with layer-wise decomposition. Works best for BERT, ViT, GPT-style architectures. Struggles with models requiring global attention or cross-layer dependencies.
+**The catch:** real per-token latency overhead, and it only applies to models with clean layer-wise decomposition. Works best for BERT, ViT, GPT-style architectures. Struggles with models requiring global attention or cross-layer dependencies.
 
 **What I tested:**
 - LLaMA 2 7B quantized (Q4_K_M) on Raspberry Pi 4 8GB
@@ -91,7 +93,7 @@ Standard inference caches all activations for potential backpropagation. PIPELOA
 - Standard PyTorch: Caches 32 layers × 128MB activations = 4GB
 - PIPELOAD: Caches 1 layer × 128MB + residuals = 256MB
 
-Combined with layer unloading, peak memory usage drops by 90.3% for GPT-style models ([Hermes paper](https://arxiv.org/abs/2409.04249), Table 2).
+The [Hermes paper](https://arxiv.org/abs/2409.04249) (Han et al.) reports up to 90.3% lower memory for GPT-J and 86.7% for BERT/ViT — measured against PipeSwitch on Xeon Gold 6248R CPUs in memory-capped containers, not on a Pi and not against plain PyTorch. My own numbers below are a much rougher thing on much smaller hardware.
 
 ---
 
@@ -177,7 +179,7 @@ model = model.quantize(
 print(f"Model size: {model.size_gb():.2f}GB")  # ~4.1GB for LLaMA 7B
 ```
 
-**Why 4-bit quantization:** Reduces model size from 14GB (FP16) to 4.1GB (Q4_K_M) with minimal accuracy loss. For general text generation, perplexity increases by ~3% ([GPTQ paper](https://arxiv.org/abs/2210.17323), Table 3). For my use case (homelab experimentation), this trade-off is acceptable.
+**Why 4-bit quantization:** Reduces model size from 14GB (FP16) to 4.1GB (Q4_K_M) with minimal accuracy loss. Quality loss at 4-bit is small but I don't have a clean number for this model and quantization pair — note Q4_K_M is a llama.cpp k-quant, which is a different algorithm from GPTQ and needs no calibration data. For my use case (homelab experimentation), this trade-off is acceptable.
 
 ### Step 4: Run Inference
 
@@ -260,7 +262,7 @@ I tested three scenarios on my homelab hardware:
 2. **BERT/ViT on Pi 4:** PIPELOAD is 4.2x faster than standard PyTorch. Parallel loading and activation optimization outweigh I/O overhead for smaller models.
 3. **Latency trade-off:** On workstation (NVMe PCIe 4.0), PIPELOAD is 12% slower due to unnecessary layer loading overhead. Standard PyTorch is faster when memory isn't constrained.
 
-**Why the speedup for BERT/ViT:** These models fit in Pi's memory with PIPELOAD but thrash swap with standard PyTorch. Avoiding swap I/O (250MB/s microSD) by using NVMe layer loading (400MB/s) produces net speedup.
+**Why the speedup for BERT/ViT:** These models fit in Pi's memory with PIPELOAD but thrash swap with standard PyTorch. Avoiding swap I/O (25MB/s microSD) by using NVMe layer loading (400MB/s) produces net speedup.
 
 ---
 
@@ -268,7 +270,7 @@ I tested three scenarios on my homelab hardware:
 
 ### Success: Sustainable Edge Inference
 
-After tuning batch sizes and adding active cooling, I achieved stable 2.5 tok/sec inference for 6+ hours continuously:
+After tuning batch sizes and adding active cooling, it ran continuously without thermal throttling or OOM:
 - Prompt: 50 different questions from [HumanEval benchmark](https://github.com/openai/human-eval)
 - Output: 100 tokens per response
 - Total: 5,000 tokens generated
@@ -288,10 +290,10 @@ I tried increasing batch size to improve throughput. Results:
 
 ### Failure: Model Parallelism Across Pi Cluster
 
-I attempted splitting LLaMA 2 70B across my 3 Raspberry Pi 5s (16GB each) using PIPELOAD:
+I later attempted splitting LLaMA 2 70B across three Raspberry Pi 5s using the same approach:
 - Layers 0-23 on Pi #1
 - Layers 24-47 on Pi #2
-- Layers 48-71 on Pi #3
+- Layers 48-79 on Pi #3 (70B has 80 layers, not the 72 I first planned for — which was itself the first thing that broke)
 
 **Result:** Network latency (2-5ms per layer transfer) dominated inference time. Achieved 0.3 tok/sec (8x slower than single Pi with 7B model). The overhead of serializing activations, transferring over gigabit ethernet, and deserializing killed performance.
 
@@ -446,7 +448,7 @@ Edge AI is no longer a research curiosity. It's a practical deployment option fo
 ## Sources
 
 1. **[Hermes: Memory-Efficient Pipeline Inference for Large Models on Edge Devices](https://arxiv.org/abs/2409.04249)** (2024)
-   - Zhang et al., *arXiv preprint*
+   - Han, Cai, Zhang, Fan, Liu, Ma & Buyya, *arXiv preprint*
    - Describes PIPELOAD mechanism, benchmarks 86.7-90.3% memory reduction
 
 2. **[GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers](https://arxiv.org/abs/2210.17323)** (2022)

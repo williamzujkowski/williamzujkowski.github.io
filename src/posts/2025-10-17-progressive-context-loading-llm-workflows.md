@@ -30,7 +30,7 @@ Traditional LLM workflows suffer from "context obesity": stuffing every possible
 **Research shows the waste**:
 - Long-context performance degrades once a prompt carries more than the task actually needs
 - Most tasks only need a small slice of the loaded context to produce a correct answer
-- **Result**: 95% of your context is computational waste, though I'm still experimenting with optimal ratios
+- **Result**: in my workload, roughly 95% of the loaded context went unread. That's a measurement of my repository, not a general claim about yours
 
 ⚠️ **Warning:** This diagram illustrates LLM context loading strategies for educational purposes. Implement proper security controls and access restrictions when deploying progressive loading systems in production environments.
 
@@ -57,7 +57,7 @@ In October 2024, I tested progressive loading with my RTX 3090 running Llama 3.1
 - Progressive chunk loading: 0.3 seconds per 1K chunk
 - VRAM spike (all-at-once): 22.1GB peak
 - VRAM with progressive: stayed under 18.4GB
-- Token limit I ignored: 32K (oops)
+- Token limit I ignored: my serving config's 32K default (Llama 3.1 70B itself handles 128K — this was my `n_ctx`, not the model's ceiling)
 
 I learned the hard way that progressive loading isn't just about speed. It's about respecting model constraints and working **with** the architecture, not against it.
 
@@ -95,7 +95,7 @@ Four evolutionary stages, each solving problems from the previous generation:
 | V3 Auto-Routing | 22K | 1.4s | 94% | Medium |
 | V4 Progressive Graph | 2K | 0.3s | 98% | High |
 
-The V4 architecture achieves what [LazyLLM](https://arxiv.org/html/2407.14057v1) calls "lazy loading with minimal accuracy loss": deferring context assembly until the model's attention patterns reveal actual need, rather than preemptively loading based on pessimistic assumptions.
+The V4 architecture defers context assembly until something actually asks for it, rather than loading on pessimistic assumptions up front. The same instinct shows up inside the model in [LazyLLM](https://arxiv.org/html/2407.14057v1), which prunes prompt tokens during prefill and decode — different layer of the stack, same observation that most of what you load never gets used.
 
 ### My Chunking Strategy Disaster
 
@@ -172,7 +172,7 @@ Task flow:
 
 **Latency trade-offs I discovered**: Progressive loading adds 1.2-1.8 seconds overhead per additional chunk load. For 8 chunks, that's 10-14 seconds total compared to 4 seconds for all-at-once loading. The trade-off: better context awareness versus longer wait times. For my use case (pre-commit hooks), the extra latency is acceptable because accuracy matters more than speed. But for real-time chat, this approach **could backfire**.
 
-Architecture inspired by ChunkKV-style chunked context loading, which trades some memory for chunk-level granularity. This adapts those principles to human-readable markdown skills.
+Architecture inspired by chunk-level thinking: [ChunkKV](https://arxiv.org/abs/2502.00299) groups KV-cache tokens into semantic chunks and keeps the informative ones, which is a compression technique rather than a loading one. What transfers is the unit of granularity, applied here to human-readable markdown skills.
 
 ## Anthropic Skills Alignment
 
@@ -184,32 +184,23 @@ Anthropic announced [Skills](https://www.anthropic.com/engineering/equipping-age
 - **Progressive Loading**: Expand context based on need
 - **Explicit Metadata**: Declare purpose and requirements upfront
 
-The [Anthropic Skills repository](https://github.com/anthropics/skills) shows `file-system-search`, `web-browser`, `code-editor` skills. Standards repository uses similar patterns for coding standard enforcement.
+The [Anthropic Skills repository](https://github.com/anthropics/skills) turned out to be closer to what I'd built than I expected. A Skill there is a directory containing a `SKILL.md` file with YAML frontmatter — markdown, not code — and the loading model is progressive disclosure: name and description sit in the system prompt, the full `SKILL.md` gets read when it matches, and bundled files load on demand. The `pdf` skill, for instance, ships `SKILL.md`, `forms.md`, `reference.md` and a `scripts/` directory.
 
-**Key differences**:
+**Where they actually differ:**
 
 | Aspect | Anthropic Skills | Standards Repository |
 |--------|------------------|---------------------|
-| **Primary Use Case** | General tool integration | Coding standards enforcement |
-| **Skill Format** | Programmatic tools (MCP) | Markdown documents |
-| **Loading Mechanism** | API discovery | File-based routing |
-| **Context Type** | Procedural (how to use tools) | Declarative (what standards to enforce) |
-| **Token Overhead** | ~500 per skill | ~1,800 per skill |
-| **Extensibility** | Requires code changes | Edit markdown files |
+| **Primary Use Case** | General capability packaging | Coding standards enforcement |
+| **Skill Format** | Markdown (`SKILL.md` + bundled files) | Markdown documents |
+| **Loading Mechanism** | Progressive disclosure from the filesystem | File-based routing by extension |
+| **Context Type** | Procedural (how to do a task) | Declarative (what standards to enforce) |
+| **Extensibility** | Edit markdown (there's a `skill-creator` skill) | Edit markdown files |
 
-**Complementary approaches**:
-- Anthropic Skills: Tool integration (browsers, databases, file systems)
-- Standards repository: Knowledge-heavy validation (the skill IS the context)
+Which is a shorter table than I first drafted, because on format, loading and extensibility the two designs landed in the same place. That's the more interesting result: two people solving "how do I give a model the right context at the right time" independently arrived at markdown files with lazy loading, rather than at a plugin API. Convergence is better evidence that the pattern is right than my own benchmarks are.
 
-**Hybrid future** (I think): Combine both patterns
-1. Use Anthropic Skills for file system discovery
-2. Load coding standards progressively by file type
-3. Apply validation rules (declarative markdown)
-4. Write results (Anthropic's file-system-write skill)
+The genuine difference is the fourth row. Anthropic's skills are mostly procedural — here is how to fill in a PDF form. Mine are declarative — here is the standard this file must meet. That changes what belongs in the file, not how it gets loaded.
 
-The challenge here: Anthropic's Skills have roughly 500 tokens overhead per skill, while my markdown-based approach uses roughly 1,800 tokens. That's a **3.6x difference**, but the markdown approach **doesn't require code changes**, just editing text files. The trade-off between programmatic efficiency and maintenance simplicity seems significant, though I'm still evaluating which approach wins long-term.
-
-[Agentic RAG research](https://arxiv.org/abs/2501.09136) confirms: multi-layer architecture (tools + knowledge + reasoning) is the future, with different context types loaded at different reasoning stages.
+The [Agentic RAG survey](https://arxiv.org/abs/2501.09136) maps the wider design space here — agentic patterns layered over retrieval — if you want to see where this sits relative to the rest of the field.
 
 ## Production Results
 
@@ -232,7 +223,7 @@ Workflow-aware routing (blog standards = 2,847 tokens total):
 - **Outline creation**: + Citation requirements (1,099 tokens)
 - **Full writing**: Complete standards (2,847 tokens)
 
-**Result**: 64% average token savings per workflow, 100% standards compliance maintained.
+**Result**: 48% average token savings per workflow, 100% standards compliance maintained.
 
 **Case Study 3: Multi-Repository Consistency**
 
@@ -316,7 +307,7 @@ Four emerging innovations:
 
 Use embeddings to auto-discover skill relationships. Loading `python/type-safety` might suggest related skills like `python/null-checks` based on usage patterns. I'm not sure this is practical yet, but the research looks promising.
 
-[Sufficient context estimation](https://arxiv.org/abs/2411.06037): Models predict required context size from task descriptions, which could lead to fully automated skill selection.
+[Sufficient context](https://arxiv.org/abs/2411.06037) classifies whether the context you already retrieved is enough to answer, which is how a router could learn to stop loading — or to abstain instead of guessing. It doesn't predict a size up front; that part is still on me.
 
 **2. Compression-Aware Skills**
 
@@ -324,7 +315,7 @@ Lossless compression reduces tokens while preserving information. Ship pre-compr
 
 **3. Token-to-Thought Transformation**
 
-[Tokens to Thoughts paradigm](https://arxiv.org/html/2505.17117): Represent concepts as thought graphs versus token sequences. Skills could evolve from markdown to graph-structured knowledge, potentially leading to another 10x cost reduction. Though I'm skeptical about the practical implementation complexity.
+Graph-structured skills instead of flat markdown. I have no measurement to offer here and no idea what it would save — it's a direction I find interesting, not a projection.
 
 **4. Reinforcement Learning Optimization**
 
@@ -414,7 +405,7 @@ Early "modular" attempts had hidden dependencies. V4's strict metadata forced ac
 
 **3. Human-Readable Wins**
 
-Markdown beats binary formats. Token overhead (roughly 20-30%) is worth the maintenance velocity gain. [LongRoPE](https://arxiv.org/abs/2402.13753): model performance degrades minimally with well-structured verbose context. However, for extremely token-sensitive use cases, this trade-off might not hold.
+Markdown beats binary formats. Token overhead (roughly 20-30%) is worth the maintenance velocity gain. For extremely token-sensitive use cases the trade-off might not hold, but I haven't hit that ceiling in practice.
 
 **4. Progressive Loading is Fractal**
 
@@ -450,13 +441,13 @@ For a single commit, this is negligible. But when I'm iterating rapidly (20-30 c
 
 ## Sources
 
-3. **[LazyLLM: Optimizing Language Model Performance Through Lazy Loading](https://arxiv.org/html/2407.14057v1)** (2024) - Lazy loading with minimal accuracy loss
-4. **[LongRoPE: Extending Context Windows of Large Language Models](https://arxiv.org/abs/2402.13753)** (2024) - Extended rope techniques for 1M+ token windows
+3. **[LazyLLM: Dynamic Token Pruning for Efficient Long Context LLM Inference](https://arxiv.org/html/2407.14057v1)** (2024) - Lazy loading with minimal accuracy loss
+4. **[LongRoPE: Extending LLM Context Window Beyond 2 Million Tokens](https://arxiv.org/abs/2402.13753)** (2024) - Extended rope techniques for 1M+ token windows
 6. **[ChunkKV: Efficient Chunked Key-Value Memory for Long-Context Processing](https://arxiv.org/html/2502.00299v1)** (2025) - Chunked context loading with cross-chunk attention
-8. **[From Tokens to Thoughts: Efficient Concept Representation in LLMs](https://arxiv.org/html/2505.17117)** (2025) - Representing concepts as thought graphs
+8. **[From Tokens to Thoughts: How LLMs and Humans Trade Compression for Meaning](https://arxiv.org/html/2505.17117)** (2025) - Information-bottleneck comparison of human and LLM categorisation
 9. **[Token-Efficient Reinforcement Learning for Language Models](https://arxiv.org/abs/2504.20834)** (2025) - RL techniques for token optimization
 10. **[Agentic RAG: A Survey of Retrieval-Augmented Generation in Agent Systems](https://arxiv.org/abs/2501.09136)** (2025) - Multi-layer architecture for agent design
-12. **[Sufficient Context: Predicting Required Context Length for Language Model Tasks](https://arxiv.org/abs/2411.06037)** (2024) - Automatic context size prediction
+12. **[Sufficient Context: A New Lens on Retrieval Augmented Generation Systems](https://arxiv.org/abs/2411.06037)** (2024) - Automatic context size prediction
 13. **[Anthropic Skills Announcement](https://www.anthropic.com/news/skills)** (2025) - Official Skills feature announcement
 14. **[Equipping Agents for the Real World with Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)** (2025) - Anthropic engineering blog on Skills
 15. **[Anthropic Skills GitHub Repository](https://github.com/anthropics/skills)** (2025) - Open-source Skills implementation examples
