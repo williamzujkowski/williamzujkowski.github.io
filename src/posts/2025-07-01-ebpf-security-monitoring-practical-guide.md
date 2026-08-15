@@ -87,7 +87,7 @@ The magic happens in the kernel with eBPF programs that capture these events in 
   <li class="seq-label">If: suspicious pattern</li>
   <li class="seq-step"><b>eBPF &rarr; Detector</b><span>Alert event</span></li>
   <li class="seq-step"><b>Detector &rarr; Response</b><span>Trigger response</span></li>
-  <li class="seq-step"><b>Response &rarr; Process</b><span>Block, kill, or isolate</span></li>
+  <li class="seq-step"><b>Response &rarr; Process</b><span>alert, or kill via BPF-LSM</span></li>
   <li class="seq-label">Else: normal behavior</li>
   <li class="seq-step"><b>eBPF &rarr; eBPF</b><span>Log and continue</span></li>
 </ol>
@@ -119,7 +119,9 @@ I once spent an entire weekend debugging why my eBPF program worked perfectly on
 
 ### BTF Availability Validation
 
-**Check kernel BTF support:** Before deploying CO-RE eBPF programs, verify your kernel exposes BTF information with `ls /sys/kernel/btf/vmlinux`. If missing, kernel was built without `CONFIG_DEBUG_INFO_BTF=y`. Ubuntu 20.04+ and RHEL 8.2+ enable BTF by default. For custom kernels, rebuild with BTF enabled or use non-CO-RE eBPF (requires recompilation per kernel version).
+**One thing tracing eBPF cannot do:** a kprobe or tracepoint program observes, it does not block. The syscall has already run by the time your handler sees it. Enforcement needs BPF-LSM hooks returning `-EPERM` (5.7+, `CONFIG_BPF_LSM`), or `bpf_send_signal()` — which kills the process *after* the fact and loses a race an attacker can win. Treat everything below as detection unless you have wired up BPF-LSM.
+
+**Check kernel BTF support:** Before deploying CO-RE eBPF programs, verify your kernel exposes BTF information with `ls /sys/kernel/btf/vmlinux`. If missing, kernel was built without `CONFIG_DEBUG_INFO_BTF=y`. Ubuntu 20.10+ and RHEL 8.2+ enable BTF by default (Ubuntu's 20.04 / 5.4 kernel does not). For custom kernels, rebuild with BTF enabled or use non-CO-RE eBPF (requires recompilation per kernel version).
 
 **Debug BTF issues:** If programs fail with "CO-RE relocation failed" errors, check BTF completeness with `bpftool btf dump file /sys/kernel/btf/vmlinux format c > vmlinux.h` and search for your target struct (e.g., `grep "struct task_struct" vmlinux.h`). Missing structs indicate incomplete BTF. Install `linux-headers-$(uname -r)` to populate module BTF at `/sys/kernel/btf/<module_name>`. Verify with `bpftool btf list` showing all available BTF objects. For production deployments, add BTF validation to startup scripts: `test -f /sys/kernel/btf/vmlinux || exit 1` prevents eBPF programs from loading on incompatible kernels.
 
@@ -192,7 +194,7 @@ eBPF overhead scales **non-linearly** with event volume due to ring buffer conte
 
 eBPF maps consume kernel memory proportional to event cardinality:
 
-**Per-CPU ring buffers (most common):**
+**A note on which buffer you're sizing.** `BPF_MAP_TYPE_RINGBUF` (5.8+) is a *single shared* buffer across all CPUs — that was the point of replacing `BPF_MAP_TYPE_PERF_EVENT_ARRAY`, which is the per-CPU one. If you're on modern ringbuf, do not multiply by core count; the figures below are per-CPU perf-buffer sizing and will overshoot by your CPU count:
 ```
 Ring buffer size = (number of CPUs) × (per-CPU buffer size)
 Example: 8 CPUs × 64MB = 512MB total
@@ -349,23 +351,25 @@ Recent academic research has significantly advanced our understanding of eBPF se
 
 #### Historical Verifier Bypass CVEs
 
-**CVE-2021-31440 (CVSS 7.8):** Incorrect bounds tracking in BPF ALU32 operations
-- **Impact:** Local privilege escalation to root via out-of-bounds read/write
-- **Affected:** Linux kernels <5.11.12
+**CVE-2021-31440 (CVSS 7.0):** Incorrect bounds tracking in BPF ALU32 operations
+- **Impact:** Local privilege escalation via out-of-bounds read/write
+- **Affected:** 5.7–5.10.36, 5.11–5.11.20, 5.12–5.12.3
 - **Root cause:** Verifier failed to properly track 32-bit arithmetic operation bounds
-- **Exploitation:** Craft eBPF program that passes verification but performs OOB memory access at runtime
+- **Exploitation:** Craft an eBPF program that passes verification but performs OOB access at runtime
 
-**CVE-2021-33624 (CVSS 7.8):** BPF verifier allows pointer arithmetic on modified pointer
-- **Impact:** Arbitrary kernel memory read/write leading to privilege escalation
-- **Affected:** Linux kernels <5.12.4
-- **Root cause:** Verifier incorrectly validated pointer arithmetic after pointer modification
-- **Exploitation:** Bypass verifier checks to access arbitrary kernel memory
+**CVE-2021-33624 (CVSS 4.7):** Speculative side channel after a mispredicted branch
+- **Impact:** An unprivileged BPF program can **read** arbitrary kernel memory. Read-only — the CVSS vector is `I:N`, so there is no write and no privilege escalation
+- **Affected:** Linux kernels before 5.12.13
+- **Root cause:** A branch can be mispredicted (e.g. through type confusion), and the speculative path leaks memory contents through a side channel
+- **Exploitation:** Spectre-class measurement, not a direct memory write
 
-**CVE-2023-2163 (CVSS 8.2):** Incorrect verifier pruning of unreachable code paths
-- **Impact:** Privilege escalation via speculative execution side channels
-- **Affected:** Linux kernels <6.3
-- **Root cause:** Verifier optimization incorrectly pruned security-critical code paths
-- **Exploitation:** Time-of-check-time-of-use attacks via pruned verification paths
+**CVE-2023-2163 (CVSS 10.0):** Incorrect verifier pruning marks unsafe paths as safe
+- **Impact:** Arbitrary kernel read/write, lateral privilege escalation, and **container escape**. This is the one to care about — it is rated critical, and it is the reason the version check below matters
+- **Affected:** 5.4 and later, until 5.4.242 / 5.10.179 / 5.15.109 / 6.1.26 / 6.2.13
+- **Root cause:** The verifier's state-pruning optimization concluded that code paths were equivalent when they were not, so unsafe paths were never checked
+- **Exploitation:** Direct — the program simply does what the verifier wrongly believed it could not
+
+A note on reading these: the two you would guess are equivalent from their names are three orders of magnitude apart in severity. 33624 is a read-only side channel with a high attack complexity; 2163 hands over kernel write and container escape. Version checking is worth doing precisely because the names don't tell you that.
 
 #### Mitigation Strategies
 
@@ -407,10 +411,11 @@ sysctl kernel.unprivileged_bpf_disabled
 # Check lockdown status
 cat /sys/kernel/security/lockdown
 # Options: [none] [integrity] [confidentiality]
-# Recommended: confidentiality (most restrictive)
+# Recommended: integrity. NOT confidentiality - it disables bpf_probe_read*,
+# kprobes and kernel-data perf events, which turns off everything in this post.
 
 # Set at boot via kernel parameter
-# Add to GRUB: lockdown=confidentiality
+# Add to GRUB: lockdown=integrity
 ```
 
 **4. Namespace Restrictions:**
@@ -423,7 +428,8 @@ securityContext:
   capabilities:
     drop:
       - ALL
-      - CAP_SYS_ADMIN  # Prevents legacy eBPF loading
+      # dropping ALL already covers CAP_BPF/CAP_PERFMON/CAP_SYS_ADMIN.
+      # Note: k8s capability names omit the CAP_ prefix - the runtime adds it.
       - CAP_BPF        # Prevents eBPF program loading (kernel 5.8+)
       - CAP_PERFMON    # Prevents perf event monitoring
 ```
@@ -444,10 +450,10 @@ sysctl kernel.unprivileged_bpf_disabled
 
 # 3. Verify eBPF JIT hardening enabled
 sysctl net.core.bpf_jit_harden
-# Expected: net.core.bpf_jit_harden = 2 (maximum hardening for unprivileged users)
+# Expected: net.core.bpf_jit_harden = 2 (hardening for all users; 1 would cover unprivileged users only). Note this costs JIT performance on your own monitoring programs too
 
 # 4. Check available eBPF capabilities
-cat /proc/sys/kernel/unprivileged_userns_clone
+cat /proc/sys/kernel/apparmor_restrict_unprivileged_userns
 # Expected: 0 (user namespaces disabled, prevents container escape)
 
 # 5. Audit eBPF program usage
@@ -458,7 +464,7 @@ bpftool prog show
 **Production hardening checklist:**
 - [ ] Kernel ≥6.1 LTS with all CVE patches
 - [ ] `kernel.unprivileged_bpf_disabled=1` enforced
-- [ ] Kernel lockdown mode enabled (confidentiality)
+- [ ] Kernel lockdown mode set to `integrity` (not `confidentiality`, which disables the tracing this relies on)
 - [ ] eBPF JIT hardening enabled (`net.core.bpf_jit_harden=2`)
 - [ ] Container security contexts drop CAP_BPF/CAP_SYS_ADMIN
 - [ ] Regular `bpftool prog` audits for unauthorized programs
