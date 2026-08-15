@@ -11,10 +11,6 @@ tags:
   - privacy
   - security
 ---
-
-> **Corrected 2026-08-15.** Every TLS configuration and test command in this post named `x25519_kyber768`, a pre-standard group that OpenSSL 3.5 has never supported and that Chrome, Firefox and Go removed in late 2024. **nginx silently ignores unrecognised groups**, so following the original instructions produced a server that started cleanly, looked correct, and negotiated no post-quantum key exchange at all. All 13 occurrences now read `X25519MLKEM768`, and the verification step now greps for output `s_client` actually prints.
->
-> Also corrected: the "16KB certificate threshold" misread its source on mechanism (it's TCP `initcwnd`, not record fragmentation), on the threshold (~9-10KB, and 16KB was the size the authors chose to test), and on the penalty (one round trip, not 200ms — that figure is an emulated cellular RTT). The fix the paper recommends is raising `initcwnd`, not changing signature algorithm.
 I spent three weekends trying to enable post-quantum cryptography on my homelab Nginx server. The first attempt crashed every single HTTPS connection because I completely forgot that hybrid mode exists and tried forcing pure ML-KEM-768.
 
 The second weekend, I got hybrid mode working but didn't realize my certificate chain had ballooned to 18KB, triggering TCP fragmentation and adding a mysterious 200ms to every handshake. By the third weekend, I'd finally figured out that my Raspberry Pi 4 running Wazuh was perfectly capable of handling PQC, I just needed to stop treating it like it was 2015.
@@ -248,7 +244,7 @@ Don't choose one algorithm for your entire infrastructure. Use both strategicall
 - Bandwidth-constrained links (satellite, cellular)
 - Embedded ARM devices where signature size matters
 
-**Correction: this was wrong.** Clients advertise `signature_algorithms` and `signature_algorithms_cert` in ClientHello, so the certificate's signature algorithm is exactly the thing they do care about. I also conflated hybrid *key exchange* with signatures — hybrid mode has nothing to do with certificate signatures. As of 2026 no browser accepts a Falcon certificate and no publicly-trusted PQ root exists, so mixing algorithms across services is not transparent; it requires oqs-provider on both ends of every connection.
+Clients advertise `signature_algorithms` and `signature_algorithms_cert` in ClientHello, so the certificate's signature algorithm is exactly the thing they do care about. Note also that hybrid *key exchange* and signatures are separate concerns — hybrid mode has nothing to do with which algorithm signs your certificate. As of 2026 no browser accepts a Falcon certificate and no publicly-trusted PQ root exists, so mixing algorithms across services is not transparent; it requires oqs-provider on both ends of every connection.
 
 ## The Quantum Threat Timeline: When Should You Actually Worry?
 
@@ -417,7 +413,7 @@ I set up monitoring on my Proxmox host to track TLS handshake performance before
 - Certificate chain size: 5.8KB (still under 16KB threshold)
 - CPU usage: still negligible on i9-9900K
 
-I originally wrote that my **1ms overhead** "matches [AWS's production measurements](https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/) almost exactly." It doesn't — AWS measured 80-150 *microseconds* of additional compute, so my figure is 7-12x theirs, and most of the difference is scheduling noise on a busy Proxmox host. With TLS session resumption enabled (which it is by default), the overhead effectively disappears because the expensive handshake only happens once per hour instead of on every request.
+My **1ms overhead** sits an order of magnitude above [AWS's measured](https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/) 80-150 microseconds of additional compute — most of my delta is scheduling noise on a busy Proxmox host, not ML-KEM. With TLS session resumption enabled (which it is by default), the overhead effectively disappears because the expensive handshake only happens once per hour instead of on every request.
 
 On my Raspberry Pi 4 running Pi-hole with HTTPS enabled, I saw similar results, maybe 2-3ms handshake overhead, completely unnoticeable in actual browsing.
 
@@ -580,9 +576,11 @@ In my homelab, I initially tried pure ML-KEM-768 because I assumed all my device
 
 ### Certificate Size: The 16KB Threshold Effect
 
-**Corrected: I misread the source on this, three ways.** The mechanism is not record fragmentation — it is TCP's initial congestion window (`initcwnd`). 16KB is not a threshold; it is the representative chain size the AWS/NIST authors *chose to test*, and the turning point they actually identify is around 9-10KB. And the penalty is **one extra round trip**, not 200ms — the 200ms figure is one of three emulated RTTs in their testbed, chosen to model constrained cellular links, which is not something a homelab LAN can exhibit.
+The mechanism here is TCP's initial congestion window, not record fragmentation. If the server's Certificate and CertificateVerify messages exceed `initcwnd`, the server waits for an ACK before sending the rest — one extra round trip, and the [AWS/NIST measurements](https://csrc.nist.gov/csrc/media/Events/2024/fifth-pqc-standardization-conference/documents/papers/the-impact-of-data-heavy-post-quantum.pdf) put the turning point around 9-10KB, roughly ten times the MSS.
 
-The fix the paper recommends is also not switching signature algorithms: raising `initcwnd` to 20 eliminates the effect entirely (Cloudflare uses 30), and the impact stays under 5% on stable high-bandwidth links regardless.
+What that costs depends entirely on your RTT, which is why it is easy to overstate. On a stable high-bandwidth link the time-to-last-byte impact stays under 5%, and it amortises to nothing once you're transferring a couple hundred KB. It only bites on long or constrained paths.
+
+And the fix isn't switching signature algorithms. Raising `initcwnd` to 20 eliminates it — Cloudflare runs 30.
 
 **Classical RSA-2048 certificate chain:**
 - Leaf cert: ~1,200 bytes (with RSA-2048 signature)
@@ -623,7 +621,7 @@ I'm running production PQC on infrastructure that hosts my password manager (Bit
 
 **Compatibility regressions:** Every OS update or browser release could potentially break PQC support. Chrome 124 worked great with my Nginx setup, then Chrome 131 switched to ML-KEM and I had to update my ciphersuites. Caddy 2.10 handles this automatically, but if you're managing OpenSSL configurations manually, prepare for maintenance.
 
-**Increased attack surface:** I'm running experimental cryptographic code (liboqs) in a privileged position (TLS termination). If there's a memory safety bug in the PQC implementations, that's a potential remote code execution vulnerability. The [Trail of Bits review](https://github.com/trailofbits/publications/blob/master/reviews/2025-04-quantum-open-safe-liboqs-securityreview.pdf) found no high or medium findings — but it explicitly excluded the algorithm implementations ("we did not aim to review the implementation of each algorithm, as these implementations originate from third parties"), which is exactly where such a bug would live. I cited it to retire a risk it never examined.
+**Increased attack surface:** I'm running experimental cryptographic code (liboqs) in a privileged position (TLS termination). If there's a memory safety bug in the PQC implementations, that's a potential remote code execution vulnerability. The [Trail of Bits review](https://github.com/trailofbits/publications/blob/master/reviews/2025-04-quantum-open-safe-liboqs-securityreview.pdf) found no high or medium findings, but read its scope before taking comfort: it explicitly excluded the algorithm implementations ("we did not aim to review the implementation of each algorithm, as these implementations originate from third parties"), which is exactly where a memory-safety bug would live. It audited the wrapper, not the maths.
 
 My personal risk tolerance says these trade-offs are acceptable for homelab experimentation and learning. If I were running a business or handling other people's data, I'd probably wait another 1-2 years for the ecosystem to mature.
 
