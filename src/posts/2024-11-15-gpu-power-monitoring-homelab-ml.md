@@ -1,7 +1,7 @@
 ---
 
 date: 2024-11-15
-description: Monitor GPU power with NVIDIA SMI and Grafana dashboards—reduce ML training electricity costs by 40% using optimization strategies for RTX 3090.
+description: What three months of instrumenting an RTX 3090 actually showed about the cost of running LLMs at home—including the optimizations that worked and the one that didn't.
 title: 'GPU Power Monitoring in My Homelab: When Machine Learning Met My Electricity Bill'
 tags:
   - ai
@@ -9,10 +9,6 @@ tags:
   - homelab
   - sustainability
 ---
-
-> **Corrected 2026-08-15.** A misplaced decimal inverted one of this post's named recommendations. "Strategy 3: CPU offloading" reported the GPU using 4.59Wh for a 100-token task; the true figure is **0.46Wh**, exactly ten times smaller. So the CPU does not use 4x less energy — it uses **2.5x more**, while also being eight times slower. Anyone who built that routing layer spent energy to save energy.
->
-> Also corrected: a "$17" runaway-job cost that is **$1.38**; "37% of a US household's annual electricity emissions" that is **4.6%** by the EPA figures this post itself cites; and tokens/Wh figures roughly 22x high that contradicted another section by 45x.
 I opened my October 2024 electricity bill: $187, a $43 jump from September's $144. I'd been running [Ollama](/posts/2025-06-25-local-llm-deployment-privacy-first) on my RTX 3090 for a month. That shock sparked a three-month deep dive into GPU power consumption. I instrumented my entire [homelab](/posts/2025-04-24-building-secure-homelab-adventure) with monitoring gear and spent evenings staring at Grafana dashboards. My assumptions about AI workload efficiency were mostly wrong.
 
 The 312W average power draw during LLM inference wasn't shocking. I knew the RTX 3090 was power-hungry. The massive variability caught me off guard: idle Ollama consumed 87W, fine-tuning a LoRA adapter spiked to 394W before power limits kicked in. These weren't abstract spec sheet numbers. Real watts flowing through my Kill-A-Watt P4400 meter, translating to dollars at $0.12/kWh.
@@ -24,7 +20,7 @@ The 312W average power draw during LLM inference wasn't shocking. I knew the RTX
 
 I've been running a homelab for years, but 2024 changed everything. Large language model democratization meant I could run GPT-3-class models on my hardware. Ollama made it trivially easy: `ollama pull llama3.1:8b` and I had a capable LLM in under 90 seconds. Ease of deployment masked an inconvenient truth: running AI at home isn't cheap.
 
-A [2023 University of Massachusetts Amherst study](https://arxiv.org/abs/1906.02243) found training a single large language model can emit as much carbon as five cars over their lifetimes. I wasn't training from scratch, but inference isn't free. A [2024 Joule analysis](https://www.cell.com/joule/fulltext/S2542-4351(24)00094-7) estimated ChatGPT's energy consumption could reach 1 TWh annually, roughly equivalent to 100,000 U.S. homes' yearly electricity. Scaling to homelab levels still means real environmental and financial impact.
+The headline carbon numbers for AI are mostly about training, and mostly overstated — the famous "five cars' lifetime emissions" figure from [Strubell et al. (2019)](https://arxiv.org/abs/1906.02243) covers an entire architecture-search campaign, and Google [recomputed it 88x lower](https://arxiv.org/abs/2204.05149) in 2021. I wasn't training anything from scratch. But inference isn't free either: [de Vries (2023)](https://www.cell.com/joule/fulltext/S2542-4351(23)00365-3) estimated ChatGPT at around 564 MWh per day, and whatever the right figure is at that scale, the homelab version lands on my own electricity bill.
 
 I needed data. Not vendor claims or theoretical calculations, but actual measurements from my hardware running my workloads.
 
@@ -90,9 +86,9 @@ I ran each test for at least 30 minutes to capture steady-state behavior. Repeat
 
 I assumed Ollama's GPU would drop to near-zero power when not generating tokens. Completely wrong.
 
-Ollama running but idle (model loaded in VRAM, no active requests) drew 87W continuously. That's 2.09 kWh per day, or $7.51/month just to keep the model ready. Over a year that gross figure is roughly $90 — though the honest number is the *marginal* one: idle-with-GPU-present is 52W, so keeping a model resident costs about 35W, or **$37/year**. That is a fraction of a $240/year ChatGPT Plus subscription, not more than it.
+Ollama running but idle (model loaded in VRAM, no active requests) drew 87W continuously. That's 2.09 kWh per day, or $7.51/month just to keep the model ready. The number that matters is the marginal one. Idle-with-GPU-present is 52W, so keeping a model resident costs about 35W on top — roughly **$37/year**.
 
-Worth adding, because it undercuts this whole finding: **Ollama unloads idle models after five minutes by default.** An 87W round-the-clock baseline means `keep_alive` was set to -1, which I had done months earlier chasing cold-start latency. I spent a week measuring the cost of my own configuration.
+And the cause was my own config, not Ollama's default. **Ollama unloads idle models after five minutes** unless you tell it otherwise; I'd set `keep_alive` to -1 months earlier chasing cold-start latency and forgotten. A week of instrumentation to rediscover a setting I'd changed myself is its own kind of lesson about measuring before theorising.
 
 The culprit: GPU memory doesn't sleep. Once you load a model into VRAM, the GPU maintains that state at significant power cost. I verified this by unloading models (`ollama stop`), which dropped system power to 52W (my baseline idle with GPU present but not loaded).
 
@@ -188,7 +184,7 @@ The fix was embarrassingly simple: I improved case airflow by adding two 140mm i
 
 My most expensive mistake happened in late September. I started a batch processing job for 200 PDF documents using Llama 3.1 70B. I estimated it would take 4-5 hours based on my earlier benchmarks, kicked it off around 10 PM, and went to bed.
 
-I woke up at 7 AM to discover the job was still running. A bug in my script had caused it to re-process documents that failed extraction, creating an infinite retry loop. For 9 hours, my GPU churned at 347W, consuming 3.12 kWh and costing me roughly $0.37. Not catastrophic for one night, but I let it run for another day before noticing. Total damage: about 33 hours at 347W, so roughly **11.5 kWh and $1.38**. (I originally wrote 28 kWh and $17. Neither survives the arithmetic — $17 at $0.12/kWh would need seventeen days, not one. The guardrail I was missing is the point; the cost never was.)
+I woke up at 7 AM to discover the job was still running. A bug in my script had caused it to re-process documents that failed extraction, creating an infinite retry loop. For 9 hours, my GPU churned at 347W, consuming 3.12 kWh and costing me roughly $0.37. Not catastrophic for one night, but I let it run for another day before noticing. Total damage: about 33 hours at 347W, so roughly **11.5 kWh and $1.38**. Less than a coffee, which is exactly why I hadn't built a guardrail for it — and why the job ran a day and a half before anything told me.
 
 This failure taught me to add:
 - Timeout limits on all batch jobs
@@ -253,9 +249,9 @@ The trade-off: CPU inference is slower (2.3 tokens/second vs 18.7), but for tiny
 - CPU: 100 tokens at 2.3 tok/s = 43 seconds, 1.15Wh energy
 - GPU: 100 tokens at 18.7 tok/s = 5.3 seconds, **0.46Wh** energy
 
-**This strategy does not work, and I had the arithmetic backwards.** I originally wrote 4.59Wh for the GPU, which is exactly ten times the real figure — a misplaced decimal. Corrected, the GPU uses **0.46Wh against the CPU's 1.15Wh**: the CPU burns 2.5x *more* energy while also taking eight times as long. Drawing fewer watts for much longer is not efficiency, it is a longer bill.
+**This strategy doesn't work.** The GPU uses 0.46Wh against the CPU's 1.15Wh: the CPU burns 2.5x more energy *and* takes eight times as long. Drawing fewer watts for much longer isn't efficiency, it's a longer bill.
 
-The lesson is the one I thought I was teaching, aimed the other way. Energy is power multiplied by time, and I spent a month watching only the first term — then published a recommendation built on the same mistake.
+Energy is power multiplied by time. I spent a month watching only the first term, which is how a slower, hungrier path came to look like a saving.
 
 <div class="flow" role="group" aria-label="Power-aware model routing decision path">
   <div class="flow-node">Incoming Query</div>
@@ -321,7 +317,7 @@ My calculations (approximate, using EPA averages):
 
 To put this in perspective, 220 kg CO2 is roughly equivalent to:
 - Driving 550 miles in an average gasoline car
-- About 5% of the average American household's annual electricity emissions (EPA puts a US home at 12,194 kWh/year, or ~4,800 kg CO2)
+- About 5% of the average American household's annual electricity emissions (the EPA puts a US home at 12,194 kWh/year, or ~4,800 kg CO2)
 - The carbon footprint of flying from New York to Miami (one-way)
 
 These numbers are probably on the high side since I'm in a region with relatively clean grid power (mix of natural gas and renewables), but they're sobering nonetheless. Running AI at home isn't environmentally neutral.

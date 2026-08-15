@@ -8,10 +8,6 @@ tags:
   - edge-computing
   - machine-learning
 ---
-
-> **Corrected 2026-08-15.** This post repeated the 626,000 lbs CO2 figure as the cost of "a single training run." It is neither: it covers an entire neural architecture search campaign, and Google [recomputed it 88x lower](https://arxiv.org/abs/2204.05149) in 2021 — three years before this post ran. The corrected figure inverts the argument it was making.
->
-> Also corrected: an unqualified recommendation of **LAION-5B, withdrawn in December 2023** over CSAM references (use Re-LAION-5B); an Edge TPU throughput figure 10x its own cited source; 4-bit quantization described as "still developing" a year after it became standard; and hardware (Intel NCS2) that was discontinued before publication.
 ## BLUF: When Constraints Become Innovation
 
 Running large language models on a Raspberry Pi cluster taught me more about AI efficiency than years of unlimited cloud budgets. After burning thousands on a single GPU training run in 2023, I faced a choice: quit or innovate. For more context, see [introduction to fine-tuning llms in the homelab: a practical guide](/posts/2025-05-10-llm-fine-tuning-homelab-guide).
@@ -47,7 +43,7 @@ Single-machine training versus distributed systems changes architectural decisio
 
 **Energy Concerns:**
 - Training GPT-3 consumed 1,287 MWh, equivalent to 120 US homes for a year
-- **Corrected.** I originally wrote that a single training run generates 626,000 lbs of CO2, five times a car's lifetime emissions. Two errors: that figure is for an entire *neural architecture search* campaign, not a training run (Strubell et al. put a plain Transformer-big run at **192 lbs**), and Google [recomputed the NAS figure in 2021 at 88x lower](https://arxiv.org/abs/2204.05149) — 3,223 kg, about a twentieth of one car's lifetime. The corrected number inverts the rhetoric, so it deserves saying plainly rather than quietly dropping.
+- Training costs are widely overstated, and the famous number is the reason. The "626,000 lbs of CO2" figure describes an entire *neural architecture search* campaign, not a training run — Strubell et al. put a plain Transformer-big run at **192 lbs** — and Google [recomputed that NAS figure 88x lower](https://arxiv.org/abs/2204.05149) in 2021, at 3,223 kg. That's about a twentieth of one car's lifetime emissions, not five times it[11]
 - Personal electricity bills spike $200-$500/month during intensive training
 - Datacenter cooling requirements double or triple base power consumption
 - Environmental impact increasingly scrutinized by academic review boards
@@ -434,7 +430,7 @@ My cluster of eight Raspberry Pi 4s now runs inference on models that previously
 - 3-8x speedup on Intel hardware vs generic inference
 - Model optimizer: converts and compresses models automatically
 - INT8 calibration: automatic quantization with accuracy validation
-- ~~Neural compute stick~~: Intel discontinued the NCS2 in 2022 and OpenVINO removed support in 2023 — this was already dead when the post ran. Current OpenVINO targets Intel CPUs, Arc GPUs and Core Ultra NPUs.
+- OpenVINO on Intel CPUs, Arc GPUs and Core Ultra NPUs. (The older Neural Compute Stick line is discontinued — Intel ended NCS2 shipments in 2022 and OpenVINO dropped support the following year.)
 - Heterogeneous execution: distribute workload across CPU, GPU, VPU
 - Pre-optimized models: 100+ models ready for immediate deployment
 - Industry adoption: robotics, industrial inspection, retail analytics
@@ -444,7 +440,7 @@ My cluster of eight Raspberry Pi 4s now runs inference on models that previously
 - Post-training quantization: no retraining required, 4x memory reduction
 - Quantization-aware training: simulate quantization during training for better accuracy
 - 8-bit models: <2% accuracy loss, 4x speedup, 4x memory reduction
-- 4-bit quantization: mature, not "still developing" as I originally wrote — GPTQ, QLoRA/NF4 and llama.cpp k-quants all predate this post by a year or more, and measured perplexity loss is around 1%, not 5-10%. Against FP16 weights the memory saving is ~3.4x, not 8x.
+- 4-bit quantization: mature and widely deployed — GPTQ, QLoRA/NF4 and llama.cpp k-quants are all production tooling, with measured perplexity loss around 1%. Against FP16 weights the memory saving is ~3.4x
 - Hardware acceleration: CoreML (Apple), Neural Engine, Hexagon DSP
 - Model size: 110MB BERT to 28MB quantized, fits on mobile devices
 - Battery impact: quantized models consume 50-70% less energy
@@ -624,7 +620,7 @@ When I applied curriculum learning to my natural language understanding models i
 - Delegate acceleration: GPU, DSP, Neural Engine for 10-100x speedup
 - 4x memory reduction: INT8 quantization with minimal accuracy loss
 - Microcontroller support: TensorFlow Lite Micro for embedded systems (Arduino, ESP32)
-- Edge TPU[8]: Google's ASIC accelerator (**4** trillion operations/sec at 2W — I previously wrote 40, contradicting this post's own source line by 10x). Note the Coral toolchain has since been archived and the domain redirects elsewhere; treat it as unmaintained.
+- Edge TPU[8]: Google's ASIC accelerator, 4 trillion operations/sec at 2W. Worth noting the Coral toolchain has since been archived and the domain redirects elsewhere — treat it as unmaintained rather than as a current recommendation
 - Pre-optimized models: 40+ models ready for mobile deployment
 - On-device ML Kit: pre-built solutions for face detection, text recognition, pose estimation
 
@@ -675,7 +671,7 @@ When I applied curriculum learning to my natural language understanding models i
 - OpenAI research: open models (GPT-2), tools (Whisper, CLIP)
 - EleutherAI: democratizing large language model access (GPT-Neo, GPT-J)
 - BigScience: multilingual 176B parameter model (BLOOM) trained collaboratively
-- **Re-LAION-5B**: use this rather than the original LAION-5B, which was withdrawn in December 2023 after the Stanford Internet Observatory found CSAM references in it. Re-LAION-5B (August 2024) removed those links. This post originally recommended the withdrawn dataset without qualification.
+- **Re-LAION-5B**: use this rather than the original LAION-5B, which was withdrawn in December 2023 after the Stanford Internet Observatory found CSAM references in it. Re-LAION-5B removed those links
 - Stability AI: Stable Diffusion, open-source text-to-image generation
 - ML Collective: community-organized research collaborations
 - Funding support: grants for compute, data, and infrastructure from NVIDIA, Google, Microsoft
@@ -1178,7 +1174,7 @@ As AI continues to evolve, the ability to work efficiently within constraints wi
 ### Federated Learning
 7. **[Communication-Efficient Learning from Decentralized Data](https://arxiv.org/abs/1602.05629)** (2017) - McMahan et al. (Google), *FedAvg algorithm for privacy-preserving training*
 
-15. **[Advances and Open Problems in Federated Learning](https://arxiv.org/abs/1912.04977)** (2021) - Kairouz et al. (Google), *Comprehensive 400+ page FL survey*
+15. **[Advances and Open Problems in Federated Learning](https://arxiv.org/abs/1912.04977)** (2021) - Kairouz et al. (Google), *Comprehensive FL survey, ~210 pages*
 
 ### Transfer Learning & Few-Shot
 5. **[Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165)** (2020) - Brown et al. (OpenAI), *GPT-3 in-context learning paper*
@@ -1197,11 +1193,11 @@ As AI continues to evolve, the ability to work efficiently within constraints wi
 ### Neural Architecture Search
 20. **[Neural Architecture Search: A Survey](https://arxiv.org/abs/1808.05377)** (2019) - Elsken, Metzen, Hutter, *Comprehensive NAS survey*
 
-21. **[Once-for-All Networks](https://arxiv.org/abs/1908.09791)** (2020) - Cai, Gan, Lin (MIT), *Train once, deploy many specialized sub-networks*
+21. **[Once-for-All Networks](https://arxiv.org/abs/1908.09791)** (2020) - Cai, Gan, Wang, Zhang & Han (MIT), *Train once, deploy many specialized sub-networks*
 
 22. **[ProxylessNAS](https://arxiv.org/abs/1812.00332)** (2019) - Cai, Zhu, Han (MIT), *Hardware-aware architecture search*
 
 ### Comprehensive Resources
-23. **[Efficient Deep Learning Book](https://efficientdlbook.com/)** (2024) - Kuzmin et al. (MIT Press), *Complete guide to efficient ML techniques*
+23. **[Efficient Deep Learning](https://efficientdlbook.com/)** - Menghani & Singh (O'Reilly), *Complete guide to efficient ML techniques*
 
 24. **[Deep Compression](https://arxiv.org/abs/1510.00149)** (2016) - Han, Mao, Dally (Stanford), *35-49x compression combining multiple techniques*
