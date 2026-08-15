@@ -12,7 +12,11 @@ tags:
   - raspberry-pi
 ---
 
-In November 2024, I spent three weeks training an image classifier across 4 devices in my homelab without sharing a single raw image between them. The Dell R910 acted as the aggregation server while 3 Raspberry Pi 5s (16GB each) trained on local data. The first full training round took 47 minutes, mostly spent waiting on network aggregation.
+> **Corrected 2026-08-15, and this one matters most.** This post claimed its approach gives "privacy guarantees provably stronger than standard federated learning with differential privacy." That is false in both directions: the cited paper contains **no theorems**, and you cannot be provably stronger than differential privacy by having no proof at all. Anyone who acted on that sentence would have shipped a system believing it had a bound it does not have. It is retracted below, with the specific leaks in my own code documented.
+>
+> Also corrected: the paper's method is misdescribed (granular balls are local preprocessing; clients still upload model parameters), a bandwidth comparison built on a baseline 12x too large, and an experiment dated to November 2024 on hardware that went on sale in January 2025.
+
+In early 2025 I spent three weeks training an image classifier across 4 devices in my homelab without sharing a single raw image between them. The Dell R910 acted as the aggregation server while 3 Raspberry Pi 5s trained on local data. (This post originally dated the work to November 2024 — impossible, since the 16GB Pi 5 went on sale in January 2025 and the paper it builds on was submitted that same month.) The first full training round took 47 minutes, mostly spent waiting on network aggregation.
 
 What surprised me most was the data transfer reduction. I'm not entirely sure if my measurements account for all overhead, but granular-ball segmentation cut network transfers from roughly 2.3GB per round to 410MB. That's an 82% reduction just by sharing coarse statistical representations instead of model gradients.
 
@@ -66,9 +70,9 @@ The [GrBFL paper](https://arxiv.org/abs/2501.04940) introduces a different appro
 
 **The concept:** Segment your local dataset into "granular balls," which are clusters of similar data points represented by their center and radius. Instead of sending gradients derived from individual examples, you send aggregated statistics from these coarse clusters.
 
-**Why it matters for privacy:** An attacker can't reconstruct individual training examples from cluster statistics. The information loss is intentional, protecting privacy by making reconstruction attacks computationally infeasible.
+**Why it might matter for privacy:** Coarser statistics give a reconstruction attack less to work with than per-example gradients do. That is a plausible argument, not a guarantee, and the shipped payload has real leaks in it — see the correction below before relying on any of this.
 
-**The trade-off:** You lose fine-grained information during aggregation. The model learns from coarse patterns rather than individual examples. This probably reduces accuracy, but the GrBFL paper claims the gap is small (1-3% on standard benchmarks).
+**The trade-off:** You lose fine-grained information during aggregation. The model learns from coarse patterns rather than individual examples. This probably reduces accuracy, and the GrBFL paper reports composite utility scores rather than raw accuracy gaps, so I can't put a percentage on it. (I originally quoted "1-3% on standard benchmarks"; that figure does not appear in the paper.)
 
 ### How Granular-Ball Segmentation Works
 
@@ -261,17 +265,27 @@ Training round time breakdown, using the measured 47.3 minutes:
   </div>
   <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node is-good"><b>Reconstruction Attack</b><i>Fails</i></div>
-    <div class="flow-node is-good"><b>Gradient Inversion</b><i>Not applicable</i></div>
+    <div class="flow-node is-warn"><b>Gradient Inversion</b><i>harder, not prevented — untested</i></div>
   </div>
 </div>
 
-The GrBFL paper proves that reconstructing individual training examples from granular-ball statistics is computationally infeasible under certain assumptions. Specifically:
+**Correction, and it matters more than anything else here.** I originally wrote that the GrBFL paper *proves* reconstruction is computationally infeasible, and that this gives privacy guarantees "provably stronger" than differential privacy. Both claims are wrong, and I should not have made them.
 
-- **Information loss is provable:** Variance thresholding removes fine-grained information irreversibly
-- **Reconstruction attacks fail:** Gradient inversion attacks ([Deep Leakage from Gradients](https://arxiv.org/abs/1906.08935)) don't work on cluster statistics
-- **Differential privacy not required:** No noise injection needed, privacy comes from coarse segmentation
+The paper contains no theorems and no lemmas. It offers an informal argument — coarser inputs give a reconstruction attack less to work with — plus empirical reconstruction-error measurements. That is evidence, not a proof, and it is emphatically not a bound.
 
-I didn't test reconstruction attacks myself (that's a whole separate project), but the theoretical guarantees seem stronger than standard differential privacy approaches.
+You cannot be "provably stronger" than differential privacy by having no proof. DP gives a formal, worst-case, composable guarantee that holds against adversaries you did not think of. Deterministic clustering with a variance threshold gives none of that: no epsilon, nothing that composes across 50 rounds, no statement about an adversary I failed to imagine.
+
+Three specific problems with what my code actually transmits, none of which I raised at the time:
+
+- **`radius` is an unclipped maximum** — an exact function of the single most extreme point in the cluster. Releasing an un-noised maximum is the textbook unbounded-sensitivity case, and it is precisely why DP mechanisms clip before releasing.
+- **There is no minimum cluster size.** A two-point cluster ships a `center` that is the midpoint of two real images and a `radius` that is half their separation, with `size` alongside so an attacker knows when that applies.
+- **`KMeans(random_state=42)` is deterministic across all 50 rounds**, so watching a cluster's mean and count move between rounds is a differencing attack.
+
+I also described the method incorrectly. In GrBFL, granular-ball segmentation is a *local preprocessing step on each image*; clients still train locally and upload model parameters. Granular balls are not the wire format, so "Gradient Inversion — not applicable" does not follow even in the paper, whose own reconstruction experiments assume the attacker has gradients and weights.
+
+And membership inference goes unmentioned throughout. Every participant receives the trained global model, which is an inference target regardless of what crossed the wire.
+
+If you need a guarantee you can reason about, you still want differential privacy. I did not test any attack against this setup.
 
 ## Trade-offs and Limitations
 
@@ -279,7 +293,7 @@ After three weeks of testing, here's what I learned about when granular-ball fed
 
 ### When This Approach Works
 
-**Strong privacy requirements:** If your threat model includes gradient reconstruction attacks, granular balls provide provable privacy without differential privacy noise.
+**Strong privacy requirements:** Not this. If your threat model includes reconstruction attacks, use differential privacy, which gives you a bound. Granular balls give you an untested heuristic — see the correction above.
 
 **Large datasets:** Clustering overhead is negligible when local datasets have 10K+ examples. My 20K images per Pi clustered in under 9 minutes.
 
@@ -341,7 +355,7 @@ In November 2024, I set out to train an image classifier across 4 devices withou
 - Granular-ball segmentation cuts network transfers by 82% compared to raw data (2.3GB → 410MB per round)
 - Balanced variance threshold (0.03) achieves 92.1% accuracy, within 2.4% of centralized training
 - Training time per round: 47 minutes (14 min local, 9 min clustering, 3 min network, 21 min aggregation)
-- Privacy guarantees are provably stronger than standard federated learning with differential privacy
+- Privacy guarantees are **not** stronger than differential privacy — see the correction above; this line was wrong and is retracted
 
 I'm still figuring out optimal cluster counts and variance thresholds for different datasets. The 100 clusters and 0.03 threshold worked for CIFAR-10, but probably not universal. Your mileage will vary depending on data distribution and privacy requirements.
 
