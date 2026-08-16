@@ -11,7 +11,7 @@ tags:
 ---
 After collecting a drawer full of Raspberry Pis over the years (we all have that drawer, right?), I decided it was time to put them to work. Here are five security projects that actually solve real problems, complete with implementation guides and lessons learned.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/raspberry-pi-security.png'); width: min(380px, 85%); aspect-ratio: 640/356; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/raspberry-pi-security.png'); width: min(380px, 85%); aspect-ratio: 400/373; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the drawer's finest, mildly hardened</p>
 
 ## Requirements

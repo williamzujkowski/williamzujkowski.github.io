@@ -10,7 +10,7 @@ tags:
 ---
 Shor's algorithm breaks RSA encryption in polynomial time on a quantum computer. Every RSA key, every elliptic curve signature securing our digital world becomes worthless when quantum computers achieve practical capability. That realization in late 2018 sparked my quantum-resistant cryptography journey. Today's quantum progress makes preparation essential, not paranoid.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/quantum-crypto.png'); width: min(360px, 82%); aspect-ratio: 640/433; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/quantum-crypto.png'); width: min(360px, 82%); aspect-ratio: 340/270; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the lock, on borrowed time</p>
 
 ## The Quantum Threat

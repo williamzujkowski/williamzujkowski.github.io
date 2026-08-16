@@ -15,7 +15,7 @@ Twenty years ago, I was that IT guy. Printer jammed, email stopped working, comp
 
 My toolkit: USB drive full of antivirus tools, patient smile, endless "let me Google that for you" searches. I loved it. Every problem was a puzzle, every fixed computer a small victory, every grateful client taught me something new about technology and people.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/it-support-career.png'); width: min(240px, 65%); aspect-ratio: 389/512; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/it-support-career.png'); width: min(240px, 65%); aspect-ratio: 340/436; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the climb, heavily abbreviated</p>
 
 ## The Accidental Security Engineer
