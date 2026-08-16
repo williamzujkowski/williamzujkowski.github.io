@@ -10,7 +10,7 @@ The [Office of the Law Revision Counsel](https://uscode.house.gov/) publishes th
 
 So I did. [US Code Tracker](https://civic-source.github.io/us-code-tracker/) converts OLRC's XML into Git-versioned Markdown, layers on case law citations from [CourtListener](https://www.courtlistener.com/), and serves it as a static site with full-text search. Every statutory change is a Git commit. Every `git blame` line traces back to the Public Law that enacted it.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/us-code-tracker.png'); width: min(320px, 80%); aspect-ratio: 600/503; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/us-code-tracker.png'); width: min(320px, 80%); aspect-ratio: 340/340; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">statute, meet version control</p>
 
 ## The Core Insight

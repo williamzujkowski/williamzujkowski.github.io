@@ -16,7 +16,7 @@ As a security engineer and a dad, I wear two hats: protecting enterprise systems
 
 It serves as both a learning playground and a practical security solution for my home.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/secure-homelab.png'); width: min(260px, 68%); aspect-ratio: 460/478; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/secure-homelab.png'); width: min(260px, 68%); aspect-ratio: 340/343; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">defense in depth, one padlock deep</p>
 
 ## The Journey Begins
