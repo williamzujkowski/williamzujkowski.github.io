@@ -20,7 +20,7 @@ It's a finite space where previous conversation, relevant information, and the c
 
 The length of conversations we can have. The complexity of documents we can analyze. The quality of code assistance we can expect. Understanding context windows isn't optional if you're working with large language models.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/context-window.png'); width: min(240px, 62%); aspect-ratio: 340/342; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/context-window.png'); width: min(240px, 62%); aspect-ratio: 400/366; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the model's short-term memory</p>
 
 ## The Mechanics: How Context Windows Work
