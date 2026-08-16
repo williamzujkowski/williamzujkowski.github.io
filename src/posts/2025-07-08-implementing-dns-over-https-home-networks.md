@@ -17,7 +17,7 @@ A few years back, my ISP sent a notice that read like an olive branch: they'd st
 
 After implementing DoH on my personal home network, I've achieved complete DNS privacy. The ISP only sees encrypted HTTPS traffic, protecting browsing patterns from commercial exploitation.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/dns-doh.png'); width: min(360px, 85%); aspect-ratio: 519/289; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/dns-doh.png'); width: min(360px, 85%); aspect-ratio: 400/342; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">DNS, now wearing a coat</p>
 
 
