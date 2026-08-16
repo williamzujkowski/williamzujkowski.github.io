@@ -14,7 +14,7 @@ tags:
 
 I spent six months believing my homelab AI setup was perfectly private. The RTX 3090 hummed away in my server rack running Llama models locally, no cloud API calls, no data leaving my network. Or so I thought.
 
-Then I ran Wireshark while Ollama was generating responses. My "private" LLM was making network connections I never authorized. It was reaching out to every device on my home network. Port 11434 was listening on 0.0.0.0, accessible to my IoT VLAN, my main network, everything. My supposedly isolated AI workload was broadcasting its existence to every device behind my firewall.
+Then I ran Wireshark while Ollama was generating responses. My "private" LLM was making network connections I never authorized. It was reaching out to every device on my home network. Port 11434 was listening on 0.0.0.0, accessible to my IoT VLAN, my main network, everything. Ollama itself binds 127.0.0.1 by default — I'd run it in Docker, and `-p 11434:11434` publishes to every host interface. The hole was mine, in a layer I'd added. My supposedly isolated AI workload was broadcasting its existence to every device behind my firewall.
 
 Turns out, I'd built privacy theater, not actual privacy.
 
@@ -27,7 +27,7 @@ Here's what running a 34B parameter model on my RTX 3090 actually involves: 24GB
 
 For larger 70B models, I use CPU offloading (storing part of the model in system RAM), which works but drops performance to 2-5 tokens/second. Most of my privacy-sensitive work uses 8B-34B models that fit fully in VRAM.
 
-But privacy isn't just about where the compute happens. It's about the entire stack: network behavior, telemetry, data persistence, memory isolation, and threat modeling. I learned this the hard way when I discovered Ollama was listening on 0.0.0.0:11434 by default, accessible to every device on my home network, including the IoT VLAN with its collection of questionable smart cameras. Security researchers found [1,139 vulnerable Ollama instances exposed on the internet](https://blogs.cisco.com/security/detecting-exposed-llm-servers-shodan-case-study-on-ollama), and while mine wasn't one of them (homelab behind NAT), the default configuration made me realize how easy it would be to accidentally expose if I ever set up remote access.
+But privacy isn't just about where the compute happens. It's about the entire stack: network behavior, telemetry, data persistence, memory isolation, and threat modeling. I learned this the hard way when I found my containerised Ollama reachable on 11434 from every device on my home network, including the IoT VLAN with its collection of questionable smart cameras. Security researchers found [1,139 vulnerable Ollama instances exposed on the internet](https://blogs.cisco.com/security/detecting-exposed-llm-servers-shodan-case-study-on-ollama), and while mine wasn't one of them (homelab behind NAT), the default configuration made me realize how easy it would be to accidentally expose if I ever set up remote access.
 
 ### My Three-Layer Threat Model
 
@@ -68,7 +68,7 @@ For my homelab use cases, personal notes, research documents, technical document
 
 ### The KV Cache Vulnerability I Didn't Know Existed
 
-This one shocked me: researchers discovered that [KV (key-value) cache data stored in GPU memory can be reconstructed to reveal entire conversations](https://arxiv.org/abs/2409.04040). The paper "A First Look At Efficient And Secure On-Device LLM Inference Against KV Leakage" demonstrated full conversation reconstruction from leaked GPU memory.
+This one shocked me: researchers discovered that [KV (key-value) cache data stored in GPU memory can be reconstructed to reveal entire conversations](https://arxiv.org/abs/2409.04040). The paper "A First Look At Efficient And Secure On-Device LLM Inference Against KV Leakage" argues an attacker with GPU memory access could reconstruct an entire conversation from leaked KV pairs, and proposes a mitigation. It's a design paper rather than a demonstrated attack — but the mechanism is sound enough that I stopped assuming VRAM was private.
 
 My RTX 3090 stores all those attention mechanism states in VRAM. Without proper memory isolation, another process with GPU access could theoretically read my chat history. The solution involves selective encryption of intermediate states, which adds real performance overhead but is absolutely necessary for privacy-sensitive applications.
 
@@ -95,7 +95,7 @@ Not all "local" LLM tools are created equal. I tested seven popular options and 
 
 ### The Good: Truly Private by Default
 
-**LM Studio** gets this right. Their [privacy policy explicitly states "zero telemetry"](https://lmstudio.ai/app-privacy) and my network monitoring confirmed it, no external connections after model download. It's now my go-to for sensitive work.
+**LM Studio** gets this right. Their [privacy policy](https://lmstudio.ai/app-privacy) says the app "does not include telemetry or user-specific tracking" — though read the rest of that page, because update checks send your OS, build and IP, and model searches go out as anonymised queries. No inference data leaves, which is the part that matters, but "zero telemetry" it is not. It's now my go-to for sensitive work.
 
 **llama.cpp** is even better: it's just C++ code doing math. No network stack, no telemetry hooks, [nothing but local computation](https://github.com/ggml-org/llama.cpp). When I run it in airplane mode, it works perfectly. Finance and defense sectors use it for air-gapped deployments for exactly this reason.
 
@@ -103,7 +103,7 @@ Not all "local" LLM tools are created equal. I tested seven popular options and 
 
 ### The Concerning: Ollama's Default Configuration
 
-Ollama's default setup exposed my LLM on port 11434 with no authentication. [Security researchers found 1,139 vulnerable instances](https://www.upguard.com/blog/understanding-and-securing-exposed-ollama-instances), and identified [6 critical CVEs for DoS, model theft, and model poisoning](https://github.com/tarunboricha/ollama-security-guide).
+My Docker port publishing exposed the LLM on 11434 with no authentication. Cisco's scanning work above is the figure worth citing here; the exposed instances are overwhelmingly operators who set `OLLAMA_HOST=0.0.0.0` or published a container port, which is to say people who did what I did.
 
 The telemetry status remains unclear despite [community requests dating back to February 2024](https://github.com/ollama/ollama/issues/2567). I locked mine down with these configs:
 
@@ -177,12 +177,9 @@ Academic research provides actual numbers on what privacy costs in terms of perf
 
 The [CMIF framework research shows](https://arxiv.org/html/2509.09091) that combining SGX2 TEE encryption with differential privacy adds 28-38% inference overhead on Llama models, most of it from the TEE encryption rather than the differential privacy noise itself.
 
-**My Testing on RTX 3090:**
-- Llama2-7B baseline: 2.49 seconds average generation time
-- With differential privacy (ε=2): 3.18 seconds (27.7% increase)
-- Accuracy impact: 83.3% vs 84.5% without DP (1.2% loss)
+Their numbers, not mine — I want to be clear about that, because their rig was a Xeon with SGX2 and two A100s and mine is a 3090 with no SGX at all. On SST-2 their accuracy falls from 0.9050 unprotected to 0.8331 at epsilon=2. That's seven points, not the one or two you might hope for, and it's the number that should govern whether you reach for this.
 
-I can live with that trade-off for sensitive document analysis. The 1.2% accuracy hit is worth the privacy gain.
+I haven't measured any of it locally, because I can't.
 
 ### KV Cache Protection: Performance Overhead
 
@@ -192,10 +189,7 @@ Protecting GPU memory from KV cache leakage attacks requires selective encryptio
 
 I experimented with homomorphic encryption for completely encrypted inference. The overhead is brutal, homomorphic schemes add significant computational cost compared to plaintext inference, and even with recent optimizations, it's still too much for interactive use.
 
-**My Test Results:**
-- Plaintext inference: 2.49 seconds
-- HE-based inference (optimized): Estimated 35-45 seconds
-- Practical? Not yet.
+I don't have a defensible number for the overhead, and the published figures span orders of magnitude depending on scheme and workload. What I can say is that nothing I tried came close to interactive latency.
 
 Maybe in 3-5 years this'll be viable for homelab use. For now, it's research-only.
 
@@ -282,7 +276,7 @@ Every privacy enhancement comes with a cost. Here are the real trade-offs I've e
 
 **Reality check:** Securing Ollama properly took 6 hours. Setting up VLAN isolation, configuring Wazuh rules, implementing differential privacy, testing everything, it all adds up. Compare that to signing up for OpenAI API access (5 minutes) or Claude API (10 minutes).
 
-I'm fine with this trade-off because I work with government-related security research. But for someone just wanting to experiment with LLMs, cloud APIs make way more sense.
+I'm fine with this trade-off because the material I keep locally would be awkward sitting in a vendor's logs. But for someone just wanting to experiment with LLMs, cloud APIs make way more sense.
 
 ### Privacy vs Performance: Actual Numbers
 
@@ -341,8 +335,7 @@ Your weights will differ. If you're not dealing with sensitive data, cloud APIs 
 ### Failure #1: Plaintext Docker Volumes
 
 My first Ollama deployment stored everything in plaintext Docker volumes mounted at `/var/lib/ollama`. That meant:
-- Chat history in plaintext: `/var/lib/ollama/history.json`
-- Model files unencrypted: `/var/lib/ollama/models/`
+- Model files unencrypted (Linux: `/usr/share/ollama/.ollama/models`, Docker: `/root/.ollama`)
 - Logs with full prompts: `/var/log/ollama.log`
 
 Anyone with filesystem access could read everything. I fixed this by:
@@ -365,7 +358,7 @@ The fix was binding Ollama to localhost only and implementing strict firewall ru
 
 The biggest mistake was assuming that running models on-premise automatically made them secure. It doesn't. Privacy requires architecture, monitoring, and constant vigilance.
 
-I spent $2,400 on the RTX 3090 specifically for "private AI," then configured it to be accessible to every device on my home network with default configs. My IoT VLAN, with its cheap cameras and smart bulbs, could reach my LLM API. That's embarrassing in hindsight.
+I spent $1,200 on a used RTX 3090 specifically for "private AI," then configured it to be accessible to every device on my home network with default configs. My IoT VLAN, with its cheap cameras and smart bulbs, could reach my LLM API. That's embarrassing in hindsight.
 
 ## What I'd Do Differently Starting Over
 
@@ -418,9 +411,9 @@ After six months of running a hardened AI homelab, here's my honest assessment:
 - Cost constraints (ironically, cloud can be cheaper for light usage)
 
 **My Personal Calculus:**
-- **Hardware cost:** $2,400 (RTX 3090) + $800 (server upgrades) = $3,200
+- **Hardware cost:** $1,200 (used RTX 3090) + $800 (server upgrades) = $2,000
 - **Time investment:** ~40 hours setup and hardening
-- **Ongoing electricity:** ~$15/month ($180/year)
+- **Ongoing electricity:** about $5-6/month ($60-72/year), measured
 - **Maintenance time:** ~2 hours/month
 
 That's roughly $3,380 first year, $180/year ongoing, plus ~50 hours of work. A Claude Pro subscription costs $240/year with zero setup time.
@@ -518,6 +511,6 @@ But I'm not done. The field evolves constantly. [KV cache protection](https://ar
 
 The question isn't whether perfect privacy is achievable (it's not). The question is: what level of privacy does your threat model require, and are you willing to pay the performance and complexity costs to achieve it?
 
-For me, with government-adjacent security research, the answer is yes. For my blog writing and public information queries, I'm fine with Claude API. Different workloads, different requirements.
+For me, for the work I keep on this side of that boundary, the answer is yes. For my blog writing and public information queries, I'm fine with Claude API. Different workloads, different requirements.
 
 Know your threat model. Be honest about trade-offs. And test your assumptions relentlessly.
