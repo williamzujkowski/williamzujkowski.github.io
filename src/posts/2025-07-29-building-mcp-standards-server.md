@@ -11,7 +11,7 @@ tags:
 ---
 ## Bottom Line Up Front
 
-I built a standards server that was supposed to be a simple wrapper around my documentation repository. Three weeks later, I had written 6,000 lines of code across 47 components, implementing Redis caching, vector search, six different language analyzers, 88 tests, and a React UI.
+I built a standards server that was supposed to be a simple wrapper around my documentation repository. Six weeks later I had written about 32,000 lines of Python across 65 modules, implementing Redis caching, vector search, six language analyzers, some 950 test functions, and a React UI.
 
 For a read-only documentation server. That I'm the only user of.
 
@@ -114,7 +114,7 @@ Current state. It has:
 - NIST compliance mapping
 - A React web UI (because why not?)
 - Performance benchmarking
-- 88 integration tests
+- around 950 test functions across unit, integration, e2e and performance suites
 
 I may have overdone it.
 
@@ -202,7 +202,7 @@ standard = get_standard("react-patterns", format="compressed")
 - Bullet-point summaries (500 tokens, 90% reduction)
 - Reference-only mode (50 tokens, 99% reduction)
 - Dynamic expansion: Request details only when needed
-- Saves ~$0.15 per standard load at current API pricing
+- Saves about a cent and a half per standard load at Sonnet pricing, which at my usage justified none of this
 
 ## The Struggles (Learning Moments)
 
@@ -248,16 +248,16 @@ I spent two frustrating days tracking down silent cache failures before I realiz
 ### Vector Databases Are Hungry
 
 **The Absurdity:**
-- [ChromaDB](https://docs.trychroma.com) consumed 4GB RAM for 25 markdown documents
-- 160MB per document for semantic search
+- [ChromaDB](https://docs.trychroma.com) plus a sentence-transformer model is a few hundred MB of runtime before you index anything
+- That cost is fixed, not per document — adding a 26th file costs nothing
 - Index generation: 47 seconds
 - Query latency: 89ms average
 - Alternative: `grep -r "pattern" docs/` → 12ms
 
 **The Reality Check:**
 - Total corpus size: 250KB of text
-- Vector embeddings: 1,536 dimensions per chunk
-- Overhead ratio: 16,000:1 (storage vs. original text)
+- Vector embeddings: 384 dimensions per chunk (all-MiniLM-L6-v2)
+- Total corpus that justified any of it: 250KB of markdown
 - Use cases requiring semantic search: 0
 
 **Lesson learned**: Sometimes grep is enough. Not everything needs AI.
@@ -265,20 +265,19 @@ I spent two frustrating days tracking down silent cache failures before I realiz
 ### The MCP Protocol Is Still Evolving
 
 **The Breaking Change:**
-- MCP spec 0.3 → 0.4 changed `tools` structure
-- Server worked perfectly on Friday
-- Monday: All tool calls failed with cryptic errors
-- Anthropic docs: "We simplified the schema!"
-- My perfectly working implementation: Broken
+- Spec revision 2025-03-26 → 2025-06-18 landed the day before I started
+- It removed JSON-RPC batching and reworked tool output
+- Server worked on Friday; Monday every tool call failed with cryptic errors
+- My perfectly working implementation: broken against a spec that had moved under it
 
 **The Recovery:**
 - 6 hours rewriting tool definitions
 - Updated SDK dependencies
-- Rewrote 88 tests
+- Rewrote the affected tests
 - Added version checking middleware
 - Now: Server checks MCP protocol version on startup
 
-**Lesson learned**: Pin your dependencies when working with beta protocols. Check breaking change logs religiously.
+**Lesson learned**, in theory. `pyproject.toml` still reads `mcp>=0.1.0`, so evidently not in practice. Check breaking change logs religiously.
 
 ## Unexpected Discoveries
 
@@ -376,7 +375,7 @@ Version value versus complexity:
 - Week 1: "Simple wrapper" (200 lines, 1 file)
 - Week 2: Added caching (1,200 lines, 8 files)
 - Week 3: Added vector search (3,800 lines, 23 files, 4GB RAM)
-- Week 4: Added web UI (6,000+ lines, 47 components)
+- Week 4: Added web UI (about 2,000 lines of React across 16 files)
 
 **What I Should Have Done:**
 - Ship Version 1
@@ -392,7 +391,7 @@ Version value versus complexity:
 - **Version 1**: 200 lines, works, deployed, useful
 - **Version 2**: 1,200 lines, faster caching, zero users noticed
 - **Version 3**: 3,800 lines, semantic search, solves no real problems
-- **Version 4**: 6,000 lines, full UI, impressive demos, occasional Redis crashes
+- **Version 4**: ~32,000 lines, full UI, impressive demos, occasional Redis crashes
 
 **Value Added Per Version:**
 - V1 → V2: Marginal (caching saves 50ms on repeated queries)
