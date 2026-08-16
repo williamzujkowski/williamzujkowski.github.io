@@ -12,9 +12,9 @@ tags:
 ---
 ## Bottom Line Up Front
 
-AI isn't a collection of tools anymore. It's becoming the invisible architecture that shapes how billions of people think, decide, and create. This "cognitive infrastructure" processes 30% of all internet searches, influences medical diagnoses, personalizes education for millions, and determines what information you see. We're building a layer between human thought and reality with minimal understanding of long-term effects.
+AI isn't a collection of tools anymore. It's becoming the invisible architecture that shapes how billions of people think, decide, and create. This "cognitive infrastructure" sits behind AI Overviews on roughly a quarter of US Google searches, influences medical diagnoses, personalizes education for millions, and determines what information you see. We're building a layer between human thought and reality with minimal understanding of long-term effects.
 
-**Why it matters:** When infrastructure fails, societies collapse. We're replacing human cognitive processes with AI systems we don't fully understand, at a scale and speed unprecedented in history. The window to shape this transformation consciously is closing fast. The evolution from [tools to embodied AI systems](/posts/2025-10-13-embodied-ai-robots-physical-world/) demonstrates how rapidly AI is moving from passive assistance to active participation in human cognition. Understanding transformer architecture foundations and multimodal foundation models becomes essential for anyone seeking to comprehend the cognitive layer being built. Yet [the ethics of large language models](/posts/2024-04-11-ethics-large-language-models/) reveal fundamental questions about who controls this infrastructure and whose values it embeds—questions we're answering through deployment rather than deliberation.
+**Why it matters:** When infrastructure fails, the things built on it fail with it. We're replacing human cognitive processes with AI systems we don't fully understand, at a scale and speed unprecedented in history. The choices being made now are the ones that will be expensive to reverse. The evolution from [tools to embodied AI systems](/posts/2025-10-13-embodied-ai-robots-physical-world/) demonstrates how rapidly AI is moving from passive assistance to active participation in human cognition. Understanding transformer architecture foundations and multimodal foundation models becomes essential for anyone seeking to comprehend the cognitive layer being built. Yet [the ethics of large language models](/posts/2024-04-11-ethics-large-language-models/) reveal fundamental questions about who controls this infrastructure and whose values it embeds—questions we're answering through deployment rather than deliberation.
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/cognitive-infra.png'); width: min(240px, 62%); aspect-ratio: 320/350; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the mind, as infrastructure</p>
@@ -58,15 +58,15 @@ According to [Giuseppe Riva's groundbreaking research](https://arxiv.org/abs/250
 
 ## The Invisible Takeover: Scale of AI Integration
 
-The AI infrastructure market is exploding from [$47.23 billion in 2024 to a projected $499.33 billion by 2034](https://www.marketsandmarkets.com/Market-Reports/ai-infrastructure-market.asp), a 26.60% compound annual growth rate that reflects fundamental societal transformation.
+The AI infrastructure market is with forecasts spanning roughly $394B to $656B for the same year depending on which firm you ask, which is a good reason not to lean on any of them that reflects fundamental societal transformation.
 
 **Current deployment across critical sectors:**
 
-- **Healthcare**: [Clinical Decision Support Systems](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8075456/) augment physician decisions in hospitals worldwide, though [96% of AI-generated alerts are ignored due to alert fatigue](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7647168/)
+- **Healthcare**: Clinical decision support systems augment physician decisions in hospitals worldwide, though clinicians override somewhere between 46% and 96% of drug-safety alerts depending on the system studied — and those are rule-based alerts, before AI enters the picture
 - **Education**: AI tutoring systems show mixed-to-positive effects on student performance and engagement in early research
-- **Government**: [87% of surveyed cities are planning or piloting generative AI initiatives](https://www.worldbank.org/en/programs/govtech/gtmi), with experts predicting AI as the primary government service interface by 2030
+- **Government**: Bloomberg Philanthropies found 96% of surveyed mayors interested in generative AI and 69% exploring or testing it — but only 2% actually implementing, which is the number worth sitting with
 - **Search**: AI processes 30% of internet searches, determining what billions of people discover and learn
-- **Development**: AI writes 40% of production code, reshaping how software is created
+- **Development**: AI writes a meaningful and disputed share of production code — Microsoft and Google have both put it around 20-30%, reshaping how software is created
 - **Finance**: Algorithmic trading and AI risk assessment influence trillions in daily transactions
 
 This isn't digitization. It's cognitive intermediation at civilization scale.
@@ -77,8 +77,8 @@ MIT's research on ["Your Brain on ChatGPT"](https://www.media.mit.edu/publicatio
 
 **The damage is measurable:**
 
-- **72% correlation** between AI tool usage and cognitive offloading
-- **75% inverse correlation** between cognitive offloading and critical thinking skills
+- **r = 0.72** between AI tool usage and cognitive offloading (Gerlich 2025, n=666 — a separate study from the EEG work above)
+- **r = -0.75** between cognitive offloading and critical thinking scores. These are correlation coefficients rather than percentages, and the paper has since carried a published correction to one of its tables
 - **Younger users (17-25)** show the highest AI dependence and lowest critical thinking scores
 - **Spatial reasoning**: GPS dependence correlates with diminished landmark recognition and navigation abilities
 - **Memory**: Contact lists replace phone number recall. Search engines replace factual knowledge retention.
@@ -134,7 +134,7 @@ AI cognitive infrastructure has significant limitations that we're discovering t
 
 **Healthcare alert fatigue**: The 96% override rate means critical warnings get lost in noise, potentially causing patient harm. When infrastructure meant to enhance cognition instead overwhelms it, we get worse outcomes than baseline.
 
-**Algorithmic bias**: AI systems trained on historical data perpetuate and amplify existing biases in hiring, lending, criminal justice, and healthcare. [Facial recognition systems show error rates up to 35% higher for minorities](https://www.nist.gov/itl/ai-risk-management-framework).
+**Algorithmic bias**: AI systems trained on historical data perpetuate and amplify existing biases in hiring, lending, criminal justice, and healthcare. [NIST's 2019 vendor test found false-positive rates 10 to 100 times higher for Asian and African American faces](https://nvlpubs.nist.gov/nistpubs/ir/2019/nist.ir.8280.pdf) than for white faces, depending on the algorithm.
 
 **Hallucination problem**: Large language models confidently generate false information. When used for medical advice, legal research, or financial decisions, this creates dangerous situations.
 
@@ -201,8 +201,8 @@ We're entering the Cognitive Century, an era where the infrastructure of thought
 **The stakes:**
 
 - AI infrastructure will grow from $47.23 billion to $499.33 billion by 2034
-- Edge AI chips will reach 1.5 billion in 2024
-- 50% probability of [Artificial General Intelligence by 2040-2050](https://www.fhi.ox.ac.uk/reports/agi-timeline-surveys/)
+- Deloitte forecast in late 2019 that edge AI chips would reach 1.5 billion by 2024
+- a median expert estimate putting 50% probability of AGI around 2040-2050, from Müller and Bostrom's 2016 survey — a decade-old forecast doing work in a 2025 argument
 
 **Three critical takeaways:**
 
@@ -230,7 +230,7 @@ The answer depends on the choices we make now, while we still have the cognitive
    - MIT Media Lab study on cognitive impacts of LLM usage
    - *MIT Media Lab Publications*
 
-3. **[AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking](https://www.mdpi.com/2075-4698/15/1/2)** (2025)
+3. **[AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking](https://www.mdpi.com/2075-4698/15/1/6)** (2025)
    - Michael Gerlich's analysis of cognitive offloading
    - *Societies Journal, Volume 15, Issue 1*
 
@@ -266,11 +266,11 @@ The answer depends on the choices we make now, while we still have the cognitive
 
 ### Cognitive Science
 
-11. **[Cognitive Offloading: A Framework](https://www.sciencedirect.com/science/article/pii/S1364661316000383)** (2023)
+11. **[Cognitive Offloading](https://doi.org/10.1016/j.tics.2016.07.002)** — Risko & Gilbert, *Trends in Cognitive Sciences* 20(9), 2016
     - Theoretical framework for understanding cognitive delegation
     - *Trends in Cognitive Sciences*
 
-12. **[The Extended Mind Thesis](https://www.jstor.org/stable/3328150)** (1998, updated 2023)
+12. **[The Extended Mind](https://www.jstor.org/stable/3328150)** — Clark & Chalmers, *Analysis* 58(1), 1998
     - Clark & Chalmers' foundational work, updated for AI age
     - *Analysis, Volume 58*
 
