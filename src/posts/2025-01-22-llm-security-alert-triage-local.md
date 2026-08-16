@@ -13,7 +13,7 @@ SOC teams field an average of 4,484 alerts a day ([Vectra AI, 2023 State of Thre
 
 Here's how local LLM triage reduces alert fatigue while preserving data privacy.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/alert-triage.png'); width: min(230px, 60%); aspect-ratio: 320/336; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/alert-triage.png'); width: min(230px, 60%); aspect-ratio: 400/322; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">which alarm actually matters</p>
 
 ## The Alert Fatigue Problem

@@ -37,7 +37,7 @@ The postmortem revealed something uncomfortable: every safety mechanism *amplifi
 
 This kind of incident changes how you think about resilience. It's not about preventing failures — it's about failing gracefully.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/resilient-systems.png'); width: min(280px, 72%); aspect-ratio: 380/315; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/resilient-systems.png'); width: min(280px, 72%); aspect-ratio: 400/352; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">bends, doesn't break</p>
 
 ## Graceful Degradation: The Pattern That Actually Works
