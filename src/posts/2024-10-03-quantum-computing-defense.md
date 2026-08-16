@@ -19,15 +19,15 @@ Having followed this field closely since 2018, I've come to understand that quan
 
 ## The Quantum Advantage: Beyond Classical Limitations
 
-Quantum computing uses principles of quantum mechanics (superposition, entanglement, and quantum interference) to perform certain calculations exponentially faster than classical computers. While today's quantum computers are still noisy and limited, they're already capable enough to impact defense planning.
+Quantum computing uses principles of quantum mechanics (superposition, entanglement, and quantum interference) to perform certain calculations exponentially faster than classical computers. While today's quantum computers are still noisy and limited, post-quantum migration planning is already affecting defense procurement, even though the machines themselves are not yet doing defense work.
 
 ### Current Quantum Capabilities
 
 The landscape has evolved dramatically:
-- **IBM's Eagle processor**: 127 superconducting qubits with improved error correction
+- **IBM's Eagle processor**: 127 superconducting qubits, with error *mitigation* rather than error correction — IBM's own utility result was headlined as advantage without correction
 - **Google's quantum systems**: Demonstrated computational advantages in specialized tasks
-- **Chinese quantum networks**: Over 4,600 kilometers of quantum key distribution infrastructure
-- **U.S. Quantum Network Initiative**: Plans for national-scale quantum networks by 2028
+- **Chinese quantum networks**: an integrated space-to-ground network spanning [over 4,600 kilometres](https://www.nature.com/articles/s41586-020-03093-8) — a 2,000 km fibre backbone plus a 2,600 km satellite link, serving around 150 users
+- **U.S. federal effort**: the National Quantum Initiative Act (2018) and the Department of Energy's 2020 Quantum Internet Blueprint, which set a roughly ten-year target for a nationwide *prototype* rather than a deployment
 
 These aren't just research curiosities anymore. They're operational systems beginning to demonstrate practical advantages, though I should emphasize that "operational" in quantum computing still means systems with significant error rates, limited coherence times, and restricted problem domains compared to the fully fault-tolerant systems we'll eventually need.
 
@@ -50,7 +50,8 @@ def quantum_pattern_detection(data, patterns):
     quantum_state = encode_quantum_state(data, patterns)
     
     # Apply Grover's algorithm to find matches
-    # Achieves O(sqrt(n*m) complexity vs classical O(n*m)
+    # O(sqrt(n*m)) vs classical O(n*m) -- assuming an oracle you can build
+    # cheaply, which is usually where the speedup goes to die
     matches = apply_grovers_algorithm(quantum_state, matching_oracle)
     
     return decode_results(matches)
@@ -107,11 +108,11 @@ Beyond computing and cryptography, quantum technologies enable new classes of se
 
 Quantum radar systems using entangled photons can detect stealth aircraft by overcoming traditional radar-absorbing materials. These systems transmit "signal" photons while retaining entangled "idler" photons, allowing improved signal isolation from background noise.
 
-I found it particularly interesting when I reviewed the 2020 demonstration data showing 50% better detection of stealth prototypes compared to advanced conventional radar. This could fundamentally shift the balance between stealth and detection technologies, though scaling from laboratory demonstrations to operational systems remains a significant engineering challenge.
+In practice the entanglement does not survive the atmosphere. The 2020 microwave quantum-illumination demonstration was benchtop and cryogenic, against a room-temperature object at about a metre, and reviews since 2023 put the physical ceiling for microwave quantum radar at tens of metres. Stealth aircraft are not in scope, and any claim that they are should be read as marketing.
 
 ### Gravitational and Magnetic Sensing
 
-Quantum gravimeters detect minute gravitational variations, potentially revealing underground structures or submarine movements invisible to conventional sensors. Recent tests demonstrated tunnel detection at 100-meter depths from kilometer distances, though environmental noise and calibration challenges remain significant hurdles for field deployment.
+Quantum gravimeters detect minute gravitational variations, potentially revealing underground structures or submarine movements invisible to conventional sensors. In 2022 a Birmingham team detected a 2-metre tunnel at about 1.9 metres' depth using a field-deployed quantum gravity gradiometer, scanning a line directly above it ([Stray et al., Nature 602, 590-594](https://www.nature.com/articles/s41586-021-04315-3)). That was the first time one of these worked outside a laboratory, and it is also the honest scale of the capability.
 
 Superconducting quantum interference devices (SQUIDs) achieve extremely high magnetic field sensitivity (on the order of femtotesla), useful for identifying submarines or hidden weapons at extended ranges.
 
@@ -127,7 +128,7 @@ Military logistics involves extraordinarily complex optimization challenges that
 - **Resource allocation**: Optimizing distribution across competing needs
 - **Maintenance scheduling**: Maximizing readiness while minimizing downtime
 
-When I tested IBM's quantum optimization algorithms in 2022 using their Qiskit framework (version 0.39.0), early results suggested 30-40% improvements in complex logistics scenarios compared to classical methods. That said, these tests were on simplified problem sets, and real-world deployment faces additional constraints around error rates and problem encoding overhead.
+Logistics is the application everyone points at, and it is also where quantum optimization has most conspicuously failed to beat a good classical solver. Published benchmarks through 2025 land at parity at best, and a 30-40% win over classical methods would be field-defining news rather than a footnote.
 
 ### Intelligence Analysis
 
@@ -196,7 +197,7 @@ The pace of quantum development is highly uncertain. These timelines could accel
 
 The quantum era presents both significant opportunities and existential challenges for defense organizations. The key is developing strategies that aggressively pursue quantum advantages while simultaneously preparing defenses against quantum-capable adversaries, though the exact timeline and scope of these advantages remains uncertain.
 
-When I first studied quantum computing in 2016, it seemed like distant science fiction. Today, it's operational reality affecting defense planning worldwide. The organizations that most effectively harness quantum technologies while mitigating associated vulnerabilities will gain substantial strategic advantages.
+When I first studied quantum computing in 2016, it seemed like distant science fiction. Today the migration planning is operational reality; the quantum computers are not. The organizations that most effectively harness quantum technologies while mitigating associated vulnerabilities will gain substantial strategic advantages.
 
 This isn't just about building quantum computers or deploying quantum-resistant encryption. It's about fundamentally rethinking security in a post-quantum world. The actions taken today will shape quantum security for decades to come.
 
