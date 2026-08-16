@@ -16,7 +16,7 @@ The spark for this project came from watching GPT-4 confidently make up technica
 
 That's when I realized I needed RAG, not just a smarter model.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/rag.png'); width: min(240px, 62%); aspect-ratio: 340/303; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/rag.png'); width: min(240px, 62%); aspect-ratio: 400/382; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">fetch first, answer second</p>
 
 ## The Problem: When "Knowing Everything" Isn't Enough

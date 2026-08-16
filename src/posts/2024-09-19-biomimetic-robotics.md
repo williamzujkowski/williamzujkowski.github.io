@@ -11,9 +11,8 @@ tags:
 ---
 ## Bottom Line Up Front
 
-Engineers spend billions on advanced robotics while nature already solved locomotion, sensing, and adaptation through millions of years of testing. [MIT's Cheetah robot](https://ieeexplore.ieee.org/document/8593885/) matches a human sprinter at 6.4 m/s by copying quadruped biomechanics. Harvard's RoboBee is an insect-scale flying robot, roughly the weight of a paperclip, built around insect wing mechanics. Soft robotics researchers discovered octopus arms compute grasping without brain involvement, fundamentally changing how we design manipulators.
+Engineers spend billions on advanced robotics while nature already solved locomotion, sensing, and adaptation through billions of years of testing. [MIT's Cheetah 2](https://journals.sagepub.com/doi/10.1177/0278364917694244) bounds at 6.4 m/s — about half an elite sprinter's top speed by copying quadruped biomechanics. Harvard's RoboBee is an insect-scale flying robot weighing about 80 milligrams, a tenth of a paperclip, built around insect wing mechanics. Soft robotics researchers discovered octopus arms compute grasping without brain involvement, fundamentally changing how we design manipulators.
 
-**Why it matters:** Traditional rigid robots require complex control systems for basic tasks nature performs passively through material properties and morphology. Biomimetic approaches achieve 10-30% better energy efficiency, operate in confined spaces impossible for conventional designs, and reduce computational overhead by embedding intelligence in physical structure instead of software. This shift from centralized control to distributed mechanical intelligence enables robots to work in disaster zones, surgical environments, and extraterrestrial exploration where traditional designs fail.
 
 I first encountered this approach while experimenting with a simple gripper in my home lab around 2018, realizing that adding compliance to the fingers solved grasping problems I had been trying to fix with software. That experiment took 3 hours to rebuild but instantly improved grasp success from about 40% to 85%.
 
@@ -74,7 +73,7 @@ Modern biomimetic approaches create robots that move with animal-like grace. The
 
 **[MIT Cheetah 3 improvements](https://ieeexplore.ieee.org/document/8593885/) (2018 version):**
 - Blind stair climbing through enhanced balance control
-- Cost of transport: 0.45 (3% improvement)
+- Cost of transport: 0.45 for Cheetah 3 trotting, against 0.47 for Cheetah 2 bounding — different robots and gaits, so not a like-for-like delta
 - Leg design optimization for higher efficiency
 - Robust operation in unknown environments
 
@@ -84,13 +83,13 @@ Modern biomimetic approaches create robots that move with animal-like grace. The
 Bird and insect flight inspired breakthrough micro aerial vehicles. Engineers discovered that biological wing mechanics scale down to remarkably small platforms, enabling autonomous flight at weights lighter than a paperclip.
 
 **Harvard RoboBee X-Wing (insect-scale flying robot):**
-- Mass: on the order of tens of milligrams, roughly the weight of a paperclip
+- Mass: about 80 mg for the original platform, rising to 259 mg for the 2019 X-Wing
 - Power: designed around miniature solar cells
 - Wing design: Biomimetic insect mechanics
 - Control: Distributed processing inspired by insect nervous systems
 - Limitation: Flight duration remains constrained by power and battery limits
 
-**University of Pennsylvania DALER:**
+**EPFL DALER** (Daler & Floreano, 2015)**:**
 - Adaptive wings inspired by bats
 - Dual function: Flight + walking surfaces
 - Transitions between aerial and ground locomotion
@@ -99,7 +98,7 @@ Bird and insect flight inspired breakthrough micro aerial vehicles. Engineers di
 <figure class="arch-fig">
 <div class="arch" role="group" aria-label="Biological locomotion principle examples">
   <section class="arch-tier" data-label="Legged (MIT Cheetah)" role="group" aria-label="Legged (MIT Cheetah)"><span class="arch-chip">Dynamic balance</span><span class="arch-chip">Tendon energy storage</span><span class="arch-chip">6.4 m/s sprint</span></section>
-  <section class="arch-tier" data-label="Aerial (RoboBee / DALER)" role="group" aria-label="Aerial (RoboBee / DALER)"><span class="arch-chip">Insect wing mechanics</span><span class="arch-chip">90 mg flight platform</span><span class="arch-chip">Dual air/ground modes</span></section>
+  <section class="arch-tier" data-label="Aerial (RoboBee / DALER)" role="group" aria-label="Aerial (RoboBee / DALER)"><span class="arch-chip">Insect wing mechanics</span><span class="arch-chip">80 mg flight platform</span><span class="arch-chip">Dual air/ground modes</span></section>
   <section class="arch-tier" data-label="Aquatic (Soft Robotic Fish)" role="group" aria-label="Aquatic (Soft Robotic Fish)"><span class="arch-chip">Undulatory propulsion</span><span class="arch-chip">No propeller needed</span><span class="arch-chip">Minimal disturbance</span></section>
 </div>
 <figcaption>Biological locomotion principles map into legged, aerial, and aquatic robot designs.</figcaption>
@@ -122,8 +121,8 @@ Marine locomotion demonstrates biomimetic efficiency advantages. Fish and marine
 Nature's sensory systems offer lessons that go far beyond our traditional five senses. Evolution developed specialized sensors for detecting everything from electromagnetic fields to chemical gradients. [Neuromorphic vision sensors](https://www.nature.com/articles/s44172-025-00492-5) mimic the human retina, recording only pixel changes instead of fixed-interval frames.
 
 **Advantages:**
-- Data volume reduction: 90% less than traditional cameras
-- Temporal resolution: Microsecond range (approximately 1,000× improvement)
+- Data volume is scene-dependent rather than fixed: a static scene produces almost nothing, a fast textured one can produce more than a frame camera
+- Temporal resolution: microsecond range, against 33 ms for a 30 fps camera — about four orders of magnitude
 - Power consumption: Substantially lower than frame-based cameras
 - Fast movement tracking: No motion blur
 - High-speed navigation: Minimal processing overhead
@@ -141,7 +140,7 @@ Biomimetic sensors enable capabilities beyond human senses. Animals like bats, e
 - Advantage: No cameras or light required
 - Applications: Search and rescue, surveillance, elderly monitoring
 
-**Electronic Whiskers (Stanford):**
+**Electronic Whiskers (UC Berkeley / Berkeley Lab, Javey group, 2014):**
 - Inspired by: Cat whisker mechanoreceptors
 - Technology: Carbon nanotube structures
 - Detection: Contact, force direction, texture
@@ -225,7 +224,7 @@ Biomimetic robotics transitions from research to practical deployment across mul
 - Capability: Navigate sinuous pathways impossible for rigid instruments (diameter: <3mm)
 - Advantage: Reach areas traditional surgical tools cannot access
 - Precision: Maintains surgical accuracy despite flexibility
-- What this means: For example, surgeons can now access inner ear structures without damaging surrounding tissue, reducing recovery time from weeks to days in practice
+- What this means: For example, surgeons can now access inner ear structures without damaging surrounding tissue, and the 2017 work is a feasibility study on 3D-printed phantoms rather than a clinical result
 
 ### Extreme Environment Exploration
 
@@ -234,7 +233,7 @@ Biomimetic robotics transitions from research to practical deployment across mul
 - Technology: Hundreds of microspines for rock grip (each spine: <1mm)
 - Combined system: Microspines (rocky surfaces) + gecko adhesive (smooth surfaces)
 - Application: Mars missions for cliff face exploration
-- Terrain: Too steep for wheeled rovers (handles slopes >60 degrees)
+- Terrain: JPL has documented LEMUR 3 climbing vertical rock faces and smooth glass, and its predecessor free-climbing inverted overhangs
 - Advantage: Gravity-independent climbing capability
 - Here's how: In practice, this means rovers could access scientifically valuable cliff faces and crater walls previously considered unreachable
 
@@ -257,9 +256,7 @@ Natural systems evolved under strict resource constraints, rewarding energy-effi
 - Material properties replace energy-intensive active control (my tests showed 40% power reduction using passive compliance vs. active force control)
 
 **Environmental benefits:**
-- Soft aquatic robots: Minimal water disturbance for marine research (measured disturbance: <5% of propeller-based systems)
 - Fish-inspired locomotion: No propeller noise or turbulence
-- Gecko-inspired climbing: No scaffolding required for inspections (practical impact: 70% cost reduction for bridge inspections in several pilot programs)
 - Reduced human risk: Robots access dangerous inspection sites
 - Caveat: Reliability in extreme conditions remains a challenge
 
@@ -272,7 +269,7 @@ Biomimetic robotics faces technical hurdles before matching biological performan
 **Current limitations:**
 - Robots consume 10-100× more energy than biological equivalents (exact ratios vary significantly by application)
 - Battery technology limits operational duration to minutes or hours instead of days
-- Power-to-weight ratios lag far behind muscle tissue (biological muscle: ~200 W/kg vs. electric motors: typically 50-100 W/kg)
+- Power-to-weight is not actually where robots lose — electric motors reach roughly 300 W/kg against skeletal muscle's ~50 W/kg typical. Muscle's real advantages are compliance, force density at low speed, self-repair and integrated energy storage
 
 Energy efficiency challenges parallel those in data center sustainability, where power consumption constrains computational scaling.
 
@@ -281,7 +278,7 @@ Energy efficiency challenges parallel those in data center sustainability, where
 - Commercial viability remains uncertain
 - Artificial metabolic systems mimicking biological energy conversion
 - Energy harvesting from environment (solar, thermal, kinetic)
-- More efficient actuators approaching muscle efficiency (current best: ~40% vs. muscle's ~60%)
+- Electric motors already convert energy far more efficiently than muscle (~90% against ~20-25%); the gap that matters is system-level cost of transport and elastic energy recovery
 
 ### Control System Complexity
 
@@ -345,7 +342,7 @@ Biomimetic robotics represents a fundamental shift toward working with natural p
 - [MIT Cheetah 3: Design and Control of a Robust, Dynamic Quadruped Robot](https://journals.sagepub.com/doi/10.1177/0278364917694244) — legged robot mechanics and control
 - [MIT Cheetah robot documentation](https://ieeexplore.ieee.org/document/8593885/) — IEEE
 - [Morphological intelligence: how a robot's body shapes its cognition](https://www.nature.com/articles/s41467-021-25874-z) — Nature Communications
-- [Neuromorphic computing and vision sensors](https://www.nature.com/articles/s44172-025-00492-5) — Nature
+- [Neuromorphic computing for robotic vision](https://www.nature.com/articles/s44172-025-00492-5) — Communications Engineering, 2025
 - [Harvard Kilobot swarm research](https://dash.harvard.edu/entities/publication/73120378-a434-6bd4-e053-0100007fdf3b) — Harvard DASH repository
 - [Morphological computation in robotic swarms](https://www.science.org/doi/10.1126/scirobotics.abo6140) — Science Robotics
 - [JPL LEMUR climbing robot](https://ieeexplore.ieee.org/document/7989643/) — IEEE
