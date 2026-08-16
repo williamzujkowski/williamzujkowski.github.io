@@ -38,7 +38,7 @@ An [STPA safety analysis of MCP](https://arxiv.org/abs/2601.08012) later validat
 <figure class="arch-fig">
 <div class="arch is-stack" role="group" aria-label="Nexus-Agents MCP orchestration architecture">
   <section class="arch-tier" data-label="MCP Clients" role="group" aria-label="MCP Clients"><span class="arch-chip">Claude Code</span><span class="arch-chip">Cursor</span><span class="arch-chip">Windsurf</span></section>
-  <section class="arch-tier" data-label="Nexus-Agents MCP Server" role="group" aria-label="Nexus-Agents MCP Server"><span class="arch-chip is-primary"><b>MCP Protocol Layer</b><i>25 tools</i></span><span class="arch-chip">Orchestrator</span><span class="arch-chip">CompositeRouter - 5-Stage Pipeline</span><span class="arch-chip">Consensus Engine</span><span class="arch-chip">Graph Workflows</span><span class="arch-chip">Plugin Pipeline</span></section>
+  <section class="arch-tier" data-label="Nexus-Agents MCP Server" role="group" aria-label="Nexus-Agents MCP Server"><span class="arch-chip is-primary"><b>MCP Protocol Layer</b><i>20 tools</i></span><span class="arch-chip">Orchestrator</span><span class="arch-chip">CompositeRouter - 5-Stage Pipeline</span><span class="arch-chip">Consensus Engine</span><span class="arch-chip">Graph Workflows</span><span class="arch-chip">Plugin Pipeline</span></section>
   <section class="arch-tier" data-label="CLI Adapters" role="group" aria-label="CLI Adapters"><span class="arch-chip">Claude Adapter</span><span class="arch-chip">Gemini Adapter</span><span class="arch-chip">Codex Adapter</span><span class="arch-chip">OpenCode Adapter</span></section>
   <section class="arch-tier" data-label="AI Models" role="group" aria-label="AI Models"><span class="arch-chip is-primary">Claude Opus / Sonnet</span><span class="arch-chip is-primary">Gemini Pro / Flash</span><span class="arch-chip is-primary">Codex</span></section>
 </div>
@@ -103,12 +103,12 @@ DevEx (Codex):         REJECT   (71% confidence)
 PM (Claude):           APPROVE  (85% confidence)
 Catfish (Gemini):      REJECT   (67% confidence)
 
-Result: APPROVED (3-2, supermajority met)
+Result: APPROVED (4-1, supermajority met)
 ```
 
 The catfish role draws from [Free-MAD anti-conformity research](https://arxiv.org/abs/2509.11035). Its job is to find problems the others missed. It doesn't always change the outcome, but it consistently surfaces edge cases. I was skeptical at first, but after it caught a backwards-incompatible change that three other agents approved, I stopped questioning it.
 
-Three voting strategies exist: majority (>50%), supermajority (>66%), and unanimous. A fourth, [higher-order voting](https://arxiv.org/abs/2510.01499), uses Bayesian-optimal aggregation with correlation awareness. Architecture changes require supermajority. Breaking API changes require unanimous.
+Three voting strategies exist: majority (>50%), supermajority (>=67%), and unanimous. A fourth, [higher-order voting](https://arxiv.org/abs/2510.01499), uses Bayesian-optimal aggregation with correlation awareness. Architecture changes require supermajority. Breaking API changes require unanimous.
 
 The key learning: **multi-model consensus catches blind spots that any single model misses.** The disagreements are often more valuable than the agreements. I covered [the research and practical patterns behind consensus voting](/posts/2026-01-28-consensus-voting-ai-models-multi-agent/) in a separate post.
 
@@ -124,7 +124,7 @@ The key learning: **multi-model consensus catches blind spots that any single mo
   <li class="seq-step"><b>DevEx (Codex) &rarr; Vote Aggregator</b><span>REJECT (71%)</span></li>
   <li class="seq-step"><b>PM (Claude) &rarr; Vote Aggregator</b><span>APPROVE (85%)</span></li>
   <li class="seq-step"><b>Catfish (Gemini) &rarr; Vote Aggregator</b><span>REJECT (67%)</span></li>
-  <li class="seq-step"><b>Vote Aggregator &rarr; Orchestrator</b><span>3-2 APPROVED: supermajority met</span></li>
+  <li class="seq-step"><b>Vote Aggregator &rarr; Orchestrator</b><span>4-1 APPROVED: supermajority met</span></li>
 </ol>
 
 ## The Adaptive Feedback Loop
@@ -193,7 +193,7 @@ Nexus-agents processes untrusted input: GitHub issues, PR comments, user-provide
 
 **Typed actions:** When processing untrusted input, agents can only emit predefined action types: `SummarizeIssue`, `ProposeLabels`, `DraftReply`, `RequestHumanApproval`, `RefuseAction`. No free-form tool calls. This prevents prompt injection from escalating into arbitrary actions.
 
-**Rule of Two:** No agent may simultaneously process untrusted input, have write access to the repository, and access secrets. If all three are needed, the system requires human approval.
+**Rule of Two:** borrowed from [Meta's Agents Rule of Two](https://ai.meta.com/blog/practical-ai-agent-security/), itself built on Simon Willison's lethal trifecta. No agent may simultaneously process untrusted input, have write access to the repository, and access secrets. If all three are needed, the system requires human approval.
 
 The hostile input firewall has 62 tests covering injection patterns I've encountered in the wild. It's one of the most valuable pieces of the system. Not because it's clever, but because it's paranoid in exactly the right ways.
 

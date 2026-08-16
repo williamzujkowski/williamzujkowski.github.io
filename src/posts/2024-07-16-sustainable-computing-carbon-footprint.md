@@ -9,7 +9,7 @@ tags:
   - infrastructure
   - ethics
 ---
-In September 2023, I analyzed my ML experiments' energy consumption and discovered something shocking: [data centers consuming 4% of global electricity](https://www.iea.org/reports/data-centres-and-data-transmission-networks). Suddenly, the thousands of dollars in compute costs took on a different meaning — not just burning through budget, but burning through the planet's resources.
+In September 2023, I analyzed my ML experiments' energy consumption and discovered something shocking: [data centres consuming around 1.5% of global electricity](https://www.iea.org/energy-system/buildings/data-centres-and-data-transmission-networks). Suddenly, the thousands of dollars in compute costs took on a different meaning — not just burning through budget, but burning through the planet's resources.
 
 That realization started my deep dive into sustainable computing, where I discovered that efficiency isn't just about performance or cost. It's about responsibility to future generations.
 
@@ -22,9 +22,9 @@ The tech industry's environmental impact had been invisible to me until I starte
 
 **Energy Consumption Reality:**
 - Data centers consumed more electricity than entire countries
-- Cryptocurrency mining alone used more energy than Argentina
-- Training a single large language model generated as much CO2 as five cars over their lifetimes
-- The internet's carbon footprint exceeded that of aviation
+- Cryptocurrency mining used energy on the order of a mid-sized country's consumption
+- A neural architecture search over transformer variants generated as much CO2 as five cars over their lifetimes — 626,155 lbs, roughly 31 GPU-years of searching. A single training run of the resulting model was 192 lbs. Google later argued even the search figure was 88x too high
+- The internet's carbon footprint is in the same range as aviation's, depending whose accounting you use
 
 **A Concrete Wake-Up Call:**
 - Daily ML training runs: 2,400 kWh (equivalent to powering 80 homes for a day)
@@ -141,9 +141,9 @@ Language efficiency had dramatic energy implications:
 **Right-Sizing Resources:**
 Optimizing cloud instance selection based on actual usage. Here's how this worked in practice:
 
-- CPU utilization analysis revealed 60% over-provisioning (cores sitting idle 18 hours per day)
-- Memory optimization reduced instance sizes by 40% (moving from m5.2xlarge to m5.xlarge instances)
-- Storage tiering moved cold data to lower-energy storage (S3 Glacier saved 89% on storage energy)
+- CPU utilization analysis revealed 75% over-provisioning (cores sitting idle 18 hours per day)
+- Memory optimization halved instance sizes (moving from m5.2xlarge to m5.xlarge instances)
+- Storage tiering moved cold data to lower-energy storage (Moving cold data to S3 Glacier cut storage cost substantially; I have no way to measure the energy delta and shouldn't imply otherwise)
 - Auto-scaling policies reduced idle resource time by 80% (instances scaled down during off-peak hours)
 
 **Geographic Optimization:**
@@ -189,7 +189,7 @@ Concrete results:
 - ML training scheduled during peak solar hours (11 AM - 3 PM, carbon intensity dropped from 420 to 175 gCO2/kWh)
 - Batch processing delayed until wind energy availability (moved from 6 PM to 2 AM in Iowa region)
 - Data backups moved to overnight hours in wind-rich regions (saved 2.3 metric tons CO2e annually)
-- Background tasks deferred during high-carbon-intensity periods (prevented 847 kg CO2e in August 2024 alone)
+- Background tasks deferred during high-carbon-intensity periods (prevented an estimated 847 kg CO2e over the first full quarter)
 
 **Location-Based Optimization:**
 Choosing compute locations based on electricity grid carbon intensity:
@@ -312,25 +312,13 @@ When I deployed a production ML model to edge devices in March 2024, it reduced 
 
 ### Environmental Metrics
 
-**Carbon Emissions Reduction:**
-- [45% reduction in Scope 2 emissions](https://www.epa.gov/climateleadership/scope-1-and-scope-2-inventory-guidance) over two years (EPA Scope 2 Guidance)
-- [30% decrease in energy consumption](https://www.iea.org/reports/data-centres-and-data-transmission-networks) per unit of compute (IEA Report)
-- [60% of computing workloads running on renewable energy](https://www.google.com/about/datacenters/renewable/) (Google Data Center Study)
-- [25% reduction in total environmental footprint](https://www.nature.com/articles/s41558-020-0837-6) (Nature Climate Change)
+**What I can actually claim.** These are my own measurements from my own hardware, so they carry no external citation and shouldn't pretend to:
 
-**Resource Efficiency Improvements:**
-- CPU utilization increased from [40% to 75%](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-credits-baseline-concepts.html) (AWS Best Practices)
-- [Memory efficiency improved by 50%](https://cloud.google.com/compute/docs/memory-optimized-machines) (Google Cloud Optimization)
-- [Storage costs reduced by 35%](https://azure.microsoft.com/en-us/blog/optimize-storage-costs/) through optimization (Azure Cost Management)
-- [Network data transfer decreased by 40%](https://www.cloudflare.com/learning/performance/more/bandwidth-optimization/) (Cloudflare Performance)
+- Grid carbon intensity for my scheduled workloads dropped from 420 to 175 gCO2/kWh — a 58% improvement — by moving batch jobs to cleaner hours
+- Right-sizing over-provisioned instances cut allocated vCPU and memory in half (m5.2xlarge to m5.xlarge) on the workloads that were idle most of the day
+- Consolidating idle machines removed the largest single line item from my inventory
 
-### Business Benefits
-
-**Cost Savings:**
-- $2.1M annual reduction in cloud computing costs
-- [40% decrease in electricity expenses](https://www.energy.gov/eere/buildings/data-centers-and-servers) (US Department of Energy)
-- [25% reduction in hardware procurement needs](https://www.gartner.com/en/newsroom/press-releases/2023-hardware-sustainability) (Gartner Research)
-- [15% improvement in operational efficiency](https://uptimeinstitute.com/resources/research-and-reports) (Uptime Institute)
+I originally presented a longer table of outcome statistics here — Scope 2 reductions, renewable-energy share, procurement savings — each hyperlinked to a real organisation. Those links pointed at methodology guidance, product reference pages and one URL that no longer resolves; none of them contained the figure attached to it. They were my own numbers wearing someone else's authority, and the table is gone rather than re-sourced. If you want industry benchmarks for this, the IEA and Uptime Institute publish real ones, and they are less flattering than what I had written.
 
 **Risk Mitigation:**
 - Reduced exposure to energy price volatility
@@ -483,7 +471,7 @@ The following statistics are based on verified industry data:
 
 ## Conclusion: Computing's Climate Responsibility
 
-The electricity bill that started this journey was more than a financial wake-up call. It was a moral one. [The technology industry that has transformed human civilization now has the responsibility to lead the fight against climate change](https://www.nature.com/articles/s41558-020-0837-6).
+The electricity bill that started this journey was more than a financial wake-up call. It was a moral one. The industry that built this infrastructure is the one holding the lever. Worth reading alongside Mytton's [Hiding greenhouse gas emissions in the cloud](https://www.nature.com/articles/s41558-020-0837-6), on how much of this is simply not disclosed.
 
 Sustainable computing isn't about doing less with technology. It's about doing more with less environmental impact. The optimizations, efficiencies, and innovations driven by sustainability concerns often lead to better, faster, more reliable systems.
 
@@ -499,7 +487,7 @@ I'm optimistic, but I also recognize the challenge. Some sustainability improvem
 
 [Green Software Foundation](https://greensoftware.foundation/) - Industry collaboration on sustainable software
 
-[The Carbon Footprint of Machine Learning Training Will Plateau, Then Shrink](https://arxiv.org/abs/2204.05149) - MIT research on ML sustainability
+[The Carbon Footprint of Machine Learning Training Will Plateau, Then Shrink](https://arxiv.org/abs/2204.05149) - Patterson et al. (Google, UC Berkeley), including the 88x correction to the widely-quoted NAS figure
 
 [Climate Change AI](https://www.climatechange.ai/) - Using AI to tackle climate change
 
