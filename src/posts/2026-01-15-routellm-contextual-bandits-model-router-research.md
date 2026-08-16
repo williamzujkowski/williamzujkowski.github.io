@@ -14,7 +14,7 @@ I spent three months building model routers that didn't work before I started re
 
 This post walks through the research that fixed each problem, from [RouteLLM's](https://arxiv.org/abs/2406.18665) cost-quality tradeoff to [LinUCB's](https://arxiv.org/abs/2508.21141) adaptive learning. If you're building any kind of multi-model system, these papers probably save you the same months of trial and error.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/routellm.png'); width: min(200px, 52%); aspect-ratio: 300/421; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/routellm.png'); width: min(200px, 52%); aspect-ratio: 400/341; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">picking the right track</p>
 
 ## The Naive Phase: Why Simple Approaches Fail

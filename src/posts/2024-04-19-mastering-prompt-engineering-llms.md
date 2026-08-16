@@ -29,7 +29,7 @@ Prompt engineering combines systematic optimization with practical techniques to
 
 **Critical warning:** LLMs are unreliable tools requiring constant verification. Hallucinations, bias, and inconsistency make them unsuitable for high-stakes decisions without human oversight.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/prompt-engineering.png'); width: min(200px, 55%); aspect-ratio: 300/359; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/prompt-engineering.png'); width: min(200px, 55%); aspect-ratio: 400/390; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the right words, the right spark</p>
 
 ## Core Principle: Context Over Brevity
