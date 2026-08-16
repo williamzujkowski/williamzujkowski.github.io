@@ -1,7 +1,7 @@
 ---
 
-date: 2024-05-14
-description: "Deploy AI-powered cybersecurity with automated threat detection—achieve 73% accuracy in anomaly detection catching attacks SIEM systems miss."
+date: 2024-11-19
+description: "Deploy AI-powered cybersecurity with automated threat detection—reaching 73% precision on anomaly detection catching attacks my signature-based IDS missed."
 title: 'AI: The New Frontier in Cybersecurity – Opportunities and Ethical Dilemmas'
 tags:
   - ai
@@ -10,7 +10,7 @@ tags:
 ---
 **BLUF:** I deployed Wazuh 4.7.0 SIEM in my homelab to test AI-powered threat detection against my own network traffic. I wanted to see if machine learning could actually catch the subtle patterns that traditional signature-based systems miss. For more context, see [introduction to writing secure code: a developer's guide to thwarting security exploits](/posts/2024-01-08-writing-secure-code-developers-guide).
 
-My test environment ran on an Intel i9-9900K with 64GB RAM, processing roughly 2.3GB of security logs per day from my segmented VLANs. The first week was humbling. The AI model flagged 147 anomalies in just 24 hours. Only 12 were actual simulated attacks I'd planted. That's an 8.2% accuracy rate.
+My test environment ran on an Intel i9-9900K with 64GB RAM, processing roughly 2.3GB of security logs per day from my segmented VLANs. The first week was humbling. The AI model flagged 147 anomalies in just 24 hours. Only 12 were actual simulated attacks I'd planted. That's 8.2% precision — of everything it flagged, that fraction was real.
 
 The rest were false positives from my perfectly normal Plex streaming, Home Assistant automation triggers, and Docker container restarts. I spent three days tuning detection thresholds, thinking I'd made a terrible mistake.
 
@@ -20,7 +20,7 @@ The pattern was subtle: five ports probed over 18 hours, each connection lasting
 
 That moment crystallized both the immense promise and the frustrating reality of AI in cybersecurity. When it works, it's remarkable. When it doesn't, you're drowning in false alarms wondering if you should just go back to grep and tcpdump.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/ai-frontier.png'); width: min(180px, 50%); aspect-ratio: 280/563; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/ai-frontier.png'); width: min(180px, 50%); aspect-ratio: 400/364; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the new thing on the wall</p>
 
 ## The Double-Edged Nature of AI in Security
@@ -41,7 +41,7 @@ Deploying AI in security operations since 2022 revealed capabilities that seemed
 
 ### Anomaly Detection at Scale
 
-In October 2024, I configured my Wazuh deployment to analyze network traffic across three VLANs: trusted, IoT, and guest. The system processes roughly 15,000 events per minute, which would require at least 20-30 human analysts working 24/7 to evaluate manually (probably more, honestly). Here's what it can detect:
+In October 2024, I configured my Wazuh deployment to analyze network traffic across three VLANs: trusted, IoT, and guest. The system processes roughly 15,000 events per minute, which is well past what manual review can absorb (probably more, honestly). Here's what it can detect:
 
 **Subtle Data Exfiltration:** My testing showed the system could flag unusual file access patterns. For example, when I simulated data theft by copying 847MB of dummy files in 200KB chunks over 6 hours, the AI caught it because the access pattern deviated from my baseline by roughly 3.2 standard deviations. Traditional file integrity monitoring never triggered.
 
@@ -61,7 +61,7 @@ In July 2024, I integrated threat intelligence feeds (MISP, AlienVault OTX, and 
 
 **Predictive Intelligence:** This is where marketing hype exceeds reality in my experience. The AI can identify likely attack vectors based on vulnerability scans, but "predicting" attacks feels overstated. It's more like "here are your worst vulnerabilities" than "an attack will happen Tuesday at 3 PM." Still useful, though.
 
-**False Positive Reduction:** After training on three months of baseline data, my system reduced alert noise by roughly 65%. I went from 200-300 alerts daily (mostly false positives) to around 40-60 actionable alerts. That reduction is what makes AI practical for security operations. Alert fatigue is real, and AI dramatically helps here.
+**False Positive Reduction:** After training on three months of baseline data, my system reduced alert noise by roughly 80%. I went from 200-300 alerts daily (mostly false positives) to around 40-60 actionable alerts. That reduction is what makes AI practical for security operations. Alert fatigue is real, and AI dramatically helps here.
 
 ### Automated Response and Mitigation
 
@@ -83,7 +83,7 @@ Here's the uncomfortable truth: every defensive capability highlights correspond
 
 In November 2024, I tested my Wazuh deployment against adversarial techniques documented in recent research papers. The results were unsettling:
 
-**Model Poisoning:** I deliberately corrupted my training dataset by injecting 500 fake "benign" events that mimicked malicious patterns. After retraining, the model's accuracy dropped from 73% to around 51%. That's basically random guessing. An attacker with access to your training pipeline could completely compromise your AI security system. I reverted to a clean dataset immediately.
+**Model Poisoning:** I deliberately corrupted my training dataset by injecting 500 fake "benign" events that mimicked malicious patterns. After retraining, the model's precision dropped from 73% to around 51%. An attacker with access to your training pipeline could completely compromise your AI security system. I reverted to a clean dataset immediately.
 
 **Evasion Attacks:** This is where things get scary. In one September 2024 test, I crafted a simulated attack that included random delays, noise traffic, and pattern obfuscation. The AI missed it entirely. Traditional signature-based detection caught it (ironically). Adversarial examples can fool AI systems surprisingly easily once you understand their decision boundaries.
 
@@ -95,11 +95,11 @@ In November 2024, I tested my Wazuh deployment against adversarial techniques do
 
 AI didn't just improve attack detection. It enabled attack creation at scale. I've seen demonstrations that genuinely worry me:
 
-**Personalized Phishing:** In a red team exercise I observed in May 2024, an AI system generated 50 unique spear-phishing emails in under 2 minutes. Each was tailored to specific individuals based on their LinkedIn profiles, recent posts, and inferred interests. The click-through rate was roughly 37%, compared to 8-12% for traditional phishing. That's a massive improvement from an attacker's perspective.
+**Personalized Phishing:** In a red team exercise I observed in May 2024, an AI system generated 50 unique spear-phishing emails in under 2 minutes. Each was tailored to specific individuals based on their LinkedIn profiles, recent posts, and inferred interests. The click-through rate was far above what the same team saw on their conventional templates, though I only observed the exercise and can't put a defensible baseline against it. That's a massive improvement from an attacker's perspective.
 
 **Deepfake Social Engineering:** I tested open-source voice cloning tools in June 2024. With just 30 seconds of audio from a YouTube video, I generated a convincing voice clone in under 5 minutes. The quality was good enough to probably fool voice authentication systems. I didn't test this (obvious ethical issues), but the capability exists and it demands attention.
 
-**Automated Vulnerability Research:** This is speculative on my part, but research suggests AI can fuzz test software and identify vulnerabilities faster than human researchers. In 2023, Google's OSS-Fuzz found over 26,000 bugs in open-source projects using automated fuzzing. AI-enhanced fuzzing could probably accelerate this significantly. The vulnerability disclosure timeline might not keep pace with discovery.
+**Automated Vulnerability Research:** This is speculative on my part, but research suggests AI can fuzz test software and identify vulnerabilities faster than human researchers. As of August 2023, Google's OSS-Fuzz had found over 36,000 bugs and 10,000 vulnerabilities across roughly 1,000 projects since 2016. AI-enhanced fuzzing could probably accelerate this significantly. The vulnerability disclosure timeline might not keep pace with discovery.
 
 **Adaptive Malware:** I haven't encountered this in the wild yet, but polymorphic malware that uses AI to evade detection is theoretically feasible. Imagine malware that analyzes its environment, detects security tools, and modifies its behavior to avoid detection. That's a significant concern for security defenders.
 
@@ -163,7 +163,7 @@ Algorithmic bias in security AI is a real concern that I've observed in my testi
 
 **Algorithmic Bias:** In August 2024, I noticed my anomaly detection system disproportionately flagged activity from my guest VLAN compared to my trusted network. After investigation, I realized the training data was heavily weighted toward trusted network behavior (my normal usage) with minimal guest network baseline. The model learned that guest network activity was inherently suspicious. That's bias created by unrepresentative training data.
 
-**False Positive Impact:** Biased false positives have real consequences. In a September 2024 test, I configured different sensitivity thresholds for different network segments. The guest network had stricter detection (1.5 standard deviations) while the trusted network used 3.2 standard deviations. That means guest users faced 4-5x more false positive lockouts than trusted users. It's effectively discriminatory treatment based on network location.
+**False Positive Impact:** Biased false positives have real consequences. In a September 2024 test, I configured different sensitivity thresholds for different network segments. The guest network had stricter detection (1.5 standard deviations) while the trusted network used 3.2 standard deviations. That gap is far larger than it looks written down: the tail mass beyond 1.5 sigma is roughly a hundred times that beyond 3.2, so guest users absorbed almost every false positive the system produced. It's effectively discriminatory treatment based on network location.
 
 **Training Data Representation:** Ensuring representative training data is harder than it sounds. My initial training set from March-May 2024 included primarily my own usage patterns (white male, working daytime hours, specific applications). It wasn't diverse. Any deviation from my specific behavior patterns triggered suspicion. I had to deliberately diversify the training data by simulating different usage patterns, which improved fairness but reduced overall accuracy.
 
@@ -277,7 +277,7 @@ In November 2024, my Wazuh system caught a port scan that my traditional tools m
 
 ### AI Security Research
 
-1. **[Adversarial Examples in Deep Learning](https://arxiv.org/abs/1412.6572)** (2014)
+1. **[Explaining and Harnessing Adversarial Examples](https://arxiv.org/abs/1412.6572)** (2014) - Goodfellow, Shlens & Szegedy, ICLR 2015
    - Goodfellow et al. - Foundational work on adversarial attacks
    - *ICLR 2015*
 
@@ -287,7 +287,7 @@ In November 2024, my Wazuh system caught a port scan that my traditional tools m
 
 ### Machine Learning in Security
 
-1. **[Machine Learning for Cybersecurity Survey](https://arxiv.org/abs/1812.07858)** (2018)
+1. **[Machine Learning in Cyber-Security: Problems, Challenges and Data Sets](https://arxiv.org/abs/1812.07858)** (2019) - Amit et al., AAAI-19 Workshop
    - Comprehensive review of ML applications in security
    - *arXiv preprint*
 

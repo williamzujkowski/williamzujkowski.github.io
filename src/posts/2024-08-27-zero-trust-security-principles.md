@@ -30,7 +30,7 @@ Federal agencies must adopt Zero Trust Architecture by 2024 under Executive Orde
 Zero Trust addresses this by verifying every access request, regardless of network location. Security becomes about identity and context, not network boundaries.
 
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/zero-trust-verify.png'); width: min(190px, 52%); aspect-ratio: 280/395; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/zero-trust-verify.png'); width: min(190px, 52%); aspect-ratio: 400/413; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">trust nothing, check everything</p>
 
 ## Zero Trust Architecture
