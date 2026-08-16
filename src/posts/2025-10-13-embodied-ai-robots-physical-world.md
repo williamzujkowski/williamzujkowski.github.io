@@ -13,7 +13,7 @@ tags:
 ---
 ## Bottom Line Up Front
 
-AI escaped the screen in 2025. [Google DeepMind's Gemini Robotics](https://arxiv.org/abs/2503.20020) demonstrates strong task-specific success rates on complex manipulation, not in simulation, but in the real world. Vision-Language-Action (VLA) models bridge the gap between AI that writes code and robots that execute it, transforming digital intelligence into physical capability.
+AI escaped the screen in 2025. [Google DeepMind's Gemini Robotics](https://arxiv.org/abs/2503.20020) reports 25-44% success zero-shot on real ALOHA 2 hardware, rising to about 79% across six dexterous tasks after 2,000-5,000 demonstrations each — real robots rather than simulation, and a long way from solved. Vision-Language-Action (VLA) models bridge the gap between AI that writes code and robots that execute it, transforming digital intelligence into physical capability.
 
 **Why it matters:** When AI gains physical agency, software bugs become safety hazards. A bad recommendation is annoying, but a robot arm moving incorrectly causes injury. We're deploying systems that manipulate the physical world with minimal testing frameworks and emerging safety standards, though I should note that this rapid deployment raises concerns about premature adoption. The security implications extend beyond data breaches to physical harm.
 
@@ -60,9 +60,7 @@ The breakthrough: direct mapping from perception and language to low-level robot
 |-----------|-------------|--------------|
 | **Training Scale** | Large-scale multi-robot demonstration data | Generalizes across platforms |
 | **Real-World Success** | Strong task-specific rates | Not simulation, actual hardware |
-| **Task Complexity** | Multi-object rearrangement, sub-millimeter assembly | Beyond simple pick-and-place |
 | **Language Grounding** | Natural language to physical actions | "Put blue mug on top shelf" works |
-| **Transfer Learning** | Tabletop skills to mobile manipulators | Minimal fine-tuning required |
 
 ### Competing Approaches
 
@@ -71,7 +69,7 @@ The VLA landscape is rapidly evolving:
 - **[π0 (Physical Intelligence)](https://arxiv.org/abs/2410.24164)**: Internet-scale pretraining with web video before robotic fine-tuning (October 2024)
 - **[OpenVLA](https://github.com/openvla/openvla)**: Open-source 7B parameter model trained on [Open X-Embodiment dataset](https://arxiv.org/abs/2310.08864)
 - **[RT-2 (Robotics Transformer 2)](https://arxiv.org/abs/2307.15818)**: Google's previous generation from July 2023, now superseded
-- **Helix**: Hierarchical action representations for long-horizon tasks
+- **Helix (Figure AI)**: a dual-system VLA — a 7-9 Hz vision-language model for reasoning driving a 200 Hz visuomotor policy across 35 upper-body degrees of freedom
 - **GR00T N1 (NVIDIA)**: Whole-body control for humanoid robots (announced March 2025)
 
 Different architectures, same convergence: vision-language-action integration works at scale, though comparing performance across these systems remains challenging due to inconsistent benchmarking.
@@ -81,7 +79,7 @@ Different architectures, same convergence: vision-language-action integration wo
 ### Budget Setup ($500-2,000)
 - **Robot arm**: Used Lynxmotion AL5D ($500-800, I've been watching eBay listings)
 - **Vision**: Webcam or [Intel RealSense D435](https://www.intelrealsense.com/depth-camera-d435/) ($50-400)
-- **Compute**: Existing gaming PC with NVIDIA RTX 3060+ (my i9-9900K + RTX 3090 handles inference at around 15-20 FPS, though your mileage may vary with different model sizes)
+- **Compute**: Existing gaming PC with NVIDIA RTX 3060+ (for reference, the OpenVLA authors measure their 7B model at about 6 Hz on a 4090, and note that's below the ~10 Hz floor for responsive closed-loop manipulation, though your mileage may vary with different model sizes)
 - **Software**: [ROS2 Humble](https://docs.ros.org/en/humble/), [OpenVLA](https://github.com/openvla/openvla), [MoveIt2](https://moveit.ros.org/)
 
 ### Mid-Range ($3,000-5,000)
@@ -103,8 +101,8 @@ Different architectures, same convergence: vision-language-action integration wo
 sudo apt install ros-humble-desktop-full
 
 # Install OpenVLA frameworks
-git clone https://github.com/google-deepmind/open_x_embodiment
-pip install -r requirements.txt
+git clone https://github.com/openvla/openvla
+cd openvla && pip install -e .
 
 # Camera drivers
 sudo apt install ros-humble-realsense2-camera
@@ -128,7 +126,7 @@ Physical AI introduces attack surfaces software developers don't typically consi
 VLA models are powerful but immature, and I'm frankly concerned about how quickly we're deploying them:
 - **No standardized testing frameworks** for physical AI safety
 - **Limited real-world failure data** publicly available
-- **Regulatory gaps**: [ISO 10218](https://www.iso.org/standard/51330.html) covers traditional industrial robots from 2011, not AI-driven systems
+- **Regulatory gaps**: [ISO 10218-1:2025](https://www.iso.org/standard/73933.html) was revised in February 2025 and now adds a robot classification scheme and explicit cybersecurity requirements — but it still governs industrial robots, and says nothing about learned end-to-end policies
 - **Adversarial robustness unknown**: a carefully placed object could trigger dangerous behavior
 - **Emergency protocols underdeveloped** compared to traditional automation
 
@@ -206,15 +204,15 @@ Formal safety frameworks for robotics exist, but most VLA deployments lack rigor
 4. Start with cheap hardware ($500 used arm)
 
 **For roboticists:**
-- VLA models replace classical motion planning for unstructured tasks
+- VLA models are starting to complement classical motion planning for unstructured tasks
 - Language grounding enables non-expert instruction
 - Transfer learning reduces per-task engineering
 
 **For AI/ML engineers:**
 - Learn robot dynamics (kinematics, control theory)
-- Understand real-time requirements (inference must complete within 100ms for typical control loops, see [local LLM deployment](/posts/2025-06-25-local-llm-deployment-privacy-first))
+- Understand real-time requirements (VLA policies run far slower than control loops — 6-10 Hz is common — which is why the fast systems pair a slow reasoner with a 200 Hz visuomotor policy, see [local LLM deployment](/posts/2025-06-25-local-llm-deployment-privacy-first))
 - Recognize safety-critical constraints (one bad prediction causes physical damage)
-- Account for sim-to-real gap (performance can drop 20-40% in real hardware)
+- Account for sim-to-real gap (the Gemini Robotics spread from zero-shot to specialized is the concrete version of this)
 
 ## The Trajectory: Where This Goes
 
@@ -251,7 +249,7 @@ The next decade is about giving digital intelligence a body. VLA models bridge C
 - Physical AI introduces safety and security challenges beyond traditional software
 - The technology is accessible now, simulation is free, budget hardware is $500-2,000
 
-The embodied AI revolution isn't coming, it's here. The question is whether you're ready to build it, and more importantly, whether you're ready to do so safely.
+The embodied AI results are real and the deployment gap is still wide. The question is whether you're ready to build it, and more importantly, whether you're ready to do so safely.
 
 ---
 
