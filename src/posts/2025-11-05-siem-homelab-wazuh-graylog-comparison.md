@@ -13,7 +13,7 @@ Security monitoring needs centralized log analysis. I deployed both Wazuh and Gr
 
 Here's how to choose and deploy the right SIEM for your homelab.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/siem.png'); width: min(230px, 60%); aspect-ratio: 320/364; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/siem.png'); width: min(230px, 60%); aspect-ratio: 400/425; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">one eye, all the logs</p>
 
 ## The Homelab SIEM Problem

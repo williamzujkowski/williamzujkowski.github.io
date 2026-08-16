@@ -12,7 +12,7 @@ The visible work today was extracting SWE-bench out of nexus-agents into its own
 
 This post covers the whole April 2026 arc on [nexus-agents](https://github.com/nexus-substrate/nexus-agents). The extraction is the capstone. The governance, skills, pipeline discipline, and security hardening that came before are the actual story.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/nexus-april.png'); width: min(240px, 62%); aspect-ratio: 300/257; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/nexus-april.png'); width: min(240px, 62%); aspect-ratio: 400/386; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">a month of building</p>
 
 ## The shape of the month
