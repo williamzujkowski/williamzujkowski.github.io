@@ -17,7 +17,7 @@ tags:
 My process used to be: check the router admin page when I remembered to, glance at the Pi-hole dashboard once a week, and otherwise assume nothing had gone wrong since the last look. That held up fine, right up until an unrecognized device sat quietly on the LAN for who knows how long before I noticed. With 25+ connected devices and a family that does not share my threat model, "I'll check on it later" stopped being a security posture.
 
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/network-auto.png'); width: min(300px, 78%); aspect-ratio: 400/293; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/network-auto.png'); width: min(300px, 78%); aspect-ratio: 400/353; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">a guard that never sleeps</p>
 
 ## Requirements
