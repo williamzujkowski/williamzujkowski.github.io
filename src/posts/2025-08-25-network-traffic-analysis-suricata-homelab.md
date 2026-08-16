@@ -16,7 +16,7 @@ Last year, something in my house started making DNS queries at 3 AM — hundreds
 
 That's the case for Suricata in one line: you can't protect what you can't see. If you're [building a security-focused homelab](/posts/2025-04-24-building-secure-homelab-adventure), network traffic analysis with Suricata should be a core component of your monitoring strategy, not a nice-to-have.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/suricata.png'); width: min(300px, 72%); aspect-ratio: 360/279; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/suricata.png'); width: min(300px, 72%); aspect-ratio: 400/373; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">always on lookout</p>
 
 ## Network Traffic Analysis Architecture

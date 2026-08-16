@@ -20,7 +20,7 @@ Imagine having X-ray vision into your kernel, seeing every system call, network 
 
 [Recent research from arXiv confirms what practitioners have discovered: eBPF-based detection achieves 99.76% accuracy in identifying ransomware within seconds of execution, even for zero-day variants](https://arxiv.org/abs/2406.14020) (Sekar et al., 2024). Integrate eBPF with [Suricata network monitoring](/posts/2025-08-25-network-traffic-analysis-suricata-homelab) and [threat intelligence dashboards](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard) for complete threat detection. But raw detection isn't everything – let me show you how to build practical, production-ready eBPF security monitoring.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/ebpf.png'); width: min(200px, 55%); aspect-ratio: 300/379; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/ebpf.png'); width: min(200px, 55%); aspect-ratio: 400/371; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the kernel's tiny tenant</p>
 
 ## Understanding eBPF Security Architecture

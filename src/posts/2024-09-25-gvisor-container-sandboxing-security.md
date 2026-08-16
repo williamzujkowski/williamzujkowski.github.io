@@ -21,7 +21,7 @@ tags:
 
 **The research:** [G-Fuzz](https://arxiv.org/abs/2409.13139) (Li et al., *IEEE TDSC* vol. 21 no. 1, Jan-Feb 2024) is a directed fuzzing framework for gVisor out of Zhejiang University and Ant Group — not Google, who wrote gVisor itself. The authors report it significantly outperforms Syzkaller on gVisor and has been deployed in industry, where it detected multiple serious vulnerabilities.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/gvisor-sandbox.png'); width: min(280px, 72%); aspect-ratio: 460/441; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/gvisor-sandbox.png'); width: min(280px, 72%); aspect-ratio: 400/510; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">play here, break nothing</p>
 
 ## The Container Escape Problem
