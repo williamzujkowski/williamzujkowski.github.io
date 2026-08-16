@@ -38,7 +38,7 @@ The quantization is carefully designed to preserve model quality. My testing rev
 
 ## Hardware Requirements and Considerations
 
-I'm running an Intel i9-9900K with 64GB DDR4 RAM and an NVIDIA RTX 3090 (24GB VRAM). This setup works well for fine-tuning models up to roughly 13B parameters with QLoRA, though larger models require more aggressive optimizations.
+I'm running an Intel i9-9900K with 64GB DDR4 RAM and an NVIDIA RTX 3090 (24GB VRAM). This setup handles 7-8B models comfortably with QLoRA; my 13B attempt failed even with aggressive settings, though larger models require more aggressive optimizations.
 
 ### GPU Requirements
 
@@ -103,7 +103,7 @@ I split my data into 85% training and 15% validation. During my March experiment
 
 ## Training Process and Hyperparameters
 
-My third training attempt in March failed because I used a learning rate of 2e-3, which caused training loss to diverge after approximately 840 steps. The model's responses became increasingly incoherent as training progressed. I wasted 6.5 hours and $3.80 in electricity before I realized what was happening.
+My third training attempt in March failed because I used a learning rate of 2e-3, which caused training loss to diverge after approximately 840 steps. The model's responses became increasingly incoherent as training progressed. I wasted 6.5 hours and  in electricity before I realized what was happening.
 
 ### Critical Hyperparameters
 
@@ -134,7 +134,7 @@ I track these metrics obsessively during training after learning from early fail
 
 - **Training Loss**: Should decrease steadily (my successful runs show smooth exponential decay from around 2.8 down to 0.7-0.9, and erratic behavior suggests learning rate is too high or data has quality issues)
 - **Validation Loss**: Saved me from deploying a badly overfit model in late March (my validation loss started increasing at epoch 3.2 while training loss kept dropping, so I now use early stopping with patience of 0.5 epochs)
-- **GPU Metrics**: I monitor temperature, power consumption, and memory usage via nvidia-smi every 30 seconds (before adding better cooling, thermal throttling extended my training run by roughly 47 minutes, and power consumption averaging 340W at $0.13/kWh means each 14-hour training run costs approximately $8.40)
+- **GPU Metrics**: I monitor temperature, power consumption, and memory usage via nvidia-smi every 30 seconds (before adding better cooling, thermal throttling extended my training run by roughly 47 minutes, and power consumption averaging 340W at $0.13/kWh means each 14-hour training run costs about 60 cents in electricity)
 - **Throughput**: I process roughly 1,000 tokens per second during training with my current configuration (helps me estimate total training time, as my 3,400-example dataset with average sequence length 412 tokens takes approximately 14 hours at this throughput). For orchestrating complex fine-tuning workflows with parallel agent coordination, see my guide on [supercharging development with Claude-Flow](/posts/2025-08-07-supercharging-development-claude-flow) which demonstrates multi-agent task management at scale.
 
 ## Practical Challenges and Solutions
@@ -173,7 +173,7 @@ My third training run in March exhibited wild loss spikes every 200-300 steps. L
 
 ### Resource Constraints
 
-My RTX 3090 with 24GB VRAM seems generous until you try fitting a 13B parameter model. My April attempt to fine-tune Llama 3 13B failed even with aggressive QLoRA settings.
+My RTX 3090 with 24GB VRAM seems generous until you try fitting a 13B parameter model. My April attempt to fine-tune Llama 2 13B failed even with aggressive QLoRA settings.
 
 **Optimization strategies I've used**:
 - QLoRA with 4-bit quantization (essential for anything over 7B parameters on my hardware)
@@ -275,7 +275,7 @@ The trade-off isn't worth it for my use case, but may be valuable for critical a
 Learn from my failures to save time and electricity costs:
 
 - **Using insufficient or poor quality data**: My initial 847-example dataset produced a model worse than baseline in several areas (investing 2 weeks to curate 3,400 quality examples was time well spent, and the quality difference was dramatic)
-- **Not monitoring validation metrics**: I trained my second model for 6 epochs without watching validation loss (the resulting overfit model memorized training data and performed poorly on new inputs, wasting 11 hours and roughly $6.50 in electricity)
+- **Not monitoring validation metrics**: I trained my second model for 6 epochs without watching validation loss (the resulting overfit model memorized training data and performed poorly on new inputs, wasting 11 hours and roughly  in electricity)
 - **Inappropriate learning rates**: My learning rate 2e-3 disaster diverged after 840 steps, while learning rate 1e-6 barely trained after 8 hours (finding the right range, 1e-4 to 5e-5 for my setup, required experimentation but was critical)
 - **Ignoring base model capabilities**: I tried fine-tuning Llama 3 8B to generate highly specialized medical terminology, a domain where the base model had minimal knowledge (results were poor no matter how much I tweaked hyperparameters, and fine-tuning works best when building on existing capabilities)
 - **Skipping systematic evaluation**: Casual testing of my March model missed the fact that it occasionally fabricated technical details (creating a proper 200-example test set with manual review revealed this issue before deployment)
@@ -298,7 +298,7 @@ Fine-tuning large language models on consumer hardware has become practical than
 
 The key is understanding the trade-offs between model size, training time, quality, and resource constraints. I recommend starting with Llama 3 8B and a carefully curated 500-1000 example dataset. Monitor validation loss obsessively, start with conservative learning rates (5e-5 for QLoRA), and invest time in systematic evaluation before deployment.
 
-My setup (i9-9900K, 64GB RAM, RTX 3090) handles models up to roughly 13B parameters, though 8B models are my sweet spot for iteration speed. The total cost of my March-April experimentation was approximately $47 in electricity for roughly 85 hours of training across multiple experiments.
+My setup (i9-9900K, 64GB RAM, RTX 3090) handles 7-8B models comfortably parameters, though 8B models are my sweet spot for iteration speed. The total cost of my March-April experimentation was approximately a few dollars in electricity for roughly 85 hours of training across multiple experiments.
 
 The limitations are real: consumer hardware can't match enterprise infrastructure for very large models (70B+), training takes hours to days rather than minutes, and thermal management matters more than I initially appreciated. But the capability to customize powerful models for specific tasks from my home office, at a cost of roughly $8-10 per training run, has changed how I approach AI development.
 

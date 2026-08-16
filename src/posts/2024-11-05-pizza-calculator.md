@@ -24,7 +24,7 @@ function provision({ consumers, intensity, teenagers }) {
 
 Buried in all of this was a single genuinely correct piece of geometry, which I want to state plainly because it is the only useful sentence in the entire post: **an 18-inch pizza is more pizza than two 12-inch pizzas, and it usually costs less.** Area is πr². A 12-inch pizza is about 113 square inches; two of them, 226. An 18-inch is 254. The big one wins on area, wins on price, wins on the only axes that matter. This is not a preference. It is a theorem.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/pizza-calculator.png'); width: min(340px, 80%); aspect-ratio: 500/369; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/pizza-calculator.png'); width: min(340px, 80%); aspect-ratio: 340/492; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the 18-inch, vindicated</p>
 
 ## Where it went off the rails

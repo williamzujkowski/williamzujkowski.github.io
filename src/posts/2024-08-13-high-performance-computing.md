@@ -10,16 +10,16 @@ tags:
 ---
 ## BLUF: The Transformation of Supercomputing
 
-In over a decade, supercomputing has undergone a transformation more dramatic than most realize. The world's fastest machines are now more than a million times more powerful than they were in 2010, yet they've become radically more energy-efficient and accessible. What was once the exclusive domain of national laboratories, requiring dedicated facilities and specialized expertise, is now available through cloud platforms that anyone with a credit card can access.
+In over a decade, supercomputing has undergone a transformation more dramatic than most realize. The world's fastest machines are now roughly 500 times more powerful than they were in 2010, yet they've become radically more energy-efficient and accessible. What was once the exclusive domain of national laboratories, requiring dedicated facilities and specialized expertise, is now available through cloud platforms that anyone with a credit card can access.
 
 This democratization coincides with humanity's most pressing computational challenges reaching a critical inflection point. The difference between simulating climate at 3-kilometer versus 10-kilometer resolution could determine whether we can accurately predict regional flooding patterns in time to save lives. This efficiency imperative connects to broader [sustainable computing strategies](/posts/2024-07-16-sustainable-computing-carbon-footprint/) where balancing computational power with environmental responsibility has become critical.
 
 The stakes have fundamentally shifted. We're no longer racing for raw speed. We're pursuing a delicate balance between computational power, energy efficiency, and practical accessibility. My work on [GPU power monitoring](/posts/2024-11-15-gpu-power-monitoring-homelab-ml/) revealed how even homelab-scale HPC can consume staggering amounts of energy—a single ML training run matching my entire house's daily consumption. The shift toward [quantum computing](/posts/2024-08-02-quantum-computing-leap-forward/) promises another magnitude leap in computational capability, though practical implementation remains years away. Meanwhile, edge computing architectures distribute HPC workloads closer to data sources, reducing both latency and datacenter energy demands. And for resource-constrained environments, efficient AI learning techniques demonstrate how to achieve HPC-like results without HPC-scale infrastructure.
 
-When the Department of Energy's Frontier system broke the exascale barrier in 2022, achieving 1.35 exaflops, it did so while consuming less power per calculation than systems from five years prior. Meanwhile, researchers are using these machines to compress drug discovery timelines from years to weeks, design materials that don't yet exist in nature, and run quantum chemistry simulations at scales previously confined to theory. The transformation isn't only technical. It's redefining what problems we can reasonably attempt to solve.
+When the Department of Energy's Frontier system broke the exascale barrier in 2022, achieving 1.102 exaflops, it did so while consuming less power per calculation than systems from five years prior. Meanwhile, researchers are using these machines to compress drug discovery timelines from years to weeks, design materials that don't yet exist in nature, and run quantum chemistry simulations at scales previously confined to theory. The transformation isn't only technical. It's redefining what problems we can reasonably attempt to solve.
 
 **The scale of change:**
-- **Performance leap**: Frontier's 1.35 exaflops[3] represents a millionfold increase over 2010's fastest systems, enabling simulations with quintillions of calculations per second[1]
+- **Performance leap**: Frontier's 1.102 exaflops[3] was about a 430-fold increase over 2010's fastest system, enabling simulations with quintillions of calculations per second[1]
 - **Energy revolution**: The Green500 leader achieves 72.7 GFlops/Watt[2], solving the same problem as older systems while using a fraction of the electricity
 - **Application impact**: Climate models now run at 3.25km resolution (vs. 100km a decade ago), while AI-accelerated drug discovery operates 50-100× faster than traditional methods
 - **Access democratization**: Cloud HPC platforms let startups and researchers rent exascale-class computing by the hour, eliminating the multi-million-dollar barrier to entry
@@ -152,7 +152,7 @@ Performance and cost-effectiveness typically depend on workload characteristics 
 
 **Cost transformation:**
 - Traditional on-premise HPC: $5-50M capital expense + $1-5M annual operations
-- Cloud HPC burst: Pay-per-use starting at $0.50-5.00 per core-hour
+- Cloud HPC burst: Pay-per-use starting at $0.03-0.10 per core-hour for CPU nodes
 - Eliminates upfront infrastructure investment
 - Scale from single nodes to thousands based on demand
 - Access to latest hardware without upgrade cycles
@@ -256,7 +256,7 @@ Purpose-built systems for drug discovery represent a revolution in computational
 
 - **Performance leap**: 50-100× better performance per watt vs. general-purpose processors
 - **Hardware-embedded physics**: Physical constraints implemented directly in silicon
-- **Anton 3 specifications**: Simulating 512 atoms/nanosecond at millisecond timescales
+- **Anton 3 specifications**: A 512-node Anton 3 simulates a million-atom system at about 100 microseconds per day
 - **Custom ASIC design**: Purpose-built chips optimized for molecular force calculations
 - **Simulation acceleration**: Drug discovery processes reduced from years to weeks
 - **Energy efficiency**: Reduced computational requirements without sacrificing accuracy
@@ -338,7 +338,7 @@ These hybrid approaches are making quantum computing practically useful today, e
 The applications I've seen emerge from these HPC advances show substantial real-world impact:
 
 ### Climate Modeling
-- **Ultra-high resolution predictions**: We can now run global climate models at 1km resolution, providing local-scale predictions for adaptation planning
+- **Ultra-high resolution predictions**: We can now run global atmosphere models at kilometre-scale resolution, providing local-scale predictions for adaptation planning
 - **E3SM breakthrough**: The Energy Exascale Earth System Model achieves 3.25km resolution at 1+ simulation years per day (SYPD)[7]
 - **Regional flooding forecasts**: Sub-kilometer grids enable accurate prediction of local flooding events weeks in advance
 - **Extreme weather modeling**: Hurricane intensity and path predictions improved by 30% through fine-grained atmospheric dynamics
@@ -399,7 +399,7 @@ The HPC revolution isn't only changing how we compute. It's changing what we can
 
 2. **[Green500 List (November 2024)](https://www.top500.org/lists/green500/2024/11/)** - The Green500 ranks supercomputers by energy efficiency measured in GFlops/Watt. The November 2024 list is led by the JEDI system achieving 72.7 GFlops/Watt, demonstrating that extreme performance and sustainability are no longer mutually exclusive.
 
-3. **[Frontier Supercomputer - Oak Ridge National Laboratory](https://www.olcf.ornl.gov/frontier/)** - ORNL's Frontier system achieved 1.35 exaflops on the HPL benchmark and 11.4 exaflops on HPL-MxP (mixed-precision), making it the first true exascale supercomputer. Its AMD EPYC CPUs and Radeon Instinct GPUs represent a milestone in computational capability.
+3. **[Frontier Supercomputer - Oak Ridge National Laboratory](https://www.olcf.ornl.gov/frontier/)** - ORNL's Frontier system achieved 1.35 exaflops on the HPL benchmark and 11.4 exaflops on HPL-MxP (mixed-precision), making it the first true exascale supercomputer. Its AMD EPYC CPUs and AMD Instinct MI250X GPUs represent a milestone in computational capability.
 
 4. **[Data Center Liquid Cooling Market Report](https://www.grandviewresearch.com/industry-analysis/data-center-liquid-cooling-market-report)** - Research on advanced cooling technologies including two-phase immersion cooling and direct-to-chip liquid cooling systems. Studies show these approaches can remove 95% of heat while reducing power consumption by up to 70% compared to traditional air cooling.
 

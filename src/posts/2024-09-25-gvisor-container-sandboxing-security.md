@@ -15,11 +15,11 @@ tags:
 
 ## Bottom Line Up Front
 
-**gVisor adds OS-level sandboxing to containers, preventing kernel exploits by intercepting syscalls in userspace.** Google's G-Fuzz framework discovered multiple vulnerabilities in gVisor, but it still outperforms runc for untrusted workloads. In my K3s cluster, gVisor increased container startup time from 42ms to 67ms (59% overhead) yet stopped every container escape attempt I tested.
+**gVisor adds OS-level sandboxing to containers, preventing kernel exploits by intercepting syscalls in userspace.** The G-Fuzz directed-fuzzing framework has found multiple serious vulnerabilities in gVisor, but it still outperforms runc for untrusted workloads. In my K3s cluster, gVisor increased container startup time from 42ms to 67ms (59% overhead) yet stopped the escape attempts I was able to test meaningfully.
 
 **Why it matters:** [CVE-2024-21626 (CVSS 8.6)](https://nvd.nist.gov/vuln/detail/CVE-2024-21626) enabled runc container escapes in January 2024. [Docker patched it](https://www.docker.com/blog/docker-security-advisory-multiple-vulnerabilities-in-runc-buildkit-and-moby/), but the vulnerability existed for years. gVisor's userspace kernel prevents entire classes of these exploits.
 
-**The research:** [G-Fuzz](https://arxiv.org/abs/2409.13139), published September 2024 in IEEE Transactions on Dependable and Secure Computing, uses directed fuzzing to test gVisor's 1.2 million lines of Go code. It found vulnerabilities that Syzkaller missed.
+**The research:** [G-Fuzz](https://arxiv.org/abs/2409.13139) (Li et al., *IEEE TDSC* vol. 21 no. 1, Jan-Feb 2024) is a directed fuzzing framework for gVisor out of Zhejiang University and Ant Group — not Google, who wrote gVisor itself. The authors report it significantly outperforms Syzkaller on gVisor and has been deployed in industry, where it detected multiple serious vulnerabilities.
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/gvisor-sandbox.png'); width: min(280px, 72%); aspect-ratio: 460/441; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">play here, break nothing</p>
@@ -32,7 +32,7 @@ Containers share the host kernel. One bad syscall can break containment. This is
 
 - **CVE-2024-21626:** runc working directory manipulation → host filesystem access
 - **CVE-2024-23651:** BuildKit race condition → host file exposure
-- **CVE-2024-23652:** BuildKit cache mount → arbitrary file read
+- **CVE-2024-23652:** BuildKit `RUN --mount` cleanup → arbitrary file **deletion** on the host (CVSS 9.1)
 - **CVE-2024-23653:** BuildKit GRPC API → privilege escalation
 
 [Snyk's "Leaky Vessels" advisory](https://snyk.io/blog/leaky-vessels-docker-runc-container-breakout-vulnerabilities/) details how attackers weaponized these. The common thread: kernel syscall filtering isn't enough.
@@ -72,16 +72,16 @@ Container → gVisor Sentry (userspace) → Host Kernel
 
 **The Sentry:**
 
-- Written in Go (memory-safe, no buffer overflows)
+- Written in Go, which eliminates most memory-corruption classes; the remaining `unsafe` code is quarantined into `*_unsafe.go` files by policy
 - Intercepts every syscall
-- Re-implements 200+ Linux syscalls in userspace
+- Re-implements most of the Linux syscall surface in userspace
 - Only safe operations reach the host kernel
 
 **The Gofer:**
 
 - Handles filesystem access via [9P protocol](https://9p.io/magic/man2html/5/intro)
 - Runs with minimal privileges
-- Cannot access host filesystem directly
+- Is the component that *does* touch the host filesystem, so that the Sentry never has to
 
 <figure class="arch-fig">
 <div class="arch is-stack" role="group" aria-label="gVisor container sandbox architecture">
@@ -155,7 +155,7 @@ sudo systemctl restart containerd
 
 **Result:** First pod wouldn't start. Logs showed blocked syscalls.
 
-**Problem:** gVisor implements ~200 syscalls. Linux has 300+. Missing syscalls fail hard.
+**Problem:** gVisor implements 288 of 351 syscalls fully or partially, leaving 63 unsupported. Missing syscalls fail hard.
 
 **Solution:** Use gVisor selectively via [RuntimeClass](https://kubernetes.io/docs/concepts/containers/runtime-class/).
 
@@ -191,7 +191,7 @@ strace -c nginx 2>&1 | grep -v "detached" | sort -n
 runsc debug --all | grep -o 'syscall.*' | sort
 ```
 
-Took 2 hours tracing strace output to find that my custom monitoring sidecar used `ptrace()`, which gVisor doesn't support. Removed sidecar, monitoring works.
+Took 2 hours tracing strace output to find that my custom monitoring sidecar used a `ptrace` option gVisor doesn't implement (the syscall itself has partial support). Removed sidecar, monitoring works.
 
 **Current setup:**
 
@@ -251,7 +251,7 @@ ab -n 100000 -c 100 http://gvisor-nginx/
 
 **Result:** 13% overhead. Network syscalls (socket, send, recv) cross userspace boundary.
 
-**Why it matters:** gVisor adds 15-38% overhead depending on syscall intensity. For security-critical workloads, that's acceptable. For performance-critical workloads, use runc.
+**Why it matters:** gVisor cost me 13% on network throughput, 38% on a syscall-heavy compile, and 59% on container startup. For security-critical workloads, that's acceptable. For performance-critical workloads, use runc.
 
 ## Container Escape Testing
 
@@ -271,9 +271,9 @@ docker run --rm --runtime=runsc --privileged -v /:/host alpine chroot /host /bin
 # Result: Permission denied ✗
 ```
 
-**Why gVisor blocked it:** Even privileged containers can't escape gVisor's Sentry. The `--privileged` flag disables seccomp/AppArmor but doesn't give direct kernel access.
+**Read this one carefully, because I originally drew the wrong conclusion from it.** gVisor's boundary is the host *kernel*, not the host *filesystem*. If you bind-mount `/` into the sandbox you have configured the gofer to serve the host root, and gVisor will serve it — the docs are explicit that it exposes exactly the paths the OCI config dictates. Don't run this under any runtime. The `--privileged` flag disables seccomp/AppArmor but doesn't give direct kernel access.
 
-**Test 2: /proc/sys/kernel write (CVE-2022-0492 variant)**
+**Test 2: /proc/sys/kernel write attempt**
 
 ```bash
 # Attempt to modify kernel parameters
@@ -283,7 +283,7 @@ docker run --rm --runtime=runsc alpine sh -c "echo 1 > /proc/sys/kernel/core_pat
 
 **Why gVisor blocked it:** `/proc/sys` is a read-only overlay. No direct kernel parameter modification.
 
-**Test 3: cgroup release_agent exploit**
+**Test 3: cgroup release_agent exploit (CVE-2022-0492)**
 
 ⚠️ **Warning:** This demonstrates a known container escape technique. Only use in isolated lab environments for educational purposes.
 
@@ -329,7 +329,7 @@ docker run --rm --runtime=runsc alpine sh -c "echo 'exploit' | tee /proc/self/me
 - Untrusted container images (public registries, user-submitted code)
 - Multi-tenant workloads (SaaS platforms, CI/CD runners)
 - Internet-facing services (web apps, APIs) - combine with [zero-trust architecture](/posts/2024-07-09-zero-trust-architecture-implementation)
-- Compliance requirements (PCI-DSS, HIPAA needing kernel isolation)
+- Multi-tenant workloads where you need to argue isolation strength to an auditor
 
 **Don't use gVisor for:**
 
@@ -369,7 +369,7 @@ docker run --rm --runtime=runsc alpine sh -c "echo 'exploit' | tee /proc/self/me
 
 - G-Fuzz found bugs. More exist.
 - Syscall coverage gaps break some workloads.
-- Performance overhead ranges 15-38% in my testing.
+- Performance overhead ranged from 13% to 59% in my testing, depending entirely on syscall intensity.
 
 **But it's better than alternatives:**
 
@@ -407,8 +407,8 @@ runsc --debug --debug-log=/tmp/runsc.log <container_id>
 
 **Tune for performance:**
 
-- Use [overlay filesystem](https://opensource.googleblog.com/2023/04/gvisor-improves-performance-with-root-filesystem-overlay.html) (20% faster I/O in [Google's testing](https://opensource.googleblog.com/2023/04/gvisor-improves-performance-with-root-filesystem-overlay.html))
-- Enable [seccomp optimization](https://gvisor.dev/blog/2024/02/01/seccomp/) (15% overhead reduction per [gVisor's research](https://gvisor.dev/blog/2024/02/01/seccomp/))
+- Use [overlay filesystem](https://opensource.googleblog.com/2023/04/gvisor-improves-performance-with-root-filesystem-overlay.html) — Google measured it halving gVisor's sandboxing overhead on an abseil-cpp Bazel build
+- Enable [seccomp optimization](https://gvisor.dev/blog/2024/02/01/seccomp/) — note gVisor's 2024 seccomp work cut filtering overhead ~29% on microbenchmarks but only ~1% of total runtime on real builds, and it ships on by default
 - Profile your workload with [gVisor's performance guide](https://gvisor.dev/docs/architecture_guide/performance/)
 
 **Reality check:** gVisor requires investment. Study syscall traces, understand your workload, measure performance. If you're not willing to debug, stick with runc.
