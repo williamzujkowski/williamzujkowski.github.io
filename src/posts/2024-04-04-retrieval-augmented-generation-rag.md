@@ -23,13 +23,13 @@ That's when I realized I needed RAG, not just a smarter model.
 
 The limitations of standard LLMs became apparent pretty quickly when I tried to use them for my homelab:
 
-**Knowledge Cutoffs:** Standard models lack information about recent developments. When I asked about the CVE-2024-3400 PAN-OS vulnerability that dropped in March 2024, GPT-3.5 had no idea what I was talking about. It tried to guess based on similar CVEs, which was worse than just saying "I don't know."
+**Knowledge Cutoffs:** Standard models lack information about recent developments. When I asked about a PAN-OS vulnerability disclosed weeks earlier, GPT-3.5 had no idea what I was talking about. It tried to guess based on similar CVEs, which was worse than just saying "I don't know."
 
 **Domain Specificity:** General language models lack deep knowledge about specialized domains. My homelab runs a custom monitoring stack with Prometheus, Grafana, and some Python scripts I wrote for collecting metrics from my Ubiquiti gear. No LLM knew how my specific setup worked because, well, I built it myself in March 2024.
 
 **Dynamic Information:** Real-time metrics, current system status, and configuration changes couldn't be reflected in models with fixed training data. When I asked "Is my Dell R910 experiencing high memory pressure right now?", the model couldn't possibly know. My server was fine, by the way, running at about 38% utilization that morning.
 
-**Context Limitations:** Even when relevant information existed in training data, context windows often couldn't accommodate all necessary background. I tried pasting my entire 47-page Kubernetes documentation into Claude's context window. It worked, technically, but cost me $3.40 in API credits for a single query. Not sustainable.
+**Context Limitations:** Even when relevant information existed in training data, context windows often couldn't accommodate all necessary background. I tried pasting my entire 47-page Kubernetes documentation into Claude's context window. It worked, technically, but cost about 45 cents for a single query — cheap once, expensive as a habit. Not sustainable.
 
 These limitations weren't just annoying, they were deal-breakers for building anything useful.
 
@@ -52,7 +52,7 @@ My initial RAG implementation was embarrassingly naive. I thought I could just s
 
 **Attempt 1: The Kitchen Sink Approach**
 
-I indexed 612,000 tokens of homelab documentation in Qdrant, my vector database of choice. Total index size: 840MB. I threw every Markdown file, config snippet, and troubleshooting note into the system. My first query: "How do I restart the Plex container?"
+I indexed 612,000 tokens of homelab documentation in Qdrant, my vector database of choice. Total index size: about 18MB — vectors are smaller than people expect. I threw every Markdown file, config snippet, and troubleshooting note into the system. My first query: "How do I restart the Plex container?"
 
 The system retrieved 12 documents, totaling 8,400 tokens. Then it tried to cram all of that into GPT-4's context window along with my query. The response took 14.3 seconds to generate and mentioned Docker Swarm, which I don't use.
 
@@ -64,14 +64,14 @@ I read somewhere that 512-token chunks were optimal for semantic search. I split
 Query latency improved to 1.8 seconds for semantic search, which felt good. But accuracy tanked. The system retrieved chunks that contained the right keywords but lacked crucial context. I was getting answers like "restart it using docker-compose" without specifying which compose file or which service name.
 
 **Attempt 3: Overlap and Context Windows**
-I tried 512-token chunks with 128-token overlap. This helped preserve context across chunk boundaries but ballooned my index to 2,847 chunks (from 1,195). Qdrant now consumed 2.3GB of RAM instead of 840MB. My poor Raspberry Pi 4 (4GB model) started swapping to disk.
+I tried 512-token chunks with 128-token overlap. This helped preserve context across chunk boundaries. With a 512-token chunk and 128 of overlap the stride is 384, so it took the index from 1,195 chunks to about 1,594 — a third more, not the doubling I'd braced for.
 
 But it worked better. Retrieval relevance jumped. I started getting 6-7 relevant documents out of 10 retrieved, compared to 3 out of 12 before. Query latency crept up to 2.4 seconds due to the larger index, but the answers were accurate enough to be useful.
 
 **The Embedding Model Saga**
 I initially used `text-embedding-ada-002` from OpenAI. It worked fine for general content but struggled with my technical documentation. Specific model numbers, version strings, and command-line flags didn't embed well. The semantic similarity scores for clearly related documents were inconsistent, ranging from 0.71 to 0.89 for things I knew were connected.
 
-I switched to `text-embedding-3-small` recently when OpenAI released it. Better results, faster processing (about 1,200 tokens/second vs 890), and cheaper costs ($0.02 per million tokens vs $0.10). Re-embedding my entire knowledge base took 43 minutes and cost me $12.40.
+I switched to `text-embedding-3-small` recently when OpenAI released it. Better results and cheaper ($0.02 per million tokens vs $0.10). Re-embedding the entire knowledge base cost about a penny. Embedding pricing is not the interesting constraint here, and I'd assumed it would be.
 
 The new embeddings improved retrieval. Semantic search now averaged 1.8 seconds with better precision. Documents I knew were related had similarity scores clustered between 0.82 and 0.94, much tighter distribution.
 
@@ -83,9 +83,9 @@ After those early failures, I learned that RAG systems need careful orchestratio
 
 **Semantic Search:** Vector embeddings enabled finding relevant content even when query terms didn't match document text exactly. When I asked "What's eating all my RAM?", the system correctly retrieved documentation about memory-intensive processes even though those docs didn't contain the phrase "eating all my RAM."
 
-**Hybrid Approaches:** I added basic keyword matching on top of semantic search. This caught proper nouns and specific version numbers that embeddings sometimes missed. For example, searching for "CVE-2024-3400" now does exact string matching first, then semantic search. Recall improved from 73% to 87% on my test set of 50 queries.
+**Hybrid Approaches:** I added basic keyword matching on top of semantic search. This caught proper nouns and specific version numbers that embeddings sometimes missed. For example, searching for a specific CVE identifier now does exact string matching first, then semantic search. Recall improved noticeably on my 50-query test set — I didn't instrument it well enough to give you a number I'd defend.
 
-**Metadata Filtering:** I tagged documents with creation date, document type (config, troubleshooting, architecture), and which service they related to (networking, storage, compute, security). This cut irrelevant results. A query about "Prometheus configuration" could filter to docs tagged with "monitoring" and "config", reducing the search space from 2,847 chunks to 183.
+**Metadata Filtering:** I tagged documents with creation date, document type (config, troubleshooting, architecture), and which service they related to (networking, storage, compute, security). This cut irrelevant results. A query about "Prometheus configuration" could filter to docs tagged with "monitoring" and "config", reducing the search space from about 1,594 chunks to 183.
 
 **Reranking:** I tried using a cross-encoder model to rerank the top 20 results from vector search, keeping only the top 5 for the LLM. This added 340ms of latency but improved response quality. I'm not sure it's worth the tradeoff, honestly. Still testing this as of early April 2024.
 
@@ -163,9 +163,9 @@ Production-level performance required optimization:
 
 ### Retrieval Performance
 
-**Vector Database Selection:** I chose Qdrant for its Python client and ease of self-hosting. It runs on my Intel i9-9900K workstation (not the Pi, that was too slow). Qdrant handles my 2,847 chunks with 1.8-second average query latency. I haven't tested other vector DBs like Weaviate or Pinecone, so I can't compare performance.
+**Vector Database Selection:** I chose Qdrant for its Python client and ease of self-hosting. It runs on my Intel i9-9900K workstation (not the Pi, that was too slow). Qdrant handles the index in single-digit milliseconds — at this size it barely has to work. The ~1.8 seconds I spent months attributing to "search" was the round trip to OpenAI to embed the query. I had been optimizing the wrong half of the pipeline. I haven't tested other vector DBs like Weaviate or Pinecone, so I can't compare performance.
 
-**Index Optimization:** Qdrant's default HNSW index settings worked fine for my 840MB index. I tried tuning the `m` and `ef_construct` parameters but didn't see meaningful improvements. Query latency varied between 1.6s and 2.2s depending on query complexity, which was acceptable for my use case.
+**Index Optimization:** Qdrant's default HNSW settings worked fine. I tried tuning `m` and `ef_construct` and saw no meaningful improvement, which in hindsight is exactly what you'd expect from an index this small — those parameters don't start mattering until you have orders of magnitude more vectors.
 
 **Caching Strategies:** I added a simple LRU cache (50 entries) for frequently asked questions. Cache hits return results in 0.3 seconds (just generation, no retrieval). My cache hit rate is about 18% based on one week of usage. Not amazing but better than nothing.
 
@@ -189,7 +189,7 @@ Even after weeks of optimization, persistent challenges remain:
 
 **Knowledge Conflicts:** When my documentation contradicts itself (old notes vs. new notes), the system sometimes picks the wrong version despite my "prefer newer docs" prompt instruction. I need better deduplication and conflict resolution, but I'm not sure how to implement it.
 
-**Computational Overhead:** Running Qdrant uses about 2.3GB RAM constantly. Each query costs $0.008 in OpenAI API fees (embedding the query + LLM generation). For 100 queries, that's $0.80. Not expensive for personal use but would add up at scale.
+**Computational Overhead:** Each query carries roughly 8,400 tokens of retrieved context into the model, so the generation call dominates the cost — the embedding side is rounding error. Not expensive for personal use but would add up at scale.
 
 **Knowledge Gaps:** If information doesn't exist in my knowledge base, RAG can't help. I asked about a new Proxmox feature I hadn't documented yet. The system said "I don't have information about this," which was correct but not helpful. I still had to look it up manually.
 
@@ -201,7 +201,7 @@ Current research is addressing some of these limitations, though I haven't imple
 
 **Learned Retrieval:** Neural networks that learn optimal retrieval strategies based on task-specific objectives rather than generic similarity. Papers like "DSI: Differentiable Search Index" look interesting but seem complex to implement. I haven't tried this.
 
-**Real-Time Updates:** Systems that incorporate new information without full reindexing. Right now I manually re-index when I update docs. Incremental indexing would be better but Qdrant's documentation on this is sparse.
+**Real-Time Updates:** Systems that incorporate new information without full reindexing. Right now I manually re-index when I update docs. Incremental indexing would be better — Qdrant supports point-level upsert and delete, I just never wired it up.
 
 **Reasoning-Guided Retrieval:** Using the LLM's reasoning to guide more targeted retrieval. I tried a basic version (see Multi-Step Reasoning above) but it was too slow. Better implementations might use smaller, faster models for the reasoning step.
 
@@ -217,7 +217,7 @@ If you're building a RAG system, here's what I learned the hard way:
 
 **Curate Content:** I spent hours cleaning up my knowledge base and it was worth every minute. Garbage documentation means garbage retrieval, regardless of how sophisticated your embeddings are.
 
-**Plan for Scale:** I didn't anticipate that my index would grow from 840MB to 2.3GB after adding chunking overlap. Make sure your infrastructure can handle 2-3x growth.
+**Check your assumptions about size.** I spent real effort planning for index growth that never materialised — at this corpus size the vectors are megabytes, not gigabytes, and the constraint was somewhere else entirely.
 
 **User Feedback Loops:** I should've built a simple thumbs-up/thumbs-down button for each response from the start. Would've helped identify which queries work well and which don't. Added this in week three but wish I'd done it earlier.
 
@@ -238,9 +238,9 @@ The implementation took about three weeks of evenings and weekends in March and 
 - Prompt engineering for better source attribution (7 hours)
 - Building the query interface and caching layer (10 hours)
 
-Total cost: $47.80 in OpenAI API fees for embedding generation, testing, and ongoing usage.
+Cost: dominated by generation calls during testing, not by embedding.
 
-Was it worth it? Yes. I've used the system 230+ times since deploying it in early April. It saves me maybe 5-10 minutes per query compared to manual documentation searching. That's 19-38 hours saved, which justifies the development time.
+Was it worth it? Ask me in six months. Against roughly 36 hours of build time, it saves maybe 5-10 minutes a query, so it needs a few hundred queries before it breaks even. It's too early to claim it has.
 
 The future of RAG probably involves better retrieval methods, multimodal understanding, and tighter integration with reasoning systems. But even the current implementation with straightforward semantic search and basic prompting delivers real value.
 

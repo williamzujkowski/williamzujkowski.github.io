@@ -1,18 +1,14 @@
 ---
 
 date: 2024-12-03
-description: Understand LLM context windows from 2K to 2M tokens—optimize model performance and prevent hallucinations at 28K token boundaries.
+description: What context windows actually cost in memory and latency, why capacity and recall are different things, and where retrieval beat a bigger window in my homelab.
 title: 'Context Windows in Large Language Models: The Memory That Shapes AI'
 tags:
   - ai
   - architecture
   - programming
 ---
-In November 2024, I ran an experiment in my homelab that completely changed how I think about context windows. I fed a 47,000-token codebase to Llama 3 70B running on my RTX 3090. Everything worked beautifully until around token 28,000.
-
-Then I watched the model's responses degrade in real time. Function names got confused. Variable references became inconsistent. The model started hallucinating code that didn't exist in the original files.
-
-I spent six hours optimizing prompts and adjusting parameters before realizing the brutal truth: the model just couldn't handle that much context. The 8K context window wasn't a guideline. It was a hard limit.
+In late 2024 I tried to hand a large codebase to a locally-hosted model and spent an evening working out why the answers kept drifting. The lesson turned out to be one I had to learn twice: a context window is a hard ceiling, and everything below the ceiling is not equally well remembered. Those are two separate problems, and I'd been treating them as one.
 
 That night of frustration taught me more about context windows than any research paper ever could. A context window represents the amount of text a language model can "see" and consider simultaneously when generating responses. Think of it as the model's short-term memory.
 
@@ -31,7 +27,7 @@ The computational resources required for these operations increase quadratically
 
 That's computationally infeasible with traditional approaches. I learned this the hard way when testing Claude 3 Opus in December 2024.
 
-I threw a 150,000-token dataset at it (well within its 200K limit) and watched my API costs explode. Each request took 23 seconds to process. The 200K context window is technically real, but practically speaking, it's probably only useful for 10% of real-world use cases.
+I threw a 150,000-token dataset at it (well within its 200K limit) and watched my API costs explode. Each request took 23 seconds to process. The 200K context window is technically real, and practically useful for a narrower set of jobs than the marketing suggests.
 
 ### What Consumes Context Space
 
@@ -41,9 +37,9 @@ Each element consumes valuable token space. When the limit is approached, models
 
 I tracked this precisely in my homelab testing. Using GPT-4 Turbo (128K context, released November 2023), I ran a 45-minute conversation about Kubernetes architecture.
 
-The conversation consumed tokens like this: first 10 messages (2,847 tokens), system prompt overhead (412 tokens), my uploaded cluster config (8,923 tokens), code examples in responses (14,556 tokens), totaling 47,891 tokens by message 30.
+The conversation consumed tokens like this: first 10 messages (2,847 tokens), system prompt overhead (412 tokens), my uploaded cluster config (8,923 tokens), code examples in responses (14,556 tokens), totaling 26,738 tokens by message 30.
 
-By message 45, we hit 89,234 tokens. The model started dropping details about my initial cluster setup. It wasn't being forgetful. It was running out of room.
+By message 45 we hit 89,234 tokens — still only about 68% of a 128K window, so nothing was being evicted. The model lost the thread anyway. Capacity and recall are not the same thing, and that distinction cost me an afternoon.
 
 ### The Tokenization Challenge
 
@@ -67,15 +63,15 @@ These constraints were brutal. Analyzing a full research paper? Impossible. I re
 
 ### Meaningful Progress (2020-2022)
 
-GPT-3 (June 2020) brought 2,048 tokens. LaMDA (May 2021) offered roughly 4,096 tokens. PaLM (April 2022) provided roughly 8,192 tokens.
+GPT-3 (June 2020) brought 2,048 tokens. LaMDA (May 2021) offered roughly 4,096 tokens. PaLM (April 2022) was trained at a sequence length of 2,048 tokens.
 
 This period enabled more sophisticated conversations and document analysis, though lengthy materials still required segmentation and processing in chunks. I tested PaLM in late 2022 and could finally fit entire configuration files (around 6,000 tokens) into context. After years of working within the constraints of 1K-2K windows, that felt like a huge step forward.
 
 ### Current Generation (2023-Present)
 
-Today's models can ingest entire books, large codebases, or comprehensive conversation histories. GPT-4 Turbo (November 2023) offers 128,000 tokens. Claude 3 Opus (March 2024) provides 200,000 tokens. Gemini 1.5 Pro (May 2024) reaches 1,000,000 tokens. Llama 3 70B (April 2024) offers 8,192 tokens, while Mistral 8x7B (December 2023) provides 32,768 tokens.
+Today's models can ingest entire books, large codebases, or comprehensive conversation histories. GPT-4 Turbo (November 2023) offers 128,000 tokens. Claude 3 Opus (March 2024) provides 200,000 tokens. Gemini 1.5 Pro (May 2024) reaches 1,000,000 tokens. Llama 3 70B (April 2024) offers 8,192 tokens, while Mixtral 8x7B (December 2023) provides 32,768 tokens.
 
-When Gemini 1.5 Pro launched with a million-token context in May 2024, I immediately tested it by uploading my entire homelab documentation (472,000 tokens). The model handled it without breaking a sweat. Performance degraded around token 750,000, but that's still mind-blowing compared to where we were in 2020.
+When Gemini 1.5 Pro was announced with a million-token context in February 2024, I immediately tested it by uploading my entire homelab documentation (472,000 tokens). The model handled it without breaking a sweat. Performance degraded around token 750,000, but that's still mind-blowing compared to where we were in 2020.
 
 ## Technical Challenges of Extended Context
 
@@ -89,7 +85,7 @@ That's clearly impractical with traditional methods. I tested this in December 2
 
 Processing at 4K tokens? GPU utilization sat at 76%, inference took 1.2 seconds. Processing at the full 8K? GPU utilization maxed at 98%, inference jumped to 4.7 seconds.
 
-That's nearly 4x the compute time for 2x the context. Quadratic complexity isn't theoretical. It's the reason my electricity bill went up $43 that month.
+That's nearly 4x the time for 2x the context — more than quadratic attention alone predicts at this length, where attention is a minority of the work. Memory pressure was doing most of it. It's the reason my electricity bill went up $43 that month.
 
 Several innovations help address this:
 
@@ -97,15 +93,15 @@ Several innovations help address this:
 
 **Hierarchical processing**: Systems process text in chunks, creating summary representations handled more efficiently at higher levels. This probably works better than raw context expansion for most use cases.
 
-**Efficient implementations**: Techniques like FlashAttention optimize memory access patterns, significantly reducing resource requirements. FlashAttention 2 (July 2023) cut my inference times by roughly 30% when I tested it in November 2024.
+**Efficient implementations**: Techniques like FlashAttention optimize memory access patterns, significantly reducing resource requirements. FlashAttention 2 (July 2023) helps most where attention dominates, which is training and long prefill rather than single-user decode — decode is bound by weight bandwidth, which is why Flash-Decoding exists as a separate thing.
 
 **Alternative architectures**: State space models like Mamba (December 2023) achieve linear scaling while maintaining competitive performance. I tried Mamba 2.8B in my homelab. Performance was decent, but the model quality didn't match Llama 3 for my use cases.
 
 ### Memory Requirements
 
-Long sequences create substantial memory demands. Each token typically requires 128-256 floating-point values for representation. A million-token context translates to gigabytes of memory just for maintaining model state.
+Long sequences create substantial memory demands. KV cache is what actually costs you: 2 (keys and values) x layers x kv_heads x head_dim x 2 bytes per token. For a 70B with grouped-query attention that's around 320 KiB per token, so a million-token context is roughly 320 GB of cache. This is why million-token windows are a datacenter feature rather than a homelab one.
 
-My RTX 3090 has 24GB of VRAM. Running Llama 3 70B in 4-bit quantization with an 8K context? The model consumed 18.7GB at idle and peaked at 22.3GB during inference.
+My RTX 3090 has 24GB of VRAM, and that number decides what runs. A 70B at 4-bit is about 35GB of weights before any KV cache, so it simply doesn't fit — anything that appears to be running one on a single 24GB card is either offloading to system RAM or quantized far below 4 bits, and both cost you more than the VRAM they save.
 
 I had roughly 1.7GB of headroom. Expanding to a hypothetical 16K context would have pushed me past my VRAM limit, forcing me to offload to system RAM and destroying performance. Memory isn't just a theoretical constraint. It's the physical limit that determines what I can actually run.
 
@@ -165,7 +161,7 @@ Summarizing or compressing less-relevant portions allows more information within
 
 These techniques can effectively increase contextual information by 2-10x without expanding raw token count.
 
-I tested this in December 2024 by creating a simple compression pipeline for my homelab logs. Original logs: 156,000 tokens. After removing timestamps, deduplicating similar entries, and summarizing routine events: 28,400 tokens. That's an 81% reduction while preserving all meaningful information. The compressed version fit comfortably in Llama 3's 8K context window and allowed for much faster analysis.
+I tested this in December 2024 by creating a simple compression pipeline for my homelab logs. Original logs: 156,000 tokens. After removing timestamps, deduplicating similar entries, and summarizing routine events: 28,400 tokens. That's an 81% reduction — and still roughly three and a half times too big for an 8K window. I'd solved a smaller problem than I thought, which is worth saying because the reduction number looks like a win on its own.
 
 ### Dynamic Context Management
 
@@ -194,7 +190,7 @@ By storing information externally and retrieving only what's needed:
 
 This effectively bypasses fixed context limitations while maintaining relevance.
 
-I built a RAG system in November 2024 using Qdrant for vector storage and Llama 3 8B for embeddings. My entire homelab knowledge base (612,000 tokens) got indexed. Query time averaged 1.8 seconds. Compare that to trying to load the entire knowledge base into context, which would have been impossible with most models and prohibitively expensive with the ones that could handle it. RAG isn't just a clever workaround. For many use cases, it's genuinely better than massive context windows.
+I built a RAG system in November 2024 using Qdrant for vector storage and a dedicated embedding model. My entire homelab knowledge base (612,000 tokens) got indexed. Query time averaged 1.8 seconds. Compare that to trying to load the entire knowledge base into context, which would have been impossible with most models and prohibitively expensive with the ones that could handle it. RAG isn't just a clever workaround. For many use cases, it's genuinely better than massive context windows.
 
 ## Future Directions and Innovations
 
@@ -257,7 +253,7 @@ As we look toward future developments, the question isn't simply "how large can 
 
 The future of AI systems lies not just in expanding memory but in developing increasingly sophisticated approaches to attention, relevance, and information management. We need systems that can effectively navigate the rich, complex contexts where human language and thought occur.
 
-After three months of intensive testing in my homelab (September through December 2024), here's what I've learned: context windows matter enormously, but they're not the whole story. A well-designed RAG system with an 8K context window often outperforms a naive implementation with 200K context. The million-token context windows are impressive technically, but for 90% of real-world use cases, they're solving the wrong problem. The real challenge isn't fitting more tokens into context. It's [intelligently selecting which tokens deserve to be there](/posts/2025-10-17-progressive-context-loading-llm-workflows).
+After three months of intensive testing in my homelab (September through November 2024), here's what I've learned: context windows matter enormously, but they're not the whole story. A well-designed RAG system with an 8K context window often outperforms a naive implementation with 200K context. The million-token context windows are impressive technically, but for most of what I actually do, they're solving the wrong problem. The real challenge isn't fitting more tokens into context. It's [intelligently selecting which tokens deserve to be there](/posts/2025-10-17-progressive-context-loading-llm-workflows).
 
 ---
 
