@@ -14,7 +14,7 @@ tags:
 ---
 ## The AI Revolution Hits Home
 
-I run Llama 3.1 70B in my [homelab](/posts/2025-04-24-building-secure-homelab-adventure) on an RTX 3090 (24GB VRAM, 4-bit quantization). It took me embarrassingly long to stop treating it like a chatbot and start treating it like what it actually is: a process with network access, disk access, and occasionally opinions about running arbitrary code. Running [AI experiments](/posts/2025-06-25-local-llm-deployment-privacy-first) at home created unique security and privacy challenges I didn't anticipate. This post shares practical approaches to securing personal AI/ML deployments, learned through successes and carefully contained failures.
+I run local models in my [homelab](/posts/2025-04-24-building-secure-homelab-adventure) on an RTX 3090. Twenty-four gigabytes sets a real ceiling: a 4-bit 32B model fits with room for context, and a 70B does not — 70 billion parameters at half a byte each is 35 GB of weights before you have loaded a single token of KV cache. It took me embarrassingly long to stop treating it like a chatbot and start treating it like what it actually is: a process with network access, disk access, and occasionally opinions about running arbitrary code. Running [AI experiments](/posts/2025-06-25-local-llm-deployment-privacy-first) at home created unique security and privacy challenges I didn't anticipate. This post shares practical approaches to securing personal AI/ML deployments, learned through successes and carefully contained failures.
 
 **Key takeaway:** Model isolation, [network segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab), and privacy controls turn experimental AI systems into production-safe infrastructure.
 
@@ -24,19 +24,17 @@ I run Llama 3.1 70B in my [homelab](/posts/2025-04-24-building-secure-homelab-ad
 To run the code examples in this post, you'll need to install the following packages:
 
 ```bash
-pip install GPUtil cryptography hashlib keyring logging psutil torch
+pip install cryptography keyring psutil torch nvidia-ml-py
 ```
 
 Or create a `requirements.txt` file:
 
 ```text
-GPUtil
 cryptography
-hashlib
 keyring
-logging
 psutil
 torch
+nvidia-ml-py
 ```
 
 ## Why Security Matters for Personal AI Projects
@@ -69,15 +67,72 @@ AI experiments get their own VLAN with strict firewall rules:
 
 Running LLMs locally (like LLaMA or Mistral) requires special consideration:
 
-### Safe Model Loading
+### Model loading is the dangerous part
 
-🔖 [Safe local LLM model loading workflow ↗](https://gist.github.com/williamzujkowski/139b291b7ab1aaf8188ae9d66370a018)
+The thing to understand before writing any of this: **`torch.load` unpickles, and
+unpickling is arbitrary code execution.** PyTorch flipped the default to
+`weights_only=True` in 2.6 precisely because the unconstrained unpickler can call
+arbitrary functions. A downloaded checkpoint from a stranger is a program, not
+data.
 
-### Prompt Injection Protection
+Two rules follow.
 
-When building AI applications, protecting against prompt injection is crucial:
+**Prefer safetensors.** The format exists specifically because this problem
+exists. If a torch checkpoint is unavoidable, pass `weights_only=True` explicitly
+rather than relying on your installed version's default.
 
-🔖 [Prompt injection protection examples ↗](https://gist.github.com/williamzujkowski/5c97f26a169c386e822ffe9a77e48507)
+**Make hash verification fail closed.** This is the trap worth flagging loudly,
+because it is easy to write and looks correct:
+
+```python
+expected = trusted_hashes.get(model_path.name)
+if expected and computed != expected:      # wrong
+    raise ValueError("checksum mismatch")
+return True
+```
+
+An unknown model has no entry, so `expected` is `None`, the comparison is
+skipped, and the function returns success. If the hash file does not exist at
+all, *every* model verifies. A checker that passes everything it does not
+recognise is worse than no checker, because you stop looking at that step. The
+correct shape:
+
+```python
+expected = trusted_hashes.get(model_path.name)
+if expected is None:
+    raise ValueError(f"No trusted hash on record for {model_path.name}")
+if computed != expected:
+    raise ValueError(f"Checksum mismatch for {model_path.name}")
+```
+
+The same applies to path handling: resolve against a base directory and check
+containment (`Path(base).resolve()`, then `is_relative_to`). String-replacing
+`../` does not work, because `....//` collapses back to `../` after one pass.
+
+### Prompt injection: what you can and cannot do about it
+
+There is no reliable filter-based defence against prompt injection. A blocklist
+of phrases like "ignore previous instructions" is defeated by paraphrase,
+translation, base64, or simply not using those words — and it produces immediate
+false positives, since a blocklist containing "system prompt" refuses anyone who
+asks what a system prompt is.
+
+An input filter also only ever sees the user's prompt. The variety that actually
+threatens a homelab RAG setup is **indirect** injection, arriving in a retrieved
+document, a fetched web page, or a tool's output. Nothing inspecting the user's
+typing sees it at all.
+
+So treat this as an architecture problem rather than a filtering one, which is
+also [OWASP's position](https://owasp.org/www-project-top-10-for-large-language-model-applications/):
+
+- The model gets no credentials worth stealing.
+- The model's network egress is restricted, so an injected instruction has
+  nowhere to send anything.
+- Any tool with a consequential side effect requires human confirmation.
+- All model output is treated as untrusted input to whatever consumes it.
+
+A phrase blocklist is still worth having as a crude tripwire that tells you
+someone is probing. Do not mistake it for a control.
 
 ## Monitoring AI Resource Usage
 
@@ -146,8 +201,7 @@ Essential tools for secure AI experimentation:
 
 - **Docker/Podman**: Container isolation
 - **[LocalAI](/posts/2025-10-29-privacy-first-ai-lab-local-llms)**: Run LLMs locally
-- **Ollama**: Easy local model management
-- **MindsDB**: Secure AI database layer
+- **Ollama**: easy local model management — but it binds with **no authentication** by default, so keep it on localhost or behind something that authenticates. [CVE-2024-37032](https://nvd.nist.gov/vuln/detail/CVE-2024-37032) (path traversal to RCE, CVSS 8.8) was fixed in 0.1.34; do not run older than that
 - **Netdata**: Real-time performance monitoring
 
 ## Future Plans
@@ -179,11 +233,9 @@ When properly secured, AI becomes a powerful tool for learning and creativity ra
 
 For more in-depth information on the topics covered in this post:
 
-- [Papers with Code](https://paperswithcode.com/)
+- [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
 - [arXiv AI Research](https://arxiv.org/list/cs.AI/recent)
-[NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
-
-[OWASP Top 10](https://owasp.org/www-project-top-ten/)
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
 
 
 ---

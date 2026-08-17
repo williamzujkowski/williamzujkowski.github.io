@@ -45,12 +45,15 @@ Container security isn't binary. You can't just "enable security" and assume you
 
 ## Layer 1: Minimal Base Images
 
-| Image | Size | Contents | CVE Count | Build path |
-|---|---:|---|---:|---|
-| Ubuntu Base | 72 MB | OS libraries, package manager, shell, utilities, application | 43 | Source stage |
-| Distroless | 12 MB | Minimal runtime, application | 2 | Multi-stage output |
+The usual argument for distroless is size, and for JVM images that argument does
+not survive checking. `ubuntu:22.04` is about 28 MB compressed;
+`gcr.io/distroless/java17-debian12` is about 79 MB compressed across 35 layers,
+one of which is a 64 MB JRE. The distroless image is the larger of the two.
 
-Smaller images = smaller attack surface. I switched from full OS base images to distroless containers.
+The reason to use it is the one that actually holds: **it has no shell and no
+package manager.** An attacker with code execution in a distroless container has
+no `sh`, no `apt`, no `curl` to pull a second stage with. That is a real
+reduction in what a foothold is worth, and it has nothing to do with megabytes.
 
 **Attack stopped:** A recent supply chain backdoor didn't exist in my distroless containers because they lack package managers, shells, and unnecessary binaries.
 
@@ -68,7 +71,7 @@ FROM gcr.io/distroless/java17-debian12
 
 ```dockerfile
 # Multi-stage build for minimal production image
-FROM maven:3.9-openjdk-17 AS builder
+FROM maven:3.9-eclipse-temurin-17 AS builder
 COPY . /app
 WORKDIR /app
 RUN mvn clean package -DskipTests
@@ -94,7 +97,13 @@ trivy image gcr.io/distroless/java17-debian12
 
 Docker containers run as root by default. User namespaces map container root (UID 0) to unprivileged user (UID 100000+) on host.
 
-**Attack stopped:** Container breakout attempt via `/proc/self/setgroups` failed because container root had no actual privileges on host filesystem.
+What this buys you: container UID 0 is an unprivileged UID on the host, so a
+process that escapes the container's filesystem confinement arrives on the host
+as nobody in particular.
+
+What it costs: `userns-remap` is mutually exclusive with `--privileged`,
+`--network=host`, `--pid=host`, and most external volume plugins. If you need any
+of those for a given container, this layer is not available to it.
 
 **Enable user namespace remapping** in `/etc/docker/daemon.json`:
 
@@ -104,7 +113,7 @@ Docker containers run as root by default. User namespaces map container root (UI
 }
 ```
 
-Restart Docker (`sudo systemctl restart docker`). Docker creates the `dockremap` user and maps container UID 0 to an unprivileged host UID (starting at 100000 from `/etc/subuid`).
+Restart Docker (`sudo systemctl restart docker`). Docker creates the `dockremap` user and maps container UID 0 to an unprivileged host UID, taken from whatever range `/etc/subuid` allocates it — commonly 165536 if 100000–165535 is already spoken for. Check your own `/etc/subuid` rather than assuming.
 
 **Validation:**
 
@@ -124,7 +133,12 @@ ps aux | grep container-process
 
 Seccomp (secure computing) filters block dangerous system calls. Docker includes default profile that blocks ~44 dangerous syscalls.
 
-**Attack stopped:** Exploit attempting to call `create_module()` syscall (loads kernel modules) was blocked by seccomp, preventing privilege escalation.
+Docker's default seccomp profile already blocks around 44 of the 300+ available
+syscalls, which is a meaningful baseline before you write anything. A custom
+profile is worth building only once you can enumerate what your workload actually
+calls — and it is worth saying that `SCMP_ACT_ERRNO` returns EPERM to the process
+with no kernel or daemon log entry, so a seccomp denial will not appear in
+`journalctl`. To observe them you need `SCMP_ACT_LOG` plus auditd.
 
 For web applications, start from Docker's default profile and tighten it. Apply a custom profile with `--security-opt`, then generate the allowlist from a real syscall trace (both shown below).
 
@@ -169,9 +183,15 @@ profile docker-nginx flags=(attach_disconnected,mediate_deleted) {
   /var/log/nginx/** w,
   /var/cache/nginx/** rw,
 
-  # Deny the host paths a compromised container would target
-  deny /etc/** rwklx,
-  deny /proc/sys/** wklx,
+  # nginx needs these to start at all
+  /etc/nginx/** r,
+  /etc/passwd r,
+  /etc/group r,
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+
+  deny /etc/shadow rwklx,
+  deny @{PROC}/sys/** wklx,
   deny /sys/** wklx,
 }
 ```
@@ -184,41 +204,61 @@ sudo apparmor_parser -r /etc/apparmor.d/docker-nginx
 
 # Run container with profile
 docker run \
-  --security-opt apparmor:docker-nginx \
+  --security-opt apparmor=docker-nginx \
   nginx:alpine
 ```
+
+A caution on scope, because it is easy to write a profile that does nothing you
+think it does: AppArmor resolves paths **in the container's mount namespace**.
+`/etc` inside the container is the image's `/etc`, not the host's. A rule denying
+`/etc/**` does not protect host SSH keys — those are not reachable from the
+container in the first place unless you bind-mounted them. Deny rules also
+override any allow, including the ones `abstractions/base` pulls in, which is why
+a blanket `deny /etc/**` stops nginx from starting rather than hardening it.
 
 **Profile testing:**
 
 ```bash
-# Test profile enforcement
-docker exec container-name cat /etc/shadow
-# cat: /etc/shadow: Permission denied
+# Confirm the profile is actually loaded and enforcing
+sudo aa-status | grep docker-nginx
 
-# Check AppArmor logs
+# Then trigger a denial you expect, and look for it
+docker exec container-name cat /etc/shadow
 sudo dmesg | grep DENIED
 ```
+
+Check `aa-status` first. A container with no profile loaded fails most casual
+tests identically to one that is fully protected, so a test that passes against
+both proves nothing.
 
 **Maintenance overhead:** AppArmor profiles require updates when applications change file access patterns. Plan for ongoing maintenance.
 
 ## Layer 5: Capability Dropping
 
-Linux capabilities split root privileges into fine-grained permissions. Docker gives containers 14 capabilities by default, which is too many.
+Linux capabilities split root privileges into fine-grained permissions. Docker
+grants a container 14 of them by default, which is more than most workloads need.
 
-**Attack stopped:** Container trying to modify network interfaces (for container escape via host networking) failed because `CAP_NET_ADMIN` was dropped.
+It is worth knowing precisely which 14, because the two that get named as
+frightening in most write-ups are not among them. `CAP_NET_ADMIN` and
+`CAP_SYS_ADMIN` are both in Docker's *not granted by default* list — you have to
+ask for them with `--cap-add`. Dropping them achieves nothing, because you never
+had them.
 
-**Default Docker capabilities (dangerous):**
+**The actual default set:**
 
 ```bash
-# View default capabilities
-docker run --rm alpine sh -c 'apk add libcap && capsh --print'
-
-# Output shows 14 capabilities including:
-# CAP_NET_ADMIN (modify network config)
-# CAP_SYS_ADMIN (mount filesystems)
-# CAP_SETUID (change user ID)
-# CAP_SETGID (change group ID)
+docker run --rm --cap-drop=ALL alpine grep Cap /proc/self/status
 ```
+
+AUDIT_WRITE, CHOWN, DAC_OVERRIDE, FOWNER, FSETID, KILL, MKNOD,
+NET_BIND_SERVICE, NET_RAW, SETFCAP, SETGID, SETPCAP, SETUID, SYS_CHROOT.
+
+The two worth caring about there are **`NET_RAW`**, which lets a compromised
+container forge packets and spoof ARP or DNS for everything else on its network,
+and **`DAC_OVERRIDE`**, which lets container root ignore file permissions inside
+the image. Those are real defaults and dropping them is a real change. Add
+`--security-opt no-new-privileges=true` at the same time — it is the cheapest
+hardening flag Docker has and it breaks almost nothing.
 
 **Minimal capability set for web applications:**
 
@@ -301,16 +341,26 @@ docker network create \
   backend-network
 ```
 
-**Network policies with UFW:**
+**Do not reach for ufw here.** Docker diverts container traffic in the `nat`
+table before it reaches the `INPUT` and `OUTPUT` chains ufw manages, so ufw
+rules about published ports do nothing — Docker's own
+[packet filtering documentation](https://docs.docker.com/engine/network/packet-filtering-firewalls/)
+says so directly. A ufw rule here reads as a control and is not one, which is
+worse than having no rule at all.
+
+The chain Docker guarantees is evaluated before its own rules is `DOCKER-USER`:
 
 ```bash
-# Block container-to-host access
-sudo ufw deny in on docker0 to any port 22
-sudo ufw deny in on docker0 to any port 3389
-
-# Allow only specific inter-container communication
-sudo ufw allow from 172.20.1.0/24 to 172.20.2.0/24 port 5432
+# Block container-to-host SSH
+iptables -I DOCKER-USER -i docker0 -p tcp --dport 22 -j DROP
 ```
+
+Note also what Docker networks can and cannot express. Containers on the same
+bridge network reach each other on **every** port; containers on different
+networks reach each other on none. There is no per-port policy between
+containers, so "allow the API to reach the database on 5432 and nothing else"
+is not something you can configure at this layer. Separate networks and
+`--internal` are the tools you actually have.
 
 **Monitoring:** Use `iftop` and `netstat` to verify expected traffic patterns between containers.
 
@@ -370,7 +420,7 @@ After implementing all eight layers across 47 containers:
 
 **Security improvements:**
 
-- **Attack surface reduction:** 89% fewer CVEs (average per container)
+- **Attack surface reduction:** no shell and no package manager in the runtime image, so a foothold has nothing to pivot with
 - **Privilege escalation prevention:** 0 successful escapes in 8 months
 - **Lateral movement blocking:** Network segmentation stopped 12 attempted pivots
 - **Resource exhaustion prevention:** 3 DoS attempts contained within limits
@@ -384,7 +434,7 @@ After implementing all eight layers across 47 containers:
 
 **Operational complexity:**
 
-- **Profile maintenance:** 2 hours/week updating AppArmor profiles
+- **Profile maintenance:** AppArmor and seccomp profiles need revisiting whenever the application's behaviour changes
 - **Image building:** +45% build time (multi-stage minimal images)
 - **Debugging difficulty:** Requires new toolchain (no shell access)
 
@@ -412,7 +462,7 @@ Security hardening is useless without visibility. Monitor each defensive layer:
 # Monitor denials
 sudo dmesg | grep DENIED | grep apparmor
 # or use auditd for structured logging
-sudo aureport --apparmor
+sudo aureport --avc
 ```
 
 **Seccomp violations:**
@@ -447,13 +497,13 @@ I use Prometheus + Grafana to visualize security metrics with alerts for any pol
 
 **Simplicity vs Defense-in-Depth:** Single-layer security (just AppArmor) would be easier to manage but provides limited protection. Multiple layers create operational burden but prevent single points of failure.
 
-**Cost vs Coverage:** Full implementation took 40 hours across 47 containers. Ongoing maintenance requires 3-4 hours/week. Investment justified by zero successful attacks.
+**Cost vs coverage:** the profile-maintaining layers (seccomp, AppArmor) are where the ongoing time goes; the rest are set once and forgotten. If you only adopt four of the eight, take user namespaces, `--cap-drop=ALL`, read-only rootfs and resource limits — they are close to free.
 
 ## Looking Forward
 
 Container security continues evolving. Future enhancements I'm testing:
 
-**gVisor:** User-space kernel for stronger container isolation (50% performance penalty for 90% attack surface reduction)
+**gVisor:** user-space kernel for stronger container isolation. Overhead is workload-dependent — near-native on CPU-bound work, considerably worse on syscall-heavy work
 
 **Falco:** Runtime security monitoring for anomaly detection (behavior-based threat detection)
 
@@ -469,7 +519,7 @@ Single-layer container security fails against determined attackers. Defense-in-d
 
 Implementation requires careful planning and testing. Start with least disruptive layers (minimal images, resource limits) and gradually add more restrictive controls. Monitor everything and be prepared for operational complexity.
 
-Eight defensive layers stopped 19 real attacks in my homelab. Zero successful container escapes in 8 months. The security improvements justify the operational investment.
+Eight layers, of which the ones that reliably earn their keep are user namespaces, capability dropping, read-only root filesystems and resource limits. The seccomp and AppArmor layers are worth having and cost the most to maintain. Network segmentation is worth having and is the one most often configured into something that does nothing.
 
 Your containers are targets. Harden them accordingly.
 
@@ -479,4 +529,4 @@ Your containers are targets. Harden them accordingly.
 - **CIS Docker Benchmarks:** [Docker CE Security Configuration](https://www.cisecurity.org/benchmark/docker)
 - **Docker Security Best Practices:** [Official Documentation](https://docs.docker.com/engine/security/)
 - **AppArmor Container Profiles:** [Ubuntu Documentation](https://ubuntu.com/server/docs/security-apparmor)
-- **Seccomp Profile Examples:** [Moby Project Repository](https://github.com/moby/moby/tree/master/profiles/seccomp)
+- **Seccomp Profile Examples:** [moby/profiles](https://github.com/moby/profiles/tree/main/seccomp)
