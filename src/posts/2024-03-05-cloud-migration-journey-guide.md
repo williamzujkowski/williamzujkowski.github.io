@@ -12,7 +12,7 @@ Years ago, I stood in a data center, warm air flowing from countless machines, c
 
 That moment crystallized the need for cloud migration, but the journey that followed taught me as much about organizational change management as it did about technology. Moving to the cloud isn't just a technical transformation. It's a fundamental shift in how we think about infrastructure, reliability, and scale.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/cloud-migration.png'); width: min(240px, 62%); aspect-ratio: 520/577; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/cloud-migration.png'); width: min(240px, 62%); aspect-ratio: 400/442; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">up and to the right, literally</p>
 
 ## The Catalyst: Why Migration Became Necessary

@@ -15,7 +15,7 @@ Both are correct. They are also, literally, the opposite advice.
 
 This is the squeeze defenders are living in now, and "balance speed and safety" is not a strategy. Below is what's actually going on, and what I'm doing about it in the homelab.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/patch-fast.png'); width: min(240px, 62%); aspect-ratio: 340/325; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/patch-fast.png'); width: min(240px, 62%); aspect-ratio: 400/373; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">patch fast, outrun the bug</p>
 
 ## The Left Tab: AI Bugs and the Pile-On
