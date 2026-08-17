@@ -14,9 +14,9 @@ tags:
 ## The Dependency That Haunted Me
 
 
-I built an automated security pipeline that scans every commit with Grype, OSV-Scanner, and Trivy. The result: 69% faster builds (6.5min → 2min), 35% auto-remediation rate for vulnerabilities, and mean time to remediation dropping from 12 days to 4.2 days. Critical findings block deployment automatically.
+I built an automated security pipeline that scans every commit with Grype, OSV-Scanner, and Trivy. Tuning the three scanners cut their combined runtime from 6m 30s to 2m, and `npm audit fix` clears a useful share of findings without human involvement. Two of the three scanners fail their own job on a critical finding; the third is advisory, and the final aggregate gate is still a stub I have not implemented.
 
-**Why it matters:** Last year, I deployed a "simple" web app to my homelab. Three months later, a critical vulnerability (CVE-2023-XXXXX) was discovered in a nested dependency I didn't even know existed. The vulnerable code ran in my homelab for 90 days before I found out from a security scanner. Hope is not a security strategy.
+**Why it matters:** Last year, I deployed a "simple" web app to my homelab. Three months later, a critical vulnerability was discovered in a nested dependency I didn't even know existed. The vulnerable code ran there for months before a scanner told me. Hope is not a security strategy.
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/scan-pipeline.png'); width: min(240px, 62%); aspect-ratio: 340/332; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">each pass finer than the last</p>
@@ -34,9 +34,9 @@ I built an automated security pipeline that scans every commit with Grype, OSV-S
   <div class="flow-node">Build Stage</div>
   <div class="flow-node">Test Stage</div>
   <div class="flow-node is-gate">Security Scan Stage</div>
+  <div class="flow-node"><b>OSV-Scanner</b><i>dependency scanning — runs first</i></div>
   <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>Grype</b><i>container scanning</i></div>
-    <div class="flow-node"><b>OSV-Scanner</b><i>dependency scanning</i></div>
     <div class="flow-node"><b>Trivy</b><i>multi-scanner</i></div>
   </div>
   <div class="flow-node">SARIF Reports</div>
@@ -47,12 +47,12 @@ I built an automated security pipeline that scans every commit with Grype, OSV-S
   </div>
   <div class="flow-node is-gate">Quality Gates</div>
   <div class="flow-branch" role="group" aria-label="Branch outcomes">
-    <div class="flow-leg" data-branch="Critical" role="group" aria-label="Critical"><div class="flow-node is-bad">Block on Critical</div></div>
+    <div class="flow-leg" data-branch="Critical" role="group" aria-label="Critical"><div class="flow-node is-bad">OSV / Grype fail their job</div></div>
     <div class="flow-leg" data-branch="Review" role="group" aria-label="Review"><div class="flow-node">Manual Review</div></div>
   </div>
 </div>
 
-Today, every commit to my repositories is automatically scanned for vulnerabilities. Critical findings block deployment. Here's how I built it.
+Today, every commit to my repositories is automatically scanned for vulnerabilities. Here's how I built it — including the part that is not finished.
 
 ## Tool Selection and Comparison
 
@@ -70,7 +70,7 @@ This helps me focus on what actually matters instead of raw CVE counts.
 
 **My strategy:** Run all three, correlate findings, reduce false positives. When I tested this on my Python microservices project, Grype caught a critical vulnerability in a base image layer that OSV missed entirely.
 
-Meanwhile, OSV found a transitive npm dependency issue that Grype didn't detect. The overlap was only about 60%, which confirmed my suspicion that relying on a single scanner creates blind spots.
+Meanwhile, OSV found a transitive npm dependency issue that Grype didn't detect. Between them the two produced 16 distinct findings and agreed on only 4 of those — about a quarter. Whichever single scanner I had picked, I would have missed either 4 or 8 real issues.
 
 ### Installation
 
@@ -87,22 +87,24 @@ The pipeline orchestrates three scanners in parallel with a final quality gate:
 <div class="flow" role="group" aria-label="GitHub Actions security scanning pipeline">
   <div class="flow-node">Git Push / PR</div>
   <div class="flow-node is-gate">Trigger Pipeline</div>
+  <div class="flow-node"><b>OSV</b><i>dependency scan — fails job on critical</i></div>
   <div class="flow-parallel" role="group" aria-label="Runs in parallel">
-    <div class="flow-node"><b>OSV</b><i>dependency scan</i></div>
-    <div class="flow-node"><b>Grype</b><i>container scan</i></div>
-    <div class="flow-node"><b>Trivy</b><i>filesystem scan</i></div>
+    <div class="flow-node"><b>Grype</b><i>container scan — fail-build on high</i></div>
+    <div class="flow-node"><b>Trivy</b><i>filesystem scan — advisory only</i></div>
   </div>
   <div class="flow-node">Upload SARIF</div>
-  <div class="flow-node is-gate">Security Gate</div>
-  <div class="flow-branch" role="group" aria-label="Branch outcomes">
-    <div class="flow-leg" data-branch="Pass" role="group" aria-label="Pass"><div class="flow-node is-good">Deploy</div></div>
-    <div class="flow-leg" data-branch="Critical" role="group" aria-label="Critical"><div class="flow-node is-bad">Block &amp; Alert</div></div>
-  </div>
+  <div class="flow-node">Security Gate <i>(not implemented)</i></div>
 </div>
 
-**Key workflow features:** Triggers on push, pull requests, and daily at 2 AM UTC. Parallel scanner execution completes in 2-3 minutes total runtime. SARIF reports upload to GitHub Security tab automatically. Hard blocks occur on critical/high vulnerabilities. Slack notifications alert on failure.
+**Key workflow features:** Triggers on push, pull requests, and daily at 2 AM UTC. SARIF reports upload to GitHub Security tab automatically. Slack notifications alert on failure.
 
-📎 **Full GitHub Actions workflow (109 lines):**
+**What actually blocks, precisely.** OSV's critical check exits non-zero and fails `dependency-scan`. Grype's `fail-build: true` with `severity-cutoff: high` fails `container-scan`. Trivy uploads SARIF and has no `exit-code` set, so it never fails anything — it is advisory despite sitting in the same stage. And the `security-gate` job that is supposed to aggregate all three is a placeholder: it echoes a line, carries `if: always()`, and passes regardless of what the scans found. Read the workflow rather than the diagram if you are copying this.
+
+The scanners are also not parallel. `container-scan` and `comprehensive-scan` both declare `needs: dependency-scan`, so OSV runs alone first and the other two follow. There is no matrix strategy over scanners anywhere in the file.
+
+**One thing to fix before you copy it.** The workflow pins `aquasecurity/trivy-action@master` — a mutable branch reference. Whoever controls that branch decides what runs in your CI, with your repository credentials. In a pipeline whose entire purpose is supply-chain security that is the wrong way round. Pin every third-party action to a commit SHA, not a tag and never a branch; tags move too.
+
+📎 **Full GitHub Actions workflow (113 lines):**
 [Complete implementation with SARIF uploads, quality gates, and Slack notifications](https://gist.github.com/williamzujkowski/8185611a406dd91806f37d51778cdd16)
 
 ### Slack Notifications
@@ -142,25 +144,30 @@ Control false positives and severity thresholds.
 📎 **Complete Grype configuration:**
 [Full .grype.yaml with all ignore rules](https://gist.github.com/williamzujkowski/90a547307bb8d0158bcadc43b86df18f)
 
-Configure `fail-on-severity: high` and add ignore rules with expiration dates for accepted risks.
+Configure `fail-on-severity: high` and `scope: all-layers`, and give every ignore rule a `reason`.
+
+**Grype ignore rules do not expire.** The `IgnoreRule` struct has no `expiration` field, so a date written into `.grype.yaml` is silently ignored and the suppression is permanent. The config linked above carries `expiration: 2025-12-31` and that line has never done anything — the rule is still live. If you want time-boxed risk acceptance you have to enforce it outside grype, or use OSV-Scanner's `ignoreUntil`, which is real.
 
 ### OSV-Scanner Configuration
 
-Customize lockfile scanning and parallel workers.
+`osv-scanner.toml` has a much smaller schema than I originally documented here. The supported surface is `[[IgnoredVulns]]` (with `id`, `ignoreUntil`, `reason`), `[[PackageOverrides]]`, `ScanGoModVersion` and `GoVersionOverride`. There is no worker-count, scan-depth, or private-registry configuration, so there is no tuning knob to benchmark:
 
-📎 **Complete OSV configuration:**
-[Full osv-scanner.toml with private registries](https://gist.github.com/williamzujkowski/da899905c2905fafe74db871be75fcbe)
+```toml
+[[IgnoredVulns]]
+id = "GHSA-1234-5678-9abc"
+ignoreUntil = 2026-03-01
+reason = "Vulnerable path not reachable; revisit at the date above"
+```
 
-Set `workers = 4` for parallel scanning (40% faster on my 8-core system).
+`ignoreUntil` is the one genuine expiry mechanism across these three tools. Use it.
 
-### Trivy Policy as Code
+### Trivy policy: what it can and cannot do
 
-Enforce security policies with custom OPA Rego rules.
+Trivy's Rego support is worth understanding precisely, because it is easy to write a policy that appears to enforce a control and does the opposite.
 
-📎 **Complete Trivy OPA policy:**
-[Full security.rego with all deny/warn rules](https://gist.github.com/williamzujkowski/c3363ce4488fbcca39099f3fdc9f8a14)
+The flag is `--ignore-policy`, and the clue is in the name: the policy **filters findings out**. It cannot deny, block, or fail a build. Trivy expects a rule named `ignore`, and the input is a single `DetectedVulnerability` object rather than a collection — so a policy written as `deny[msg]` iterating `input.Vulnerabilities[_]` never matches anything and silently evaluates to no-op.
 
-Create Rego policies that deny on critical severities and apply with `trivy image --policy ./policy/security.rego myapp:latest`.
+A policy written to "deny on critical" is therefore, under the only mechanism that exists, either inert or a policy that suppresses criticals. If you want Trivy to fail a build, set `exit-code: 1` with a `severity` filter and skip Rego entirely.
 
 ## Continuous Monitoring
 
@@ -201,12 +208,12 @@ Trigger on release publication, generate CycloneDX format, scan with Grype, and 
 
 ### Automated Dependency Updates
 
-Weekly auto-remediation with PR creation. This automatically fixed 35% of vulnerabilities in my testing (12 of 34 CVEs).
+Weekly auto-remediation with PR creation. `npm audit fix` clears a meaningful share of findings on its own — the low-hanging transitive bumps.
 
 📎 **Complete auto-remediation workflow:**
 [Full workflow with PR creation and test validation](https://gist.github.com/williamzujkowski/7fd0e2b45a0311ffb4fc9d37c0684ad8)
 
-Weekly scheduled job scans for vulnerabilities, runs `npm audit fix`, validates fixes pass tests, and creates PR for review.
+Weekly scheduled job scans for vulnerabilities, runs `npm audit fix` and `npm update`, re-scans, and opens a PR for review. Note that the workflow as written does **not** run your test suite before opening the PR, and the re-scan result is not checked — so the PR needs a human and a passing CI run before it goes anywhere. Adding a test gate to it is on my list.
 
 ## Integration with Wazuh SIEM
 
@@ -217,7 +224,7 @@ Forward vulnerability data to your SIEM. I ship scans via syslog to Wazuh for ce
 📎 **Complete Wazuh integration:**
 [Full script with JSON transformation and error handling](https://gist.github.com/williamzujkowski/fe46d3793fb1f2d9771c8b9e1a2ee5d6)
 
-Pipe Grype JSON output through `jq`, format as syslog, and send to Wazuh manager on port 1514 using `netcat`.
+Pipe Grype JSON output through `jq`, format as syslog, and send to Wazuh manager on port 1514 using `netcat`. Syslog is the mechanism to use here — the scheduled-scan workflow linked above ends with a `curl -X POST` to a `/api/vulnerabilities` endpoint, which is not a route the Wazuh API exposes. Events reach Wazuh through agents or syslog, not through a vulnerability-ingestion REST call.
 
 ### Wazuh Rules for Vulnerability Alerts
 
@@ -238,7 +245,7 @@ The focus should be on sustainable processes instead of perfect tools.
 
 When I first tested Grype alone, I thought I had good coverage. Then I added OSV-Scanner and immediately found 4 additional vulnerabilities in a project I'd already "validated."
 
-The overlap between tools is surprisingly low. I measured around 60-65% in my homelab testing. Running both catches more real issues. For smaller projects, three scanners might be overkill. I'm still testing this hypothesis.
+The overlap between tools is surprisingly low: 4 findings shared out of 16 distinct. Running both catches more real issues. For smaller projects, three scanners might be overkill. I'm still testing this hypothesis.
 
 ### 2. Fail Fast, Fail Loud
 
@@ -250,17 +257,17 @@ Switching to hard-block on critical findings was painful. I spent a full weekend
 
 Without a baseline, you're drowning in noise. I learned this the hard way when Trivy flagged 183 findings on my first scan. Most were from base images I inherited.
 
-Now I track what's new vs. what's been there. My alert fatigue dropped by 80%. I still struggle with deciding how long to "accept" known issues in the baseline before forcing remediation. This is an ongoing balance.
+Now I track what's new vs. what's been there, which is the difference between a list I read and a list I ignore. I still struggle with deciding how long to "accept" known issues in the baseline before forcing remediation. This is an ongoing balance.
 
 ### 4. Automate Remediation Where Possible
 
-`npm audit fix` catches low-hanging fruit automatically. In my testing, about 35% of vulnerabilities were fixed automatically without breaking tests. Focus human effort on complex issues.
+`npm audit fix` catches low-hanging fruit automatically. Focus human effort on complex issues.
 
 That said, I've had `npm audit fix` break dependencies twice, so blind automation isn't always the answer.
 
 ### 5. Integration is Key
 
-Scanning results are useless if no one sees them. I initially just had GitHub annotations, which I never checked. Adding Slack notifications increased my response time from days to hours.
+Scanning results are useless if no one sees them. I initially just had GitHub annotations, which I never checked. Adding Slack notifications is what moved findings from something I discovered later to something I saw the same day.
 
 Shipping to my Wazuh SIEM let me track trends over time. I'm still figuring out the right balance between visibility and notification fatigue. Too many alerts become noise.
 
@@ -277,18 +284,18 @@ When I first implemented this pipeline, builds were taking forever. Here are my 
 
 **Optimizations I added:**
 
-- **Parallel scanning** (matrix strategy): Reduced wait time by running all three scanners simultaneously instead of sequentially
+- **Scanner tuning**: the per-scanner gains above are the bulk of it. Note that these totals are column sums, i.e. the scanners running one after another — which is what the workflow actually does. Genuine parallel execution would put the total at the slowest scanner (1m 10s) rather than the sum
 - **Cached vulnerability databases**: Grype's DB cache alone saved 40 seconds per run
 - **Scoped scanning** (ignore test files): Cutting out `node_modules` and test fixtures dropped scan time by 25%
 - **Early failure** (stop on critical): When a critical CVE is found, I stop immediately instead of completing all scans
 
-These times are specific to my homelab setup (Intel i9-9900K, GitHub-hosted runners). Your mileage may vary depending on project size and runner specs.
+These times are from GitHub-hosted `ubuntu-latest` runners, which is what every job in the workflow declares. Your mileage will vary with project size and runner spec.
 
 The complexity of running three scanners creates maintenance burden. Smaller teams might be better off with just Grype. I'm still testing whether the extra coverage justifies the extra complexity.
 
 ## Metrics Dashboard
 
-Track security posture with PostgreSQL queries. My current MTTR: 4.2 days (down from 12 days initially).
+Track security posture with PostgreSQL queries. The metric worth watching is time-to-remediate on criticals; the absolute number matters less than whether it is trending down.
 
 📎 **Complete SQL analytics:**
 [Full PostgreSQL queries for vulnerability tracking](https://gist.github.com/williamzujkowski/0a94337fba5a5e94fa8082c543c2a4df)
@@ -324,7 +331,7 @@ Before you build this exact pipeline, here are some things I'm still uncertain a
 For my homelab with 15+ services, running three scanners makes sense. For a single Node.js app, this might be excessive overhead. I don't know where the threshold is. Maybe two services? Five? It depends on your risk tolerance and team size.
 
 **Scaling unknowns:**
-- This setup works for my ~50 repositories
+- This setup works at my scale (dozens of small repositories)
 - Would it work for 500? 5,000? Unknown.
 - Centralized SARIF reporting might become a bottleneck
 - I haven't tested at enterprise scale
@@ -339,8 +346,8 @@ These scanners update their databases constantly. Great for coverage. Terrible w
 
 ### Cost Considerations
 
-GitHub-hosted runners aren't free at scale:
-- My current setup: ~$8/month in runner time
+GitHub-hosted runners are free for public repositories and metered for private ones, so what this costs depends entirely on which kind you have:
+- Public repos: nothing
 - Fine for a homelab
 - Scales poorly for larger organizations
 - Self-hosted runners would help (but you're managing infrastructure)

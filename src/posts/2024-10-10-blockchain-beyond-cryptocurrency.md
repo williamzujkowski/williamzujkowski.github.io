@@ -9,9 +9,9 @@ tags:
   - programming
   - security
 ---
-In early October 2024, I deployed a private Ethereum test network on my homelab's Dell R910 server (see [secure homelab adventures](/posts/2025-04-24-building-secure-homelab-adventure)). The initial sync took 47 hours and consumed 1.2TB of disk space, which immediately taught me my first lesson: blockchain infrastructure is not lightweight. My i9-9900K system handled the validator node workload, but at a constant 340W power draw. That's real electricity costs for what I initially thought would be a simple weekend experiment.
+I deployed a private Ethereum test network on my homelab's Dell R910 server (see [secure homelab adventures](/posts/2025-04-24-building-secure-homelab-adventure)) to find out what this technology feels like from the inside rather than from a whitepaper. The first lesson arrived early: blockchain infrastructure is not lightweight, and a validator node is a machine you leave switched on.
 
-I'll admit I started this project skeptical. The cryptocurrency hype felt disconnected from solving real problems, and the energy consumption seemed wasteful. But after three months of running actual nodes, deploying smart contracts, and watching my IPFS storage grow to 340GB, I realized something: the core innovation has little to do with digital money.
+I started sceptical. The cryptocurrency hype felt disconnected from solving real problems, and the energy consumption seemed wasteful. After running actual nodes, deploying smart contracts, and pushing content into IPFS, I came round to a narrower view: the core innovation has little to do with digital money, and also less to do with most of what gets built on it.
 
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/blockchain.png'); width: min(340px, 82%); aspect-ratio: 400/303; margin: 2rem auto 0.5rem;"></div>
@@ -19,7 +19,7 @@ I'll admit I started this project skeptical. The cryptocurrency hype felt discon
 
 ## What I Actually Learned Running Blockchain Infrastructure
 
-The real breakthrough is distributed trust. For cryptographic foundations, see [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide). For the first time, we have systems that let parties transact without requiring a central authority to verify everything. When I deployed my first smart contract on the local testnet, it cost 0.002 ETH in gas fees (about $3.40 at October 2024 rates). That transaction was verified by my validator node in 2.3 seconds average block propagation time, but here's the key part: no single entity controlled whether it succeeded.
+The real breakthrough is distributed trust. For cryptographic foundations, see [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide). For the first time, we have systems that let parties transact without requiring a central authority to verify everything. When I deployed my first smart contract on the local testnet it cost 0.002 ETH in gas. That is play money — a private chain's ether has no market price, and quoting it in dollars would be a category error. What mattered was the mechanism: the transaction was verified without any single entity controlling whether it succeeded.
 
 That has implications far beyond finance, though I'm still figuring out where the practical boundaries are.
 
@@ -35,23 +35,25 @@ That has implications far beyond finance, though I'm still figuring out where th
 <figcaption>Blockchain systems build from peer networking through consensus and state storage into smart-contract applications.</figcaption>
 </figure>
 
-My local testnet processed about 47 transactions per second on the Dell R910, which sounds impressive until you compare it to Visa's 24,000 tps. Scalability remains a real challenge, and I'm not convinced we've solved it yet.
+My local testnet processed a few dozen transactions per second on the Dell R910. The usual comparison is Visa's 24,000 tps, though that is Visa's tested capacity ceiling rather than observed throughput — its actual average is closer to 2,000. Either way the gap is real and scalability remains unsolved.
 
 ## The Trust Architecture (And Why It Matters)
 
-Running these nodes for three months taught me that blockchain's value comes from four specific properties:
+Running these nodes taught me that blockchain's value comes from four specific properties:
 
 ### Decentralized Verification
 
-Instead of banks or governments verifying transactions, a network of independent participants validates everything using cryptographic proofs. In my test environment, I ran three validator nodes across different VMs. Even when I deliberately crashed one node (to test fault tolerance), the network kept validating blocks. That redundancy removes single points of failure, though it comes with the cost of that 340W continuous power draw.
+Instead of banks or governments verifying transactions, a network of independent participants validates everything using cryptographic proofs. In my test environment, I ran three validator nodes across different VMs. Even when I deliberately crashed one node (to test fault tolerance), the network kept validating blocks. That redundancy removes single points of failure, at the cost of keeping several machines powered continuously — which is the honest tally on a homelab electricity bill.
 
 ### Byzantine Fault Tolerance
 
-The system stays reliable even when some participants fail or act maliciously. I tested this by configuring one validator to propose invalid blocks. The other nodes rejected them within one block cycle (about 12 seconds). According to [Byzantine Generals Problem research](https://lamport.azurewebsites.net/pubs/byz.pdf), you need at least 2f+1 honest nodes to tolerate f malicious ones. My three-node setup could handle one bad actor, but just barely.
+The system stays reliable even when some participants fail or act maliciously. I tested this by crashing a validator; the other two carried on producing blocks.
+
+Then I did the arithmetic and found I had tested the easier property. The [Byzantine Generals Problem](https://lamport.azurewebsites.net/pubs/byz.pdf) requires 3f+1 nodes in total to tolerate f that lie — so tolerating a single Byzantine node needs four, and I had three. My setup survives a node that *stops*. It does not survive a node that *lies*, and I had assumed otherwise until I checked. Crash tolerance is the cheap half, and it is the half that most homelab demonstrations actually exercise.
 
 ### Immutable History
 
-Once information is confirmed by the network, altering it becomes computationally impractical. I tried rewriting a transaction from 100 blocks back on my testnet. Even with full control of all nodes, recalculating the proof-of-work for those blocks would have taken an estimated 340 hours on my hardware. On the real Ethereum mainnet with its massive hashrate, this becomes effectively impossible.
+Once information is confirmed by the network, altering it becomes impractical — though the reason differs by consensus mechanism, and this is where a private chain misleads you. On a chain you fully control, rewriting history is a matter of restarting nodes with a different state; nothing stops you. Immutability on mainnet comes from the cost of overpowering everyone else's stake or hashrate, which is a property of the network's size rather than of the data structure. A three-node lab chain has a blockchain's shape and none of its security.
 
 ### Transparent Verification
 
@@ -61,7 +63,7 @@ These properties solve the "double-spend problem" for digital assets, as describ
 
 ## Supply Chain Transparency: Where It Actually Works
 
-One implementation I studied is Walmart's food traceability system built on IBM's Hyperledger Fabric. According to [Walmart's 2020 case study](https://www.ibm.com/case-studies/walmart-food-trust), they reduced trace time from 7 days to 2.2 seconds for contaminated food products. That's a measurable improvement over their previous database system.
+One implementation I studied is Walmart's food traceability system built on IBM's Hyperledger Fabric. The widely cited result is a reduction in trace time for contaminated produce from about seven days to a couple of seconds. IBM's original case study page for it no longer resolves, so treat the figure as vendor-reported and undated rather than independently verified — and note that the comparison is against Walmart's previous paper-and-phone-call process, not against a well-built conventional database.
 
 The system creates an immutable record of products moving from farm to store:
 
@@ -95,7 +97,7 @@ What makes this valuable isn't just the technology, it's the accountability. Eve
 
 I spent two weeks in October trying to implement a basic self-sovereign identity system using the [Decentralized Identity Foundation's specifications](https://identity.foundation/). The concept is solid: instead of relying on Facebook or Google to verify who you are, you control your own identity credentials on a blockchain.
 
-The European Self-Sovereign Identity Framework (ESSIF) is implementing this across the EU, and Microsoft's ION network provides decentralized identity anchored to Bitcoin. The advantages make sense on paper:
+Europe's self-sovereign identity work has largely folded into eIDAS 2.0 and the EU Digital Identity Wallet, and Microsoft moved Entra Verified ID off the Bitcoin-anchored ION network. The advantages still make sense on paper:
 
 - Users control what information to share
 - Selective disclosure (share only necessary credentials)
@@ -106,15 +108,15 @@ But here's what I learned the hard way: the user experience is terrible. I tried
 
 ## Decentralized Finance: Beyond the Hype
 
-DeFi gets attention for cryptocurrency speculation, but some traditional financial institutions are using blockchain in practical ways. JPMorgan's Onyx platform processes wholesale payments and has reportedly handled over $1 trillion in transactions according to [their 2023 report](https://www.jpmorgan.com/kinexys/index). That's real money moving through blockchain rails.
+DeFi gets attention for cryptocurrency speculation, but some traditional financial institutions are using blockchain in practical ways. JPMorgan's blockchain unit — Onyx, since renamed Kinexys — moves wholesale payments on blockchain rails. The bank reports [over $3 trillion in cumulative transaction volume and around $7 billion a day](https://www.jpmorgan.com/kinexys/index). That's real money, though it is worth noting this is a permissioned system between known counterparties: it uses the data structure without the trustless property that is supposed to be the point.
 
-I tested basic DeFi primitives on my testnet by deploying an automated market maker (AMM) contract. A simple token swap consumed 0.0035 ETH in gas (about $5.95), which seems expensive for what a centralized exchange does for nearly free. The transparency is nice, but I'm not convinced the cost-benefit works out for everyday transactions.
+I tested basic DeFi primitives on my testnet by deploying an automated market maker (AMM) contract. A simple token swap consumed 0.0035 ETH in gas — cheap on a private chain, and the point is what that would cost on mainnet, where the same operation is priced against real ether and competes for real blockspace. The transparency is nice; I'm not convinced the cost-benefit works out for everyday transactions.
 
-Central banks are exploring Central Bank Digital Currencies (CBDCs) using blockchain. China's digital yuan pilot has processed over [250 billion yuan](https://www.reuters.com/markets/currencies/chinas-digital-yuan-transactions-top-250-bln-yuan-end-june-2023-08-04/) ($35 billion USD) as of June 2023. Whether that improves monetary policy or creates new surveillance risks depends on implementation details I don't fully understand yet.
+Central banks are exploring Central Bank Digital Currencies, and China's digital yuan is the largest pilot by a wide margin — cumulative volume is now measured in trillions of yuan. Whether that improves monetary policy or mostly creates new surveillance capability depends on implementation details that are not public.
 
 ## Governance and Voting: Promising but Unproven
 
-Blockchain voting gets discussed a lot. West Virginia piloted blockchain voting for overseas military in 2018, and some companies use it for shareholder decisions. The theoretical benefits make sense:
+Blockchain voting gets discussed a lot. West Virginia piloted it for overseas military voters in 2018 — and discontinued it in 2020, which is the part usually left out of the pitch. The theoretical benefits make sense:
 
 - Voters can verify their ballots were recorded
 - Vote tallies can't be altered after recording
@@ -123,11 +125,11 @@ Blockchain voting gets discussed a lot. West Virginia piloted blockchain voting 
 
 But in October, I tried implementing a simple voting contract on my testnet and immediately ran into problems. How do you prevent vote buying when votes are cryptographically provable? How do you maintain ballot secrecy while enabling verification? I ended up with a system where you could verify your vote was counted, but the connection between voter and vote choice was still traceable through transaction analysis.
 
-MIT researchers have proposed [Voatz and other systems](https://www.usenix.org/system/files/sec20-specter.pdf), but security experts have found significant vulnerabilities. This is probably an area where blockchain sounds good in theory but practical implementation is harder than expected.
+Voatz, the app West Virginia used, was analysed by Specter, Koppel and Weitzner at MIT, who found it broken: a passive network adversary could recover votes, and an attacker controlling the device could alter them ([USENIX Security 2020](https://www.usenix.org/system/files/sec20-specter.pdf)). The researchers were the ones who broke it, not the ones who built it. Blockchain voting sounds good in theory; the implementations that have reached real elections have not survived contact with security researchers.
 
 ## Intellectual Property: Where I See Real Potential
 
-Blockchain for digital rights management actually seems promising. Sony uses blockchain to manage digital rights for educational content, and Spotify acquired Mediachain to track creative attribution. After experimenting with NFT metadata and IPFS content addressing, I can see how this works:
+Blockchain for digital rights management actually seems promising. Sony announced blockchain-based rights management for educational content, and Spotify acquired Mediachain in 2017 to track creative attribution — the latter was absorbed and wound down, which is the more common ending for these announcements. After experimenting with NFT metadata and IPFS content addressing, I can see how this works:
 
 ```javascript
 // Simplified content rights tracking
@@ -154,19 +156,19 @@ Several developments have made blockchain more practical:
 
 ### Proof of Stake Energy Reduction
 
-Ethereum's merge to proof-of-stake in September 2022 reduced energy consumption by 99.95% according to [Ethereum Foundation data](https://ethereum.org/en/energy-consumption/). I verified this on my testnet: the validator node dropped from 340W to about 35W after switching to PoS consensus. That's a real improvement, though my electricity bill is still noticeable.
+Ethereum's merge to proof-of-stake in September 2022 cut the network's annualized electricity consumption by more than 99.988%, per [CCRI's estimate published by the Ethereum Foundation](https://ethereum.org/en/energy-consumption/) — with carbon down about 99.992%, from 11,016,000 to 870 tonnes CO2e a year. That is a network-wide figure describing mining that no longer happens. It is not something a single node can confirm, and a private chain has no hashrate to eliminate in the first place.
 
 ### Layer 2 Scaling (With Trade-offs)
 
-Networks like Polygon and Optimism claim thousands of transactions per second. I tested Polygon's Mumbai testnet and saw transaction costs drop to $0.002 versus $3.40 on mainnet. The catch is you're trusting a smaller set of validators. It's faster and cheaper, but somewhat less decentralized. Trade-offs everywhere.
+Networks like Polygon and Optimism claim thousands of transactions per second, and per-transaction costs on them are genuinely orders of magnitude below mainnet. The catch is that you're trusting a smaller validator set: faster and cheaper, meaningfully less decentralised. (Polygon's Mumbai testnet, which is what most tutorials from this era point at, was retired in April 2024 — use Amoy.)
 
 ### Privacy Techniques (That Are Hard to Use)
 
-Zero-knowledge proofs let you verify information without revealing underlying data. I spent a week trying to implement a simple ZK-SNARK circuit using [circom](https://docs.circom.io/) and eventually got a proof working that verified I knew a password without revealing it. The math is sound, but the developer experience is brutal. Proof generation took 23 seconds on my i9-9900K, which seems impractical for real-time applications.
+Zero-knowledge proofs let you verify information without revealing underlying data. I spent a week trying to implement a simple ZK-SNARK circuit using [circom](https://github.com/iden3/circom) and eventually got a proof working that verified I knew a password without revealing it. The math is sound, but the developer experience is brutal. Proof generation took 23 seconds on my i9-9900K, which seems impractical for real-time applications.
 
 ## What I've Learned About Implementation
 
-After three months of running blockchain infrastructure, several patterns became clear:
+Several patterns became clear:
 
 ### Blockchain Isn't Always the Answer
 
@@ -194,7 +196,7 @@ Cryptocurrency regulations change constantly across jurisdictions. This creates 
 
 ### Technical Complexity
 
-Blockchain development is hard. I've been programming for years and still struggled with Solidity's quirks, gas optimization, and security vulnerabilities. Frameworks like [Truffle](https://trufflesuite.com/) and [Hardhat](https://hardhat.org/) help, but the learning curve is steep.
+Blockchain development is hard. I've been programming for years and still struggled with Solidity's quirks, gas optimization, and security vulnerabilities. Frameworks like [Hardhat](https://hardhat.org/) and [Foundry](https://getfoundry.sh/) help, but the learning curve is steep. (Truffle, which every tutorial of this vintage recommends, has since been sunset by ConsenSys along with Ganache.)
 
 ### The Scalability Trilemma Persists
 
@@ -218,7 +220,7 @@ The [Quantum Resistant Ledger](https://www.theqrl.org/) develops blockchain desi
 
 ## Building a Trust Layer (Maybe)
 
-After running Ethereum nodes for three months, experimenting with smart contracts, and burning through several hundred kilowatt-hours of electricity, I think blockchain technology might be becoming a trust layer for the internet. Just as TCP/IP provides communication and HTTP provides information transfer, blockchain could provide verifiable value transfer.
+After running Ethereum nodes, experimenting with smart contracts, and paying the electricity bill for both, I think blockchain technology might be becoming a trust layer for the internet. Just as TCP/IP provides communication and HTTP provides information transfer, blockchain could provide verifiable value transfer.
 
 That's the optimistic take. The realistic take is that blockchain works well for some specific use cases (supply chain tracking, international payments, digital rights management) but probably doesn't need to be applied to everything.
 
@@ -228,7 +230,7 @@ Important challenges remain around regulation, usability, and governance. I stil
 
 As blockchain converges with AI, IoT, and eventually quantum computing, we might be seeing the emergence of new trust architectures for the internet. Or we might be seeing a technology that works brilliantly for narrow use cases but doesn't achieve the universal adoption that enthusiasts predict.
 
-My three-month homelab experiment taught me that blockchain is neither the solution to everything nor complete hype. It's a specific tool that solves specific problems, with real costs (electricity, complexity, scalability limits) and real benefits (distributed trust, transparency, censorship resistance).
+The homelab experiment taught me that blockchain is neither the solution to everything nor complete hype. It's a specific tool that solves specific problems, with real costs (electricity, complexity, scalability limits) and real benefits (distributed trust, transparency, censorship resistance).
 
 Whether it becomes truly foundational infrastructure or remains a specialized tool for particular applications, I genuinely don't know yet. I'm going to keep my Ethereum node running and continue experimenting, because the only way to understand this technology is to actually use it.
 
@@ -250,16 +252,16 @@ Whether it becomes truly foundational infrastructure or remains a specialized to
 
 4. **[Ethereum Energy Consumption Post-Merge](https://ethereum.org/en/energy-consumption/)** (2023)
    - Ethereum Foundation
-   - 99.95% energy reduction measurements
+   - CCRI estimate: >99.988% reduction in annualized electricity consumption post-Merge
 
-5. **[The Attack of the Clones Against Proof-of-Authority](https://www.usenix.org/system/files/sec20-specter.pdf)** (2020)
-   - Michael A. Specter et al.
-   - *USENIX Security Symposium*
-   - Security analysis of blockchain voting systems
+5. **[The Ballot is Busted Before the Blockchain: A Security Analysis of Voatz, the First Internet Voting Application Used in U.S. Federal Elections](https://www.usenix.org/system/files/sec20-specter.pdf)** (2020)
+   - Michael A. Specter, James Koppel, Daniel Weitzner (MIT)
+   - *29th USENIX Security Symposium*
+   - The security analysis that found Voatz broken
 
 6. **[JPMorgan Onyx Blockchain Platform](https://www.jpmorgan.com/kinexys/index)** (2023)
    - JPMorgan Chase & Co.
-   - $1 trillion transaction volume reporting
+   - Reports >$3 trillion cumulative volume, ~$7 billion daily
 
 For those interested in actually experimenting with blockchain (rather than just reading about it), the [Ethereum Developer Documentation](https://ethereum.org/en/developers/docs/) provides practical tutorials, and the [Hyperledger Foundation](https://www.hyperledger.org/) offers enterprise-focused resources. The [MIT Digital Currency Initiative](https://dci.mit.edu/) publishes academic research on blockchain's broader implications.
 

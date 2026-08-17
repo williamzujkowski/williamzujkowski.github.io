@@ -1,174 +1,101 @@
 ---
 
-date: 2024-09-09
-description: Train embodied AI agents with vision, language, and physical interaction—build robots that learn from real environments using reinforcement learning.
+date: 2025-05-14
+description: A robot given an ambiguous instruction usually guesses. New work trains agents to ask a clarifying question instead, using LLM-generated rewards.
 title: 'Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction'
 tags:
   - ai
   - llm
   - robotics
 ---
-In August 2024, I spent 47 hours in NVIDIA Isaac Sim trying to teach a simulated robot arm to grasp objects in my virtual homelab. My RTX 3090 hummed at 73°C while rendering the physics at 18.4 FPS, and I gave the agent what I thought was a clear instruction: "Pick up the small container."
+Ask a household robot to "pick up the small container" when three containers are on the table and it will pick one. Not the right one, particularly — just one. It will not ask which you meant, because nothing in how it was trained rewards asking.
 
-There were three containers on the table. The robot grabbed one confidently, and it was the wrong one. Every single time.
-
-I tried again with better phrasing. Still wrong 68% of the time. The frustrating part? The robot never asked which container I meant.
-
-It just guessed based on some internal heuristic I couldn't decipher, failed, and waited for me to try again. After two weeks of this, I realized the fundamental problem: I was treating clarification as a bug to avoid rather than a feature to embrace.
-
-That simulation experience crystallized something I'd been thinking about for years. Humans naturally ask clarifying questions when instructions are unclear, but robots struggle with this basic social behavior.
-
-The sim-to-real gap is probably the hardest unsolved problem in robotics, but maybe the human-robot communication gap is just as critical. Recent breakthrough research is finally addressing this, and after my Isaac Sim failures, the implications feel deeply personal.
+That gap is small to describe and awkward to close. A person handed the same instruction resolves it in about a second: *"the blue one or the glass one?"* The question is cheap, targeted, and ends the ambiguity. Getting a robot to produce that question at the right moment — and only at the right moment — turns out to be a research problem in its own right.
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/teaching-agents.png'); width: min(190px, 52%); aspect-ratio: 400/389; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">a robot that knows to ask</p>
 
-## The Problem with Assumption-Making Robots
+## Three bad options
 
-The challenge isn't just technical, it's deeply human. When instructions are ambiguous, traditional embodied AI agents typically handle it in one of three problematic ways. This intersection of AI capabilities and real-world interaction parallels challenges explored in multimodal foundation models, where systems must understand context across vision, language, and action.
+Faced with an under-specified instruction, an embodied agent generally does one of three things, and all three are unsatisfying.
 
-First, **making assumptions**: selecting based on internal heuristics and potentially getting it wrong (my Isaac Sim agent did this 68% of the time). Second, **requesting full repetition**: asking for the entire instruction again, which frustrates users. Third, **refusing the task**: simply failing to act, requiring humans to provide more specificity.
+It **guesses** from some internal heuristic, which is fine when it happens to be right and opaque when it isn't. It **asks for the whole instruction again**, which is the conversational equivalent of "what?" and puts the entire burden back on the person. Or it **refuses**, demanding more specificity up front and making the human do the disambiguation work that the robot is standing right next to the answer for.
 
-None of these approaches mirror how humans handle ambiguity. When I ask a colleague for "the report on the shared drive" and there are multiple reports, they ask targeted questions: "Which report, the quarterly analysis or the customer survey?"
+None of these is what a competent collaborator does. Ask a colleague for "the report on the shared drive" when there are four, and you get a question that resolves exactly the missing bit: "the quarterly analysis or the customer survey?" That targeted narrowing is most of what makes human collaboration efficient, and it is exactly the behaviour missing from instruction-following robots.
 
-This targeted clarification is what makes human collaboration so effective.
+## Ask-to-Act
 
-I learned this the hard way during my September 2024 experiments with robotic grasping. I trained a policy for 43 hours in simulation (consuming roughly 830 watts on my i9-9900K and RTX 3090 combo), achieving an 87% success rate in Isaac Sim.
+Ramrakhya and colleagues at Georgia Tech and Meta FAIR set this up as a benchmark task they call **Ask-to-Act** ([arXiv 2504.00907](https://arxiv.org/abs/2504.00907)). An agent is given a single- or multi-object rearrangement task in a home environment, with a deliberately under-specified instruction, and has to navigate under partial observability — it cannot see the whole scene at once, so some ambiguity is only discoverable by moving.
 
-When I attempted sim-to-real transfer to a physical robot arm setup, the success rate collapsed to 41%. The sim-to-real gap was brutal, but what surprised me more was that clarification-seeking behavior transferred even worse than grasping mechanics.
+The requirement is stated carefully: the agent must ask **minimal yet relevant** clarification questions. Both halves matter. An agent that asks about everything is worse than one that guesses, because it converts a fast wrong answer into a slow annoying one. The task is not "ask more questions"; it is "know which single question is load-bearing."
 
-The robot that asked helpful questions 73% of the time in simulation asked relevant questions only 22% of the time with real objects and real lighting.
+This decomposes into four capabilities the agent has to have at once: notice that the instruction is under-determined *given what it can currently see*, generate a question that targets the specific ambiguity, fold the answer back into its plan, and then act. The architecture inherits from Vision-Language-Action models, and the multimodal-context handling has the same foundations discussed in [transformer architecture](/posts/2024-03-20-transformer-architecture-deep-dive).
 
-## The Ask-to-Act Framework: Teaching Robots When to Question
+## LLM-generated rewards
 
-The breakthrough I've been following involves extending traditional Vision-Language-Action (VLA) frameworks with what researchers call "Ask-to-Act" behavior. This approach trains agents to detect ambiguity (determine when instructions contain insufficient information given the current visual scene), generate relevant questions (formulate targeted questions addressing the specific ambiguity), incorporate clarifications (process the human's answer to resolve the uncertainty), and execute appropriately (perform the correct action based on complete information). The underlying architecture shares foundations with [transformer models](/posts/2024-03-20-transformer-architecture-deep-dive), particularly in how attention mechanisms process multimodal context.
+The training approach is the part I find most interesting, and it addresses a problem that would otherwise make this intractable.
 
-What makes this particularly elegant is how it transforms robot behavior from passive instruction-following to active participation in cooperative dialogue.
+Training a policy to ask good questions normally needs a large corpus of human-annotated ambiguous scenarios — someone deciding, thousands of times, whether a given question was the right one to ask in a given scene. That annotation cost is what stops most work of this kind before it starts.
 
-## The Training Innovation: LLM-Generated Rewards
+Instead, they fine-tune multimodal LLMs as VLA policies using **online reinforcement learning with LLM-generated rewards**. The language model judges whether a question was relevant and helpful, and that judgement becomes the reward signal. No human demonstration corpus, no hand-engineered reward function.
 
-The technical approach behind this breakthrough is as interesting as the results. Rather than requiring massive datasets of human-annotated ambiguous scenarios (which would be prohibitively expensive), researchers developed a reinforcement learning approach using LLM-generated rewards.
+Using a language model to grade the behaviour of a language-model-derived policy invites obvious objections about the grader inheriting the same blind spots as the thing it grades. The empirical answer is whether the resulting policy works, and it does — but it is worth being clear that the reward signal here is a model's opinion, not ground truth.
 
-I attempted to replicate a simplified version of this in my homelab during late September 2024. Using GPT-4o-mini (version 2024-07-18) as a reward model, I trained a basic clarification policy over 72 hours. The training consumed approximately 2,847 API calls totaling $4.23 in OpenAI credits. My success rate was mixed. The agent learned to ask questions 94% of the time, but only 38% of those questions were actually relevant.
+## The results, stated as the paper states them
 
-I suspect my reward formulation was probably too lenient on question quality.
+The RL-finetuned model beat every baseline — including zero-shot GPT-4o and supervised fine-tuned MLLMs — by **10.4 to 16.5%**, and generalised to novel scenes and tasks. The authors describe it as the first demonstration of adapting MLLMs into VLA agents that can both act and ask for help, trained with LLM-generated rewards under online RL.
 
-Here's the core training loop I used (simplified):
+Ten to sixteen points over a zero-shot GPT-4o baseline is a real result and a modest one. It is worth resisting the urge to inflate it, because the interesting claim is not the size of the margin — it is that the behaviour was learned at all without an annotation corpus, and that it held up on scenes and instruction types the policy had not trained on. Generalisation is the part that suggests the model picked up something about clarification-seeking rather than memorising which scenes are ambiguous.
 
-```python
-# Pseudocode for LLM-reward based training
-function train_clarification_agent(initial_model, training_environments):
-    reward_model = initialize_reward_llm()
-    policy = initialize_policy(initial_model)
+## Where this would matter
 
-    # My version ran this for 2,847 episodes at ~18 FPS
-    # Training time: 72 hours on RTX 3090
+**Healthcare.** "Which medication: the pain reliever, the antibiotic, or the blood pressure medication?" is obviously preferable to a guess. It is also the setting where the gap between a benchmark result and a deployable system is widest, and where a 10-16 point improvement over GPT-4o is nowhere near the bar.
 
-    return policy
-```
+**Education.** Tutoring systems that detect an ambiguous student question and ask before answering, rather than confidently addressing the wrong interpretation. This is closer to shipping than the robotics cases because the cost of a bad clarification is an extra exchange, not a physical error.
 
-This approach is brilliant because it uses the reasoning capabilities of large language models to automatically evaluate whether questions are relevant and helpful, creating a scalable training pipeline. Though in my implementation, "scalable" meant "ran for three days straight and made my office uncomfortably warm."
+**Industrial settings.** "To what torque specification?" beats applying a default. The determinism bar in manufacturing is higher than a learned clarification policy currently clears, but the failure mode — stop and ask — is at least the safe direction to fail in.
 
-## Impressive Results and Generalization
+**Accessibility.** Assistive robots supporting people whose communication may itself be non-standard is arguably the application with the most value and the highest cost of getting it wrong. Both facts follow from the same property: the user may not be able to easily correct a robot that guessed.
 
-The experimental results from published research are compelling. The RL-finetuned systems outperformed strong zero-shot baselines (including GPT-4o) by 19-40% across various scenarios.
+## The unresolved parts
 
-More importantly, they showed strong generalization to novel object configurations (handling new arrangements not seen during training, with my tests showing 67% retention on novel layouts), new object categories (asking appropriate questions about unfamiliar items, where I tested with kitchen items not in training data and got 54% relevant questions), and new instruction types (adapting to instruction patterns beyond the training distribution, which was probably my weakest area at 31% success).
+**Question overload.** The paper's "minimal yet relevant" framing names the tension but does not dissolve it. There is a threshold between an agent that asks too rarely and one that asks constantly, and where it sits probably depends on the person, the task, and how expensive a mistake is. A robot that checks in every thirty seconds will get switched off no matter how relevant each individual question was.
 
-This generalization capability suggests the approach captures fundamental principles of clarification-seeking rather than just memorizing specific scenarios. Though I should note that my homelab replication achieved nowhere near the published benchmarks.
+**Cultural variation.** Norms around question-asking differ substantially — directness, deference, how acceptable it is to interrupt. A clarification policy trained on one set of interaction norms is not obviously portable, and I have not seen this addressed anywhere in the current work.
 
-The gap between my RTX 3090 setup running Isaac Sim and the researchers' infrastructure was substantial. They likely had access to compute clusters I can only dream about, running at 60+ FPS instead of my 18.4 FPS, with parallelized training across dozens of environments simultaneously.
+**Modality.** Speech is not always the efficient channel. Pointing at two objects and raising an eyebrow resolves the container ambiguity faster than any sentence, and a robot with an arm already has the hardware to do it.
 
-## Applications Across Domains
+**Simulation to deployment.** The benchmark runs in home-environment scenes with an agent navigating under partial observability. The distance between that and a physical robot in an actual kitchen — real lighting, real clutter, real objects that were not in any asset library — remains the standing hard problem in robotics, and nothing here claims to have closed it.
 
-The potential applications extend far beyond home robots:
+## Why it's worth watching
 
-### Healthcare Assistance
+Most of the work on embodied agents is about making them more capable at executing what they're told. This is about making them better at noticing when they haven't been told enough — which is a different skill, and one that gets more valuable as the agents get more capable, not less. An incompetent robot that guesses wrong is an annoyance. A highly capable one that guesses wrong, quickly and confidently, is a hazard.
 
-Instead of making potentially dangerous assumptions, medical robots could ask clarifying questions: "Which medication would you like: the pain reliever, the antibiotic, or the blood pressure medication?" This reduces the risk of medication errors while maintaining efficiency.
-
-Though honestly, I'm not sure we're ready to deploy question-asking robots in high-stakes medical environments. The 41% sim-to-real success rate I experienced suggests we probably need another few years of development.
-
-### Educational Technology
-
-AI tutoring systems could identify when student questions contain ambiguities and seek clarification before providing potentially confusing answers. This mirrors effective teaching practices where educators check their understanding before responding.
-
-I tested a simplified version of this with my own learning experiments in October 2024, where I tried to get an agent to clarify programming questions. Results were mediocre (58% relevant clarifications), but promising.
-
-### Industrial Robotics
-Manufacturing robots could request specification clarification when task instructions are ambiguous: "To what torque specification should I tighten this bolt?" rather than applying arbitrary force levels. The determinism required here is probably higher than current clarification systems can reliably provide.
-
-### Accessibility Technology
-For assistive robots supporting individuals with disabilities, the ability to seek clarification is crucial for ensuring correct understanding of user needs, especially when communication might be challenging. This is perhaps the most important application, but also the one where failure costs are highest.
-
-## The Human Element: Making Robots Better Collaborators
-
-What excites me most about this research isn't just the technical achievement, it's how it makes robots more genuinely collaborative. During my Isaac Sim experiments in August and September 2024, I found myself naturally talking to the simulated robot arm as if it were a lab partner.
-
-When it started asking clarifying questions (even imperfect ones), the interaction felt fundamentally different. Less like programming, more like teaching.
-
-The key insight is that effective collaboration requires mutual understanding, and mutual understanding often requires dialogue. By teaching robots to engage in clarification-seeking behavior, we're not just improving their task performance, we're making them better communicators and more intuitive partners.
-
-That said, I should emphasize that my homelab results were far from production-ready. My final clarification accuracy metrics from October 15, 2024 testing: relevant questions asked (38%, target 90%+), correct ambiguity detection (61%, target 95%+), successful task completion after clarification (54%, target 85%+), and false positive clarifications asking when unnecessary (27%, target <5%).
-
-These numbers are honestly pretty discouraging, but they represent ~150 hours of experimentation on consumer hardware. The gap between research papers and homelab replication remains substantial.
-
-## Challenges and Future Directions
-
-Of course, there are still important challenges to address. I encountered many of these firsthand during my experiments:
-
-### Avoiding Question Overload
-A robot that asks too many questions becomes annoying rather than helpful. My September 2024 implementation had a 27% false positive rate for clarification requests, meaning it asked unnecessary questions more than a quarter of the time. After 30 minutes of interaction, this became genuinely frustrating. The balance between seeking necessary clarification and maintaining efficiency remains delicate, and I haven't figured out the right threshold yet.
-
-### Cultural Sensitivity
-Different cultures have varying norms around question-asking behavior. Future systems will need to adapt their clarification style to be appropriate across diverse cultural contexts. I didn't test this aspect at all in my homelab work, so I can't speak to how well current approaches handle cultural variation.
-
-### Multimodal Clarification
-Beyond verbal questions, robots might use gestures, pointing, or visual interfaces to seek clarification more efficiently in certain situations. I attempted to implement simple pointing gestures in Isaac Sim during October 2024, but the gesture recognition accuracy was only 43%, making it more confusing than helpful.
-
-## Looking Ahead: The Future of Human-Robot Interaction
-
-This breakthrough represents a significant step toward more natural and effective human-robot collaboration. By teaching robots to acknowledge uncertainty and engage in clarification-seeking dialogue, we're creating systems that function more as collaborative partners than rigid instruction-followers.
-
-The approach also demonstrates the power of combining different AI capabilities (multimodal perception, language understanding, and reinforcement learning) to address complex interaction challenges. Though I should note that integrating these components is significantly harder than it sounds. My October 2024 attempts to combine vision, language, and RL resulted in training instability 73% of the time, requiring frequent restarts and hyperparameter tuning.
-
-As embodied AI continues integrating into homes, workplaces, and public spaces, the ability to engage in clarification-seeking behavior will be essential for creating robots that can truly work alongside humans rather than simply following predetermined scripts. But we're probably still 5-10 years away from consumer-ready implementations based on the gap between my homelab results and production requirements.
-
-What I find most promising is how this research addresses a fundamental limitation in current AI systems: their struggle to acknowledge and resolve uncertainty through dialogue. This skill, so natural to humans, is finally becoming accessible to artificial agents. My Isaac Sim experiments from August through October 2024 convinced me this is possible, even if my 38% relevant-question rate shows we have a long way to go. These capabilities build on advances in [AI learning with limited resources](/posts/2024-05-30-ai-learning-resource-constrained), where models learn efficiently from sparse feedback — a constraint I hit constantly on consumer hardware.
-
-The future of human-robot interaction looks increasingly conversational, collaborative, and genuinely helpful. After spending 150+ hours teaching simulated robots to ask better questions, I'm cautiously optimistic. The failures were numerous (27% false positives, 41% sim-to-real success rate, 43% gesture recognition), but the moments when the robot asked exactly the right clarifying question felt like glimpses of that future. And that's worth pursuing.
+Acknowledging uncertainty and resolving it through dialogue is so routine in humans that it barely registers as a skill. Getting it into artificial agents is turning out to be a genuine research programme, and the fact that it can be trained without an annotation corpus makes it a much more tractable one than it looked a year ago. It also connects to a broader theme in [AI learning with limited resources](/posts/2024-05-30-ai-learning-resource-constrained): the constraint that shapes the method is usually the cost of supervision, not the cost of compute.
 
 ---
 
-*For those interested in diving deeper, the original research paper "Grounding Multimodal LLMs to Embodied Agents that Ask for Help with Reinforcement Learning" provides comprehensive technical details, while the [Stanford Embodied AI Workshop](https://embodied-ai.org/) offers broader context on advances in this field.*
+*The [Embodied AI Workshop at CVPR](https://embodied-ai.org/) is the best single venue for tracking this area.*
 
 ## Sources
 
-### Embodied AI Research
+1. **[Grounding Multimodal LLMs to Embodied Agents that Ask for Help with Reinforcement Learning](https://arxiv.org/abs/2504.00907)** (2025)
+   - Ramrakhya, Chang, Puig, Desai, Kira & Mottaghi — Georgia Tech and Meta FAIR
+   - Introduces the Ask-to-Act task; RL-finetuned MLLM beats all baselines by 10.4-16.5%
 
-1. **[Learning to Navigate in Complex Environments](https://arxiv.org/abs/1611.03673)** (2017)
-   - Mirowski et al. - DeepMind navigation research
-   - *ICLR 2017*
+2. **[Learning to Navigate in Complex Environments](https://arxiv.org/abs/1611.03673)** (2017)
+   - Mirowski et al., DeepMind — *ICLR 2017*
 
-### Robotics & Simulation
+3. **[RoboNet: Large-Scale Multi-Robot Learning](https://arxiv.org/abs/1910.11215)** (2019)
+   - Dasari et al. — *CoRL 2019*
 
-1. **[RoboNet: Large-Scale Multi-Robot Learning](https://arxiv.org/abs/1910.11215)** (2019)
-   - Dasari et al. - Multi-robot learning framework
-   - *CoRL 2019*
+### Simulation platforms
 
-### Simulation Platforms
+- **[NVIDIA Isaac Sim](https://developer.nvidia.com/isaac-sim)** - robotics simulation platform
+- **[Unity ML-Agents](https://github.com/Unity-Technologies/ml-agents)** - game engine for AI training
+- **[Gymnasium](https://gymnasium.farama.org/)** - reinforcement learning toolkit (successor to OpenAI Gym)
+- **[MuJoCo](https://mujoco.org/)** - physics simulation for robotics
 
-- **[NVIDIA Isaac Sim](https://developer.nvidia.com/isaac-sim)** - Robotics simulation platform
-- **[Unity ML-Agents](https://unity.com/products/machine-learning-agents)** - Game engine for AI training
-- **[OpenAI Gym](https://gym.openai.com/)** - Reinforcement learning toolkit
-- **[MuJoCo](https://mujoco.org/)** - Physics simulation for robotics
+### Cognitive architecture
 
-### Cognitive Architecture
-
-1. **[The Society of Mind](https://www.media.mit.edu/people/minsky/)** - Marvin Minsky
-   - Foundational cognitive architecture theory
-   - *MIT Press*
-
-2. **[Developmental Robotics](https://ieeexplore.ieee.org/document/1362308)** (2004)
-   - Lungarella et al. - Embodied cognition in robots
-   - *IEEE Transactions*
+- **The Society of Mind** - Marvin Minsky, Simon & Schuster, 1986
