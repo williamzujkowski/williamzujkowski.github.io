@@ -31,7 +31,7 @@ The generation throughput I originally reported here doesn't survive its own ari
 
 ---
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/llama-pi.png'); width: min(220px, 58%); aspect-ratio: 320/323; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/llama-pi.png'); width: min(220px, 58%); aspect-ratio: 400/514; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">a whole llama, on a tiny board</p>
 
 ## The Edge AI Memory Problem

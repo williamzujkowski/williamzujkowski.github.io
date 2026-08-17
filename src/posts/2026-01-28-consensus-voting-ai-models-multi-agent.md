@@ -14,7 +14,7 @@ I built single-model decision making first. It was fast and simple and wrong in 
 
 That's when I started reading about [multi-agent collaboration](https://arxiv.org/abs/2501.06322) and realized that the answer wasn't a better model. It was more models, structured to disagree productively.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/consensus-voting.png'); width: min(220px, 58%); aspect-ratio: 320/362; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/consensus-voting.png'); width: min(220px, 58%); aspect-ratio: 400/407; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">three opinions, one call</p>
 
 ## Why Single Models Miss Things
