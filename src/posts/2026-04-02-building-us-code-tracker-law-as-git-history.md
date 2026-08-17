@@ -6,9 +6,9 @@ tags: [civic-tech, open-data, typescript, astro, git]
 author: William Zujkowski
 ---
 
-The [Office of the Law Revision Counsel](https://uscode.house.gov/) publishes the entire United States Code as XML. Over 230 release points going back to 2013, each tagged to a specific Public Law. The data is open, the format is documented, and nobody has built a good diff viewer for it.
+The [Office of the Law Revision Counsel](https://uscode.house.gov/) publishes the entire United States Code as XML. Release points go back to 2013, each tagged to a specific Public Law; this pipeline indexes 230 of the several hundred OLRC publishes. The data is open and the format is documented, and there is prior art worth knowing about: [nickvido/us-code](https://github.com/nickvido/us-code) does the Git-history framing, and [bundestag/gesetze](https://github.com/bundestag/gesetze) has done it for German federal law since 2012. What I couldn't find anywhere was the case-law layer on top.
 
-So I did. [US Code Tracker](https://civic-source.github.io/us-code-tracker/) converts OLRC's XML into Git-versioned Markdown, layers on case law citations from [CourtListener](https://www.courtlistener.com/), and serves it as a static site with full-text search. Every statutory change is a Git commit. Every `git blame` line traces back to the Public Law that enacted it.
+So I did. [US Code Tracker](https://civic-source.github.io/us-code-tracker/) converts OLRC's XML into Git-versioned Markdown, layers on case law citations from [CourtListener](https://www.courtlistener.com/), and serves it as a static site with full-text search. Every statutory change is a Git commit. For any change since 2013, `git log` on a section file shows which Public Law touched it. Text older than the 2013 corpus start blames to the import commit rather than its enacting law.
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/us-code-tracker.png'); width: min(320px, 80%); aspect-ratio: 340/340; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">statute, meet version control</p>
@@ -34,7 +34,7 @@ us-code-tracker/
 └── apps/web/           # Astro 6 + Svelte 5 static site
 ```
 
-Each package does one thing. The pipeline runs them in sequence: fetch, transform, annotate, commit. A [weekly cron job](https://github.com/civic-source/us-code-tracker/blob/main/.github/workflows/sync-law.yml) keeps it current.
+Each package does one thing. The pipeline runs them in sequence: fetch, transform, annotate, commit. A [weekly cron job](https://github.com/civic-source/us-code-tracker/blob/main/.github/workflows/sync-law.yml) is meant to keep it current — worth checking that the push step is actually firing, because a green workflow that skips its push looks identical to a working one.
 
 ## Fetching 230 Release Points
 
@@ -81,17 +81,17 @@ Key components:
 - **Search.** [Pagefind](https://pagefind.app/) indexes the entire corpus at build time. Debounced input with keyboard navigation.
 - **Chapter index.** Large chapters (50+ sections) show an index by default with on-demand full-text loading. This avoids multi-megabyte page loads.
 
-The color system uses a warm-paper light mode and deep-navy dark mode with [WCAG AA](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html) contrast ratios verified across all text colors.
+The color system uses a warm-paper light mode and deep-navy dark mode with one body token darkened to clear the [WCAG AA](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html) 4.5:1 threshold.
 
 ## What I Learned
 
-**XML parsing is the easy part.** The USLM schema is well-documented and the [Cheerio](https://cheerio.js.org/) library handles it without drama. The hard part is formatting decisions: how to indent nested legal lists, when to insert paragraph breaks, how to handle repealed sections that still appear in the XML with `[Repealed]` in their heading.
+**XML parsing is the easy part, once you pick the right parser.** I specced [Cheerio](https://cheerio.js.org/) and it was wrong: USLM leans on XML namespaces, and Cheerio treats XML as tag soup and loses them. Swapping to [fast-xml-parser](https://github.com/NaturalIntelligence/fast-xml-parser) in `preserveOrder` mode kept both the namespaces and the element ordering that statute-text fidelity depends on, and it doesn't expand entities, so XXE stops being a question. The hard part is formatting decisions: how to indent nested legal lists, when to insert paragraph breaks, how to handle repealed sections that still appear in the XML with `[Repealed]` in their heading.
 
 **Git as a database works for this use case.** 230 tagged release points, 53 titles, clean commit messages linking to Public Laws. `git log --follow` on a section file shows its complete legislative history. The data repository ([civic-source/us-code](https://github.com/civic-source/us-code)) is separate from the pipeline code, which keeps both clean.
 
-**Static sites can handle 56,000 pages.** Astro with `--max-old-space-size=8192` builds the full corpus. [Pagefind](https://pagefind.app/) handles search without a server. The only dynamic content is the diff viewer's GitHub API fallback, and even that has static manifests as the primary source.
+**Static sites can handle 56,000 pages.** Astro with `--max-old-space-size=16384` builds the full corpus. [Pagefind](https://pagefind.app/) handles search without a server. The only dynamic content is the diff viewer's GitHub API fallback, and even that has static manifests as the primary source.
 
-**Case law enrichment is the differentiator.** OLRC publishes the text. Other sites like [Cornell LII](https://www.law.cornell.edu/uscode) publish the text with better formatting. What this project adds is the Git history layer and the CourtListener case law linkage. Two things that make the law not just readable but traceable.
+**Case law enrichment is the differentiator.** OLRC publishes the text. [Cornell LII](https://www.law.cornell.edu/uscode) publishes the annotated Code — source credits, editorial notes, amendment histories — which is a deeper editorial layer than anything here. What this project adds is the Git history layer and the CourtListener case law linkage. Two things that make the law not just readable but traceable.
 
 ## Numbers
 
@@ -101,7 +101,7 @@ The color system uses a warm-paper light mode and deep-navy dark mode with [WCAG
 | Titles covered | 53 of 54 |
 | Searchable sections | 53,000+ |
 | Annotated sections (Title 18) | 47 |
-| Test count | 267 passing |
+| Test count | 246 passing |
 | Build output | 56,239 static pages |
 | Weekly sync | Sunday 2 AM ET via GitHub Actions |
 
@@ -130,7 +130,7 @@ The data is CC0 public domain. The code is Apache 2.0.
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Pagefind](https://pagefind.app/)
 - [WCAG 2.1, Understanding Contrast (Minimum)](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html)
-- [Cheerio](https://cheerio.js.org/)
+- [fast-xml-parser](https://github.com/NaturalIntelligence/fast-xml-parser)
 - [civic-source/us-code](https://github.com/civic-source/us-code) — the Git-versioned statutory data repository
 - [Cornell LII, US Code](https://www.law.cornell.edu/uscode)
 - [civic-source/us-code-tracker](https://github.com/civic-source/us-code-tracker) — pipeline and web app source
