@@ -9,7 +9,7 @@ post_type: tutorial
 
 # SIEM for Homelab: Wazuh vs Graylog Performance Comparison
 
-Security monitoring needs centralized log analysis. I deployed both Wazuh and Graylog in my homelab to compare performance, resource usage, and detection capabilities. Wazuh excelled at threat detection (12.3 seconds mean detection time), Graylog dominated log search speed (0.8 seconds vs 3.2 seconds).
+Security monitoring needs centralized log analysis. I deployed both Wazuh and Graylog in my homelab to compare performance, resource usage, and detection capabilities. Wazuh excelled at threat detection (9.0 seconds mean across all five scenarios; on the two attacks both tools caught, 5.7 seconds against Graylog's 14.0), Graylog dominated log search speed (1.4 seconds vs 4.2 seconds).
 
 Here's how to choose and deploy the right SIEM for your homelab.
 
@@ -71,7 +71,7 @@ Both use agent-based collection, centralized storage, and web UI. Architectures 
 | Log collection | Wazuh agent (C binary) | Filebeat/Logstash/Syslog |
 | Storage backend | OpenSearch/Elasticsearch | Elasticsearch + MongoDB |
 | Primary focus | Threat detection | Log aggregation |
-| Built-in rules | 3,000+ security rules | Basic extraction rules |
+| Built-in rules | 4,400+ security rules | Basic extraction rules |
 | Alert correlation | Event-driven | Stream-based |
 
 ## Homelab Deployment: Both SIEMs Side-by-Side
@@ -93,7 +93,7 @@ docker-compose up -d
 
 # Verify deployment
 docker-compose ps
-curl -k -u admin:admin https://localhost:9200/
+curl -u admin:"$WAZUH_PASSWORD" https://localhost:9200/
 ```
 
 **Wazuh components:**
@@ -155,9 +155,9 @@ I simulated 5 common attack patterns to measure detection speed.
 | SQL injection | 18.4 seconds | N/A (requires custom rule) |
 | Privilege escalation | 3.1 seconds | 12.7 seconds |
 | File integrity | 2.8 seconds | N/A (no FIM capability) |
-| **Mean detection time** | **12.3 seconds** | **14.0 seconds*** |
+| **Mean detection time** | **9.0 seconds** (5 of 5 scenarios) | **14.0 seconds** (2 of 5) |
 
-*Graylog detection via custom stream rules. No built-in security correlation engine.
+*Graylog detection via custom stream rules. No packaged security detection content in Graylog Open — the aggregation event processor does correlation, but curated rules and the Correlation Engine sit behind Enterprise.
 
 **Why Wazuh faster:** Built-in correlation rules trigger on pattern match. Graylog requires manual stream creation and alert conditions.
 
@@ -239,14 +239,14 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 WAZUH_API = "https://wazuh-manager:55000"
-AUTH = HTTPBasicAuth("wazuh-admin", "password")
+AUTH = HTTPBasicAuth(os.environ["WAZUH_USER"], os.environ["WAZUH_PASSWORD"])
 
 # Query recent alerts
 response = requests.get(
     f"{WAZUH_API}/security/alerts",
     auth=AUTH,
     params={"limit": 100, "severity": "high"},
-    verify=False
+    verify=True
 )
 
 alerts = response.json()["data"]
@@ -288,17 +288,17 @@ for alert in alerts:
 | Authentication | HTTP Basic | API tokens |
 | Documentation | Good | Excellent |
 | Response format | JSON | JSON |
-| Rate limiting | 60 req/min | 120 req/min |
+| Rate limiting | 300 req/min | not documented |
 
 **Python integration examples:** https://gist.github.com/williamzujkowski/4df107e30a0d2e5f5156df1d9203ca13
 
 ## Security Detection: Built-In Rules vs Custom
 
-Wazuh ships with 3,000+ security rules. Graylog requires custom stream creation.
+Wazuh ships with 4,400+ security rules. Graylog requires custom stream creation.
 
 **Wazuh out-of-box detections:**
 
-- SSH brute force (10 failed attempts in 120 seconds)
+- SSH brute force (8 failed attempts in 120 seconds, rule 5712's shipped default)
 - Web attacks (SQL injection, XSS, LFI patterns)
 - File integrity monitoring (detects /etc, /bin changes)
 - Privilege escalation (unauthorized sudo, su)
@@ -323,11 +323,11 @@ Action: Send email notification
 | Detection Type | Wazuh (Built-in) | Graylog (Custom) |
 |----------------|------------------|------------------|
 | Brute force | ✅ Default rule | ⚠️ Manual stream |
-| Port scanning | ✅ Default rule | ❌ Requires plugin |
-| Web attacks | ✅ 500+ rules | ⚠️ Manual rules |
+| Port scanning | No host-based default rule; needs an IDS in the loop | Aggregation event definition in core |
+| Web attacks | ✅ ~120 rules | ⚠️ Manual rules |
 | File integrity | ✅ FIM module | ❌ Not supported |
 | Malware | ✅ ClamAV integration | ❌ External only |
-| Anomaly detection | ⚠️ Basic | ❌ Requires ML plugin |
+| Anomaly detection | ⚠️ Basic | Licensed content pack (Graylog Security) |
 
 **Winner (detection):** Wazuh requires zero configuration for common threats. Graylog demands security expertise to replicate coverage.
 
