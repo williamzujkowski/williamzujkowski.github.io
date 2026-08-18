@@ -10,7 +10,7 @@ The Japanese word *tsundoku* (積ん読) describes the specific habit of buying 
 
 It's Astro 7 up front, Svelte 5 for the handful of things that need to be interactive, and a Python enrichment pipeline behind the scenes that turns a spreadsheet row into a book page with a cover, a description, a copyright determination, and — where one exists — a legal way to read it for free. No database, no backend, no accounts. A build step runs, generates several thousand HTML files, and then gets out of the way.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/tsundoku-books.png'); width: min(300px, 75%); aspect-ratio: 500/473; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/tsundoku-books.png'); width: min(300px, 75%); aspect-ratio: 340/400; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the to-read pile, roughly to scale</p>
 
 ## Why I Built This
