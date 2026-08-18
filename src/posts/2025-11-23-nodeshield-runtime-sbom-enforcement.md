@@ -15,7 +15,7 @@ I tested NodeShield, a runtime SBOM enforcement system, in my Docker homelab. It
 
 Here's how it works and how to deploy it yourself.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/nodeshield.png'); width: min(240px, 62%); aspect-ratio: 400/424; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/nodeshield.png'); width: min(240px, 62%); aspect-ratio: 400/402; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">every package, checked at the door</p>
 
 ## The SBOM Gap Nobody's Fixing

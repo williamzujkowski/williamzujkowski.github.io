@@ -10,7 +10,7 @@ I wrote a tool called [repo-health-report](https://github.com/williamzujkowski/r
 
 The methodology is still a work in progress. I keep finding edge cases that my heuristics either miss or overscore. But after running it across a few dozen of my own repos and a handful of well-known open source projects, one finding dominates: **we lack basic hygiene everywhere**, and the gap isn't between "good repos" and "bad repos." It's between "repos that have checked two or three boxes" and "repos that haven't."
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/repo-health.png'); width: min(220px, 60%); aspect-ratio: 300/309; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/repo-health.png'); width: min(220px, 60%); aspect-ratio: 400/399; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the repo, report-carded</p>
 
 ## The six dimensions

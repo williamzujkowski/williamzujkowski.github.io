@@ -1,7 +1,7 @@
 ---
 
 date: 2025-07-22
-description: "Transform Claude CLI with standards integration—achieve 90% token reduction and automate workflows using context-aware MCP server architecture."
+description: "A CLAUDE.md is a prompt, not a loader. What a standards repository can and cannot enforce, and where the real enforcement has to live."
 title: Exploring Claude CLI Context and Compliance with My Standards Repository
 tags:
   - ai
@@ -9,435 +9,88 @@ tags:
   - professional-development
   - programming
 ---
-## The Problem: AI Tools That Forget Everything
+## The problem: AI tools that forget everything
 
-I built a standards repository that reduced Claude CLI token usage by 90% and automated NIST 800-53r5 compliance checks. This complements [progressive context loading](/posts/2025-10-17-progressive-context-loading-llm-workflows) for efficient LLM workflow optimization, and integrates with [mastering prompt engineering](/posts/2024-04-19-mastering-prompt-engineering-llms) and [local LLM deployment](/posts/2025-06-25-local-llm-deployment-privacy-first). The result: 15-minute project setup instead of 2 hours, automatic violation detection across my blog posts, and persistent context that survives sessions.
+Every new session starts from nothing. You explain your coding style again. You paste the same security requirements. You get suggestions that contradict last week's suggestions, and the only thing keeping any of it consistent is your own memory.
 
-**Why it matters:** AI tools forget everything between sessions. You explain coding standards repeatedly. Context explodes token budgets. Consistency depends on human memory.
+So I built [github.com/williamzujkowski/standards](https://github.com/williamzujkowski/standards) — an MIT-licensed collection of development standards written to be read by a model rather than a person — and wired it into my projects through a `CLAUDE.md`. This sits alongside [progressive context loading](/posts/2025-10-17-progressive-context-loading-llm-workflows) and [prompt engineering](/posts/2024-04-19-mastering-prompt-engineering-llms) as one more attempt at the same problem: getting a model to behave consistently without re-explaining yourself.
 
-I was using Claude CLI daily and hitting the same frustrations:
-
-- Explaining my coding style every single time
-- Getting inconsistent suggestions across sessions
-- Watching token counts explode with context
-- Copy-pasting the same standards repeatedly
-
-Then I had an idea: What if I could give Claude permanent memory of how I like to work?
+It works, with a large asterisk that took me a while to accept and which is most of what this post is about.
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/cli-standards.png'); width: min(320px, 80%); aspect-ratio: 400/136; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the CLI, with house rules</p>
 
-## My First Attempt: Complete Disaster
+## The asterisk: `CLAUDE.md` is a prompt, not a router
 
-In June 2025, I integrated my standards repo with Claude CLI for the first time. I ran the validation script on my blog codebase. The result?
+I described this to myself for months as an "intelligent router" that detects what you're working on and loads the relevant standards. That is a flattering description of what happens, and it is wrong.
 
-**87 violations across 23 files**. I thought I was following best practices, but the automated checker told a different story. Fixing them took 4.5 hours of tedious work, but it probably prevented 12 broken link issues that would have made it to production.
-
-The humbling part? I discovered I'd been consistently making the same mistake with frontmatter formatting across multiple posts. Manual code review never caught it because it looked fine to human eyes.
-
-The following diagram illustrates the core problem and solution: instead of repeating context in every session, standards are loaded once and referenced efficiently.
-
-| Mode | Developer action | Context path | Token shape |
-|---|---|---|---|
-| Before: Manual Context | Paste standards; re-explain style every session; copy-paste requirements | Developer to Claude CLI | 5000+ tokens |
-| After: Standards Repository | `@load [CS:python]` | Developer to `CLAUDE.md` router to standards repo to Claude CLI | ~100-token reference, with relevant standards auto-loaded |
-
-## Enter the Standards Repository
-
-I built [github.com/williamzujkowski/standards](https://github.com/williamzujkowski/standards), a complete collection of development standards designed specifically for LLM consumption. It's an AI instruction manual for your projects.
-
-### The Magic: CLAUDE.md
-
-The centerpiece is a file called `CLAUDE.md` that acts as an intelligent router. Drop it in your project, and suddenly Claude understands:
+`CLAUDE.md` is a file the model reads at the start of a session. That's the whole mechanism. When I write:
 
 ```markdown
-# Basic usage in your project
 @load [CS:python + TS:pytest + SEC:*]
-
-# Natural language works too
-"I need to build a secure API"
-→ Automatically loads: CS:api + SEC:auth + TS:integration
 ```
 
-### Real Example: Setting Up a New Project
+nothing parses that. There is no matching engine, no context detection, no dispatch. It is a convention I have asked the model to follow, expressed in a syntax that *looks* like an API because I found that shape easier to think in. The model usually follows it. "Usually" is doing real work in that sentence.
 
-Here's how I used it yesterday to bootstrap a new Python service:
+My own repository is explicit about this — `docs/core/CLAUDE.md` carries the note that the `@load` directive and its semantic loading syntax are planned rather than implemented, with the current version relying on a loader script. I wrote the aspirational syntax first and the honest note second, which is a fair summary of how this kind of project goes.
 
-[View full setup script →](https://gist.github.com/williamzujkowski/4b740d51c2921d94fea0c4603c3a85e0)
+The one genuine mechanism in Claude Code is `@path/to/file`, which imports a file's contents. That is a real feature and it is less magical than it sounds: it is textual inclusion, and the included text costs tokens like any other.
 
-Then in Claude:
+**Why this matters if you are copying the pattern.** A convention the model follows most of the time is genuinely useful and is not a control. If something must happen every time — a licence header, a security review, a compliance tag — it cannot live in a prompt. It has to live somewhere that fails the build.
 
-```
-Me: I'm building a Python API that handles payment processing. 
-    Set up the project structure following the standards.
+## On the token argument
 
-Claude: I'll set up your payment processing API following the standards. 
-        Loading [CS:python + CS:api + SEC:payments + COMPLIANCE:pci]...
+The pitch for this pattern is usually token savings: replace a wall of pasted standards with a short reference.
 
-        [Creates complete project structure with security controls,
-         testing setup, CI/CD pipelines, and NIST compliance tags]
-```
+The short reference *is* short. But the standards it points at still get read into context when they are actually needed, and `CODING_STANDARDS.md` on its own is around 23KB. So the saving is not "5,000 tokens became 100." The saving is in the standards you *don't* load on a given task — you pull the Python and testing conventions for a Python change and leave the frontend ones alone.
 
-The result? A production-ready structure in minutes, not hours.
+That is a real benefit and a much more modest one than a percentage implies. I would be sceptical of any headline figure here, including one of mine: the number depends entirely on what you compare against, and the tempting baseline — "loading every standard at once" — is a thing nobody does.
 
-## The Power of Token Optimization
+## NIST control tagging
 
-The most impactful result is **90% token reduction** (measured across Python, API, and React projects). Instead of feeding Claude entire documentation, I now use shorthand references.
+The part I have found most durable is compliance tagging. Working against NIST 800-53r5 has come up repeatedly over the years, and having the control mapping live next to the code rather than in a spreadsheet is the difference between compliance being a document and being a property of the repository.
 
-Old way used 5000+ tokens:
-- "Here are my Python standards" (wall of text)
-- "Here are my API patterns" (another wall)
-- "Here are security requirements" (yet another wall)
-
-New way uses less than 100 tokens. `@load [CS:python + CS:api + SEC:*]` tells Claude exactly what I need.
-
-Claude references the full standards without needing them in context every time. In practice, it works well when standards are self-contained. Cross-referenced standards sometimes lose nuance. The compression trades completeness for speed.
-
-## NIST Compliance Built-In
-
-Since I work in government-adjacent spaces, NIST 800-53r5 compliance is crucial. The standards include automatic control tagging:
-
-[View NIST compliance example →](https://gist.github.com/williamzujkowski/f80a7dcf4890372f4eab0018ad9afd0d)
-
-Run the compliance checker:
+The repo ships `scripts/setup-nist-hooks.sh`, which installs a pre-commit hook that checks for control annotations:
 
 ```bash
-./scripts/setup-nist-hooks.sh
-git commit -m "Add user auth"
-# Pre-commit hook validates NIST tags automatically
+git clone https://github.com/williamzujkowski/standards
+./standards/scripts/setup-nist-hooks.sh
 ```
 
-The standards system works through a context-aware loading pipeline that detects what you are working on and serves relevant standards:
+Tag the code where the control is actually implemented — in a comment next to the function that does the work, not in a header block at the top of the file. The value is that a reviewer reading the authentication path sees which control it satisfies, and notices when a change breaks that relationship.
 
-<div class="flow" role="group" aria-label="Standards context loading pipeline">
-  <div class="flow-node"><b>Developer Input</b><i>'I'm building a secure API'</i></div>
-  <div class="flow-node">Context Detection</div>
-  <div class="flow-node"><b>Parse Project Signals</b><i>files, imports, config</i></div>
-  <div class="flow-node is-gate">Standard Matching Engine</div>
-  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
-    <div class="flow-node"><b>CS:python</b><i>CS:api</i></div>
-    <div class="flow-node"><b>SEC:auth</b><i>SEC:payments</i></div>
-    <div class="flow-node">TS:integration</div>
-    <div class="flow-node">COMPLIANCE:pci</div>
-  </div>
-  <div class="flow-node is-good"><b>Token Compression</b><i>5000 → 500 tokens</i></div>
-  <div class="flow-node"><b>Claude CLI</b><i>Context Window</i></div>
-</div>
+## The pre-commit lesson worth keeping
 
-## My Favorite Features
-
-### 1. Context-Aware Loading
-
-Claude detects what you're working on and loads relevant standards:
-
-```markdown
-# Working on React component?
-@load context:[auto]
-# Automatically loads: FE:react + WD:components + TS:jest
-
-# Fixing a security bug?
-@task security_fix
-# Loads: SEC:* + TS:regression + CS:error-handling
-```
-
-### 2. Project Kickstart
-
-The kickstart prompt is pure magic. Feed it your project idea:
-
-```markdown
-Project: Homelab monitoring dashboard
-Tech: Python backend, React frontend
-Requirements: Real-time metrics, mobile-friendly
-
-[Paste into Claude with kickstart prompt]
-
-Result: Complete implementation plan with:
-- Architecture decisions
-- Tool recommendations  
-- Security considerations
-- Testing strategy
-- 6-month roadmap
-```
-
-### 3. Intelligent Suggestions
-
-Claude now makes connections I wouldn't:
-
-```
-You're using Redis for sessions.
-Also consider: [rate-limiting, cache-invalidation patterns]
-Teams like yours often use: [Redis Sentinel for HA]
-Related standard: [CS:caching + SEC:session-management]
-```
-
-## Lessons Learned (The Hard Way)
-
-The validation and enforcement pipeline that I built (and repeatedly broke) works as follows:
-
-<ol class="seq" aria-label="standards validation enforcement pipeline">
-  <li class="seq-step"><b>Developer &rarr; Git Hook</b><span>git commit</span></li>
-  <li class="seq-step"><b>Git Hook &rarr; Validation Script</b><span>Pre-commit trigger</span></li>
-  <li class="seq-step"><b>Validation Script &rarr; Standards Repo</b><span>Load active standards</span></li>
-  <li class="seq-step"><b>Standards Repo &rarr; Validation Script</b><span>Rules and thresholds</span></li>
-  <li class="seq-step"><b>Validation Script &rarr; Validation Script</b><span>Scan files for violations</span></li>
-  <li class="seq-label">If: violations found</li>
-  <li class="seq-step"><b>Validation Script &rarr; Git Hook</b><span>Exit code 1, block</span></li>
-  <li class="seq-step"><b>Git Hook &rarr; Developer</b><span>Commit rejected with violation report</span></li>
-  <li class="seq-label">Else: clean</li>
-  <li class="seq-step"><b>Validation Script &rarr; Git Hook</b><span>Exit code 0, pass</span></li>
-  <li class="seq-step"><b>Git Hook &rarr; Developer</b><span>Commit accepted</span></li>
-  <li class="seq-step"><b>Developer &rarr; CI Pipeline</b><span>Push to remote</span></li>
-  <li class="seq-step"><b>CI Pipeline &rarr; Validation Script</b><span>Re-validate in CI</span></li>
-  <li class="seq-label">If: CI violations</li>
-  <li class="seq-step"><b>CI Pipeline &rarr; Developer</b><span>PR blocked</span></li>
-  <li class="seq-label">Else: CI clean</li>
-  <li class="seq-step"><b>CI Pipeline &rarr; Developer</b><span>PR approved</span></li>
-</ol>
-
-### The Pre-Commit Hook Trap
-
-I set up a pre-commit hook to run standards validation automatically. First attempt? **100% failure rate**. Every single commit got blocked.
-
-After 2 hours of debugging, I discovered the hook was calling the wrong Python interpreter. The PATH issues were subtle. Now it catches violations automatically and I'm still tuning the sensitivity.
-
-The trade-off:
-
-- Automated validation is fast and catches issues
-- False positives slow down workflow
-- Strict enforcement improves quality
-- Adds friction to rapid prototyping
-
-I've found the benefits outweigh the costs.
-
-### False Positive Hell
-
-My initial validation script flagged **312 "violations"** across every blog post I had at the time. I manually reviewed each one. Turns out **276 were false positives**, an 88% false positive rate.
-
-I spent 3 days tuning regex patterns and adjusting thresholds to get the FP rate down to 4%. That was tedious work.
-
-The lesson:
-
-- Standards prevent errors
-- Automation needs constant refinement
-- Human oversight prevents blockers
-- Tuning takes longer than expected
-
-Was it worth it? Yes. The time saved catching real issues pays back the 3-day investment.
-
-### Template Validation: When the Template is Wrong
-
-I created a blog post template to ensure consistency. First 5 posts using it: 2 passed validation, 3 failed due to subtle frontmatter issues.
-
-Turns out the template was wrong, not the posts. After fixing the template, I validated all 48 past posts again, which took 34 minutes of scan time. Found 6 more issues that had propagated from the bad template.
-
-The double-edged sword:
-
-- Templates ensure consistency
-- Templates constrain creativity
-- Templates are helpful
-- Templates propagate errors systematically
-
-When the template is wrong, every downstream post inherits the mistake.
-
-### The CLAUDE.md Evolution
-
-My CLAUDE.md file grew from 120 lines (v1.0) to 2,847 lines (v3.0) over 6 months. Each version added lessons from failed automation attempts.
-
-I rewrote section 4 (enforcement rules) 12 times before I got it right. Or maybe I still haven't got it right. The complexity catches more edge cases now.
-
-The trade-off between thorough rules and maintainability is constant:
-
-- More rules catch more issues
-- More rules make the system harder to understand
-- More rules require more maintenance effort
-- Complexity vs coverage is a sliding scale
-
-I'm still finding the right balance.
-
-### Validation Speed: Fast but Hungry
-
-Initial validation script took **147 seconds** to scan all posts. That's too slow for a pre-commit hook.
-
-After optimization with parallel processing and caching, I reduced it to **12 seconds**. The cost: memory usage went from 1.8GB to 2.1GB, a 15% increase. For my laptop, that's acceptable. For CI servers with limited RAM, this could be a problem.
-
-The speed improvement is worth the memory cost for my use case. Larger codebases need to test this trade-off.
-
-### Git Hook Bypass Discovery
-
-I discovered I could bypass standards validation with `git commit --no-verify`. That defeated the entire purpose.
-
-I immediately disabled that option by making hooks exit with code 1 on detection. The cost: 3 commits got rejected that I thought were fine. Humbling moment. Turns out my judgment of "good enough" isn't always aligned with the standards I set for myself.
-
-What this taught me:
-
-- Automation doesn't trust humans
-- Human judgment is flexible
-- Human judgment is inconsistent
-- Standards enforce what I say I want, not what I think I want in the moment
-
-Both frustrating and valuable.
-
-### What Worked
-
-- **Start small**: I began with just Python standards, expanded gradually
-- **Version everything**: Standards evolve, Git tracks the journey
-- **Real examples**: Abstract standards work poorly, concrete code examples work better
-- **Token counting**: Every character matters for LLM efficiency (I measured 90% reduction after optimization)
-
-### What Didn't
-
-- **Over-engineering**: My first version had 200+ micro-standards. Way too much complexity.
-- **Perfect structure**: Spent weeks organizing folders. Claude doesn't care about folder beauty.
-- **Forcing adoption**: People need to see value before they'll use new tools
-
-## Setting It Up for Your Projects
-
-Want to try this yourself? Here's my recommended approach:
-
-### Quick Start (5 minutes)
+I set up that hook feeling quite pleased with myself, then found I could sail straight past it:
 
 ```bash
-# 1. Add to existing project
-curl -O [https://raw.githubusercontent.com/williamzujkowski/standards/master/docs/core/CLAUDE.md](https://raw.githubusercontent.com/williamzujkowski/standards/master/docs/core/CLAUDE.md)
-
-# 2. Tell Claude about it
-"Use CLAUDE.md for standards. I'm building [your project type]"
-
-# 3. Watch the magic happen
+git commit --no-verify
 ```
 
-### Full Integration (30 minutes)
+My first instinct was to close the hole from inside the hook. You cannot. `--no-verify` skips the pre-commit hook *entirely* — the hook process never starts, so nothing it might do on the way out can matter. There is no exit code that runs when the code doesn't run.
 
-[View complete integration script →](https://gist.github.com/williamzujkowski/4c2214e2b1843b341a4ee0012fffc0d3)
+This is obvious in retrospect and it was not obvious to me at the time, and I suspect I am not alone, because "add a pre-commit hook" is the standard advice for enforcing almost anything.
 
-The following diagram shows the evolution of CLAUDE.md and the standards system over six months:
+**Client-side hooks are a convenience for the person running them. They are not enforcement.** Real enforcement is server-side, and there are three places to put it:
 
-<div class="flow" role="group" aria-label="Standards system evolution">
-  <div class="flow-node is-bad"><b>v1.0</b><i>120 lines, Python only; 87 violations found, 4.5 hrs to fix</i></div>
-  <div class="flow-node"><b>v2.0</b><i>~800 lines, multi-language; 312 flagged, 88% false positives</i></div>
-  <div class="flow-node is-good"><b>v3.0</b><i>2,847 lines, full enforcement; FP rate: 4%, 12s validation</i></div>
-</div>
+- a `pre-receive` hook on the remote, which cannot be bypassed by the client
+- a required CI status check, so a PR cannot merge until validation passes
+- branch protection, so nobody pushes to the default branch directly
 
-## Real-World Impact: The Numbers
+The pre-commit hook is still worth having. It gives you the fast feedback loop, catching problems in the two seconds after you type `git commit` rather than five minutes later in CI. Just don't mistake the convenience for the control — which is the same mistake, in a different costume, as mistaking a prompt for a router.
 
-Since implementing this system with all its rough edges, I've measured concrete improvements:
+## What I would tell someone starting this
 
-**Time savings:**
-- Setup time: 2 hours → 15 minutes for new projects
-- Validation time: 147 seconds → 12 seconds (15% memory cost increase)
+**Write the standards as if a model will read them, because one will.** Short declarative rules, one concept per heading, no cross-references that require holding two documents in your head at once. The documents that work well for a model turn out to be the ones that work well for a new colleague.
 
-**Quality improvements:**
-- Token usage: 5,000+ tokens → 750 tokens (85% reduction)
-- False positive rate: 88% → 4% after 3 days of tuning
+**Keep the `CLAUDE.md` short.** Mine drifts toward bloat every time I add a rule for an edge case, and a long instruction file is one the model follows less reliably, not more — the rules compete for attention with each other and with your actual request.
 
-**The journey milestones:**
-- 87 initial violations found across 23 files
-- 4.5 hours spent fixing them
-- 6 issues propagated from a bad template
-- CLAUDE.md grew from 120 lines to 2,847 lines over 6 months
-- Section 4 was rewritten 12 iterations
-- 3 commits got rejected by hooks that I thought were fine
-- Full portfolio scan now takes 34 minutes
+**Put anything load-bearing where it fails the build.** Everything else is a strong suggestion, and strong suggestions are fine as long as you know which category a given rule is in.
 
-The benefits are real. The system requires ongoing maintenance. Standards reduce errors and add workflow complexity. I've found the trade-off acceptable for my projects. Your mileage may vary.
+**Expect to throw away the enforcement layer.** I rewrote mine repeatedly, and the versions that survived were the ones that checked fewer things more reliably.
 
-## Tips for Claude CLI Power Users
+## Where this pattern has gone since
 
-### 1. Create Project-Specific Standards
+Written in July 2025, and the ground has moved. Claude Code now has first-class **Skills** (`.claude/skills/`), path-scoped **rules**, **hooks**, and **subagents** — which between them cover most of what the `@load` convention was reaching for, with actual dispatch behind them rather than a hopeful convention.
 
-```markdown
-# In your project's CLAUDE.md
-project_context:
-  style: "Google Python style"
-  testing: "pytest with 90% coverage"
-  special_rules:
-    - "All API endpoints need rate limiting"
-    - "Use structured logging everywhere"
-```
-
-### 2. Chain Commands Efficiently
-
-[View automated workflow example →](https://gist.github.com/williamzujkowski/dc26a695bf3f8d2b7d2e96584c0ff215)
-
-### 3. Build Your Own Standards
-
-Don't just use mine – fork and customize:
-
-```markdown
-# Add your team's conventions
-team_standards:
-  pr_size: "Max 400 lines"
-  commit_style: "Conventional commits"
-  review_sla: "24 hours"
-```
-
-## The Unexpected Benefits (And Costs)
-
-Beyond the obvious productivity gains, this system has delivered unexpected benefits and costs:
-
-**Documented tribal knowledge:**
-- Those "oh, we always do X" conversations are now codified
-- Cost: updating docs is another maintenance burden
-
-**Improved code reviews:**
-- "Does this follow our standards?" became "Run the checker"
-- Cost: reduces human judgment in reviews
-
-**Easier onboarding:**
-- Hand new devs the standards repo, they're ready to go
-- Cost: they follow rules without understanding why
-
-**Consistent AI assistance:**
-- Claude gives the same advice every time
-- Cost: limiting if the standards need updating
-
-The trade-off between consistency and flexibility is ongoing. Pre-commit hooks catch issues and add friction. Detailed standards help and require maintenance effort. I've found the system valuable for my projects. I'm still tuning the balance between safety and speed.
-
-## Where It's Heading
-
-I'm working on several ideas. These might change based on what proves useful.
-
-**VS Code extension:**
-- Real-time standard suggestions while coding
-- Challenge: figuring out the extension API
-
-**GitHub Actions integration:**
-- Automated standards enforcement in PRs
-- Challenge: performance on CI
-
-**Team analytics:**
-- Track which standards get used or violated most
-- Challenge: privacy concerns need addressing
-
-**LLM fine-tuning:**
-- Train models specifically on your standards
-- Challenge: ROI justification
-
-These are ideas, not promises. I've learned that what sounds good in theory doesn't always work in practice. The validation script seemed simple until I hit the false positive problem.
-
-## Try It Yourself
-
-The repository is open source and MIT licensed. Fork it, customize it, make it yours at [github.com/williamzujkowski/standards](https://github.com/williamzujkowski/standards).
-
-Start small. Even just adding a CLAUDE.md with your basic preferences will transform how you work with AI tools.
-
-## The Bottom Line
-
-We're using AI tools wrong if we're explaining the same things repeatedly. These tools should learn our preferences once and apply them consistently.
-
-This standards repository turns Claude CLI from a smart tool into YOUR smart tool. One that knows your style, your requirements, and your way of working.
-
-The future isn't just AI-assisted development. It's AI that knows how you like to develop.
-
----
-
-*Have you built something similar? How do you maintain consistency with AI tools? Drop me a line – I'm always looking for new patterns to steal... I mean, learn from.*
-
-## Sources
-
-- [github.com/williamzujkowski/standards](https://github.com/williamzujkowski/standards) — the standards repository this post is about
-- [Setup script](https://gist.github.com/williamzujkowski/4b740d51c2921d94fea0c4603c3a85e0) — gist
-- [NIST compliance example](https://gist.github.com/williamzujkowski/f80a7dcf4890372f4eab0018ad9afd0d) — gist
-- [CLAUDE.md](https://raw.githubusercontent.com/williamzujkowski/standards/master/docs/core/CLAUDE.md) — raw source
-- [Integration script](https://gist.github.com/williamzujkowski/4c2214e2b1843b341a4ee0012fffc0d3) — gist
-- [Automated workflow example](https://gist.github.com/williamzujkowski/dc26a695bf3f8d2b7d2e96584c0ff215) — gist
+The standards repository itself has since refactored toward a skills-based layout. If you are building this today, start there rather than from the syntax in this post. The underlying idea holds up: give the model your standards once, in a form it can use, and stop re-explaining yourself. The specific mechanism I reached for has been replaced by better ones, which is the normal and desirable outcome for a workaround.
