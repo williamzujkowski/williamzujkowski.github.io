@@ -10,7 +10,7 @@ I wanted to send a handwritten note to someone, but my actual handwriting is ter
 
 [Handwright](https://github.com/williamzujkowski/handwright) is an open-source handwriting font generator. You fill in a worksheet template, scan or photograph it, upload it, and the system extracts your glyphs into a custom `.ttf` font file. You can also generate realistic handwritten messages using your font.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/handwright.png'); width: min(380px, 88%); aspect-ratio: 600/250; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/handwright.png'); width: min(380px, 88%); aspect-ratio: 400/319; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">your handwriting, compiled</p>
 
 ## The Pipeline

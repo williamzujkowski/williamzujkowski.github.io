@@ -12,7 +12,7 @@ There's a specific pain in being the "family IT person" with Secure Boot enabled
 
 Both are Rust. Both ship CI that actually exercises the full pipeline. Both exist because years of system administration taught me that "works on my laptop" is the least interesting claim a tool can make about UEFI.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/aegis-boot.png'); width: min(340px, 82%); aspect-ratio: 520/269; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/aegis-boot.png'); width: min(340px, 82%); aspect-ratio: 400/231; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">boot media, cryptographically vouched for</p>
 
 ## What aegis-boot actually does
