@@ -1,233 +1,94 @@
 ---
-title: "PromSketch: 2-100x Faster Prometheus Queries with Sketch Algorithms"
-description: "Deploy PromSketch to optimize slow PromQL queries using sketch-based approximation. Homelab benchmarks show 2-100x speedup on percentile queries."
+title: "PromSketch: What Sketch Algorithms Can and Cannot Do for Prometheus"
+description: "PromSketch accelerates *_over_time window aggregations by compiling into Prometheus as a library. What it covers, what it doesn't, and why the distinction matters."
 author: "William Zujkowski"
 date: 2025-11-19
 tags: [prometheus, monitoring, observability, performance, grafana, homelab, optimization]
 post_type: tutorial
 ---
 
-# PromSketch: 2-100x Faster Prometheus Queries with Sketch Algorithms
+# PromSketch: What Sketch Algorithms Can and Cannot Do for Prometheus
 
-PromQL queries timeout on high-cardinality metrics, and mine had gotten to the point where the dashboard took longer to load than the incident it was supposed to help me diagnose. I spent 6 months debugging slow dashboard loads in my homelab Prometheus stack (2.8 million time series, all of them apparently offended by being asked for a percentile). PromSketch cut P99 percentile query time from 12.3 seconds to 180ms using sketch-based approximation.
+PromQL queries fall over on high-cardinality metrics, and the failure mode is familiar to anyone running a homelab Prometheus: the dashboard takes longer to load than the incident it was supposed to help diagnose. Every panel is a full scan over a window, every scan touches every matching series, and the cost grows with cardinality whether or not you actually needed sample-level precision.
 
-Here's how to deploy it and benchmark the speedup.
+[PromSketch](https://arxiv.org/abs/2505.10560) (PVLDB vol. 18) is a research answer to that. It is worth understanding precisely, because it is narrower than the pitch implies and the narrowness is the interesting part.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/promsketch.png'); width: min(240px, 64%); aspect-ratio: 300/235; margin: 2rem auto 0.5rem;"></div>
-<p class="hand-note" style="text-align: center; display: block;">queries, but faster</p>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/promsketch.png'); width: min(240px, 64%); aspect-ratio: 400/248; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the shape kept, the detail dropped</p>
 
-## The Prometheus Query Bottleneck
+## What it actually is
 
-Prometheus stores time series data efficiently but struggles with aggregation queries over large cardinality. Percentile calculations (`histogram_quantile`) and rate computations scan millions of data points, causing dashboard timeouts.
+Not a proxy. Not a drop-in replacement. Not something you put between Grafana and Prometheus.
 
-**Common slow query patterns:**
+PromSketch is a **Go library you compile into a patched Prometheus** — the paper describes it as "a standalone module that can be integrated into Prometheus and VictoriaMetrics." The [upstream repository](https://github.com/ProjectASAP/promsketch) is source files and no server: no Dockerfile, no published image, no HTTP handler, no listening port. There is nothing to `docker run`.
 
-```promql
-# P99 latency across 500 services (timeout after 30s)
-histogram_quantile(0.99,
-  rate(http_request_duration_seconds_bucket[5m])
-)
+This matters because the obvious mental model — a caching layer you drop in front of your existing stack — is wrong in a way that wastes an afternoon. If you want to try it, you are building a patched Prometheus from source, and that is the actual cost of adoption.
 
-# Memory usage aggregation (12.3s query time)
-sum(container_memory_usage_bytes) by (namespace, pod)
+## The function set is the whole story
+
+PromSketch does not accelerate PromQL generally. It accelerates a specific, enumerable list of window aggregations, and its dispatch table is the honest documentation:
+
+```go
+var funcSketchMap = map[string]([]SketchType){
+	"avg_over_time":      {USampling},
+	"count_over_time":    {USampling},
+	"entropy_over_time":  {EHUniv},
+	"max_over_time":      {EHKLL},
+	"min_over_time":      {EHKLL},
+	"stddev_over_time":   {USampling},
+	"stdvar_over_time":   {USampling},
+	"sum_over_time":      {USampling},
+	"sum2_over_time":     {USampling},
+	"distinct_over_time": {EHUniv},
+	"l1_over_time":       {EHUniv},
+	"l2_over_time":       {EHUniv},
+	"quantile_over_time": {EHKLL},
+}
 ```
 
-**Why this happens:**
+Read what is *not* in that map. No `rate`. No `histogram_quantile` — the string appears nowhere in the codebase. No `sum … by`, no `topk`, no `count`, no `avg`.
 
-- **Cardinality explosion:** Labels multiply time series (10 services × 50 pods × 20 metrics = 10,000 series)
-- **Histogram buckets:** Each histogram creates 10-20 time series (one per bucket)
-- **Aggregation cost:** PromQL scans all matching series before calculating percentiles
+That rules out most of what a typical Grafana dashboard is made of. The canonical slow panel — `histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))` — is untouched by PromSketch, because every function in it is outside the set. If your dashboards are built the usual way on histogram buckets and `rate`, this tool does nothing for them.
 
-**Impact:** Grafana dashboards load in 45-60 seconds. Alerting rules timeout. Users abandon slow-loading metrics.
+Where it does apply is single-series window statistics over long ranges: `quantile_over_time` on a raw latency gauge, `distinct_over_time` for cardinality estimates, `entropy_over_time` for distribution shift. Those are genuinely expensive and genuinely sketchable.
 
-## PromSketch: Sketch-Based Query Optimization
+## The algorithms, correctly named
 
-PromSketch sits between Grafana and Prometheus as a caching proxy. It uses probabilistic data structures (sketches) to approximate aggregation results with 2-100x speedup.
+Quantiles go through **EHKLL** — an Exponential Histogram wrapping a KLL sketch — not DDSketch. There is a DDSketch variant in the source but it is commented out (`// ehdd *ExpoHistogramDD`), which is a useful reminder that reading a paper's related-work section is not the same as reading its code.
 
-**Architecture:**
+The exponential histogram is the part that earns its keep. Sliding-window aggregation normally means either keeping every sample in the window or recomputing from scratch; an EH keeps buckets at exponentially increasing age granularity, so old data is summarised coarsely and recent data finely, at logarithmic space in the window length. The KLL sketch then answers rank queries within that structure.
 
-<div class="flow" role="group" aria-label="PromSketch query optimization path">
-  <div class="flow-node">Grafana Dashboard</div>
-  <div class="flow-node">PromSketch Proxy</div>
-  <div class="flow-node">Query Optimizer</div>
-  <div class="flow-node is-gate">Sketch-eligible?</div>
-  <div class="flow-branch" role="group" aria-label="Branch outcomes">
-    <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good"><b>Sketch Cache</b><i>approximation</i></div></div>
-    <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node"><b>Prometheus</b><i>exact data</i></div></div>
-  </div>
-  <div class="flow-node is-good">Fast Result</div>
-  <div class="flow-node"><b>Background Sketch Builder</b><i>Prometheus updates cache</i></div>
-</div>
+**Count-Min Sketch** shows up in this family too, and it is worth being precise about its guarantee, because it is routinely overstated. CMS uses O((1/ε)·log(1/δ)) space — **independent of stream length**, not `O(log n)` — and gives a *one-sided additive overestimate* bounded by εN with probability 1−δ. It never undercounts and it has no multiplicative error bound. "Under 1% error" is not a thing CMS promises.
 
-**How it works:**
+## What accuracy you are trading
 
-1. **Query interception:** PromSketch parses incoming PromQL queries
-2. **Sketch eligibility:** Identifies queries suitable for approximation (percentiles, histograms, counts)
-3. **Cache lookup:** Checks if sketch exists for metric/time range
-4. **Approximation:** Returns sketch-based result (sub-second response)
-5. **Fallback:** Exact queries pass through to Prometheus
+The paper reports **at most 5% average error** across the statistics it evaluates, against speedups of up to two orders of magnitude. Take the 5% seriously rather than assuming the good case: an approximate P99 that is 5% off is fine for a dashboard trend line and is not fine for an SLO you are paying out against.
 
-**Why this works:** Percentile queries don't need exact results. "P99 latency = 250ms" is accurate enough whether real value is 247ms or 253ms. Sketch algorithms trade 1-2% accuracy for 100x speed.
+The general shape of the trade: sketches are the right tool when you are looking at a curve, and the wrong tool when a specific number has consequences. Most dashboards are the former and most alerts are the latter, which suggests keeping exact queries in the alerting path even if you sketch the visualisation.
 
-## Sketch Algorithms Explained
+## Cheaper things to try first
 
-PromSketch uses two probabilistic data structures:
+PromSketch is a research prototype under GPL-3.0 that requires building Prometheus from source. Before that, the boring options usually win:
 
-**1. Count-Min Sketch (CMS)** for frequency estimation
+**Recording rules.** The most under-used feature in Prometheus. A recording rule evaluates an expensive expression on the scrape interval and writes the result as a new series — so the dashboard queries one pre-computed series instead of aggregating thousands at render time. The storage cost is one series per rule, which is kilobytes, and it works today with no patched binary. If your dashboards are slow and you have not done this, do this.
 
-- **Use case:** Counting occurrences (request rates, error counts)
-- **Memory:** O(log n) space, constant time updates
-- **Accuracy:** <1% error with 99% confidence
-- **Paper:** [Cormode & Muthukrishnan, 2005](https://doi.org/10.1016/j.jalgor.2003.12.001)
+**Reduce cardinality at the source.** Most high-cardinality problems are a label that should never have existed — a request ID, a full URL path, a pod name in a metric that outlives the pod. `metric_relabel_configs` at scrape time is cheaper than any query-side optimisation, because the samples never get written.
 
-**2. DDSketch** for quantile approximation
+**Thanos or Cortex downsampling**, if you already run them. Worth correcting a common misconception: downsampling *adds* 5m and 1h resolutions alongside the raw blocks — it does not delete your recent data. The cost is extra storage and a multi-component deployment, not lost fidelity.
 
-- **Use case:** Percentile calculations (P50, P95, P99 latencies)
-- **Memory:** Fixed-size buckets (1-10KB per metric)
-- **Accuracy:** Relative error <2% across all quantiles
-- **Paper:** [Masson et al., 2019](https://arxiv.org/abs/1908.10693)
+**VictoriaMetrics**, which the PromSketch paper itself uses as an integration target and which is substantially more storage-efficient than Prometheus before any sketching is involved.
 
-**Example:** DDSketch stores histogram in logarithmically-spaced buckets. Query for P99 latency scans ~50 buckets instead of 2.8 million time series.
+## Where this leaves it
 
-## Homelab Deployment: Docker Stack
+Sketch-based approximation is a real idea with a real implementation behind a real paper, and it is aimed at a narrower target than the framing usually suggests: long-window statistics over individual series, in a patched binary you build yourself, at up to 5% error.
 
-I deployed PromSketch in my homelab using Docker Compose. It sits between Grafana and Prometheus with zero configuration changes to either component.
-
-**System requirements:**
-
-- Docker 24+
-- 2GB RAM for PromSketch container
-- Prometheus 2.40+ (tested on 2.47.0)
-- Grafana 9.0+ (tested on 10.2.0)
-
-**Docker Compose stack:** https://gist.github.com/williamzujkowski/7e50a6d67d50b5a940b2254a17286942
-
-```bash
-# Deploy stack
-docker-compose up -d
-
-# Verify PromSketch health
-curl http://localhost:9091/health
-```
-
-**Configuration:** PromSketch auto-detects sketch-eligible queries. No manual tuning required for basic setup.
-
-**Deployment took 8 minutes** (download images, start containers, build initial sketches from last 24h of metrics).
-
-## Benchmark Results: 2-100x Speedup
-
-I benchmarked 10 common PromQL queries before and after PromSketch deployment:
-
-| Query Type | Baseline (Prometheus) | PromSketch | Speedup |
-|------------|----------------------|------------|---------|
-| P99 histogram_quantile | 12.3s | 180ms | **68x** |
-| sum(rate) by pod | 4.7s | 95ms | **49x** |
-| topk(10, container_memory) | 8.1s | 320ms | **25x** |
-| count(up) by namespace | 2.3s | 45ms | **51x** |
-| histogram_quantile(0.95) | 9.4s | 87ms | **108x** |
-| avg(node_cpu) by instance | 1.9s | 890ms | **2.1x** |
-
-**Key results:**
-
-- **Percentile queries:** 68-108x speedup (DDSketch optimization)
-- **Aggregations:** 25-51x speedup (CMS + caching)
-- **Simple queries:** 2-3x speedup (overhead from proxy, still faster than timeout)
-
-**Accuracy verification:** I compared PromSketch approximations to exact Prometheus results. Relative error: 0.8-1.9% across all queries. Dashboard showed same trends, slightly different decimal places.
-
-**Benchmark script:** https://gist.github.com/williamzujkowski/1d827beed3727ae6992e65c782c56776
-
-## Grafana Integration
-
-PromSketch works as a drop-in Prometheus replacement. I pointed Grafana at PromSketch URL instead of Prometheus:
-
-**Before:**
-```yaml
-# Grafana datasource
-url: http://prometheus:9090
-```
-
-**After:**
-```yaml
-# Grafana datasource
-url: http://promsketch:9091
-```
-
-**Dashboard query examples:** https://gist.github.com/williamzujkowski/412c4496eeda98bcfe9fc868f7aebbad
-
-**Result:** Dashboards load in 2-4 seconds (down from 45-60s). Users no longer abandon slow-loading metrics pages.
-
-## Memory Savings
-
-Sketches consume less memory than raw time series:
-
-- **Prometheus storage:** 2.8 million series × 8 bytes/sample × 15 days retention = 46.7GB
-- **PromSketch cache:** 1,200 unique metrics × 8KB/sketch = 9.4MB
-- **Compression ratio:** 4,814:1
-
-**Why this matters:** I run Prometheus on a 64GB RAM server. Before PromSketch, queries consumed 12-18GB RAM during aggregation. After PromSketch, peak RAM usage: 3.2GB.
-
-## Limitations and Trade-Offs
-
-**Challenge 1: Approximation vs exactness**
-
-- **Trade-off:** 1-2% error acceptable for monitoring, not for billing
-- **When to use:** Dashboards, alerts, capacity planning
-- **When NOT to use:** Financial metrics, SLA calculations, audit logs
-
-**Challenge 2: Cold cache performance**
-
-- **Problem:** First query after restart takes 8-12s (builds sketch from Prometheus)
-- **Mitigation:** Pre-warm cache on startup (background job scans last 24h)
-- **Impact:** Dashboard loads slow for ~2 minutes after PromSketch restart — a brief, humbling return to the world you were trying to leave
-
-**Challenge 3: Custom aggregations**
-
-- **Limitation:** PromSketch optimizes common patterns (percentiles, sums, rates)
-- **Unsupported:** Custom PromQL functions, joins, complex subqueries
-- **Fallback:** Unsupported queries pass through to Prometheus (no speedup)
-
-**What I learned:** Start with percentile queries (biggest speedup). Expand to aggregations after validating accuracy. Monitor sketch cache hit rate (should be >80% for effective optimization).
-
-## Comparison: PromSketch vs Alternatives
-
-| Solution | Query Speedup | Memory Overhead | Accuracy | Setup Complexity |
-|----------|---------------|-----------------|----------|------------------|
-| PromSketch | 2-100x | 9.7MB (sketches) | 98-99% | Low (proxy) |
-| Prometheus recording rules | 5-10x | GB (pre-aggregated) | 100% | High (rule management) |
-| Thanos/Cortex downsampling | 3-8x | GB (downsampled data) | 95-100% | High (multi-component) |
-| VictoriaMetrics | 2-5x | Similar to Prom | 100% | Medium (migration) |
-
-**Why PromSketch fills gaps:** Recording rules require manual configuration. Downsampling loses recent data. VictoriaMetrics needs migration. PromSketch works immediately with existing setup.
+If your slow queries are `quantile_over_time` over hours of raw samples, this is aimed directly at you. If they are `histogram_quantile` over `rate` of bucket series — which is how most people write them — it is not, and no amount of deployment effort will change that. Checking which of those you have takes about a minute and saves the afternoon.
 
 ## Further Reading
 
-**Research paper:** [Approximation-First Timeseries Monitoring Query At Scale](https://arxiv.org/abs/2505.10560) (arXiv:2505.10560, VLDB 2025)
-
-**Algorithm foundations:**
-- [Count-Min Sketch](https://doi.org/10.1016/j.jalgor.2003.12.001) (Cormode & Muthukrishnan, 2005)
-- [DDSketch](https://arxiv.org/abs/1908.10693) (Masson et al., 2019)
-
-**Prometheus documentation:**
-- [PromQL query performance](https://prometheus.io/docs/prometheus/latest/querying/basics/)
-- [Recording rules](https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/)
-
-**Related research:**
-- [Gorilla TSDB compression](https://www.vldb.org/pvldb/vol8/p1816-teller.pdf) (VLDB 2015)
-- [OpenTelemetry metrics](https://opentelemetry.io/docs/specs/otel/metrics/)
-
-**Implementation:**
-- [PromSketch GitHub](https://github.com/vldb/promsketch) (research prototype)
-- [Datadog DDSketch](https://github.com/DataDog/sketches-py)
-
-**Docker Compose stack:** https://gist.github.com/williamzujkowski/7e50a6d67d50b5a940b2254a17286942
-
-**Benchmark script:** https://gist.github.com/williamzujkowski/1d827beed3727ae6992e65c782c56776
-
-**Grafana queries:** https://gist.github.com/williamzujkowski/412c4496eeda98bcfe9fc868f7aebbad
-
----
-
-**Try it yourself.** Benchmark your slowest PromQL queries. Deploy PromSketch as a proxy. Measure speedup on percentile calculations.
-
-Your mileage may vary. High-cardinality metrics benefit most. Low-cardinality queries see minimal speedup. Accuracy trades 1-2% precision for 100x speed.
+- [PromSketch: Efficient and Accurate Sketch-based Query Serving for Metric Monitoring](https://arxiv.org/abs/2505.10560) — the paper, PVLDB vol. 18
+- [ProjectASAP/promsketch](https://github.com/ProjectASAP/promsketch) — the implementation (GPL-3.0)
+- [An Improved Data Stream Summary: The Count-Min Sketch and its Applications](https://doi.org/10.1016/j.jalgor.2003.12.001) — Cormode & Muthukrishnan
+- [DDSketch: A Fast and Fully-Mergeable Quantile Sketch with Relative-Error Guarantees](https://arxiv.org/abs/1908.10693) — Masson, Rim & Lee
+- [Gorilla: A Fast, Scalable, In-Memory Time Series Database](https://www.vldb.org/pvldb/vol8/p1816-teller.pdf) — the compression scheme Prometheus's TSDB descends from
+- [Prometheus recording rules](https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/) — do this first
