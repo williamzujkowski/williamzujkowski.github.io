@@ -165,16 +165,20 @@ class LinkValidator:
     # reader, but CI can't verify it. IEEE Xplore answers automated checkers
     # with 202 ("Accepted") or 418 ("I'm a teapot"); LinkedIn returns 999;
     # generic rate limiting is 429. These must not inflate the broken count.
-    ANTIBOT_CODES = frozenset({202, 418, 429, 999})
+    # Codes that mean "the server answered, but not with the document" -- bot
+    # challenges, rate limits, WAF rejections, method quibbles. Never 'broken'.
+    # 400 is here because some CDNs (ai.meta.com) reject non-browser clients with
+    # a Bad Request rather than a 403; the page loads fine in a browser.
+    ANTIBOT_CODES = frozenset({202, 400, 405, 406, 415, 418, 429, 451, 999})
 
     @staticmethod
     def classify_http_status(status_code: int, has_paywall: bool = False,
                              is_redirect: bool = False):
         """Map a final HTTP status to (status, issue_type). Pure -- no network.
 
-        Only genuinely-dead responses are 'broken': 404 and 5xx (plus ssl_error /
-        dns_error / timeout, which callers handle separately). 403/401/paywall
-        and the anti-bot/rate-limit codes in ANTIBOT_CODES are 'restricted'
+        Only a genuinely-dead resource is 'broken': 404 and 410 (plus ssl_error /
+        dns_error / timeout, which callers handle separately). Everything else --
+        403/401/paywall, anti-bot codes, and 5xx -- is 'restricted'
         (unverifiable, advisory) so the weekly citation report only alarms on
         real breakage rather than on publisher bot challenges. See #366 / #391.
         """
@@ -193,9 +197,14 @@ class LinkValidator:
         # Checked before the >=500 branch because 999 would otherwise be swept up.
         if status_code in LinkValidator.ANTIBOT_CODES:
             return 'restricted', f'http_{status_code}'
+        if status_code == 410:
+            return 'broken', 'gone'
+        # 5xx means the origin is up and erroring -- a deploy, an overloaded box,
+        # a transient outage. That is not a dead citation, and treating it as one
+        # puts live sources into the broken count and the auto-repair queue.
         if status_code >= 500:
-            return 'broken', f'{status_code}_error'
-        return 'broken', f'http_{status_code}'
+            return 'restricted', f'http_{status_code}'
+        return 'restricted', f'http_{status_code}'
 
     async def validate_batch(self, links: List[Dict]) -> List[ValidationResult]:
         """Validate a batch of links"""
