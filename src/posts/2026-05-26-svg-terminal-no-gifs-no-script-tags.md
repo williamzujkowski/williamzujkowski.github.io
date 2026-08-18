@@ -16,7 +16,7 @@ An `<img src="terminal.svg">` on GitHub doesn't get parsed as a live DOM subtree
 
 That gap is the entire project. The typing reveal, the cursor walk, and scroll-on-overflow are SMIL `<animate>` elements with `calcMode="discrete"`. Frame-cycling animations — spinners, a clock, dice — moved to CSS `@keyframes` a while back specifically so `prefers-reduced-motion` could clamp them, since CSS media queries have a hook into CSS animation and none into SMIL. That's also the honest gap in the reduced-motion story: the typing reveal and cursor walk still don't honor it, because there's no CSS lever to pull, and the docs say so instead of pretending otherwise. If that matters for your audience, `--static` renders one non-animated frame and calls it done.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/svg-terminal.png'); width: min(220px, 60%); aspect-ratio: 320/334; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/svg-terminal.png'); width: min(220px, 60%); aspect-ratio: 400/390; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">one file, no script tags</p>
 
 ## Forty-eight blocks and a live wire to the internet

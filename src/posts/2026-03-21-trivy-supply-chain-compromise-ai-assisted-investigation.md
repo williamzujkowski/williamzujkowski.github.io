@@ -10,7 +10,7 @@ On Friday March 19, someone force-pushed malicious code to 75 of 76 version tags
 
 I found out about it the way most people do — scrolling through security feeds on a Saturday morning. By that point, the attack had been active for over 12 hours.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/trivy.png'); width: min(220px, 60%); aspect-ratio: 300/355; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/trivy.png'); width: min(220px, 60%); aspect-ratio: 340/386; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the box, inspected</p>
 
 ## What Happened
