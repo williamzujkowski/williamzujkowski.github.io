@@ -47,7 +47,7 @@ I built an automated security pipeline that scans every commit with Grype, OSV-S
   </div>
   <div class="flow-node is-gate">Quality Gates</div>
   <div class="flow-branch" role="group" aria-label="Branch outcomes">
-    <div class="flow-leg" data-branch="Critical" role="group" aria-label="Critical"><div class="flow-node is-bad">OSV / Grype fail their job</div></div>
+    <div class="flow-leg" data-branch="Critical" role="group" aria-label="Critical"><div class="flow-node is-bad">Block on Critical</div></div>
     <div class="flow-leg" data-branch="Review" role="group" aria-label="Review"><div class="flow-node">Manual Review</div></div>
   </div>
 </div>
@@ -90,21 +90,48 @@ The pipeline orchestrates three scanners in parallel with a final quality gate:
   <div class="flow-node"><b>OSV</b><i>dependency scan — fails job on critical</i></div>
   <div class="flow-parallel" role="group" aria-label="Runs in parallel">
     <div class="flow-node"><b>Grype</b><i>container scan — fail-build on high</i></div>
-    <div class="flow-node"><b>Trivy</b><i>filesystem scan — advisory only</i></div>
+    <div class="flow-node"><b>Trivy</b><i>filesystem scan — SARIF upload</i></div>
   </div>
   <div class="flow-node">Upload SARIF</div>
-  <div class="flow-node">Security Gate <i>(not implemented)</i></div>
+  <div class="flow-node is-gate">Security Gate <i>reads each job's result</i></div>
 </div>
 
 **Key workflow features:** Triggers on push, pull requests, and daily at 2 AM UTC. SARIF reports upload to GitHub Security tab automatically. Slack notifications alert on failure.
 
-**What actually blocks, precisely.** OSV's critical check exits non-zero and fails `dependency-scan`. Grype's `fail-build: true` with `severity-cutoff: high` fails `container-scan`. Trivy uploads SARIF and has no `exit-code` set, so it never fails anything — it is advisory despite sitting in the same stage. And the `security-gate` job that is supposed to aggregate all three is a placeholder: it echoes a line, carries `if: always()`, and passes regardless of what the scans found. Read the workflow rather than the diagram if you are copying this.
+**What blocks, precisely.** OSV's critical check exits non-zero and fails
+`dependency-scan`. Grype's `fail-build: true` with `severity-cutoff: high` fails
+`container-scan`. The `security-gate` job then aggregates all three.
 
-The scanners are also not parallel. `container-scan` and `comprehensive-scan` both declare `needs: dependency-scan`, so OSV runs alone first and the other two follow. There is no matrix strategy over scanners anywhere in the file.
+That gate is worth looking at closely, because the obvious way to write it is
+wrong in a way that is invisible:
 
-**One thing to fix before you copy it.** The workflow pins `aquasecurity/trivy-action@master` — a mutable branch reference. Whoever controls that branch decides what runs in your CI, with your repository credentials. In a pipeline whose entire purpose is supply-chain security that is the wrong way round. Pin every third-party action to a commit SHA, not a tag and never a branch; tags move too.
+```yaml
+security-gate:
+  needs: [dependency-scan, container-scan, comprehensive-scan]
+  if: always()
+  steps:
+    - run: echo "All security scans completed"
+```
 
-📎 **Full GitHub Actions workflow (113 lines):**
+`if: always()` is there so the gate still runs when an upstream job failed — you
+want it to report rather than be skipped. But `always()` also means the gate
+**passes** when everything upstream failed, unless it explicitly inspects the
+results. A job that echoes a string and exits 0 is not a gate; it is a label
+that says "gate". Mine has to read `needs.<job>.result` and exit non-zero itself,
+and treat `skipped` and `cancelled` as failures rather than passes.
+
+The scanners are not parallel, either. `container-scan` and `comprehensive-scan`
+both declare `needs: dependency-scan`, so OSV runs alone first and the other two
+follow. There is no matrix strategy over scanners anywhere in the file.
+
+**Every third-party action is pinned to a commit SHA**, with the version in a
+trailing comment. This matters more here than in most workflows: an action
+referenced as `@master` — which is how `trivy-action` is usually documented —
+means whoever controls that branch decides what runs in your CI, holding your
+repository credentials. In a pipeline whose entire purpose is supply-chain
+security, that is the wrong way round. Tags move too, so pin the SHA.
+
+📎 **Full GitHub Actions workflow:**
 [Complete implementation with SARIF uploads, quality gates, and Slack notifications](https://gist.github.com/williamzujkowski/8185611a406dd91806f37d51778cdd16)
 
 ### Slack Notifications
@@ -213,7 +240,7 @@ Weekly auto-remediation with PR creation. `npm audit fix` clears a meaningful sh
 📎 **Complete auto-remediation workflow:**
 [Full workflow with PR creation and test validation](https://gist.github.com/williamzujkowski/7fd0e2b45a0311ffb4fc9d37c0684ad8)
 
-Weekly scheduled job scans for vulnerabilities, runs `npm audit fix` and `npm update`, re-scans, and opens a PR for review. Note that the workflow as written does **not** run your test suite before opening the PR, and the re-scan result is not checked — so the PR needs a human and a passing CI run before it goes anywhere. Adding a test gate to it is on my list.
+Weekly scheduled job scans for vulnerabilities, runs `npm audit fix` and `npm update`, **runs the test suite**, re-scans, and opens a PR for review. The test step is not optional decoration — `npm audit fix` has broken dependencies on me twice, and a workflow that opens a PR describing fixes as safe without running anything is asserting something it has not checked.
 
 ## Integration with Wazuh SIEM
 
