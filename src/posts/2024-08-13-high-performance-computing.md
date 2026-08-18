@@ -37,8 +37,8 @@ This convergence of power, efficiency, and accessibility is why I found myself s
 <figcaption>Researchers submit work through the scheduler; compute nodes communicate over a high-speed fabric and write through the parallel file system to archival storage.</figcaption>
 </figure>
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/hpc.png'); width: min(300px, 72%); aspect-ratio: 360/265; margin: 2rem auto 0.5rem;"></div>
-<p class="hand-note" style="text-align: center; display: block;">your PC, and everyone else's</p>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/hpc.png'); width: min(300px, 72%); aspect-ratio: 400/335; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">many oars, one boat</p>
 
 ## The Scale That Changes Everything
 
