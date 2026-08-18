@@ -146,6 +146,12 @@ function isActiveLink(linkHref: string): boolean {
     <meta name="author" content={SITE_CONFIG.author} />
 
     <!-- Security Headers -->
+    <!-- 'unsafe-inline' in script-src is a deliberate, documented acceptance,
+         not an oversight — see docs/security-posture.md. Astro's build-time CSP
+         hashing does not cover `is:inline` scripts (it is told not to process
+         them) and the theme-flash snippet below must run before first paint.
+         The real defence against injected script is the rehype-sanitize pass in
+         astro.config.mjs. Do not "fix" this without reading that doc. -->
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https:; connect-src 'self'; object-src 'none'; base-uri 'self'"
