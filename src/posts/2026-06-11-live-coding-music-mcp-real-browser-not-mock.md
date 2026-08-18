@@ -10,8 +10,8 @@ live-coding-music-mcp is what happens when you hand a language model a browser a
 
 It was also my first serious attempt at browser automation from an LLM, which mostly means it was my first tour of the many ways a browser can let you down. I wanted to see whether a model could do something closer to live coding, hands on the instrument, than to the usual trick of prompting a black box for a finished track. Short answer: yes, once you stop treating the browser as a tidy API and start treating it as the temperamental analog synth it actually is.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/music-mcp.png'); width: min(240px, 62%); aspect-ratio: 340/359; margin: 2rem auto 0.5rem;"></div>
-<p class="hand-note" style="text-align: center; display: block;">the browser, given a drum kit</p>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/music-mcp.png'); width: min(240px, 62%); aspect-ratio: 400/387; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the browser, given hands</p>
 
 ## What it actually does
 

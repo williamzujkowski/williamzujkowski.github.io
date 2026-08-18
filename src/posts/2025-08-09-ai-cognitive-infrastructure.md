@@ -16,7 +16,7 @@ AI isn't a collection of tools anymore. It's becoming the invisible architecture
 
 **Why it matters:** When infrastructure fails, the things built on it fail with it. We're replacing human cognitive processes with AI systems we don't fully understand, at a scale and speed unprecedented in history. The choices being made now are the ones that will be expensive to reverse. The evolution from [tools to embodied AI systems](/posts/2025-10-13-embodied-ai-robots-physical-world/) demonstrates how rapidly AI is moving from passive assistance to active participation in human cognition. Understanding transformer architecture foundations and multimodal foundation models becomes essential for anyone seeking to comprehend the cognitive layer being built. Yet [the ethics of large language models](/posts/2024-04-11-ethics-large-language-models/) reveal fundamental questions about who controls this infrastructure and whose values it embeds—questions we're answering through deployment rather than deliberation.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/cognitive-infra.png'); width: min(240px, 62%); aspect-ratio: 320/350; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/cognitive-infra.png'); width: min(240px, 62%); aspect-ratio: 400/495; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the mind, as infrastructure</p>
 
 ## What Is Cognitive Infrastructure
