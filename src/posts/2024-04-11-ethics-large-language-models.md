@@ -10,20 +10,20 @@ tags:
 ---
 Whenever I interact with a Large Language Model, there's a moment of awe, like stepping into a vast library filled with the echoes of human knowledge. But that wonder is tempered by experience, by the mistakes I've witnessed and the biases I've seen amplified.
 
-Deploying a customer-facing LLM for the first time in March 2023 felt like releasing something powerful and unpredictable into the wild. The lessons that followed, about bias, fairness, and responsibility, changed how I think about AI development and deployment.
+Years ago, putting a language model in front of real users for the first time felt like releasing something powerful and unpredictable into the wild. The lessons that followed, about bias, fairness, and responsibility, changed how I think about AI development and deployment.
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/ethics.png'); width: min(260px, 68%); aspect-ratio: 400/449; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">weighing the machine</p>
 
 ## The Bias Mirror: Reflecting Humanity's Flaws
 
-My awakening to AI bias came during testing of a resume screening tool in August 2022. [The system consistently ranked male candidates higher for technical positions, even when qualifications were identical](https://www.brookings.edu/articles/gender-race-and-intersectional-bias-in-ai-resume-screening-via-language-model-retrieval/) (Wilson & Caliskan, 2024). After testing 500 identical resume pairs with only the names changed, I measured a 23% score differential favoring male-associated names. The model had learned from historical hiring data that reflected decades of workplace discrimination.
+The clearest case I encountered was a resume screening tool that ranked candidates differently depending on the name at the top of an otherwise identical document. The mechanism is not mysterious: the model learned from historical hiring decisions, and those decisions carry decades of workplace discrimination. Nothing was broken. The system was reproducing its training data faithfully, which is precisely the problem.
 
 Watching an AI system perpetuate and amplify human prejudices was sobering. It wasn't a bug, it was a feature the model had learned from biased training data.
 
-**Gender Bias Everywhere:** Content generation systems commonly suggest "nurse" when prompted with "she" and "doctor" when prompted with "he." These subtle associations, drawn from millions of text examples, reinforced harmful stereotypes. [Research shows AI resume screening tools prefer male-associated names 52% of the time versus female-associated names only 11% of the time](https://www.washington.edu/news/2024/10/31/ai-bias-resume-screening-race-gender/) (Wilson & Caliskan, 2024).
+**Gender Bias Everywhere:** Content generation systems commonly suggest "nurse" when prompted with "she" and "doctor" when prompted with "he." These subtle associations, drawn from millions of text examples, reinforce stereotypes rather than inventing them — which is why they survive so much attempted correction. Bender and colleagues set out the structural version of this argument in ["On the Dangers of Stochastic Parrots"](https://dl.acm.org/doi/10.1145/3442188.3445922) (FAccT 2021): a model trained on uncurated web text encodes whoever was over-represented in it.
 
-**Racial and Cultural Bias:** Language models trained on internet text absorbed the worst of human prejudices. Studies found that AI hiring tools consistently favored white-associated names over Black-associated ones. Generating text about different racial groups revealed deeply troubling patterns in word associations and sentiment.
+**Racial and Cultural Bias:** Language models trained on internet text absorbed the worst of human prejudices. Audits of AI hiring tools have repeatedly found name-based disparities in ranking. Generating text about different racial groups revealed deeply troubling patterns in word associations and sentiment.
 
 **Religious and Political Bias:** Models reflected the political leanings and religious assumptions of their training data sources, often presenting particular worldviews as universal truths.
 
@@ -31,21 +31,21 @@ The realization that AI systems could systematically discriminate while appearin
 
 ## The Misinformation Factory: When AI Lies Convincingly
 
-LLMs' ability to generate convincing but false information became apparent during early fact-checking experiments in November 2022. Asked about a historical event, a GPT-3.5-based model I was testing confidently provided detailed information that sounded authoritative but was completely fabricated. In one test batch of 100 historical queries, I found that 34% contained at least one fabricated detail presented as fact.
+The tendency to generate convincing falsehoods showed up in early fact-checking experiments. Asked about a historical event, the model returned detailed, well-structured, authoritative-sounding information that was simply invented. The failure mode is not that it sometimes gets things wrong — every source does — but that the confident register is identical whether the content is right or not.
 
 The danger wasn't just incorrect facts, it was the confidence and coherence with which false information was presented. Users couldn't distinguish between genuine knowledge and sophisticated guesswork.
 
-**Hallucination at Scale:** I watched the model create entire bibliographies of non-existent research papers, complete with realistic titles, authors, and publication details. During one 2023 internal audit, I verified 50 citations the model generated, and 18 of them (36%) pointed to papers that never existed. The implications for academic research and journalism are significant.
+**Hallucination at Scale:** the model will produce whole bibliographies of non-existent papers, with plausible titles, plausible author lists, and plausible venues. This one is worth checking yourself, because the fabricated citations are indistinguishable from real ones until you try to fetch them — which is exactly why they get through review.
 
-**Authoritative Falsehoods:** The model's ability to adopt an expert tone while providing incorrect information could mislead users who lacked domain expertise to evaluate the claims. This created real problems: in user testing with 50 non-experts, 82% accepted fabricated technical explanations as factual when presented in an authoritative tone, even when the information contradicted their prior knowledge.
+**Authoritative Falsehoods:** the expert register is the dangerous part. A reader without domain expertise has no signal to separate a correct explanation from a fluent wrong one, because the fluency is constant. This is a harder problem than accuracy, since improving accuracy without changing the register makes the remaining errors more credible, not less.
 
-**Propaganda Potential:** Bad actors could use LLMs to generate compelling but false content at unprecedented scale, potentially overwhelming fact-checking capabilities. In testing, I configured an LLM to generate 500+ unique but false news articles per hour, each one appearing credible enough to pass initial screening by human reviewers 60% of the time.
+**Propaganda Potential:** generating plausible false content is now cheap and parallel, while verifying it remains expensive and serial. That asymmetry is the actual threat — not any particular piece of fabricated content, but the economics of producing it against the economics of checking it.
 
 These experiences taught me that technical capability without safeguards creates powerful tools for deception.
 
 ## Job Displacement: The Human Cost of Automation
 
-Implementing LLMs in content creation workflows during 2023 revealed the human impact of AI automation. Writers, editors, and researchers faced uncertainty as AI systems could produce similar output faster and cheaper. Organizations have deployed ChatGPT-integrated tools in documentation workflows, demonstrating content production time reductions from an average of 4 hours per article to 45 minutes, though quality improvements remain debatable.
+Implementing LLMs in content creation workflows during 2023 revealed the human impact of AI automation. Writers, editors, and researchers faced uncertainty as AI systems could produce similar output faster and cheaper. Drafting is genuinely faster with model assistance. Whether the finished work is better is a separate question, and one that documentation teams answer differently depending on how much editing the drafts actually need.
 
 I watched talented colleagues worry about their future relevance as AI capabilities expanded. The technology that excited me professionally threatened the livelihoods of people I respected and worked alongside.
 
@@ -53,7 +53,7 @@ I watched talented colleagues worry about their future relevance as AI capabilit
 
 **Skills Obsolescence:** Capabilities that took years to develop (writing, analysis, coding) could potentially be replaced by AI systems trained in months.
 
-**Economic Inequality:** AI tools might primarily benefit capital owners rather than workers, potentially exacerbating economic disparities. Organizations have reported content automation projects saving hundreds of thousands in annual labor costs, but often only a fraction of affected workers are successfully retrained for other roles.
+**Economic Inequality:** AI tools might primarily benefit capital owners rather than workers, potentially exacerbating economic disparities. Automation savings and retraining outcomes are rarely reported together, which makes the net effect on the people involved hard to assess — and the omission is not random.
 
 The ethical challenge isn't just about building better AI, it's about ensuring the benefits are distributed fairly and transition costs are managed humanely.
 
@@ -61,19 +61,19 @@ The ethical challenge isn't just about building better AI, it's about ensuring t
 
 Working with LLMs revealed troubling implications for privacy and data security:
 
-**Training Data Privacy:** Models trained on web scraping might include personal information, private communications, or sensitive documents without consent. During a 2023 privacy audit of a training dataset I was working with, I found it inadvertently contained 12,000+ email addresses and 3,400+ phone numbers from publicly scraped web pages, requiring a complete rebuild of the training set with better filtering.
+**Training Data Privacy:** Models trained on web scraping might include personal information, private communications, or sensitive documents without consent. Scraped web corpora routinely contain email addresses and phone numbers that were published in one context and never intended for another. "Publicly accessible" and "fair to train on" are different claims, and the gap between them is where most of the argument lives.
 
 **Inference Leakage:** AI systems could potentially be manipulated to reveal information about their training data, including personal details about individuals.
 
 **Conversation Storage:** Chat logs with AI systems often contained sensitive personal or business information that required careful handling.
 
-In my homelab, I analyzed 10,000 conversation logs to test for prompt injection vulnerabilities and privacy leakage patterns. I found that 17% of logged conversations contained potentially sensitive personal information and 8% included what appeared to be proprietary business data, demonstrating real-world privacy risks in AI systems.
+Conversation logs are an underrated liability. People paste things into a chat box that they would never put in a ticket, and anything you log you are now responsible for storing, securing, and eventually deleting. Decide what you retain before you turn logging on, not after.
 
 The privacy implications of AI interactions were far broader than initially understood.
 
 ## Responsibility and Accountability: When AI Causes Harm
 
-The hardest ethical question in AI is: "Who's responsible when AI systems cause harm?" This became concrete for me in December 2023 when I was evaluating a chatbot prototype in my lab and it confidently recommended delaying urgent care for symptoms that actually required immediate medical attention. The model had no concept of medical risk — it just pattern-matched its way to a dangerous suggestion. It was a vivid reminder of why guardrails around sensitive domains are non-negotiable.
+The hardest ethical question in AI is: "Who's responsible when AI systems cause harm?" This became concrete for me years ago, evaluating a chatbot prototype and it confidently recommended delaying urgent care for symptoms that actually required immediate medical attention. The model had no concept of medical risk — it just pattern-matched its way to a dangerous suggestion. It was a vivid reminder of why guardrails around sensitive domains are non-negotiable.
 
 That experience crystallized some uncomfortable questions:
 
@@ -97,7 +97,7 @@ From 2022 through 2024, grappling with AI ethics taught me that technical soluti
 
 **Diverse Teams:** Including people from different backgrounds in development and testing reveals blind spots that are easy to miss. Cultural assumptions in training data are easy to overlook without diverse perspectives scrutinizing the pipeline. For more context, see [retrieval augmented generation (rag): enhancing llms with external knowledge](/posts/2024-04-04-retrieval-augmented-generation-rag).
 
-**Adversarial Testing:** Red team exercises specifically designed to surface biased or harmful outputs. Red team exercises have shown that specific prompt patterns can trigger biased outputs at surprisingly high rates, which is why regular adversarial testing matters.
+**Adversarial Testing:** Red team exercises specifically designed to surface biased or harmful outputs. Red team exercises reliably find prompt patterns that trigger biased outputs, which is a useful reminder that a model passing your benchmark is not the same as a model behaving well, which is why regular adversarial testing matters.
 
 **Training Data Curation:** Careful attention to data sources and active effort to include diverse perspectives.
 
@@ -136,13 +136,13 @@ From 2022 through 2024, grappling with AI ethics taught me that technical soluti
 
 Working in AI during the emergence of regulatory frameworks provided front-row seats to policy development:
 
-**EU AI Act:** Full regulation that categorizes AI systems by risk level and imposes corresponding requirements.
+**EU AI Act:** entered into force August 2024, categorising AI systems by risk level. Its obligations phase in over several years — prohibitions from February 2025, general-purpose model obligations from August 2025, and most high-risk obligations from August 2026 — so "is it in force" and "does it apply to you yet" are different questions.
 
 **Algorithmic Accountability:** Growing requirements for transparency in automated decision-making systems.
 
 **Sector-Specific Rules:** Healthcare, finance, and other industries developing AI-specific regulations.
 
-**Voluntary Commitments:** Industry self-regulation efforts like the White House AI commitments.
+**Voluntary Commitments:** industry self-regulation, such as the July 2023 White House commitments. Worth noting how durable these turned out to be: the associated executive order was revoked in January 2025. Voluntary frameworks track the administration that convened them.
 
 Navigating this evolving landscape required constant attention to regulatory developments while maintaining innovation momentum.
 
@@ -216,9 +216,9 @@ The stakes couldn't be higher, but I remain optimistic that thoughtful, ethical 
 
 ### Further Reading
 
-- ["Ethical and social risks of harm from Language Models"](https://arxiv.org/abs/2112.04359) - Nature
+- ["Ethical and social risks of harm from Language Models"](https://arxiv.org/abs/2112.04359) - Weidinger et al., DeepMind (arXiv preprint, 2021)
 - ["Racial Discrimination in Face Recognition Technology"](https://sitn.hms.harvard.edu/flash/2020/racial-discrimination-in-face-recognition-technology/) - Science in the News, Harvard University
-- ["Four Principles of Explainable Artificial Intelligence"](https://www.nist.gov/publications/towards-standard-identifying-and-managing-bias-artificial-intelligence) - NIST
+- ["Towards a Standard for Identifying and Managing Bias in Artificial Intelligence"](https://www.nist.gov/publications/towards-standard-identifying-and-managing-bias-artificial-intelligence) - NIST SP 1270 (2022)
 
 ### Get Involved:
 

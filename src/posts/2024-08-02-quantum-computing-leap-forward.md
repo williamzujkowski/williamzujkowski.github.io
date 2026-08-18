@@ -8,7 +8,9 @@ tags:
   - cryptography
   - future-technology
 ---
-In June 2024, I spent 40 hours working through IBM's Qiskit tutorials, attempting to understand quantum gates and superposition. My first attempt at implementing a simple quantum circuit failed spectacularly. I had confused the Hadamard gate with the Pauli-X gate, causing my entire algorithm to produce random noise instead of the expected Bell state. It took me three days of debugging before I realized my fundamental conceptual error.
+Working through IBM's Qiskit tutorials, my first attempt at a Bell pair failed in a way I found genuinely instructive. I had reached for a Pauli-X where I wanted a Hadamard — so instead of a superposition I got `|1⟩`, the CNOT dutifully flipped its target, and every single shot came back `11`. A histogram with exactly one bar. The bug announced itself perfectly, which is more than most bugs do: a correct Bell state gives you `00` and `11` at roughly fifty-fifty, and there is no mistaking one for the other.
+
+The conceptual error underneath was that I had been reading X and H as interchangeable "flip the qubit" gates. X flips a basis state. H puts one into superposition. Everything interesting in the field is downstream of that distinction.
 
 
 That learning experience taught me something critical. Quantum computing isn't just a faster computer. It's a fundamentally different way of processing information that could change everything from drug discovery to artificial intelligence, while simultaneously breaking much of the cryptography that secures our digital world. The timeline for when this happens remains uncertain, though progress has accelerated since 2023.
@@ -34,13 +36,13 @@ That learning experience taught me something critical. Quantum computing isn't j
 
 ## The Quantum Breakthrough: From Theory to Reality
 
-Between 2019 and 2024, quantum computing progressed faster than I expected. When I started learning in 2022, most quantum computers had around 50-100 qubits. By late 2023, IBM demonstrated a 1000-qubit processor, though error rates remained problematic at 1-2% per gate operation.
+Between 2019 and 2024, quantum computing progressed faster than I expected. In 2022 most quantum computers had around 50-100 qubits. By late 2023, IBM demonstrated a 1,121-qubit processor (Condor), though error rates remained problematic at around 1% per two-qubit gate operation.
 
-**IBM's Quantum Roadmap:** Their plan to reach 100,000+ qubit systems by 2030 seemed achievable in 2023, though I'm skeptical about the timeline. Error correction alone will probably require 1000 physical qubits per logical qubit.
+**IBM's Quantum Roadmap:** their plan to reach 100,000+ qubit systems by 2030 seemed achievable in 2023, though I'm sceptical about the timeline. Error correction is the reason the physical qubit counts have to get so large — and the overhead figure depends entirely on the gate error rate you assume. The commonly quoted ~1000 physical per logical assumes about 0.1% per gate. At the 1-2% rates of 2023 hardware you are at or above the surface-code threshold, where adding physical qubits makes the logical error rate *worse* and no overhead ratio exists at all. Getting under threshold is the whole game.
 
-**Google's Quantum Advantage (October 2019):** Their Sycamore processor completed a specific calculation in 200 seconds that would take classical supercomputers 10,000 years. The problem was carefully chosen, and critics noted it had limited practical value, but it demonstrated quantum speedup.
+**Google's Quantum Advantage (October 2019):** Sycamore ran a random-circuit-sampling task in 200 seconds, and Google claimed a classical supercomputer would need 10,000 years. That estimate did not survive contact with classical algorithmists. IBM put it at about 2.5 days within the week, and by 2022 a GPU cluster had reproduced the result in roughly 15 hours. The 10,000-year figure is the one everybody remembers and it was retired long ago. The durable lesson is that "classically intractable" is a moving target, and that a quantum-advantage claim is really a claim about the best known classical algorithm on the day it was made.
 
-**Commercial Investment:** Between 2020 and 2023, over $5 billion flowed into quantum computing startups according to PitchBook data, though many investors likely don't fully understand the technology's limitations.
+**Commercial Investment:** billions have flowed into quantum computing startups, and the sums quoted vary widely depending on whether you count announced government programmes, committed capital, or capital actually deployed. Treat any single headline figure with suspicion.
 
 **Government Initiatives:** The U.S. National Quantum Initiative Act (December 2018) allocated $1.2 billion over five years. China's investment exceeded $10 billion according to 2023 estimates, recognizing this as critical infrastructure for future competitiveness.
 
@@ -50,15 +52,17 @@ Quantum computers won't replace classical computers for most tasks, but they cou
 
 ### Cryptography Breaking
 
-**Shor's Algorithm:** Efficiently factoring large integers, breaking RSA encryption. In March 2024, I implemented Shor's algorithm in Qiskit 0.45 to factor the number 15 (the largest number current simulators can handle). It took 47 seconds on my RTX 3090 to simulate just 5 qubits. Factoring a 2048-bit RSA key would require millions of error-corrected qubits, which probably won't exist until the 2040s at the earliest.
+**Shor's Algorithm:** efficiently factoring large integers, breaking RSA. The textbook demonstration factors 15, which needs roughly 18 qubits and runs in well under a second on any simulator — 15 is the canonical teaching example, not a ceiling. Simulators handle far more: Braket's state-vector simulator goes to 34 qubits, and a 24GB GPU holds a 30-qubit state vector.
 
-**Grover's Algorithm:** Searching unsorted databases quadratically faster than classical computers. I tested this on a simulated 1024-item search space in April 2024. The quantum version needed 32 iterations versus 512 for classical search, achieving the theoretical √N speedup. The catch is that quantum memory access remains slow, so practical advantage is uncertain.
+The gap that matters is between the demo and the threat. Gidney and Ekerå's 2019 estimate ([arXiv:1905.09749](https://arxiv.org/abs/1905.09749)) put factoring a 2048-bit RSA key at 20 million noisy physical qubits over 8 hours, assuming a 0.1% gate error rate.
 
-**Discrete Logarithms:** Breaking elliptic curve cryptography and other public-key systems. The timeline for this threat is unclear. Some experts predict 2035, others say 2050 or later.
+**Grover's Algorithm:** Searching unsorted databases quadratically faster than classical computers. On a 1024-item search space, classical search averages 512 lookups. Grover's optimum is ⌊(π/4)√N⌋ = 25 iterations — not √N = 32, which is a common slip and one that costs you: overshooting the optimum rotates the state past the target and *lowers* your success probability. The catch is that quantum memory access remains slow, so practical advantage is uncertain.
+
+**Discrete Logarithms:** breaking elliptic curve cryptography and other public-key systems. The timeline is unclear, and it has been moving in one direction. In 2025 Gidney revised his own 2019 estimate down by more than an order of magnitude, to [under a million noisy qubits in under a week](https://arxiv.org/abs/2505.15917) for 2048-bit RSA. Resource estimates are engineering assumptions rather than physics, and they have consistently gotten cheaper. That is the argument for migrating early instead of waiting for a date.
 
 ### Optimization Problems
 
-**Supply Chain Optimization:** Finding optimal routes and resource allocation across complex networks. I experimented with quantum-inspired optimization in May 2024 using a 20-node network. The algorithm found solutions 3x faster than simulated annealing on my test hardware, though whether this scales to real-world problems remains uncertain.
+**Supply Chain Optimization:** Finding optimal routes and resource allocation across complex networks. I experimented with quantum-inspired optimization on a small network. Note the "inspired": these are classical algorithms borrowing structure from quantum ones, and any speedup they show says nothing about quantum hardware. Whether either scales to real problems remains uncertain.
 
 **Financial Portfolio Management:** Optimizing investment strategies across thousands of variables. Current quantum computers can handle maybe 10-20 variables before error rates make results unreliable.
 
@@ -68,7 +72,7 @@ Quantum computers won't replace classical computers for most tasks, but they cou
 
 ### Simulation and Modeling
 
-**Chemistry Simulation:** Modeling molecular behavior for materials science and drug development. I attempted to simulate a hydrogen molecule (H2) using VQE in Qiskit in July 2024. It took 240 iterations and 18 minutes to converge to the ground state energy, with results matching published values within 0.001 Hartree. Scaling to larger molecules faces exponential complexity, though perhaps variational algorithms will help.
+**Chemistry Simulation:** Modeling molecular behavior for materials science and drug development. H2 is the standard first VQE exercise — a two-to-four qubit problem that converges on a laptop in seconds and lands within a milliHartree of the published ground-state energy. Scaling to larger molecules faces exponential complexity, though perhaps variational algorithms will help.
 
 **Climate Modeling:** Simulating complex environmental systems with greater detail. This application remains speculative. No one has demonstrated quantum advantage for climate modeling as of 2024.
 
@@ -88,13 +92,13 @@ As of mid-2024, quantum computers exist but have serious limitations. I learned 
 
 **Limited Connectivity:** Not all qubits can interact with all others. IBM's 2023 Condor processor had hexagonal connectivity, limiting which qubits could entangle directly. This constraint complicates circuit design significantly.
 
-**Calibration Requirements:** Quantum systems need constant recalibration and maintenance. During my experiments with IBM Quantum in August 2024, I noticed calibration windows every 24 hours where the system went offline for 2-3 hours.
+**Calibration Requirements:** Quantum systems need constant recalibration and maintenance. IBM Quantum systems take regular calibration windows during which they are unavailable, which is a real constraint on anything you want to run on a schedule.
 
 ### Current Capabilities
 
 **Proof of Concept:** Demonstrating quantum advantage on carefully selected problems. Google's 2019 demonstration used a contrived problem. Real-world applications remain elusive as of 2024.
 
-**Algorithm Development:** Testing quantum algorithms on small-scale problems. I tested VQE, QAOA, and Grover's algorithm on 5-10 qubit systems between April and August 2024. All worked in simulation, but noise on real hardware degraded results significantly.
+**Algorithm Development:** Testing quantum algorithms on small-scale problems. VQE, QAOA and Grover all work cleanly on small simulated systems. On real hardware noise degrades the results markedly — which is why error correction is the field's central problem rather than a footnote.
 
 **Error Correction Research:** Developing techniques for managing quantum errors. The surface code (proposed in 1998) remains the leading candidate, but full implementation probably won't happen until the late 2020s at the earliest.
 
@@ -114,7 +118,7 @@ As of mid-2024, quantum computers exist but have serious limitations. I learned 
 
 ### Healthcare and Pharmaceuticals
 
-**Drug Discovery:** Simulating molecular interactions to identify potential treatments. My H2 molecule simulation in July 2024 took 18 minutes. Simulating a drug candidate (hundreds of atoms) would require millions of qubits and probably won't be feasible until the 2040s or later.
+**Drug Discovery:** Simulating molecular interactions to identify potential treatments. H2 is four qubits. Simulating a drug candidate of hundreds of atoms would require millions, and is not close.
 
 **Personalized Medicine:** Optimizing treatment plans based on individual genetic profiles. This application remains speculative as of 2024. No demonstrations exist.
 
@@ -134,7 +138,7 @@ As of mid-2024, quantum computers exist but have serious limitations. I learned 
 
 ### Artificial Intelligence
 
-**Quantum Machine Learning:** Algorithms that could exponentially speed up certain AI tasks. I experimented with quantum k-means clustering in Qiskit in June 2024. The algorithm worked on 8-point datasets but offered no advantage over classical methods. Theoretical speedups exist, but practical implementations face noise and scalability challenges.
+**Quantum Machine Learning:** Algorithms that could exponentially speed up certain AI tasks. Quantum k-means runs fine on toy datasets and offers no advantage over classical methods there. Theoretical speedups exist, but practical implementations face noise and scalability challenges.
 
 **Neural Network Training:** Quantum approaches to training deep learning models. As of 2024, no one has demonstrated quantum advantage for training realistic neural networks. The barren plateau problem (optimization landscapes becoming flat) hampers many approaches.
 
@@ -158,17 +162,17 @@ As of mid-2024, quantum computers exist but have serious limitations. I learned 
 
 **Amazon Braket:** Cloud-based access to multiple quantum computing platforms. Launched in 2020, provides access to IonQ, Rigetti, and other vendors through a unified interface.
 
-**Startup Ecosystem:** Over 300 companies working on quantum hardware, software, and applications as of 2023, though many will probably fail or consolidate.
+**Startup Ecosystem:** a few hundred companies work on quantum hardware, software and applications. Many will fail or consolidate.
 
 ### National Quantum Initiatives
 
-**United States:** National Quantum Initiative Act (December 2018) allocated $1.2 billion over five years. Renewed funding in 2023 added another $1.8 billion through 2028.
+**United States:** National Quantum Initiative Act (December 2018) allocated $1.2 billion over five years. Its authorization lapsed at the end of FY2023; a reauthorization bill advanced out of committee in the 118th Congress but was not enacted.
 
 **China:** Investment estimates range from $10 billion to $15 billion from 2016-2024. Their quantum satellite (launched August 2016) demonstrated quantum key distribution over 1,200 km.
 
 **European Union:** Quantum Flagship program (launched 2018) allocated €1 billion over 10 years for coordinated European efforts.
 
-**United Kingdom:** National Quantum Computing Centre opened in 2023 with £93 million initial funding. Commercial partnerships with IBM, Google, and others provide hardware access.
+**United Kingdom:** The National Quantum Computing Centre was funded with £93 million and opened its facility in October 2024. Commercial partnerships with IBM, Google, and others provide hardware access.
 
 **Canada:** Quantum Valley ecosystem around Waterloo and Toronto, anchored by the Institute for Quantum Computing (founded 2002). D-Wave Systems, based in Vancouver, pioneered quantum annealing though critics debate whether it provides true quantum advantage.
 
@@ -184,15 +188,15 @@ As of mid-2024, quantum computers exist but have serious limitations. I learned 
 
 **Development Challenges:** Learning to think in quantum concepts (superposition, entanglement, and measurement) rather than classical logic proved extremely difficult for me. My background in classical computing actually hindered understanding at first.
 
-**My Experience:** Writing my first quantum algorithm in June 2024 felt like learning programming all over again. I spent three days debugging a Hadamard gate error. Classical intuition often led to incorrect quantum code. The no-cloning theorem and measurement collapse violated my instincts about how computation should work.
+**My Experience:** writing a first quantum algorithm feels like learning programming again from scratch. Classical intuition actively misleads: no-cloning means you cannot copy a register to inspect it, and measurement destroys the superposition you spent the whole circuit building. Debugging is the strangest part — you cannot print intermediate state without collapsing it.
 
 ### Quantum Algorithms
 
-**Variational Quantum Eigensolver (VQE):** Finding ground states of quantum systems. I implemented VQE for H2 molecule simulation in July 2024. It took 240 iterations to converge, significantly more than the 50-100 iterations predicted in tutorials. Noise probably explains the difference.
+**Variational Quantum Eigensolver (VQE):** Finding ground states of quantum systems. I implemented VQE for H2 molecule simulation in July 2024. It took more iterations to converge than the tutorials suggested. Worth being precise about what that cannot be: on a noiseless state-vector simulator there is no hardware noise to blame, so slow convergence is the optimiser, the ansatz, or the starting parameters.
 
-**Quantum Approximate Optimization Algorithm (QAOA):** Solving optimization problems. I tested QAOA on a 4-node graph coloring problem in May 2024. The algorithm found the optimal solution after 15 layers, but simulation took 8 minutes on my RTX 3090. Scaling to larger problems faces exponential complexity.
+**Quantum Approximate Optimization Algorithm (QAOA):** Solving optimization problems. On a 4-node graph colouring problem QAOA finds the optimal solution, at a circuit depth that grows quickly with problem size. Scaling to larger problems faces exponential complexity.
 
-**Quantum Machine Learning:** Algorithms that use quantum properties for learning tasks. My June 2024 experiments with quantum k-means showed no advantage over classical methods on small datasets. The overhead of quantum operations outweighed theoretical speedups.
+**Quantum Machine Learning:** Algorithms that use quantum properties for learning tasks. Quantum k-means on small datasets shows no advantage over the classical version; the overhead of state preparation swamps the theoretical speedup.
 
 **Quantum Simulation:** Using quantum computers to simulate other quantum systems. This application makes the most sense to me. Simulating quantum systems on classical computers requires exponential resources. Quantum computers could provide exponential speedup, though practical demonstrations remain limited to toy problems as of 2024.
 
@@ -202,7 +206,7 @@ As of mid-2024, quantum computers exist but have serious limitations. I learned 
 
 Quantum computers pose an existential threat to current cryptographic systems, though the timeline remains uncertain:
 
-**RSA Encryption:** Based on the difficulty of factoring large numbers. Shor's algorithm can break RSA in polynomial time. My March 2024 implementation factored 15 in simulated quantum hardware. Factoring a 2048-bit RSA key would require an estimated 20 million noisy physical qubits, or about 6,000 error-corrected logical qubits. This probably won't be available until the 2040s at the earliest.
+**RSA Encryption:** Based on the difficulty of factoring large numbers. Shor's algorithm can break RSA in polynomial time. Factoring a 2048-bit RSA key would require an estimated 20 million noisy physical qubits, or about 6,000 error-corrected logical qubits. That is a long way from current hardware, though the estimates have been falling.
 
 **Elliptic Curve Cryptography:** Relies on discrete logarithm problems. Shor's algorithm also breaks this. The quantum resource requirements are similar to RSA. Timelines range from 2035 to 2050+ depending on who you ask.
 
@@ -220,9 +224,9 @@ This timeline uncertainty makes the threat immediate for long-term sensitive dat
 
 **Hash-Based Signatures:** Cryptographic signatures based on hash function security. NIST selected SPHINCS+ in 2022. The signatures are large (several kilobytes) but provide strong security guarantees.
 
-**Code-Based Cryptography:** Systems based on error-correcting codes. Classic McEliece was selected by NIST in 2022. The public keys are extremely large (hundreds of kilobytes to megabytes), limiting practical deployment.
+**Code-Based Cryptography:** Systems based on error-correcting codes. Classic McEliece was **not** selected in 2022 — it went to a fourth evaluation round, and its public keys run to hundreds of kilobytes, which limits where it can be deployed. NIST's July 2022 selections were CRYSTALS-Kyber, CRYSTALS-Dilithium, FALCON and SPHINCS+. A code-based scheme, HQC, was eventually chosen in March 2025. The public keys are extremely large (hundreds of kilobytes to megabytes), limiting practical deployment.
 
-**Multivariate Cryptography:** Solving systems of polynomial equations. This approach showed promise in early rounds but NIST didn't select any multivariate schemes in the 2022 announcement. Security concerns about side-channel attacks hampered adoption.
+**Multivariate Cryptography:** Solving systems of polynomial equations. This approach showed promise in early rounds but NIST didn't select any multivariate schemes in the 2022 announcement. A practical key-recovery attack on Rainbow, published in early 2022, broke its top-level parameter set over a weekend on a laptop — a structural break of the underlying hard problem rather than an implementation weakness.
 
 **NIST Standardization:** The National Institute of Standards and Technology ran a post-quantum cryptography competition from 2016 to 2024. Final standards (FIPS 203, 204, 205) were published in August 2024. Organizations should begin transitioning to these algorithms now (see [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide) for foundations), though migration will take years.
 
@@ -230,9 +234,9 @@ This timeline uncertainty makes the threat immediate for long-term sensitive dat
 
 ### Cloud Quantum Platforms
 
-**IBM Quantum Network:** Access to IBM's quantum computers through the cloud. I used the free tier in 2024, which provided access to 5-7 qubit systems. Queue times ranged from 30 minutes to 4 hours depending on system popularity. The 127-qubit systems required premium access (paid or academic partnerships).
+**IBM Quantum Network:** Access to IBM's quantum computers through the cloud. The Open plan gives free access to 127-qubit Eagle systems, metered as usage minutes per rolling window rather than by machine size. Queue times ranged from 30 minutes to several hours depending on system popularity; premium access buys priority in that queue, not a bigger machine. IBM retired its public 5- and 7-qubit devices back in 2021-22.
 
-**Amazon Braket:** Multi-vendor quantum cloud platform. Launched in 2020. Pricing as of 2024: $0.30 per task on simulators, $0.30-$0.50 per task on IonQ hardware, $0.00035 per shot on Rigetti. Costs add up quickly for experimentation.
+**Amazon Braket:** Multi-vendor quantum cloud platform. Launched in 2020. Costs add up faster than you expect: QPU access carries a per-task fee plus a per-shot charge, and the on-demand simulators bill by the minute rather than per task. Check current pricing before running anything at scale. Costs add up quickly for experimentation.
 
 **Microsoft Azure Quantum:** Integrated quantum development environment. Free credits available through Azure for Students in 2024. Q# integration improved significantly from 2022 to 2024, making development easier.
 
@@ -244,7 +248,7 @@ This timeline uncertainty makes the threat immediate for long-term sensitive dat
 
 **Algorithm Development:** Cloud-based tools for quantum algorithm design. IBM Quantum Composer (web-based circuit builder) let me create circuits without writing code. Useful for beginners in 2024, though serious work requires Python and Qiskit.
 
-**Simulation Services:** Classical simulation of quantum algorithms for testing. My RTX 3090 could simulate up to 24-25 qubits before running out of VRAM (24GB). Cloud simulators on Amazon Braket handled up to 34 qubits. The 2^n state space makes simulation intractable beyond ~40 qubits.
+**Simulation Services:** Classical simulation of quantum algorithms for testing. A 24GB card holds a 30-qubit state vector at complex128 — 2^30 amplitudes at 16 bytes each is 16GiB, while 31 qubits needs 32GiB and does not fit. Below about 25 qubits the whole state is under half a gigabyte and the GPU is not the constraint on anything. Cloud simulators on Amazon Braket handled up to 34 qubits. The 2^n state space makes simulation intractable beyond ~40 qubits.
 
 **Hybrid Computing:** Combining classical and quantum processing. Variational algorithms (VQE, QAOA) use this approach. The classical optimizer (running on normal CPUs/GPUs) adjusts parameters while the quantum processor evaluates them. This pattern will probably dominate near-term applications.
 
@@ -260,13 +264,13 @@ This timeline uncertainty makes the threat immediate for long-term sensitive dat
 
 **Coherence Time:** Maintaining quantum states for long enough to perform useful computations. My simulations suggested needing milliseconds to seconds of coherence for practical algorithms. Current hardware provides 100-200 microseconds (superconducting) or 1-10 seconds (trapped ions). The gap remains substantial.
 
-**Quantum Programming:** Developing software tools and programming paradigms for quantum systems. As of 2024, quantum programming remains extremely difficult. The learning curve is steep. I spent 40+ hours just understanding basic concepts in 2024.
+**Quantum Programming:** Developing software tools and programming paradigms for quantum systems. As of 2024, quantum programming remains extremely difficult. The learning curve is steep, and the early hours go on unlearning classical intuitions rather than on writing anything.
 
 ### Practical Constraints
 
 **Cost:** Quantum computers require expensive infrastructure and maintenance. A dilution refrigerator for superconducting qubits costs $500,000 to $2 million. Total system costs (including control electronics, shielding, etc.) exceed $10 million for research-grade systems. This won't change soon.
 
-**Expertise:** Limited pool of quantum computing experts. Global estimates suggest fewer than 10,000 people with deep quantum computing expertise as of 2023. Universities are expanding programs, but growing the talent pool will take decades.
+**Expertise:** Limited pool of quantum computing experts. The pool of people with deep expertise is small — small enough that hiring is a real constraint on the field. Universities are expanding programmes, but growing it takes a long time.
 
 **Integration:** Connecting quantum computers with classical systems and workflows. Hybrid quantum-classical algorithms (VQE, QAOA) partially address this, but integration challenges remain significant. Latency between quantum and classical processors complicates many approaches.
 
@@ -332,7 +336,7 @@ This timeline uncertainty makes the threat immediate for long-term sensitive dat
 
 ## Personal Reflections on the Quantum Revolution
 
-Working with quantum computers in 2024 has been like glimpsing an alien form of computation. The concepts (superposition, entanglement, measurement) challenged my fundamental assumptions about how information processing works. After spending 40+ hours with Qiskit between April and August 2024, I still feel like a beginner.
+Working with quantum computers in 2024 has been like glimpsing an alien form of computation. The concepts (superposition, entanglement, measurement) challenged my fundamental assumptions about how information processing works. After a good deal of time with Qiskit I still feel like a beginner.
 
 The most surprising aspect has been how quantum computing is simultaneously more limited and more powerful than I initially expected. Theoretical speedups exist for specific problems, but noise, decoherence, and error rates make current systems barely useful. My H2 molecule simulation took 18 minutes and matched published results within 0.001 Hartree, but scaling to practical molecules remains impossible with current hardware.
 
@@ -346,7 +350,7 @@ The cryptographic implications require attention now. Even if practical quantum 
 
 Quantum computing exists in early form as of 2024. Current systems (50-1000 qubits, 0.1-2% error rates, 100-200 microsecond coherence times) demonstrate quantum principles but lack practical commercial value for most applications. Fully fault-tolerant quantum computers probably won't arrive until the 2030s at the earliest, possibly much later.
 
-We can prepare by understanding the technology, experimenting with quantum algorithms through cloud platforms, and transitioning to quantum-resistant security systems. The learning curve is steep. I spent 40 hours just grasping basics. Organizations should start building expertise now, though expecting near-term commercial returns is probably unrealistic.
+We can prepare by understanding the technology, experimenting with quantum algorithms through cloud platforms, and transitioning to quantum-resistant security systems. The learning curve is steep. Organizations should start building expertise now, though expecting near-term commercial returns is probably unrealistic.
 
 The quantum future's timeline remains uncertain. Quantum computing might transform technology and society, or it might face fundamental obstacles that limit applications. The 2020s will probably clarify which scenario is more likely. Until then, cautious optimism and steady preparation seem wiser than either hype or dismissal.
 
