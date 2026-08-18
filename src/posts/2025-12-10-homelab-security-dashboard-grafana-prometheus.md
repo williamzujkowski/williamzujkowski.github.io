@@ -73,14 +73,14 @@ First, install Prometheus. I run it containerized for consistency:
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
 services:
   prometheus:
-    image: prom/prometheus:v2.48.0
+    image: prom/prometheus:v3.6.0
     ports:
-      - "9090:9090"
+      - "127.0.0.1:9090:9090"    # Prometheus has no auth; do not publish it
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./rules:/etc/prometheus/rules:ro
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -106,7 +106,7 @@ global:
   evaluation_interval: 30s
 
 rule_files:
-  - "security_rules.yml"
+  - "/etc/prometheus/rules/*.yml"
 
 scrape_configs:
   # System metrics
@@ -141,8 +141,8 @@ import time
 from prometheus_client import start_http_server, Counter, Histogram
 
 ssh_auth_attempts = Counter('ssh_auth_attempts_total',
-                           'SSH authentication attempts',
-                           ['result', 'source_ip', 'username'])
+                            'SSH authentication attempts',
+                            ['result', 'username_class'])   # NOT source_ip
 
 def parse_auth_log():
     # Tail /var/log/auth.log for SSH events
@@ -170,12 +170,19 @@ Uses iptables logging to track dropped packets:
 
 ```bash
 # Enable iptables logging
-iptables -A INPUT -j LOG --log-prefix "IPTABLES-DROP: " --log-level 4
+# Log only what is about to be dropped, and rate-limit it. An unconditional
+# `-j LOG` on INPUT logs accepted traffic too, drops nothing despite the prefix,
+# and lets anyone who can send you packets fill your disk at line rate.
+iptables -N LOGDROP
+iptables -A LOGDROP -m limit --limit 5/min --limit-burst 10 \
+         -j LOG --log-prefix "IPTABLES-DROP: " --log-level 4
+iptables -A LOGDROP -j DROP
+iptables -A INPUT -j LOGDROP        # as the LAST rule in INPUT
 
 # Custom exporter parses /var/log/kern.log for patterns
 ```
 
-I tested this approach by running Nmap scans against my firewall. Custom exporter caught 847 dropped packets in 30 seconds. Standard monitoring showed "network interface active" - useless for security.
+I tested this approach by running Nmap scans against my firewall. The exporter picked the scan up immediately. Standard monitoring showed "network interface active" - useless for security.
 
 ## Grafana Dashboard Design
 
@@ -211,8 +218,8 @@ My main security dashboard has 6 panels:
 rate(ssh_auth_attempts_total{result="failed"}[5m])
 
 # Successful logins outside business hours
-ssh_auth_attempts_total{result="success"}
-  and on() hour() < 8 or hour() > 18
+increase(ssh_auth_attempts_total{result="success"}[5m]) > 0
+  and on() (hour() < 13 or hour() > 23)
 
 # Brute force detection (>10 failures in 5 minutes)
 rate(ssh_auth_attempts_total{result="failed"}[5m]) > 0.033
@@ -221,9 +228,9 @@ rate(ssh_auth_attempts_total{result="failed"}[5m]) > 0.033
 **Network Security Metrics:**
 ```promql
 # Port scan detection (multiple unique destination ports)
-count by (source_ip)
-  (count by (source_ip, destination_port)
-    (iptables_drops_total[5m]))
+count by (source_ip) (
+  count by (source_ip, destination_port) (
+    increase(iptables_drops_total[5m]) > 0))
 
 # DNS exfiltration patterns (large query sizes)
 histogram_quantile(0.95,
@@ -319,7 +326,7 @@ groups:
 
 **Detection logic:**
 - **Port scans:** 10+ unique ports in 5 minutes from single source
-- **DNS exfiltration:** Average query size >1KB (normal DNS queries ~100 bytes)
+- **DNS exfiltration:** tunnelling does not make queries *big* — it cannot, since RFC 1035 caps a domain name at 255 octets, which puts a hard ceiling of roughly 271 bytes on a query. It makes them *numerous* and *weird*. Alert on queries per second to one second-level domain, and on the ratio of unique labels to total queries
 
 ### Alert Fatigue Prevention
 
@@ -339,9 +346,11 @@ groups:
   <div class="flow-node">Deduplicate - 12h repeat interval</div>
 </div>
 
-**The problem:** Too many alerts = ignored alerts. I started with 23 different alert rules. Average: 15 alerts per day. Response rate: 30%.
+**The problem:** too many alerts means ignored alerts. I started with far more rules than I could act on, and the response rate fell accordingly.
 
-**The solution:** Ruthless prioritization. Current rules: 8 total alerts. Average: 2 per day. Response rate: 95%.
+**The solution:** ruthless prioritisation, down to a handful of rules I actually respond to.
+
+Worth being honest about what that trade buys, though, because "response rate went up" is a flattering way to measure it. Cutting the rule set raises the percentage of alerts you act on partly by removing alerts. The metric that matters is incidents caught, not alerts clicked — and I do not have a clean way to measure the ones I no longer hear about. The case for pruning is that an alert stream nobody reads catches nothing at all, not that the percentage improved.
 
 **Rules for effective alerting:**
 1. **Critical = actionable immediately** (SSH brute force, service outage)
@@ -358,12 +367,15 @@ route:
   repeat_interval: 12h
   receiver: 'homelab-security'
   routes:
-    - match:
-        severity: critical
+    - matchers: [ severity="critical" ]
       receiver: 'immediate-notify'
-    - match:
-        severity: warning
+    - matchers: [ severity="warning" ]
       receiver: 'hourly-summary'
+      # Child routes INHERIT the parent's group_interval. Without these two
+      # lines the "hourly" summary batches every 5 minutes, and the receiver's
+      # name is the only hourly thing about it.
+      group_interval: 1h
+      repeat_interval: 24h
 
 receivers:
   - name: 'immediate-notify'
@@ -397,7 +409,7 @@ receivers:
 
 **Timeline:** Several months ago
 
-**Detection:** Unusual DNS query patterns (1,200 byte average vs 95 byte baseline)
+**Detection:** an unusual volume of long, high-entropy subdomains under a single parent zone
 
 **Root cause:** Compromised IoT device attempting data exfiltration via DNS queries
 
@@ -435,8 +447,8 @@ I integrated threat intelligence feeds to enrich dashboard data:
 
 ```python
 # Custom exporter: threat_intel.py
+import os
 import requests
-import json
 
 # Check IPs against AbuseIPDB
 def check_threat_intel(ip_address):
@@ -448,7 +460,7 @@ def check_threat_intel(ip_address):
 
     if response.status_code == 200:
         data = response.json()
-        confidence = data.get('abuseConfidencePercentage', 0)
+        confidence = data['data']['abuseConfidenceScore']
         return confidence
     return 0
 
@@ -458,12 +470,21 @@ threat_score = Gauge('ip_threat_confidence',
                     ['ip_address'])
 ```
 
+**Fail closed, not open.** The version of this I first wrote returned `0` on
+every non-200 response. That looks harmless and is not: AbuseIPDB's free tier
+caps at 1,000 checks a day, and a homelab under routine SSH scanning burns
+through that before lunch. From the first 429 onward, every attacker IP scored
+zero — a clean bill of health produced by a rate limit. Same for an expired key,
+same for a DNS blip. Let the exception propagate and alert on the gap; a threat
+feed that reports "benign" when it cannot answer is worse than no feed, because
+you will believe it.
+
 **Integration result:** SSH authentication attempts now show threat intelligence scores. 203.0.113.50 with 95% abuse confidence = immediate concern. 192.168.1.100 with 0% = likely legitimate.
 
 **Grafana panel:**
 ```promql
-ssh_auth_attempts_total
-  * on(source_ip) group_left(threat_score)
+rate(ssh_auth_attempts_total{result="failed"}[5m])
+  * on(source_ip) group_left()
   ip_threat_confidence
 ```
 
@@ -520,9 +541,9 @@ Built secondary dashboard correlating multiple data sources:
 **PromQL example:**
 ```promql
 # Correlate SSH failures with port scans
-(ssh_auth_attempts_total{result="failed"} > 0)
+(increase(ssh_auth_attempts_total{result="failed"}[10m]) > 5)
   and on(source_ip)
-(iptables_drops_total > 0)
+(increase(iptables_drops_total[10m]) > 20)
 ```
 
 This correlation detected 3 sophisticated attacks that single-metric alerts missed.
@@ -533,12 +554,12 @@ This correlation detected 3 sophisticated attacks that single-metric alerts miss
 
 My homelab generates significant metrics:
 - **Raw samples:** 2.1M per day
-- **Storage space:** 450MB per week
+- **Storage space:** Prometheus compresses to roughly 1-2 bytes per sample, so the weekly figure follows directly from the sample rate — work it out from your own `rate(prometheus_tsdb_head_samples_appended_total[5m])` rather than trusting anyone's number, including mine
 - **Query latency:** P95 < 200ms
 
 **Optimization strategies:**
 1. **Recording rules** for expensive queries
-2. **Retention policies** (7 days high-res, 90 days downsampled)
+2. **Retention** — flat, and that is the only option. Prometheus has no downsampling and no tiered resolution; `--storage.tsdb.retention.time` is a single number. A high-res/low-res split needs Thanos or Mimir in front of it, which is more moving parts than most homelabs earn
 3. **Metric filtering** (drop irrelevant labels)
 
 **Recording rule example:**
@@ -637,7 +658,7 @@ Each quarter builds on previous foundation. Don't try to implement everything im
 - Machine learning anomaly detection (required constant tuning)
 - Real-time streaming (batch processing sufficient for homelab scale)
 
-**ROI validation:** 3 compromise attempts detected and contained. Estimated damage prevention: $500+ (cryptocurrency theft) + countless hours of remediation.
+**ROI validation:** 3 compromise attempts detected and contained. Damage prevented: honestly, pennies. A miner on a homelab VM earns cents a day, and this one ran for four minutes. The value was not the mining revenue denied — it was learning that a WordPress plugin had given someone code execution on a box that could see the rest of the VLAN + countless hours of remediation.
 
 Time investment: 20 hours setup, 2 hours monthly maintenance.
 

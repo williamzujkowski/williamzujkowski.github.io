@@ -31,17 +31,17 @@ My setup runs on a single Dell R910:
 - 256GB RAM
 - 4x Intel Xeon E7540 (24 cores/48 threads total)
 - ~400GB mixed storage (LVM for OS + ZFS pool for VMs/data)
-- Backed by TrueNAS Core with ~30TB usable storage (RAIDZ2)
+- Backed by TrueNAS SCALE with ~30TB usable storage (RAIDZ2)
 
 This single node handles 30+ VMs and containers comfortably. With 256GB RAM, careful resource allocation is key, but it's more than sufficient for a full-featured homelab. Uptime averages 99.7% - better than some cloud providers I've used.
 
 <figure class="arch-fig">
 <div class="arch" role="group" aria-label="Private cloud physical architecture">
-  <section class="arch-tier" data-label="Dell R910" role="group" aria-label="Dell R910"><span class="arch-chip is-primary"><b>Proxmox VE Host</b><i>4x Xeon E7540, 256GB RAM</i></span><span class="arch-chip">30+ VMs</span><span class="arch-chip">LXC Containers</span><span class="arch-chip">ZFS Pool - OS + VM Storage</span><span class="arch-chip">12TB HDD - Bulk Storage</span></section>
+  <section class="arch-tier" data-label="Dell R910" role="group" aria-label="Dell R910"><span class="arch-chip is-primary"><b>Proxmox VE Host</b><i>4x Xeon E7540, 256GB RAM</i></span><span class="arch-chip">30+ VMs</span><span class="arch-chip">LXC Containers</span><span class="arch-chip">ZFS Pool - OS + VM Storage</span></section>
   <section class="arch-tier" data-label="Network - Ubiquiti" role="group" aria-label="Network - Ubiquiti"><span class="arch-chip is-guard">UDM Pro - Firewall / Router</span><span class="arch-chip">UniFi Switch 24 PoE</span></section>
-  <section class="arch-tier" data-label="Storage Server" role="group" aria-label="Storage Server"><span class="arch-chip is-primary"><b>TrueNAS Core</b><i>~30TB usable, RAIDZ2</i></span></section>
+  <section class="arch-tier" data-label="Storage Server" role="group" aria-label="Storage Server"><span class="arch-chip is-primary"><b>TrueNAS SCALE</b><i>~30TB usable, RAIDZ2</i></span></section>
 </div>
-<figcaption>Proxmox manages compute locally, connects to Ubiquiti for management and VM traffic, and uses TrueNAS over 10GbE iSCSI for shared storage.</figcaption>
+<figcaption>Proxmox manages compute locally, connects to Ubiquiti for management and VM traffic, and uses TrueNAS over iSCSI for shared storage.</figcaption>
 </figure>
 
 ### Storage Architecture That Actually Works
@@ -54,19 +54,19 @@ Proxmox supports multiple storage backends. I tested five configurations over 12
 
 **ZFS over iSCSI:** My current solution. TrueNAS SCALE provides the storage, Proxmox consumes it via iSCSI. Reliable, fast enough, manageable complexity.
 
-**GlusterFS:** Network filesystem that seemed promising. Performance was inconsistent - VMs would randomly stutter during file operations.
+**GlusterFS:** worth noting this option has since gone away — it is archived upstream and no longer appears in the PVE storage table at all. At the time it seemed promising. Performance was inconsistent - VMs would randomly stutter during file operations.
 
-**NFS:** Works but lacks features. No snapshots, limited backup options.
+**NFS:** the most feature-complete of the lot, actually — PVE supports images, containers, templates, ISOs, backups and snippets on it, with snapshots on qcow2 images. It is file-level, so raw-image performance lags block storage.
 
-**Winner:** ZFS over iSCSI. My TrueNAS Core server provides ~30TB usable storage (from 40TB raw) with RAIDZ2 protection. Proxmox sees it as shared block storage, perfect for VM disks and backups.
+**Winner for VM disks:** ZFS over iSCSI. Note its content types are `images, rootdir` only — you cannot put backups, ISOs or templates on it, so you still need a file-level target alongside. My TrueNAS SCALE server provides ~30TB usable storage (from 40TB raw) with RAIDZ2 protection. Proxmox sees it as shared block storage, perfect for VM disks and backups.
 
 <figure class="arch-fig">
 <div class="arch" role="group" aria-label="Proxmox storage architecture">
   <section class="arch-tier" data-label="Proxmox Host" role="group" aria-label="Proxmox Host"><span class="arch-chip is-primary">Proxmox VE</span></section>
-  <section class="arch-tier" data-label="Local Storage" role="group" aria-label="Local Storage"><span class="arch-chip"><b>ZFS Pool</b><i>VM disks, fast</i></span><span class="arch-chip"><b>12TB HDD</b><i>bulk / ISOs</i></span></section>
-  <section class="arch-tier" data-label="Network Storage" role="group" aria-label="Network Storage"><span class="arch-chip is-primary">TrueNAS Core</span><span class="arch-chip is-guard"><b>RAIDZ2 Pool</b><i>40TB raw to 30TB usable</i></span></section>
+  <section class="arch-tier" data-label="Local Storage" role="group" aria-label="Local Storage"><span class="arch-chip"><b>ZFS Pool</b><i>VM disks, fast</i></span></section>
+  <section class="arch-tier" data-label="Network Storage" role="group" aria-label="Network Storage"><span class="arch-chip is-primary">TrueNAS SCALE</span><span class="arch-chip is-guard"><b>RAIDZ2 Pool</b><i>40TB raw to 30TB usable</i></span></section>
 </div>
-<figcaption>Proxmox uses local disks directly and reaches the TrueNAS RAIDZ2 pool over 10GbE iSCSI.</figcaption>
+<figcaption>Proxmox uses local disks directly and reaches the TrueNAS RAIDZ2 pool over iSCSI.</figcaption>
 </figure>
 
 ### Network Segmentation Strategy
@@ -125,18 +125,34 @@ Standard Proxmox installation is reasonably secure. But "reasonably secure" isn'
 ```bash
 # Create admin user
 useradd -m -s /bin/bash proxmox-admin
-usermod -aG sudo proxmox-admin
+install -d -m700 -o proxmox-admin ~proxmox-admin/.ssh
+# Put your public key in ~proxmox-admin/.ssh/authorized_keys BEFORE going on.
+# A fresh account has no password and no key: it cannot log in by either route.
 
-# Disable root SSH
-sed -i 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
-systemctl restart ssh
+# PVE does not ship sudo. usermod against a group with no sudoers entry
+# succeeds silently and grants nothing.
+apt install -y sudo && usermod -aG sudo proxmox-admin
+
+# In a SECOND terminal, prove it works before you close the door:
+#   ssh proxmox-admin@host sudo -v
+
+# Match commented and uncommented forms. A literal 's/PermitRootLogin yes/'
+# no-ops if the directive is commented or lives in an sshd_config.d/ drop-in.
+sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config
+sshd -t && systemctl restart ssh
 ```
 
 **Enable fail2ban:** Protects against brute force attacks.
 
 ```bash
 apt update && apt install fail2ban
-systemctl enable fail2ban
+systemctl enable --now fail2ban     # without --now it waits for the next boot
+
+# Debian's default jails cover sshd ONLY. The Proxmox web UI on 8006
+# authenticates through pvedaemon and needs its own jail, matching
+#   pvedaemon\[.*authentication failure; rhost=<HOST>
+# Given that this whole setup routes admins to the web UI, that is the one
+# door stock fail2ban is not watching.
 ```
 
 **Configure automatic updates:** Security patches matter more than uptime.
@@ -144,6 +160,17 @@ systemctl enable fail2ban
 ```bash
 apt install unattended-upgrades
 dpkg-reconfigure -plow unattended-upgrades
+
+# Debian's shipped Origins-Pattern matches ONLY the Debian security origin.
+# The Proxmox repos are a different origin, so pve-kernel, pve-manager,
+# qemu-server and pve-qemu-kvm are NEVER upgraded by the default config.
+# Add it explicitly in /etc/apt/apt.conf.d/50unattended-upgrades:
+#   Unattended-Upgrade::Origins-Pattern {
+#     "origin=Debian,codename=${distro_codename},label=Debian-Security";
+#     "origin=Proxmox";
+#   };
+# Note also that unattended-upgrades does not reboot by default, so a new
+# kernel sits on disk unbooted until you do something about it.
 ```
 
 I learned this the hard way when a VM guest broke out to the host via a kernel vulnerability. The exploit was public for 3 weeks. Automatic patching would have prevented it.
@@ -164,9 +191,9 @@ The process took 6 attempts to get right. ACME client configuration is finicky, 
 
 **Resource limits:** Every VM and container has CPU, RAM, and disk limits. Prevents resource exhaustion attacks.
 
-**Network isolation:** VMs can't talk to each other unless explicitly configured. Default-deny firewall rules enforce this.
+**Network isolation:** this is the control people assume they have and usually don't. The Proxmox firewall is **disabled by default at every level** — you need the datacenter enable flag, the node flag, *and* the per-NIC flag on each guest before any rule does anything. Until all three are set, VMs on the same bridge talk freely at layer 2 and your default-deny is a default-allow. Open a second SSH session before you turn it on.
 
-**Backup encryption:** All backups use AES-256 encryption. Keys stored on separate system.
+**Backup encryption:** `vzdump` only supports encryption when the target is a Proxmox Backup Server storage. To a plain NFS or directory target you get compression and no encryption at all — worth knowing before you assume otherwise. Keys stored on separate system.
 
 ### Monitoring and Alerting
 
@@ -185,7 +212,7 @@ I get alerts for:
 - Network connectivity issues
 - Temperature anomalies
 
-Alert fatigue is real. I started with 23 alert rules, refined down to 8 that actually matter.
+Alert fatigue is real. I started with far more alert rules than I could act on and pruned hard that actually matter.
 
 ## Backup Strategy That Survived Disasters
 
@@ -195,7 +222,7 @@ Backups are boring until you need them. I learned this during a storage controll
 
 **Tier 1 - Local snapshots:** ZFS snapshots on TrueNAS every hour, retained for 48 hours. Fast recovery for user errors.
 
-**Tier 2 - Proxmox backups:** Full VM backups to TrueNAS storage weekly, incrementals daily. 30-day retention on ~30TB RAIDZ2 pool.
+**Tier 2 - Proxmox Backup Server:** PBS is what makes this tier work. Plain `vzdump` has no incremental mode — every mode (stop, suspend, snapshot) produces a full archive. Incremental backup via dirty bitmaps, and client-side AES-256-GCM, are both PBS features. 30-day retention on ~30TB RAIDZ2 pool.
 
 **Tier 3 - Offsite replication:** Restic backups to Backblaze B2. Critical data encrypted and synced daily, full backups weekly. 90-day retention with versioning.
 
@@ -213,10 +240,11 @@ Backups are boring until you need them. I learned this during a storage controll
 
 Monthly recovery tests validate backup integrity. I restore random VMs to isolated network, verify functionality.
 
-Results over 12 months:
-- 89% of backups restored successfully
-- 11% had minor issues (missing config files, network settings)
-- 0 complete failures
+Results over 12 months: out of roughly a dozen restores, one or two came back
+missing config files or network settings. Nothing failed outright. Percentages
+would be false precision on a sample that small — and note that "89% succeeded,
+11% had minor issues, 0 failures" does not partition anyway: if the issues were
+minor and nothing failed, everything restored.
 
 The testing caught several backup corruption issues early. Time investment: 2 hours monthly. Value: priceless when disasters happen.
 
@@ -238,7 +266,7 @@ Overcommitting resources is tempting in virtualized environments. Proxmox makes 
 
 With 24 cores/48 threads from the 4x Xeon E7540s, I can afford generous CPU allocation. Started with 2:1 overcommit ratio for dev environments. Production stays at 1:1 for predictable performance.
 
-**Rule:** Monitor CPU steal time. Values >10% indicate overcommitment problems. Haven't hit this yet with 48 threads available.
+**Rule:** watch steal time *inside the guests*, not on the host. It is a guest-side counter; on bare metal it reads zero no matter how oversubscribed you are.
 
 ### Memory Balancing
 
@@ -254,7 +282,7 @@ Network storage creates bottlenecks. I measured storage performance across diffe
 - Web servers: 50-100 IOPS avg, 500 IOPS peak
 - File servers: 20-50 IOPS avg, 800 IOPS peak
 
-10GbE networking eliminated storage latency as bottleneck. 1GbE was insufficient for multiple database VMs.
+Storage network sizing is worth doing on paper before spending money. At the IOPS figures above, whether 1GbE suffices depends entirely on block size — around 3,300 IOPS is roughly 216 Mbps at 8 KiB blocks and about 1.7 Gbps at 64 KiB. Which of those you are is the number to measure first, and it is the one I did not write down at the time.
 
 ## High Availability Strategy (Single Node)
 
@@ -264,13 +292,13 @@ Traditional Proxmox HA requires multiple nodes. With my single Dell R910, I focu
 
 **Service-level HA:** Critical services like GitLab and Jellyfin run with redundant processes. If one crashes, others continue serving.
 
-**Fast VM recovery:** With NVMe storage and ample RAM, crashed VMs restart in under 30 seconds.
+**Fast VM recovery:** with ample RAM and VM disks on the ZFS pool, crashed VMs restart quickly.
 
 **Automated recovery:** Systemd restart policies and Docker health checks automatically recover failed services.
 
 ### Future Clustering Plans
 
-When budget allows for a second node, I'll implement proper Proxmox clustering. The current setup is designed for easy migration:
+When budget allows, the next step is a *third* node — not a second. Two nodes is not a cluster: with two votes you need two for quorum, so either failure leaves `/etc/pve` read-only on the survivor and HA impossible. Three nodes, or two plus a QDevice somewhere cheap for the tiebreaker vote. The current setup is designed for easy migration:
 
 ```bash
 # Current network already segregated for clustering
@@ -351,9 +379,7 @@ Default Proxmox configuration works but isn't optimized for specific workloads.
 
 ### Cluster Performance
 
-**Corosync tuning:** Reduced heartbeat intervals for faster failure detection. Increased token timeouts to prevent false positives.
-
-**Migration bandwidth:** Increased migration bandwidth limit to 1Gbps. VM migrations complete in 2-3 minutes instead of 10-15.
+**A note on clustering, since this comes up:** none of it applies to a single node. There is no corosync ring to tune and nothing to migrate to. Worth stating because most Proxmox tuning advice online assumes a cluster.
 
 **Storage optimization:** Enabled compression on ZFS datasets. 25% space savings with minimal CPU overhead.
 
@@ -361,14 +387,14 @@ Default Proxmox configuration works but isn't optimized for specific workloads.
 
 Building private cloud infrastructure requires upfront investment. Here's my cost breakdown:
 
-**Hardware:** $12,000 (3 servers, networking equipment, storage)
+**Hardware:** a used enterprise server, networking equipment and disks. A second-hand R910 is a few hundred dollars; the switching cost more than the compute did.
 **Software:** $0 (Proxmox is open source)
 **Electricity:** $150/month average
 **Maintenance:** 4-6 hours/month
 
-**Equivalent cloud costs:** AWS c5.xlarge instances would cost $2,400/month for similar compute capacity.
+**Equivalent cloud costs:** genuinely hard to state honestly. Matching 48 threads of 2010-era Westmere-EX against modern vCPU overcounts the homelab, matching the RAM undercounts it, and Savings Plans move the answer by another 40%. for similar compute capacity.
 
-**ROI timeframe:** 8 months to break even, significant savings afterward.
+**ROI:** the software is free and the electricity is the recurring cost. The number that actually decides it is the 4-6 hours a month of maintenance, which nobody budgets for and which is the real reason to rent instead.
 
 **Hidden costs:** Learning curve, maintenance time, backup storage. Factor these into planning.
 
@@ -380,7 +406,7 @@ After 18 months of production use, here's what I wish I'd known from the start:
 
 **Start simple, evolve complexity:** My initial design was over-engineered. Simple solutions succeed where complex solutions fail.
 
-**Documentation saves time:** Proper documentation reduces troubleshooting time by 50-70%. Write it while building, not after.
+**Documentation saves time:** write it while building, not after. The version written afterwards documents what you think you did.
 
 **Backup testing is non-negotiable:** Untested backups aren't backups. Schedule regular recovery tests.
 
@@ -408,7 +434,8 @@ Don't try to implement everything at once. Each phase builds on previous work an
 
 - [Proxmox VE Administration Guide](https://pve.proxmox.com/pve-docs/) — official documentation
 - [TrueNAS SCALE Documentation](https://www.truenas.com/docs/scale/) — storage platform integration
-- [pfSense Book](https://docs.netgate.com/pfsense/en/latest/) — network security configuration
+- [Proxmox Backup Server documentation](https://pbs.proxmox.com/docs/) — incremental backup and client-side encryption
+- [Proxmox VE firewall](https://pve.proxmox.com/pve-docs/chapter-pve-firewall.html) — note it is disabled by default at every level
 - [Prometheus Monitoring](https://prometheus.io/docs/) — metrics collection and alerting
 - [Proxmox Community Forum](https://forum.proxmox.com/) — active community discussions
 
