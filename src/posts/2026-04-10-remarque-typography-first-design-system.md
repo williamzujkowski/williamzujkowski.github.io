@@ -12,8 +12,8 @@ I got tired of it. Not because there's anything wrong with those defaults indivi
 
 [Remarque](https://github.com/williamzujkowski/remarque) is my answer. A design system rooted in book typography, editorial design, and the quiet confidence of a well-made publication. The interface is the typography. Everything else is auxiliary.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/typography.png'); width: min(260px, 68%); aspect-ratio: 320/253; margin: 2rem auto 0.5rem;"></div>
-<p class="hand-note" style="text-align: center; display: block;">letters on a grid</p>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/typography.png'); width: min(260px, 68%); aspect-ratio: 400/363; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the page, holding everything up</p>
 
 ## The three-font system
 

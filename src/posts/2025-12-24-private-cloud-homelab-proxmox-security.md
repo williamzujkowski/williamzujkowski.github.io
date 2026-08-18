@@ -14,7 +14,7 @@ Proxmox VE turned my homelab from a collection of physical machines into a prope
 
 Here's what succeeded, what failed spectacularly, and how to build a secure private cloud that won't drive you crazy.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/private-cloud.png'); width: min(230px, 60%); aspect-ratio: 400/307; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/private-cloud.png'); width: min(230px, 60%); aspect-ratio: 400/391; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">your cloud, under your own roof</p>
 
 ## Why Private Cloud Architecture Matters
