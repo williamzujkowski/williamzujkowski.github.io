@@ -55,6 +55,63 @@ npx claude-flow@alpha init
 
 Two things to weigh before wiring it in. An alpha dist-tag is unpinned and mutable — you get a different artifact each day — and adding it as an MCP server hands that moving target tool access inside your development environment. That is a reasonable thing to accept knowingly on a scratch project and an unreasonable thing to do by accident on anything you care about.
 
+## Working with it
+
+The command surface is `hive-mind`, `swarm`, `memory`, `neural`, `github`,
+`sparc`, `health` and `bottleneck`. A session looks roughly like this:
+
+```bash
+npx claude-flow@alpha init --force          # wires up MCP servers and hooks
+npx claude-flow@alpha hive-mind wizard      # interactive: pick topology and agents
+npx claude-flow@alpha hive-mind status      # what's currently running
+npx claude-flow@alpha hive-mind sessions    # list sessions you can resume
+```
+
+**Sessions are the feature that matters most.** `hive-mind resume <session-id>`
+picks a coordination session back up with its memory intact. This is the
+difference between multi-agent work being a party trick and being usable: without
+resumable state, any interruption means re-establishing everything the agents had
+already worked out.
+
+**The GitHub subcommands are the most immediately useful part**, because they
+attach the orchestration to something with a defined shape:
+
+```bash
+npx claude-flow@alpha github pr-manager review --multi-reviewer --ai-powered
+npx claude-flow@alpha github gh-coordinator analyze --analysis-type security --target ./src
+npx claude-flow@alpha github issue-tracker manage --project-coordination
+```
+
+A multi-reviewer pass over a PR is a genuinely good fit for this pattern: review
+is naturally parallel, the reviewers do not need to coordinate with each other,
+and the output is a set of independent opinions rather than one artifact several
+agents had to agree on. If you try one thing, try that.
+
+**Diagnostics** are worth knowing about because a stalled swarm is otherwise
+opaque:
+
+```bash
+npx claude-flow@alpha health check --components all --auto-heal
+npx claude-flow@alpha bottleneck analyze --auto-optimize
+```
+
+`bottleneck analyze` is the one I reached for most — when a run takes far longer
+than it should, the usual answer is that the decomposition was wrong and one
+agent is serialising everything behind it.
+
+## SPARC, and structured decomposition generally
+
+There's a `sparc` subcommand implementing a Specification → Pseudocode →
+Architecture → Refinement → Completion workflow. The specific acronym matters
+less than the underlying observation, which is the most useful thing I took from
+using this: **multi-agent systems are only as good as the decomposition you hand
+them.** Agents do not discover that your task splits into five independent
+pieces. If you give them one task wearing a hat, you get one task done slowly by
+a committee.
+
+So the work is front-loaded into saying what the pieces are and how they compose
+— which is the same work good delegation to people requires, and about as hard.
+
 ## What it's good and bad at
 
 **Good at:** work that genuinely decomposes. Several independent endpoints, a test suite alongside an implementation, research-then-write pipelines where one agent gathers and another produces. The gains come from parallelism, so they are bounded by how parallel the task actually is.
@@ -64,6 +121,9 @@ Two things to weigh before wiring it in. An alpha dist-tag is unpinned and mutab
 **A hazard worth naming:** orchestration loops without completion criteria. It is easy to write a "keep refining until quality is acceptable" loop where "acceptable" is judged by a model. That runs until you stop it, and every iteration costs tokens. Put an iteration cap on it, and make the exit condition something checkable — tests passing, a linter clean — rather than a judgement call.
 
 ## Where this has gone since
+
+*Followed up in [The Scaffolding Got Absorbed](/posts/2026-08-18-the-scaffolding-got-absorbed), on what replaced this and what survived.*
+
 
 Written in August 2025, and the ground has shifted enough that the specifics have expired.
 

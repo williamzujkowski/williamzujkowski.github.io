@@ -18,8 +18,8 @@ Then I ran Wireshark while Ollama was generating responses. My "private" LLM was
 
 Turns out, I'd built privacy theater, not actual privacy.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/privacy-ai.png'); width: min(200px, 52%); aspect-ratio: 300/386; margin: 2rem auto 0.5rem;"></div>
-<p class="hand-note" style="text-align: center; display: block;">the brain, under lock</p>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/privacy-ai.png'); width: min(200px, 52%); aspect-ratio: 400/420; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">everything in, nothing out</p>
 
 ## The "Local" Doesn't Mean "Private" Realization
 

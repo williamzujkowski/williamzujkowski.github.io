@@ -46,6 +46,58 @@ The short reference *is* short. But the standards it points at still get read in
 
 That is a real benefit and a much more modest one than a percentage implies. I would be sceptical of any headline figure here, including one of mine: the number depends entirely on what you compare against, and the tempting baseline — "loading every standard at once" — is a thing nobody does.
 
+## What's actually in the repo
+
+The standards live as one document per domain under `docs/standards/` —
+`CODING_STANDARDS.md`, `SECURITY_STANDARDS.md`, `TESTING_STANDARDS.md`,
+`CLOUD_NATIVE_STANDARDS.md`, `COMPLIANCE_STANDARDS.md`, `MICROSERVICES_STANDARDS.md`,
+`DEVOPS_PLATFORM_STANDARDS.md`, `DATABASE_STANDARDS.md` and a dozen more. Each is
+a flat list of rules under headed sections, deliberately written to be quoted
+from rather than read end to end.
+
+The shape that works, after several rewrites that didn't:
+
+**One rule per bullet, stated imperatively.** "Parameterise every SQL query" is
+usable. "SQL queries should generally be parameterised where practical" gives the
+model room to decide it isn't practical, which it will take.
+
+**Rationale on its own line, not woven into the rule.** A model asked to apply a
+rule needs the rule; a human deciding whether to keep the rule needs the reason.
+Splitting them means the rule can be quoted without dragging a paragraph along.
+
+**No cross-references between documents.** Every one I wrote — "see the security
+standards for auth patterns" — either got followed at the cost of a large chunk
+of context, or got ignored. Both outcomes are worse than repeating four lines in
+both files.
+
+**Sections sized to be quoted whole.** If a heading covers more than can
+reasonably be pulled into a prompt, it needs splitting. This is the constraint
+that most changed how I write them.
+
+## The routing problem, honestly
+
+The `CLAUDE.md` at the top is the part I got most wrong for longest.
+
+The mechanism I wanted was conditional loading: detect a Python project, pull the
+Python and testing standards, leave the frontend ones alone. What I built was a
+convention that *asks* the model to do that, in a syntax that looks like it's
+addressing a loader. Sometimes it follows it. There's no dispatch underneath.
+
+What genuinely works today is much less clever:
+
+**`@path/to/file` imports.** This is a real Claude Code feature — textual
+inclusion of a file's contents. It costs tokens like anything else in context,
+but it is deterministic, which the convention is not.
+
+**A short index rather than a router.** A `CLAUDE.md` that lists which document
+covers what, in a dozen lines, lets the model go and read the right one. That is
+a table of contents doing an honest job, rather than a dispatcher doing a
+dishonest one.
+
+**Keep it short.** Mine drifts toward bloat every time I add a rule for some edge
+case, and a long instruction file gets followed *less* reliably, not more — the
+rules start competing with each other and with the actual request.
+
 ## NIST control tagging
 
 The part I have found most durable is compliance tagging. Working against NIST 800-53r5 has come up repeatedly over the years, and having the control mapping live next to the code rather than in a spreadsheet is the difference between compliance being a document and being a property of the repository.
@@ -90,6 +142,9 @@ The pre-commit hook is still worth having. It gives you the fast feedback loop, 
 **Expect to throw away the enforcement layer.** I rewrote mine repeatedly, and the versions that survived were the ones that checked fewer things more reliably.
 
 ## Where this pattern has gone since
+
+*Followed up in [The Scaffolding Got Absorbed](/posts/2026-08-18-the-scaffolding-got-absorbed), on what replaced this and what survived.*
+
 
 Written in July 2025, and the ground has moved. Claude Code now has first-class **Skills** (`.claude/skills/`), path-scoped **rules**, **hooks**, and **subagents** — which between them cover most of what the `@load` convention was reaching for, with actual dispatch behind them rather than a hopeful convention.
 

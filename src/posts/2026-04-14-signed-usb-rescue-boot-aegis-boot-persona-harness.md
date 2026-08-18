@@ -1,14 +1,14 @@
 ---
 title: "Signed USB Rescue Boot: aegis-boot and the QEMU+OVMF Persona Harness"
 date: 2026-04-14
-description: "A UEFI-Secure-Boot-preserving rescue USB for any ISO, and the companion QEMU harness that validates it against ~100 hardware personas without physical Frameworks, ThinkPads, or Dells on a lab bench."
+description: "A UEFI-Secure-Boot-preserving rescue USB for any ISO, and the companion QEMU harness that validates it against 11 hardware personas without physical Frameworks, ThinkPads, or Dells on a lab bench."
 tags: [security, firmware, rust, homelab, uefi]
 author: William Zujkowski
 ---
 
 There's a specific pain in being the "family IT person" with Secure Boot enabled on every machine. You get a call, you need to boot a rescue distro, you want to keep Secure Boot enforcing, and your options are: (a) disable Secure Boot for 30 minutes and forget to re-enable it, (b) enroll a shared MOK that effectively trusts every kernel Ventoy ever boots, or (c) pick one specific ISO and dd it onto a stick. None of those are defensible positions.
 
-[aegis-boot](https://github.com/aegis-boot/aegis-boot) is option (d): a signed UEFI rescue environment that lets you drop any `.iso` onto a data partition and `kexec` into it, with kernel-level signature verification keeping the chain of trust intact. [aegis-hwsim](https://github.com/williamzujkowski/aegis-hwsim) is the companion project that simulates ~100 real-hardware configurations in QEMU so I can validate the full flow without waiting on physical Framework / ThinkPad / Dell / HP hardware to arrive.
+[aegis-boot](https://github.com/aegis-boot/aegis-boot) is option (d): a signed UEFI rescue environment that lets you drop any `.iso` onto a data partition and `kexec` into it, with kernel-level signature verification keeping the chain of trust intact. [aegis-hwsim](https://github.com/williamzujkowski/aegis-hwsim) is the companion project that simulates 11 real-hardware configurations in QEMU so I can validate the full flow without waiting on physical Framework / ThinkPad / Dell / HP hardware to arrive.
 
 Both are Rust. Both ship CI that actually exercises the full pipeline. Both exist because years of system administration taught me that "works on my laptop" is the least interesting claim a tool can make about UEFI.
 
@@ -38,7 +38,22 @@ UEFI firmware
               → selected ISO's kernel
 ```
 
-Every link in that chain has a signature verification. The rescue kernel is built with `KEXEC_SIG=y`, so `kexec_file_load` refuses unsigned target kernels. If the operator drops an ISO whose kernel isn't signed by a key the operator's MOK trusts, aegis-boot prints a specific `mokutil --import` command for the signing key. Not "disable Secure Boot." Not "use a different tool." Enroll this specific key, reboot, try again.
+Four links in that chain carry a signature check, and it is worth being exact
+about which, because the gaps matter.
+
+The kernel side needs `CONFIG_KEXEC_SIG` **and** `lockdown=integrity` together.
+`KEXEC_SIG` alone does not do what its name suggests — the kernel's own Kconfig
+says the image "can still be loaded without a valid signature unless you also
+enable `KEXEC_SIG_FORCE`". Absent that, the refusal comes from lockdown, which
+in turn requires Secure Boot enforcing. With Secure Boot off, `KEXEC_SIG=y` by
+itself will happily load an unsigned target kernel.
+
+And `kexec_file_load` verifies the **kernel only**. It reads the initrd
+immediately afterwards with no validation at all, so the selected ISO's
+initramfs and squashfs are unverified — they ride the kernel's chain rather than
+carrying their own. ISO integrity is a sha256 against a sibling checksum file,
+which proves the download wasn't corrupted and nothing whatsoever about
+authenticity. If the operator drops an ISO whose kernel isn't signed by a key the operator's MOK trusts, aegis-boot prints a specific `mokutil --import` command for the signing key. Not "disable Secure Boot." Not "use a different tool." Enroll this specific key, reboot, try again.
 
 ## How it differs from Ventoy
 
@@ -67,7 +82,9 @@ secure_boot:
   ovmf_variant: OVMF_CODE_4M.ms.fd
 tpm:
   version: 2.0
-  swtpm_socket: /tmp/swtpm-framework.sock
+  # (see the repo's personas/ directory for the real schema — every struct
+  #  carries #[serde(deny_unknown_fields)], so an approximated field is a
+  #  hard parse failure rather than a silently ignored one)
 kernel_lockdown: integrity
 quirks:
   - framework-ec-key-passthrough
@@ -85,9 +102,16 @@ The 11 shipped personas include Framework Laptop 12th gen, Dell XPS 13 9320, Len
 
 QEMU's `-smbios` flag spoofs the DMI strings the kernel reads from `/sys/class/dmi/id/`. Great for testing vendor-detection logic. It does not spoof the ACPI SSDT tables, PCI IDs, or embedded controller quirks that actually drive `thinkpad_acpi` or `dell-laptop` kernel module behavior.
 
-[fwupd's QEMU CI](https://github.com/fwupd/fwupd) and the LVFS empirical data from Richard Hughes and Mario Limonciello puts QEMU's coverage of capsule-flow bugs at roughly 60-70%. The remaining 30-40% are EC-specific, firmware-vendor-specific, reproducible only on metal.
+The honest limit of this approach: QEMU models firmware behaviour, not firmware.
+The failure modes it cannot reach are the EC-specific and vendor-specific ones —
+a laptop whose embedded controller does something idiosyncratic during the boot
+path, a firmware implementation that diverges from the spec in a way OVMF does
+not reproduce. Those need metal, and no amount of persona fidelity substitutes.
 
-aegis-boot's scope is narrower than fwupd's — we're testing the USB rescue-stick signed-chain flow, not capsule updates. My estimate is ~80% of aegis-boot's testable failure modes reproduce in aegis-hwsim. The remaining ~20% require physical hardware shakedown, which is what [aegis-boot#51](https://github.com/aegis-boot/aegis-boot/issues/51) tracks for v1.0.0.
+I'd resist putting a percentage on that split. I don't have the data to support
+one, and the number would be doing rhetorical work rather than describing a
+measurement. Physical shakedown across multiple vendors is tracked separately and
+is what a 1.0 should be gated on.
 
 This is a known limitation, called out in both READMEs. The thing aegis-hwsim buys you is fast iteration on the 80%. Writing a new aegis-boot feature, validating it against 11 personas, seeing the matrix go green in CI — that's a tight loop. Adding "ship it on a physical Framework and retest" to every feature would kill the cadence.
 
@@ -113,24 +137,23 @@ This mirrors what the TPM and Secure Boot specs actually say the operator should
 
 ## Current state
 
-**aegis-boot v0.13.0** ships with:
+**aegis-boot** ships with:
 
 - Five operator subcommands: `doctor` (validate a flashed stick), `recommend` (suggest per-distro MOK enrollment), `fetch` (download + verify an ISO), `attest list`, `attest show`.
 - Cosign-signed prebuilt binaries.
 - A Homebrew tap.
-- Attestation receipts on every flash — a Sigstore-style log of what image was flashed, what ISO catalog was included, what keys were enrolled.
+- Attestation receipts on every flash. Being precise, since the word invites more than it delivers: these are **unsigned local JSON manifests** recording what the flashing tool did on the operator's workstation. No Rekor, no Fulcio, no transparency log. And they attest the flash, not the boot — nothing here tells you what the target machine subsequently executed.
 - Real-hardware shakedown validated on Alpine + Ubuntu under Secure Boot enforcing ([aegis-boot#109](https://github.com/aegis-boot/aegis-boot/issues/109)).
 
-**aegis-hwsim** is in Phase 1: CI exercises the full QEMU + OVMF + swtpm pipeline against the 11-persona library on every PR via the `qemu-boots-ovmf` smoke scenario. The roadmap adds more scenarios (MOK enrollment, kexec signature rejection, attestation roundtrip) and more personas (older ThinkPads with TPM 1.2, non-x86 reference platforms).
+**aegis-hwsim** is in Phase 1, and Phase 1 is narrower than it sounds: CI installs `qemu-system-x86` and `ovmf` but **not swtpm**, so of the 11 personas × 5 scenarios only the no-TPM smoke case actually runs. Everything else skips. The matrix exists; the coverage does not yet. The roadmap adds more scenarios (MOK enrollment, kexec signature rejection, attestation roundtrip) and more personas (older ThinkPads with TPM 1.2, non-x86 reference platforms).
 
-v1.0.0 for aegis-boot is gated on a multi-vendor physical shakedown per [aegis-boot#51](https://github.com/aegis-boot/aegis-boot/issues/51). I'll post a follow-up once that clears.
+v1.0.0 for aegis-boot is gated on a multi-vendor physical shakedown per [aegis-boot#132](https://github.com/aegis-boot/aegis-boot/issues/132). I'll post a follow-up once that clears.
 
 ## Numbers
 
 | Metric | aegis-boot | aegis-hwsim |
 |--------|-----------:|------------:|
-| Lines of Rust | ~18,000 | ~3,500 |
-| Test count | 340+ | 50+ |
+
 | CI workflows | 11 | 4 |
 | Real-hardware validation points | 6+ distros × Alpine/Ubuntu boots | n/a (QEMU) |
 | Shipped personas | n/a | 11 |
@@ -163,6 +186,6 @@ Security hygiene is a running thread across everything I've shipped this month. 
 - [LAVA](https://docs.lavasoftware.org) — Linaro Automated Validation Architecture
 - [labgrid](https://github.com/labgrid-project/labgrid) — embedded board control library
 - [fwupd's QEMU CI](https://github.com/fwupd/fwupd)
-- [aegis-boot#51](https://github.com/aegis-boot/aegis-boot/issues/51)
+- [aegis-boot#132](https://github.com/aegis-boot/aegis-boot/issues/132)
 - [aegis-boot#109](https://github.com/aegis-boot/aegis-boot/issues/109)
 - [aegis-boot v0.13.0 release](https://github.com/aegis-boot/aegis-boot/releases/latest)
