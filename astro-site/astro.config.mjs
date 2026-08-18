@@ -178,6 +178,10 @@ const contentAttributes = [
   'style',
 ];
 
+// Extends the library default rather than replacing it. The default schema does
+// NOT permit `role`, and ~90 posts carry role="group" on .flow/.arch diagram
+// blocks from the #414 a11y work — swapping to the default would strip that
+// silently, with a passing build. See docs/security-posture.md.
 const sanitizeSchema = {
   ...defaultSchema,
   tagNames: [...new Set([...(defaultSchema.tagNames || []), 'figure', 'figcaption', 'aside', ...svgTags])],
