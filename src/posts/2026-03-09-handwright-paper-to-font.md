@@ -1,7 +1,7 @@
 ---
 title: "From Paper to Font File: Building an Open-Source Handwriting Digitizer"
 date: 2026-03-09
-description: "How Handwright turns a scanned worksheet into a custom .ttf font — OpenCV glyph extraction, potrace vectorization, and fonttools assembly. Local-first, no cloud required."
+description: "How Handwright turns a scanned worksheet into a custom .ttf font — OpenCV glyph extraction, contour vectorization, and fonttools assembly. Local-first, no cloud required."
 tags: [python, opencv, projects, fonts, privacy]
 author: William Zujkowski
 ---
@@ -19,7 +19,7 @@ The system has four stages, each with its own set of problems I didn't anticipat
 
 ### Worksheet Generation
 
-The system generates a printable PDF with guide boxes for every character — 26 uppercase, 26 lowercase, 10 digits, and about 30 punctuation/symbol characters. Each box has a faint baseline and cap height guide so your characters are consistently sized.
+The system generates a printable PDF with guide boxes for every character — 26 uppercase, 26 lowercase, 10 digits, and 15 punctuation characters (with a further symbol set behind a flag). Each box has a faint baseline and cap height guide so your characters are consistently sized.
 
 The template needs to be precise. If guide boxes are even slightly off-grid, the extraction stage misaligns. I went through three iterations of the template generator before the grid was reliable enough: the first version used HTML-to-PDF conversion which introduced sub-pixel rounding errors. Switching to direct PDF generation with `reportlab` fixed it.
 
@@ -27,45 +27,53 @@ The template needs to be precise. If guide boxes are even slightly off-grid, the
 
 This is where most of the complexity lives. OpenCV processes the scanned image through several stages:
 
-**Adaptive thresholding** handles uneven lighting — phone photos have shadows, desk lamp reflections, and color casts that simple binary thresholding can't handle. I use Gaussian adaptive thresholding with a block size of 31 pixels, tuned by trial and error on about 40 test scans.
+**Adaptive thresholding** handles uneven lighting — phone photos have shadows, desk lamp reflections, and color casts that simple binary thresholding can't handle. I use Gaussian adaptive thresholding — block size 51 when locating the page, 11 when pulling glyphs out of individual cells. The right value differs by scale, which took a while to work out.
 
-**Contour detection** finds each character cell. The challenge is that the printed guide lines are thin but visible: they need to be detected as cell boundaries but not as part of the glyph. I solve this by detecting the grid first (Hough line transform), masking it out, then finding contours within each cell.
+**Contour detection** finds each character cell. The challenge is that the printed guide lines are thin but visible: they need to be treated as cell boundaries and not as part of the glyph. The worksheet solves this by construction rather than by vision — the cell geometry is fixed in millimetres, so once the page is deskewed against its printed alignment markers the cell boundaries are arithmetic, not a detection problem. Contours are then found within each computed cell.
 
 **Perspective correction** handles skewed scans. If someone photographs the worksheet at an angle, the grid cells become trapezoids. The pipeline detects the four corners of the worksheet and applies a perspective warp to produce a flat, rectangular image before extraction.
 
-**Individual glyph extraction** crops each character with consistent padding. The padding normalization took several attempts — too little and ascenders/descenders get clipped, too much and the font has excessive whitespace. I settled on 15% padding on each side, with vertical padding adjusted based on detected ascender height.
+**Individual glyph extraction** crops each character with consistent padding. The padding normalization took several attempts — too little and ascenders/descenders get clipped, too much and the font has excessive whitespace. I settled on 10% padding, applied isotropically. Per-character vertical padding tied to ascender height would be better and is not implemented.
 
-The extraction fails gracefully on about 3% of cells — usually when someone's handwriting extends well outside the guide box or when two adjacent characters merge. Failed cells get a fallback to a default glyph rather than crashing the pipeline.
+Extraction fails on cells where handwriting runs well outside the guide box, or where two adjacent characters merge. Right now a failed cell passes its empty thresholded contents through rather than substituting a `.notdef` glyph, which is a gap worth closing — a missing character should look missing, not blank.
 
-### Vectorization (potrace)
+### Vectorization
 
 Extracted glyphs are bitmap images. Fonts need vector outlines. Potrace converts raster glyph images into smooth SVG paths.
 
-The key parameter is `turdsize` (potrace's actual parameter name): it controls the minimum area of features to keep. Too low and you get noise from paper texture. Too high and thin strokes disappear. I default to 2 for most characters but increase to 5 for punctuation marks, which tend to be small enough to trigger the noise filter at default settings.
+Vectorization goes through OpenCV's `approxPolyDP` — Ramer-Douglas-Peucker
+polygon simplification on the extracted contour — and the resulting points are
+emitted as straight `lineTo` segments.
 
-Potrace also has an `alphamax` parameter controlling curve smoothness. Higher values produce smoother curves but can round off sharp corners that are part of someone's handwriting style. I keep it at 1.0 (the default), which preserves most stylistic details.
+That is worth being blunt about, because it is the biggest compromise in the
+pipeline: **there are no Bézier curves in the output at all.** A handwritten
+curve becomes a polyline dense enough to look curved at reading size and visibly
+faceted if you scale it up. The epsilon on the simplification is the whole
+quality knob — too tight and you carry paper-texture noise into the glyph, too
+loose and thin strokes collapse.
+
+Proper curve fitting (potrace does this well, and it is the obvious next step)
+would fix it. It is on the list and it is not in the code.
 
 ### Font Assembly (fonttools)
 
 The SVG paths are assembled into a TrueType font using fonttools. This is the most straightforward stage, but the details matter:
 
-- **Glyph metrics**: Each glyph needs correct advance width (how far the cursor moves after typing the character). I calculate this from the bounding box plus a fixed side bearing of 50 units. This works for most characters but produces too-loose spacing for narrow characters like `i` and `l`. A future version should use per-character kerning.
+- **Glyph metrics**: Each glyph needs correct advance width (how far the cursor moves after typing the character). Right now every glyph is monospaced at the em width with a zero side bearing, which is the crudest thing that works. This works for most characters but produces too-loose spacing for narrow characters like `i` and `l`. A future version should use per-character kerning.
 
 - **Character mapping**: The `cmap` table maps Unicode code points to glyphs. Standard Latin mapping is straightforward, but symbol characters (curly braces, tildes, at-signs) need explicit entries that are easy to miss.
 
 - **Font metadata**: Name table entries (family name, version, license) are required for the font to work in all applications. Some older PDF renderers fail silently if the name table is incomplete.
 
-The output is a standard `.ttf` file that works in any application — Word, Google Docs, Photoshop, web CSS `@font-face`. File sizes range from 30-80KB depending on glyph complexity.
+The output is a standard `.ttf` file that works in any application — Word, Google Docs, Photoshop, web CSS `@font-face`. File size scales with glyph complexity — a polyline-heavy font is larger than a curve-fitted one would be.
 
 ## Why Local-First
 
-Handwriting is biometric data. It's a unique identifier literally attached to your identity — your handwriting is as personal as your fingerprint in some forensic contexts. Uploading it to a cloud service means trusting that service with biometric data that can't be changed if it's compromised.
+Handwriting is personal data you cannot rotate. It is not a fingerprint — forensic handwriting comparison has been criticised on validity grounds for decades, and treating the two as equivalent overstates it. But it is distinctive, it is attached to you, and unlike a password you cannot issue yourself a new one. Uploading it to a cloud service means trusting that service with biometric data that can't be changed if it's compromised.
 
 Handwright runs entirely locally. Docker Compose brings up the Next.js frontend and FastAPI backend on your machine. Your handwriting never leaves your computer. The tradeoff is you need Docker installed, which is a barrier for non-technical users. I'm considering a WebAssembly port of the OpenCV pipeline to eliminate the Docker requirement entirely.
 
 ## What Didn't Work
-
-**Browser-based extraction.** My first attempt used TensorFlow.js to do glyph extraction in the browser. The model was accurate enough but painfully slow — 45 seconds per worksheet on a modern laptop. OpenCV on the server processes the same worksheet in under 2 seconds.
 
 **Automatic kerning.** I tried generating kerning pairs automatically by analyzing common letter combinations (th, he, in, er, etc.) and measuring the visual gap. The results were inconsistent: it would produce tight kerning for "th" but loose kerning for "ty" because the algorithm couldn't account for glyph shape, only bounding boxes. Manual kerning tables would be better, but that's a significant UX problem for a tool meant to be zero-config.
 
@@ -73,7 +81,7 @@ Handwright runs entirely locally. Docker Compose brings up the Next.js frontend 
 
 ## The Stack
 
-- **Frontend**: Next.js 15, TypeScript, Tailwind — handles worksheet display, image upload, font preview
+- **Frontend**: Next.js 16, TypeScript, Tailwind — handles worksheet display, image upload, font preview
 - **Backend**: Python, FastAPI — runs OpenCV pipeline, serves generated fonts
 - **Engine**: OpenCV (extraction), Pillow (image preprocessing), potrace (vectorization), fonttools (TTF generation)
 - **Deployment**: Docker Compose — single `docker compose up` brings up everything

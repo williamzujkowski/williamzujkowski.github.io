@@ -15,7 +15,7 @@ Click that swatch icon next to the light/dark toggle and the whole site repaints
 
 ## Where 545 themes come from, and why the count keeps moving
 
-Terminal theme authors have never agreed on a file format, and nobody seems bothered by it. iTerm2 wants XML. Alacritty wants TOML. Windows Terminal wants JSON. Ghostty wants a config file with no extension at all, as if extensions were for people with something to prove. `sources.json` lists twelve upstream sources, each pinned to a commit SHA and MIT- or Apache-2.0-licensed — [`mbadolato/iTerm2-Color-Schemes`](https://github.com/mbadolato/iTerm2-Color-Schemes) supplies the bulk of it, with the rest from Neovim plugin repos, a couple of Ghostty-native packs, and Warp's special editions. `fetch-upstream.ts` sparse-clones each source and records the SHA it landed on; a weekly GitHub Actions cron reruns the whole pipeline every Monday at 06:00 UTC and opens a PR only when something upstream actually changed. Nobody has to remember to go check; the robot checks.
+Terminal theme authors have never agreed on a file format, and nobody seems bothered by it. iTerm2 wants XML. Alacritty wants TOML. Windows Terminal wants JSON. Ghostty wants a config file with no extension at all, as if extensions were for people with something to prove. `sources.json` lists twelve entries, eleven of them upstream (the twelfth is this repo's own native themes) — MIT, Apache-2.0 and one BSD-3-Clause — [`mbadolato/iTerm2-Color-Schemes`](https://github.com/mbadolato/iTerm2-Color-Schemes) supplies the bulk of it, with the rest from Neovim plugin repos, a couple of Ghostty-native packs, and Warp's special editions. `fetch-upstream.ts` sparse-clones each source and records the SHA it landed on; a weekly GitHub Actions cron reruns the whole pipeline every Monday at 06:00 UTC and opens a PR only when something upstream actually changed. Nobody has to remember to go check; the robot checks.
 
 That cron is why the count is 545 as of the last successful sync, up from 485 back in April when the pipeline only pulled from two sources. It's also why nothing on the project's public face agrees on the number: the README and the source `package.json` both say 485, the published npm listing and the GitHub repo's own "About" blurb both still say "450+", and none of the four is 545. Nobody is lying. Each figure is a snapshot frozen at whatever sync was current the last time someone happened to be editing that particular file, and nothing recomputes them automatically. I found this out by running `gh api` against the live dataset while writing this sentence, which is either due diligence or a mild indictment of how long those numbers sat there uncorrected. Possibly both.
 
@@ -36,7 +36,18 @@ export function convertHexToColor(hex: string): ColorValue {
 }
 ```
 
-I don't trust that conversion just because it compiled. `validate.ts` converts every OKLCH value straight back to sRGB and measures the round-trip difference with CIEDE2000; anything over ΔE 1.0 — often treated as around the just-noticeable difference under controlled conditions — fails the build. Belt-and-suspenders for a function six lines long, which sounds excessive until a `culori` upgrade silently changes a rounding behavior and this is the thing that notices before a reader does.
+I don't trust that conversion just because it compiled. `validate.ts` round-trips every colour back to sRGB and measures the difference
+with CIEDE2000, failing the build above ΔE 1.0 — roughly the just-noticeable
+difference under controlled conditions.
+
+A caveat on that gate, because it is a good illustration of how a check can look
+like a check and not be one. As originally written it re-derived everything from
+the source hex in floats and never read the rounded `oklch` values actually
+written to disk. So it could only ever measure IEEE-754 noise — corpus maximum
+around 5.67e-13, against a threshold of 1.0. Twelve orders of magnitude of
+headroom, and structurally unable to fail. The exact scenario it was there to
+catch, a rounding change in `culori`, happens in the rounding step it was not
+looking at. It reads the published values now.
 
 ## The actual reason OKLCH is fun, not just correct
 
@@ -47,13 +58,13 @@ Here's the fact that got me into this in the first place, and it's a genuinely f
 | HSL | `hsl(60 100% 50%)` yellow vs `hsl(240 100% 50%)` blue | 0.928 vs 0.072 | **8.0 : 1** |
 | OKLCH | `oklch(0.70 0.15 90)` vs `oklch(0.70 0.15 260)` | 0.342 vs 0.339 | **1.01 : 1** |
 
-Two HSL colors that both claim "50% lightness" can differ in actual measured brightness by a factor of eight. That yellow is loud and that blue is nearly a shadow, and HSL's own number system insists they're twins. Two OKLCH colors at the same `L`, meanwhile, really are twins. It's the difference between a color model that tracks a display register and one that tracks a retina, and once you've seen the gap it's hard to unsee it in every `hsl()` call you've ever written.
+Two HSL colors that both claim "50% lightness" can differ in actual measured brightness by a factor of nearly thirteen. That yellow is loud and that blue is nearly a shadow, and HSL's own number system insists they're twins. Two OKLCH colors at the same `L`, meanwhile, really are twins. It's the difference between a color model that tracks a display register and one that tracks a retina, and once you've seen the gap it's hard to unsee it in every `hsl()` call you've ever written.
 
 ## I predicted a disaster and went and checked
 
 I said, in an earlier draft of this post, that I'd be surprised if swapping this project's color-mixing function from OKLCH to HSL didn't break at least one of the twelve curated themes on this site. That's a testable claim, so instead of leaving it as a confident aside, I built the counterfactual: a second `mix()` that converts each OKLCH endpoint to sRGB, interpolates in HSL, and converts back, dropped into a copy of `generate.py` and run against the real 545-theme dataset.
 
-Result: zero floor violations, in either color space. I was wrong, and the reason is more interesting than being right would have been. `find_mix_share()` climbs the foreground's share in 5% steps and stops at the first share that clears the contrast floor. At 100% share, the "mixed" color simply *is* the foreground, which already clears the floor against the background by definition. That's what "foreground" means. The floor can't fail to be met eventually. The color space only changes how much foreground it takes to get there, not whether you arrive. Across the twelve curated themes, HSL needed a bigger foreground share than OKLCH in one of them, by a single 5% step (catppuccin-mocha, 0.60 to 0.70), and needed *less* in another (solarized-dark-higher-contrast, 0.70 to 0.55). A wash, not a trend. A theme's own foreground and background are rarely sitting at opposite hues the way my yellow-and-blue example was rigged to be.
+Result: zero floor violations, in either color space. I was wrong, and the reason is more interesting than being right would have been. `find_mix_share()` climbs the foreground's share in 5% steps and stops at the first share that clears the contrast floor. At 100% share, the "mixed" color simply *is* the foreground, which already clears the floor against the background by definition. That's what "foreground" means. The floor can't fail to be met eventually. The color space only changes how much foreground it takes to get there, not whether you arrive. Across the twelve curated themes, HSL needed a bigger foreground share in five of them and a smaller one in two — a mild lean toward OKLCH being more efficient, not the collapse I had predicted. A theme's own foreground and background are rarely sitting at opposite hues the way my yellow-and-blue example was rigged to be.
 
 The two themes whose accent color is itself synthesized by `mix()` told the more honest story. Nord Light has no ANSI slot that clears the accent floor on its own; Catppuccin Latte has exactly one. In both, the HSL-derived accent came out *more* saturated than the OKLCH original, not less — the opposite of what I'd have bet on. So the claim I actually get to keep is narrower than the one I started with: perceptual uniformity doesn't protect this pipeline from build failures. The escape-hatch design of `find_mix_share()` already does that, in any color space. What it does is make the yellow-blue gap in the table above a property of the color space itself, not an artifact of these twelve themes dodging it. The `mix()` function is six lines and the dataset is public; rerun it yourself if you don't believe a word of this paragraph.
 
@@ -90,7 +101,7 @@ The npm package, `@williamzujkowski/oklch-terminal-themes@0.1.0`, published back
 | Metric | Value |
 |---|---:|
 | Themes in the dataset | 545 |
-| Max round-trip ΔE2000 | < 1.0 (build gate) |
+| Max round-trip ΔE2000 | < 1.0 (build gate, against the published values) |
 | This site's fg/bg contrast floor | 7.0 (AAA) |
 | This site's accent/muted floor | 4.5 (AA) |
 | HSL-vs-OKLCH floor violations, 12 curated themes | 0 (either color space) |
