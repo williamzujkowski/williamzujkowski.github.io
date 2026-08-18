@@ -15,7 +15,7 @@ Single-agent coding assistants have a shape you learn quickly: they are excellen
 
 [Claude-Flow](https://github.com/ruvnet/ruflo) is one attempt at that. It's worth looking at, and it's worth being careful about the numbers attached to it — including the ones I originally quoted here.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/claude-flow.png'); width: min(280px, 72%); aspect-ratio: 360/270; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/claude-flow.png'); width: min(280px, 72%); aspect-ratio: 400/143; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">many hands, one task</p>
 
 ## Where the headline numbers come from

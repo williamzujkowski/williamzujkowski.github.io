@@ -14,7 +14,7 @@ I deployed a private Ethereum test network on my homelab's Dell R910 server (see
 I started sceptical. The cryptocurrency hype felt disconnected from solving real problems, and the energy consumption seemed wasteful. After running actual nodes, deploying smart contracts, and pushing content into IPFS, I came round to a narrower view: the core innovation has little to do with digital money, and also less to do with most of what gets built on it.
 
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/blockchain.png'); width: min(340px, 82%); aspect-ratio: 400/303; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/blockchain.png'); width: min(340px, 82%); aspect-ratio: 400/167; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">records, chained (hence the name)</p>
 
 ## What I Actually Learned Running Blockchain Infrastructure

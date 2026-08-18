@@ -18,7 +18,7 @@ Progressive context loading cuts LLM token usage by 98% (150K → 2K) while main
 
 **The reality**: Simple tasks complete with 2K tokens. Complex tasks scale to 5-8K. Still 95% less than monolithic loading with comparable accuracy. Anthropic's new [Skills feature](https://www.anthropic.com/news/skills) (October 2025) validates these patterns independently. Understanding [context windows](/posts/2024-12-03-context-windows-llms) is critical for optimal loading strategies.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/context-loading.png'); width: min(300px, 78%); aspect-ratio: 400/237; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/context-loading.png'); width: min(300px, 78%); aspect-ratio: 400/439; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">just enough context, just in time</p>
 
 ## The Problem: Context Obesity
