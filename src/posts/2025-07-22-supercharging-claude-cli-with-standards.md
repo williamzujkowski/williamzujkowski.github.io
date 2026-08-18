@@ -17,7 +17,7 @@ So I built [github.com/williamzujkowski/standards](https://github.com/williamzuj
 
 It works, with a large asterisk that took me a while to accept and which is most of what this post is about.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/cli-standards.png'); width: min(320px, 80%); aspect-ratio: 400/136; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/cli-standards.png'); width: min(320px, 80%); aspect-ratio: 400/389; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the CLI, with house rules</p>
 
 ## The asterisk: `CLAUDE.md` is a prompt, not a router

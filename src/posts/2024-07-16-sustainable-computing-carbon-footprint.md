@@ -13,7 +13,7 @@ In September 2023, I analyzed my ML experiments' energy consumption and discover
 
 That realization started my deep dive into sustainable computing, where I discovered that efficiency isn't just about performance or cost. It's about responsibility to future generations.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/sustainable-computing.png'); width: min(220px, 60%); aspect-ratio: 340/393; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/sustainable-computing.png'); width: min(220px, 60%); aspect-ratio: 400/387; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">greener than it looks</p>
 
 ## The Hidden Environmental Cost of Computing
