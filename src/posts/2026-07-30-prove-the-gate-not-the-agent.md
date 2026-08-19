@@ -104,3 +104,7 @@ A proven gate is not a safe agent. The agent will still improvise, still get pro
 Two honest limits. First, the proof is only as good as the model's fidelity to the real runtime; differential testing narrows that gap but three implementations can still share one wrong assumption, which is why the corpus and the model both deserve suspicion. Second, the gate proves enforcement, not detection — "if the payload matches a secret pattern, deny" is a theorem, but whether the pattern actually catches real secrets is a separate, unproven, and much messier problem.
 
 None of that diminishes the move. You take the messy, probabilistic, genuinely-hard part and you refuse to stake safety on proving it. You isolate a small deterministic gate, prove *that* outright, and check the proof against the code you ship. The agent improvises. The gate does not — and now you can prove it.
+
+---
+
+*Part 3, [The Policy Is the Part That Moves](/posts/2026-08-18-the-policy-is-the-part-that-moves), removes the assumption this post depends on: that the policy holds still.*
