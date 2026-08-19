@@ -99,9 +99,21 @@ security-gate:
 
 An error handler that only contains a log printing statement. Named as the gate. `if: always()`, so it passes when everything upstream fails. This has a CWE — [CWE-636, Failing Open](https://cwe.mitre.org/data/definitions/636.html) — and a thirty-year literature, and I shipped it anyway.
 
+**This is not a competence problem, and there is a large literature saying so.**
+
+The best-measured case is mammography. [Fenton et al.](https://pubmed.ncbi.nlm.nih.gov/17409321/) studied 429,345 screening mammograms across 43 facilities before and after computer-aided detection was introduced. Specificity fell from 90.2% to 87.2%. Positive predictive value fell from 4.1% to 3.2%. The biopsy rate rose 19.7%. Overall accuracy, as area under the ROC curve, went **0.919 without the aid to 0.871 with it** (P=0.005). Their conclusion, verbatim: *"The use of computer-aided detection is associated with reduced accuracy of interpretation of screening mammograms."*
+
+Board-certified radiologists, given a machine assistant, got measurably worse.
+
+And a [reanalysis by Povyakalo et al.](https://pubmed.ncbi.nlm.nih.gov/23300205/) found the effect is not evenly distributed, which is the part that should worry anyone senior. Across 50 readers and 180 mammograms, CAD raised sensitivity by **0.016** for the 44 *least* discriminating radiologists on relatively easy cancers — and lowered it by **0.145** for the 6 *most* discriminating readers on the difficult ones.
+
+The aid transfers accuracy from your best reviewers to your worst. Worse, the original study reported no significant average effect: the damage only became visible after stratifying. If you are the strongest reviewer on your team, you are the one the assistant costs the most, and the team average will not show it.
+
 **And we look at machine-written code less carefully.** [Al Madi](https://arxiv.org/abs/2208.14613) eye-tracked 21 programmers reading Copilot output and human-written code. Complexity and readability were comparable, but *"programmers direct less visual attention to model generated code"*, significantly. The authors' own conclusion: beware complacency and automation bias.
 
-So: a defect class that is invisible to reading, in the category review is worst at, in code we look at least closely. That is not a personal failure. It is a system with no check in it.
+So: a defect class invisible to reading, in the category review is worst at, in code we look at least closely, using an assistant that measurably degrades the strongest reviewers most.
+
+That is not a personal failure and it is not fixable by trying harder. It is a system with no check in it — and the literature is fairly clear that attention and expertise are the wrong lever. What is left is running the thing.
 
 ## It happened while I was writing this
 
