@@ -168,6 +168,7 @@ The Layer-1 skills are author-local tooling in `~/.claude/skills/blog-*/`
 │     blog-nda-check      → contextual NDA-compliance               │
 │     blog-argument-shape → thesis + evidence + falsifiability      │
 │     blog-visuals        → zine doodle, diagram a11y, tokens       │
+│     blog-artifact-check → gist provenance, keys vs upstream       │
 │                                                                   │
 │   blog-deep-review (separate, deliberate, expensive):             │
 │     4 parallel adversarial reviewers — reason-to-exist,           │
@@ -219,6 +220,7 @@ The Layer-1 skills are author-local tooling in `~/.claude/skills/blog-*/`
 | Topic overlap with prior posts | Layer 1 (`blog-overlap`) | Author decides refinement vs new arg |
 | Thesis / evidence / falsifiability | Layer 1 (`blog-argument-shape`) | Author-time editorial judgment |
 | Visual coverage, diagram a11y, design tokens | Layer 1 (`blog-visuals`) | The prose audits all pass on a wall of text |
+| Linked artifacts: gist provenance, config keys, CLI flags | Layer 1 (`blog-artifact-check`) | Machine-generated config is *plausible* and parses clean, so no CI check can see an ignored key. Needs the tool's upstream schema fetched and compared key by key |
 | Unanswered objections, uncited prior art, self-flattering arithmetic, claims that outlived their evidence | Layer 1 (`blog-deep-review`) | Needs adversarial judgment and a web search; too expensive per-commit. **Reviewers are confidently wrong — recompute every challenged number from raw inputs before accepting a correction.** |
 | Build correctness | Layer 2 (pre-commit) | Fast, blocks bad commits |
 | Astro design tokens | Layer 3 (`audits.yml`) | Per-commit, blocks broken design |
