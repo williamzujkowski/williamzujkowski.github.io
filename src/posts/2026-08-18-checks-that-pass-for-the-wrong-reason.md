@@ -133,7 +133,23 @@ The defect class appeared in the middle of a task specifically instructed to gua
 
 **Make the parser strict, and check whether it already is.** `serde`'s `deny_unknown_fields`, Pydantic's `extra='forbid'`, Go's `DisallowUnknownFields` (on `Decoder` only, not `json.Unmarshal`). Kubernetes made server-side field validation the default in **v1.27** — its motivating incident was a Service silently breaking because `containerPort` had been renamed `targetPort` and the server accepted the stale key. The tracking issue stayed open for seven years. The defaults are permissive, and they are changing.
 
-**Check the arithmetic against the sample size.** Psychology has a mechanical test for this — [GRIM](https://en.wikipedia.org/wiki/GRIM_test), which exploits the fact that a mean of N integers must be expressible with denominator N. In its original application, **36 of 71 testable papers contained at least one impossible value.** My archive was full of the same thing: "73% accuracy" on a stated corpus of 50 items requires 36.5 items. I have not seen anyone point GRIM at model output, and it costs nothing.
+**Check the arithmetic against the sample size — except this one didn't work, and the failure is instructive.**
+
+Psychology has a mechanical test for exactly this. [GRIM](https://en.wikipedia.org/wiki/GRIM_test) exploits the fact that a mean of N integers must be expressible with denominator N; in its original application, 36 of 71 testable papers contained at least one impossible value. My archive was full of what looked like the same thing — "73% accuracy" on a stated corpus of 50 items requires 36.5 items. So I wrote that nobody seemed to have pointed GRIM at model output, and that it costs nothing.
+
+Then I pointed it at my own corpus, and it found nothing. Three times, in three different ways.
+
+The first version paired every percentage with every nearby integer. It flagged **309 of 619 candidate pairs** — a 50% hit rate, which should have been the tell. It was reading the *7* in "Mistral 7B" as a denominator for "87% on my reasoning tests," and the *11* in "from 11GB to 7GB" as a sample size for "reduced memory by 35%."
+
+The second version required an explicit "of" between the figure and its denominator. Eighteen flags, every one an artifact of my own code cross-pairing within a sentence: given *"Slither detected 14 of 15 (93%)… GPT-4 caught 12 of 15 (80%)"*, it dutifully checked 14/15 against 80%.
+
+The third version bound each figure to its immediate neighbour only. Across 92 posts it found **10 tightly-bound pairs and zero violations** — and the same on the pre-audit corpus, before any of my corrections. The check is clean and the corpus is clean, and neither fact means anything, because the two never met.
+
+Here is why. I went back to five impossible percentages I had found by hand and asked where each denominator actually lived. One was in the same sentence. One was in the frontmatter, 762 characters from its denominator in the body. **Three were never stated at all** — they had to be derived from the described experiment. "58% average accuracy" was impossible because 12 participants × 10 videos = 120 judgments and 58% of 120 is 69.6, and *nothing in the post says 120*. You get there by reading the design and doing the multiplication.
+
+GRIM works on psychology papers because a results table reports the mean and the N side by side. Prose does not. It states a number in one paragraph and its denominator three paragraphs earlier, or never, and the check that found these was a reader holding the design in their head.
+
+So: a technique I recommended in this post, on the strength of it sounding right, and which does not survive being run. Which is the post's own thesis arriving to collect.
 
 **Check provenance, not just content.** `gh api gists/<id> --jq .created_at` against the post date. Eleven artifacts created in a 21-second burst are not working notes. `git log -S` on the artifact, and read the commit body — a pass that states its optimisation target is telling you what its numbers are for.
 
@@ -142,6 +158,48 @@ The defect class appeared in the middle of a task specifically instructed to gua
 **And be careful what you cite for any of this.** The most-quoted number in code review — "a review of 200-400 LOC over 60 to 90 minutes should yield 70-90% defect discovery" — is widely attributed to the Cisco/SmartBear study. It is not in the Cisco data. In the book it sits in a different chapter, by a different author, about personal reviews under the SEI's TSP, with no data behind it. The Cisco chapter explicitly declines the claim: *"we don't know how each of these reviews would have fared with a different process."* The vendor's own page states the 400-LOC finding with a Cisco attribution and then the 70-90% figure in the next sentence, unsourced. Nobody wrote a false sentence. The number acquired its authority by proximity.
 
 Which is the same mechanism as everything above, in the literature about checking.
+
+## Has it got better?
+
+Two years of posts, written with whatever model was current at the time. Git
+records which: `Co-Authored-By` trailers name unversioned "Claude" through 2025,
+then Opus 4.6, 4.7, 4.8 and Fable 5 across 2026. So there is a natural
+experiment sitting in the history, and it is worth asking whether any of this
+improved on its own.
+
+I measured one thing that is objective and needs no judgement: **numeric claims
+per citation.** Count the figures in a post, count the sources, divide. It is a
+crude proxy for "how much of this is asserted rather than sourced," it can be
+computed mechanically on every post, and — importantly — I measured it on the
+corpus *as it stood before my audit*, so my own corrections cannot manufacture
+the result.
+
+| cohort | n | median numbers per citation | placeholder IDs | citations dated after the post |
+|---|---:|---:|---:|---:|
+| 2025, unversioned | 70 | **5.8** | 16 | 11 |
+| 2026, versioned models | 19 | **2.8** | 0 | 0 |
+
+The density of unsourced figures roughly halved (Mann-Whitney z = −3.75). The
+literal `CVE-2023-XXXXX` placeholders and the citations dated after their own
+post — the two crudest fabrication artifacts — go to zero and stay there.
+
+The obvious objection is that the October 2025 humanisation pass is sitting
+inside the 2025 cohort inflating it. So I dropped all 45 posts it touched and
+re-ran: median 4.5 against 2.8, z = −2.60. Weaker, still there.
+
+**And I cannot tell you what caused it.** Every 2025 post carries an unversioned
+trailer and every 2026 post a versioned one, so model generation is perfectly
+confounded with calendar time. Over the same period I also built a pre-publish
+gate, changed what I write about — later posts describe my own repositories,
+which are checkable in a way that survey posts are not — and got considerably
+more suspicious. Four variables, one direction, no way to separate them from 19
+posts.
+
+What I can say is narrower and still worth having: the recent cohort is
+measurably better sourced, by a large margin, on a metric computed without my
+involvement. Whether that is the models, the tooling, the topics or me is not
+answerable from this data, and anyone who tells you otherwise from a corpus this
+size is doing the thing this post is about.
 
 ## What I changed
 
