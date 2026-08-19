@@ -13,7 +13,7 @@ I spent the last stretch auditing every post on this site against the code, conf
 
 A failing check gets fixed on the afternoon it fails. A check that passes for the wrong reason can sit there for a year while you build on top of it.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/silent-gate.png'); width: min(250px, 66%); aspect-ratio: 400/421; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/silent-gate.png'); width: min(250px, 66%); aspect-ratio: 400/446; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">hooked through, hanging open</p>
 
 ## The one that started it
