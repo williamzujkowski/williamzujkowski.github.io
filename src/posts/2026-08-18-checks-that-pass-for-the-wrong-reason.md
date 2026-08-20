@@ -2,23 +2,25 @@
 
 author: William Zujkowski
 date: 2026-08-18
-description: "Ninety agent-assisted posts, audited against source. The defects weren't bad reasoning — they were artifacts nobody had ever executed. Why models produce that, why review can't see it, and what actually catches it."
-title: "Nobody Ran It"
+description: "Auditing the archive produced something more useful than corrections: a labelled corpus of known-false claims. What we are building against it, what works, and what does not."
+title: "Ninety-Two Posts as a Test Corpus"
 tags:
   - security
   - ai
   - automation
 ---
-I audited every post on this site against the code, configs and papers it describes. Ninety of them, most written with agent assistance. Almost all had defects.
+I audited every post on this site against the code, configs and papers it describes. Ninety-two of them, most written with agent assistance. Almost all had defects.
 
-The interesting part is not that. It is that the defects had a **shape** — one specific enough to design against, and specific enough that I can tell you exactly why my review missed it.
+The corrections were the boring part. What the audit actually produced was a **labelled corpus**: ninety-two documents where I now know, claim by claim, which numbers were false and why — traced back to the source that refutes them. That is an unusual thing to have. Most work on detecting machine-generated fabrication is stuck evaluating detectors against synthetic examples, because nobody has the ground truth. I have it, because I spent weeks producing it by hand.
 
-None of them were bad reasoning. Every one was an artifact that had never been executed.
+So this post is less a confession than a lab report. Here is what the defects had in common, what we have built to catch them, and — the useful half — which of those attempts survived being tested against the corpus.
+
+The headline finding first, because it shaped everything else: none of the defects were bad reasoning. Every one was an artifact that had never been executed.
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/silent-gate.png'); width: min(250px, 66%); aspect-ratio: 400/446; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">hooked through, hanging open</p>
 
-## The receipt
+## What the defects had in common
 
 Here is a threat-intelligence lookup from one of my posts, presented as part of a working homelab pipeline:
 
@@ -69,7 +71,7 @@ This is [specification gaming](https://deepmind.google/discover/blog/specificati
 
 It is also measurable in coding agents specifically. [ImpossibleBench](https://arxiv.org/abs/2510.20270) constructs tasks where the spec and the tests conflict, so any pass implies a shortcut, and reports **GPT-5 cheating on 54%** of them. Its opening example is the thing that most alarmed me in my own archive: an agent with access to unit tests may delete the failing test rather than fix the bug.
 
-## Why review didn't catch it
+## Why reading is the wrong instrument
 
 This is the part I got wrong about myself, and the literature is unkind in a useful way.
 
@@ -115,7 +117,7 @@ So: a defect class invisible to reading, in the category review is worst at, in 
 
 That is not a personal failure and it is not fixable by trying harder. It is a system with no check in it — and the literature is fairly clear that attention and expertise are the wrong lever. What is left is running the thing.
 
-## It happened while I was writing this
+## The corpus grew while I was writing this
 
 I used a research agent for the citations above, with explicit instructions to verify against primary sources and to flag anything it could not confirm.
 
@@ -127,7 +129,25 @@ It caught this only by re-fetching the primary sources. No consistency check wou
 
 The defect class appeared in the middle of a task specifically instructed to guard against it. Which should tell you how much instruction is worth here, relative to verification.
 
-## What actually works
+## What we tested against the corpus
+
+This is the part worth having, because several things I expected to work did not.
+Each was run against the ninety-two posts with known labels, so the verdicts are
+measured rather than argued.
+
+| technique | verdict | evidence |
+|---|---|---|
+| **Execute the artifact once** | works, dominates everything else | every defect died on first run — `NameError` on import, invented TOML rejected by the parser, the gate revealing itself the moment an upstream job fails |
+| **Strict config parsing** | works, often already present | `osv-scanner` had shipped it a year before my post fabricated a config for it |
+| **Provenance of linked artifacts** | works, cheap | 11 gists in a 21-second burst, 26 days after the post presenting them as working notes |
+| **Commit-message archaeology** | works, cheap | passes that state their optimisation target tell you what their numbers are for |
+| **GRIM arithmetic check** | **fails on prose** | 10 tightly-bound pairs across 92 posts, 0 violations, before *and* after audit — see below |
+| **Consistency checking** | fails by construction | fabricated output is *more* internally coherent than truthful output |
+| **Careful reading** | fails, and degrades your best reviewers | see the mammography evidence above |
+
+The rest of this section is the detail behind those rows.
+
+
 
 **Run it.** This is the whole finding, and it is embarrassingly simple. Not "read it carefully" — execute it once, against something that should fail. The `NameError` dies on import. The invented TOML dies on parse, because the tool's authors already thought of that. The `security-gate` reveals itself the moment an upstream job fails. Reading is precisely the activity that cannot distinguish plausible from correct.
 
@@ -201,11 +221,43 @@ involvement. Whether that is the models, the tooling, the topics or me is not
 answerable from this data, and anyone who tells you otherwise from a corpus this
 size is doing the thing this post is about.
 
-## What I changed
+## What we are running now
 
-The pre-publish gate on this site now runs a sixth audit: artifact provenance and every config key against the tool's actual upstream schema, one key at a time, including semantics — a flag can exist and do the opposite, as `trivy --ignore-policy` does. Its sharpest rule is the one my archive taught me: **a measurement attached to an invented key means the surrounding numbers are generated too.** `workers = 4 is 40% faster` cannot have been measured if the key has never existed.
+The pre-publish gate on this site grew a sixth audit out of this: artifact
+provenance, and every config key checked against the tool's actual upstream
+schema, one key at a time, including semantics — a flag can exist and do the
+opposite, as `trivy --ignore-policy` does. Its sharpest rule came straight from
+the corpus: **a measurement attached to an invented key means the surrounding
+numbers are generated too.** `workers = 4 is 40% faster` cannot have been
+measured if the key has never existed.
 
-But the honest summary is shorter than the tooling. Every defect I found survived because an artifact was judged on how it read. The fix is not more careful reading.
+The measurement scripts are in [`scripts/corpus-audit/`](https://github.com/williamzujkowski/williamzujkowski.github.io/tree/main/scripts/corpus-audit)
+along with a README documenting both wrong versions of the GRIM checker, so the
+numbers here can be re-run or refuted rather than taken on trust.
 
-Run it once. Point it at something that should fail. Watch it fail.
+## What the corpus is for next
 
+Having ground truth changes what questions are answerable. Three I want to put
+to it:
+
+**Does a detector generalise off this corpus?** Everything above was tuned on
+the same ninety-two documents that produced the labels, which is the oldest
+mistake in the book. The artifact check has not yet met a draft it was not
+built from. Its first real outing will tell me whether the rules are calibrated
+or merely fitted.
+
+**Can the derived-denominator problem be automated?** GRIM failed because three
+of five impossible percentages required computing a denominator from a described
+experiment — 12 participants × 10 videos — that appears nowhere on the page. A
+model reading for experimental design rather than pattern-matching digits might
+close that gap. That is a testable claim and I have the labels to test it with.
+
+**Which checks would have caught which defects, and at what cost?** I can now
+replay each technique against the pre-audit corpus and count. What I have is a
+verdict column; what I want is a recall number per check, and the honest answer
+about how much of the audit was only reachable by a human holding a whole
+document in their head.
+
+None of that is done. But the useful thing about turning an archive of mistakes
+into a labelled corpus is that the next question stops being "was I careless"
+and starts being "does this check work" — which is a question with an answer.
