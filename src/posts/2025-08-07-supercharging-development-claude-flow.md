@@ -122,7 +122,7 @@ So the work is front-loaded into saying what the pieces are and how they compose
 
 ## Where this has gone since
 
-*The naming mistake in this post — calling a convention a mechanism — turned out to be a general one. Followed up in [Checks That Pass for the Wrong Reason](/posts/2026-08-18-checks-that-pass-for-the-wrong-reason).*
+*The naming mistake in this post — calling a convention a mechanism — turned out to be a general one. It became part of the corpus in [Ninety-Two Posts as a Test Corpus](/posts/2026-08-18-checks-that-pass-for-the-wrong-reason).*
 
 
 Written in August 2025, and the ground has shifted enough that the specifics have expired.
