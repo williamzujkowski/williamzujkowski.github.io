@@ -92,6 +92,10 @@
     clearTimeout(debounceTimer);
     if (query.length < 2) {
       results = [];
+      // Without this the state stays "Searching..." forever once the query
+      // drops back below 2 characters — isLoading is set below and never
+      // cleared on this path. Issue #500.
+      isLoading = false;
       return;
     }
     isLoading = true;

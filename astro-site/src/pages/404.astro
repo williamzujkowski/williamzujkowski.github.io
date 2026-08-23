@@ -57,7 +57,12 @@ const recentPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.
     font-size: var(--text-display);
     letter-spacing: normal; /* cancel .voice-machine's meta tracking at display size */
     color: var(--color-muted);
-    opacity: 0.4;
+    /* Was 0.4, which composited --color-muted down to 1.69:1 in light and
+       2.44:1 in dark — both under the 3:1 large-text floor. /404 was not in
+       the axe page list, so nothing had ever measured it (issues #500, #508).
+       0.8 clears 3:1 in both themes; the numeral still reads as recessive
+       because --color-muted is already dimmer than the heading beneath it. */
+    opacity: 0.8;
     margin: 0;
   }
   .recent-posts-heading {

@@ -73,6 +73,14 @@
     opacity: 1;
   }
 
+  /* The button is a real, tabbable button that drew a focus ring at
+     opacity: 0 — a WCAG 2.4.7 failure and a dead tab stop per code block
+     (some posts have 15+). axe never simulates focus, so the suite was
+     green. Issue #500. */
+  :global(.copy-btn:focus-visible) {
+    opacity: 1;
+  }
+
   :global(.copy-btn:hover) {
     background-color: var(--color-surface);
   }

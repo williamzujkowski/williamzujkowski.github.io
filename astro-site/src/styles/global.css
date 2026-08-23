@@ -159,6 +159,12 @@
 
 /* Dark theme — CRT phosphor on black-green */
 :root.dark {
+  /* Scrim and shadow were defined ONLY in the light block, so a dark page got
+     black-at-50% over an L=0.14 ground (barely darkens it) and a black shadow
+     behind an L=0.17 surface (invisible). The dialog's only remaining
+     separation was --color-border-bold. Issue #500. */
+  --color-overlay: oklch(0 0 0 / 0.72);
+  --color-shadow: oklch(0 0 0 / 0.8);
   --color-bg: oklch(0.14 0.015 140);
   --color-bg-subtle: oklch(0.17 0.015 140);
   --color-fg: oklch(0.92 0.03 140);           /* phosphor green */
@@ -216,6 +222,12 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
+    /* Scrim and shadow were defined ONLY in the light block, so a dark page got
+       black-at-50% over an L=0.14 ground (barely darkens it) and a black shadow
+       behind an L=0.17 surface (invisible). The dialog's only remaining
+       separation was --color-border-bold. Issue #500. */
+    --color-overlay: oklch(0 0 0 / 0.72);
+    --color-shadow: oklch(0 0 0 / 0.8);
     --color-bg: oklch(0.14 0.015 140);
     --color-bg-subtle: oklch(0.17 0.015 140);
     --color-fg: oklch(0.92 0.03 140);

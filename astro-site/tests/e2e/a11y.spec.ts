@@ -19,6 +19,12 @@ const PAGES = [
     path: '/posts/2025-10-29-post-quantum-cryptography-homelab/',
     name: 'blog-post-sidenotes',
   },
+  // Both were omitted, so nothing had ever scanned them (issue #508).
+  // /pizza-ops/ is the most interactive page on the site — a Svelte island
+  // with a radiogroup, a range input and a live region — which makes it the
+  // one most likely to have a11y defects and the one that was unscanned.
+  { path: '/pizza-ops/', name: 'pizza-ops' },
+  { path: '/404.html', name: 'not-found' },
 ];
 
 /**
@@ -60,7 +66,10 @@ async function assertPageIsLive(page: Page, response: Response | null, path: str
 
 async function runAxe(page: Page, extraExcludes: string[] = []) {
   const builder = new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+    // 'best-practice' added (issue #508): without it, landmark-unique and
+    // region never run, so two unnamed <nav> landmarks sitting beside the
+    // named primary nav went unreported.
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa', 'best-practice'])
     .disableRules([])
     // Exclude Shiki-rendered syntax tokens from color-contrast only.
     .options({

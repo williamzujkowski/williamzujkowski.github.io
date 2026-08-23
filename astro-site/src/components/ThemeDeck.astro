@@ -324,6 +324,37 @@ const lightThemes = themes.filter((t) => !t.isDark);
       });
     }
 
+    // Validate the stored slug on startup. Nothing did this before, so a
+    // stale or hand-edited themeDeck value left data-theme-deck naming a deck
+    // that no CSS rule matches, WITH its mode class applied — a dark class
+    // over the default light palette.
+    //
+    // It stayed invisible only because ThemeToggle's applyTheme() used to
+    // strip the mode class unconditionally on every load, which is the bug
+    // fixed in #500 (it also wiped the class for VALID decks). With that
+    // fixed, the invalid-deck state has to be cleaned up at its source.
+    //
+    // Clearing restores the mode class from the base theme rather than just
+    // dropping the attribute — the old reset path left the class behind,
+    // which is why returning to Remarque gave a different mode before and
+    // after a reload.
+    (function validateStoredDeck() {
+      var root = document.documentElement;
+      var slug = (storageGet(DECK_KEY) || '').split('|')[0];
+      if (!slug) return;
+      var known = document.querySelector('.deck-option[data-deck-slug="' + slug + '"]');
+      if (known) return;
+
+      root.removeAttribute('data-theme-deck');
+      storageRemove(DECK_KEY);
+      root.classList.remove('dark', 'light');
+      var base = null;
+      try { base = localStorage.getItem('theme'); } catch (err) { /* no persistence */ }
+      if (base === 'dark') root.classList.add('dark');
+      else if (base === 'light') root.classList.add('light');
+      // else: no stored preference — the CSS @media query decides.
+    })();
+
     document.addEventListener('theme-deck-cleared', function () { syncUi(); });
     syncUi();
   })();
