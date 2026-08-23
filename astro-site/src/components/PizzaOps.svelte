@@ -105,6 +105,14 @@
   // Any change to the target invalidates the committed decision — you must
   // re-run consensus. This is a feature. It is, specifically, our feature.
   function invalidate() {
+    // Cancel the pending ceremony too, not just the visible state. Every
+    // input stays enabled during provisioning (only the Provision button is
+    // disabled), so changing one mid-run left the queued timers alive and
+    // ~500ms later the last one flipped phase back to 'committed' — publishing
+    // a verdict computed from inputs that never ran consensus, which is the
+    // exact invariant the comment above claims. Issue #500.
+    stepTimers.forEach(clearTimeout);
+    stepTimers = [];
     if (phase !== 'idle') {
       phase = 'idle';
       consensusLine = '';
@@ -501,7 +509,18 @@
     padding-top: 0.9rem; border-top: 1px solid var(--color-border);
     font-size: 0.8125rem; color: var(--color-muted); letter-spacing: 0.03em;
   }
-  .po-obs em { font-style: normal; text-transform: uppercase; opacity: 0.7; margin-right: 0.25rem; }
+  /* No opacity here. --color-muted is already the dimmest text token that
+     clears 4.5:1 (it renders 4.81:1 on --color-bg), so dimming it further
+     fails by construction — 0.7 composited it to 2.75:1, a real WCAG AA
+     failure that shipped because /pizza-ops/ was not in the axe page list
+     (issues #500, #508). The uppercase + letter-spacing treatment already
+     distinguishes the label. */
+  .po-obs em {
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-right: 0.25rem;
+  }
 
   .po-strip { padding: 1rem 1.15rem; border-top: 1px solid var(--color-border); }
   .po-strip-grid { display: grid; grid-template-columns: 1fr 1fr; }

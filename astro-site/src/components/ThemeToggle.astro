@@ -95,6 +95,25 @@
       var root = document.documentElement;
       var dark = isDark();
       var t = storedTheme();
+
+      // When a deck theme is active it OWNS the mode class: BaseLayout's head
+      // script sets data-theme-deck plus dark/light from the stored
+      // "<slug>|<mode>" value, and applyDeck() never writes localStorage.theme.
+      // This script runs afterwards, so unconditionally rewriting the class
+      // from localStorage.theme wiped it — leaving the toggle showing the sun
+      // ("switch to dark") on a page rendering a dark palette, and silently
+      // breaking anything keyed on :root.dark. Issue #500.
+      if (root.hasAttribute('data-theme-deck')) {
+        var btnDeck = document.getElementById('theme-toggle');
+        if (btnDeck) {
+          btnDeck.setAttribute(
+            'aria-label',
+            root.classList.contains('dark') ? 'Switch to light theme' : 'Switch to dark theme',
+          );
+        }
+        return;
+      }
+
       root.classList.remove('dark', 'light');
       if (t === 'dark') root.classList.add('dark');
       else if (t === 'light') root.classList.add('light');
