@@ -548,15 +548,20 @@ async function main() {
     console.log(
       `\n${totalWarnings} target(s) fall below their WCAG threshold under worst-case grain compositing.`
     );
-    console.log('Advisory only — not blocking. Review flagged items above.');
+    console.error('These are real WCAG failures in composited output. Fix the deck\n'
+      + 'tokens (see DESIGN-DEVIATIONS.md) — this check is a gate now.');
   } else {
     console.log(
       '\nAll sampled targets stay at or above their WCAG threshold under worst-case grain compositing.'
     );
   }
 
-  // Always exit 0 — this is a design-review spot check, not a CI gate.
-  process.exit(0);
+  // This IS a gate now (issue #511). It was the only checker in the repo
+  // measuring real composited pixels, and it was neutered twice — hardcoded
+  // exit 0 here plus continue-on-error in a11y.yml — while reporting four
+  // genuine WCAG failures in solarized-dark-higher-contrast on every green
+  // run. Those are fixed; this keeps them fixed.
+  process.exit(totalWarnings > 0 ? 1 : 0);
 }
 
 // A crash is a broken run. The findings this audit reports are advisory

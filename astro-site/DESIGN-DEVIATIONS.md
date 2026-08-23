@@ -430,6 +430,74 @@ See the PR that introduced this section for the before/after screenshots
 (desktop + mobile, both themes) — **this PR is explicitly flagged for
 design sign-off before merge**, since four of the deltas above are visible,
 intentional rendering changes, not implementation-detail refactors.
+## 11. solarized-dark-higher-contrast tokens lead the generator
+
+**Status:** deliberate. **Issue:** #511. **Date:** 2026-08-23.
+
+Three tokens in `[data-theme-deck='solarized-dark-higher-contrast']` are
+lighter than `scripts/theme-deck/generate.py` would currently emit:
+
+| token | generated | committed | why |
+|---|---|---|---|
+| `--color-muted` | `oklch(0.6042 …)` | `oklch(0.6330 …)` | 4.54:1 → 5.06:1 |
+| `--color-fg-muted` | `oklch(0.6161 …)` | `oklch(0.6329 …)` | 4.74:1 → 5.06:1 |
+| `--color-border-bold` | `oklch(0.5078 …)` | `oklch(0.5470 …)` | 3.03:1 → 3.60:1 |
+
+Hue and chroma are unchanged; only lightness moves.
+
+### Why
+
+The site composites a paper-grain texture over the masthead and footer. The
+generator validates contrast against the **token** values and knows nothing
+about that overlay, so its guarantee — *"nothing contrast-broken can ship"* —
+was true of the tokens and false of the rendered pixels.
+
+`grain-contrast-audit.mjs` samples real composited screenshots and measured
+the gap:
+
+```
+nav link (small text)      token 4.54:1  grain-worst 4.18:1  (needs >=4.5)
+wobble-rule border         token 3.03:1  grain-worst 2.79:1  (needs >=3.0)
+copyright text             token 4.54:1  grain-worst 4.18:1  (needs >=4.5)
+footer link                token 4.54:1  grain-worst 4.18:1  (needs >=4.5)
+```
+
+The old `CONTRAST_MARGIN = 0.03` was sized for CSS rounding. Grain costs up to
+**0.39:1** on this deck — dark backgrounds lose more, because their relative
+luminance sits near zero, so the same absolute wobble is a larger proportional
+change. The solver parked every token 0.04 above the floor, and the overlay
+ate it. The deck being named *higher-contrast* made this particularly awkward.
+
+The committed values were solved numerically for `floor + 0.39 + headroom`,
+then verified against the real pixel audit — all twelve decks now clear their
+floors with margin (`grain-worst 4.66:1` and `3.31:1` here).
+
+### Keeping it true
+
+`CONTRAST_MARGIN` is raised to `0.45` in the generator so a regeneration
+produces these values rather than reverting them. That number is conservative
+for light decks, where grain costs ~0.00–0.05, and a single scalar cannot
+model the per-deck spread — it is a floor, not a prediction.
+
+**The pixel audit is the authority, not the margin.** `pnpm audit:grain` now
+exits non-zero and `a11y.yml` no longer sets `continue-on-error`, so a
+regeneration this margin fails to cover gets caught rather than shipped.
+Verified: reverting one token to its generated value fails the audit (exit 1);
+restoring it passes (exit 0).
+
+### Considered and not taken
+
+A deck-scoped grain-opacity override
+(`[data-theme-deck='solarized-dark-higher-contrast'] { --grain-opacity: … }`)
+would also have cleared the floors, with a smaller blast radius than a global
+margin change. It was rejected because it makes the texture inconsistent
+across decks to solve a palette problem, and because on a deck whose entire
+purpose is *higher contrast*, raising the text contrast is the more faithful
+fix. Worth revisiting if a future deck fails for a reason the palette cannot
+absorb.
+
+---
+
 ## References
 
 - Issue #324 (this migration)

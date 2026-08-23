@@ -72,7 +72,29 @@ ACCENT_FLOOR = 4.5        # links / interactive
 MUTED_FLOOR = 4.5         # meta text is still text
 TEXT_FLOOR = 4.5          # syntax and state labels
 BORDER_FLOOR = 3.0        # WCAG 1.4.11 non-text contrast
-CONTRAST_MARGIN = 0.03    # survive CSS rounding without visible overcorrection
+# Margin above each floor that a solved token must clear.
+#
+# This was 0.03, sized only to "survive CSS rounding". That made the
+# generator's guarantee ("nothing contrast-broken can ship") true of the TOKEN
+# values and false of the RENDERED pixels: the site composites a paper-grain
+# texture over the masthead and footer, and grain-contrast-audit.mjs measured
+# it dragging solarized-dark-higher-contrast from 4.54:1 down to 4.18:1 —
+# below the 4.5 floor the solver had just cleared by 0.04 (issue #511).
+#
+# 0.45 covers the worst grain loss measured across all 12 decks (0.39) plus
+# headroom. Two honest caveats:
+#
+#   * It is conservative for light decks, where grain costs ~0.00-0.05 — a
+#     regeneration will make their meta text slightly lighter than strictly
+#     needed. Dark backgrounds lose more because their relative luminance sits
+#     near zero, so the same absolute wobble is a larger proportional change.
+#   * A single scalar cannot model that per-deck spread. It is a floor, not a
+#     prediction.
+#
+# The authority is the pixel audit, not this number. grain-contrast-audit.mjs
+# samples real composited screenshots and now FAILS the build, so a
+# regeneration that this margin fails to cover gets caught rather than shipped.
+CONTRAST_MARGIN = 0.45
 
 STATE_SLOTS = {
     "--color-error": "red",
