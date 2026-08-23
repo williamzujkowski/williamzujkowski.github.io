@@ -135,36 +135,44 @@ jobs:
             f.write(f'internal_broken={len(internal_broken)}\n')
             f.write(f'external_broken={len(external_broken)}\n')
 
-        event = os.environ.get('GITHUB_EVENT_NAME', '')
-        is_pr = event == 'pull_request'
+        # INTERNAL links are not this workflow's job any more (issue #502).
+        # They resolve against files on disk, and aiohttp cannot even express
+        # a relative path -- it raises InvalidURL, which is recorded as
+        # 'needs_manual', so the old `status == broken` test could never see
+        # them. 182 links, ~12% of the corpus, were exempt by construction.
+        # scripts/link-validation/internal-link-check.py checks them properly
+        # in a11y.yml, offline and blocking. The count is still reported here
+        # because a non-zero value would mean the two disagree.
+        if internal_broken:
+            print(f'NOTE: {len(internal_broken)} absolute own-domain links look broken. '
+                  'internal-link-check.py in a11y.yml is authoritative for these.')
 
-        # For PRs: only fail on internal broken links (> 5)
-        # External failures are often transient (rate limits, timeouts)
-        if is_pr:
-            if len(internal_broken) > 5:
-                print(f'ERROR: {len(internal_broken)} internal broken links')
-                exit(1)
-            elif len(external_broken) > 0:
-                print(f'WARNING: {len(external_broken)} external links failed (non-blocking for PRs)')
-        else:
-            # For scheduled runs: warn but don't fail on external-only issues
-            if len(internal_broken) > 5:
-                print(f'ERROR: {len(internal_broken)} internal broken links')
-                exit(1)
-            elif broken_pct > 50:
-                print(f'WARNING: High external failure rate ({broken_pct:.1f}%) - possible network issue')
+        # EXTERNAL rot stays advisory: it is a property of the network, not of
+        # this commit, so it must never fail a build. It DOES need somewhere to
+        # surface -- previously a >50% failure rate printed a warning and
+        # exited 0, so the issue-filing step (gated on `failure()`) could never
+        # fire and external rot was reported to nobody.
+        print(f'External failures: {len(external_broken)} ({broken_pct:.1f}% of all links)')
         "
 
+    # Fires on the scheduled run when external rot crosses the threshold --
+    # NOT on `failure()`, which never happened because nothing exits non-zero
+    # for external links. The job stays green; the issue is the output.
     - name: Create Issue for Broken Links
-      if: failure() && github.event_name == 'schedule'
+      if: >-
+        always() && github.event_name == 'schedule' &&
+        fromJSON(steps.check_critical.outputs.external_broken || '0') > 5
       uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
       with:
         script: |
           const fs = require('fs');
           const report = fs.readFileSync('reports/summary.md', 'utf8');
 
-          const title = `🔗 Link Health Alert: ${process.env.broken_count} broken links found`;
-          const body = `## Automated Link Health Check Failed\n\n` +
+          const title = `🔗 External link rot: ${process.env.external_broken} link(s) not resolving`;
+          const body = `## External link health report\n\n` +
+                `_Advisory. The job did not fail — external availability is a property of\n`+
+                `the network, not of any commit. Internal links and anchors are checked\n`+
+                `separately and blockingly by internal-link-check.py in a11y.yml._\n\n` +
                 `**Date:** ${new Date().toISOString()}\n` +
                 `**Broken Links:** ${process.env.broken_count}/${process.env.total_count} (${process.env.broken_percent}%)\n\n` +
                 `### Summary Report\n\n${report}\n\n` +
@@ -204,6 +212,7 @@ jobs:
         broken_count: ${{ steps.check_critical.outputs.broken_count }}
         total_count: ${{ steps.check_critical.outputs.total_count }}
         broken_percent: ${{ steps.check_critical.outputs.broken_percent }}
+        external_broken: ${{ steps.check_critical.outputs.external_broken }}
 
     - name: Comment on PR
       if: github.event_name == 'pull_request'
