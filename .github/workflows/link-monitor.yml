@@ -5,19 +5,20 @@ on:
     # Run daily at 3 AM UTC
     - cron: '0 3 * * *'
   workflow_dispatch:
-    inputs:
-      force_check:
-        description: 'Force check all links'
-        required: false
-        default: false
-        type: boolean
   pull_request:
     paths:
       - 'src/posts/**/*.md'
 
-# Default to least privilege. The check-links job opens an issue on scheduled
-# failures (issues: write) and comments on PRs (pull-requests: write); the
-# repair-links job overrides this to push auto-fixes.
+# Least privilege. check-links is now the only job: it opens a tracking issue
+# on scheduled failures (issues: write) and comments on PRs
+# (pull-requests: write). It never needs `contents: write` -- the job that did
+# was removed with the auto-repair path (#495).
+#
+# Note this workflow runs on `pull_request`, so a fork PR's Python is executed
+# on the runner. GitHub forces GITHUB_TOKEN read-only for fork PRs regardless
+# of this block, so the write scopes are inert there -- but that means
+# "Send write tokens to workflows from fork pull requests" must stay OFF in
+# repository settings. Recorded as an invariant, not an assumption.
 permissions:
   contents: read
   issues: write
@@ -63,8 +64,9 @@ jobs:
         # Create placeholder relevance file
         echo '{"results": []}' > relevance.json
 
-        # Write repairs.json INTO reports/ so it travels in the uploaded
-        # artifact and the repair-links job can actually find it.
+        # Write repairs.json INTO reports/ so the suggestions travel in the
+        # uploaded artifact for a human to review. Nothing applies them
+        # automatically any more (#495).
         uv run python scripts/link-validation/citation-repair.py \
           --links links.json \
           --validation validation.json \
@@ -81,9 +83,10 @@ jobs:
           --repairs reports/repairs.json \
           --output-dir reports
 
-        # Ship links.json in the artifact too -- batch-link-fixer.py in the
-        # repair-links job reads it from the working directory and crashes
-        # without it (it hardcodes open('links.json')).
+        # Ship links.json in the artifact too, so a human reviewing the
+        # report has the extracted-link set that produced it. (It also
+        # remains the input batch-link-fixer.py expects if run manually --
+        # it hardcodes open('links.json') in the working directory.)
         cp links.json reports/links.json
 
     - name: Upload Reports
@@ -234,102 +237,19 @@ jobs:
                   `<details>\n<summary>View Full Report</summary>\n\n${summary}\n</details>`
           });
 
-  repair-links:
-    needs: check-links
-    if: github.event.inputs.force_check == 'true' || github.event_name == 'schedule'
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    permissions:
-      contents: write        # push the auto-fix branch
-      pull-requests: write   # open the review PR
-
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Set up Python
-      uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v6
-      with:
-        python-version: '3.11'
-
-    - name: Install UV
-      uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9  # v9.0.0
-
-    - name: Install Dependencies
-      run: |
-        uv pip install --system --upgrade pip
-        uv pip install --system "aiohttp>=3.13.3" "urllib3>=2.6.3"
-
-    - name: Download Artifacts
-      uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c  # v8
-      with:
-        name: link-validation-reports
-        path: reports/
-
-    - name: Apply High-Confidence Fixes
-      run: |
-        # Only apply fixes with >=95% confidence automatically. repairs.json
-        # arrives inside the downloaded reports/ artifact.
-        if [ -f "reports/repairs.json" ]; then
-          # batch-link-fixer.py reads links.json from the working directory;
-          # it travels inside the reports/ artifact (see check-links job).
-          cp reports/links.json links.json
-          # SAFETY STOPGAP (issue #495): --dry-run until the write path is
-          # fixed. batch-link-fixer._replace_url does a blanket substring
-          # replace outside markdown links, so it rewrites URLs inside code
-          # fences, inline code and blockquotes; it also prefix-collides
-          # (repairing ex.com/a rewrites ex.com/abc), and the extractor
-          # truncates URLs containing parentheses, which produces mangled
-          # prose when repaired. All three are reproduced in #495.
-          #
-          # This job has never actually opened a repair PR, so nothing is
-          # lost by holding it here. Remove --dry-run once #495 lands a
-          # code-span-aware replacer and its golden-file test.
-          uv run python scripts/link-validation/batch-link-fixer.py \
-            --repairs reports/repairs.json \
-            --confidence-threshold 95 \
-            --apply \
-            --dry-run \
-            --posts-dir src/posts
-        else
-          echo "No repairs.json found; nothing to apply"
-        fi
-
-    - name: Open PR with fixes
-      if: success()
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        # Open a PR for human review instead of pushing straight to main --
-        # auto-repairs (redirect-follows, Wayback snapshots) must be eyeballed.
-        if [[ -z "$(git status --porcelain src/posts)" ]]; then
-          echo "No high-confidence fixes to apply"
-          exit 0
-        fi
-
-        # Dedup guard: this job runs daily and each run uses a unique branch,
-        # so without this check an unmerged repair PR gets a duplicate every
-        # day until a human merges or closes it.
-        OPEN_REPAIR_PRS=$(gh pr list --state open --json headRefName \
-          --jq '[.[] | select(.headRefName | startswith("auto/link-repairs-"))] | length')
-        if [[ "$OPEN_REPAIR_PRS" -gt 0 ]]; then
-          echo "An auto/link-repairs PR is already open; skipping duplicate PR"
-          exit 0
-        fi
-
-        BRANCH="auto/link-repairs-${GITHUB_RUN_ID}"
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git checkout -b "$BRANCH"
-        # batch-link-fixer.py leaves .bak.TIMESTAMP safety copies beside the
-        # posts -- stage only the markdown, and let git (not the shell) expand
-        # the pathspec.
-        git add -- 'src/posts/*.md'
-        git commit -m "fix(links): auto-repair broken links (>=95% confidence)"
-        git push origin "$BRANCH"
-
-        gh pr create --base main --head "$BRANCH" \
-          --title "🔗 Automated link repairs (review before merge)" \
-          --body "High-confidence (>=95%) repairs for **provably dead** links (404/410/DNS), proposed by the Link Health Monitor via citation-repair.py (redirect-follow / Wayback). **Review before merging -- do not auto-merge.**"
+  # The repair-links job was removed here (issue #495).
+  #
+  # It ran daily for months and never once opened a repair PR: only
+  # identity-preserving DOI repairs clear the --confidence-threshold 95 the
+  # workflow passed, and those are rare. Meanwhile it carried three
+  # reproduced corruption modes in batch-link-fixer._replace_url --
+  # rewriting URLs inside code fences, inline code and blockquotes;
+  # prefix-collision (repairing ex.com/a also rewrote ex.com/abc); and
+  # mangled prose when the extractor truncated a parenthesised URL. Its
+  # confidence cap (min(confidence, 90)) was also equal to the tool's own
+  # default threshold, so the cap gated nothing outside this workflow.
+  #
+  # Detection and reporting above are kept -- they are the part that worked.
+  # Repair is a human step now: read reports/ from the uploaded artifact.
+  # scripts/link-validation/batch-link-fixer.py is retained for manual,
+  # supervised use and still defaults to a dry run.

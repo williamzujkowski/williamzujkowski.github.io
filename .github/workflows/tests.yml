@@ -1,23 +1,55 @@
 name: Python Tests
 
 on:
-  push:
-    paths:
-      - 'scripts/**'
-      - 'pyproject.toml'
-      - '.github/workflows/tests.yml'
   pull_request:
-    paths:
-      - 'scripts/**'
-      - 'pyproject.toml'
-      - '.github/workflows/tests.yml'
+    branches: [main]
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+
 jobs:
+  # Job-level path gating instead of workflow-level `paths:` triggers — same
+  # reason audits.yml and a11y.yml do it. `pytest` is a REQUIRED
+  # branch-protection check, and a trigger-filtered workflow never reports at
+  # all on a non-matching PR, wedging it as "expected" forever. A skipped job
+  # still reports and satisfies protection.
+  #
+  # The old workflow-level filters were also bypassed on any push that CREATES
+  # a ref: `before` is all-zeros, GitHub cannot compute a diff, so the filters
+  # are skipped entirely — which is why two Dependabot branches ran this suite
+  # despite touching only astro-site/. Job-level gating is honest either way.
+  changes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      python: ${{ steps.diff.outputs.python }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+        with:
+          fetch-depth: 0
+      - id: diff
+        env:
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          if [ -z "$BASE" ] || ! git cat-file -e "$BASE" 2>/dev/null; then
+            echo "python=true" >> "$GITHUB_OUTPUT"   # can't diff: run everything
+          elif git diff --name-only "$BASE"...HEAD \
+               | grep -qE '^(scripts/|pyproject\.toml|\.github/workflows/tests\.yml)'; then
+            echo "python=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "python=false" >> "$GITHUB_OUTPUT"
+          fi
+
   pytest:
+    needs: changes
+    if: needs.changes.outputs.python == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
