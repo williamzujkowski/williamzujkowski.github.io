@@ -63,7 +63,15 @@ ha-manager add ct:200 --state started
 # Higher number = higher priority. nofailback=0 lets a service migrate back
 # once its preferred node returns.
 # ---------------------------------------------------------------------------
-ha-manager groupadd critical_services --nodes "pve1:2,pve2:1,pve3:1" --nofailback 0
-ha-manager set vm:100 --group critical_services
+# HA Groups are deprecated: "HA Groups are deprecated and migrated to HA
+# Node Affinity rules since Proxmox VE 9.0."
+ha-manager rules add node-affinity critical-services \
+    --resources vm:100,ct:200 \
+    --nodes "pve1:2,pve2:1,pve3:1"
+
+# On Proxmox VE 8 and earlier this was:
+#   ha-manager groupadd critical_services \
+#       --nodes "pve1:2,pve2:1,pve3:1" --nofailback 0
+#   ha-manager set vm:100 --group critical_services
 
 echo "HA configured. Fencing is watchdog-based -- verify with: ha-manager status"

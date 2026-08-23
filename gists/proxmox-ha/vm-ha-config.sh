@@ -1,15 +1,13 @@
 #!/bin/bash
-"""
-VM High Availability Configuration
-
-Source: https://williamzujkowski.github.io/posts/proxmox-high-availability-homelab/
-Purpose: Enable HA for VMs with automatic failover and migration settings
-Prerequisites: HA manager configured, VMs running on shared storage
-Usage:
-    bash vm-ha-config.sh <vm_id>
-
-License: MIT
-"""
+# VM High Availability Configuration
+#
+# Source: https://williamzujkowski.github.io/posts/proxmox-high-availability-homelab/
+# Purpose: Enable HA for VMs with automatic failover and migration settings
+# Prerequisites: HA manager configured, VMs running on shared storage
+# Usage:
+#     bash vm-ha-config.sh <vm_id>
+#
+# License: MIT
 
 if [ -z "$1" ]; then
     echo "Usage: bash vm-ha-config.sh <vm_id>"

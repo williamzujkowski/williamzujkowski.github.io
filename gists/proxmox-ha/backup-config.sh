@@ -1,15 +1,13 @@
 #!/bin/bash
-"""
-Proxmox Backup Server Integration and Automated Backup
-
-Source: https://williamzujkowski.github.io/posts/proxmox-high-availability-homelab/
-Purpose: Configure PBS integration and automated backup schedules with offsite sync
-Prerequisites: Proxmox Backup Server installed on separate hardware
-Usage:
-    bash backup-config.sh
-
-License: MIT
-"""
+# Proxmox Backup Server Integration and Automated Backup
+#
+# Source: https://williamzujkowski.github.io/posts/proxmox-high-availability-homelab/
+# Purpose: Configure PBS integration and automated backup schedules with offsite sync
+# Prerequisites: Proxmox Backup Server installed on separate hardware
+# Usage:
+#     bash backup-config.sh
+#
+# License: MIT
 
 BACKUP_DIR="/mnt/backup/proxmox"
 DATE=$(date +%Y%m%d_%H%M%S)
@@ -20,8 +18,8 @@ pvesm add pbs pbs-backup \
     --server 10.0.10.50 \
     --datastore homelab-backups \
     --username backup@pbs \
-    --password <password> \
-    --fingerprint <fingerprint>
+    --password "<password>" \
+    --fingerprint "<fingerprint>"
 
 # Configure backup schedule (daily at 2 AM)
 pvesh create /cluster/backup --schedule "0 2 * * *" \
@@ -48,11 +46,21 @@ tar -czf "$BACKUP_DIR/cluster-config_$DATE.tar.gz" \
 ceph config dump > "$BACKUP_DIR/ceph-config_$DATE.txt"
 ceph osd tree > "$BACKUP_DIR/ceph-osd-tree_$DATE.txt"
 
-# Sync to offsite location
-rclone sync "$BACKUP_DIR" remote:proxmox-backups/
+# Sync to offsite location.
+#
+# NOT `rclone sync`. sync makes the destination MATCH the source -- rclone's
+# own docs: "Destination is updated to match source, including deleting files
+# if necessary... If you don't want to delete files from destination, use the
+# copy command instead." Paired with the local prune below, that made offsite
+# retention converge on local retention: 7 days, not the 90 this repo's
+# README claims and not the 30 this comment used to claim.
+rclone copy "$BACKUP_DIR" remote:proxmox-backups/
 
-# Retention: Keep 7 days local, 30 days offsite
+# Retention: 7 days local, 90 days offsite (matches README.md).
+# Each side is pruned on its own schedule, which is the only way the two can
+# differ at all.
 find "$BACKUP_DIR" -name "*.tar.gz" -mtime +7 -delete
+rclone delete remote:proxmox-backups/ --min-age 90d
 SCRIPT
 
 chmod +x /usr/local/bin/cluster-backup.sh

@@ -1,16 +1,14 @@
 #!/bin/bash
-"""
-VLAN Breakout Penetration Testing
-
-Source: https://williamzujkowski.github.io/posts/zero-trust-vlan-segmentation-homelab/
-Purpose: Test VLAN isolation with controlled penetration testing
-WARNING: Only run on your own network with proper authorization
-Prerequisites: nmap, metasploit (optional)
-Usage:
-    bash vlan-breakout-tests.sh
-
-License: MIT
-"""
+# VLAN Breakout Penetration Testing
+#
+# Source: https://williamzujkowski.github.io/posts/zero-trust-vlan-segmentation-homelab/
+# Purpose: Test VLAN isolation with controlled penetration testing
+# WARNING: Only run on your own network with proper authorization
+# Prerequisites: nmap, metasploit (optional)
+# Usage:
+#     bash vlan-breakout-tests.sh
+#
+# License: MIT
 
 echo "=== VLAN Breakout Testing ==="
 echo "WARNING: Only run on authorized networks"

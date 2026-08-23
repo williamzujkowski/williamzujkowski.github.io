@@ -1,15 +1,13 @@
 #!/bin/bash
-"""
-Ceph Installation and Monitor Setup
-
-Source: https://williamzujkowski.github.io/posts/proxmox-high-availability-homelab/
-Purpose: Install Ceph distributed storage and create monitors on all nodes
-Prerequisites: Proxmox cluster created, storage network configured
-Usage:
-    bash ceph-install.sh
-
-License: MIT
-"""
+# Ceph Installation and Monitor Setup
+#
+# Source: https://williamzujkowski.github.io/posts/proxmox-high-availability-homelab/
+# Purpose: Install Ceph distributed storage and create monitors on all nodes
+# Prerequisites: Proxmox cluster created, storage network configured
+# Usage:
+#     bash ceph-install.sh
+#
+# License: MIT
 
 # On all nodes
 pveceph install --repository no-subscription --version quincy

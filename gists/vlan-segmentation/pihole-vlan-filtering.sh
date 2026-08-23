@@ -74,6 +74,12 @@ pihole-FTL --config misc.dnsmasq_lines '[
   "server=/servers.home/10.0.30.5"
 ]'
 
+# A CONFIG change needs a restart. The docs are explicit that neither reload
+# command re-reads configuration: `pihole reloadlists` is "Reload DNS lists.
+# Note: This will NOT re-read any *.conf files", and `pihole reloaddns` says
+# the same. Only list changes are covered by a reload.
+systemctl restart pihole-FTL
+
 # ---------------------------------------------------------------------------
 # 4. Actually force IoT devices onto Pi-hole.
 #
@@ -93,6 +99,8 @@ iptables -A FORWARD -i "$IOT_IFACE" -p tcp --dport 853 -j REJECT
 # ---------------------------------------------------------------------------
 # 5. Apply.
 # ---------------------------------------------------------------------------
-pihole reloadlists   # `restartdns` was removed in v6
+# Lists only. `restartdns` was removed in v6; reloadlists/reloaddns do not
+# re-read config, which is why the restart above is separate.
+pihole reloadlists
 
 echo "VLAN-specific DNS filtering configured"
