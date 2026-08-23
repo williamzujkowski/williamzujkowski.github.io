@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run OSV-Scanner
-        uses: google/osv-scanner-action@v1.6.2
+        uses: google/osv-scanner-action@6e4298ebc4db23e847df9b2e2de2939d6f066c67 # v2.5.1
         with:
           scan-args: |-
             --lockfile=package-lock.json
@@ -59,7 +59,7 @@ jobs:
         run: docker build -t myapp:${{ github.sha }} .
 
       - name: Run Grype scan
-        uses: anchore/scan-action@v3
+        uses: anchore/scan-action@e1165082ffb1fe366ebaf02d8526e7c4989ea9d2 # v7.4.0
         id: grype
         with:
           image: "myapp:${{ github.sha }}"
@@ -84,7 +84,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           scan-type: 'fs'
           scan-ref: '.'
@@ -103,11 +103,32 @@ jobs:
     name: Security Quality Gate
     runs-on: ubuntu-latest
     needs: [dependency-scan, container-scan, comprehensive-scan]
+    # `always()` lets this job run even when an upstream job failed, so the gate
+    # can report on all three. It MUST therefore inspect the upstream results
+    # explicitly — without the check below, `always()` makes the gate pass no
+    # matter what the scanners found. That is the trap this file used to have.
     if: always()
 
     steps:
       - name: Evaluate security posture
+        env:
+          DEPS: ${{ needs.dependency-scan.result }}
+          CONTAINER: ${{ needs.container-scan.result }}
+          COMPREHENSIVE: ${{ needs.comprehensive-scan.result }}
         run: |
-          echo "All security scans completed"
-          # Download and analyze all SARIF reports
-          # Make final go/no-go decision
+          echo "dependency-scan:    $DEPS"
+          echo "container-scan:     $CONTAINER"
+          echo "comprehensive-scan: $COMPREHENSIVE"
+
+          failed=0
+          for r in "$DEPS" "$CONTAINER" "$COMPREHENSIVE"; do
+            # 'skipped' and 'cancelled' are not passes. Treat anything that is
+            # not an explicit success as a gate failure.
+            if [ "$r" != "success" ]; then failed=$((failed+1)); fi
+          done
+
+          if [ "$failed" -gt 0 ]; then
+            echo "::error::$failed of 3 security jobs did not succeed. Blocking."
+            exit 1
+          fi
+          echo "All three security jobs succeeded."

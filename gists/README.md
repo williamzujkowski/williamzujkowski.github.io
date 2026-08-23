@@ -1,14 +1,19 @@
 # Blog Code Examples - GitHub Gists
 
-This directory contains all code examples referenced in blog posts as GitHub gists. Each file here corresponds to a gist link in the blog.
+This directory mirrors the code examples that blog posts link to as GitHub gists.
+
+**These are illustrative excerpts, not turnkey scripts.** They are written to be *read* alongside a post — to show the shape of an approach and the parts that matter. Expect placeholders (`<password>`, `10.0.10.11`), elided error handling, and steps that assume a homelab you do not have. Do not paste them into a terminal and expect them to run.
+
+What they *are* held to: every factual claim about a real tool must be correct. A config key that the tool ignores, a CLI flag that does not exist, or a comparison that inverts the security outcome is a defect even in an excerpt, because the reader learns it either way.
 
 ## Purpose
 
 Blog posts maintain <25% code-to-content ratio by linking to full implementations rather than embedding verbose code blocks. This directory serves as:
 
-1. **Source of truth** for all blog code examples
-2. **Local reference** for readers who prefer browsing locally
-3. **Gist sync source** for maintaining GitHub gists
+1. **Local reference** for the published gists (the gists themselves are canonical —
+   if the two disagree, the gist wins)
+2. **Browsable copy** for readers who prefer reading in one place
+3. **Review surface** for auditing the examples as a set
 
 ## Organization
 
@@ -54,22 +59,49 @@ Blog posts include essential snippets (5-10 lines) demonstrating core patterns. 
 
 All code files include:
 
-**Header Format:**
+**Header Format** — use the comment syntax of the file's own language.
+Prescribing one universal header is how fourteen shell scripts ended up
+opening with a Python docstring, which bash reads as a command name.
+
+Python:
 ```python
 """
 Title: [Descriptive name]
 Source: https://williamzujkowski.github.io/posts/[slug]/
-Purpose: [What this does]
-Usage: [How to run]
+Purpose: [What this demonstrates]
+Requires: [What the reader must supply or verify]
 """
 ```
 
-**Quality Standards:**
-- ✅ Tested and working code (extracted from actual homelab)
-- ✅ Descriptive variable names
-- ✅ Inline comments for complex logic
-- ✅ Error handling included
-- ✅ Prerequisites documented
+Shell, YAML, TOML, conf:
+```bash
+#!/bin/bash
+# Title: [Descriptive name]
+# Source: https://williamzujkowski.github.io/posts/[slug]/
+# Purpose: [What this demonstrates]
+# Requires: [What the reader must supply or verify]
+```
+
+Where a reader's intuition about the tool would be wrong, say so in the header.
+The corrected `grype-config.yaml` is the model:
+
+```yaml
+# IMPORTANT: grype ignore rules DO NOT EXPIRE.
+# There is NO `expiration` field. A date written here is silently ignored and
+# the suppression is permanent.
+```
+
+**What these are held to:**
+- Every config key, CLI flag and API parameter exists in the real tool
+- Comparisons, filters and thresholds do what the surrounding prose says
+- Placeholders look like placeholders (`<password>`, not `secure-password`)
+- Destructive steps say so before the command
+- Prerequisites and assumptions are stated in the header
+
+**What they are not:**
+- Tested end to end, or extracted verbatim from a running system
+- Complete — error handling and edge cases are elided on purpose
+- Safe to run unmodified
 
 ## Quick Start by Category
 
@@ -84,9 +116,9 @@ cat README.md
 ```
 
 **Most useful files:**
-- `workflows/security-scan-workflow.yml` - GitHub Actions pipeline
+- `workflows/security-scan-workflow-complete.yml` - GitHub Actions pipeline
 - `configs/grype-config.yaml` - Grype configuration
-- `scripts/scan-comparison.py` - Scan result comparison
+- `scripts/vulnerability-scan-comparison.py` - Scan result comparison
 
 ### MITRE ATT&CK Dashboard
 
@@ -135,35 +167,37 @@ cat README.md
 
 ## Maintenance
 
-### Creating GitHub Gists
+There is no sync automation. Two scripts used to do this
+(`create-gists-from-folder.py`, `update-blog-posts-with-gists.py`); both were
+deleted, and nothing replaced them — which is why five local files have since
+drifted from their published gists without anything noticing.
 
-Use the automation script to create/update GitHub gists from local files:
+### Updating an example
 
-```bash
-python scripts/create-gists-from-folder.py
-```
-
-This generates:
-- Individual GitHub gists for each file
-- `gist-mapping.json` with URLs
-- Updated blog post markdown with real gist links
-
-### Updating Gists
-
-1. Edit files in `/gists` directory
-2. Test changes locally
-3. Run sync script to update GitHub gists
-4. Commit changes to repository
-
-### Syncing Blog Posts
-
-After creating/updating gists:
+The published gist is canonical, so change it there first:
 
 ```bash
-python scripts/update-blog-posts-with-gists.py
+# read what is published
+gh api gists/<id> --jq '.files["<filename>"].content'
+
+# after editing the gist in the browser or via `gh gist edit <id>`,
+# pull the published bytes back into this mirror
+gh api gists/<id> --jq '.files["<filename>"].content' > gists/<path>
 ```
 
-This replaces placeholder URLs with real gist URLs in blog posts.
+Then commit the mirror update. Editing only the local copy leaves the
+published gist — the thing readers actually see — untouched.
+
+### Checking for drift
+
+```bash
+uv run python scripts/gist-drift-check.py
+```
+
+Compares every entry in `gist-mapping.json` against its published gist and
+exits non-zero on any mismatch. All gists are public, so this needs no
+credentials beyond an authenticated `gh` for the rate limit. Worth running
+before touching anything in here.
 
 ## File Inventory
 
@@ -188,13 +222,13 @@ Found an issue or have an improvement?
 
 MIT License - See individual files for details.
 
-All code examples are from real homelab implementations documented in blog posts at [williamzujkowski.github.io](https://williamzujkowski.github.io).
+These examples accompany posts at [williamzujkowski.github.io](https://williamzujkowski.github.io). They are drawn from real homelab work, then trimmed for reading — treat them as illustrations of an approach, not as a distribution.
 
 ## Related Documentation
 
 - **Blog Posts:** [williamzujkowski.github.io/posts](https://williamzujkowski.github.io/posts/)
-- **Architecture:** [ARCHITECTURE.md](../docs/ARCHITECTURE.md)
-- **Standards:** [Standards Submodule](.standards/)
+- **Agent guidance:** [AGENTS.md](../AGENTS.md)
+- **Security posture:** [docs/security-posture.md](../docs/security-posture.md)
 - **Uses Page:** [Hardware/Software Stack](https://williamzujkowski.github.io/uses/)
 
 ---

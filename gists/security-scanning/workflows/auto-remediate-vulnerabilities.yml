@@ -30,12 +30,17 @@ jobs:
           npm audit fix
           npm update
 
+      - name: Run test suite
+        # Without this the workflow opens a PR claiming fixes are safe when
+        # nothing has verified they are. `npm audit fix` does break things.
+        run: npm test
+
       - name: Re-scan
         run: osv-scanner --lockfile=package-lock.json
 
       - name: Create pull request
         if: steps.scan.outputs.count > 0
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
           commit-message: "chore: Update dependencies to fix vulnerabilities"
           title: "🔒 Security: Automated dependency updates"
@@ -49,3 +54,4 @@ jobs:
             Please review the changes and run tests before merging.
           branch: auto-remediate/vulnerabilities
           labels: security,dependencies
+
