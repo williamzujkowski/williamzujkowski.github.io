@@ -7,8 +7,6 @@ tags: [siem, wazuh, graylog, security, monitoring, homelab, python, observabilit
 post_type: tutorial
 ---
 
-# SIEM for Homelab: Wazuh vs Graylog Performance Comparison
-
 Security monitoring needs centralized log analysis. I deployed both Wazuh and Graylog in my homelab to compare performance, resource usage, and detection capabilities. Wazuh excelled at threat detection (9.0 seconds mean across all five scenarios; on the two attacks both tools caught, 5.7 seconds against Graylog's 14.0), Graylog dominated log search speed (1.4 seconds vs 4.2 seconds).
 
 Here's how to choose and deploy the right SIEM for your homelab.

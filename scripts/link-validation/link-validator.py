@@ -147,7 +147,10 @@ class LinkValidator:
             playwright = await async_playwright().start()
             self.browser = await playwright.chromium.launch(
                 headless=True,
-                args=['--disable-dev-shm-usage', '--no-sandbox']
+                # --no-sandbox removed: this navigates to URLs that FAILED plain
+                # HTTP validation, i.e. the suspicious ones, and GitHub-hosted
+                # runners support the renderer sandbox fine.
+                args=['--disable-dev-shm-usage']
             )
             self.context = await self.browser.new_context(
                 user_agent=self.USER_AGENTS['browser'],

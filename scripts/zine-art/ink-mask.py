@@ -16,6 +16,12 @@ Usage: ink-mask.py IN.png OUT.png [--threshold 128] [--width 640] [--pad 12]
 import argparse
 from pathlib import Path
 
+# Pillow is NOT in pyproject.toml's dependencies, which declares three
+# (aiohttp, certifi, tqdm) for the CI link pipeline. This is author-local
+# doodle tooling that never runs in CI, so it is invoked as:
+#     uv run --with pillow python scripts/zine-art/ink-mask.py ...
+# Recorded here because "3 deps" read as complete and this import did not
+# appear anywhere in it (issue #496).
 from PIL import Image
 
 

@@ -7,8 +7,6 @@ tags: [supply-chain, sbom, nodejs, security, docker, homelab, container-security
 post_type: tutorial
 ---
 
-# NodeShield: Runtime SBOM Enforcement Stops 98% of Supply Chain Attacks
-
 SolarWinds compromised 18,000 organizations through a single malicious dependency update in 2020. Four years later, npm still sees 1,000+ malicious packages monthly. Static SBOMs don't prevent this — they just document, in exhaustive detail, exactly who you trusted right before they burned you.
 
 I tested NodeShield, a runtime SBOM enforcement system, in my Docker homelab. It blocked 98.3% of supply chain attacks with <1ms overhead.

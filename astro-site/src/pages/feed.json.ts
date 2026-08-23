@@ -1,10 +1,7 @@
 import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
-import sanitizeHtml from 'sanitize-html';
-import MarkdownIt from 'markdown-it';
+import { renderPostForFeed } from '@/lib/feedContent';
 import { SITE_CONFIG } from '@/lib/siteConfig';
-
-const parser = new MarkdownIt();
 
 // JSON Feed 1.1 — https://jsonfeed.org/version/1.1
 // Mirrors feed.xml.ts: same post set, same full (non-truncated) content_html.
@@ -15,9 +12,7 @@ export async function GET(context: APIContext) {
 
   const items = sortedPosts.map((post) => {
     const url = `${siteUrl}/posts/${post.id}/`;
-    const contentHtml = sanitizeHtml(parser.render(post.body ?? ''), {
-      allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
-    });
+    const contentHtml = renderPostForFeed(post.body ?? '', siteUrl);
 
     return {
       id: url,

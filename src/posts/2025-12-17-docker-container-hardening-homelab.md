@@ -9,8 +9,6 @@ seriesOrder: 2
 post_type: experience
 ---
 
-# Hardening Docker Containers in Your Homelab: A Defense-in-Depth Approach
-
 Four container escapes in six months taught me that single-layer security fails. I hardened my homelab's 47 Docker containers using eight defensive layers: minimal base images, user namespaces, seccomp profiles, AppArmor, capability dropping, read-only filesystems, network segmentation, and resource limits. Zero successful escapes in the last 8 months.
 
 Here's how each layer stopped real attacks and why you need all of them.

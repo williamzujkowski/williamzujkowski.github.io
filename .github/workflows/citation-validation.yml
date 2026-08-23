@@ -26,10 +26,25 @@ jobs:
       - name: Install UV
         uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9  # v9.0.0
 
-      - name: Install dependencies
+      # `uv pip install --system` installs into the SYSTEM interpreter, but
+      # every step below runs `uv run`, which uses the project venv resolved
+      # from pyproject.toml + uv.lock. They are different interpreters, so
+      # this installed nothing the scripts could see (issue #496).
+      #
+      # The visible consequence: link-validator.py guards its playwright
+      # import in a try/except, so PLAYWRIGHT_AVAILABLE was ALWAYS False here.
+      # Its browser-based escalation at :252 — the path that re-checks links
+      # plain HTTP could not validate, i.e. JS-rendered pages and anti-bot
+      # walls — never ran, and this workflow auto-files an issue telling the
+      # author to replace citations it classified as broken. Meanwhile
+      # `playwright install chromium` downloaded a browser every Monday for
+      # nothing.
+      #
+      # `uv run --with` injects into the environment the script actually runs
+      # in. requests and beautifulsoup4 are dropped: no script imports either.
+      - name: Install Playwright + browser
         run: |
-          uv pip install --system requests beautifulsoup4 playwright aiohttp certifi
-          playwright install chromium
+          uv run --with playwright playwright install --with-deps chromium
 
       - name: Extract citation links
         id: extract
@@ -47,7 +62,7 @@ jobs:
       - name: Validate citation links
         id: validate
         run: |
-          uv run python scripts/link-validation/link-validator.py \
+          uv run --with playwright python scripts/link-validation/link-validator.py \
             --input citation-links.json \
             --output citation-validation.json \
             --max-retries 3 \
