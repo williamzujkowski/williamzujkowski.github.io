@@ -7,8 +7,6 @@ tags: [privacy, zero-knowledge, authentication, cryptography, homelab, security,
 post_type: tutorial
 ---
 
-# Zero-Knowledge Proof Authentication for Homelab Services
-
 Passwords travel networks. Even with TLS, credentials exist in logs, memory dumps, and database records. I implemented zero-knowledge proof authentication for my homelab SSO, eliminating password transmission entirely. Users prove identity cryptographically without revealing credentials.
 
 Here's how ZK-SNARKs enable password-less authentication at homelab scale.

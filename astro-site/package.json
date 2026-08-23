@@ -53,6 +53,7 @@
     "colorparsley": "^0.1.8",
     "eslint": "^10.8.1",
     "eslint-plugin-astro": "^3.1.0",
+    "markdown-it-footnote": "^4.0.0",
     "pagefind": "^1.5.2",
     "playwright": "^1.62.1",
     "prettier": "^3.9.6",

@@ -7,8 +7,6 @@ tags: [llm, security, incident-response, automation, ollama, homelab, python, ai
 post_type: tutorial
 ---
 
-# LLM-Powered Security Alert Triage with Local Models
-
 SOC teams field an average of 4,484 alerts a day ([Vectra AI, 2023 State of Threat Detection](https://www.vectra.ai/resources/2023-state-of-threat-detection)) — that's the team total, not per analyst. I automated 78% of triage decisions using local LLMs running on Ollama. No cloud API calls, no data exfiltration. Llama 3.1 (8B parameter model) classifies alert severity, correlates events, and generates incident summaries entirely in my homelab.
 
 Here's how local LLM triage reduces alert fatigue while preserving data privacy.

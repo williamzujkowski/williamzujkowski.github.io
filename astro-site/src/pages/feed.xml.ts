@@ -1,11 +1,9 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
-import sanitizeHtml from 'sanitize-html';
-import MarkdownIt from 'markdown-it';
+import { renderPostForFeed } from '@/lib/feedContent';
 import { SITE_CONFIG } from '@/lib/siteConfig';
 
-const parser = new MarkdownIt();
 
 export async function GET(context: APIContext) {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
@@ -21,9 +19,7 @@ export async function GET(context: APIContext) {
     },
     customData: `<atom:link href="${siteUrl}/feed.xml" rel="self" type="application/rss+xml"/><lastBuildDate>${new Date().toUTCString()}</lastBuildDate>`,
     items: sortedPosts.map((post) => {
-      const renderedContent = sanitizeHtml(parser.render(post.body ?? ''), {
-        allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
-      });
+      const renderedContent = renderPostForFeed(post.body ?? '', siteUrl);
 
       return {
         title: post.data.title,

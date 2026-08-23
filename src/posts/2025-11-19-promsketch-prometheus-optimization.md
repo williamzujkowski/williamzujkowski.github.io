@@ -7,8 +7,6 @@ tags: [prometheus, monitoring, observability, performance, grafana, homelab, opt
 post_type: tutorial
 ---
 
-# PromSketch: What Sketch Algorithms Can and Cannot Do for Prometheus
-
 PromQL queries fall over on high-cardinality metrics, and the failure mode is familiar to anyone running a homelab Prometheus: the dashboard takes longer to load than the incident it was supposed to help diagnose. Every panel is a full scan over a window, every scan touches every matching series, and the cost grows with cardinality whether or not you actually needed sample-level precision.
 
 [PromSketch](https://arxiv.org/abs/2505.10560) (PVLDB vol. 18) is a research answer to that. It is worth understanding precisely, because it is narrower than the pitch implies and the narrowness is the interesting part.
