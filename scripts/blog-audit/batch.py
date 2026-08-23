@@ -40,10 +40,13 @@ THRESHOLDS:
     threshold rationale.
 """
 
-import argparse, json, re, statistics, sys
-from pathlib import Path
+import argparse
+import json
+import re
+import statistics
+import sys
 from collections import defaultdict
-
+from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent.parent
 DEFAULT_GLOB = "src/posts/*.md"
@@ -231,7 +234,7 @@ def audit_post(post_path, all_signals):
             continue
         line_no_code = strip_code(raw)
         for pat, name in PHRASAL:
-            for m in re.finditer(pat, line_no_code, re.IGNORECASE):
+            for _ in re.finditer(pat, line_no_code, re.IGNORECASE):
                 phrasal_hits.append((ln_idx, name))
 
     # Em-dash count (raw — classification is for the SKILL.md author judgment)
@@ -268,7 +271,7 @@ def audit_post(post_path, all_signals):
              "with as be by from has have not".split())
 
     def to_set(s):
-        return set(w.lower() for w in re.findall(r"\b[a-zA-Z]{3,}\b", s)) - sw
+        return {w.lower() for w in re.findall(r"\b[a-zA-Z]{3,}\b", s)} - sw
 
     first_para = []
     for ln in body_lines:
@@ -323,7 +326,7 @@ def audit_post(post_path, all_signals):
     target_sigs = overlap_signals(body, fm)
     target_tags = set(fm.get("tags") or [])
     overlap_results = []
-    for other_path, other_sigs, other_tags, other_text in all_signals:
+    for other_path, other_sigs, other_tags, _other_text in all_signals:
         if other_path == post_path:
             continue
         score = jaccard_weighted(target_sigs, other_sigs)
@@ -352,7 +355,7 @@ def audit_post(post_path, all_signals):
             "trailing_jaccard": round(jaccard, 2),
         },
         "findings": findings,
-        "overlap": [(round(s, 2), n, l) for s, n, l in overlap_results],
+        "overlap": [(round(s, 2), n, linked) for s, n, linked in overlap_results],
     }
 
 
@@ -398,7 +401,7 @@ def main():
     print("\n=== Per-post HIGH/MED findings ===")
     any_findings = False
     for r in results:
-        if r["findings"]["H"] or r["findings"]["M"] or any(not l for _, _, l in r["overlap"]):
+        if r["findings"]["H"] or r["findings"]["M"] or any(not linked for _, _, linked in r["overlap"]):
             any_findings = True
             print(f"\n{r['name']}:")
             for name, line in r["findings"]["H"]:

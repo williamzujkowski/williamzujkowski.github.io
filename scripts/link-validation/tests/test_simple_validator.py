@@ -4,7 +4,6 @@ Locks in the rule that bot-blocking / soft codes are 'needs_manual', NOT
 'broken' -- only 404/410 and DNS failures are broken (issue #240).
 """
 import pytest
-
 from conftest import load_script
 
 sv = load_script("simple-validator.py")

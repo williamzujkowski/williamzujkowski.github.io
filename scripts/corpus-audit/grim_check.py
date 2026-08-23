@@ -10,7 +10,11 @@ v3 binds each figure to its own immediate neighbour only:
 Nothing else counts.
 """
 from __future__ import annotations
-import re, sys, glob, json
+
+import glob
+import json
+import re
+import sys
 from pathlib import Path
 
 FENCE=re.compile(r"```.*?```",re.S); INLINE=re.compile(r"`[^`]+`"); HTML=re.compile(r"<[^>]+>")

@@ -42,15 +42,14 @@ RELATED_SCRIPTS:
 MANIFEST_REGISTRY: scripts/link-extractor.py
 """
 
-import re
-import json
 import argparse
-import sys
-from pathlib import Path
-from typing import Dict, List, Tuple
-from dataclasses import dataclass, asdict
-from datetime import datetime
 import hashlib
+import json
+import re
+import sys
+from dataclasses import asdict, dataclass
+from datetime import datetime
+from pathlib import Path
 
 # Setup logging
 sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
@@ -118,7 +117,7 @@ class LinkExtractor:
             'by_domain': {}
         }
 
-    def extract_all(self) -> List[LinkContext]:
+    def extract_all(self) -> list[LinkContext]:
         """Extract links from all markdown files"""
         md_files = list(self.posts_dir.glob('*.md'))
         self.stats['total_files'] = len(md_files)
@@ -219,7 +218,7 @@ class LinkExtractor:
         return url
 
     def _add_link(self, url: str, text: str, file_path: Path,
-                  line_number: int, position: int, lines: List[str],
+                  line_number: int, position: int, lines: list[str],
                   line_idx: int):
         """Add a link with its context"""
         url = self._clean_trailing_punct(url)
@@ -254,7 +253,7 @@ class LinkExtractor:
         if domain:
             self.stats['by_domain'][domain] = self.stats['by_domain'].get(domain, 0) + 1
 
-    def _get_context(self, lines: List[str], center_idx: int,
+    def _get_context(self, lines: list[str], center_idx: int,
                      line_offset: int, word_limit: int) -> str:
         """Get context around a line"""
         if line_offset < 0:

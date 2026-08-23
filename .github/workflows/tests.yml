@@ -34,3 +34,11 @@ jobs:
 
       - name: Run link-validation regression tests
         run: uv run --with pytest python -m pytest scripts/link-validation/tests/ -q
+
+      # ruff was declared in pyproject.toml and configured with seven rule
+      # families, but nothing ever invoked it (issue #497). At the time it was
+      # wired up it reported 224 violations; those are now at zero, so this
+      # step is a ratchet — it fails on the first regression rather than
+      # accumulating another 224.
+      - name: Lint (ruff)
+        run: uv run --with ruff ruff check scripts/

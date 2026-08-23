@@ -1,0 +1,37 @@
+# gitleaks fingerprint allowlist -- one-off HISTORICAL findings only.
+#
+# Recurring/published non-secrets belong in .gitleaks.toml's regex
+# allowlist instead, so they survive the line moving. This file is
+# strictly for findings pinned to a specific commit in a file that no
+# longer exists, which is why the full-history (scheduled) scan sees
+# them and the per-push range scan does not.
+#
+# Format: <commit>:<path>:<rule-id>:<line>
+
+# ---------------------------------------------------------------
+# Lighthouse report JSON (deleted in a later commit). The 'AWS access
+# token' matches are 'AKIA'-shaped substrings occurring by chance
+# inside base64-encoded JPEG filmstrip screenshots:
+#   "data": "data:image/jpeg;base64,/9j/4AAQSkZJRgAB..."
+# Not credentials. Verified by reading the surrounding JSON.
+# ---------------------------------------------------------------
+9d7fd0c80576e26df676d189190ae205abd8ef04:docs/lighthouse-homepage-1758606456367.json:aws-access-token:128
+9d7fd0c80576e26df676d189190ae205abd8ef04:docs/lighthouse-blog-post-1758606469264.json:aws-access-token:138
+9d7fd0c80576e26df676d189190ae205abd8ef04:docs/lighthouse-blog-post-1758606469264.json:aws-access-token:143
+9d7fd0c80576e26df676d189190ae205abd8ef04:docs/lighthouse-blog-post-1758606469264.json:aws-access-token:148
+9d7fd0c80576e26df676d189190ae205abd8ef04:docs/lighthouse-blog-post-1758606469264.json:aws-access-token:153
+9d7fd0c80576e26df676d189190ae205abd8ef04:docs/lighthouse-blog-post-1758606469264.json:aws-access-token:158
+9d7fd0c80576e26df676d189190ae205abd8ef04:docs/lighthouse-blog-post-1758606469264.json:aws-access-token:163
+9d7fd0c80576e26df676d189190ae205abd8ef04:docs/lighthouse-blog-post-1758606469264.json:aws-access-token:178
+
+# ---------------------------------------------------------------
+# src/pages/about.md (Eleventy-era page, deleted in d1bbfec #112).
+# The 'linkedin-client-secret' match is the author's own handle sitting in
+# a YAML contact block, on a line of the form "<platform>: <username>".
+# (Deliberately not quoted verbatim here -- the default rule matches that
+# shape wherever it appears, including inside this file's own comments,
+# which is exactly how the first version of this fix failed CI.)
+# Not a secret. This single finding is why every SCHEDULED run of
+# compliance-monitor.yml failed while every push run passed.
+# ---------------------------------------------------------------
+f14c193dc0d123a29cbbd78d35e4c0bb2a0ab261:src/pages/about.md:linkedin-client-secret:123

@@ -94,12 +94,12 @@ SYNTAX_SLOTS = {
 
 # --- oklch -> sRGB (standard Björn Ottosson matrices) ---------------------
 
-def oklch_to_linear_srgb(l, c, h):
+def oklch_to_linear_srgb(lightness, c, h):
     a = c * math.cos(math.radians(h))
     b = c * math.sin(math.radians(h))
-    l_ = (l + 0.3963377774 * a + 0.2158037573 * b) ** 3
-    m_ = (l - 0.1055613458 * a - 0.0638541728 * b) ** 3
-    s_ = (l - 0.0894841775 * a - 1.2914855480 * b) ** 3
+    l_ = (lightness + 0.3963377774 * a + 0.2158037573 * b) ** 3
+    m_ = (lightness - 0.1055613458 * a - 0.0638541728 * b) ** 3
+    s_ = (lightness - 0.0894841775 * a - 1.2914855480 * b) ** 3
     r = +4.0767416621 * l_ - 3.3077115913 * m_ + 0.2309699292 * s_
     g = -1.2684380046 * l_ + 2.6097574011 * m_ - 0.3413193965 * s_
     bl = -0.0041960863 * l_ - 0.7034186147 * m_ + 1.7076147010 * s_
@@ -118,7 +118,7 @@ def contrast(lch1, lch2):
 
 
 def mix(lch_a, lch_b, share_a):
-    """Approximate color-mix(in oklch, A share%, B) — linear l/c, shortest-arc hue."""
+    """Approximate color-mix(in oklch, A share%, B) — linear L/C, shortest-arc hue."""
     la, ca, ha = lch_a
     lb, cb, hb = lch_b
     t = share_a
@@ -127,13 +127,13 @@ def mix(lch_a, lch_b, share_a):
 
 
 def css(lch):
-    l, c, h = lch
-    return f"oklch({l:.4f} {c:.4f} {h:.1f})"
+    lightness, c, h = lch
+    return f"oklch({lightness:.4f} {c:.4f} {h:.1f})"
 
 
 def rounded(lch):
-    l, c, h = lch
-    return (round(l, 4), round(c, 4), round(h % 360, 1))
+    lightness, c, h = lch
+    return (round(lightness, 4), round(c, 4), round(h % 360, 1))
 
 
 def as_lch(color):
@@ -166,7 +166,7 @@ def solve_contrast_lch(lch, backgrounds, floor):
 
     bg_lum = sum(luminance(bg) for bg in backgrounds) / len(backgrounds)
     lighten = bg_lum < 0.5
-    l, c, h = lch
+    lightness, c, h = lch
     target = floor + CONTRAST_MARGIN
 
     def passes(value):
@@ -190,7 +190,7 @@ def solve_contrast_lch(lch, backgrounds, floor):
         c = lo_c
 
     if lighten:
-        lo, hi = l, 1.0
+        lo, hi = lightness, 1.0
         for _ in range(48):
             mid = (lo + hi) / 2
             trial = rounded((mid, c, h))
@@ -200,7 +200,7 @@ def solve_contrast_lch(lch, backgrounds, floor):
                 lo = mid
         return rounded((hi, c, h))
 
-    lo, hi = 0.0, l
+    lo, hi = 0.0, lightness
     for _ in range(48):
         mid = (lo + hi) / 2
         trial = rounded((mid, c, h))

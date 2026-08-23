@@ -52,6 +52,28 @@ const result = spawnSync('npx', ['remarque-audit', ...args], {
 const output = `${result.stdout || ''}${result.stderr || ''}`;
 const lines = output.split('\n');
 
+// The tool must be proven to have RUN before a zero-failure count means
+// anything. Without this, a spawn failure (registry outage, renamed bin, a
+// blocking `npx` prompt) produces empty output, which parses as zero failures
+// and reports a pass — the gate fails open on exactly the cases where it is
+// least able to tell you so.
+if (result.error) {
+  console.error(`\nremarque-audit could not be spawned: ${result.error.message}\n`);
+  process.exit(1);
+}
+
+// Every check the tool performs prints a "  ✓" or "  ✗" line. Zero of them
+// means it never got as far as auditing anything, whatever its exit code says.
+const checksPerformed = lines.filter((l) => l.startsWith('  ✓') || l.startsWith('  ✗')).length;
+if (checksPerformed === 0) {
+  console.error(output);
+  console.error(
+    `\nremarque-audit performed 0 checks (exit ${result.status}) — treating as a FAILURE, ` +
+      'not a pass. An empty result is not a clean result.\n',
+  );
+  process.exit(1);
+}
+
 let realFailures = 0;
 let suppressed = 0;
 
@@ -100,6 +122,16 @@ console.log(
 
 if (realFailures > 0) {
   console.error('\nremarque-audit FAILED (after baseline suppression).\n');
+  process.exit(1);
+}
+
+// A non-zero exit we did not account for as a parsed failure is still a
+// failure — the tool is telling us something this parser doesn't understand.
+if (result.status !== 0) {
+  console.error(
+    `\nremarque-audit exited ${result.status} but no failure line was parsed. ` +
+      'Failing closed rather than trusting the parse.\n',
+  );
   process.exit(1);
 }
 console.log('\nremarque-audit passed (contrast + gamut clean; all source-scan findings are reviewed, baselined false positives) ✓\n');

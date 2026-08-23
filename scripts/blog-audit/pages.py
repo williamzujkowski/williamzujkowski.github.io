@@ -45,7 +45,10 @@ USAGE:
     python3 scripts/blog-audit/pages.py --json
 """
 
-import argparse, json, re, statistics, sys
+import argparse
+import json
+import re
+import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent.parent
@@ -167,7 +170,7 @@ def audit_page(page_path):
     # Phrasal patterns (HIGH severity)
     for ln_idx, line in prose_lines:
         for pat, name in PHRASAL:
-            for m in re.finditer(pat, line, re.IGNORECASE):
+            for _ in re.finditer(pat, line, re.IGNORECASE):
                 findings["H"].append((name, ln_idx, line[:80]))
 
     # Em-dash count (raw)
