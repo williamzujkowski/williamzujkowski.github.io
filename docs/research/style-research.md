@@ -1,3 +1,11 @@
+> **SUPERSEDED — historical record, do not follow.**
+>
+> Superseded by the Writing Style section of AGENTS.md.
+>
+> Nothing in the repository references this file. Last substantive
+> change: 2025-10-26. Banner added 2026-08-23 (issue #504) because a git
+> date makes a stale plan look maintained.
+
 # Technical Communication Style Research
 **Research Agent: Comprehensive Analysis**
 **Date:** 2025-10-26

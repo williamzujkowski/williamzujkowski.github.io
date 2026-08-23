@@ -54,6 +54,7 @@ import aiohttp
 
 # Setup logging
 sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from link_gatekeepers import is_gatekeeper
 from logging_config import setup_logger
 
 logger = setup_logger(__name__)
@@ -145,6 +146,17 @@ class SimpleValidator:
         return 'name or service not known' in msg or 'nodename nor servname' in msg
 
     def _record(self, result: dict, status: str, issue_type: str | None = None):
+        # Some publishers answer an automated checker with 404 rather than a
+        # soft 403, so classify_status cannot tell them apart from a genuinely
+        # dead page. Downgrade a `broken` verdict on a known gatekeeper to
+        # `needs_manual`: it still surfaces for a human, but it never drives
+        # the alarm or the repair queue. Host list ported from .lycheeignore
+        # (issue #503) -- see scripts/lib/link_gatekeepers.py.
+        if status == 'broken' and is_gatekeeper(result.get('url', '')):
+            status = 'needs_manual'
+            issue_type = f'gatekeeper_{issue_type}' if issue_type else 'gatekeeper'
+            result['notes'] = (result.get('notes') or '') + (
+                ' Host is known to block automated checkers; verify by hand.')
         result['status'] = status
         result['issue_type'] = issue_type
         self.stats[status] = self.stats.get(status, 0) + 1

@@ -1,3 +1,12 @@
+> **SUPERSEDED — historical record, do not follow.**
+>
+> Background reading gathered for a post. Not a specification and not
+> maintained.
+>
+> Nothing in the repository references this file. Last substantive
+> change: 2025-10-29. Banner added 2026-08-23 (issue #504) because a git
+> date makes a stale plan look maintained.
+
 # AI Safety and Ethics Frameworks: Research Report
 
 **Research Agent 8 Deliverable**

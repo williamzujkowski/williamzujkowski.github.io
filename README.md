@@ -34,16 +34,21 @@ pnpm build          # Production build (Astro + Pagefind search index) → dist/
 pnpm preview        # Preview production build locally
 pnpm check          # Astro type checking
 pnpm test:e2e       # Playwright smoke + a11y suites
-pnpm audit          # Remarque design audits (contrast, typography, colors, APCA)
+pnpm run audit      # Remarque design audits (contrast, typography, colors, APCA)
+                    # NOTE the `run`: bare `pnpm audit` is pnpm's built-in
+                    # vulnerability scanner and silently shadows this script.
 ```
 
 ## Features
 
-- **Technical Blog**: 80+ posts about security, AI/ML, homelab, and career development
+- **Technical Blog**: 92 posts about security, AI/ML, homelab, and career development
 - **Interactive Features**: Tag navigation, Pagefind search, related posts, series navigation
 - **Dark Mode**: Automatic theme switching with manual toggle and localStorage persistence
 - **SEO**: Canonical URLs, Open Graph (per-post generated OG cards), Twitter Cards, JSON-LD, sitemap
-- **Security Headers**: meta CSP, X-Content-Type-Options, Referrer-Policy, Permissions-Policy
+- **Security Headers**: meta CSP and `<meta name="referrer">`. GitHub Pages
+  cannot send real HTTP response headers, so those two are the only available
+  mechanism — see [docs/security-posture.md](docs/security-posture.md). The
+  inert `X-Content-Type-Options` / `Permissions-Policy` metas were removed in #427.
 - **Accessibility**: Semantic HTML, ARIA, skip-to-content, axe-tested in CI
 - **CI/CD**: GitHub Actions for build, design audits, a11y, compliance, link monitoring, deployment
 

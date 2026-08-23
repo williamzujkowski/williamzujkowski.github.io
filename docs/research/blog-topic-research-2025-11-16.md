@@ -1,3 +1,12 @@
+> **SUPERSEDED — historical record, do not follow.**
+>
+> A topic shortlist from November 2025. Its top pick was created and deleted
+> the same day.
+>
+> Nothing in the repository references this file. Last substantive
+> change: 2025-11-17. Banner added 2026-08-23 (issue #504) because a git
+> date makes a stale plan look maintained.
+
 # Blog Topic Research Report: arXiv Papers for Content Gap Filling
 **Date:** 2025-11-16
 **Researcher:** RESEARCHER Agent

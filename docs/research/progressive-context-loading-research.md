@@ -1,3 +1,13 @@
+> **SUPERSEDED — historical record, do not follow.**
+>
+> Plans a `docs/workflows|policies|tools|reference|guides/` tree that was
+> never created; its internal links do not resolve. The repo went the other
+> way — `CLAUDE.md` is a one-line import of AGENTS.md.
+>
+> Nothing in the repository references this file. Last substantive
+> change: 2026-07-29. Banner added 2026-08-23 (issue #504) because a git
+> date makes a stale plan look maintained.
+
 # Progressive Context Loading Research Report
 
 **Date:** 2025-11-01

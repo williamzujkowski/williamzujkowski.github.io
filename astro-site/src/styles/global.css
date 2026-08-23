@@ -262,7 +262,9 @@
     --color-warning-subtle: oklch(0.22 0.04 85);
     --color-disabled: var(--color-muted);
 
-    /* Dataviz categorical — keep in sync with :root.dark above */
+    /* Dataviz categorical — RESERVED, no consumer yet. Deliberate: see
+     DESIGN-DEVIATIONS.md, which requires any future chart to pair
+     --color-viz-* with a non-colour redundancy. Not dead code. */
     --color-viz-1: oklch(0.708 0.129 249.5);
     --color-viz-2: oklch(0.712 0.13 85.3);
     --color-viz-3: oklch(0.724 0.129 310.2);
@@ -275,15 +277,6 @@
     --color-link-hover: var(--color-accent-hover);
     --color-focus-ring: var(--color-accent);
     --color-selection-fg: var(--color-fg);
-
-    --bg: var(--color-bg);
-    --text: var(--color-fg);
-    --text-muted-color: var(--color-fg-muted);
-    --accent: var(--color-accent);
-    --surface: var(--color-surface);
-    --border: var(--color-border);
-    --inverse-bg: var(--color-fg);
-    --inverse-text: var(--color-bg);
 
     color-scheme: dark;
   }
@@ -676,7 +669,7 @@ a.post-card-title:hover { color: var(--color-accent); }
 
 /* Tabular numerals in metadata, dates, times, code */
 .uses-meta,
-.year-heading, .section-eyebrow, .related-meta,
+.section-eyebrow, .related-meta,
 time, pre, code, .chip {
   font-variant-numeric: tabular-nums;
 }
@@ -695,7 +688,6 @@ h1, h2, h3, h4, h5, h6,
 /* True small caps for section eyebrows and year headings (Wave 2) */
 /* Replaces text-transform: uppercase — renders at cap-height, not x-height */
 .section-eyebrow,
-.year-heading,
 .related-posts h2 {
   font-variant-caps: all-small-caps;
   text-transform: none;
@@ -1521,7 +1513,7 @@ div:has(> .post-card) {
 /* ===== Typography Pass v4: rhythm, numerals, optical alignment ===== */
 
 /* Tabular lining numerals on metadata — kills year-row jitter */
-time, .post-card-meta, .post-card-readtime, .year-heading span,
+time, .post-card-meta, .post-card-readtime,
 .chip, .uses-list dt, .post-breadcrumb {
   font-variant-numeric: tabular-nums lining-nums;
   font-feature-settings: "tnum" 1, "lnum" 1;

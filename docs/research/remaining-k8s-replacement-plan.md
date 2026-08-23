@@ -1,3 +1,13 @@
+> **SUPERSEDED — historical record, do not follow.**
+>
+> All five posts in this plan shipped on 2025-11-17 (`34ec6c4`). The plan
+> also mandates tooling (`humanization-validator.py`, `code-ratio-calculator.py`)
+> that does not exist in this repository.
+>
+> Nothing in the repository references this file. Last substantive
+> change: 2026-07-29. Banner added 2026-08-23 (issue #504) because a git
+> date makes a stale plan look maintained.
+
 # Remaining K8s Replacement Posts - Implementation Plan
 
 **Date:** 2025-11-17

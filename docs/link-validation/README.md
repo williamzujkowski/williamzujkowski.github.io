@@ -46,7 +46,7 @@ Comprehensive link validation infrastructure for maintaining citation quality an
 
 ## Quick Start
 
-Current post count: **87**.
+Current post count: **92**.
 
 ### 1. Extract Links
 ```bash
@@ -209,25 +209,14 @@ python scripts/link-validation/citation-repair.py \
   --output repairs.json
 ```
 
-## Statistics from Latest Run
+## Statistics
 
-- **Total Links**: 713
-- **Valid**: 303 (42.5%)
-- **Broken**: 291 (40.8%)
-- **Auto-Fixed**: 57 links
-- **Manual Review Needed**: 241 links
+Deliberately not reproduced here. This section used to carry an undated
+snapshot labelled "Latest Run" claiming 40.8% of links were broken, in a
+repo that validates links nightly — a number with no date is worse than no
+number. Current figures are in the `link-validation-reports` artifact of the
+most recent `link-monitor.yml` run.
 
-### Top Issues
-1. Malformed citation URLs (trailing characters)
-2. Old documentation versions
-3. Moved GitHub repositories
-4. Expired news articles
-5. Changed academic paper URLs
-
-### Most Affected Posts
-- `2024-07-16-sustainable-computing-carbon-footprint.md` (29 broken)
-- `2024-07-09-zero-trust-architecture-implementation.md` (26 broken)
-- `2025-09-20-iot-security-homelab-owasp.md` (21 broken)
 
 ## Best Practices
 

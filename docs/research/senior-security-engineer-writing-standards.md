@@ -1,3 +1,12 @@
+> **SUPERSEDED — historical record, do not follow.**
+>
+> The voice guidance here was folded into AGENTS.md, which is authoritative.
+> Every file this document names as a target has since been deleted.
+>
+> Nothing in the repository references this file. Last substantive
+> change: 2026-07-29. Banner added 2026-08-23 (issue #504) because a git
+> date makes a stale plan look maintained.
+
 # Senior Security Engineer Technical Writing Standards
 ## Research Report for Blog Content Enhancement
 
