@@ -13,6 +13,16 @@ on:
   schedule:
     - cron: '0 2 * * *'  # Daily at 2 AM
 
+# Least privilege. github/codeql-action/upload-sarif requires
+# security-events: write -- the docs state it is "required for all workflows"
+# (docs.github.com, "Uploading a SARIF file to GitHub"). actions: read and
+# contents: read are only needed in a private repository; both are listed
+# here because this is meant to be copied into either.
+permissions:
+  security-events: write
+  actions: read
+  contents: read
+
 jobs:
   dependency-scan:
     name: Scan Dependencies (OSV)

@@ -1,16 +1,14 @@
 #!/bin/bash
-"""
-Proxmox Cluster Creation Script
-
-Source: https://williamzujkowski.github.io/posts/proxmox-high-availability-homelab/
-Purpose: Create Proxmox cluster on primary node and join additional nodes
-Prerequisites: Node preparation completed on all nodes
-Usage:
-    # On Node 1: bash cluster-create.sh create
-    # On Node 2/3: bash cluster-create.sh join 10.0.10.11
-
-License: MIT
-"""
+# Proxmox Cluster Creation Script
+#
+# Source: https://williamzujkowski.github.io/posts/proxmox-high-availability-homelab/
+# Purpose: Create Proxmox cluster on primary node and join additional nodes
+# Prerequisites: Node preparation completed on all nodes
+# Usage:
+#     # On Node 1: bash cluster-create.sh create
+#     # On Node 2/3: bash cluster-create.sh join 10.0.10.11
+#
+# License: MIT
 
 if [ "$1" == "create" ]; then
     # On Node 1 (create cluster)

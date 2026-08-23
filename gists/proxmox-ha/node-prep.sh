@@ -1,15 +1,13 @@
 #!/bin/bash
-"""
-Proxmox Node Preparation Script
-
-Source: https://williamzujkowski.github.io/posts/proxmox-high-availability-homelab/
-Purpose: Prepare each Proxmox node for cluster membership with proper networking and packages
-Prerequisites: Fresh Proxmox VE 8.x installation
-Usage:
-    bash node-prep.sh
-
-License: MIT
-"""
+# Proxmox Node Preparation Script
+#
+# Source: https://williamzujkowski.github.io/posts/proxmox-high-availability-homelab/
+# Purpose: Prepare each Proxmox node for cluster membership with proper networking and packages
+# Prerequisites: Fresh Proxmox VE 8.x installation
+# Usage:
+#     bash node-prep.sh
+#
+# License: MIT
 
 # On each node: Update and prepare
 apt update && apt full-upgrade -y

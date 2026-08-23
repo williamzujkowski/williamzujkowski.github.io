@@ -103,6 +103,10 @@ The corrected `grype-config.yaml` is the model:
 - Complete — error handling and edge cases are elided on purpose
 - Safe to run unmodified
 
+Every shell file now uses `#` headers, and every `.sh` here passes `bash -n`.
+That is a low bar and it is the point: an excerpt that does not parse is not
+demonstrating anything.
+
 ## Quick Start by Category
 
 ### Security Scanning Pipeline

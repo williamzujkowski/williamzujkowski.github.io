@@ -1,17 +1,15 @@
 #!/bin/bash
-"""
-Proxmox HA Disaster Recovery Procedures
-
-Source: https://williamzujkowski.github.io/posts/proxmox-high-availability-homelab/
-Purpose: DR procedures for cluster rebuild, node recovery, and data restoration
-Prerequisites: Valid backups, documented configuration
-Usage:
-    # Full cluster rebuild: bash disaster-recovery.sh rebuild
-    # Single node recovery: bash disaster-recovery.sh node <node_name>
-    # Restore from backup: bash disaster-recovery.sh restore <backup_file>
-
-License: MIT
-"""
+# Proxmox HA Disaster Recovery Procedures
+#
+# Source: https://williamzujkowski.github.io/posts/proxmox-high-availability-homelab/
+# Purpose: DR procedures for cluster rebuild, node recovery, and data restoration
+# Prerequisites: Valid backups, documented configuration
+# Usage:
+#     # Full cluster rebuild: bash disaster-recovery.sh rebuild
+#     # Single node recovery: bash disaster-recovery.sh node <node_name>
+#     # Restore from backup: bash disaster-recovery.sh restore <backup_file>
+#
+# License: MIT
 
 BACKUP_DIR="/mnt/backup/proxmox"
 

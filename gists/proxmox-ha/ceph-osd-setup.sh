@@ -1,15 +1,13 @@
 #!/bin/bash
-"""
-Ceph OSD Creation and Pool Configuration
-
-Source: https://williamzujkowski.github.io/posts/proxmox-high-availability-homelab/
-Purpose: Create OSDs on each node and configure storage pools with replication
-Prerequisites: Ceph installed, monitors running, dedicated disks available
-Usage:
-    bash ceph-osd-setup.sh
-
-License: MIT
-"""
+# Ceph OSD Creation and Pool Configuration
+#
+# Source: https://williamzujkowski.github.io/posts/proxmox-high-availability-homelab/
+# Purpose: Create OSDs on each node and configure storage pools with replication
+# Prerequisites: Ceph installed, monitors running, dedicated disks available
+# Usage:
+#     bash ceph-osd-setup.sh
+#
+# License: MIT
 
 # On each node, for each disk:
 # Identify disks

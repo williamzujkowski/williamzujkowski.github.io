@@ -1,15 +1,13 @@
 #!/bin/bash
-"""
-VLAN Segmentation Connectivity Test Suite
-
-Source: https://williamzujkowski.github.io/posts/zero-trust-vlan-segmentation-homelab/
-Purpose: Validate VLAN segmentation is working correctly
-Prerequisites: nmap, ping access
-Usage:
-    bash vlan-connectivity-tests.sh
-
-License: MIT
-"""
+# VLAN Segmentation Connectivity Test Suite
+#
+# Source: https://williamzujkowski.github.io/posts/zero-trust-vlan-segmentation-homelab/
+# Purpose: Validate VLAN segmentation is working correctly
+# Prerequisites: nmap, ping access
+# Usage:
+#     bash vlan-connectivity-tests.sh
+#
+# License: MIT
 
 # Test connectivity between VLANs
 declare -A vlans=(
