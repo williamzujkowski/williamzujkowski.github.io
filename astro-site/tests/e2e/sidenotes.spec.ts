@@ -7,6 +7,21 @@ import AxeBuilder from '@axe-core/playwright';
 // converted from inline citations — see rehype-sidenotes.mjs.
 const PILOT_POST = '/posts/2025-10-29-post-quantum-cryptography-homelab/';
 
+/**
+ * Liveness precondition for the assertions that are satisfied by ABSENCE —
+ * `toHaveCount(0)` and axe's `violations).toEqual([])`. Those pass against a
+ * page that was never built (an empty `dist/` scored 3 green here), so the
+ * scan must first prove it has a page to scan. Same guard as the one in
+ * a11y.spec.ts.
+ */
+async function assertPilotPostIsLive(page: import('playwright/test').Page) {
+  await expect(page.locator('main'), 'pilot post must render a <main> landmark').toBeVisible();
+  await expect(
+    page.locator('a.remarque-sidenote-ref').first(),
+    'pilot post must render sidenote markup'
+  ).toBeVisible();
+}
+
 // 1280px (== 80rem at the platform default 16px root) is the module's own
 // breakpoint (essay.css's single `@media (min-width: 80rem)` block, same
 // threshold this site used before the migration) — worth checking in
@@ -143,6 +158,7 @@ test.describe('sidenotes — wide viewport (margin rail)', () => {
 
   test('no GFM footnotes section remains on the pilot post', async ({ page }) => {
     await page.goto(PILOT_POST);
+    await assertPilotPostIsLive(page);
     await expect(page.locator('section[data-footnotes]')).toHaveCount(0);
   });
 
@@ -153,12 +169,23 @@ test.describe('sidenotes — wide viewport (margin rail)', () => {
 
     const refs = page.locator('a.remarque-sidenote-ref');
     const refCount = await refs.count();
+
+    // Precondition. Everything below used to hang off `if (isRepeat)`, and
+    // no post in the corpus has a repeated citation (verified with
+    // `rg -c 'remarque-sidenote-ref--repeat' dist/posts/*/index.html` —
+    // zero matches site-wide), so the loop body never executed: the test
+    // passed on a page with no sidenote markup at all, an empty `dist/`
+    // included. Assert there is something to check before checking it.
+    expect(refCount, 'pilot post must render sidenote references').toBeGreaterThan(0);
+
     const hrefs: string[] = [];
     for (let i = 0; i < refCount; i++) {
       hrefs.push((await refs.nth(i).getAttribute('href')) ?? '');
     }
     const notes = page.locator('aside.remarque-sidenote');
     const noteCount = await notes.count();
+    expect(noteCount, 'pilot post must render sidenote asides').toBeGreaterThan(0);
+
     const noteIds = new Set<string>();
     for (let i = 0; i < noteCount; i++) {
       noteIds.add((await notes.nth(i).getAttribute('id')) ?? '');
@@ -168,19 +195,33 @@ test.describe('sidenotes — wide viewport (margin rail)', () => {
     // duplicates even if a footnote is cited more than once).
     expect(noteIds.size).toBe(noteCount);
 
-    // If this pilot post has any repeated citation, its second-or-later
-    // ref must carry the --repeat modifier and its href must resolve to a
-    // note id that already exists exactly once.
+    // "...and does not insert a second note": exactly one aside per DISTINCT
+    // cited target, regardless of how many refs point at it.
+    expect(noteCount, 'one aside per distinct cited footnote').toBe(new Set(hrefs).size);
+
+    // The --repeat modifier must appear on exactly the second-or-later
+    // citation of a target and nowhere else. Asserted in BOTH directions and
+    // unconditionally, so a plugin that stamps every ref (or stops stamping)
+    // fails here even on a post whose citations happen to all be unique.
+    // The stamping path itself, on a fixture that does repeat, is covered by
+    // tests/unit/rehype-sidenotes.test.mjs.
     const seen = new Set<string>();
+    const expectedRepeatIndices: number[] = [];
     for (let i = 0; i < refCount; i++) {
-      const href = hrefs[i];
-      const isRepeat = seen.has(href);
-      seen.add(href);
-      if (isRepeat) {
-        const classes = (await refs.nth(i).getAttribute('class')) ?? '';
-        expect(classes).toContain('remarque-sidenote-ref--repeat');
+      if (seen.has(hrefs[i])) expectedRepeatIndices.push(i);
+      seen.add(hrefs[i]);
+    }
+    const actualRepeatIndices: number[] = [];
+    for (let i = 0; i < refCount; i++) {
+      const classes = (await refs.nth(i).getAttribute('class')) ?? '';
+      if (classes.split(/\s+/).includes('remarque-sidenote-ref--repeat')) {
+        actualRepeatIndices.push(i);
       }
     }
+    expect(
+      actualRepeatIndices,
+      'remarque-sidenote-ref--repeat must mark exactly the repeat citations'
+    ).toEqual(expectedRepeatIndices);
   });
 });
 
@@ -250,6 +291,7 @@ test.describe('sidenotes — accessibility', () => {
   test('axe: pilot post has no new violations at the wide-viewport (rail) layout', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto(PILOT_POST);
+    await assertPilotPostIsLive(page);
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
       .exclude('pre.astro-code span')
@@ -272,6 +314,7 @@ test.describe('sidenotes — accessibility', () => {
   test('axe: pilot post has no new violations at the narrow-viewport (inline) layout', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto(PILOT_POST);
+    await assertPilotPostIsLive(page);
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
       .exclude('pre.astro-code span')

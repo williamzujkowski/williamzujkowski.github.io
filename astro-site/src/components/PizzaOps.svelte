@@ -359,9 +359,9 @@
   }
   .po-lights { display: flex; gap: 0.4rem; }
   .po-light { width: 0.72rem; height: 0.72rem; border-radius: 50%; opacity: 0.85; }
-  .po-light--r { background: var(--color-error, #c0392b); }
-  .po-light--y { background: var(--color-accent-hover, #d4a017); }
-  .po-light--g { background: var(--color-accent, #2e8b57); }
+  .po-light--r { background: var(--color-error); }
+  .po-light--y { background: var(--color-accent-hover); }
+  .po-light--g { background: var(--color-accent); }
   .po-appname { font-weight: 600; letter-spacing: 0.02em; }
   .po-health {
     margin-left: auto; display: inline-flex; align-items: center; gap: 0.4rem;

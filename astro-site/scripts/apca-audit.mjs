@@ -67,6 +67,20 @@ function parseTheme(blockRegex) {
 const light = parseTheme(/:root\s*\{[^}]+\}/);
 const dark = parseTheme(/:root\.dark\s*\{[^}]+\}/);
 
+// This audit's FINDINGS are advisory (WCAG 3 is still a draft), but failing to
+// resolve any tokens means it measured nothing — and a report over zero tokens
+// must not read like a clean one (issue #511). Previously that surfaced as a
+// raw TypeError from spreading `undefined`.
+for (const [name, theme] of [['light', light], ['dark', dark]]) {
+  if (Object.keys(theme).length === 0) {
+    console.error(
+      `APCA audit: parsed 0 --color-* tokens for the ${name} theme from global.css.\n` +
+      'That is a broken run, not a clean one.',
+    );
+    process.exit(1);
+  }
+}
+
 // text on bg (polarity matters for APCA — text is first, bg is second)
 const pairs = [
   ['light', 'fg', 'bg', 75, 'body copy'],

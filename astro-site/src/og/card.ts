@@ -30,12 +30,19 @@ const shantell = readFileSync(resolve(fontDir, 'ShantellSans.ttf'));
 const grainTile = readFileSync(resolve(assetDir, 'grain-tile.png'));
 const grainDataUri = `data:image/png;base64,${grainTile.toString('base64')}`;
 
-const BG = '#1a1f2e';
-const BLUE = '#3b82f6';
-const AMBER = '#f0a828';
-const TITLE = '#f8fafc';
-const SUB = '#94a3b8';
-const FOOT = '#64748b';
+// Social-card palette. These are literals on purpose: satori renders an
+// object tree straight to SVG at build time with no CSS cascade and no
+// :root, so var(--color-*) cannot resolve here. The colour-token audit does
+// see these lines (issue #511) — the allow-raw-color markers are what
+// exempts them, so the exemption is reviewed rather than structural. If this
+// palette should track the site tokens, it has to be resolved in JS and
+// passed in; it cannot be done with CSS custom properties.
+const BG = '#1a1f2e'; // allow-raw-color: satori has no CSS cascade
+const BLUE = '#3b82f6'; // allow-raw-color: satori has no CSS cascade
+const AMBER = '#f0a828'; // allow-raw-color: satori has no CSS cascade
+const TITLE = '#f8fafc'; // allow-raw-color: satori has no CSS cascade
+const SUB = '#94a3b8'; // allow-raw-color: satori has no CSS cascade
+const FOOT = '#64748b'; // allow-raw-color: satori has no CSS cascade
 
 type Node = { type: string; props: Record<string, unknown> };
 function div(style: Record<string, unknown>, children?: unknown): Node {

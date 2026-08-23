@@ -458,9 +458,12 @@ async function measureTheme(page, theme) {
 async function main() {
   if (!existsSync(distDir)) {
     console.error(
-      `grain-contrast-audit: dist/ not found at ${distDir} — run \`pnpm build\` first. Skipping (advisory).`
+      `grain-contrast-audit: dist/ not found at ${distDir} — run \`pnpm build\` first.\n` +
+      'This is a BROKEN run, not a clean one: an audit that samples zero pixels\n' +
+      'must not be indistinguishable from one that found no problems (#511).\n' +
+      'Contrast FINDINGS remain advisory; being unable to look does not.'
     );
-    process.exit(0);
+    process.exit(1);
   }
 
   const deckThemes = JSON.parse(await readFile(themeDeckPath, 'utf8'));
@@ -556,7 +559,11 @@ async function main() {
   process.exit(0);
 }
 
+// A crash is a broken run. The findings this audit reports are advisory
+// (pending the design decision on solarized-dark-higher-contrast), but an
+// exception means it never measured anything — which previously exited 0
+// and read as a pass.
 main().catch((err) => {
-  console.error('grain-contrast-audit: unexpected error (advisory, non-blocking):', err);
-  process.exit(0);
+  console.error(`grain-contrast-audit failed to run: ${err?.stack || err}`);
+  process.exit(1);
 });

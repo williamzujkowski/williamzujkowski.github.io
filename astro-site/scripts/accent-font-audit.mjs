@@ -19,7 +19,7 @@
  *     (`cssVariable: '--font-accent'`). Lives outside src/ so a plain
  *     `src/` walk never sees it; checked explicitly for completeness.
  */
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, extname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
@@ -29,8 +29,28 @@ const siteRoot = resolve(here, '..');
 const srcRoot = resolve(siteRoot, 'src');
 
 const TOKEN = /--font-accent\b/;
+
+/**
+ * Blank out comments while preserving line numbers. Without this, a comment
+ * that merely MENTIONS .hand-note and contains a brace opened the allowlist
+ * gate for everything after it (issue #511):
+ *
+ *     /* .hand-note styling below { *\/
+ *     p { font-family: var(--font-accent); }   <- silently allowed
+ */
+function stripComments(src) {
+  let out = src.replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' '));
+  return out.replace(/(^|[^:])\/\/[^\n]*/g, (m, p1) => p1 + ' '.repeat(m.length - p1.length));
+}
+
+// The token is one way in; naming the family directly is the other, and it
+// achieves the exact outcome the token restriction exists to prevent.
+// src/og/** is exempt: satori loads the .ttf itself and has no CSS cascade,
+// so the OG card's hand-note kicker cannot go through --font-accent.
+const DIRECT_FAMILY = /font-family\s*:[^;{}]*shantell/i;
 const exts = new Set(['.css', '.astro', '.svelte', '.ts', '.tsx', '.js', '.mjs']);
 const violations = [];
+let filesScanned = 0;
 
 function walk(dir) {
   for (const entry of readdirSync(dir)) {
@@ -45,12 +65,13 @@ function walk(dir) {
 // Generic scan: every `--font-accent` occurrence is a violation unless a
 // file-specific exception below says otherwise.
 function scanGeneric(file) {
+  filesScanned += 1;
   const rel = relative(siteRoot, file).replace(/\\/g, '/');
   const src = readFileSync(file, 'utf8');
   const lines = src.split('\n');
 
   if (rel === 'src/styles/zine.css') {
-    scanZineCss(rel, lines);
+    scanZineCss(rel, stripComments(src).split('\n'), lines);
     return;
   }
   if (rel === 'src/layouts/BaseLayout.astro') {
@@ -58,15 +79,23 @@ function scanGeneric(file) {
     return;
   }
 
-  lines.forEach((line, i) => {
+  const stripped = stripComments(src).split('\n');
+  stripped.forEach((line, i) => {
     if (TOKEN.test(line)) {
-      violations.push({ file: rel, line: i + 1, snippet: line.trim() });
+      violations.push({ file: rel, line: i + 1, snippet: (lines[i] ?? line).trim() });
+    } else if (DIRECT_FAMILY.test(line) && !rel.startsWith('src/og/')) {
+      violations.push({
+        file: rel,
+        line: i + 1,
+        snippet: (lines[i] ?? line).trim(),
+        note: 'names the accent family directly, bypassing --font-accent',
+      });
     }
   });
 }
 
 // zine.css: allow --font-accent only while inside a `.hand-note` rule block.
-function scanZineCss(rel, lines) {
+function scanZineCss(rel, lines, rawLines) {
   let depth = 0;
   let handNoteDepth = -1; // brace depth at which the current .hand-note block opened
 
@@ -76,7 +105,7 @@ function scanZineCss(rel, lines) {
     if (TOKEN.test(line)) {
       const insideHandNote = handNoteDepth !== -1 && depth >= handNoteDepth;
       if (!insideHandNote) {
-        violations.push({ file: rel, line: i + 1, snippet: line.trim() });
+        violations.push({ file: rel, line: i + 1, snippet: (rawLines[i] ?? line).trim() });
       }
     }
 
@@ -127,16 +156,27 @@ function checkAstroConfig() {
   });
 }
 
+if (!existsSync(srcRoot)) {
+  console.error(`Accent-Font Audit\n\n  Source root not found: ${srcRoot}`);
+  process.exit(1);
+}
 walk(srcRoot);
 checkAstroConfig();
 
 console.log('Accent-Font Audit (--font-accent restricted to .hand-note)\n');
+
+// An empty walk is not a clean pass — it means the scan never happened.
+if (filesScanned === 0) {
+  console.error(`  Scanned 0 files under ${srcRoot}. That is a broken audit, not a clean one.\n`);
+  process.exit(1);
+}
+
 if (violations.length === 0) {
-  console.log('  --font-accent usage is confined to the approved allowlist.');
+  console.log(`  --font-accent usage is confined to the approved allowlist. (${filesScanned} files scanned)`);
   process.exit(0);
 }
 for (const v of violations) {
-  console.log(`  [FAIL] ${v.file}:${v.line}`);
+  console.log(`  [FAIL] ${v.file}:${v.line}${v.note ? ` — ${v.note}` : ''}`);
   console.log(`         ${v.snippet}`);
 }
 console.error(`\n${violations.length} --font-accent usage(s) found outside the allowlist.`);
