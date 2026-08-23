@@ -1,25 +1,29 @@
-# Grype Vulnerability Scanner Configuration
+# Grype configuration
 # Source: https://williamzujkowski.github.io/posts/2025-10-06-automated-security-scanning-pipeline/
-# Purpose: Configure Grype scanner with ignore rules and severity thresholds
-# Usage: Save as .grype.yaml in project root
+# Usage: save as .grype.yaml in the project root
+#
+# IMPORTANT: grype ignore rules DO NOT EXPIRE.
+# The IgnoreRule struct supports: vulnerability, include-aliases, reason,
+# namespace, fix-state, package, vex-status, vex-justification, match-type.
+# There is NO `expiration` field. A date written here is silently ignored and
+# the suppression is permanent. If you need time-boxed risk acceptance, use
+# OSV-Scanner's `ignoreUntil`, or enforce the review date outside grype.
 
-# Exclude false positives
-ignore:
-  - vulnerability: CVE-2023-12345
-    reason: "Not applicable - feature not used"
-    expiration: 2025-12-31
-
-  - vulnerability: GHSA-xxxx-yyyy-zzzz
-    package:
-      name: "lodash"
-      version: "4.17.20"
-    reason: "Testing environment only"
-
-# Configure severity thresholds
+# Fail the build on high or worse.
 fail-on-severity: high
 
-# Scope what to scan
+# Scan every layer, not just the squashed final filesystem — vulnerable files
+# deleted in a later layer are still present in the image.
 scope: all-layers
 
-# Output formatting
-output: json
+ignore:
+  # Every rule needs a reason. Since these never expire, the reason is the only
+  # thing a future reader has to judge whether it still applies.
+  - vulnerability: GHSA-1234-5678-9abc
+    reason: "Not applicable - the vulnerable feature is not enabled. REVIEW BY 2026-03-01 (not enforced by grype; see note above)."
+
+  - vulnerability: CVE-2024-12345
+    package:
+      name: example-package
+      version: 1.2.3
+    reason: "Test-environment dependency, not present in the production image."

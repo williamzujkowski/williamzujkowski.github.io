@@ -1,26 +1,32 @@
 # OSV-Scanner Configuration
 # Source: https://williamzujkowski.github.io/posts/2025-10-06-automated-security-scanning-pipeline/
-# Purpose: Configure OSV-Scanner for dependency scanning with ignore rules
-# Usage: Save as osv-scanner.toml in project root
+# Usage: save as osv-scanner.toml in the project root
+#
+# The supported schema is small. It is, in full:
+#   [[IgnoredVulns]]     id, ignoreUntil, reason
+#   [[PackageOverrides]] name, nameIsRegex, version, ecosystem, group,
+#                        ignore, vulnerability.ignore, license.ignore,
+#                        license.override, effectiveUntil, reason
+#   ScanGoModVersion     bool
+#   GoVersionOverride    string
+#
+# There is no worker-count, scan-depth, private-registry or dev-dependency
+# setting. Keys outside the schema above are ignored silently, which is the
+# dangerous part: a config that looks like it is doing something is not.
 
-[ignore]
-# Ignore specific vulnerabilities
-vulnerabilities = [
-  "GHSA-xxxx-yyyy-zzzz"
-]
+# Time-boxed risk acceptance. `ignoreUntil` genuinely expires — once the date
+# passes, the vulnerability reappears in results. This is the only real expiry
+# mechanism across grype/OSV/Trivy, so prefer OSV for accepted risks.
+[[IgnoredVulns]]
+id = "GHSA-1234-5678-9abc"
+ignoreUntil = 2026-03-01
+reason = "Vulnerable code path is not reachable from our entrypoints. Re-evaluate at the date above."
 
-# Ignore packages in devDependencies
-dev_dependencies = true
-
-# Custom package registries
-[[package_repositories]]
-name = "private-npm"
-url = "https://npm.internal.company.com"
-
-[scanning]
-# Skip git directories
-skip_git = true
-
-# Parallel scanning
-max_depth = 10
-workers = 4
+# Suppress findings for a specific package/version rather than a specific CVE.
+[[PackageOverrides]]
+name = "example-package"
+version = "1.2.3"
+ecosystem = "npm"
+ignore = true
+effectiveUntil = 2026-03-01
+reason = "Pinned deliberately pending upstream release; tracked in issue #42."
