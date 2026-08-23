@@ -69,9 +69,13 @@ jobs:
         run: cd astro-site && pnpm build
       - name: Run full Playwright suite (smoke + a11y + theme-deck)
         run: cd astro-site && npx playwright test tests/e2e/
-      - name: Grain composited-contrast audit (issue #283 item 2 — real screenshot pixel sample, advisory only)
+      # Was advisory AND continue-on-error, while reporting four genuine WCAG
+      # failures in solarized-dark-higher-contrast on every green run (#511).
+      # Those are fixed; this is a gate now. It is the only check in the repo
+      # that measures real composited pixels rather than token values, so it
+      # catches what the generator's contrast solver structurally cannot.
+      - name: Grain composited-contrast audit (real screenshot pixel sample — blocking)
         run: cd astro-site && pnpm audit:grain
-        continue-on-error: true
       - name: Upload report on failure
         if: failure()
         uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8  # v5
