@@ -276,10 +276,22 @@ jobs:
           # batch-link-fixer.py reads links.json from the working directory;
           # it travels inside the reports/ artifact (see check-links job).
           cp reports/links.json links.json
+          # SAFETY STOPGAP (issue #495): --dry-run until the write path is
+          # fixed. batch-link-fixer._replace_url does a blanket substring
+          # replace outside markdown links, so it rewrites URLs inside code
+          # fences, inline code and blockquotes; it also prefix-collides
+          # (repairing ex.com/a rewrites ex.com/abc), and the extractor
+          # truncates URLs containing parentheses, which produces mangled
+          # prose when repaired. All three are reproduced in #495.
+          #
+          # This job has never actually opened a repair PR, so nothing is
+          # lost by holding it here. Remove --dry-run once #495 lands a
+          # code-span-aware replacer and its golden-file test.
           uv run python scripts/link-validation/batch-link-fixer.py \
             --repairs reports/repairs.json \
             --confidence-threshold 95 \
             --apply \
+            --dry-run \
             --posts-dir src/posts
         else
           echo "No repairs.json found; nothing to apply"

@@ -1,8 +1,12 @@
 """Which model created each post, and what objective defect markers did it carry
 BEFORE the audit corrected them."""
-import subprocess, re, json, glob
-from pathlib import Path
+import glob
+import json
+import re
+import subprocess
 from datetime import date
+from pathlib import Path
+
 
 def sh(*a):
     return subprocess.run(a, capture_output=True, text=True, cwd="/home/william/git/williamzujkowski.github.io").stdout
@@ -54,6 +58,7 @@ for p in sorted(glob.glob("/tmp/grim/pre/src/posts/*.md")):
 
 Path("/tmp/grim/prov.json").write_text(json.dumps(rows, indent=1))
 from collections import Counter
+
 print("posts:", len(rows))
 print("\nby creating model:")
 for m, c in Counter(r["model"] for r in rows).most_common():

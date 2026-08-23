@@ -42,15 +42,15 @@ RELATED_SCRIPTS:
 MANIFEST_REGISTRY: scripts/batch-link-fixer.py
 """
 
+import argparse
 import json
 import re
 import shutil
-import argparse
 import subprocess
-from pathlib import Path
-from typing import Dict, List, Tuple
-from datetime import datetime
 import sys
+from datetime import datetime
+from pathlib import Path
+
 from tqdm import tqdm
 
 # Path setup for logging import
@@ -70,7 +70,7 @@ class BatchLinkFixer:
         self.backups_created = []
 
     @staticmethod
-    def _replace_url(content: str, old_url: str, new_url: str) -> Tuple[str, int]:
+    def _replace_url(content: str, old_url: str, new_url: str) -> tuple[str, int]:
         """Replace a URL in markdown links first, then bare prose URLs."""
         markdown_exact = re.compile(r"(\[[^\]]+\]\()" + re.escape(old_url) + r"(?=\))")
         markdown_link = re.compile(r"\[[^\]]+\]\((?:[^()]|\([^()]*\))*\)")
@@ -165,7 +165,7 @@ class BatchLinkFixer:
             logger.error(f"\n❌ Pipeline failed: {e}")
             return 1
 
-    def _run_command(self, cmd: List[str]) -> bool:
+    def _run_command(self, cmd: list[str]) -> bool:
         """Run a command and return success status"""
         try:
             result = subprocess.run(cmd, capture_output=True, text=True, check=True)
@@ -192,7 +192,7 @@ class BatchLinkFixer:
             return
 
         # Load repairs
-        with open(repairs_file, 'r', encoding='utf-8') as f:
+        with open(repairs_file, encoding='utf-8') as f:
             repairs_data = json.load(f)
 
         repairs = repairs_data.get('repairs', [])
@@ -220,10 +220,10 @@ class BatchLinkFixer:
         for file_path, file_repairs in tqdm(repairs_by_file.items(), desc="Fixing files"):
             self._apply_file_repairs(file_path, file_repairs)
 
-    def _group_repairs_by_file(self, repairs: List[Dict]) -> Dict[str, List[Dict]]:
+    def _group_repairs_by_file(self, repairs: list[dict]) -> dict[str, list[dict]]:
         """Group repairs by source file"""
         # Load links data to map repairs to files
-        with open('links.json', 'r', encoding='utf-8') as f:
+        with open('links.json', encoding='utf-8') as f:
             links_data = json.load(f)
 
         # Create URL to file mapping
@@ -242,7 +242,7 @@ class BatchLinkFixer:
 
         return repairs_by_file
 
-    def _apply_file_repairs(self, file_path: str, repairs: List[Dict]):
+    def _apply_file_repairs(self, file_path: str, repairs: list[dict]):
         """Apply repairs to a single file"""
         file_path = Path(file_path)
 
@@ -256,7 +256,7 @@ class BatchLinkFixer:
             self.backups_created.append((file_path, backup_path))
 
         # Read file content
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(file_path, encoding='utf-8') as f:
             content = f.read()
 
         original_content = content
@@ -279,8 +279,16 @@ class BatchLinkFixer:
                     'repair_type': repair.get('repair_type', 'unknown')
                 })
 
-        # Write changes
-        if changes > 0 and not self.dry_run:
+        # Write changes. `original_content` guards the write: a non-zero
+        # `changes` count with byte-identical content means a repair matched
+        # but produced no edit, which is a bug in _replace_url rather than a
+        # fix worth committing.
+        if changes > 0 and content == original_content:
+            logger.warning(
+                f"⚠️  {file_path.name}: {changes} repair(s) reported but content is "
+                "unchanged; refusing to write. This indicates a _replace_url defect."
+            )
+        elif changes > 0 and not self.dry_run:
             with open(file_path, 'w', encoding='utf-8') as f:
                 f.write(content)
             logger.info(f"✅ Fixed {changes} links in {file_path.name}")
@@ -291,7 +299,7 @@ class BatchLinkFixer:
         shutil.copy2(file_path, backup_path)
         return backup_path
 
-    def _show_planned_changes(self, repairs: List[Dict]):
+    def _show_planned_changes(self, repairs: list[dict]):
         """Show what changes would be made"""
         logger.info("\nPlanned changes:")
         logger.info("-" * 60)
@@ -328,14 +336,14 @@ class BatchLinkFixer:
         for repair_type, count in sorted(by_type.items()):
             logger.info(f"  {repair_type}: {count}")
 
-        logger.info(f"\nFiles modified: {len(set(c['file'] for c in self.changes_made))}")
+        logger.info(f"\nFiles modified: {len({c['file'] for c in self.changes_made})}")
 
         if self.backups_created:
             logger.info(f"\nBackups created: {len(self.backups_created)}")
 
     def generate_review_queue(self, repairs_file: Path, output_file: Path):
         """Generate manual review queue for low-confidence repairs"""
-        with open(repairs_file, 'r', encoding='utf-8') as f:
+        with open(repairs_file, encoding='utf-8') as f:
             repairs_data = json.load(f)
 
         # Filter low-confidence repairs
@@ -345,7 +353,7 @@ class BatchLinkFixer:
         ]
 
         # Load links data for context
-        with open('links.json', 'r', encoding='utf-8') as f:
+        with open('links.json', encoding='utf-8') as f:
             links_data = json.load(f)
 
         # Create URL to context mapping
@@ -370,7 +378,7 @@ class BatchLinkFixer:
             review.append(f"**Notes:** {repair.get('notes', 'N/A')}")
 
             if context:
-                review.append(f"\n**Context:**")
+                review.append("\n**Context:**")
                 review.append(f"> {context.get('context_before', '')[:200]}...")
                 review.append(f"> **[{context.get('text', 'link')}]**")
                 review.append(f"> {context.get('context_after', '')[:200]}...")

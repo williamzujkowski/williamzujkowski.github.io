@@ -1,7 +1,6 @@
 """Regression tests for batch-link-fixer.py URL substitution."""
 
 import pytest
-
 from conftest import load_script
 
 blf = load_script("batch-link-fixer.py")

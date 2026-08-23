@@ -42,26 +42,25 @@ RELATED_SCRIPTS:
 MANIFEST_REGISTRY: scripts/link-validator.py
 """
 
-import json
-import asyncio
 import argparse
-import re
-import sys
+import asyncio
+import json
 import logging
-from pathlib import Path
-from typing import Dict, List, Optional, Tuple
-from dataclasses import dataclass, asdict
-from datetime import datetime
-import hashlib
+import re
 import ssl
+import sys
 import time
-from urllib.parse import urlparse, urljoin
+from dataclasses import asdict, dataclass
+from datetime import datetime
+from pathlib import Path
+from urllib.parse import urlparse
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from lib.logging_config import setup_logger
 
 try:
-    from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeout
+    from playwright.async_api import TimeoutError as PlaywrightTimeout
+    from playwright.async_api import async_playwright
     PLAYWRIGHT_AVAILABLE = True
 except ImportError:
     PLAYWRIGHT_AVAILABLE = False
@@ -70,18 +69,19 @@ except ImportError:
 import aiohttp
 import certifi
 
+
 @dataclass
 class ValidationResult:
     """Result of link validation"""
     url: str
     status: str  # valid, broken, restricted, redirect, timeout, error
-    status_code: Optional[int]
-    final_url: Optional[str]
-    issue_type: Optional[str]  # 404, 403, http_401, timeout, wrong_content, paywall, redirect, ssl_error
-    error_message: Optional[str]
+    status_code: int | None
+    final_url: str | None
+    issue_type: str | None  # 404, 403, http_401, timeout, wrong_content, paywall, redirect, ssl_error
+    error_message: str | None
     response_time: float
-    content_type: Optional[str]
-    page_title: Optional[str]
+    content_type: str | None
+    page_title: str | None
     requires_js: bool
     ssl_valid: bool
     validation_time: str
@@ -206,7 +206,7 @@ class LinkValidator:
             return 'restricted', f'http_{status_code}'
         return 'restricted', f'http_{status_code}'
 
-    async def validate_batch(self, links: List[Dict]) -> List[ValidationResult]:
+    async def validate_batch(self, links: list[dict]) -> list[ValidationResult]:
         """Validate a batch of links"""
         results = []
 
@@ -219,7 +219,7 @@ class LinkValidator:
             domain_groups[domain].append(link)
 
         # Process each domain group with rate limiting
-        for domain, domain_links in domain_groups.items():
+        for _domain, domain_links in domain_groups.items():
             for link_data in domain_links:
                 result = await self.validate_link(link_data['url'])
                 results.append(result)
@@ -351,7 +351,7 @@ class LinkValidator:
                     retry_count=retry + 1
                 )
 
-        except asyncio.TimeoutError:
+        except TimeoutError:
             return ValidationResult(
                 url=url,
                 status='timeout',
@@ -508,10 +508,10 @@ class LinkValidator:
         try:
             parsed = urlparse(url)
             return parsed.netloc
-        except:
+        except ValueError:
             return 'unknown'
 
-    async def save_results(self, results: List[ValidationResult], output_file: Path, logger=None):
+    async def save_results(self, results: list[ValidationResult], output_file: Path, logger=None):
         """Save validation results to JSON"""
         data = {
             'validation_date': datetime.now().isoformat(),
@@ -562,7 +562,7 @@ async def main():
         return 1
 
     # Load links
-    with open(args.input, 'r', encoding='utf-8') as f:
+    with open(args.input, encoding='utf-8') as f:
         data = json.load(f)
 
     links = data['links']

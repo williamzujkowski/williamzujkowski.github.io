@@ -40,13 +40,11 @@ DEPENDENCIES:
 MANIFEST_REGISTRY: scripts/link-validation/citation-report.py
 """
 
-import json
 import argparse
+import json
 import sys
-from pathlib import Path
 from collections import defaultdict
-from typing import Dict, List
-from datetime import datetime
+from pathlib import Path
 
 # Add lib directory to path for logging_config
 sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
@@ -55,7 +53,7 @@ from logging_config import setup_logger
 logger = setup_logger(__name__)
 
 
-def generate_citation_report(validation_data: Dict, links_data: Dict) -> str:
+def generate_citation_report(validation_data: dict, links_data: dict) -> str:
     """Generate markdown report for broken citation links"""
 
     # Map validation results by URL
@@ -301,11 +299,11 @@ def main() -> int:
 
         # Load data
         logger.debug(f"Loading validation results from {args.input}")
-        with open(args.input, 'r', encoding='utf-8') as f:
+        with open(args.input, encoding='utf-8') as f:
             validation_data = json.load(f)
 
         logger.debug(f"Loading link data from {args.links}")
-        with open(args.links, 'r', encoding='utf-8') as f:
+        with open(args.links, encoding='utf-8') as f:
             links_data = json.load(f)
 
         if args.verbose:

@@ -4,22 +4,34 @@ title = "williamzujkowski.github.io gitleaks config"
 [extend]
 useDefault = true
 
-# Global allowlist for tutorial-default credentials that appear in
-# example commands in blog posts (Wazuh admin:admin, etc). These are
-# documented defaults from upstream project quickstarts, not real
-# secrets. Allowlist is intentionally narrow — if a post adds a real
-# credential by mistake, it will not match these patterns.
+# Allowlist for values that LOOK like credentials but are not.
+#
+# There is deliberately NO `paths` entry here. gitleaks combines `paths` and
+# `regexes` within one allowlist as an OR, not an AND -- so a `paths` entry
+# exempts every finding in those files regardless of the regexes. A previous
+# version of this file allowlisted `src/posts/.*\.md$`, which silently
+# disabled secret scanning for every blog post: exactly the place where
+# terminal transcripts and homelab configs get pasted. Verified with a
+# three-arm test (default ruleset / this config / this config minus `paths`).
+#
+# Every entry below matches a specific published value, so it stays narrow
+# and survives the line moving. One-off historical findings in deleted files
+# are pinned by fingerprint in .gitleaksignore instead.
 [allowlist]
-  description = "Tutorial-default credentials in blog post examples"
-  paths = [
-    '''src/posts/.*\.md$''',
-  ]
+  description = "Published non-secrets: tutorial defaults, placeholders, public keys"
   regexes = [
-    # Documented project defaults
+    # Documented project defaults from upstream quickstarts
     '''admin:admin''',
     '''root:root''',
     '''user:password''',
     '''test:test''',
     # Generic shell-variable placeholders ($VAR, ${VAR})
     '''-u\s+[A-Za-z_][A-Za-z0-9_]*:\$\{?[A-Za-z_][A-Za-z0-9_]*\}?''',
+    # Obvious placeholder tokens (ghp_xxxxxxxx...) -- zero entropy by design
+    '''(?i)gh[pousr]_x{16,}''',
+    # TLS named group, not a key: post-quantum key_share value
+    '''X25519MLKEM768''',
+    # dnscrypt-proxy resolver signing key -- a PUBLIC minisign key (RW prefix),
+    # published upstream so clients can verify the resolver list.
+    '''RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3''',
   ]

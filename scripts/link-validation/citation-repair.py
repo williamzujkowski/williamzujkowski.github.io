@@ -42,18 +42,17 @@ RELATED_SCRIPTS:
 MANIFEST_REGISTRY: scripts/citation-repair.py
 """
 
+import argparse
+import asyncio
 import json
 import re
-import asyncio
-import aiohttp
-import argparse
 import sys
-from pathlib import Path
-from typing import Dict, List, Optional, Tuple
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from datetime import datetime
-from urllib.parse import unquote, urlparse, quote
-import hashlib
+from pathlib import Path
+from urllib.parse import quote, unquote, urlparse
+
+import aiohttp
 
 # Path setup for centralized logging
 sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
@@ -116,7 +115,7 @@ class CitationRepair:
         self.repair_cache = {}
 
     @classmethod
-    def _extract_doi(cls, text: str) -> Optional[str]:
+    def _extract_doi(cls, text: str) -> str | None:
         match = cls.DOI_RE.search(text or '')
         if not match:
             return None
@@ -127,7 +126,7 @@ class CitationRepair:
         return doi.lower()
 
     @staticmethod
-    def _domain_path(url: str) -> Tuple[str, str]:
+    def _domain_path(url: str) -> tuple[str, str]:
         parsed = urlparse(url)
         return parsed.netloc.lower().removeprefix('www.'), parsed.path.rstrip('/')
 
@@ -151,7 +150,7 @@ class CitationRepair:
         return self._same_live_target(original_url, archived_url)
 
     @staticmethod
-    def _relevance_supports_replacement(relevance: Optional[Dict]) -> bool:
+    def _relevance_supports_replacement(relevance: dict | None) -> bool:
         if not relevance:
             return False
 
@@ -167,7 +166,7 @@ class CitationRepair:
         return isinstance(score, (int, float)) and score >= 0.8
 
     def _cap_confidence(self, confidence: float, original_url: str, suggested_url: str,
-                        repair_type: str, relevance: Optional[Dict] = None,
+                        repair_type: str, relevance: dict | None = None,
                         is_archived: bool = False) -> float:
         """Keep high confidence only for identity-preserving repairs.
 
@@ -196,8 +195,8 @@ class CitationRepair:
         if self.session:
             await self.session.close()
 
-    async def find_repairs(self, links_data: Dict, validation_data: Dict,
-                          relevance_data: Dict) -> List[RepairSuggestion]:
+    async def find_repairs(self, links_data: dict, validation_data: dict,
+                          relevance_data: dict) -> list[RepairSuggestion]:
         """Find repairs for all broken links"""
         repairs = []
 
@@ -220,8 +219,8 @@ class CitationRepair:
 
         return repairs
 
-    def _identify_broken_links(self, links_data: Dict, validation_data: Dict,
-                              relevance_data: Dict) -> List[Dict]:
+    def _identify_broken_links(self, links_data: dict, validation_data: dict,
+                              relevance_data: dict) -> list[dict]:
         """Identify links that need repair"""
         broken = []
 
@@ -262,7 +261,7 @@ class CitationRepair:
 
         return broken
 
-    async def _find_replacement(self, link_info: Dict) -> Optional[RepairSuggestion]:
+    async def _find_replacement(self, link_info: dict) -> RepairSuggestion | None:
         """Find replacement for a single broken link"""
         link = link_info['link']
         url = link['url']
@@ -293,7 +292,7 @@ class CitationRepair:
 
         return suggestion
 
-    async def _repair_academic_citation(self, link_info: Dict) -> Optional[RepairSuggestion]:
+    async def _repair_academic_citation(self, link_info: dict) -> RepairSuggestion | None:
         """Repair academic citations"""
         link = link_info['link']
         url = link['url']
@@ -324,8 +323,8 @@ class CitationRepair:
 
         return None
 
-    async def _search_arxiv(self, paper_info: Dict, original_url: str,
-                            relevance: Optional[Dict] = None) -> Optional[RepairSuggestion]:
+    async def _search_arxiv(self, paper_info: dict, original_url: str,
+                            relevance: dict | None = None) -> RepairSuggestion | None:
         """Search arXiv for paper"""
         if not paper_info.get('title'):
             return None
@@ -368,8 +367,8 @@ class CitationRepair:
 
         return None
 
-    async def _search_crossref(self, paper_info: Dict, original_url: str,
-                               relevance: Optional[Dict] = None) -> Optional[RepairSuggestion]:
+    async def _search_crossref(self, paper_info: dict, original_url: str,
+                               relevance: dict | None = None) -> RepairSuggestion | None:
         """Search CrossRef for DOI"""
         if not paper_info.get('title'):
             return None
@@ -410,16 +409,16 @@ class CitationRepair:
 
         return None
 
-    async def _search_semantic_scholar(self, paper_info: Dict,
+    async def _search_semantic_scholar(self, paper_info: dict,
                                       original_url: str,
-                                      relevance: Optional[Dict] = None) -> Optional[RepairSuggestion]:
+                                      relevance: dict | None = None) -> RepairSuggestion | None:
         """Search Semantic Scholar"""
         # Simplified - would need API key for production
         return None
 
-    async def _check_doi_resolution(self, paper_info: Dict,
+    async def _check_doi_resolution(self, paper_info: dict,
                                    original_url: str,
-                                   relevance: Optional[Dict] = None) -> Optional[RepairSuggestion]:
+                                   relevance: dict | None = None) -> RepairSuggestion | None:
         """Check if DOI can be resolved"""
         doi = paper_info.get('doi')
         if not doi:
@@ -449,14 +448,14 @@ class CitationRepair:
 
         return None
 
-    async def _find_pmc_version(self, paper_info: Dict,
+    async def _find_pmc_version(self, paper_info: dict,
                                original_url: str,
-                               relevance: Optional[Dict] = None) -> Optional[RepairSuggestion]:
+                               relevance: dict | None = None) -> RepairSuggestion | None:
         """Find PubMed Central open access version"""
         # Simplified - would use PMC API
         return None
 
-    async def _repair_documentation_link(self, link_info: Dict) -> Optional[RepairSuggestion]:
+    async def _repair_documentation_link(self, link_info: dict) -> RepairSuggestion | None:
         """Repair broken documentation links"""
         link = link_info['link']
         url = link['url']
@@ -479,7 +478,7 @@ class CitationRepair:
 
         return None
 
-    async def _repair_with_wayback(self, link_info: Dict) -> Optional[RepairSuggestion]:
+    async def _repair_with_wayback(self, link_info: dict) -> RepairSuggestion | None:
         """Try to find archived version in Wayback Machine"""
         url = link_info['link']['url']
 
@@ -521,7 +520,7 @@ class CitationRepair:
 
         return None
 
-    async def _validate_redirect(self, link_info: Dict) -> Optional[RepairSuggestion]:
+    async def _validate_redirect(self, link_info: dict) -> RepairSuggestion | None:
         """Validate and suggest accepting redirects"""
         validation = link_info.get('validation', {})
         final_url = validation.get('final_url')
@@ -562,7 +561,7 @@ class CitationRepair:
 
         return None
 
-    async def _find_open_access_version(self, link_info: Dict) -> Optional[RepairSuggestion]:
+    async def _find_open_access_version(self, link_info: dict) -> RepairSuggestion | None:
         """Find open access version of paywalled content"""
         # Would use Unpaywall API or similar
         # For now, try arXiv as fallback
@@ -599,7 +598,7 @@ class CitationRepair:
 
         return False
 
-    def _extract_paper_info(self, context: str, url: str) -> Dict:
+    def _extract_paper_info(self, context: str, url: str) -> dict:
         """Extract paper information from context"""
         info = {}
 
@@ -633,7 +632,7 @@ class CitationRepair:
 
         return info
 
-    def save_results(self, repairs: List[RepairSuggestion], output_file: Path):
+    def save_results(self, repairs: list[RepairSuggestion], output_file: Path):
         """Save repair suggestions"""
         data = {
             'repair_date': datetime.now().isoformat(),
@@ -682,13 +681,13 @@ Examples:
 
     try:
         # Load input data
-        with open(args.links, 'r') as f:
+        with open(args.links) as f:
             links_data = json.load(f)
 
-        with open(args.validation, 'r') as f:
+        with open(args.validation) as f:
             validation_data = json.load(f)
 
-        with open(args.relevance, 'r') as f:
+        with open(args.relevance) as f:
             relevance_data = json.load(f)
 
         # Initialize repair tool
@@ -709,7 +708,7 @@ Examples:
         sys.exit(0)
     except FileNotFoundError as e:
         logger.error(f"Error: File not found: {e}")
-        logger.error(f"Expected files: links.json, validation.json, relevance.json")
+        logger.error("Expected files: links.json, validation.json, relevance.json")
         logger.info("Tip: Run link extraction and validation first")
         sys.exit(2)
     except Exception as e:

@@ -96,6 +96,11 @@ jobs:
         run: cd astro-site && pnpm check
       - name: Lint (eslint)
         run: cd astro-site && pnpm lint
+      # 7 unit tests covering src/lib/rehype-sidenotes.mjs — 356 lines of
+      # custom AST manipulation applied to every post. They passed, and no
+      # workflow had ever run them (issue #497). Runs in ~70ms.
+      - name: Unit tests (rehype-sidenotes)
+        run: cd astro-site && pnpm test:unit
 
   # Token-drift check against the installed remarque-tokens package
   # (remarque#47/#48 — consensus-armed now that 2+ sites consume the

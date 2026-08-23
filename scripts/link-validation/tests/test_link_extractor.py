@@ -4,7 +4,6 @@ Guards the trailing-punctuation bug that produced hundreds of false-positive
 404s and broke the link/citation workflows on every run.
 """
 import pytest
-
 from conftest import load_script
 
 le = load_script("link-extractor.py")

@@ -42,15 +42,15 @@ RELATED_SCRIPTS:
 MANIFEST_REGISTRY: scripts/simple-validator.py
 """
 
-import json
-import asyncio
-import aiohttp
-import sys
-from pathlib import Path
-from typing import Dict, List, Optional
-from datetime import datetime
 import argparse
+import asyncio
+import json
+import sys
+from datetime import datetime
+from pathlib import Path
 from urllib.parse import urlparse
+
+import aiohttp
 
 # Setup logging
 sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
@@ -97,8 +97,8 @@ class SimpleValidator:
             'error': 0,
             'needs_manual': 0,
         }
-        self._domain_locks: Dict[str, asyncio.Lock] = {}
-        self._domain_last: Dict[str, float] = {}
+        self._domain_locks: dict[str, asyncio.Lock] = {}
+        self._domain_last: dict[str, float] = {}
 
     async def __aenter__(self):
         timeout = aiohttp.ClientTimeout(total=20)
@@ -144,13 +144,13 @@ class SimpleValidator:
         msg = str(exc).lower()
         return 'name or service not known' in msg or 'nodename nor servname' in msg
 
-    def _record(self, result: Dict, status: str, issue_type: Optional[str] = None):
+    def _record(self, result: dict, status: str, issue_type: str | None = None):
         result['status'] = status
         result['issue_type'] = issue_type
         self.stats[status] = self.stats.get(status, 0) + 1
         return result
 
-    async def validate_url(self, url: str) -> Dict:
+    async def validate_url(self, url: str) -> dict:
         """Validate a single URL.
 
         HEAD first (cheap); on any non-final code, retry with a ranged GET using
@@ -183,7 +183,7 @@ class SimpleValidator:
             status, issue_type = self.classify_status(code)
             self._record(result, status, issue_type)
 
-        except asyncio.TimeoutError:
+        except TimeoutError:
             self._record(result, 'timeout', 'timeout')
             result['notes'] = 'Request timed out'
         except aiohttp.ClientError as e:
@@ -207,7 +207,7 @@ class SimpleValidator:
                 url, allow_redirects=True, headers={'Range': 'bytes=0-0'}
             ) as gr:
                 return gr.status, str(gr.url)
-        except (aiohttp.ClientError, asyncio.TimeoutError):
+        except (TimeoutError, aiohttp.ClientError):
             return code, final_url
 
     async def _retry_after(self, url, domain, code, final_url):
@@ -219,10 +219,10 @@ class SimpleValidator:
                 url, allow_redirects=True, headers={'Range': 'bytes=0-0'}
             ) as gr:
                 return gr.status, str(gr.url)
-        except (aiohttp.ClientError, asyncio.TimeoutError):
+        except (TimeoutError, aiohttp.ClientError):
             return code, final_url
 
-    async def validate_batch(self, urls: List[str], batch_size: int = 10, quiet: bool = False) -> List[Dict]:
+    async def validate_batch(self, urls: list[str], batch_size: int = 10, quiet: bool = False) -> list[dict]:
         """Validate URLs in batches"""
         results = []
         unique_urls = list(set(urls))
@@ -240,11 +240,11 @@ class SimpleValidator:
         self.results = results
         return results
 
-    def get_broken_links(self) -> List[Dict]:
+    def get_broken_links(self) -> list[dict]:
         """Get all broken links"""
         return [r for r in self.results if r['status'] == 'broken']
 
-    def get_redirects(self) -> List[Dict]:
+    def get_redirects(self) -> list[dict]:
         """Get all redirected links"""
         return [r for r in self.results if r['status'] == 'redirect']
 
@@ -260,7 +260,7 @@ class SimpleValidator:
             json.dump(data, f, indent=2)
 
         if not quiet:
-            logger.info(f"\n✅ Validation complete!")
+            logger.info("\n✅ Validation complete!")
             logger.info(f"  Total: {self.stats['total']}")
             logger.info(f"  Valid: {self.stats['valid']}")
             logger.info(f"  Broken: {self.stats['broken']}")
@@ -293,11 +293,11 @@ Examples:
     if not args.links.exists():
         logger.error(f"Error: File not found: {args.links}")
         logger.error(f"Expected: {args.links.absolute()}")
-        logger.error(f"Tip: Run from repository root or provide absolute path")
+        logger.error("Tip: Run from repository root or provide absolute path")
         sys.exit(2)
 
     # Load links
-    with open(args.links, 'r') as f:
+    with open(args.links) as f:
         links_data = json.load(f)
 
     urls = [link['url'] for link in links_data.get('links', [])]

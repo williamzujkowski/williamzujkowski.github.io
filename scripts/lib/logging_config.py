@@ -19,8 +19,6 @@ Usage:
 import logging
 import sys
 from pathlib import Path
-from datetime import datetime
-from typing import Optional
 
 
 class ColoredFormatter(logging.Formatter):
@@ -46,7 +44,7 @@ class ColoredFormatter(logging.Formatter):
 def setup_logger(
     name: str,
     level: int = logging.INFO,
-    log_file: Optional[Path] = None,
+    log_file: Path | None = None,
     quiet: bool = False
 ) -> logging.Logger:
     """

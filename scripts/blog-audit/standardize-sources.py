@@ -8,7 +8,6 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-
 POST_DIR = Path("src/posts")
 STANDARD_HEADING = "## Sources"
 

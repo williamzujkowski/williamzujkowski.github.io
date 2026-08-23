@@ -17,7 +17,6 @@ publisher, not a dead citation, and classifying it as broken feeds live sources
 into the auto-repair queue.
 """
 import pytest
-
 from conftest import load_script
 
 lv = load_script("link-validator.py")

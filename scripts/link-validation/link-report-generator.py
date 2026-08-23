@@ -42,14 +42,13 @@ RELATED_SCRIPTS:
 MANIFEST_REGISTRY: scripts/link-report-generator.py
 """
 
-import json
-import csv
 import argparse
+import csv
+import json
 import sys
-from pathlib import Path
-from typing import Dict, List
-from datetime import datetime
 from collections import defaultdict
+from datetime import datetime
+from pathlib import Path
 
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
@@ -63,8 +62,8 @@ class ReportGenerator:
     def __init__(self):
         self.stats = defaultdict(int)
 
-    def generate_all_reports(self, links_data: Dict, validation_data: Dict,
-                           relevance_data: Dict, repairs_data: Dict,
+    def generate_all_reports(self, links_data: dict, validation_data: dict,
+                           relevance_data: dict, repairs_data: dict,
                            output_dir: Path):
         """Generate all report formats"""
         output_dir.mkdir(parents=True, exist_ok=True)
@@ -90,8 +89,8 @@ class ReportGenerator:
             output_dir / 'action_plan.md'
         )
 
-    def generate_summary_report(self, links_data: Dict, validation_data: Dict,
-                               relevance_data: Dict, repairs_data: Dict,
+    def generate_summary_report(self, links_data: dict, validation_data: dict,
+                               relevance_data: dict, repairs_data: dict,
                                output_file: Path):
         """Generate markdown summary report"""
         # Calculate statistics
@@ -144,8 +143,8 @@ class ReportGenerator:
 
         logger.info(f"Summary report saved to {output_file}")
 
-    def generate_detailed_csv(self, links_data: Dict, validation_data: Dict,
-                             relevance_data: Dict, repairs_data: Dict,
+    def generate_detailed_csv(self, links_data: dict, validation_data: dict,
+                             relevance_data: dict, repairs_data: dict,
                              output_file: Path):
         """Generate detailed CSV report"""
         # Map results by URL
@@ -187,8 +186,8 @@ class ReportGenerator:
 
         logger.info(f"Detailed CSV saved to {output_file}")
 
-    def generate_manual_review_queue(self, links_data: Dict, validation_data: Dict,
-                                    relevance_data: Dict, repairs_data: Dict,
+    def generate_manual_review_queue(self, links_data: dict, validation_data: dict,
+                                    relevance_data: dict, repairs_data: dict,
                                     output_file: Path):
         """Generate manual review queue"""
         # Map results
@@ -263,12 +262,10 @@ class ReportGenerator:
 
         logger.info(f"Manual review queue saved to {output_file}")
 
-    def generate_action_plan(self, links_data: Dict, validation_data: Dict,
-                            relevance_data: Dict, repairs_data: Dict,
+    def generate_action_plan(self, links_data: dict, validation_data: dict,
+                            relevance_data: dict, repairs_data: dict,
                             output_file: Path):
         """Generate action plan for fixes"""
-        repairs_map = {r['original_url']: r for r in repairs_data.get('repairs', [])}
-
         # Group repairs by confidence
         high_confidence = []
         medium_confidence = []
@@ -326,8 +323,8 @@ class ReportGenerator:
 
         logger.info(f"Action plan saved to {output_file}")
 
-    def _calculate_statistics(self, links_data: Dict, validation_data: Dict,
-                             relevance_data: Dict, repairs_data: Dict) -> Dict:
+    def _calculate_statistics(self, links_data: dict, validation_data: dict,
+                             relevance_data: dict, repairs_data: dict) -> dict:
         """Calculate comprehensive statistics"""
         stats = {
             'total_links': len(links_data.get('links', [])),
@@ -429,16 +426,16 @@ Examples:
 
     try:
         # Load all data
-        with open(args.links, 'r') as f:
+        with open(args.links) as f:
             links_data = json.load(f)
 
-        with open(args.validation, 'r') as f:
+        with open(args.validation) as f:
             validation_data = json.load(f)
 
-        with open(args.relevance, 'r') as f:
+        with open(args.relevance) as f:
             relevance_data = json.load(f)
 
-        with open(args.repairs, 'r') as f:
+        with open(args.repairs) as f:
             repairs_data = json.load(f)
 
         # Generate reports
@@ -451,7 +448,7 @@ Examples:
         sys.exit(0)
     except FileNotFoundError as e:
         print(f"Error: File not found: {e}", file=sys.stderr)
-        print(f"Expected files: links.json, validation.json, relevance.json, repairs.json", file=sys.stderr)
+        print("Expected files: links.json, validation.json, relevance.json, repairs.json", file=sys.stderr)
         print("Tip: Run link extraction, validation, and repair first", file=sys.stderr)
         sys.exit(2)
     except Exception as e:
