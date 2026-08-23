@@ -9,6 +9,11 @@ on:
   release:
     types: [published]
 
+# Least privilege. Attaching a release asset writes to the repository.
+permissions:
+  contents: write
+  id-token: write   # OIDC federation for the AWS step below
+
 jobs:
   sbom:
     runs-on: ubuntu-latest
@@ -26,17 +31,25 @@ jobs:
       - name: Scan SBOM
         run: grype sbom:./sbom.cyclonedx.json -o sarif > grype-sbom.sarif
 
+      # actions/upload-release-asset was ARCHIVED by GitHub in March 2021 and
+      # is read-only; it should not be used in new workflows. `gh release
+      # upload` is the maintained path and needs no action at all.
       - name: Upload SBOM to release
-        uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "${{ github.event.release.tag_name }}" sbom.cyclonedx.json --clobber
+
+      # Requires credentials. `aws s3 cp` will fail without them, and the
+      # OIDC route below is preferable to a long-lived access key: it needs
+      # `id-token: write` added to the permissions block above and a role
+      # trusting this repository.
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./sbom.cyclonedx.json
-          asset_name: sbom.cyclonedx.json
-          asset_content_type: application/json
+          role-to-assume: arn:aws:iam::<account-id>:role/<sbom-upload-role>
+          aws-region: <region>
 
       - name: Store SBOM for future comparison
         run: |
           aws s3 cp sbom.cyclonedx.json \
-            s3://mybucket/sboms/${{ github.repository }}/${{ github.ref_name }}.json
+            s3://<your-bucket>/sboms/${{ github.repository }}/${{ github.ref_name }}.json

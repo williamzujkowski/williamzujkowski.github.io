@@ -9,6 +9,11 @@ on:
   schedule:
     - cron: '0 6 * * *'  # Daily at 6 AM UTC
 
+# Least privilege. This job only reads the repo and reports; it performs no
+# writes, so the default token is narrowed rather than widened.
+permissions:
+  contents: read
+
 jobs:
   scan-production:
     runs-on: ubuntu-latest
