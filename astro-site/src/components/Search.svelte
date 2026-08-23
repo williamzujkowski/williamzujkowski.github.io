@@ -356,7 +356,7 @@
   .search-esc {
     display: none;
     /* font-family: mono — shared machine-voice rule in global.css (#274) */
-    font-size: var(--text-micro, 0.75rem);
+    font-size: var(--text-micro);
     padding: 0.125rem 0.375rem;
     border: 1px solid var(--color-border);
     border-radius: 0.25rem;

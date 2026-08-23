@@ -24,11 +24,14 @@ for (const page of pages) {
 test('404 page renders correctly', async ({ page }) => {
   // 404.html exists at /404.html in the built output.
   // Astro preview server may not serve it at /404/ — test the direct path.
+  // No `if (response?.status() === 200)` guard: wrapping the body in one made
+  // this test pass when 404.html was missing from the build entirely, which is
+  // precisely the regression it exists to catch. The preview server does serve
+  // /404.html directly, so assert unconditionally.
   const response = await page.goto('/404.html');
-  if (response?.status() === 200) {
-    await expect(page.locator('text=Page not found')).toBeVisible();
-    await expect(page.locator('text=Recent Posts')).toBeVisible();
-  }
+  expect(response?.status()).toBe(200);
+  await expect(page.locator('text=Page not found')).toBeVisible();
+  await expect(page.locator('text=Recent Posts')).toBeVisible();
   // On live GitHub Pages, 404.html is served for missing routes automatically
 });
 
@@ -36,13 +39,27 @@ test('dark mode toggle switches theme', async ({ page }) => {
   await page.goto('/');
   const html = page.locator('html');
 
+  // The root element always carries `class="scroll-smooth"`, so the old
+  // `expect(classAfter).toBeTruthy()` was satisfied before the toggle was
+  // even clicked — removing ThemeToggle.astro's click listener outright
+  // still passed. Assert the *theme* class specifically, and that it moved.
+  const classBefore = (await html.getAttribute('class')) ?? '';
+  expect(classBefore, 'a fresh load must not already be pinned dark').not.toMatch(/\bdark\b/);
+
   // Click dark mode toggle (aria-label is "Switch to dark/light theme")
   const toggle = page.locator('button[aria-label*="theme"]');
   await toggle.first().click();
 
-  // Verify theme class changed
-  const classAfter = await html.getAttribute('class');
-  expect(classAfter).toBeTruthy();
+  await expect(html).toHaveClass(/\bdark\b/);
+  expect(await html.getAttribute('class'), 'theme class must change on click').not.toBe(
+    classBefore
+  );
+
+  // Round-trip: a second click must go back to light, so a toggle that only
+  // ever adds `dark` fails here rather than passing the first assertion.
+  await toggle.first().click();
+  await expect(html).toHaveClass(/\blight\b/);
+  await expect(html).not.toHaveClass(/\bdark\b/);
 });
 
 test('search dialog opens and closes', async ({ page }) => {
@@ -53,10 +70,19 @@ test('search dialog opens and closes', async ({ page }) => {
   await searchButton.first().click();
 
   // Dialog should be visible
-  await expect(page.locator('[role="dialog"], dialog').first()).toBeVisible();
+  const dialog = page.locator('[role="dialog"], dialog');
+  await expect(dialog.first()).toBeVisible();
+  // Search.svelte focuses the input on a 50ms timer after mount. Waiting for
+  // that settles the open before the Escape below, and is itself the modal's
+  // focus-management contract.
+  await expect(dialog.locator('input').first()).toBeFocused();
 
-  // Close with Escape
+  // Close with Escape. The test is named "opens AND closes" but used to end
+  // on the keypress with nothing asserted after it, so a broken/absent
+  // Escape handler passed. Search.svelte's `{#if isOpen}` unmounts the
+  // overlay, so a real close means the node is gone.
   await page.keyboard.press('Escape');
+  await expect(dialog).toHaveCount(0);
 });
 
 test('primary nav is visible on small viewport', async ({ page }) => {
