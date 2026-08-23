@@ -5,6 +5,7 @@ on:
     branches: [main]
   push:
     branches: [main]
+  workflow_dispatch:   # re-run on demand without an empty commit
 
 permissions:
   contents: read
@@ -54,6 +55,8 @@ jobs:
           node-version: '22'
           cache: 'pnpm'
           cache-dependency-path: astro-site/pnpm-lock.yaml
+      - name: Install UV (for the internal-link check)
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9  # v9.0.0
       - name: Install deps
         run: cd astro-site && pnpm install --frozen-lockfile
       - name: Install Playwright chromium
@@ -74,6 +77,14 @@ jobs:
       # Those are fixed; this is a gate now. It is the only check in the repo
       # that measures real composited pixels rather than token values, so it
       # catches what the generator's contrast solver structurally cannot.
+      # Internal links resolve against files on disk, so they are checked
+      # there rather than over HTTP (issue #502). link-monitor.yml could never
+      # catch these: aiohttp raises InvalidURL on a relative path, which is
+      # recorded as `needs_manual`, and the gate only counts `broken`.
+      # Deterministic and offline, so unlike the network check it can block.
+      - name: Internal link + anchor check (blocking)
+        run: uv run python scripts/link-validation/internal-link-check.py
+
       - name: Grain composited-contrast audit (real screenshot pixel sample — blocking)
         run: cd astro-site && pnpm audit:grain
       - name: Upload report on failure
