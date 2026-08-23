@@ -1,7 +1,7 @@
 # Agent Instructions
 
 **Status:** Authoritative
-**Last Updated:** 2026-07-29
+**Last Updated:** 2026-08-23
 **Project:** Personal website and technical blog (Astro 7 + Svelte 5 + hand-written CSS / Remarque design tokens)
 
 This file is the canonical guidance for AI coding agents working in this repo (Claude Code, Codex, Cursor, Aider, etc.). Harness-specific entry points (e.g. `CLAUDE.md`) import this file — edit here, not there.
@@ -40,11 +40,19 @@ pnpm check           # Astro type checking
 │   ├── public/                # Static assets
 │   ├── astro.config.mjs       # Astro configuration
 │   └── package.json           # Node.js dependencies (pnpm)
-├── scripts/                   # Python tooling
-│   ├── lib/logging_config.py  # Shared logging module
+├── gists/                     # Mirror of the published example gists
+│   └── gist-mapping.json      # file -> gist URL; the gists are canonical
+├── scripts/                   # Python tooling (see "Python Scripts" below)
+│   ├── lib/                   # Shared: logging_config, link_gatekeepers
 │   ├── link-validation/       # Citation and link health checking (7 scripts)
-│   └── blog-audit/            # Blog audit helpers
-├── docs/                      # Research and link validation docs
+│   ├── compliance/            # NDA + citation-coverage check (advisory)
+│   ├── blog-audit/            # Author-time audit helpers
+│   ├── corpus-audit/          # One-shot corpus analyses
+│   ├── theme-deck/            # Theme-deck token generator
+│   ├── zine-art/              # Doodle masking
+│   └── gist-drift-check.py    # gists/ vs published gists
+├── tests/unit/                # node:test suites (run by audits.yml)
+├── docs/                      # Operational docs + historical research
 ├── .github/workflows/         # CI/CD (7 workflows)
 └── nexus-agents.yaml          # AI agent orchestration config
 ```
@@ -137,14 +145,17 @@ The old rule was right about precision and wrong to strip out the personality. K
 | Directory | Purpose |
 |-----------|---------|
 | `astro-site/src/` | Website source code |
-| `scripts/link-validation/` | Link validation Python scripts |
+| `scripts/<family>/` | Python tooling — see the Python Scripts section |
 | `tests/` | Test files |
 | `docs/` | Documentation |
 
 ### Content Standards
 
 - Blog posts require frontmatter: title, date, description, tags
-- Citations required for technical claims (target 90%+ coverage)
+- Citations required for technical claims (target 90%+ coverage; the
+  advisory check in `scripts/compliance/content_check.py` warns below the
+  same 90% — it used to say 70%, which contradicted this line. Actual
+  coverage is 95.7%, counting only external, non-badge links.)
 - Social images are generated per post at build time (`/og/<slug>.png`) — no hero-image frontmatter
 - **Visuals:** follow `docs/content-visuals.md` — `.flow` for processes, `.arch` for layers/zones, Markdown tables for matrices, split dense diagrams; Mermaid is legacy for genuine node graphs. Zine doodles must carry the idea visually (a specific metaphor), never a stamped label. All authored visuals use `var(--color-*)` tokens (never hardcoded colors), stay ≥0.8125rem, and reflow on mobile.
 - SEO: canonical URLs, Open Graph, Twitter Cards, structured data
@@ -155,9 +166,11 @@ The old rule was right about precision and wrong to strip out the personality. K
 
 Four layers, each owning a distinct concern. When adding a new check,
 pick the layer that matches the latency, cost, and feedback profile.
-The Layer-1 skills are author-local tooling in `~/.claude/skills/blog-*/`
-(surfaced into the repo via `.claude/skills/` symlinks, which are gitignored
-— they're interactive author-time skills, not part of the published site or CI).
+The Layer-1 skills are author-local tooling in `~/.claude/skills/blog-*/`.
+They are invoked by name from a session; there is no in-repo copy or symlink
+(an earlier version of this file claimed `.claude/skills/` symlinks — that
+directory does not exist). They are interactive author-time tools, not part
+of the published site or CI.
 
 ```
 ┌─ 1. Pre-publish (interactive, author-invoked via Skill tool) ─────┐
@@ -195,7 +208,7 @@ The Layer-1 skills are author-local tooling in `~/.claude/skills/blog-*/`
 │                            citation coverage %, NDA pattern grep, │
 │                            Trivy + Gitleaks + pip-audit           │
 │   tests.yml              → pytest for scripts/link-validation     │
-│                            (only on scripts/** changes)           │
+│                            + ruff. Job-level gated on scripts/**  │
 └───────────────────────────────────────────────────────────────────┘
                             │
                             ▼
@@ -203,7 +216,8 @@ The Layer-1 skills are author-local tooling in `~/.claude/skills/blog-*/`
 │   link-monitor.yml       → daily 03:00 UTC + on PR to             │
 │                            src/posts/**: external link health,    │
 │                            via scripts/link-validation/ pipeline. │
-│                            Auto-PRs high-confidence repairs.      │
+│                            Detection + reporting only: the repair │
+│                            job was removed in #495.               │
 │   citation-validation.yml → weekly Mon 09:00 UTC: deeper          │
 │                            citation link audit; opens tracking    │
 │                            issue on broken citations.             │
@@ -250,17 +264,34 @@ The Layer-1 skills are author-local tooling in `~/.claude/skills/blog-*/`
 | `audits.yml` (Remarque) | push/PR | Design tokens, contrast, typography floor |
 | `a11y.yml` (axe-playwright) | push/PR | Accessibility test suite |
 | `compliance-monitor.yml` | push/PR/daily | Lighthouse, HTML validation, citation coverage, NDA pattern grep, Trivy/Gitleaks/pip-audit |
-| `link-monitor.yml` | daily/dispatch + PR on `src/posts/**` | External link health via Python pipeline; auto-PRs repairs |
+| `link-monitor.yml` | daily/dispatch + PR on `src/posts/**` | External link health via Python pipeline. Detection and reporting only — the auto-repair job was removed in #495 after running for months without ever opening a PR, while carrying three reproduced markdown-corruption modes. |
 | `citation-validation.yml` | weekly/dispatch | Deeper weekly citation audit; opens tracking issue |
-| `tests.yml` | push/PR on `scripts/**`, dispatch | Python pytest gate for the link-validation pipeline |
+| `tests.yml` | push/PR to main, dispatch | pytest + `ruff check scripts/`. Job-level path gating (not `on: paths:`), so the required `pytest` check always reports instead of wedging a PR as "expected". |
 
 ---
 
-## Python Scripts (Link Validation Only)
+## Python Scripts
 
-All Python scripts are in `scripts/link-validation/` with shared logging from `scripts/lib/logging_config.py`.
+Four families under `scripts/`, sharing helpers from `scripts/lib/`
+(`logging_config.py`, `link_gatekeepers.py`):
 
-Dependencies managed via `pyproject.toml` (3 deps: aiohttp, certifi, tqdm). Install with `uv sync`.
+| directory | what it is | runs in CI? |
+|-----------|------------|-------------|
+| `link-validation/` | 7 scripts + pytest suite — the link/citation pipeline | yes (`link-monitor.yml`, `citation-validation.yml`, `tests.yml`) |
+| `compliance/` | `content_check.py` — NDA patterns + citation coverage | yes (`compliance-monitor.yml`, advisory) |
+| `blog-audit/` | `batch.py`, `pages.py` — author-time audit helpers | no |
+| `corpus-audit/` | `grim_check.py`, `provenance.py` — one-shot analyses; hardcode `/tmp/grim/` paths | no |
+| `theme-deck/` | `generate.py` — regenerates `theme-deck.css`/`.json`; needs an external themes repo | no |
+| `zine-art/` | `ink-mask.py` — doodle masking; needs Pillow | no |
+| `gist-drift-check.py` | compares `gists/` against the published gists | no (run before touching `gists/`) |
+
+Runtime dependencies are declared in `pyproject.toml` (aiohttp, certifi,
+tqdm); `ruff` and `pytest` are the dev extras. Install with `uv sync`.
+Two tools need packages that are NOT declared, because they never run in CI —
+invoke them with `uv run --with playwright` (`link-validator.py`'s browser
+escalation) and `uv run --with pillow` (`ink-mask.py`).
+
+`ruff check scripts/` runs in `tests.yml` and is a ratchet at zero.
 
 ---
 

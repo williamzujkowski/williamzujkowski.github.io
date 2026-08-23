@@ -1,3 +1,15 @@
+> **SUPERSEDED — historical record, do not follow.**
+>
+> Written for the Eleventy build this site no longer uses, and its post
+> template prescribes a `## Conclusion` with a **Key Takeaways** three-bullet
+> list and a call to action — exactly what AGENTS.md bans and what
+> `blog-llm-tells` scrubs. **Following this document will fail the Layer-1
+> gate.** Kept only as a record of what was considered.
+>
+> Nothing in the repository references this file. Last substantive
+> change: 2026-07-29. Banner added 2026-08-23 (issue #504) because a git
+> date makes a stale plan look maintained.
+
 # Technical Blog Optimization Research Report
 
 **Generated:** 2025-11-04

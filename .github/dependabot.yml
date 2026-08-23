@@ -1,6 +1,6 @@
 version: 2
 updates:
-  # astro-site/ — npm/pnpm (Astro 6 + Svelte 5 website)
+  # astro-site/ — npm/pnpm (Astro 7 + Svelte 5 website)
   - package-ecosystem: "npm"
     directory: "/astro-site"
     schedule:

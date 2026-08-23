@@ -1,3 +1,12 @@
+> **SUPERSEDED — historical record, do not follow.**
+>
+> The plan it supports is complete. Contains self-admitted placeholder arXiv
+> IDs — do not cite from this file.
+>
+> Nothing in the repository references this file. Last substantive
+> change: 2025-11-17. Banner added 2026-08-23 (issue #504) because a git
+> date makes a stale plan look maintained.
+
 # arXiv Research: Kubernetes Post Replacement Candidates
 
 **Research Date:** 2025-11-17
