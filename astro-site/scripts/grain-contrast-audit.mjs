@@ -72,6 +72,7 @@
  *           bottom rule replaces the masthead's functional border)
  */
 import { createServer } from 'node:http';
+import { oklchToSrgb255, relLum255, contrastFromLum, TRANSFER_FN_SOURCE } from './lib/color.mjs';
 import { readFile, stat } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { extname, join, dirname, resolve } from 'node:path';
@@ -89,41 +90,7 @@ const PORT = 4319;
 // RANK deck themes by base fg/bg contrast so we can auto-pick the worst
 // light/dark deck theme to test — the actual per-theme measurement below
 // uses getComputedStyle (the browser's own OKLCH engine), not this.
-function oklchToSrgb255(L, C, h) {
-  const r = (h * Math.PI) / 180;
-  const a = C * Math.cos(r);
-  const b = C * Math.sin(r);
-  const l_ = L + 0.3963377774 * a + 0.2158037573 * b;
-  const m_ = L - 0.1055613458 * a - 0.0638541728 * b;
-  const s_ = L - 0.0894841775 * a - 1.291485548 * b;
-  const lCube = l_ ** 3;
-  const mCube = m_ ** 3;
-  const sCube = s_ ** 3;
-  const lin = [
-    4.0767416621 * lCube - 3.3077115913 * mCube + 0.2309699292 * sCube,
-    -1.2684380046 * lCube + 2.6097574011 * mCube - 0.3413193965 * sCube,
-    -0.0041960863 * lCube - 0.7034186147 * mCube + 1.707614701 * sCube,
-  ];
-  return lin.map((v) => {
-    const clipped = Math.max(0, Math.min(1, v));
-    const gamma = clipped <= 0.0031308 ? 12.92 * clipped : 1.055 * clipped ** (1 / 2.4) - 0.055;
-    return Math.round(Math.max(0, Math.min(1, gamma)) * 255);
-  });
-}
 
-function relLum255([r, g, b]) {
-  const lin = [r, g, b].map((v) => {
-    v /= 255;
-    return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
-  });
-  return 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2];
-}
-
-function contrastFromLum(l1, l2) {
-  const hi = Math.max(l1, l2);
-  const lo = Math.min(l1, l2);
-  return (hi + 0.05) / (lo + 0.05);
-}
 
 function parseOklch(str) {
   const m = str.match(/oklch\(([\d.]+)\s+([\d.]+)\s+([\d.]+)\)/);
@@ -293,6 +260,10 @@ async function samplePixelStats(page, pngBuffer, rects) {
       canvas.height = img.naturalHeight;
       const ctx = canvas.getContext('2d', { willReadFrequently: true });
       ctx.drawImage(img, 0, 0);
+      // Duplicated on purpose: this runs inside page.evaluate, where the
+      // module scope is not available. It is pinned to lib/color.mjs's
+      // TRANSFER_FN_SOURCE by tests/unit/color-drift.test.mjs, which fails
+      // if the two ever disagree numerically (issue #506).
       function relLum(r, g, b) {
         const lin = [r, g, b].map((v) => {
           v /= 255;

@@ -1,5 +1,6 @@
 ---
 import { getReadingTime } from '@/lib/utils';
+import { humanTag } from '@/lib/utils';
 
 interface Props {
   post: {
@@ -18,8 +19,6 @@ interface Props {
 
 const { post, number, variant = 'entry' } = Astro.props;
 
-const humanTag = (t: string) =>
-  t.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 
 const tag = (post.data.tags ?? []).find((t) => t !== 'posts') ?? 'Essay';
 const section = humanTag(tag);

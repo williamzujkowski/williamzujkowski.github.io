@@ -166,11 +166,26 @@ function isActiveLink(linkHref: string): boolean {
 
     <!-- Preconnect to external image hosts for faster LCP -->
 
-    <!-- Self-hosted fonts (Astro 6 Fonts API — see astro.config.mjs).
-         Preload the body + display fonts used above the fold; mono is
-         only preloaded where code blocks are likely visible immediately. -->
+    <!-- Self-hosted fonts (Astro Fonts API — see astro.config.mjs).
+         Only the display face is preloaded; see the note below. -->
+    {/* Only the display face is preloaded (issue #506, decided by consensus
+        vote). <Font preload> preloads EVERY face in the family, so preloading
+        both put 624,264 bytes on the critical path of all 210 pages — 100,980
+        of it the Greek subset that 8 posts need.
+
+        Fraunces is the masthead nameplate: above the fold on every page and
+        the element the design actually rests on, so a swap there is visible.
+        Source Serif 4 is body text, and Astro inlines metric-matched fallback
+        @font-face blocks (size-adjust / ascent-override / descent-override)
+        with font-display: swap, which is exactly the case metric matching
+        exists for.
+
+        This also retires the Greek problem without a second CSS variable: the
+        non-preloaded faces keep their unicode-range descriptors, so the
+        browser fetches the Greek subset only on pages whose text contains
+        Greek glyphs. */}
     <Font cssVariable="--font-display" preload />
-    <Font cssVariable="--font-body" preload />
+    <Font cssVariable="--font-body" />
     <Font cssVariable="--font-mono" />
     <Font cssVariable="--font-accent" /><!-- zine accent voice; deliberately not preloaded -->
 

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import { SITE_CONFIG } from '@/lib/siteConfig';
+import { humanTag } from '@/lib/utils';
 import TableOfContents from '@components/TableOfContents.astro';
 import RelatedPosts from '@components/RelatedPosts.astro';
 import SeriesNav from '@components/SeriesNav.astro';
@@ -20,12 +21,12 @@ interface Props {
   readingTime?: number;
   wordCount?: number;
   headings?: Heading[];
-  slug?: string;
+  currentId?: string;
   series?: string;
   postId?: string;
 }
 
-const { title, description, date, tags = [], ogImage, readingTime, wordCount, headings = [], slug = '', series, postId } = Astro.props;
+const { title, description, date, tags = [], ogImage, readingTime, wordCount, headings = [], currentId = '', series, postId } = Astro.props;
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? SITE_CONFIG.siteUrl;
 
 const formattedDate = date.toLocaleDateString('en-US', {
@@ -35,8 +36,6 @@ const formattedDate = date.toLocaleDateString('en-US', {
   timeZone: 'UTC', // dates are UTC-midnight; format in UTC so text matches <time datetime>
 });
 
-const humanTag = (t: string) =>
-  t.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 const primaryTag = tags.find((t) => t !== 'posts');
 const section = primaryTag ? humanTag(primaryTag) : 'Essay';
 ---
@@ -132,6 +131,6 @@ const section = primaryTag ? humanTag(primaryTag) : 'Essay';
         </footer>
 
     <!-- Related Posts -->
-    <RelatedPosts currentSlug={slug} tags={tags} />
+    <RelatedPosts currentId={currentId} tags={tags} />
   </article>
 </BaseLayout>

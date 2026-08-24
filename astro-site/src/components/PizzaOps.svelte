@@ -174,7 +174,7 @@
   ];
 </script>
 
-<div class="pizzaops" class:is-lonely={consumers <= 0}>
+<div class="pizzaops">
   <!-- Title bar -->
   <div class="po-titlebar">
     <div class="po-lights" aria-hidden="true">
