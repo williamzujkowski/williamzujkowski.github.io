@@ -36,9 +36,6 @@ jobs:
       - name: Install dependencies
         run: cd astro-site && pnpm install --frozen-lockfile
 
-      - name: Install Playwright Chromium
-        run: cd astro-site && pnpm exec playwright install --with-deps chromium
-
       - name: Cache Astro font downloads (issue #408 — avoid transient jsdelivr fetch)
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6.1.0
         with:

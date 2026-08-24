@@ -21,7 +21,43 @@ permissions:
   contents: read
 
 jobs:
+  # Path gating for compliance-check only. security-scan stays ungated on
+  # purpose: gitleaks scans the whole history for secrets, and "this PR only
+  # touched docs" is not a reason to skip that.
+  #
+  # Job-level rather than `on: paths:`, for the same reason as the other
+  # workflows: a trigger-filtered workflow never reports at all on a
+  # non-matching PR, and a skipped job still reports. Neither of this
+  # workflow's checks is required today, but making them required later
+  # should not require restructuring first.
+  changes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      content: ${{ steps.diff.outputs.content }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+        with:
+          fetch-depth: 0
+      - id: diff
+        env:
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          if [ "${{ github.event_name }}" != "pull_request" ] && \
+             [ "${{ github.event_name }}" != "push" ]; then
+            echo "content=true" >> "$GITHUB_OUTPUT"   # schedule/dispatch: run it
+          elif [ -z "$BASE" ] || ! git cat-file -e "$BASE" 2>/dev/null; then
+            echo "content=true" >> "$GITHUB_OUTPUT"   # can't diff: run everything
+          elif git diff --name-only "$BASE"...HEAD \
+               | grep -qE '^(astro-site/|src/|scripts/compliance/)'; then
+            echo "content=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "content=false" >> "$GITHUB_OUTPUT"
+          fi
+
   compliance-check:
+    needs: changes
+    if: needs.changes.outputs.content == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
