@@ -267,6 +267,44 @@ of the published site or CI.
 | Citation coverage % | Layer 3 (`compliance-monitor.yml`) | Per-commit metric, advisory |
 | Security scans (Trivy, Gitleaks, pip-audit) | Layer 3 (`compliance-monitor.yml`) | Per-commit |
 
+### Deploy does not wait for the gates — deliberately
+
+`deploy.yml` has no `needs:` on the audit workflows. Measured on one push to
+main: the site went live 18s before the a11y suite finished and 3m44s before
+token-drift started. **This is a decision, not an oversight** (issue #501,
+settled by consensus vote 6-0). Do not re-file it.
+
+Why it is acceptable: branch protection requires `remarque`, `axe`,
+`check-lint` and `pytest` with `strict: true`, so a PR cannot merge until
+those pass on an up-to-date branch. Pushes to main therefore only ever carry
+code those checks already approved — the re-runs on main are confirmation,
+not gating. The scenario #501 described (a broken commit ships) is closed.
+
+Three residual risks remain, named here so they are not rediscovered:
+
+1. **Semantic conflict between two independently-green PRs** merged close
+   together. No PR-time check could have caught it, and no ordering change on
+   main would either.
+2. **`compliance-check` and `token-drift` are not required**, so they can
+   only ever report after the fact. That is by design: the NDA grep is
+   advisory because several of its patterns appear in legitimate prose, and
+   making the job required would red every content PR.
+3. **`enforce_admins` is `false`**, so a direct push to main bypasses all of
+   the above. Deliberate.
+
+Why not fix it: GitHub Actions cannot express a cross-workflow `needs:`. Every
+implementation is `workflow_run` chaining, a polling job, or merging the
+workflows into one — each slower, each harder to read, all to close an
+18-second window on a static site with no runtime backend, where the worst
+outcome is a visual or content defect and rollback is a revert plus an ~80s
+redeploy.
+
+Two alternatives were considered and rejected as worse than the problem:
+making the two advisory checks required (reds every content PR), and
+auto-revert-on-red (wires destructive git automation to advisory signals, on
+a repo with a documented transient font-CDN build flake — it would eventually
+revert good content because a CDN hiccuped).
+
 ### Anti-patterns to avoid
 
 - **Don't add a check in Layer 1 that already exists in Layer 3.** Voice
