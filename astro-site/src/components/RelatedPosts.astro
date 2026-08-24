@@ -3,14 +3,15 @@ import { getCollection } from 'astro:content';
 import { getReadingTime } from '@/lib/utils';
 
 interface Props {
-  currentSlug: string;
+  /** The post's collection id — NOT a slug. Compared against p.id below. */
+  currentId: string;
   tags: string[];
 }
 
-const { currentSlug, tags } = Astro.props;
+const { currentId, tags } = Astro.props;
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
-const otherPosts = allPosts.filter((p) => p.id !== currentSlug);
+const otherPosts = allPosts.filter((p) => p.id !== currentId);
 
 const currentTags = new Set(tags.filter((t) => t !== 'posts'));
 

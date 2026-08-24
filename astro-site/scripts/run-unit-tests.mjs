@@ -19,7 +19,7 @@
  */
 import { spawnSync } from 'node:child_process';
 
-const MIN_TESTS = 10;
+const MIN_TESTS = 13;
 const GLOB = '../tests/unit/**/*.test.mjs';
 
 const result = spawnSync(process.execPath, ['--test', GLOB], {
