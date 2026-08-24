@@ -21,6 +21,28 @@ pnpm preview         # Preview production build
 pnpm check           # Astro type checking
 ```
 
+**Enable the pre-commit hook** (Layer 2) once per clone — it is versioned in
+`.githooks/`, which git does not wire up automatically:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+**What CI actually blocks on.** `pnpm dev/build/preview/check` are the daily
+commands; these are the ones that fail a PR:
+
+```bash
+cd astro-site
+pnpm run audit      # 5 design audits — NOTE the `run`; bare `pnpm audit` is
+                    # pnpm's built-in CVE scanner and shadows this script
+pnpm check          # astro check (tsc)
+pnpm lint           # eslint
+pnpm test:unit      # node:test, floor of 10
+npx playwright test tests/e2e/   # smoke + a11y + theme-deck + sidenotes
+cd .. && uv run --with ruff ruff check scripts/   # ratchet at zero
+uv run python scripts/link-validation/internal-link-check.py   # needs dist/
+```
+
 **Prerequisites:** Node.js 22+, pnpm, Git. Python 3.11+ and [UV](https://docs.astral.sh/uv/) for link validation scripts only. The repo is pnpm-only (`astro-site/pnpm-lock.yaml`); CI and the pre-commit hook both run `pnpm`.
 
 ---

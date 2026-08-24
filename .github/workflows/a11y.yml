@@ -89,7 +89,7 @@ jobs:
         run: cd astro-site && pnpm audit:grain
       - name: Upload report on failure
         if: failure()
-        uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8  # v5
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  # v7
         with:
           name: axe-playwright-report
           path: astro-site/playwright-report/

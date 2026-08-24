@@ -72,3 +72,8 @@ Gemini_Generated_Image_*.png
 wjz*.pdf
 *.bak.*
 astro-site/tests/e2e/*-snapshots/
+
+# nexus-agents research registry — regenerated empty stubs (schema_version +
+# an empty map). They were tracked, had zero consumers, and came back on their
+# own after deletion, so ignore rather than fight the generator (#503).
+docs/research/registry/

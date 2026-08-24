@@ -19,6 +19,10 @@ on:
 # of this block, so the write scopes are inert there -- but that means
 # "Send write tokens to workflows from fork pull requests" must stay OFF in
 # repository settings. Recorded as an invariant, not an assumption.
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+
 permissions:
   contents: read
   issues: write
@@ -215,7 +219,9 @@ jobs:
         external_broken: ${{ steps.check_critical.outputs.external_broken }}
 
     - name: Comment on PR
-      if: github.event_name == 'pull_request'
+      # always(): if the gate step exits non-zero the comment is MORE useful,
+      # not less. Without this it was skipped in exactly that case.
+      if: always() && github.event_name == 'pull_request'
       uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
       with:
         script: |

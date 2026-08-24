@@ -1,0 +1,35 @@
+#!/bin/bash
+# Pre-commit: Layer 2 of the QA pipeline (see AGENTS.md).
+#
+# Versioned here rather than living only in .git/hooks, which is not cloned —
+# Layer 2 previously existed on exactly one workstation (#501). Enable with:
+#
+#     git config core.hooksPath .githooks
+#
+# Deliberately narrow: this is the fast local gate, not a replica of CI. It
+# builds only when site source changed, and runs ruff only when Python did.
+set -e
+
+staged() { git diff --cached --name-only "$@"; }
+
+if [ -n "$(staged -- 'astro-site/' 'src/' | head -1)" ]; then
+  echo "pre-commit: site source changed — building"
+  # Output is shown on failure. The previous version piped it to /dev/null,
+  # so a failed build aborted the commit with no diagnostic at all.
+  if ! ( cd astro-site && pnpm run build > /tmp/precommit-build.log 2>&1 ); then
+    echo "pre-commit: build FAILED" >&2
+    tail -30 /tmp/precommit-build.log >&2
+    exit 1
+  fi
+  echo "pre-commit: build ok"
+fi
+
+if [ -n "$(staged -- 'scripts/' 'pyproject.toml' | head -1)" ]; then
+  echo "pre-commit: python changed — ruff"
+  uv run --with ruff ruff check scripts/ || {
+    echo "pre-commit: ruff FAILED (tests.yml enforces this too)" >&2
+    exit 1
+  }
+fi
+
+echo "pre-commit: ok"
