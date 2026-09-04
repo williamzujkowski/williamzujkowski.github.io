@@ -407,7 +407,7 @@ The HPC revolution isn't only changing how we compute. It's changing what we can
 
 6. **[GROMACS Molecular Dynamics Software](https://onlinelibrary.wiley.com/doi/10.1002/jcc.70059)** - Research on GROMACS scalability showing parallel efficiency above 0.9 (90%) on 65,536 cores for molecular dynamics simulations. A pure HPC scaling study, not a drug-discovery-timeline finding.
 
-7. **[E3SM (Energy Exascale Earth System Model) - Decade of Progress](https://climatemodeling.science.energy.gov/news/e3sm-decade-progress)** - DOE's E3SM project achievements including the SCREAM (Simple Cloud-Resolving E3SM Atmosphere Model) running at 3.25km resolution with >1 simulation year per day (SYPD) throughput. Represents a 30× improvement in climate model resolution over the past decade.
+7. **[E3SM: A Decade of Progress](https://e3sm.org/e3sm-a-decade-of-progress-a-timeline/)** - DOE's E3SM project timeline. SCREAMv1 (Simple Cloud-Resolving E3SM Atmosphere Model) ran on the GPU-enabled exascale machine Frontier, "breaking the 1 SYPD (Simulated Year Per Day) barrier" and earning the team a Gordon Bell Prize. For the model itself see Donahue et al., ["To Exascale and Beyond—SCREAM, a Performance Portable Global Atmosphere Model for Cloud-Resolving Scales"](https://doi.org/10.1029/2024ms004314), *JAMES* (2024).
 
 8. **[Full-Stack Quantum-Classical Integration](https://arxiv.org/abs/2510.20128)** - arXiv preprint on unified programming models for quantum-classical hybrid workflows using platforms like IBM Qiskit Runtime, Amazon Braket, and Azure Quantum.
 

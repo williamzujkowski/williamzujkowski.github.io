@@ -120,7 +120,7 @@ sudo tcpdump -i any -n port 11434
 
 ### The "Opt-Out Required": vLLM
 
-vLLM is honest about its defaults: [telemetry is ON unless you explicitly disable it](https://docs.vllm.ai/en/latest/serving/usage_stats.html). It collects hardware configuration, model details, and performance metrics. The data is anonymized and transparent, but it's still phone-home behavior.
+vLLM is honest about its defaults: [telemetry is ON unless you explicitly disable it](https://docs.vllm.ai/en/latest/usage/usage_stats/). It collects hardware configuration, model details, and performance metrics. The data is anonymized and transparent, but it's still phone-home behavior.
 
 I respect their honesty, but prefer tools that default to private. The fix is simple:
 
@@ -496,7 +496,7 @@ If you're not willing to properly secure your deployment, use a reputable cloud 
 **Tools and Security Guides:**
 - [LM Studio Privacy Policy](https://lmstudio.ai/app-privacy) - Zero telemetry example
 - [Ollama Security Guide](https://github.com/tarunboricha/ollama-security-guide) - Hardening instructions
-- [vLLM Security Documentation](https://docs.vllm.ai/en/latest/deployment/security.html) - Production deployment
+- [vLLM Security Documentation](https://docs.vllm.ai/en/latest/usage/security/) - Production deployment
 - [Wazuh AI Workload Monitoring](https://documentation.wazuh.com/) - Security monitoring
 
 **Community Resources:**

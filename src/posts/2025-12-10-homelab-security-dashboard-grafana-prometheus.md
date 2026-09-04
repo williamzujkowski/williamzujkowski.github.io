@@ -672,7 +672,7 @@ Time investment: 20 hours setup, 2 hours monthly maintenance.
 **Security monitoring guides:**
 - [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework) - Monitoring requirements
 - [CIS Controls v8](https://www.cisecurity.org/controls/v8/) - Security monitoring baseline
-- [OWASP Security Logging](https://owasp.org/www-community/OWASP_Proactive_Controls) - What to monitor
+- [OWASP Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html) - What to monitor, including a "Which events to log" section
 
 **Threat intelligence sources:**
 - [AbuseIPDB](https://www.abuseipdb.com/) - IP reputation database
@@ -682,7 +682,7 @@ Time investment: 20 hours setup, 2 hours monthly maintenance.
 **Homelab security projects:**
 - [Security Onion](https://securityonionsolutions.com/) - Network security monitoring platform
 - [ELSA](https://github.com/mcholste/elsa) - Enterprise log search and archive
-- [Suricata](https://suricata-ids.org/) - Network intrusion detection system
+- [Suricata](https://suricata.io/) - Network intrusion detection system
 
 My next project: integrating these tools into a unified security operations center for the homelab. Because watching graphs is only the first step - responding to threats is what matters.
 

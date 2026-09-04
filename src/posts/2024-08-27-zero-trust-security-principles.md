@@ -438,7 +438,7 @@ Zero Trust is a journey. Start with current posture assessment, identify high-im
 
 4. **[CISA Zero Trust Maturity Model](https://www.cisa.gov/zero-trust-maturity-model)** - Cybersecurity and Infrastructure Security Agency, 2023. Federal framework for implementing Zero Trust across five maturity levels with specific technical requirements and validation criteria.
 
-5. **[DISA Zero Trust Reference Architecture](https://dl.dod.cyber.mil/wp-content/uploads/devsecops/pdf/DoD-Zero-Trust-Reference-Architecture.pdf)** - Defense Information Systems Agency, February 2021. Department of Defense technical architecture for Zero Trust implementation in classified and unclassified environments.
+5. **[DoD Zero Trust Reference Architecture](https://dowcio.war.gov/Portals/0/Documents/Library/(U)ZT_RA_v2.0(U)_Sep22.pdf)** - DISA and NSA, version 2.0, September 2022. Department of Defense technical architecture for Zero Trust implementation in classified and unclassified environments. (The PDF's own metadata gives the title as "Department of Defense Zero Trust Reference Architecture", author DISA, created 2022-09-13.)
 
 6. **[Istio Security Documentation](https://istio.io/latest/docs/concepts/security/)** - Istio Project, 2025. Official documentation for service mesh security including mutual TLS, authentication, and authorization patterns in Kubernetes environments.
 

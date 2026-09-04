@@ -420,7 +420,7 @@ Some teams run Wazuh + Graylog together. Wazuh handles threat detection, Graylog
 **Alternative SIEMs (not tested):**
 
 - [Elastic Security](https://www.elastic.co/security) - Commercial ELK Stack with security
-- [Splunk Free](https://www.splunk.com/en_us/products/splunk-free.html) - 500MB/day limit
+- [Splunk Free](https://help.splunk.com/en/data-management/splunk-enterprise-admin-manual/10.2/configure-splunk-licenses/about-splunk-free) - 500MB/day limit
 - [Security Onion](https://securityonionsolutions.com/) - Network security monitoring platform
 
 **Implementation references:**
