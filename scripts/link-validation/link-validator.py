@@ -115,6 +115,7 @@ class LinkValidator:
 
     def __init__(self, max_retries: int = 3, timeout: int = 30):
         self.max_retries = max_retries
+        self._escalation_spent = 0.0
         self.timeout = timeout * 1000  # Convert to milliseconds for Playwright
         self.session = None
         self.browser = None
@@ -509,34 +510,77 @@ class LinkValidator:
 
     ESCALATION_RETRY_CODES = {401, 403, 408, 429, 503}
 
+    # Total wall-clock seconds this run may spend inside the browser, across
+    # all links. See _escalation_budget_left for why a budget rather than a
+    # bigger job timeout.
+    ESCALATION_BUDGET_SECONDS = 600
+
     @staticmethod
     def _worth_escalating(result: ValidationResult) -> bool:
         """True if a real browser could plausibly return a different answer.
 
-        A browser helps with exactly two things: pages that need JS to render,
-        and WAFs that refuse a bare HTTP client but serve Chromium. It cannot
-        help with a name that has no DNS record -- Chromium resolves through
-        the same system resolver, so launching it for `https://suricata-ids.org/`
-        (NXDOMAIN on 1.1.1.1, 8.8.8.8 and 9.9.9.9 alike) spends ~30 seconds
-        re-learning what getaddrinfo already said.
+        Only `restricted`. That is the bot-wall case -- a WAF that refuses a
+        bare HTTP client but serves Chromium -- and it is the only one where
+        the browser has ever changed a verdict here.
+
+        The previous rule was "anything that is not valid", which escalated 113
+        of 550 citation links. 63 of those could not possibly benefit:
+
+            redirect  35   HTTP already followed it and got an answer
+            error     26   connection-level failures; Chromium uses the same
+                           resolver and the same network
+            broken     1   a 404 is a 404 in any client
+            timeout    1   it will time out in a browser too
+
+        Those 63 were more than half the browser work in the run, spent to
+        re-learn what the HTTP layer had already established.
         """
-        return result.issue_type not in {'dns_error', 'ssl_error'}
+        return result.status == 'restricted'
+
+    def _escalation_budget_left(self) -> bool:
+        """False once the run has spent its whole browser allowance.
+
+        The escalation is the only unbounded cost in this validator: every
+        other step is capped by a per-request timeout, but the NUMBER of
+        escalations grows with however many links happen to be unhealthy that
+        week. That is what made the job miss a 30, a 24, a 40 and an 80 minute
+        deadline in turn -- each time I raised the ceiling instead of bounding
+        the thing that was growing.
+
+        A budget makes the runtime a property of the design rather than of the
+        internet's mood. When it runs out the HTTP verdict stands, which is the
+        same verdict the job produced for years while the escalation was
+        silently disabled (issue #496), and the skipped count is reported so
+        the degradation is visible rather than assumed.
+        """
+        if self._escalation_spent >= self.ESCALATION_BUDGET_SECONDS:
+            self.stats['escalations_skipped'] = (
+                self.stats.get('escalations_skipped', 0) + 1)
+            return False
+        return True
 
     async def _escalate(self, url: str, result: ValidationResult) -> ValidationResult:
         """Re-check a non-valid result in a real browser. Returns the better of the two."""
         if not self._worth_escalating(result):
             return result
+        if not self._escalation_budget_left():
+            return result
 
-        attempt = await self._validate_playwright(url, 0)
-        if attempt and attempt.status == 'valid':
-            return attempt
-
-        # One more roll, but only where a rate limiter is the plausible cause.
-        if result.status_code in self.ESCALATION_RETRY_CODES:
-            await asyncio.sleep(2)
-            attempt = await self._validate_playwright(url, 1)
+        started = time.time()
+        try:
+            attempt = await self._validate_playwright(url, 0)
             if attempt and attempt.status == 'valid':
                 return attempt
+
+            # One more roll, but only where a rate limiter is the plausible cause.
+            if result.status_code in self.ESCALATION_RETRY_CODES:
+                await asyncio.sleep(2)
+                attempt = await self._validate_playwright(url, 1)
+                if attempt and attempt.status == 'valid':
+                    return attempt
+        finally:
+            self._escalation_spent += time.time() - started
+            self.stats['escalation_seconds'] = round(self._escalation_spent, 1)
 
         return result
 
