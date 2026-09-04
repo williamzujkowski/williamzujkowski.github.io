@@ -77,14 +77,14 @@ Most modern browsers support DoH natively:
 ```javascript
 // about:config settings
 network.trr.mode = 2  // Enable DoH with fallback
-network.trr.uri = "[https://cloudflare-dns.com/dns-query](https://cloudflare-dns.com/dns-query)"
+network.trr.uri = "https://cloudflare-dns.com/dns-query"
 network.trr.bootstrapAddress = "1.1.1.1"
 ```
 
 **Chrome/Edge:**
 ```
 Settings → Privacy and Security → Security → Use secure DNS
-Select provider or enter custom: [https://dns.google/dns-query](https://dns.google/dns-query)
+Select provider or enter custom: https://dns.google/dns-query
 ```
 
 ### System-Wide DoH on Linux
@@ -99,8 +99,8 @@ Windows 11 has native DoH support:
 
 ```powershell
 # Enable DoH for network adapter
-netsh dns add encryption server=1.1.1.1 dohtemplate=[https://cloudflare-dns.com/dns-query](https://cloudflare-dns.com/dns-query)
-netsh dns add encryption server=8.8.8.8 dohtemplate=[https://dns.google/dns-query](https://dns.google/dns-query)
+netsh dns add encryption server=1.1.1.1 dohtemplate=https://cloudflare-dns.com/dns-query
+netsh dns add encryption server=8.8.8.8 dohtemplate=https://dns.google/dns-query
 
 # Configure network adapter to use DoH
 # GUI: Settings → Network → Ethernet/WiFi → DNS server assignment → Manual

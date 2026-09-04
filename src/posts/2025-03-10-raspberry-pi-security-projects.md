@@ -43,13 +43,13 @@ For enterprise-grade DNS security, see my guide on [implementing DNS-over-HTTPS]
 
 ```bash
 # Install Pi-hole
-curl -sSL [https://install.pi-hole.net](https://install.pi-hole.net) | bash
+curl -sSL https://install.pi-hole.net | bash
 
 # Add custom blocklists for security
 cd /etc/pihole
-sudo wget [https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/malware.txt](https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/malware.txt)
-sudo wget [https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/ransomware.txt](https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/ransomware.txt)
-sudo wget [https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/phishing.txt](https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/phishing.txt)
+sudo wget https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/malware.txt
+sudo wget https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/ransomware.txt
+sudo wget https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/phishing.txt
 
 # Update gravity database
 pihole -g

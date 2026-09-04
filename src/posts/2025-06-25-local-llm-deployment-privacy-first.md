@@ -84,7 +84,7 @@ My current LLM deployment infrastructure handles 7B-34B models natively in GPU m
 
 ```bash
 # Install Ollama
-curl -fsSL [https://ollama.ai/install.sh](https://ollama.ai/install.sh) | sh
+curl -fsSL https://ollama.ai/install.sh | sh
 
 # Pull and run a model
 ollama pull llama2:7b
@@ -105,7 +105,7 @@ Query Ollama models via REST API using Python's `requests` library. Send prompts
 
 ```bash
 # Clone and build
-git clone [https://github.com/ggerganov/llama.cpp](https://github.com/ggerganov/llama.cpp)
+git clone https://github.com/ggerganov/llama.cpp
 cd llama.cpp
 make -j $(nproc)
 
@@ -125,7 +125,7 @@ For a ChatGPT-like interface, use [text-generation-webui](https://github.com/oob
 
 ```bash
 # Clone repository
-git clone [https://github.com/oobabooga/text-generation-webui](https://github.com/oobabooga/text-generation-webui)
+git clone https://github.com/oobabooga/text-generation-webui
 cd text-generation-webui
 
 # Install dependencies
