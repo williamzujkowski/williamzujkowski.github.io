@@ -457,7 +457,7 @@ sudo suricata-update list-sources --enabled
 # suricata-update falls back to its default of checking one.
 
 # What the checksum step actually logged. Expect a line like
-#   "Checking https://.../emerging.rules.tar.gz.md5."
+#   "Checking https://rules.emergingthreats.net/open/suricata-7.0.3/emerging.rules.tar.gz.md5."
 # and note it only appears when a cached copy already exists, so a clean
 # machine shows nothing at all.
 sudo tail -100 /var/log/suricata/suricata-update.log | grep -E "Checking|checksum"
