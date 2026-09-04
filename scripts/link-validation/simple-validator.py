@@ -54,7 +54,7 @@ import aiohttp
 
 # Setup logging
 sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
-from link_gatekeepers import is_gatekeeper
+from link_gatekeepers import is_gatekeeper, is_unroutable
 from logging_config import setup_logger
 
 logger = setup_logger(__name__)
@@ -97,6 +97,8 @@ class SimpleValidator:
             'timeout': 0,
             'error': 0,
             'needs_manual': 0,
+            'unroutable': 0,
+            'internal': 0,
         }
         self._domain_locks: dict[str, asyncio.Lock] = {}
         self._domain_last: dict[str, float] = {}
@@ -172,6 +174,26 @@ class SimpleValidator:
                   'issue_type': None, 'notes': ''}
         domain = urlparse(url).netloc
         self.stats['total'] += 1
+
+        # Root-relative links are checked against dist/ by
+        # internal-link-check.py in a11y.yml (issue #502). aiohttp raises
+        # InvalidURL on them, which recorded a misleading 'connection_error'.
+        if not urlparse(url).scheme:
+            result['notes'] = ('Root-relative link; checked by '
+                               'internal-link-check.py in a11y.yml.')
+            return self._record(result, 'internal', 'internal_link')
+
+        # Placeholder hosts inside code examples -- `http://elasticsearch:9200`,
+        # `https://vault.example.com` -- are unroutable by construction, so a
+        # DNS failure is the CORRECT answer, not a defect. Classifying them
+        # `broken` put 16 permanent entries in a 30-item alarm; see
+        # is_unroutable() for which RFCs reserve them. Answered without a
+        # network round trip: there is nothing to ask.
+        if is_unroutable(url):
+            result['notes'] = ('Reserved/placeholder host (RFC 2606/6761/8375 '
+                               'or a single-label container name). Not a real '
+                               'citation; nothing to repair.')
+            return self._record(result, 'unroutable', 'placeholder_host')
 
         try:
             await self._throttle(domain)

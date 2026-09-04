@@ -163,8 +163,15 @@ jobs:
     # NOT on `failure()`, which never happened because nothing exits non-zero
     # for external links. The job stays green; the issue is the output.
     - name: Create Issue for Broken Links
+      # workflow_dispatch is included alongside schedule so this path can be
+      # EXERCISED ON DEMAND. It was reachable only from a 03:00 UTC cron, which
+      # is how a hard 422 on every attempt went unnoticed for months: the only
+      # way to learn whether it worked was to wait a day and hope the threshold
+      # was crossed. A reporting path you cannot run is a reporting path you
+      # cannot verify.
       if: >-
-        always() && github.event_name == 'schedule' &&
+        always() &&
+        (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') &&
         fromJSON(steps.check_critical.outputs.external_broken || '0') > 5
       uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
       with:
@@ -208,7 +215,17 @@ jobs:
               repo: context.repo.repo,
               title: title,
               body: body,
-              labels: 'automated,link-health'
+              // MUST be an array. `listForRepo` above takes `labels` as a
+              // comma-separated STRING (it is a query parameter), but
+              // `issues.create` sends JSON and rejects a string with
+              // 422 "properties/labels is not an array". Both spellings sat
+              // four lines apart, which is exactly why it read as consistent.
+              //
+              // Consequence: this step had never once succeeded. It only
+              // fires on the schedule when external_broken > 5, so the daily
+              // run stayed green for months and went red the first day real
+              // rot crossed the threshold -- reporting nothing on the way.
+              labels: ['automated', 'link-health']
             });
             console.log(`Created new issue #${newIssue.data.number}`);
           }
