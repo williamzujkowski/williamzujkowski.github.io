@@ -378,4 +378,4 @@ If you're running AI at home or considering it, I'd encourage you to instrument 
 - **[Electricity Maps](https://www.electricitymaps.com/)** - Real-time grid carbon intensity data
 - **[Ollama Documentation](https://github.com/ollama/ollama)** - Official docs for the inference server I used
 - **[NVIDIA DCGM Exporter](https://github.com/NVIDIA/dcgm-exporter)** - GPU monitoring for Prometheus
-- **[Sustainable AI](https://www.nature.com/articles/s42256-023-00673-3)** - Nature Machine Intelligence review of AI sustainability challenges
+- **[Reporting electricity consumption is essential for sustainable AI](https://www.nature.com/articles/s42256-023-00750-1)** - Debus, Piraud, Streit, Theis & Götz, *Nature Machine Intelligence* 5, 1176-1178 (2023). A Comment arguing that energy reporting should be standard practice for AI work

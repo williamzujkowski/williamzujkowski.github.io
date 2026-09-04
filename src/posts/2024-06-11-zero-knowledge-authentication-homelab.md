@@ -374,7 +374,7 @@ Academic research validates ZK authentication feasibility. ExPrESSO (arXiv:2510.
 - [libsnark](https://github.com/scipr-lab/libsnark) - C++ ZK-SNARK library (Groth16, BCTV14)
 - [snarkjs](https://github.com/iden3/snarkjs) - JavaScript ZK-SNARK library (browser-compatible)
 - [py-ecc](https://github.com/ethereum/py_ecc) - Python elliptic curve cryptography for ZK proofs
-- [Circom](https://docs.circom.io/) - ZK circuit compiler (domain-specific language)
+- [Circom](https://github.com/iden3/circom) - ZK circuit compiler (domain-specific language). The docs site at `docs.circom.io` has been down since at least August 2026 ([iden3/circom#426](https://github.com/iden3/circom/issues/426)); the documentation source lives in the repo's `mkdocs/` directory.
 
 **Authentication protocols:**
 
