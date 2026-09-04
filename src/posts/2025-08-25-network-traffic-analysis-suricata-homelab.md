@@ -122,7 +122,7 @@ Custom visualization queries:
 
 ## Rule Update Security (CRITICAL)
 
-**The Problem:** Suricata rule updates are a supply chain attack vector. Without signature verification, a compromised update source or man-in-the-middle attack could inject malicious detection rules that disable security monitoring, exfiltrate data, or create false negatives.
+**The Problem:** Suricata rule updates are a supply chain attack vector. Rules are code your sensor executes against every packet, and a compromised update source could inject rules that disable monitoring, exfiltrate data, or manufacture false negatives. The uncomfortable part, which took me embarrassingly long to check, is that the control everyone assumes is protecting them here does not exist.
 
 **Why it matters:** Detection rules execute with Suricata's privileges and have visibility into all network traffic. A malicious rule could:
 - Disable legitimate detections (create blind spots)
@@ -132,48 +132,51 @@ Custom visualization queries:
 
 ### Secure Rule Update Workflow
 
-**Use suricata-update with signature verification:**
+**Updating is the easy part:**
 
 ```bash
 # Install suricata-update (comes with Suricata 6.0+)
 sudo apt install python3-suricata-update
 
-# Configure ET Open with GPG verification (recommended)
-sudo suricata-update update-sources
-sudo suricata-update enable-source et/open
-sudo suricata-update
-
-# Verify GPG signatures are checked
-sudo suricata-update --verbose
-# Should see: "Checking signature for..."
+sudo suricata-update update-sources   # fetch the master source index
+sudo suricata-update list-sources     # see what's on offer
+sudo suricata-update                  # ET Open is the built-in default
+sudo systemctl reload suricata
 ```
 
-**Enable automatic signature verification:**
+Rules land in `/var/lib/suricata/rules/suricata.rules`.
 
-```bash
-# /etc/suricata/update.yaml
-sources:
-  - et/open:
-      checksum: yes  # Verify SHA256 checksums
+**Knowing what that actually guarantees is the hard part**, and it is worth
+being precise, because I was wrong about it here for a year.
 
-# suricata-update automatically verifies ET Open signatures
-# using built-in GPG keys
+suricata-update does not verify who signed your rules. There are no GPG keys
+in it — not bundled, not configurable, not mentioned in its documentation. ET
+does not publish a detached signature either: `emerging.rules.tar.gz.asc` is a
+404 for every Suricata version I tried, and ET's own download instructions
+mention only MD5, never GPG.
+
+There *is* a checksum, and it buys less than the name suggests. suricata-update
+fetches `emerging.rules.tar.gz.md5` and compares it against the copy already in
+its cache:
+
+```
+Checking https://rules.emergingthreats.net/open/suricata-7.0.3/emerging.rules.tar.gz.md5.
+Remote checksum has not changed. Not fetching.
 ```
 
-**Manual GPG verification (if needed):**
+That is a cache-freshness check, not an integrity check. It runs *before* the
+download, against the old file; nothing is hashed after the new bytes arrive.
+Upstream is refreshingly honest about it — the digest is computed with
+`hashlib.md5(buf, usedforsecurity=False)`. If the check throws, it logs a
+warning and re-downloads, so a broken `.md5` costs a round trip and nothing
+else.
 
-```bash
-# Download Emerging Threats GPG key
-wget https://rules.emergingthreats.net/open/suricata-6.0/emerging.rules.tar.gz.asc
-wget https://rules.emergingthreats.net/open/suricata-6.0/emerging.rules.tar.gz
-
-# Import ET GPG key
-gpg --keyserver keys.openpgp.org --recv-keys 14B7AC5D
-
-# Verify signature
-gpg --verify emerging.rules.tar.gz.asc emerging.rules.tar.gz
-# Should output: "Good signature from Emerging Threats"
-```
+Which leaves exactly one thing between you and someone else's detection rules
+running on your sensor: TLS to `rules.emergingthreats.net`. The `.md5` rides
+the same connection from the same host as the tarball it describes, so it
+cannot attest to anything the transport has not already. Keep the CA store
+current, keep the box's clock honest, and don't tell an auditor the rules are
+signed.
 
 ### Staging Environment Testing
 
@@ -209,16 +212,14 @@ sudo systemctl reload suricata
 
 set -e
 
-# Update with verification
+# Update. suricata-update exits non-zero on a failed fetch, and `set -e`
+# above turns that into a stopped script, which is the check that matters.
 sudo suricata-update --verbose 2>&1 | tee /var/log/suricata-update.log
 
-# Check for signature verification
-if ! grep -q "Checking signature" /var/log/suricata-update.log; then
-    echo "ERROR: Signature verification failed or was skipped!"
-    exit 1
-fi
-
-# Test rules before reload
+# Test that the new ruleset actually PARSES before anything reloads it.
+# This is the real gate: a rule file that Suricata rejects will take the
+# service down on reload, and a bad ruleset is far more likely to reach you
+# through a malformed update than through a forged one.
 sudo suricata -T -c /etc/suricata/suricata.yaml
 
 # Reload Suricata
@@ -241,10 +242,14 @@ sudo suricatasc -c "capture-mode"
 
 **Prioritize rule sources by trust:**
 
-1. **ET Open (Community):** GPG signed, 30-day delay from Pro, safe for homelab
-2. **ET Pro (Commercial):** $900/year, zero-day rules, signed, vetted by Proofpoint
-3. **Custom rules:** Your own rules, full control, test thoroughly
-4. **Third-party sources:** Verify GPG keys, audit before enabling
+1. **ET Open (Community):** free, 30-day delay from Pro, safe for homelab.
+   Authenticity rests on TLS to `rules.emergingthreats.net` — there is no
+   signature to check.
+2. **ET Pro (Commercial):** paid, zero-day rules, vetted by Proofpoint
+3. **Custom rules:** your own rules, full control, test thoroughly
+4. **Third-party sources:** audit the rules themselves before enabling, and
+   check what the source actually publishes. Most publish nothing but the
+   rules over HTTPS.
 
 #### ET Open 30-Day Delay: Understanding the Trade-Offs (MODERATE)
 
@@ -381,7 +386,7 @@ alert dns any any -> any any (
 
 ```bash
 # My homelab approach (zero cost, reasonable protection):
-# 1. ET Open baseline (free, GPG-verified, 30-day lag acceptable)
+# 1. ET Open baseline (free, HTTPS-only trust, 30-day lag acceptable)
 sudo suricata-update enable-source et/open
 
 # 2. AlienVault OTX for near-real-time threat intel (free)
@@ -423,27 +428,41 @@ sudo suricata-update list-sources --enabled | grep "modified"
 
 ### Supply Chain Attack Scenarios
 
-**Without signature verification:**
-- Attacker compromises rules.emergingthreats.net DNS → serves malicious rules ✅ ATTACK SUCCEEDS
-- MitM on HTTP rule download → injects backdoor detection rules ✅ ATTACK SUCCEEDS
-- Compromised mirror serves trojanized ruleset → Suricata loads malicious rules ✅ ATTACK SUCCEEDS
+What TLS actually stops, and what it does not:
 
-**With signature verification:**
-- Compromised DNS serves malicious rules → GPG verification fails → Update rejected ❌
-- MitM injects backdoor → Signature mismatch → Update rejected ❌
-- Compromised mirror → Wrong signature → Update rejected ❌
+| Scenario | Outcome |
+|---|---|
+| MitM on the rule download | **Stopped.** The connection is HTTPS; an interceptor without a trusted cert fails the handshake. |
+| Attacker compromises `rules.emergingthreats.net` DNS | **Stopped**, as long as they cannot also obtain a valid certificate for that name. |
+| Attacker obtains a valid cert for that name | **Succeeds.** Nothing downstream would notice. |
+| ET's own build or distribution host is compromised | **Succeeds.** There is no signature to disagree with the bytes ET serves. |
+| A malicious mirror you added yourself | **Succeeds.** Every source is trusted equally. |
+
+The bottom two rows are the ones a signature would close, and there is no
+signature. That is the honest shape of the threat model: transport security
+against everyone between you and ET, and pure trust in ET itself.
+
+This is not unusual, and it is not a reason to stop using ET Open — it is a
+reason not to write "verified" in a control document when what you have is
+"downloaded over TLS". The mitigation available to you is the `suricata -T`
+parse test above plus reading rule diffs before they reach a sensor you care
+about, not a signature check that does not exist.
 
 ### Validation Commands
 
 ```bash
-# Verify suricata-update is using signature verification
+# Confirm which sources are enabled
 sudo suricata-update list-sources --enabled
-# Should show: et/open with checksum: yes
+# Should list et/open. Note it carries no `checksum` field in ET's index --
+# suricata-update falls back to its default of checking one.
 
-# Check last update verification status
-sudo tail -100 /var/log/suricata/suricata-update.log | grep -E "signature|checksum"
+# What the checksum step actually logged. Expect a line like
+#   "Checking https://.../emerging.rules.tar.gz.md5."
+# and note it only appears when a cached copy already exists, so a clean
+# machine shows nothing at all.
+sudo tail -100 /var/log/suricata/suricata-update.log | grep -E "Checking|checksum"
 
-# List installed rule sources and their trust status
+# List the free sources available
 sudo suricata-update list-sources --free
 sudo suricata-update list-sources --all
 
@@ -451,7 +470,7 @@ sudo suricata-update list-sources --all
 sudo suricata-update check-versions
 ```
 
-**Senior engineer perspective:** Years of managing IDS deployments taught me: rule updates are code execution. Treat them like software updates—verify signatures, test in staging, automate safely. I've seen organizations disable GPG verification "for convenience" only to wonder why their detection rates dropped after a targeted supply chain attack. Security tools are prime targets. The irony of compromising an IDS to disable detection isn't lost on attackers.
+**Senior engineer perspective:** Years of managing IDS deployments taught me that rule updates are code execution, and should be treated like any other software update: test in staging, automate carefully, read what changed. What I got wrong for a long time was the last step — I assumed "verify signatures" was on that list because it is on every other list, and never checked whether the signature existed. It does not. Writing the mitigation down is not the same as having it, and a control you have never exercised is a control you do not have. That is a more useful lesson than the one I thought I was writing.
 
 ## Incident Response Workflow
 
