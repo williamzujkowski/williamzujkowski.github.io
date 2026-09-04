@@ -98,3 +98,82 @@ def is_gatekeeper(url: str) -> bool:
     if not host:
         return False
     return any(host == h or host.endswith("." + h) for h in GATEKEEPER_HOSTS)
+
+
+# ---------------------------------------------------------------------------
+# Hosts that are unroutable BY CONSTRUCTION, not by accident.
+#
+# 16 of the 30 "broken links" the daily monitor reported on 2026-09-03 were
+# illustrative hostnames inside code examples: container service names
+# (`wazuh-manager:55000`, `http://elasticsearch:9200`) and RFC-reserved
+# example domains (`vault.example.com`, `test-vault.local`). None of them can
+# ever resolve -- that is the entire point of the RFCs that reserve them --
+# so reporting them as breakage is not a signal that decayed, it is a signal
+# that was never true.
+#
+# It is not harmless noise. It is more than half the alarm, and it is the
+# half that never changes, so a reader learns to skim the list and misses the
+# ten citations that genuinely rotted.
+#
+# Distinct from GATEKEEPER_HOSTS above: those are real sites that mistreat
+# bots (downgraded to `needs_manual` for a human to eyeball). These are not
+# sites at all, so there is nothing for a human to check.
+
+# TLDs reserved so they never resolve on the public internet.
+#   RFC 2606 — .test, .example, .invalid, .localhost
+#   RFC 6762 — .local  (mDNS, link-local only)
+#   RFC 8375 — .home.arpa  (residential home networks)
+#   RFC 6761 — .localhost
+# `.internal` is not an RFC reservation but ICANN permanently withheld it
+# from delegation in 2024 for exactly this purpose.
+UNROUTABLE_SUFFIXES = (
+    ".test",
+    ".example",
+    ".invalid",
+    ".localhost",
+    ".local",
+    ".home.arpa",
+    ".internal",
+)
+
+# RFC 2606 §3 reserves these second-level names for documentation.
+UNROUTABLE_DOMAINS = (
+    "example.com",
+    "example.net",
+    "example.org",
+)
+
+
+def is_unroutable(url: str) -> bool:
+    """True if the URL's host can never resolve on the public internet.
+
+    Three cases, all of which mean "this is a placeholder in a code example":
+
+    1. A reserved TLD (`vault.example.com` is caught by case 3;
+       `test-vault.local` and `foo.invalid` by this one).
+    2. A bare hostname with no dot at all -- `elasticsearch`,
+       `wazuh-manager`, `gvisor-nginx`. The public DNS root has no
+       single-label names, so these are always container/compose service
+       names. `localhost` is included here.
+    3. An RFC 2606 documentation domain, or any subdomain of one.
+
+    An IP literal is NOT unroutable: 127.0.0.1 and 10.0.0.1 are perfectly
+    real addresses that simply are not reachable from CI, which is a
+    different claim and belongs to whoever is doing the reaching.
+    """
+    try:
+        host = (urlparse(url).hostname or "").lower()
+    except ValueError:
+        return False
+    if not host:
+        return False
+
+    # Case 2: single-label hostname. Bracketed IPv6 and dotted IPv4 both
+    # contain a separator, so neither reaches this branch.
+    if "." not in host and ":" not in host:
+        return True
+
+    if host.endswith(UNROUTABLE_SUFFIXES):
+        return True
+
+    return any(host == d or host.endswith("." + d) for d in UNROUTABLE_DOMAINS)

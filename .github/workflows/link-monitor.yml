@@ -208,7 +208,17 @@ jobs:
               repo: context.repo.repo,
               title: title,
               body: body,
-              labels: 'automated,link-health'
+              // MUST be an array. `listForRepo` above takes `labels` as a
+              // comma-separated STRING (it is a query parameter), but
+              // `issues.create` sends JSON and rejects a string with
+              // 422 "properties/labels is not an array". Both spellings sat
+              // four lines apart, which is exactly why it read as consistent.
+              //
+              // Consequence: this step had never once succeeded. It only
+              // fires on the schedule when external_broken > 5, so the daily
+              // run stayed green for months and went red the first day real
+              // rot crossed the threshold -- reporting nothing on the way.
+              labels: ['automated', 'link-health']
             });
             console.log(`Created new issue #${newIssue.data.number}`);
           }

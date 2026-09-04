@@ -56,6 +56,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
+from lib.link_gatekeepers import is_unroutable
 from lib.logging_config import setup_logger
 
 try:
@@ -242,8 +243,47 @@ class LinkValidator:
             self.stats['cached'] += 1
             return self.cache[url]
 
+        # Root-relative links (`/posts/...`, `/about/`) are not external URLs
+        # and aiohttp cannot express one -- it raises InvalidURL, which lands
+        # as a generic error and then, since #518 made escalation live, pays
+        # for a full Chromium launch as well. They were 28 of the 73 non-valid
+        # citation links: 38% of the most expensive set in the run, spent
+        # asking the network about a path on our own disk.
+        #
+        # internal-link-check.py in a11y.yml resolves these against dist/ and
+        # blocks on them (issue #502), so this is not a gap -- it is the same
+        # check moved to the layer that can actually perform it.
+        if not urlparse(url).scheme:
+            result = ValidationResult(
+                url=url, status='internal', status_code=None, final_url=None,
+                issue_type='internal_link',
+                error_message='Root-relative link; checked by internal-link-check.py',
+                response_time=0.0, content_type=None, page_title=None,
+                requires_js=False, ssl_valid=False,
+                validation_time=datetime.now().isoformat(), retry_count=0)
+            self.stats['internal'] = self.stats.get('internal', 0) + 1
+            self.cache[url] = result
+            return result
+
+        # Placeholder hosts from code examples cannot resolve by design, so
+        # a DNS failure is the correct answer rather than a defect to repair.
+        # Answered before any network or browser cost -- see is_unroutable().
+        if is_unroutable(url):
+            result = ValidationResult(
+                url=url, status='unroutable', status_code=None, final_url=None,
+                issue_type='placeholder_host',
+                error_message=('Reserved/placeholder host (RFC 2606/6761/8375 '
+                               'or a single-label container name)'),
+                response_time=0.0, content_type=None, page_title=None,
+                requires_js=False, ssl_valid=False,
+                validation_time=datetime.now().isoformat(), retry_count=0)
+            self.stats['unroutable'] = self.stats.get('unroutable', 0) + 1
+            self.cache[url] = result
+            return result
+
         start_time = time.time()
         result = None
+        counted_valid = False
 
         # Try different validation strategies
         for retry in range(self.max_retries):
@@ -251,14 +291,9 @@ class LinkValidator:
                 # First try with simple HTTP request
                 result = await self._validate_http(url, retry)
 
-                # If failed or suspicious, try with Playwright
-                if result.status != 'valid' and PLAYWRIGHT_AVAILABLE:
-                    playwright_result = await self._validate_playwright(url, retry)
-                    if playwright_result.status == 'valid':
-                        result = playwright_result
-
                 if result.status == 'valid':
                     self.stats['valid'] += 1
+                    counted_valid = True
                     break
 
                 # Exponential backoff for retries
@@ -282,9 +317,41 @@ class LinkValidator:
                     retry_count=retry + 1
                 )
 
+        # Browser escalation, after the HTTP retries are exhausted rather than
+        # inside them.
+        #
+        # It used to sit in the retry loop, so a failing link paid for a full
+        # Chromium page load on EVERY retry -- three browser launches, up to
+        # 30s each, on top of three HTTP attempts. Nothing noticed, because the
+        # escalation had never actually executed: playwright was installed into
+        # a different interpreter than the one running the script, so
+        # PLAYWRIGHT_AVAILABLE was always False (issue #496). Fixing that in
+        # #518 turned the cost on for the first time, and citation-validation.yml
+        # started hitting its 30-minute cap -- which GitHub reports as
+        # "cancelled", not "failure", so a weekly gate stopped producing any
+        # output at all and still read as benign in the run list.
+        #
+        # Why not a flat single attempt: measured on 12 known-failing citation
+        # links, dropping straight from three escalations to one lost a link
+        # (pubmed.ncbi.nlm.nih.gov, rescued by the old code on its second
+        # attempt). _validate_playwright ignores the retry index entirely, so
+        # that rescue was not new information -- it was a second roll against a
+        # rate limiter. A second roll is still worth having, and is worth it
+        # ONLY for the codes where a limiter is the plausible explanation:
+        # a 404 answers the same way however many times it is asked.
+        if result and result.status != 'valid' and PLAYWRIGHT_AVAILABLE:
+            result = await self._escalate(url, result)
+
         if result:
-            # Update stats
-            if result.status == 'broken':
+            # Update stats. `valid` is counted here rather than only inside the
+            # retry loop: a link rescued by the browser escalation above never
+            # breaks out of that loop, so counting it there undercounted every
+            # rescue -- the sample run reported stats.valid=1 against 2 actually
+            # valid results, and citation-validation.yml publishes stats.valid
+            # straight into the issue body.
+            if result.status == 'valid' and not counted_valid:
+                self.stats['valid'] += 1
+            elif result.status == 'broken':
                 self.stats['broken'] += 1
             elif result.status == 'restricted':
                 self.stats['restricted'] += 1
@@ -402,6 +469,42 @@ class LinkValidator:
                 validation_time=datetime.now().isoformat(),
                 retry_count=retry + 1
             )
+
+    # A browser gets a second roll only against these: they are the codes a
+    # rate limiter or bot-challenge returns, where the same request a moment
+    # later can legitimately succeed. 404 and 410 are excluded on purpose.
+    ESCALATION_RETRY_CODES = {401, 403, 408, 429, 503}
+
+    @staticmethod
+    def _worth_escalating(result: ValidationResult) -> bool:
+        """True if a real browser could plausibly return a different answer.
+
+        A browser helps with exactly two things: pages that need JS to render,
+        and WAFs that refuse a bare HTTP client but serve Chromium. It cannot
+        help with a name that has no DNS record -- Chromium resolves through
+        the same system resolver, so launching it for `https://suricata-ids.org/`
+        (NXDOMAIN on 1.1.1.1, 8.8.8.8 and 9.9.9.9 alike) spends ~30 seconds
+        re-learning what getaddrinfo already said.
+        """
+        return result.issue_type not in {'dns_error', 'ssl_error'}
+
+    async def _escalate(self, url: str, result: ValidationResult) -> ValidationResult:
+        """Re-check a non-valid result in a real browser. Returns the better of the two."""
+        if not self._worth_escalating(result):
+            return result
+
+        attempt = await self._validate_playwright(url, 0)
+        if attempt and attempt.status == 'valid':
+            return attempt
+
+        # One more roll, but only where a rate limiter is the plausible cause.
+        if result.status_code in self.ESCALATION_RETRY_CODES:
+            await asyncio.sleep(2)
+            attempt = await self._validate_playwright(url, 1)
+            if attempt and attempt.status == 'valid':
+                return attempt
+
+        return result
 
     async def _validate_playwright(self, url: str, retry: int) -> ValidationResult:
         """Validate using Playwright for JavaScript-rendered content"""
