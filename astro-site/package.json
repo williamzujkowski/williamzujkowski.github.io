@@ -2,7 +2,7 @@
   "name": "williamzujkowski-site",
   "type": "module",
   "version": "2.0.0",
-  "description": "Personal website of William Zujkowski — Astro 7 + Svelte 5",
+  "description": "Personal website of William Zujkowski \u2014 Astro 7 + Svelte 5",
   "author": "William Zujkowski",
   "license": "MIT",
   "scripts": {
@@ -57,14 +57,6 @@
     "rehype-sanitize": "^6.0.0",
     "remark-smartypants": "^3.0.3",
     "shiki": "^4.4.3"
-  },
-  "overrides": {
-    "fast-xml-parser": ">=5.5.8",
-    "fast-xml-builder": ">=1.1.7",
-    "uuid": ">=11.1.1",
-    "dompurify": ">=3.4.11",
-    "vite": ">=8.0.13",
-    "esbuild": ">=0.28.1"
   },
   "pnpm": {
     "overrides": {
