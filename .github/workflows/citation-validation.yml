@@ -16,7 +16,7 @@ permissions:
 jobs:
   validate-citations:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 90
 
     steps:
       - name: Checkout repository
@@ -72,13 +72,26 @@ jobs:
       # was red, so nothing was noticed. An explicit non-zero exit is the
       # difference between a gate that stopped working and a gate that says so.
       #
-      # Sized from a MEASURED run, not a guess. The first dispatch after the
-      # concurrency work still ran 24m42s and tripped this wrapper -- correctly,
-      # and visibly, which was the point -- so the budget was clearly too small
-      # for the real corpus rather than the sample it was estimated from.
+      # Sized from MEASURED runs, twice, both of which I got wrong low.
       #
-      # 40 minutes under a 50-minute job cap leaves room for the report and
-      # issue-filing steps to run on whatever was produced.
+      #   30m cap  -> killed silently (reported as "cancelled"), 2 weeks, no report
+      #   24m      -> tripped at 24m42s, correctly and visibly
+      #   40m      -> tripped at 40m40s
+      #
+      # 550 citation links, each up to 2 HTTP attempts at a 30s aiohttp timeout
+      # plus a browser escalation, 16 domains at a time. It is simply a job that
+      # takes the better part of an hour, and it runs once a week. Guessing the
+      # budget down twice cost more than paying for it does.
+      #
+      # 80 minutes under a 90-minute job cap leaves room for the report and
+      # issue-filing steps to run. The wrapper stays because the ONLY thing
+      # that must never happen again is this job dying without saying so.
+      # --max-retries 2, not 3. Each attempt is a full 30s aiohttp timeout plus
+      # backoff, and it is the dominant cost for exactly the links that are
+      # already failing. A third attempt at the same URL a few seconds later
+      # has never been what distinguishes a live site from a dead one here --
+      # the browser escalation is what does that, and it still runs.
+      #
       # --timeout caps the BROWSER page load only (aiohttp's own timeout is a
       # separate hardcoded 30s). Cut 30 -> 15: the escalation exists to render
       # JS and get past bot walls, and a page that has not fired `load` in 15
@@ -87,15 +100,15 @@ jobs:
       - name: Validate citation links
         id: validate
         run: |
-          timeout --signal=INT 40m \
+          timeout --signal=INT 80m \
             uv run --with playwright python scripts/link-validation/link-validator.py \
               --input citation-links.json \
               --output citation-validation.json \
-              --max-retries 3 \
+              --max-retries 2 \
               --timeout 15 \
           || { rc=$?; \
                if [ "$rc" -eq 124 ] || [ "$rc" -eq 130 ]; then \
-                 echo "::error::Citation validation exceeded its 40-minute budget."; \
+                 echo "::error::Citation validation exceeded its 80-minute budget."; \
                fi; exit "$rc"; }
 
           # Check if any GENUINELY broken links found (404 / 5xx / ssl_error /
