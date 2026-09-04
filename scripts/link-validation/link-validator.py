@@ -498,9 +498,14 @@ class LinkValidator:
     # How many DOMAINS may be checked at once. Requests within one domain stay
     # sequential and keep their 0.5s spacing, so this never increases the rate
     # seen by any single host -- it only stops unrelated hosts from queueing
-    # behind each other. Kept modest because a browser escalation can open a
-    # page under any of these.
-    MAX_CONCURRENT_DOMAINS = 8
+    # behind each other.
+    #
+    # Raised 8 -> 16 after the first real CI run still blew the budget. The
+    # 16x speedup measured on a 12-link sample did NOT carry to the full 550:
+    # the sample had ~12 distinct domains, so 8-way concurrency covered nearly
+    # all of it, while the full corpus has a few hundred domains and the
+    # critical path is set by whichever groups are slowest.
+    MAX_CONCURRENT_DOMAINS = 16
 
     ESCALATION_RETRY_CODES = {401, 403, 408, 429, 503}
 

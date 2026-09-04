@@ -16,7 +16,7 @@ permissions:
 jobs:
   validate-citations:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 50
 
     steps:
       - name: Checkout repository
@@ -72,20 +72,30 @@ jobs:
       # was red, so nothing was noticed. An explicit non-zero exit is the
       # difference between a gate that stopped working and a gate that says so.
       #
-      # 24 minutes leaves room under the 30-minute job cap for the report and
-      # issue-filing steps to still run on the partial output.
+      # Sized from a MEASURED run, not a guess. The first dispatch after the
+      # concurrency work still ran 24m42s and tripped this wrapper -- correctly,
+      # and visibly, which was the point -- so the budget was clearly too small
+      # for the real corpus rather than the sample it was estimated from.
+      #
+      # 40 minutes under a 50-minute job cap leaves room for the report and
+      # issue-filing steps to run on whatever was produced.
+      # --timeout caps the BROWSER page load only (aiohttp's own timeout is a
+      # separate hardcoded 30s). Cut 30 -> 15: the escalation exists to render
+      # JS and get past bot walls, and a page that has not fired `load` in 15
+      # seconds is not about to tell us anything useful -- it just costs the
+      # worst case twice over.
       - name: Validate citation links
         id: validate
         run: |
-          timeout --signal=INT 24m \
+          timeout --signal=INT 40m \
             uv run --with playwright python scripts/link-validation/link-validator.py \
               --input citation-links.json \
               --output citation-validation.json \
               --max-retries 3 \
-              --timeout 30 \
+              --timeout 15 \
           || { rc=$?; \
                if [ "$rc" -eq 124 ] || [ "$rc" -eq 130 ]; then \
-                 echo "::error::Citation validation exceeded its 24-minute budget."; \
+                 echo "::error::Citation validation exceeded its 40-minute budget."; \
                fi; exit "$rc"; }
 
           # Check if any GENUINELY broken links found (404 / 5xx / ssl_error /
