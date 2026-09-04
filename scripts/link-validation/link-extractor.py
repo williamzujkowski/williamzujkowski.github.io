@@ -78,7 +78,13 @@ class LinkExtractor:
 
     # Link patterns
     PATTERNS = {
-        'markdown_link': r'\[([^\]]+)\]\(([^)]+)\)',
+        # Link destinations may contain BALANCED parens -- CommonMark allows
+        # it, and real citations use it: the DoD Zero Trust RA lives at
+        # .../Library/(U)ZT_RA_v2.0(U)_Sep22.pdf. `[^)]+` stopped at the first
+        # `)` and reported the href as ".../Library/(U", a URL that appears
+        # nowhere in the corpus, so there was nothing for a human to go and fix.
+        # One level of nesting is enough for every real case.
+        'markdown_link': r'\[([^\]]+)\]\(((?:[^()\s]|\([^()]*\))+)\)',
         'reference_link': r'\[([^\]]+)\]\[([^\]]+)\]',
         'reference_def': r'^\[([^\]]+)\]:\s*(.+)$',
         'bare_url': r'(?:https?://[^\s<>"{}|\\^`\[\]]+)',
@@ -191,13 +197,38 @@ class LinkExtractor:
             logger.error(f"Error processing {file_path}: {e}")
 
     def _is_part_of_markdown_link(self, line: str, url: str) -> bool:
-        """Check if a URL is already part of a markdown link"""
-        # Check if URL is within markdown link syntax
-        patterns = [
-            f']({url})',
-            f']: {url}'
-        ]
-        return any(pattern in line for pattern in patterns)
+        """Check if a URL is already part of a markdown link or reference def.
+
+        Matches on PREFIX, not equality. The bare-URL pattern does not exclude
+        `)`, so on a line like
+
+            ... through [`culori`](https://culorijs.org/)'s OKLCH converter ...
+
+        it captures `https://culorijs.org/)'s` -- past the closing paren and on
+        into the possessive. An equality test never recognised that as the
+        markdown link it came from, and _clean_trailing_punct could not rescue
+        it either, because the string ends in `s`, which is not punctuation.
+
+        So a site returning 200 was reported as a broken link every day, and
+        the URL in the report appeared nowhere in the corpus: there was nothing
+        for a human to go and fix. Two links were affected, not one -- the
+        other was a Renovate docs anchor.
+
+        Prefix matching is the correct test, because an over-captured bare hit
+        always STARTS with the href it swallowed.
+        """
+        # Exact forms first -- cheap, and covers the ordinary case.
+        if f']({url})' in line or f']: {url}' in line:
+            return True
+        # Then any markdown href that this hit merely extends.
+        for m in re.finditer(self.PATTERNS['markdown_link'], line):
+            href = m.group(2).strip()
+            if href and url.startswith(href):
+                return True
+        ref = re.match(self.PATTERNS['reference_def'], line)
+        if ref and url.startswith(ref.group(2).strip()):
+            return True
+        return False
 
     @staticmethod
     def _clean_trailing_punct(url: str) -> str:
