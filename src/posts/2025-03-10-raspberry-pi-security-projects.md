@@ -45,11 +45,11 @@ For enterprise-grade DNS security, see my guide on [implementing DNS-over-HTTPS]
 # Install Pi-hole
 curl -sSL https://install.pi-hole.net | bash
 
-# Add custom blocklists for security
-cd /etc/pihole
-sudo wget https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/malware.txt
-sudo wget https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/ransomware.txt
-sudo wget https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/phishing.txt
+# Add custom blocklists for security. Register them as adlists rather than
+# dropping files into /etc/pihole by hand -- gravity rebuilds from the adlist
+# table, so a stray file there is ignored.
+pihole -a adlist add https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/malware
+pihole -a adlist add https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/Phishing-Angriffe
 
 # Update gravity database
 pihole -g
