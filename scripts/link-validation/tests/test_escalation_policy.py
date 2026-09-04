@@ -31,21 +31,41 @@ def _result(status="broken", issue_type=None, status_code=None):
         requires_js=False, ssl_valid=False, validation_time="", retry_count=0)
 
 
-@pytest.mark.parametrize("issue_type", ["dns_error", "ssl_error"])
-def test_browser_is_not_launched_when_it_cannot_help(issue_type):
-    """Chromium resolves through the same system resolver as aiohttp.
+@pytest.mark.parametrize("status", ["redirect", "error", "broken", "timeout", "valid"])
+def test_browser_is_not_launched_when_it_cannot_help(status):
+    """Only `restricted` is worth a browser.
 
-    Launching it for a name with no DNS record (suricata-ids.org is NXDOMAIN on
-    1.1.1.1, 8.8.8.8 and 9.9.9.9 alike) spends ~30s re-learning what
-    getaddrinfo already returned.
+    Measured on the 550-link citation set, the old "anything not valid" rule
+    escalated 113 links, of which 63 could not possibly benefit: 35 redirects
+    HTTP had already followed, 26 connection errors Chromium hits through the
+    same resolver and network, one 404, one timeout. More than half the browser
+    work in the run, spent re-learning what the HTTP layer established.
     """
-    assert not LinkValidator._worth_escalating(_result(issue_type=issue_type))
+    assert not LinkValidator._worth_escalating(_result(status=status))
 
 
-@pytest.mark.parametrize("issue_type", ["not_found", "http_403", "timeout", None])
-def test_browser_is_launched_where_the_answer_could_change(issue_type):
-    """JS-rendered pages and WAFs that serve Chromium but refuse aiohttp."""
-    assert LinkValidator._worth_escalating(_result(issue_type=issue_type))
+def test_browser_is_launched_for_the_bot_wall_case():
+    """`restricted` is a WAF that refuses a bare client but serves Chromium."""
+    assert LinkValidator._worth_escalating(_result(status="restricted", status_code=403))
+
+
+def test_escalation_stops_when_the_run_exhausts_its_browser_budget():
+    """The escalation is the only cost that grows with how unhealthy the web is.
+
+    Every other step is capped by a per-request timeout, but the NUMBER of
+    escalations tracks however many links happen to be failing that week --
+    which is why this job blew a 30, a 24, a 40 and an 80 minute deadline in
+    turn. A budget makes runtime a property of the design.
+    """
+    v = LinkValidator.__new__(LinkValidator)
+    v.stats = {}
+    v._escalation_spent = 0.0
+    assert v._escalation_budget_left()
+
+    v._escalation_spent = LinkValidator.ESCALATION_BUDGET_SECONDS
+    assert not v._escalation_budget_left()
+    # Skipping must be COUNTED, so a degraded run is visible and not assumed.
+    assert v.stats["escalations_skipped"] == 1
 
 
 def test_second_browser_attempt_only_for_rate_limit_shaped_codes():

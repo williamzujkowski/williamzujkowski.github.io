@@ -120,6 +120,18 @@ jobs:
           echo "broken_count=$BROKEN_COUNT" >> $GITHUB_OUTPUT
           echo "Found $BROKEN_COUNT broken citation links"
 
+          # Surface whether the browser budget ran out. A degraded run is fine
+          # -- the HTTP verdict stands, which is what this job produced for
+          # years while the escalation was silently disabled (#496) -- but it
+          # must be VISIBLE rather than assumed.
+          SKIPPED=$(jq '.stats.escalations_skipped // 0' citation-validation.json)
+          ESC_SECS=$(jq '.stats.escalation_seconds // 0' citation-validation.json)
+          echo "escalations_skipped=$SKIPPED" >> $GITHUB_OUTPUT
+          echo "Browser escalation used ${ESC_SECS}s; skipped $SKIPPED link(s) after the budget ran out."
+          if [ "$SKIPPED" -gt 0 ]; then
+            echo "::warning::Browser escalation budget exhausted; $SKIPPED link(s) kept their HTTP verdict."
+          fi
+
           # Access-restricted / unverifiable links (advisory only, not an alarm)
           RESTRICTED_COUNT=$(jq '[.results[] | select(.status == "restricted")] | length' citation-validation.json)
           echo "restricted_count=$RESTRICTED_COUNT" >> $GITHUB_OUTPUT
