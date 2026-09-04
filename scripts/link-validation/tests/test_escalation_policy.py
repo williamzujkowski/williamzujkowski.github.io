@@ -61,3 +61,69 @@ def test_second_browser_attempt_only_for_rate_limit_shaped_codes():
         assert retryable in codes
     for pointless in (404, 410, 200, 301):
         assert pointless not in codes
+
+
+# --- concurrency: fast, but not ruder to any single host ---------------------
+def test_same_domain_requests_stay_sequential_and_spaced():
+    """Different hosts run in parallel; one host is still one-at-a-time.
+
+    validate_batch used to await every link in series -- 550 citation links as
+    a single queue, which is why the job outgrew its 30-minute cap. The fix
+    must not turn into "hammer everyone at once": requests to the SAME domain
+    keep their order and their 0.5s spacing, so no individual site sees a
+    higher rate than before.
+    """
+    import asyncio
+
+    v = LinkValidator.__new__(LinkValidator)
+    v.stats = {}
+    v.cache = {}
+    events = []
+
+    async def fake_validate_link(url):
+        host = url.split("/")[2]
+        events.append(("start", host, url))
+        await asyncio.sleep(0.01)
+        events.append(("end", host, url))
+        return _result(status="valid")
+
+    v.validate_link = fake_validate_link
+    v._extract_domain = lambda u: u.split("/")[2]
+
+    links = [{"url": f"https://{h}/{i}"} for h in ("a.test", "b.test") for i in range(3)]
+    asyncio.run(LinkValidator.validate_batch(v, links))
+
+    # Within each host, every start is preceded by the previous end.
+    for host in ("a.test", "b.test"):
+        seq = [e for e in events if e[1] == host]
+        for i in range(1, len(seq)):
+            if seq[i][0] == "start":
+                assert seq[i - 1][0] == "end", f"{host} overlapped its own requests"
+
+    # Across hosts, work genuinely interleaves -- otherwise this is still serial.
+    hosts_in_order = [e[1] for e in events if e[0] == "start"]
+    assert len(set(hosts_in_order[:2])) == 2, "domains did not run concurrently"
+
+
+def test_batch_preserves_input_order():
+    """Concurrency must not reorder the report."""
+    import asyncio
+
+    v = LinkValidator.__new__(LinkValidator)
+    v.stats = {}
+    v.cache = {}
+
+    async def fake(url):
+        # Make the second host finish first, so unsorted output would differ.
+        await asyncio.sleep(0.02 if "slow" in url else 0.001)
+        r = _result(status="valid")
+        r.url = url
+        return r
+
+    v.validate_link = fake
+    v._extract_domain = lambda u: u.split("/")[2]
+
+    links = [{"url": "https://slow.test/1"}, {"url": "https://fast.test/2"},
+             {"url": "https://slow.test/3"}, {"url": "https://fast.test/4"}]
+    out = asyncio.run(LinkValidator.validate_batch(v, links))
+    assert [r.url for r in out] == [x["url"] for x in links]
