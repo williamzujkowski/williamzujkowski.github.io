@@ -37,7 +37,7 @@ pnpm run audit      # 5 design audits — NOTE the `run`; bare `pnpm audit` is
                     # pnpm's built-in CVE scanner and shadows this script
 pnpm check          # astro check (tsc)
 pnpm lint           # eslint
-pnpm test:unit      # node:test, floor of 10
+pnpm test:unit      # node:test, floor of 18
 npx playwright test tests/e2e/   # smoke + a11y + theme-deck + sidenotes
 cd .. && uv run --with ruff ruff check scripts/   # ratchet at zero
 uv run python scripts/link-validation/internal-link-check.py   # needs dist/

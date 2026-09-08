@@ -140,3 +140,28 @@ other two failures were the validator expecting `/404.html` as the canonical pat
 Astro correctly uses `/404/`, and that assertion was corrected. A report-size
 review also produced #560: issue excerpts are capped at 50,000 UTF-8 bytes while
 the full citation report remains available as an artifact.
+
+
+Final implementation validation before the dependency follow-up: 80 E2E cases
+passed (including 17 search regressions), with the 24 machine-specific visual
+baseline authoring cases intentionally skipped under CI. All 20 targeted
+route/feed/interaction rechecks passed. Python: 143 tests plus three subtests;
+Node: 18 tests. Astro checking, ESLint, design and composited-grain audits,
+Ruff, actionlint and the 210-page internal-link check passed. The normal build
+excludes all three drafts from post routes, OG images, feeds, sitemap and lists.
+
+The final Nexus panel approved the gated merge process 6–1. The dissent mistook
+the PostgreSQL writing experiment for a proposed website database backend and
+treated the requested live confirmation as replacing preview testing; neither
+matches the implementation. The useful concern about review breadth is retained:
+PR #562 combines independent backlog workstreams, with separately observable
+required checks. No vote establishes that a lab proves broader security claims.
+
+GitHub subsequently surfaced Dependabot alert 141 (#563): Satori pins an affected
+fflate ZIP-extraction release. Inspection found no ZIP-extraction path in the
+site's build-time font rendering. The scoped compatible patch override passed frozen installation and production
+build; all 92 OG PNGs are byte-identical, and the production dependency audit
+reports zero vulnerabilities. The advisory was not dismissed on the basis of
+that reachability review.
+Deployment and final live-validation evidence are recorded in
+[PR #562](https://github.com/williamzujkowski/williamzujkowski.github.io/pull/562).

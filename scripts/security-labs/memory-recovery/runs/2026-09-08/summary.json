@@ -1,0 +1,65 @@
+{
+  "blank_reset": {
+    "trials": 3,
+    "trigger_successes": 0,
+    "benign_successes": 0,
+    "false_destinations": 0,
+    "errors": 0
+  },
+  "poisoned": {
+    "trials": 3,
+    "trigger_successes": 0,
+    "benign_successes": 3,
+    "false_destinations": 3,
+    "errors": 0
+  },
+  "baseline": {
+    "trials": 3,
+    "trigger_successes": 3,
+    "benign_successes": 3,
+    "false_destinations": 0,
+    "errors": 0
+  },
+  "trusted_snapshot": {
+    "trials": 3,
+    "trigger_successes": 3,
+    "benign_successes": 3,
+    "false_destinations": 0,
+    "errors": 0
+  },
+  "selective_repair": {
+    "trials": 3,
+    "trigger_successes": 3,
+    "benign_successes": 3,
+    "false_destinations": 0,
+    "errors": 0
+  },
+  "source_only_repair": {
+    "trials": 3,
+    "trigger_successes": 3,
+    "benign_successes": 3,
+    "false_destinations": 0,
+    "errors": 0
+  },
+  "uncontained_reingestion": {
+    "trials": 3,
+    "trigger_successes": 0,
+    "benign_successes": 3,
+    "false_destinations": 3,
+    "errors": 0
+  },
+  "contained_reingestion": {
+    "trials": 3,
+    "trigger_successes": 3,
+    "benign_successes": 3,
+    "false_destinations": 0,
+    "errors": 0
+  },
+  "contaminated_backup": {
+    "trials": 3,
+    "trigger_successes": 0,
+    "benign_successes": 3,
+    "false_destinations": 3,
+    "errors": 0
+  }
+}

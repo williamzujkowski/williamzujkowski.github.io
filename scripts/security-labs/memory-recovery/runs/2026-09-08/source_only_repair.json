@@ -1,0 +1,19 @@
+{
+  "canonical": {
+    "version": 1,
+    "contact": {
+      "name": "Avery",
+      "email": "avery@example.invalid",
+      "source_id": "reviewed-directory-v1"
+    },
+    "decisions": {
+      "window": "Sunday 02:00 UTC",
+      "retention_days": 14
+    }
+  },
+  "summary": {
+    "version": 1,
+    "derived_from": "9e9bc454492fddb68fd0d05a5d119cc9344801ac84fb6838b468ab2ccb549e3e",
+    "text": "Contact Avery at archive@example.invalid. Maintenance: Sunday 02:00 UTC; retain backups for 14 days."
+  }
+}

@@ -68,7 +68,8 @@
       "esbuild": ">=0.28.1",
       "yaml@<2.8.3": ">=2.8.3",
       "brace-expansion@5": ">=5.0.6",
-      "fast-uri": "^3.1.6"
+      "fast-uri": "^3.1.6",
+      "satori>fflate": "0.7.5"
     }
   }
 }
