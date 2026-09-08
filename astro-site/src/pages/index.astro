@@ -12,7 +12,7 @@ const hasMore = posts.length > 6;
 const stats = await getSiteStats();
 ---
 
-<BaseLayout title="William Zujkowski" description="Security engineer, builder, homelab enthusiast. Field notes on security, AI, and building things.">
+<BaseLayout searchIndex={false} title="William Zujkowski" description="Security engineer, builder, homelab enthusiast. Field notes on security, AI, and building things.">
   <header class="broadsheet-masthead landing-issue">
     <p class="landing-issue-label">
       Vol. {stats.volume}
@@ -28,6 +28,8 @@ const stats = await getSiteStats();
   </header>
 
   <h1 class="sr-only">Latest writing from William Zujkowski</h1>
+
+  <p><a href="/posts/#start-here">Start here: agentic security, tools, and homelab reading paths</a></p>
 
   <BroadsheetEntry post={lead} variant="lead" />
 

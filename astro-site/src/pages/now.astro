@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { gitMtime } from '@/lib/siteStats';
-
-const lastUpdated = gitMtime(import.meta.url);
+// Editorial timestamp: a rebuild or formatting change must not imply a
+// fresh factual review of the activities below.
+const lastUpdated = new Date('2026-09-08T00:00:00Z');
 const lastUpdatedISO = lastUpdated.toISOString().split('T')[0];
 const lastUpdatedStr = lastUpdated.toLocaleDateString('en-US', {
   year: 'numeric',
@@ -18,7 +18,7 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString('en-US', {
     <p>
       This is a <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer">now page</a> —
       what I'm actually focused on right now instead of my entire life story.
-      Last updated <time datetime={lastUpdatedISO}>{lastUpdatedStr}</time>.
+      Page last edited <time datetime={lastUpdatedISO}>{lastUpdatedStr}</time>.
     </p>
 
     <h2>Building</h2>
@@ -27,8 +27,8 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString('en-US', {
       <strong><a href="/projects/">Nexus Agents</a></strong> is eating most of my free engineering hours.
       Multi-model AI orchestration that routes tasks to Claude, Gemini, Codex, and OpenCode based on what
       each is good at. The consensus voting system — where multiple AI agents debate a proposal and vote —
-      is the part I'm most proud of. It sounds absurd, and it is, but it produces measurably better
-      decisions than any single model alone.
+      lets me compare independent critiques before making a decision. Agreement is useful input;
+      it still needs checking against the code and evidence.
     </p>
 
     <p>
@@ -49,14 +49,6 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString('en-US', {
       <strong>eBPF for security monitoring.</strong> I wrote a
       <a href="/posts/2025-07-01-ebpf-security-monitoring-practical-guide/">blog post about it</a>, but I'm going deeper
       now — building custom probes for my homelab to detect container escapes.
-    </p>
-
-    <h2>Working On</h2>
-
-    <p>
-      Cloud platform security at the federal level. The work involves identity federation, compliance
-      automation, and making sure security controls enable teams rather than block them. I spent years at
-      NIH learning that lesson the hard way.
     </p>
 
     <h2>Reading</h2>

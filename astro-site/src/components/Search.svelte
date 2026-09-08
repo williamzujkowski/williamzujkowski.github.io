@@ -29,11 +29,20 @@
   let results = $state<PagefindResult[]>([]);
   let isOpen = $state(false);
   let isLoading = $state(false);
+  let error = $state('');
+  let matches = $state<PagefindResponse['results']>([]);
+  const pageSize = 8;
+  let generation = 0;
+  let pagefindLoading: Promise<PagefindModule> | null = null;
+  let loadAttempt = 0;
   let inputEl: HTMLInputElement;
   let pagefind: PagefindModule | null = null;
   let debounceTimer: ReturnType<typeof setTimeout>;
   let previouslyFocused: HTMLElement | null = null;
   let dialogEl: HTMLDivElement;
+  let resultsEl: HTMLUListElement;
+  let moreEl: HTMLButtonElement;
+  let retryEl: HTMLButtonElement;
   let overlayEl: HTMLDivElement;
   let inertedEls: HTMLElement[] = [];
 
@@ -74,48 +83,109 @@
     }
   }
 
-  async function loadPagefind(): Promise<PagefindModule | null> {
+  async function loadPagefind(): Promise<PagefindModule> {
     if (pagefind) return pagefind;
-    if (typeof window === 'undefined') return null;
+    if (!pagefindLoading) {
+      // Cache only a successfully initialized module. A failed import needs a
+      // fresh URL on retry because browsers cache failed module fetches.
+      const attempt = loadAttempt++;
+      const path = `${window.location.origin}/pagefind/pagefind.js${attempt ? `?retry=${attempt}` : ''}`;
+      pagefindLoading = (async () => {
+        const module = (await import(/* @vite-ignore */ path)) as PagefindModule;
+        await module.init();
+        pagefind = module;
+        return module;
+      })();
+    }
     try {
-      const path = `${window.location.origin}/pagefind/pagefind.js`;
-      pagefind = (await import(/* @vite-ignore */ path)) as PagefindModule;
-      await pagefind.init();
-      return pagefind;
-    } catch {
-      // Pagefind not available (dev mode) — search silently disabled
-      return null;
+      return await pagefindLoading;
+    } finally {
+      pagefindLoading = null;
     }
   }
 
-  async function search() {
+  function invalidateSearch() {
     clearTimeout(debounceTimer);
-    if (query.length < 2) {
-      results = [];
-      // Without this the state stays "Searching..." forever once the query
-      // drops back below 2 characters — isLoading is set below and never
-      // cleared on this path. Issue #500.
-      isLoading = false;
-      return;
-    }
+    generation += 1;
+    isLoading = false;
+  }
+
+  function search() {
+    invalidateSearch();
+    const request = generation;
+    const term = query.trim();
+    results = [];
+    matches = [];
+    error = '';
+    if (term.length < 2) return;
+
     isLoading = true;
     debounceTimer = setTimeout(async () => {
-      const pf = await loadPagefind();
-      if (!pf) {
-        isLoading = false;
-        return;
+      try {
+        const pf = await loadPagefind();
+        if (request !== generation || !isOpen) return;
+        const response = await pf.search(term);
+        if (request !== generation || !isOpen) return;
+        const loaded = await Promise.all(response.results.slice(0, pageSize).map((r) => r.data()));
+        if (request !== generation || !isOpen) return;
+        matches = response.results;
+        results = loaded;
+      } catch {
+        if (request === generation && isOpen) {
+          error = 'Search is unavailable. Please try again.';
+        }
+      } finally {
+        if (request === generation) isLoading = false;
       }
-      const response = await pf.search(query);
-      const loaded = await Promise.all(response.results.slice(0, 8).map((r) => r.data()));
-      results = loaded;
-      isLoading = false;
     }, 200);
   }
 
+  async function loadMore() {
+    if (isLoading) return;
+    const request = generation;
+    const firstNewResult = results.length;
+    isLoading = true;
+    error = '';
+    try {
+      const loaded = await Promise.all(matches.slice(results.length, results.length + pageSize).map((r) => r.data()));
+      if (request !== generation || !isOpen) return;
+      results = [...results, ...loaded];
+      await tick();
+      if (request === generation && isOpen) {
+        resultsEl?.querySelectorAll<HTMLAnchorElement>('a')[firstNewResult]?.focus();
+      }
+    } catch {
+      if (request === generation && isOpen) {
+        const restoreFocus = document.activeElement === moreEl;
+        error = 'More results could not be loaded. Please try again.';
+        await tick();
+        if (restoreFocus && request === generation && isOpen) retryEl?.focus();
+      }
+    } finally {
+      if (request === generation) isLoading = false;
+    }
+  }
+
+  function clearSearch() {
+    query = '';
+    search();
+    inputEl?.focus();
+  }
+
+  function retrySearch() {
+    // Retry disappears while loading. Keep keyboard focus inside the dialog.
+    inputEl?.focus();
+    if (results.length) void loadMore();
+    else search();
+  }
+
   function close() {
+    invalidateSearch();
     isOpen = false;
     query = '';
     results = [];
+    matches = [];
+    error = '';
     clearInert(inertedEls);
     inertedEls = [];
     previouslyFocused?.focus();
@@ -123,19 +193,26 @@
   }
 
   async function open() {
-    isOpen = true;
-    previouslyFocused = document.activeElement as HTMLElement | null;
-    await tick(); // wait for the {#if isOpen} block to mount overlayEl
-    if (isOpen && overlayEl) {
-      inertedEls = inertOutside(overlayEl);
+    // Repeated shortcuts must preserve the original inert ownership and focus
+    // target. Otherwise close() leaves the rest of the page inert.
+    if (isOpen) {
+      inputEl?.focus();
+      return;
     }
-    setTimeout(() => inputEl?.focus(), 50);
+    previouslyFocused = document.activeElement as HTMLElement | null;
+    const opening = generation;
+    isOpen = true;
+    await tick();
+    if (isOpen && opening === generation && overlayEl) {
+      inertedEls = inertOutside(overlayEl);
+      inputEl?.focus();
+    }
   }
 
   function trapFocus(e: KeyboardEvent) {
     if (e.key !== 'Tab') return;
     const focusable = dialogEl?.querySelectorAll<HTMLElement>(
-      'input, a[href], button, [tabindex]:not([tabindex="-1"])'
+      'input, a[href], button:not(:disabled), [tabindex]:not([tabindex="-1"])'
     );
     if (!focusable || focusable.length === 0) return;
     const first = focusable[0];
@@ -171,6 +248,8 @@
 
     return () => {
       document.removeEventListener('keydown', handleKeydown);
+      invalidateSearch();
+      clearInert(inertedEls);
     };
   });
 </script>
@@ -218,17 +297,20 @@
         <input
           bind:this={inputEl}
           bind:value={query}
-          oninput={search}
+          oninput={(event) => { query = event.currentTarget.value; search(); }}
           type="text"
           placeholder="Search site..."
-          aria-label="Search posts"
+          aria-label="Search site content"
           class="search-input"
         />
-        <kbd class="search-esc">ESC</kbd>
+        {#if query}
+          <button type="button" class="search-control" onclick={clearSearch}>Clear</button>
+        {/if}
+        <button type="button" class="search-control" onclick={close} aria-label="Close search">Close</button>
       </div>
 
       {#if results.length > 0}
-        <ul class="search-results">
+        <ul bind:this={resultsEl} class="search-results">
           {#each results as result}
             <li>
               <a href={result.url} class="search-result-link" onclick={close}>
@@ -244,15 +326,28 @@
             </li>
           {/each}
         </ul>
-      {:else if isLoading}
-        <div class="search-state">Searching...</div>
-      {:else if query.length >= 2}
-        <div class="search-state">
-          No results for "{query}"
+      {/if}
+      <div class="search-state" role="status" aria-live="polite" aria-atomic="true">
+        {#if isLoading}
+          Searching...
+        {:else if error}
+          {error}
+        {:else if results.length > 0}
+          Showing {results.length} of {matches.length} results
+        {:else if query.trim().length >= 2}
+          No results for "{query.trim()}"
+        {:else}
+          Type at least two characters to search.
+        {/if}
+      </div>
+      {#if error}
+        <div class="search-actions">
+          <button bind:this={retryEl} type="button" class="search-control" onclick={retrySearch}>Try again</button>
+          <a href="/posts/" onclick={close}>Browse all posts</a>
         </div>
-      {:else}
-        <div class="search-state is-hint">
-          Type to search...
+      {:else if matches.length > results.length}
+        <div class="search-actions">
+          <button bind:this={moreEl} type="button" class="search-control" onclick={loadMore} aria-disabled={isLoading}>Show more results</button>
         </div>
       {/if}
     </div>
@@ -357,21 +452,36 @@
     outline-offset: 2px;
     border-radius: 2px;
   }
-  .search-esc {
-    display: none;
-    /* font-family: mono — shared machine-voice rule in global.css (#274) */
-    font-size: var(--text-micro);
-    padding: 0.125rem 0.375rem;
-    border: 1px solid var(--color-border);
-    border-radius: 0.25rem;
-    color: var(--color-muted);
-    line-height: 1;
+  .search-control {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.375rem 0.625rem;
+    border: 1px solid var(--color-border-bold);
+    border-radius: var(--radius-md, 0.5rem);
+    background: var(--color-surface);
+    color: var(--color-fg);
+    font: inherit;
+    font-size: var(--text-meta);
+    cursor: pointer;
   }
-  @media (min-width: 640px) {
-    .search-esc { display: inline-block; }
+  .search-control[aria-disabled='true'] {
+    cursor: wait;
+  }
+  .search-control:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  .search-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0 1rem 1rem;
+    text-align: center;
   }
   .search-results {
-    max-height: 20rem;
+    max-height: min(20rem, 45dvh);
     overflow-y: auto;
     padding: 0.5rem;
     margin: 0;
@@ -403,12 +513,10 @@
     overflow: hidden;
   }
   .search-state {
-    padding: 2rem;
+    padding: 1rem;
+    font-size: var(--text-meta);
     text-align: center;
     color: var(--color-muted);
-  }
-  .search-state.is-hint {
-    font-size: var(--text-meta);
   }
 
   /* Style Pagefind highlight marks */

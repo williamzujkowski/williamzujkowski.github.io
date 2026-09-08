@@ -7,6 +7,7 @@ import remarkSmartypants from 'remark-smartypants';
 import { visit } from 'unist-util-visit';
 import { createCssVariablesTheme } from 'shiki';
 import rehypeSidenotes from './src/lib/rehype-sidenotes.mjs';
+import rehypeTaskListLabels from './src/lib/rehype-task-list-labels.mjs';
 
 /**
  * Remarque syntax-highlighting theme (remarque-tokens 0.15.0, REMARQUE.md
@@ -393,6 +394,7 @@ export default defineConfig({
       // now as the newest addition.
       rehypeSidenotes,
       rehypeRaw,
+      rehypeTaskListLabels,
       [rehypeSanitize, sanitizeSchema],
     ],
   },

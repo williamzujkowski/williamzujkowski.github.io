@@ -37,7 +37,7 @@ pnpm run audit      # 5 design audits — NOTE the `run`; bare `pnpm audit` is
                     # pnpm's built-in CVE scanner and shadows this script
 pnpm check          # astro check (tsc)
 pnpm lint           # eslint
-pnpm test:unit      # node:test, floor of 10
+pnpm test:unit      # node:test, floor of 18
 npx playwright test tests/e2e/   # smoke + a11y + theme-deck + sidenotes
 cd .. && uv run --with ruff ruff check scripts/   # ratchet at zero
 uv run python scripts/link-validation/internal-link-check.py   # needs dist/
@@ -90,6 +90,10 @@ uv run python scripts/link-validation/internal-link-check.py   # needs dist/
 - ALWAYS use homelab attribution for technical examples
 - NEVER reference specific government systems or agencies
 - ALWAYS time-buffer work references ("years ago I worked on...")
+
+Public About/Now biography follows these same attribution restrictions; there is
+no employer-specific biography exception. A displayed page-edit date records an
+edit, not independent verification of every author-supplied activity statement.
 
 **Safe patterns:**
 ```markdown
@@ -332,7 +336,7 @@ revert good content because a CDN hiccuped).
 
 ## Python Scripts
 
-Four families under `scripts/`, sharing helpers from `scripts/lib/`
+Tooling families under `scripts/`, sharing helpers from `scripts/lib/`
 (`logging_config.py`, `link_gatekeepers.py`):
 
 | directory | what it is | runs in CI? |
@@ -343,6 +347,8 @@ Four families under `scripts/`, sharing helpers from `scripts/lib/`
 | `corpus-audit/` | `grim_check.py`, `provenance.py` — one-shot analyses; hardcode `/tmp/grim/` paths | no |
 | `theme-deck/` | `generate.py` — regenerates `theme-deck.css`/`.json`; needs an external themes repo | no |
 | `zine-art/` | `ink-mask.py` — doodle masking; needs Pillow | no |
+| `ci/` | stdlib workflow input selector and real-git-history regression tests | yes (`tests.yml`) |
+| `security-labs/` | disposable PostgreSQL and synthetic memory-recovery experiments; only offline memory fixture tests run in CI | offline tests only (`tests.yml`) |
 | `gist-drift-check.py` | compares `gists/` against the published gists | no (run before touching `gists/`) |
 
 Runtime dependencies are declared in `pyproject.toml` (aiohttp, certifi,
