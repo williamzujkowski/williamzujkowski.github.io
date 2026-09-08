@@ -35,7 +35,7 @@ const { tag, posts } = Astro.props;
 const humanTagLabel = humanTag(tag);
 ---
 
-<BaseLayout title={`Posts tagged "${tag}"`} description={`All blog posts tagged with "${tag}".`}>
+<BaseLayout searchIndex={false} title={`Posts tagged "${tag}"`} description={`All blog posts tagged with "${tag}".`}>
   <nav aria-label="Breadcrumb" class="post-breadcrumb">
     <a href="/">Home</a> / <a href="/posts/">Blog</a> / <a href="/tags/">Tags</a> / {tag}
   </nav>

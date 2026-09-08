@@ -331,8 +331,8 @@ Recent academic research has significantly advanced our understanding of eBPF se
    - Fournier, Afchain, and Baubeau demonstrate how eBPF drastically improves legacy runtime security monitoring
    - *17th SSTIC Symposium sur la Sécurité*
 
-3. **[The Rise of eBPF for Non-Intrusive Performance Monitoring](https://orbilu.uni.lu/handle/10993/43564)** (2020)
-   - Cassagnes et al. analyze the potential of eBPF for performance and security monitoring
+3. **[The Rise of eBPF for Non-Intrusive Performance Monitoring](https://cj.rs/paper/noms-2020/the-rise-of-eBPF-for-non-intrusive-performance-monitoring.pdf)** (2020)
+   - Cassagnes et al. use eBPF to profile containerized Interledger connectors without modifying the applications
    - *IEEE Xplore*
 
 4. **[Efficient Network Monitoring Applications in the Kernel with eBPF and XDP](https://ieeexplore.ieee.org/abstract/document/9665095/)** (2021)

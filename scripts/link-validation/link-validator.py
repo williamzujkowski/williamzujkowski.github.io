@@ -129,6 +129,9 @@ class LinkValidator:
             'redirects': 0,
             'timeouts': 0,
             'errors': 0,
+            'internal': 0,
+            'unroutable': 0,
+            'unique_urls': 0,
             'cached': 0
         }
 
@@ -181,8 +184,8 @@ class LinkValidator:
                              is_redirect: bool = False):
         """Map a final HTTP status to (status, issue_type). Pure -- no network.
 
-        Only a genuinely-dead resource is 'broken': 404 and 410 (plus ssl_error /
-        dns_error / timeout, which callers handle separately). Everything else --
+        HTTP 404 and 410 are 'broken'; TLS failures are handled separately.
+        DNS failures and timeouts remain unresolved, advisory results. Everything else --
         403/401/paywall, anti-bot codes, and 5xx -- is 'restricted'
         (unverifiable, advisory) so the weekly citation report only alarms on
         real breakage rather than on publisher bot challenges. See #366 / #391.
@@ -257,6 +260,12 @@ class LinkValidator:
         results.sort(key=lambda r: order.get(r.url, 0))
         return results
 
+    def _count_result(self, result: ValidationResult):
+        """Count citation occurrences, including cache hits, in one status category."""
+        key = {'redirect': 'redirects', 'timeout': 'timeouts', 'error': 'errors'}.get(
+            result.status, result.status)
+        self.stats[key] = self.stats.get(key, 0) + 1
+
     async def validate_link(self, url: str) -> ValidationResult:
         """Validate a single link"""
         self.stats['total'] += 1
@@ -264,7 +273,10 @@ class LinkValidator:
         # Check cache
         if url in self.cache:
             self.stats['cached'] += 1
+            self._count_result(self.cache[url])
             return self.cache[url]
+
+        self.stats['unique_urls'] += 1
 
         # Root-relative links (`/posts/...`, `/about/`) are not external URLs
         # and aiohttp cannot express one -- it raises InvalidURL, which lands
@@ -284,7 +296,7 @@ class LinkValidator:
                 response_time=0.0, content_type=None, page_title=None,
                 requires_js=False, ssl_valid=False,
                 validation_time=datetime.now().isoformat(), retry_count=0)
-            self.stats['internal'] = self.stats.get('internal', 0) + 1
+            self._count_result(result)
             self.cache[url] = result
             return result
 
@@ -300,13 +312,12 @@ class LinkValidator:
                 response_time=0.0, content_type=None, page_title=None,
                 requires_js=False, ssl_valid=False,
                 validation_time=datetime.now().isoformat(), retry_count=0)
-            self.stats['unroutable'] = self.stats.get('unroutable', 0) + 1
+            self._count_result(result)
             self.cache[url] = result
             return result
 
         start_time = time.time()
         result = None
-        counted_valid = False
 
         # Try different validation strategies
         for retry in range(self.max_retries):
@@ -315,8 +326,6 @@ class LinkValidator:
                 result = await self._validate_http(url, retry)
 
                 if result.status == 'valid':
-                    self.stats['valid'] += 1
-                    counted_valid = True
                     break
 
                 # Exponential backoff for retries
@@ -366,29 +375,15 @@ class LinkValidator:
             result = await self._escalate(url, result)
 
         if result:
-            # Update stats. `valid` is counted here rather than only inside the
-            # retry loop: a link rescued by the browser escalation above never
-            # breaks out of that loop, so counting it there undercounted every
-            # rescue -- the sample run reported stats.valid=1 against 2 actually
-            # valid results, and citation-validation.yml publishes stats.valid
-            # straight into the issue body.
-            if result.status == 'valid' and not counted_valid:
-                self.stats['valid'] += 1
-            elif result.status == 'broken':
-                self.stats['broken'] += 1
-            elif result.status == 'restricted':
-                self.stats['restricted'] += 1
-            elif result.status == 'redirect':
-                self.stats['redirects'] += 1
-            elif result.status == 'timeout':
-                self.stats['timeouts'] += 1
-            elif result.status == 'error':
-                self.stats['errors'] += 1
+            self._count_result(result)
 
             # Cache result
             self.cache[url] = result
 
         return result
+
+    # Limit decompressed bytes inspected; citation validation is not a download.
+    MAX_HTML_BYTES = 256 * 1024
 
     async def _validate_http(self, url: str, retry: int) -> ValidationResult:
         """Validate using HTTP request"""
@@ -408,8 +403,25 @@ class LinkValidator:
                 final_url = str(response.url)
                 is_redirect = final_url != url
 
-                # Read content for paywall detection
-                content = await response.text()
+                # Only successful HTML needs title/paywall inspection. Binary bodies
+                # and error pages must retain their HTTP verdict without decoding.
+                content = ''
+                if response.status == 200 and response.content_type in (
+                    'text/html', 'application/xhtml+xml'
+                ):
+                    chunks = []
+                    remaining = self.MAX_HTML_BYTES
+                    while remaining:
+                        chunk = await response.content.read(min(16384, remaining))
+                        if not chunk:
+                            break
+                        chunks.append(chunk)
+                        remaining -= len(chunk)
+                    body = b''.join(chunks)
+                    try:
+                        content = body.decode(response.charset or 'utf-8', errors='replace')
+                    except LookupError:
+                        content = body.decode('utf-8', errors='replace')
                 content_lower = content.lower()
 
                 # Check for paywall

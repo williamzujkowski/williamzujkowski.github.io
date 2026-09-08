@@ -32,6 +32,7 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
 <BaseLayout
   title="Blog"
   description="Security insights, AI experiments, homelab adventures, and lessons from the field."
+  searchIndex={false}
 >
   <h1 class="sr-only">Dispatches — every piece</h1>
 
@@ -59,6 +60,25 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
     </div>
   </div>
 
+  <section id="start-here" class="reading-paths prose" aria-labelledby="start-here-title">
+    <h2 id="start-here-title">Start here</h2>
+    <p>Two routes through the archive. Read in order, or pick the problem on your desk.</p>
+    <h3>Securing agents</h3>
+    <p>For readers comfortable with process isolation and API permissions.</p>
+    <ol>
+      <li><a href="/posts/2026-07-02-agentic-ai-sandbox-secret-proxying-gap/">Sandboxing and credential proxying</a> — start with what the agent can reach and which secrets it can see.</li>
+      <li><a href="/posts/2026-07-30-prove-the-gate-not-the-agent/">Prove the execution gate</a> — follow the boundary from permissions to properties you can check.</li>
+      <li><a href="/posts/2026-08-18-the-policy-is-the-part-that-moves/">When policy changes during a task</a> — examine what happens when yesterday's permission no longer applies.</li>
+    </ol>
+    <h3>Homelab security</h3>
+    <p>Start with basic networking; the later articles assume familiarity with Linux services. These are dated field notes, so check current upstream documentation before applying commands.</p>
+    <ol>
+      <li><a href="/posts/2025-09-08-zero-trust-vlan-segmentation-homelab/">Separate trust zones with VLANs</a> — decide which devices should be able to talk before adding monitoring.</li>
+      <li><a href="/posts/2025-08-25-network-traffic-analysis-suricata-homelab/">Inspect traffic with Suricata</a> — make network activity visible inside those boundaries.</li>
+      <li><a href="/posts/2025-12-10-homelab-security-dashboard-grafana-prometheus/">Build a security dashboard</a> — bring the resulting signals together for investigation.</li>
+    </ol>
+  </section>
+
   {years.map((year) => (
     <section class="year-section">
       <h2 class="year-divider">
@@ -76,6 +96,12 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
 </BaseLayout>
 
 <style>
+  .reading-paths {
+    max-width: var(--content-reading);
+    margin: var(--space-6) auto;
+    padding-block: var(--space-4);
+    border-block: 1px solid var(--color-border);
+  }
   .year-section {
     max-width: var(--content-reading);
     margin: 0 auto;

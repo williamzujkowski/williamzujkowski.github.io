@@ -18,7 +18,7 @@ posts.forEach((post) => {
 const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
 ---
 
-<BaseLayout title="Tags" description="Browse all blog post tags.">
+<BaseLayout searchIndex={false} title="Tags" description="Browse all blog post tags.">
   <div class="prose">
     <h1>Tags</h1>
     <p>{sortedTags.length} tags across {posts.length} posts.</p>

@@ -37,15 +37,7 @@ jobs:
       - id: diff
         env:
           BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
-        run: |
-          if [ -z "$BASE" ] || ! git cat-file -e "$BASE" 2>/dev/null; then
-            echo "python=true" >> "$GITHUB_OUTPUT"   # can't diff: run everything
-          elif git diff --name-only "$BASE"...HEAD \
-               | grep -qE '^(scripts/|pyproject\.toml|\.github/workflows/tests\.yml)'; then
-            echo "python=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "python=false" >> "$GITHUB_OUTPUT"
-          fi
+        run: python3 scripts/ci/select-inputs.py tests >> "$GITHUB_OUTPUT"
 
   pytest:
     needs: changes
@@ -64,8 +56,8 @@ jobs:
       - name: Install UV
         uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d  # v10.0.1
 
-      - name: Run link-validation regression tests
-        run: uv run --with pytest python -m pytest scripts/link-validation/tests/ -q
+      - name: Run link-validation, CI-selection and offline lab regression tests
+        run: uv run --with pytest python -m pytest scripts/link-validation/tests/ scripts/ci/tests/ scripts/security-labs/memory-recovery/ -q
 
       # ruff was declared in pyproject.toml and configured with seven rule
       # families, but nothing ever invoked it (issue #497). At the time it was

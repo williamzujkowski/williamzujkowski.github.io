@@ -19,6 +19,7 @@ interface Props {
   wordCount?: number;
   tags?: string[];
   noindex?: boolean;
+  searchIndex?: boolean;
 }
 
 const {
@@ -31,6 +32,7 @@ const {
   wordCount,
   tags = [],
   noindex = false,
+  searchIndex = true,
 } = Astro.props;
 
 // `||` (not a default param) so an empty-string description also falls back.
@@ -95,11 +97,6 @@ if (type === 'article') {
     description,
     url: siteUrl,
     author: authorSchema,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: { '@type': 'EntryPoint', urlTemplate: `${siteUrl}/posts/?q={search_term_string}` },
-      'query-input': 'required name=search_term_string',
-    },
   };
   jsonLdSchemas.push(websiteSchema);
 }
@@ -296,7 +293,7 @@ function isActiveLink(linkHref: string): boolean {
     </header>
 
     <!-- Main -->
-    <main id="main" data-pagefind-body>
+    <main id="main" data-pagefind-body={searchIndex && !noindex ? true : undefined}>
       <slot />
     </main>
 

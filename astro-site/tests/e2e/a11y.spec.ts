@@ -36,15 +36,6 @@ const PAGES = [
  *    every popular syntax theme — WCAG prose-contrast doesn't match the
  *    pattern-recognition task syntax highlighting serves. The surrounding
  *    prose still has to pass.
- *  - GFM task-list checkboxes (`- [ ]`) render as bare
- *    `<input type="checkbox" disabled>` with no accessible label — a
- *    pre-existing gap in Astro's default markdown pipeline, found via the
- *    sidenotes pilot post's "Threat Model Checklist" section, unrelated to
- *    sidenotes itself. Tracked as a follow-up (small rehype pass needed).
- *    Excluded ONLY on the one page that actually has task-list checkboxes
- *    (see `taskListExcludes` below) — NOT added to every page's exclusion
- *    list, so a future post that introduces the same bug still fails here
- *    instead of being silently masked site-wide.
  */
 /**
  * Liveness precondition — run BEFORE axe on every scan.
@@ -64,7 +55,7 @@ async function assertPageIsLive(page: Page, response: Response | null, path: str
   await expect(page.locator('main'), `${path} must render a <main> landmark`).toBeVisible();
 }
 
-async function runAxe(page: Page, extraExcludes: string[] = []) {
+async function runAxe(page: Page) {
   const builder = new AxeBuilder({ page })
     // 'best-practice' added (issue #508): without it, landmark-unique and
     // region never run, so two unnamed <nav> landmarks sitting beside the
@@ -80,22 +71,15 @@ async function runAxe(page: Page, extraExcludes: string[] = []) {
       },
     })
     .exclude('pre.astro-code span');
-  for (const selector of extraExcludes) builder.exclude(selector);
   return builder.analyze();
 }
 
-// Page-specific exclusions — keyed by `name`, not applied globally.
-const EXTRA_EXCLUDES: Record<string, string[]> = {
-  'blog-post-sidenotes': ['.task-list-item input[type="checkbox"]'],
-};
-
 for (const { path, name } of PAGES) {
-  const extraExcludes = EXTRA_EXCLUDES[name] ?? [];
 
   test(`a11y: ${name} (${path}) — light`, async ({ page }) => {
     const response = await page.goto(path);
     await assertPageIsLive(page, response, path);
-    const results = await runAxe(page, extraExcludes);
+    const results = await runAxe(page);
     expect(results.violations, JSON.stringify(results.violations, null, 2)).toEqual([]);
   });
 
@@ -103,7 +87,7 @@ for (const { path, name } of PAGES) {
     await page.emulateMedia({ colorScheme: 'dark' });
     const response = await page.goto(path);
     await assertPageIsLive(page, response, path);
-    const results = await runAxe(page, extraExcludes);
+    const results = await runAxe(page);
     expect(results.violations, JSON.stringify(results.violations, null, 2)).toEqual([]);
   });
 }
