@@ -1,31 +1,16 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import { getPublishedPosts } from '@/lib/posts';
+import { countPostTags, postPieceNumbers, postsByUTCYear } from '@/lib/publication.mjs';
 import BroadsheetEntry from '@components/BroadsheetEntry.astro';
 
-const allPosts = await getCollection('posts', ({ data }) => !data.draft);
-const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const posts = await getPublishedPosts();
 
-const tagCounts = new Map<string, number>();
-posts.forEach((post) => {
-  (post.data.tags ?? [])
-    .filter((t: string) => t !== 'posts')
-    .forEach((tag: string) => tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1));
-});
+const tagCounts = countPostTags(posts);
 const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
 
-// Site-wide piece number: latest post = posts.length, oldest = 1.
-// Matches landing numbering; every post has a single canonical number
-// across the whole publication.
-const pieceNumberById = new Map<string, number>();
-posts.forEach((post, i) => pieceNumberById.set(post.id, posts.length - i));
-
-const postsByYear = new Map<number, typeof posts>();
-posts.forEach((post) => {
-  const year = post.data.date.getFullYear();
-  if (!postsByYear.has(year)) postsByYear.set(year, []);
-  postsByYear.get(year)!.push(post);
-});
+const pieceNumberById = postPieceNumbers(posts);
+const postsByYear = postsByUTCYear(posts);
 const years = [...postsByYear.keys()].sort((a, b) => b - a);
 ---
 

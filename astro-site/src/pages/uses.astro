@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { gitMtime } from '@/lib/siteStats';
 
-const lastUpdated = gitMtime(import.meta.url);
+// Records this source edit, not a verification of every activity statement.
+const lastUpdated = new Date('2026-09-08T00:00:00Z');
 const lastUpdatedISO = lastUpdated.toISOString().split('T')[0];
 const lastUpdatedStr = lastUpdated.toLocaleDateString('en-US', {
   year: 'numeric',
@@ -587,7 +587,7 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString('en-US', {
     </section>
 
     <p>
-      Last updated <time datetime={lastUpdatedISO}>{lastUpdatedStr}</time>.
+      Page last edited <time datetime={lastUpdatedISO}>{lastUpdatedStr}</time>.
     </p>
   </div>
 </BaseLayout>

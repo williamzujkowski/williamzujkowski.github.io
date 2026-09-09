@@ -1,23 +1,14 @@
 ---
 import { humanTag } from '@/lib/utils';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import { getPublishedPosts } from '@/lib/posts';
+import { countPostTags, postPieceNumbers } from '@/lib/publication.mjs';
 import BroadsheetEntry from '@components/BroadsheetEntry.astro';
 
 export async function getStaticPaths() {
-  const all = await getCollection('posts', ({ data }) => !data.draft);
-  const sortedAll = all.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-  const total = sortedAll.length;
-  // Canonical site-wide piece number: newest = total, oldest = 1
-  const pieceById = new Map<string, number>();
-  sortedAll.forEach((post, i) => pieceById.set(post.id, total - i));
-
-  const tags = new Set<string>();
-  sortedAll.forEach((post) => {
-    (post.data.tags ?? [])
-      .filter((t: string) => t !== 'posts')
-      .forEach((tag: string) => tags.add(tag));
-  });
+  const sortedAll = await getPublishedPosts();
+  const pieceById = postPieceNumbers(sortedAll);
+  const tags = countPostTags(sortedAll).keys();
 
   return [...tags].map((tag) => {
     const filtered = sortedAll.filter((p) => p.data.tags?.includes(tag));

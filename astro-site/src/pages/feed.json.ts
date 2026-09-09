@@ -1,4 +1,4 @@
-import { getCollection } from 'astro:content';
+import { getPublishedPosts } from '@/lib/posts';
 import type { APIContext } from 'astro';
 import { renderPostForFeed } from '@/lib/feedContent';
 import { SITE_CONFIG } from '@/lib/siteConfig';
@@ -6,8 +6,7 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
 // JSON Feed 1.1 — https://jsonfeed.org/version/1.1
 // Mirrors feed.xml.ts: same post set, same full (non-truncated) content_html.
 export async function GET(context: APIContext) {
-  const posts = await getCollection('posts', ({ data }) => !data.draft);
-  const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+  const sortedPosts = await getPublishedPosts();
   const siteUrl = (context.site?.toString() ?? SITE_CONFIG.siteUrl).replace(/\/$/, '');
 
   const items = sortedPosts.map((post) => {
