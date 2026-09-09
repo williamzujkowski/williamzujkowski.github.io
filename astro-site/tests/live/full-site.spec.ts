@@ -118,7 +118,9 @@ test('search recovery, real query, theme persistence and reading paths', async (
 });
 
 test('reading paths work without JavaScript', async ({ browser, baseURL }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false, baseURL });
+  // Smooth fragment scrolling can trigger Playwright's click retry timer,
+  // which cannot fire with JavaScript disabled. Use the site's reduced-motion CSS.
+  const context = await browser.newContext({ javaScriptEnabled: false, baseURL, reducedMotion: 'reduce' });
   try {
     const page = await context.newPage();
     await page.goto('/posts/#start-here');
