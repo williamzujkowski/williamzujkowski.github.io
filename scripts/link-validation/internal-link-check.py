@@ -23,6 +23,10 @@ EXTERNAL_PROJECT_PREFIXES = ("/remarque/",)
 
 
 class Document(HTMLParser):
+    # HTMLParser otherwise recognizes a literal <script> inside these elements
+    # and can swallow real links after their closing tag as script content.
+    CDATA_CONTENT_ELEMENTS = (*HTMLParser.CDATA_CONTENT_ELEMENTS, "textarea", "title")
+
     def __init__(self, html: str):
         super().__init__(convert_charrefs=True)
         self.references: list[str] = []
@@ -78,6 +82,24 @@ def page_url(site: str, page: Path, dist: Path) -> str:
     if page.name == "index.html":
         path = path.removesuffix("index.html")
     return urljoin(site, "/" + quote(path))
+
+
+def normalize_dot_segments(path: str) -> str:
+    """Normalize browser URL dot segments without decoding encoded separators."""
+    output: list[str] = []
+    segments = path.split("/")
+    for index, segment in enumerate(segments):
+        # WHATWG special URLs recognize mixed literal/percent-encoded dots,
+        # but %2F remains part of its segment rather than becoming a slash.
+        dots = segment.lower().replace("%2e", ".")
+        if dots in (".", ".."):
+            if dots == ".." and len(output) > 1:
+                output.pop()
+            if index == len(segments) - 1:
+                output.append("")
+        else:
+            output.append(segment)
+    return "/".join(output)
 
 
 def resolve(dist: Path, path: str) -> Path | None:
@@ -149,6 +171,7 @@ def main() -> int:
                 if origin(target_url) != site_origin:
                     continue
                 parts = urlsplit(target_url)
+                parts = parts._replace(path=normalize_dot_segments(parts.path))
             except ValueError:
                 failures[here].append(f"invalid URL {value}")
                 continue

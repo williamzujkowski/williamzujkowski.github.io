@@ -103,6 +103,44 @@ def test_broken_fragment_cannot_be_satisfied_by_script_or_comment(tmp_path):
     assert "dead anchor #fake" in result.stdout
 
 
+@pytest.mark.parametrize("parent", ["%2e%2e", ".%2E", "%2E."])
+def test_encoded_dot_segments_cannot_escape_project_ownership_check(tmp_path, parent):
+    result = run_site(tmp_path, {
+        "index.html": f"<a href='/remarque/{parent}/missing/'>Missing</a>",
+    })
+    assert result.returncode == 1
+    assert "dead path" in result.stdout
+    assert "Other deployments (excluded from offline check): 0 references" in result.stdout
+
+
+def test_encoded_dot_segments_resolve_existing_local_target(tmp_path):
+    result = run_site(tmp_path, {
+        "index.html": "<a href='/remarque/%2e%2e/about/%2E/#here'>About</a>",
+        "about/index.html": "<h1 id=here>About</h1>",
+    })
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "2 pages, 1 links, 1 anchors" in result.stdout
+    assert "Other deployments (excluded from offline check): 0 references" in result.stdout
+
+
+def test_encoded_slash_does_not_create_project_ownership_boundary(tmp_path):
+    result = run_site(tmp_path, {
+        "index.html": "<a href='/remarque%2Fmissing/'>Missing</a>",
+    })
+    assert result.returncode == 1
+    assert "Other deployments (excluded from offline check): 0 references" in result.stdout
+
+
+@pytest.mark.parametrize("element", ["textarea", "title"])
+def test_script_literals_in_text_elements_do_not_hide_subsequent_links(tmp_path, element):
+    result = run_site(tmp_path, {
+        "index.html": f"<{element}><script>literal example</{element}>"
+                      "<a href='/missing/'>Real missing link</a>",
+    })
+    assert result.returncode == 1
+    assert "dead path  /missing/" in result.stdout
+
+
 def test_astro_error_canonical_maps_to_emitted_error_page(tmp_path):
     result = run_site(tmp_path, {"404.html": "<link rel=canonical href='https://example.test/404/'>"})
     assert result.returncode == 0, result.stdout + result.stderr
