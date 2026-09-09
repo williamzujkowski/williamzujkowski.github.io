@@ -1,135 +1,208 @@
 #!/usr/bin/env python3
-"""Verify every internal link and in-page anchor in the built site.
+"""Check built HTML references and anchors offline, including relative URLs.
 
-Why this exists (issue #502): `link-monitor.yml`'s only failure condition
-counts results whose status is `broken`. Relative paths never reach that
-status -- simple-validator hands them to aiohttp, which raises `InvalidURL`,
-which is recorded as `needs_manual`. So 182 relative links, about 12% of the
-corpus, were structurally exempt from the one classification the gate reads.
-A deliberately nonexistent internal post URL was not "broken".
-
-HTTP was the wrong tool. Internal links resolve against files on disk, so
-this walks `dist/` and checks them there: deterministic, offline,
-sub-second, and able to fail the build -- unlike everything previously
-pointed at links.
-
-What it checks:
-  * root-relative hrefs (`/posts/x/`) resolve to a file in dist/
-  * in-page fragments (`#notes`) match an id or a name in that page
-  * cross-page fragments (`/about/#contact`) resolve on the target page
-
-What it deliberately does NOT check: external URLs (that is link-monitor's
-job, over the network, and it must stay advisory because the network is not
-a property of this commit).
+HTML parsing handles normal quoting/entity forms. URLs resolve against each
+page and its first <base href>, just as authored links do in a browser. External
+origins remain the scheduled network check's responsibility. Files and symlink
+targets must stay inside dist; an empty build cannot pass.
 """
-
 from __future__ import annotations
 
 import argparse
-import re
 import sys
 from collections import defaultdict
+from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import unquote, urlsplit
+from urllib.parse import quote, unquote, urljoin, urlsplit
 
-# href/src values. Skips anything with a scheme and protocol-relative URLs.
-LINK_RE = re.compile(r'(?:href|src)\s*=\s*"([^"]+)"', re.I)
-ID_RE = re.compile(r'\bid\s*=\s*"([^"]+)"', re.I)
-NAME_RE = re.compile(r'<a\b[^>]*\bname\s*=\s*"([^"]+)"', re.I)
-
-# Emitted by the build for the search index and similar; not page links.
-IGNORE_PREFIXES = ("/pagefind/",)
+DEFAULT_SITE = "https://williamzujkowski.github.io"
+# GitHub project Pages share this origin but are deployed from other repos.
+# These URLs belong to the network checker, not this dist tree. Match a whole
+# path segment so a missing /remarque-other/ route is still a local failure.
+EXTERNAL_PROJECT_PREFIXES = ("/remarque/",)
 
 
-def page_ids(html: str) -> set[str]:
-    return set(ID_RE.findall(html)) | set(NAME_RE.findall(html))
+class Document(HTMLParser):
+    # HTMLParser otherwise recognizes a literal <script> inside these elements
+    # and can swallow real links after their closing tag as script content.
+    CDATA_CONTENT_ELEMENTS = (*HTMLParser.CDATA_CONTENT_ELEMENTS, "textarea", "title")
+
+    def __init__(self, html: str):
+        super().__init__(convert_charrefs=True)
+        self.references: list[str] = []
+        self.ids: set[str] = set()
+        self.base: str | None = None
+        self.text_only: str | None = None
+        self.template_depth = 0
+        self.feed(html)
+        self.close()
+
+    def handle_starttag(self, tag, attrs):
+        if self.text_only:
+            return
+        if tag in ("textarea", "title"):
+            self.text_only = tag
+        if self.template_depth:
+            if tag == "template":
+                self.template_depth += 1
+            return
+        if tag == "template":
+            self.template_depth = 1
+        # Browsers use the first occurrence of a duplicate attribute.
+        values = {}
+        for key, value in attrs:
+            values.setdefault(key, value)
+        if values.get("id") is not None:
+            self.ids.add(values["id"])
+        if tag == "a" and values.get("name") is not None:
+            self.ids.add(values["name"])
+        if tag == "base":
+            if self.base is None and values.get("href") is not None:
+                self.base = values["href"]
+            return
+        for key in ("href", "src"):
+            if values.get(key) is not None:
+                self.references.append(values[key])
+
+    def handle_endtag(self, tag):
+        if self.text_only:
+            if tag == self.text_only:
+                self.text_only = None
+        elif tag == "template" and self.template_depth:
+            self.template_depth -= 1
+
+
+def origin(url: str) -> tuple[str, str | None, int | None]:
+    parts = urlsplit(url)
+    return parts.scheme.lower(), parts.hostname, parts.port or {"https": 443, "http": 80}.get(parts.scheme)
+
+
+def page_url(site: str, page: Path, dist: Path) -> str:
+    path = page.relative_to(dist).as_posix()
+    if page.name == "index.html":
+        path = path.removesuffix("index.html")
+    return urljoin(site, "/" + quote(path))
+
+
+def normalize_dot_segments(path: str) -> str:
+    """Normalize browser URL dot segments without decoding encoded separators."""
+    output: list[str] = []
+    segments = path.split("/")
+    for index, segment in enumerate(segments):
+        # WHATWG special URLs recognize mixed literal/percent-encoded dots,
+        # but %2F remains part of its segment rather than becoming a slash.
+        dots = segment.lower().replace("%2e", ".")
+        if dots in (".", ".."):
+            if dots == ".." and len(output) > 1:
+                output.pop()
+            if index == len(segments) - 1:
+                output.append("")
+        else:
+            output.append(segment)
+    return "/".join(output)
 
 
 def resolve(dist: Path, path: str) -> Path | None:
-    """Map a site-absolute path to the file that serves it, or None."""
-    rel = unquote(path).lstrip("/")
-    if rel == "":
-        rel = "index.html"
+    """Map a URL path to a served file without accepting files outside dist."""
+    rel = unquote(path).lstrip("/") or "index.html"
     candidates = [dist / rel]
     if not rel.endswith(".html"):
-        candidates += [dist / rel / "index.html", dist / (rel + ".html")]
-    for c in candidates:
-        if c.is_file():
-            return c
+        # Astro's logical /404/ canonical is emitted as 404.html.
+        candidates += [dist / rel / "index.html", dist / (rel.rstrip("/") + ".html")]
+    for candidate in candidates:
+        try:
+            resolved = candidate.resolve()
+            if resolved.is_relative_to(dist) and resolved.is_file():
+                return resolved
+        except (OSError, RuntimeError, ValueError):
+            continue
     return None
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--dist", type=Path, default=Path("astro-site/dist"))
-    ap.add_argument("--quiet", action="store_true", help="only print failures")
-    args = ap.parse_args()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--dist", type=Path, default=Path("astro-site/dist"))
+    parser.add_argument("--site-url", default=DEFAULT_SITE, help="published site's HTTP(S) origin")
+    parser.add_argument("--quiet", action="store_true", help="omit successful check counts")
+    args = parser.parse_args()
+    try:
+        site_origin = origin(args.site_url)
+        if site_origin[0] not in ("http", "https") or not site_origin[1]:
+            raise ValueError("expected an HTTP(S) site URL")
+    except ValueError as error:
+        parser.error(str(error))
 
-    dist: Path = args.dist
+    dist = args.dist.resolve()
     if not dist.is_dir():
         print(f"ERROR: dist not found at {dist}. Run `pnpm build` first.", file=sys.stderr)
         return 1
-
     pages = sorted(dist.rglob("*.html"))
     if not pages:
         print(f"ERROR: no HTML under {dist}. An empty walk is not a clean pass.", file=sys.stderr)
         return 1
 
-    ids_cache: dict[Path, set[str]] = {}
+    documents: dict[Path, Document] = {}
     failures: dict[str, list[str]] = defaultdict(list)
-    checked_links = 0
-    checked_anchors = 0
+    checked_links = checked_anchors = external_project_links = 0
+
+    def document(path: Path) -> Document:
+        if path not in documents:
+            documents[path] = Document(path.read_text(encoding="utf-8", errors="replace"))
+        return documents[path]
 
     for page in pages:
-        html = page.read_text(encoding="utf-8", errors="replace")
-        here = "/" + str(page.relative_to(dist)).removesuffix("index.html").removesuffix("/")
-
-        for raw in LINK_RE.findall(html):
+        url = page_url(args.site_url, page, dist)
+        here = urlsplit(url).path
+        if not page.resolve().is_relative_to(dist):
+            failures[here].append("HTML file resolves outside dist")
+            continue
+        doc = document(page)
+        try:
+            base = urljoin(url, doc.base) if doc.base is not None else url
+        except ValueError:
+            failures[here].append(f"invalid base URL {doc.base}")
+            continue
+        for raw in doc.references:
             value = raw.strip()
-            if not value or value.startswith(("//", "data:", "mailto:", "tel:")):
+            if not value:
                 continue
-            if urlsplit(value).scheme:
-                continue
-            if not value.startswith(("/", "#")):
-                continue  # genuinely relative; the site does not emit these
-            if value.startswith(IGNORE_PREFIXES):
-                continue
-
-            parts = urlsplit(value)
-            target_page = page
-            if parts.path:
-                checked_links += 1
-                found = resolve(dist, parts.path)
-                if found is None:
-                    failures[here].append(f"dead path  {value}")
+            try:
+                target_url = urljoin(base, value)
+                if origin(target_url) != site_origin:
                     continue
-                target_page = found
-
+                parts = urlsplit(target_url)
+                parts = parts._replace(path=normalize_dot_segments(parts.path))
+            except ValueError:
+                failures[here].append(f"invalid URL {value}")
+                continue
+            if any(parts.path == prefix.rstrip("/") or parts.path.startswith(prefix)
+                   for prefix in EXTERNAL_PROJECT_PREFIXES):
+                external_project_links += 1
+                continue
+            checked_links += 1
+            target = resolve(dist, parts.path)
+            if target is None:
+                failures[here].append(f"dead path  {value}")
+                continue
             if parts.fragment:
                 checked_anchors += 1
-                if target_page not in ids_cache:
-                    ids_cache[target_page] = page_ids(
-                        target_page.read_text(encoding="utf-8", errors="replace")
-                    )
-                if unquote(parts.fragment) not in ids_cache[target_page]:
+                fragment = unquote(parts.fragment)
+                # HTML defines #top as the top of the document when no ID matches.
+                if fragment.lower() != "top" and fragment not in document(target).ids:
                     failures[here].append(f"dead anchor {value}")
 
-    total = sum(len(v) for v in failures.values())
+    total = sum(len(values) for values in failures.values())
     if not args.quiet:
-        print(
-            f"internal-link-check: {len(pages)} pages, {checked_links} links, "
-            f"{checked_anchors} anchors"
-        )
-
+        print(f"internal-link-check: {len(pages)} pages, {checked_links} links, {checked_anchors} anchors")
+        print(f"Other deployments (excluded from offline check): {external_project_links} references")
     if not failures:
         print("All internal links and anchors resolve.")
         return 0
-
     print(f"\n{total} broken internal reference(s) across {len(failures)} page(s):\n")
-    for src in sorted(failures):
-        print(f"  {src}")
-        for f in sorted(set(failures[src])):
-            print(f"      {f}")
+    for source in sorted(failures):
+        print(f"  {source}")
+        for failure in sorted(set(failures[source])):
+            print(f"      {failure}")
     return 1
 
 

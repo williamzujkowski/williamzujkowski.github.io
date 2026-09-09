@@ -1,18 +1,11 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import { getPublishedPosts } from '@/lib/posts';
+import { countPostTags } from '@/lib/publication.mjs';
 
-const posts = await getCollection('posts', ({ data }) => !data.draft);
+const posts = await getPublishedPosts();
 
-// Count posts per tag
-const tagCounts = new Map<string, number>();
-posts.forEach((post) => {
-  (post.data.tags ?? [])
-    .filter((t: string) => t !== 'posts')
-    .forEach((tag: string) => {
-      tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
-    });
-});
+const tagCounts = countPostTags(posts);
 
 // Sort by count descending
 const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);

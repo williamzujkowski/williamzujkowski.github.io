@@ -1,5 +1,7 @@
 import { defineConfig } from 'playwright/test';
 
+const port = Number(process.env.PLAYWRIGHT_PORT ?? 4321);
+
 export default defineConfig({
   testDir: './tests/e2e',
   timeout: 30_000,
@@ -12,13 +14,13 @@ export default defineConfig({
   fullyParallel: true,
   workers: process.env.CI ? 2 : undefined,
   use: {
-    baseURL: 'http://localhost:4321',
+    baseURL: `http://127.0.0.1:${port}`,
     headless: true,
   },
   webServer: {
-    command: 'npm run preview',
-    port: 4321,
-    reuseExistingServer: true,
+    command: 'node scripts/preview-for-tests.mjs',
+    url: `http://127.0.0.1:${port}`,
+    reuseExistingServer: !process.env.CI,
     timeout: 60_000,
   },
   projects: [

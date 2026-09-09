@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getPublishedPosts } from '@/lib/posts';
 import { getReadingTime } from '@/lib/utils';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 const { currentId, tags } = Astro.props;
 
-const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const allPosts = await getPublishedPosts();
 const otherPosts = allPosts.filter((p) => p.id !== currentId);
 
 const currentTags = new Set(tags.filter((t) => t !== 'posts'));

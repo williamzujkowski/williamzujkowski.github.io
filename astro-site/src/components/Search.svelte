@@ -26,6 +26,7 @@
   }
 
   let query = $state('');
+  let ready = $state(false);
   let results = $state<PagefindResult[]>([]);
   let isOpen = $state(false);
   let isLoading = $state(false);
@@ -241,6 +242,9 @@
       }
     }
     document.addEventListener('keydown', handleKeydown);
+    // SSR renders the trigger before its click handler is attached. Keep it
+    // disabled until hydration completes so an early click cannot disappear.
+    ready = true;
 
     // No astro:after-swap listener needed: without ClientRouter every
     // navigation is a full page load, which naturally tears this component
@@ -258,6 +262,7 @@
 <button
   type="button"
   onclick={open}
+  disabled={!ready}
   class="search-trigger"
   aria-label="Search site"
 >

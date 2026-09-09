@@ -29,3 +29,16 @@ E2E suite owns deterministic interaction regressions. Scheduled citation workflo
 own external-link health; this suite does not crawl external websites. Passing axe
 and Chromium checks does not replace manual assistive-technology testing or cover
 every browser and viewport.
+
+The regular E2E suite starts its own foreground preview through Astro's documented
+experimental API. This avoids the CLI's agent-session background mode. CI refuses
+to reuse an unrelated server; local runs may reuse the configured address. To use
+a free port without stopping an existing preview:
+
+```bash
+PLAYWRIGHT_PORT=4346 CI=1 pnpm exec playwright test tests/e2e/
+```
+
+The wrapper binds loopback, fails if its port is occupied and closes on termination.
+Verify its lifecycle when updating Astro. This setting does not affect the separate
+live suite, which always uses `SITE_URL` and does not start a preview server.

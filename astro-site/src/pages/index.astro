@@ -2,10 +2,9 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import BroadsheetEntry from '@components/BroadsheetEntry.astro';
 import { getSiteStats, formatDate } from '@/lib/siteStats';
-import { getCollection } from 'astro:content';
+import { getPublishedPosts } from '@/lib/posts';
 
-const allPosts = await getCollection('posts', ({ data }) => !data.draft);
-const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const posts = await getPublishedPosts();
 const [lead, ...tail] = posts.slice(0, 6);
 const hasMore = posts.length > 6;
 
