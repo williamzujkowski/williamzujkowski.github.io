@@ -117,15 +117,15 @@ test('search recovery, real query, theme persistence and reading paths', async (
   await expect(page.locator('#start-here')).toBeVisible();
 });
 
-test('reading paths work without JavaScript', async ({ browser, baseURL }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false, baseURL });
-  try {
-    const page = await context.newPage();
+test.describe('without JavaScript', () => {
+  // Smooth fragment scrolling can trigger Playwright's click retry timer,
+  // which cannot fire with JavaScript disabled. Use the site's reduced-motion CSS.
+  test.use({ javaScriptEnabled: false, reducedMotion: 'reduce' });
+
+  test('reading paths work without JavaScript', async ({ page }) => {
     await page.goto('/posts/#start-here');
     await expect(page.locator('#start-here a')).toHaveCount(6);
     await page.locator('#start-here a').first().click();
     await expect(page.locator('article')).toBeVisible();
-  } finally {
-    await context.close();
-  }
+  });
 });
