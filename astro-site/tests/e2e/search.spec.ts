@@ -23,6 +23,31 @@ async function mockIndex(page: Page, searchBody: string, initBody = '') {
   }));
 }
 
+test('search cannot accept a click before its island has hydrated', async ({ page }) => {
+  let releaseModule!: () => void;
+  const moduleGate = new Promise<void>((resolve) => { releaseModule = resolve; });
+  await page.route('**/_astro/Search.*.js', async (route) => {
+    await moduleGate;
+    await route.continue();
+  });
+  const moduleRequested = page.waitForRequest(/\/_astro\/Search\.[^/]+\.js(?:\?|$)/);
+  try {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await moduleRequested;
+    const trigger = page.getByRole('button', { name: 'Search site', exact: true });
+    await expect(trigger).toBeVisible();
+    await expect(trigger).toBeDisabled();
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+
+    releaseModule();
+    await expect(trigger).toBeEnabled();
+    await trigger.click();
+    await expect(page.getByRole('textbox', { name: 'Search site content' })).toBeFocused();
+  } finally {
+    releaseModule();
+  }
+});
+
 test('repeated shortcuts preserve inert cleanup, external inert state and original focus', async ({ page }) => {
   await page.goto('/');
   await page.locator('footer').evaluate((el) => el.setAttribute('inert', ''));
