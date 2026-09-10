@@ -1,7 +1,7 @@
 # Agent Instructions
 
 **Status:** Authoritative
-**Last Updated:** 2026-09-08
+**Last Updated:** 2026-09-10
 **Project:** Personal website and technical blog (Astro 7 + Svelte 5 + hand-written CSS / Remarque design tokens)
 
 This file is the canonical guidance for AI coding agents working in this repo (Claude Code, Codex, Cursor, Aider, etc.). Harness-specific entry points (e.g. `CLAUDE.md`) import this file — edit here, not there.
@@ -37,7 +37,7 @@ pnpm run audit      # 5 design audits — NOTE the `run`; bare `pnpm audit` is
                     # pnpm's built-in CVE scanner and shadows this script
 pnpm check          # astro check (tsc)
 pnpm lint           # eslint
-pnpm test:unit      # node:test, floor of 23
+pnpm test:unit      # node:test, floor of 26
 npx playwright test tests/e2e/   # smoke + a11y + theme-deck + sidenotes
 cd .. && uv run --with ruff ruff check scripts/   # ratchet at zero
 uv run python scripts/link-validation/internal-link-check.py   # needs dist/

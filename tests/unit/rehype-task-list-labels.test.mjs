@@ -1,13 +1,10 @@
 import assert from 'node:assert/strict';
-import { createRequire } from 'node:module';
 import test from 'node:test';
 import config from '../../astro-site/astro.config.mjs';
 
-const require = createRequire(new URL('../../astro-site/package.json', import.meta.url));
-const { createMarkdownProcessor } = await import(require.resolve('@astrojs/markdown-remark'));
 // Exercise Astro's actual configured parser, transforms and sanitizer, so a
 // disconnected plugin or stripped aria-label cannot make this suite green.
-const renderer = await createMarkdownProcessor(config.markdown);
+const renderer = await config.markdown.processor.createRenderer(config.markdown);
 
 test('tight GFM tasks retain their states and gain visible-text names', async () => {
   const { code } = await renderer.render('- [ ] Review `kernel.lockdown` and [docs](https://example.com)\n- [x] Done');
