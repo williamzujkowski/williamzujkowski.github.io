@@ -15,11 +15,8 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import quote, unquote, urljoin, urlsplit
 
-DEFAULT_SITE = "https://williamzujkowski.github.io"
-# GitHub project Pages share this origin but are deployed from other repos.
-# These URLs belong to the network checker, not this dist tree. Match a whole
-# path segment so a missing /remarque-other/ route is still a local failure.
-EXTERNAL_PROJECT_PREFIXES = ("/remarque/",)
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "lib"))
+from site_urls import DEFAULT_SITE, classify_site_url, origin
 
 
 class Document(HTMLParser):
@@ -72,34 +69,11 @@ class Document(HTMLParser):
             self.template_depth -= 1
 
 
-def origin(url: str) -> tuple[str, str | None, int | None]:
-    parts = urlsplit(url)
-    return parts.scheme.lower(), parts.hostname, parts.port or {"https": 443, "http": 80}.get(parts.scheme)
-
-
 def page_url(site: str, page: Path, dist: Path) -> str:
     path = page.relative_to(dist).as_posix()
     if page.name == "index.html":
         path = path.removesuffix("index.html")
     return urljoin(site, "/" + quote(path))
-
-
-def normalize_dot_segments(path: str) -> str:
-    """Normalize browser URL dot segments without decoding encoded separators."""
-    output: list[str] = []
-    segments = path.split("/")
-    for index, segment in enumerate(segments):
-        # WHATWG special URLs recognize mixed literal/percent-encoded dots,
-        # but %2F remains part of its segment rather than becoming a slash.
-        dots = segment.lower().replace("%2e", ".")
-        if dots in (".", ".."):
-            if dots == ".." and len(output) > 1:
-                output.pop()
-            if index == len(segments) - 1:
-                output.append("")
-        else:
-            output.append(segment)
-    return "/".join(output)
 
 
 def resolve(dist: Path, path: str) -> Path | None:
@@ -168,15 +142,13 @@ def main() -> int:
                 continue
             try:
                 target_url = urljoin(base, value)
-                if origin(target_url) != site_origin:
+                owner, parts = classify_site_url(target_url, args.site_url)
+                if owner == "external":
                     continue
-                parts = urlsplit(target_url)
-                parts = parts._replace(path=normalize_dot_segments(parts.path))
             except ValueError:
                 failures[here].append(f"invalid URL {value}")
                 continue
-            if any(parts.path == prefix.rstrip("/") or parts.path.startswith(prefix)
-                   for prefix in EXTERNAL_PROJECT_PREFIXES):
+            if owner == "project":
                 external_project_links += 1
                 continue
             checked_links += 1
