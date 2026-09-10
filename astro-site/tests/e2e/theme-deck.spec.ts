@@ -153,3 +153,107 @@ test('picking a light theme pins light mode', async ({ page }) => {
   expect(bg).not.toBe('');
   expect(bg).not.toMatch(/(?:0?\.95|95%) 0?\.015 75/); // Remarque light bg (decimal or %)
 });
+
+for (const scenario of [
+  { slug: 'dracula', mode: 'dark', opposite: 'light' },
+  { slug: 'catppuccin-latte', mode: 'light', opposite: 'dark' },
+]) {
+  test(`toggle leaves ${scenario.mode} deck in the advertised opposite mode`, async ({ page }) => {
+    await page.goto('/');
+    await page.evaluate((mode) => localStorage.setItem('theme', mode), scenario.opposite);
+    await page.reload();
+    await page.locator('.theme-deck summary').click();
+    await page.locator(`[data-deck-slug="${scenario.slug}"]`).click();
+    const toggle = page.locator('#theme-toggle');
+    await expect(toggle).toHaveAttribute('aria-label', `Switch to ${scenario.opposite} theme`);
+    await toggle.click();
+    await expect(page.locator('html')).not.toHaveAttribute('data-theme-deck');
+    await expect(page.locator('html')).toHaveClass(new RegExp(`\\b${scenario.opposite}\\b`));
+    await expect(toggle).toHaveAttribute('aria-label', `Switch to ${scenario.mode} theme`);
+
+    // A restored deck has the same action as one selected on this page.
+    await page.locator('.theme-deck summary').click();
+    await page.locator(`[data-deck-slug="${scenario.slug}"]`).click();
+    await page.reload();
+    await expect(toggle).toHaveAttribute('aria-label', `Switch to ${scenario.opposite} theme`);
+    await toggle.click();
+    await expect(page.locator('html')).not.toHaveAttribute('data-theme-deck');
+    await expect(page.locator('html')).toHaveClass(new RegExp(`\\b${scenario.opposite}\\b`));
+    await expect(toggle).toHaveAttribute('aria-label', `Switch to ${scenario.mode} theme`);
+    expect(await page.evaluate(() => localStorage.getItem('theme'))).toBe(scenario.opposite);
+  });
+
+  test(`returning from ${scenario.mode} deck restores the previous base preference`, async ({ page }) => {
+    await page.goto('/');
+    await page.evaluate((mode) => localStorage.setItem('theme', mode), scenario.opposite);
+    await page.reload();
+    await page.locator('.theme-deck summary').click();
+    await page.locator(`[data-deck-slug="${scenario.slug}"]`).click();
+    await page.locator('.deck-option[data-deck-slug=""]').click();
+    await expect(page.locator('html')).not.toHaveAttribute('data-theme-deck');
+    await expect(page.locator('html')).toHaveClass(new RegExp(`\\b${scenario.opposite}\\b`));
+    await expect(page.locator('#theme-toggle')).toHaveAttribute('aria-label', `Switch to ${scenario.mode} theme`);
+    await page.reload();
+    await expect(page.locator('html')).toHaveClass(new RegExp(`\\b${scenario.opposite}\\b`));
+  });
+}
+
+test('base and deck theme choices work when storage is unavailable', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'light' });
+  await page.addInitScript(() => {
+    Object.defineProperty(window, 'localStorage', {
+      get() { throw new DOMException('Storage is unavailable', 'SecurityError'); },
+    });
+  });
+  await page.goto('/');
+  const root = page.locator('html');
+  const toggle = page.locator('#theme-toggle');
+  await toggle.click();
+  await expect(root).toHaveClass(/\bdark\b/);
+  await expect(toggle).toHaveAttribute('aria-label', 'Switch to light theme');
+  await toggle.click();
+  await expect(root).toHaveClass(/\blight\b/);
+
+  await page.locator('.theme-deck summary').click();
+  await page.locator('[data-deck-slug="dracula"]').click();
+  await expect(toggle).toHaveAttribute('aria-label', 'Switch to light theme');
+  await toggle.click();
+  await expect(root).not.toHaveAttribute('data-theme-deck');
+  await expect(root).toHaveClass(/\blight\b/);
+  await expect(page.locator('.deck-option[data-deck-slug=""]')).toHaveAttribute('aria-checked', 'true');
+
+  // Shift-click still clears the explicit preference and follows the OS.
+  await toggle.click();
+  await expect(root).toHaveClass(/\bdark\b/);
+  await toggle.click({ modifiers: ['Shift'] });
+  await expect(root).not.toHaveClass(/\b(?:dark|light)\b/);
+  await expect(toggle).toHaveAttribute('aria-label', 'Switch to dark theme');
+});
+
+test('system theme changes update the toggle action without overriding explicit choices', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'light' });
+  await page.goto('/');
+  const toggle = page.locator('#theme-toggle');
+  await expect(toggle).toHaveAttribute('aria-label', 'Switch to dark theme');
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await expect(toggle).toHaveAttribute('aria-label', 'Switch to light theme');
+  await toggle.click();
+  await expect(page.locator('html')).toHaveClass(/\blight\b/);
+  await page.emulateMedia({ colorScheme: 'light' });
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await expect(page.locator('html')).toHaveClass(/\blight\b/);
+  await expect(toggle).toHaveAttribute('aria-label', 'Switch to dark theme');
+
+  await page.locator('.theme-deck summary').click();
+  await page.locator('[data-deck-slug="dracula"]').click();
+  await page.emulateMedia({ colorScheme: 'light' });
+  await expect(page.locator('html')).toHaveAttribute('data-theme-deck', 'dracula');
+  await expect(page.locator('html')).toHaveClass(/\bdark\b/);
+  await expect(toggle).toHaveAttribute('aria-label', 'Switch to light theme');
+  await toggle.click({ modifiers: ['Shift'] });
+  await expect(page.locator('html')).not.toHaveAttribute('data-theme-deck');
+  await expect(page.locator('html')).not.toHaveClass(/\b(?:dark|light)\b/);
+  await expect(toggle).toHaveAttribute('aria-label', 'Switch to dark theme');
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await expect(toggle).toHaveAttribute('aria-label', 'Switch to light theme');
+});

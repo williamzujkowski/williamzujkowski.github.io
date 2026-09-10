@@ -266,6 +266,8 @@ const lightThemes = themes.filter((t) => !t.isDark);
       // Sync from the value just applied, not a storage round-trip — the UI
       // must match the DOM even when persistence is unavailable.
       syncUi(slug || '');
+      // Keep the base toggle's action label and restored mode in sync.
+      document.dispatchEvent(new CustomEvent('theme-deck-changed'));
     }
 
     function syncUi(active) {
@@ -355,7 +357,7 @@ const lightThemes = themes.filter((t) => !t.isDark);
       // else: no stored preference — the CSS @media query decides.
     })();
 
-    document.addEventListener('theme-deck-cleared', function () { syncUi(); });
+    document.addEventListener('theme-deck-cleared', function () { syncUi(''); });
     syncUi();
   })();
 </script>
