@@ -101,63 +101,11 @@ jobs:
 
     - name: Check for Critical Issues
       id: check_critical
-      run: |
-        # Parse validation results for critical issues
-        # Separate internal vs external link failures
-        python -c "
-        import json, os
-        with open('validation.json', 'r') as f:
-            data = json.load(f)
-
-        results = data.get('results', [])
-        total = len(results)
-
-        # Separate internal (relative paths, same-domain) vs external links
-        internal_broken = []
-        external_broken = []
-        for r in results:
-            if r.get('status') == 'broken':
-                url = r.get('url', '')
-                if url.startswith('/') or url.startswith('#') or 'williamzujkowski' in url:
-                    internal_broken.append(r)
-                else:
-                    external_broken.append(r)
-
-        all_broken = len(internal_broken) + len(external_broken)
-        broken_pct = (all_broken / total * 100) if total > 0 else 0
-
-        print(f'Total links: {total}')
-        print(f'Internal broken: {len(internal_broken)}')
-        print(f'External broken: {len(external_broken)} (may be transient)')
-        print(f'Overall: {all_broken}/{total} ({broken_pct:.1f}%)')
-
-        # Set output for use in other steps
-        with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-            f.write(f'broken_count={all_broken}\n')
-            f.write(f'total_count={total}\n')
-            f.write(f'broken_percent={broken_pct:.1f}\n')
-            f.write(f'internal_broken={len(internal_broken)}\n')
-            f.write(f'external_broken={len(external_broken)}\n')
-
-        # INTERNAL links are not this workflow's job any more (issue #502).
-        # They resolve against files on disk, and aiohttp cannot even express
-        # a relative path -- it raises InvalidURL, which is recorded as
-        # 'needs_manual', so the old `status == broken` test could never see
-        # them. 182 links, ~12% of the corpus, were exempt by construction.
-        # scripts/link-validation/internal-link-check.py checks them properly
-        # in a11y.yml, offline and blocking. The count is still reported here
-        # because a non-zero value would mean the two disagree.
-        if internal_broken:
-            print(f'NOTE: {len(internal_broken)} absolute own-domain links look broken. '
-                  'internal-link-check.py in a11y.yml is authoritative for these.')
-
-        # EXTERNAL rot stays advisory: it is a property of the network, not of
-        # this commit, so it must never fail a build. It DOES need somewhere to
-        # surface -- previously a >50% failure rate printed a warning and
-        # exited 0, so the issue-filing step (gated on `failure()`) could never
-        # fire and external rot was reported to nobody.
-        print(f'External failures: {len(external_broken)} ({broken_pct:.1f}% of all links)')
-        "
+      # Count only confirmed-broken verdicts. Ownership is shared with the
+      # offline checker; GitHub/gist usernames do not make a URL internal.
+      # Network findings remain advisory; the existing issue threshold below
+      # decides when to notify without failing the build.
+      run: uv run python scripts/link-validation/link-health-summary.py --input validation.json
 
     # Fires on the scheduled run when external rot crosses the threshold --
     # NOT on `failure()`, which never happened because nothing exits non-zero
