@@ -72,12 +72,17 @@
 
 <script is:inline>
   (function () {
+    // An explicit choice applies for this page even when persistence fails.
+    var themeOverride;
+
     // localStorage can throw (blocked cookies, some private modes) — treat
     // failed reads as "no stored preference" and skip failed writes.
     function storedTheme() {
+      if (themeOverride !== undefined) return themeOverride;
       try { return localStorage.theme; } catch (e) { return undefined; }
     }
     function storeTheme(value) {
+      themeOverride = value;
       try {
         if (value === null) localStorage.removeItem('theme');
         else localStorage.theme = value;
@@ -85,6 +90,8 @@
     }
 
     function isDark() {
+      var root = document.documentElement;
+      if (root.hasAttribute('data-theme-deck')) return root.classList.contains('dark');
       var t = storedTheme();
       if (t === 'dark') return true;
       if (t === 'light') return false;
@@ -142,6 +149,8 @@
     }
 
     function toggle(e) {
+      // Toggle the palette the reader sees, before clearing its deck state.
+      var dark = isDark();
       triggerCrossfade();
 
       // The base toggle always exits any active deck theme — the two systems
@@ -159,13 +168,17 @@
         return;
       }
 
-      var dark = isDark();
       storeTheme(dark ? 'light' : 'dark');
       applyTheme();
     }
 
     function init() {
       applyTheme();
+      document.addEventListener('theme-deck-changed', applyTheme);
+      // CSS follows OS changes immediately; keep the action label alongside it.
+      var systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+      if (systemTheme.addEventListener) systemTheme.addEventListener('change', applyTheme);
+      else systemTheme.addListener(applyTheme);
       var btn = document.getElementById('theme-toggle');
       if (btn) btn.addEventListener('click', toggle);
     }
