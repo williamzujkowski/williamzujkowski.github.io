@@ -1,22 +1,10 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { postSchema } from './lib/post-schema.mjs';
 
 const posts = defineCollection({
   loader: glob({ pattern: '**/*.md', base: '../src/posts' }),
-  schema: z
-    .object({
-      title: z.string(),
-      date: z.coerce.date(),
-      description: z.string().optional(),
-      tags: z.array(z.string()).optional().default([]),
-      author: z.string().optional().default('William Zujkowski'),
-      lastUpdate: z.coerce.date().optional(),
-      draft: z.boolean().optional().default(false),
-      post_type: z.string().optional(),
-      series: z.string().optional(),
-      seriesOrder: z.number().optional(),
-    })
-    .passthrough(),
+  schema: postSchema,
 });
 
 // The `projects` collection was orphaned — nothing ever called
