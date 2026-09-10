@@ -1,4 +1,5 @@
 import { defineConfig, fontProviders } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 import svelte from '@astrojs/svelte';
 import sitemap from '@astrojs/sitemap';
 import rehypeRaw from 'rehype-raw';
@@ -381,21 +382,18 @@ export default defineConfig({
       theme: remarqueSyntaxTheme,
       transformers: [transformerCodeTitle()],
     },
-    remarkPlugins: [
-      [remarkSmartypants, { dashes: 'oldschool' }],
-    ],
-    rehypePlugins: [
-      rehypeScrollWrap,
-      // Tufte/gwern-style sidenotes (issue #272) — must run after remark's
-      // GFM footnote transform (implicit: this is a rehype plugin, so it
-      // only ever sees the hast tree remark-rehype already produced).
-      // Order relative to the table wrapper above doesn't matter — disjoint
-      // node types (footnote refs/definitions vs. <table>) — kept last for
-      // now as the newest addition.
-      rehypeSidenotes,
-      rehypeRaw,
-      rehypeTaskListLabels,
-      [rehypeSanitize, sanitizeSchema],
-    ],
+    processor: unified({
+      remarkPlugins: [
+        [remarkSmartypants, { dashes: 'oldschool' }],
+      ],
+      rehypePlugins: [
+        rehypeScrollWrap,
+        // Convert GFM footnote references and definitions into inline sidenotes.
+        rehypeSidenotes,
+        rehypeRaw,
+        rehypeTaskListLabels,
+        [rehypeSanitize, sanitizeSchema],
+      ],
+    }),
   },
 });
