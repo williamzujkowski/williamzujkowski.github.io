@@ -188,6 +188,14 @@ The old rule was right about precision and wrong to strip out the personality. K
 
 ---
 
+## Blog research and proposals
+
+Use [docs/blog-research.md](docs/blog-research.md) to discover papers and practical
+topics, verify sources, check prior work, propose issues, and develop evidenced
+posts. It owns the author-time research workflow and Nexus review/fallback rules;
+this file remains authoritative for voice, attribution and QA policy. Use the
+[blog proposal template](.github/ISSUE_TEMPLATE/blog-proposal.md) for new ideas.
+
 ## Content QA pipeline
 
 Four layers, each owning a distinct concern. When adding a new check,
@@ -313,7 +321,7 @@ revert good content because a CDN hiccuped).
 
 - **Don't add a check in Layer 1 that already exists in Layer 3.** Voice
   scrub is a Layer-1 concern (author judgment); NDA pattern enforcement
-  is a Layer-3 concern (mechanical, blocks publish).
+  is a Layer-3 concern (mechanical, advisory).
 - **Don't add a check in Layer 3 that's already in Layer 4.** External
   link checking belongs in Layer 4; running it on every push wastes CI.
 - **Don't add a check in Layer 1 that requires CI access.** Skills are

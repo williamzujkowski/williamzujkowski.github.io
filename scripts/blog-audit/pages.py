@@ -13,9 +13,9 @@ DESCRIPTION:
     The blog has a handful of non-post pages (.astro files under
     astro-site/src/pages/) that have real prose: about, now, index, projects,
     uses, 404. They are subject to the same AGENTS.md voice rules as blog
-    posts but have a different shape (JSX wrapper around prose) and a
-    different threat model (the about page intentionally names the current
-    employer; the now page is intentionally about current work).
+    posts but have a different shape (JSX wrapper around prose). AGENTS.md's
+    attribution restrictions apply to these pages too; there is no About/Now
+    exemption for current-employer or current-work claims.
 
     This script strips the JSX/Astro scaffolding to extract the prose, then
     runs the voice-only portion of the audit:
@@ -27,8 +27,8 @@ DESCRIPTION:
       - passive voice
       - transition-word density
 
-    SKIPPED (intentionally, because they don't apply):
-      - NDA contextual check (about/now have intentional current-work attribution)
+    NOT PERFORMED by this voice-only helper:
+      - NDA contextual check (separate author-time review, still required)
       - argument-shape (these aren't argumentative essays)
       - overlap (cross-page topic overlap isn't meaningful here)
       - TTR (these pages are too short for meaningful TTR; results would be noise)
