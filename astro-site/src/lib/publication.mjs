@@ -1,15 +1,18 @@
 /**
- * Pure publication metadata. Consumers pass the same newest-first, non-draft
+ * Pure publication metadata. Consumers pass the same newest-first, eligible
  * post list to numbering and taxonomy helpers; nothing is cached between builds.
  */
 
 /**
  * @template {{ id: string, data: { date: Date, draft?: boolean } }} T
  * @param {readonly T[]} posts
+ * @param {Date} [now] Inclusive publication cutoff; date-only frontmatter is UTC.
  * @returns {T[]}
  */
-export function selectPublishedPosts(posts) {
-  return posts.filter((post) => !post.data.draft).sort((a, b) =>
+export function selectPublishedPosts(posts, now = new Date()) {
+  const cutoff = now.getTime();
+  if (!Number.isFinite(cutoff)) throw new TypeError("Publication cutoff must be a valid Date");
+  return posts.filter((post) => !post.data.draft && post.data.date.getTime() <= cutoff).sort((a, b) =>
     b.data.date.getTime() - a.data.date.getTime()
       || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0),
   );

@@ -15,7 +15,7 @@ test('schema defaults publish ordinary posts while explicit drafts stay unpublis
     { id: 'draft', data: postSchema.parse({ ...minimal, draft: true }) },
     { id: 'explicit', data: postSchema.parse({ ...minimal, draft: false }) },
   ];
-  assert.deepEqual(selectPublishedPosts(entries).map((post) => post.id), ['explicit', 'ordinary']);
+  assert.deepEqual(selectPublishedPosts(entries, new Date('2026-09-11T00:00:00Z')).map((post) => post.id), ['explicit', 'ordinary']);
 });
 
 test('unknown metadata survives alongside validated series fields', () => {

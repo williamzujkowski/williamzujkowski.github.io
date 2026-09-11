@@ -332,7 +332,7 @@ revert good content because a CDN hiccuped).
 
 | Workflow | Trigger | Purpose |
 |----------|---------|---------|
-| `deploy.yml` | push/dispatch | Build and deploy to GitHub Pages |
+| `deploy.yml` | push/dispatch/daily 10:17 UTC | Build and deploy to GitHub Pages, including eligible scheduled posts |
 | `audits.yml` (Remarque) | push/PR | Design tokens, contrast, typography floor |
 | `a11y.yml` (axe-playwright) | push/PR | Accessibility test suite |
 | `compliance-monitor.yml` | push/PR/daily | Lighthouse, HTML validation, citation coverage, NDA pattern grep, Trivy/Gitleaks/pip-audit |
@@ -356,7 +356,7 @@ Tooling families under `scripts/`, sharing helpers from `scripts/lib/`
 | `theme-deck/` | `generate.py` — regenerates `theme-deck.css`/`.json`; needs an external themes repo | no |
 | `zine-art/` | `ink-mask.py` — doodle masking; needs Pillow | no |
 | `ci/` | stdlib workflow input selector and real-git-history regression tests | yes (`tests.yml`) |
-| `security-labs/` | disposable PostgreSQL and synthetic memory-recovery experiments; only offline memory fixture tests run in CI | offline tests only (`tests.yml`) |
+| `security-labs/` | disposable PostgreSQL, memory-recovery, retention and page-cache experiments; only offline regression tests run in CI | offline tests only (`tests.yml`) |
 | `gist-drift-check.py` | compares `gists/` against the published gists | no (run before touching `gists/`) |
 
 Runtime dependencies are declared in `pyproject.toml` (aiohttp, certifi,

@@ -1,0 +1,382 @@
+{
+  "cases": [
+    {
+      "broken_clock_control": false,
+      "broken_creation_deadline_control": false,
+      "case": "frozen_has_no_creation_deadline",
+      "events": [
+        {
+          "accepted": true,
+          "argument": 100,
+          "checker_tick": 100,
+          "expiry_tick": null,
+          "host_tick": 0,
+          "operation": "advance_checker",
+          "value": "yesterday"
+        },
+        {
+          "accepted": false,
+          "argument": "replacement",
+          "checker_tick": 100,
+          "expiry_tick": null,
+          "host_tick": 0,
+          "operation": "write",
+          "value": "yesterday"
+        },
+        {
+          "accepted": false,
+          "argument": null,
+          "checker_tick": 100,
+          "expiry_tick": null,
+          "host_tick": 0,
+          "operation": "delete",
+          "value": "yesterday"
+        }
+      ],
+      "operations": 3
+    },
+    {
+      "broken_clock_control": false,
+      "broken_creation_deadline_control": true,
+      "case": "broken_creation_deadline_positive_control",
+      "events": [
+        {
+          "accepted": true,
+          "argument": 100,
+          "checker_tick": 100,
+          "expiry_tick": 7,
+          "host_tick": 0,
+          "operation": "advance_checker",
+          "value": "yesterday"
+        },
+        {
+          "accepted": true,
+          "argument": null,
+          "checker_tick": 100,
+          "expiry_tick": 7,
+          "host_tick": 0,
+          "operation": "delete",
+          "value": null
+        }
+      ],
+      "operations": 2
+    },
+    {
+      "broken_clock_control": false,
+      "broken_creation_deadline_control": false,
+      "case": "unfreeze_starts_full_duration",
+      "events": [
+        {
+          "accepted": true,
+          "argument": 100,
+          "checker_tick": 100,
+          "expiry_tick": null,
+          "host_tick": 0,
+          "operation": "advance_checker",
+          "value": "yesterday"
+        },
+        {
+          "accepted": true,
+          "argument": null,
+          "checker_tick": 100,
+          "expiry_tick": 107,
+          "host_tick": 0,
+          "operation": "unfreeze",
+          "value": "yesterday"
+        },
+        {
+          "accepted": true,
+          "argument": 106,
+          "checker_tick": 106,
+          "expiry_tick": 107,
+          "host_tick": 0,
+          "operation": "advance_checker",
+          "value": "yesterday"
+        },
+        {
+          "accepted": false,
+          "argument": null,
+          "checker_tick": 106,
+          "expiry_tick": 107,
+          "host_tick": 0,
+          "operation": "delete",
+          "value": "yesterday"
+        },
+        {
+          "accepted": true,
+          "argument": 107,
+          "checker_tick": 107,
+          "expiry_tick": 107,
+          "host_tick": 0,
+          "operation": "advance_checker",
+          "value": "yesterday"
+        },
+        {
+          "accepted": false,
+          "argument": null,
+          "checker_tick": 107,
+          "expiry_tick": 107,
+          "host_tick": 0,
+          "operation": "delete",
+          "value": "yesterday"
+        },
+        {
+          "accepted": true,
+          "argument": 108,
+          "checker_tick": 108,
+          "expiry_tick": 107,
+          "host_tick": 0,
+          "operation": "advance_checker",
+          "value": "yesterday"
+        },
+        {
+          "accepted": true,
+          "argument": null,
+          "checker_tick": 108,
+          "expiry_tick": 107,
+          "host_tick": 0,
+          "operation": "delete",
+          "value": null
+        }
+      ],
+      "operations": 8
+    },
+    {
+      "broken_clock_control": false,
+      "broken_creation_deadline_control": false,
+      "case": "early_overwrite_and_shortening",
+      "events": [
+        {
+          "accepted": true,
+          "argument": null,
+          "checker_tick": 0,
+          "expiry_tick": 7,
+          "host_tick": 0,
+          "operation": "unfreeze",
+          "value": "yesterday"
+        },
+        {
+          "accepted": false,
+          "argument": 0,
+          "checker_tick": 0,
+          "expiry_tick": 7,
+          "host_tick": 0,
+          "operation": "shorten_retention",
+          "value": "yesterday"
+        },
+        {
+          "accepted": false,
+          "argument": "replacement",
+          "checker_tick": 0,
+          "expiry_tick": 7,
+          "host_tick": 0,
+          "operation": "write",
+          "value": "yesterday"
+        },
+        {
+          "accepted": false,
+          "argument": null,
+          "checker_tick": 0,
+          "expiry_tick": 7,
+          "host_tick": 0,
+          "operation": "unfreeze",
+          "value": "yesterday"
+        },
+        {
+          "accepted": false,
+          "argument": null,
+          "checker_tick": 0,
+          "expiry_tick": 7,
+          "host_tick": 0,
+          "operation": "delete",
+          "value": "yesterday"
+        }
+      ],
+      "operations": 5
+    },
+    {
+      "broken_clock_control": false,
+      "broken_creation_deadline_control": false,
+      "case": "host_clock_forward_is_ignored",
+      "events": [
+        {
+          "accepted": true,
+          "argument": null,
+          "checker_tick": 0,
+          "expiry_tick": 7,
+          "host_tick": 0,
+          "operation": "unfreeze",
+          "value": "yesterday"
+        },
+        {
+          "accepted": true,
+          "argument": 1000,
+          "checker_tick": 0,
+          "expiry_tick": 7,
+          "host_tick": 1000,
+          "operation": "set_host_clock",
+          "value": "yesterday"
+        },
+        {
+          "accepted": false,
+          "argument": null,
+          "checker_tick": 0,
+          "expiry_tick": 7,
+          "host_tick": 1000,
+          "operation": "delete",
+          "value": "yesterday"
+        }
+      ],
+      "operations": 3
+    },
+    {
+      "broken_clock_control": true,
+      "broken_creation_deadline_control": false,
+      "case": "broken_host_clock_positive_control",
+      "events": [
+        {
+          "accepted": true,
+          "argument": null,
+          "checker_tick": 0,
+          "expiry_tick": 7,
+          "host_tick": 0,
+          "operation": "unfreeze",
+          "value": "yesterday"
+        },
+        {
+          "accepted": true,
+          "argument": 1000,
+          "checker_tick": 0,
+          "expiry_tick": 7,
+          "host_tick": 1000,
+          "operation": "set_host_clock",
+          "value": "yesterday"
+        },
+        {
+          "accepted": true,
+          "argument": null,
+          "checker_tick": 0,
+          "expiry_tick": 7,
+          "host_tick": 1000,
+          "operation": "delete",
+          "value": null
+        }
+      ],
+      "operations": 3
+    },
+    {
+      "broken_clock_control": false,
+      "broken_creation_deadline_control": false,
+      "case": "checker_rollback_is_rejected",
+      "events": [
+        {
+          "accepted": true,
+          "argument": null,
+          "checker_tick": 0,
+          "expiry_tick": 7,
+          "host_tick": 0,
+          "operation": "unfreeze",
+          "value": "yesterday"
+        },
+        {
+          "accepted": true,
+          "argument": 6,
+          "checker_tick": 6,
+          "expiry_tick": 7,
+          "host_tick": 0,
+          "operation": "advance_checker",
+          "value": "yesterday"
+        },
+        {
+          "accepted": false,
+          "argument": 0,
+          "checker_tick": 6,
+          "expiry_tick": 7,
+          "host_tick": 0,
+          "operation": "advance_checker",
+          "value": "yesterday"
+        },
+        {
+          "accepted": false,
+          "argument": null,
+          "checker_tick": 6,
+          "expiry_tick": 7,
+          "host_tick": 0,
+          "operation": "delete",
+          "value": "yesterday"
+        },
+        {
+          "accepted": true,
+          "argument": 8,
+          "checker_tick": 8,
+          "expiry_tick": 7,
+          "host_tick": 0,
+          "operation": "advance_checker",
+          "value": "yesterday"
+        },
+        {
+          "accepted": true,
+          "argument": "replacement",
+          "checker_tick": 8,
+          "expiry_tick": 7,
+          "host_tick": 0,
+          "operation": "write",
+          "value": "replacement"
+        }
+      ],
+      "operations": 6
+    },
+    {
+      "broken_clock_control": false,
+      "broken_creation_deadline_control": false,
+      "case": "host_clock_rollback_does_not_extend_expiry",
+      "events": [
+        {
+          "accepted": true,
+          "argument": null,
+          "checker_tick": 0,
+          "expiry_tick": 7,
+          "host_tick": 0,
+          "operation": "unfreeze",
+          "value": "yesterday"
+        },
+        {
+          "accepted": true,
+          "argument": -1000,
+          "checker_tick": 0,
+          "expiry_tick": 7,
+          "host_tick": -1000,
+          "operation": "set_host_clock",
+          "value": "yesterday"
+        },
+        {
+          "accepted": true,
+          "argument": 8,
+          "checker_tick": 8,
+          "expiry_tick": 7,
+          "host_tick": -1000,
+          "operation": "advance_checker",
+          "value": "yesterday"
+        },
+        {
+          "accepted": true,
+          "argument": null,
+          "checker_tick": 8,
+          "expiry_tick": 7,
+          "host_tick": -1000,
+          "operation": "delete",
+          "value": null
+        }
+      ],
+      "operations": 4
+    }
+  ],
+  "duration_ticks": 7,
+  "expiry_rule": "checker_tick > unfreeze_tick + duration_ticks",
+  "kind": "original offline state-model exercise",
+  "not_a_timelock_drive_replication": true,
+  "operation_budget": 1000,
+  "operations": 34,
+  "schema_version": 1,
+  "time_unit": "synthetic integer tick"
+}

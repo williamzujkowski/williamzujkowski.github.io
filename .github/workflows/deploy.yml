@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Rebuild future-dated posts after their UTC date becomes eligible.
+    # GitHub schedules may be delayed; avoid the top-of-hour queue.
+    - cron: '17 10 * * *'
 
 permissions:
   contents: read
