@@ -28,7 +28,7 @@ const stats = await getSiteStats();
 
   <h1 class="sr-only">Latest writing from William Zujkowski</h1>
 
-  <p><a href="/posts/#start-here">Start here: agentic security, tools, and homelab reading paths</a></p>
+  <p class="landing-start"><a href="/posts/#start-here">Start here: agentic security, tools, and homelab reading paths</a></p>
 
   <BroadsheetEntry post={lead} variant="lead" />
 
@@ -49,3 +49,10 @@ const stats = await getSiteStats();
     </nav>
   )}
 </BaseLayout>
+
+<style>
+  .landing-start {
+    max-width: var(--content-reading);
+    margin: var(--space-5) auto;
+  }
+</style>
