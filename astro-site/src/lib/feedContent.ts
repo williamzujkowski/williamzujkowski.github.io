@@ -2,53 +2,86 @@ import sanitizeHtml from 'sanitize-html';
 import MarkdownIt from 'markdown-it';
 import footnote from 'markdown-it-footnote';
 
-/**
- * Render a post body for syndication.
- *
- * Both feeds previously did this inline with a bare `new MarkdownIt()`, which
- * produced two defects (issue #499):
- *
- *   1. **Relative URLs.** Feed content is resolved against the READER's base
- *      URI, not the site's, so all 75 root-relative cross-links in the corpus
- *      were dead for every subscriber. markdown-it has no base-URL option and
- *      nothing rewrote them.
- *
- *   2. **Raw footnote syntax.** The site pipeline runs remark-gfm via Astro;
- *      this parser was stock, so `[^id]` markers rendered as literal text and
- *      the definitions became an orphan paragraph with no referents.
- *
- * Shared so the two feeds cannot drift apart again — they had already diverged
- * from the site's own rendering, which is how both defects survived.
- */
-const parser = new MarkdownIt().use(footnote);
+// Both feeds share this renderer. Authored HTML must reach the sanitizer as
+// markup; escaping it first exposes diagram source in feed readers (#581).
+const parser = new MarkdownIt({ html: true }).use(footnote);
 
-/** Absolutise root-relative href/src values against the site origin. */
-export function absolutiseUrls(html: string, siteUrl: string): string {
-  const base = siteUrl.replace(/\/$/, '');
-  // Only `/path` — never `//host` (protocol-relative) and never `/` inside an
-  // already-absolute URL, since the attribute value must START with the slash.
-  return html.replace(
-    /(\s(?:href|src)=)(["'])(\/(?!\/)[^"']*)\2/g,
-    (_m, attr, quote, path) => `${attr}${quote}${base}${path}${quote}`,
-  );
-}
+const feedPolicy: sanitizeHtml.IOptions = {
+  allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
+  allowedAttributes: {
+    ...sanitizeHtml.defaults.allowedAttributes,
+    // Keep the footnote plugin's jump targets and back references (#499).
+    a: [...(sanitizeHtml.defaults.allowedAttributes.a ?? []), 'id', 'class'],
+    li: ['id', 'class'],
+    sup: ['class'],
+    section: ['class'],
+    ol: ['class'],
+    hr: ['class'],
+    img: ['src', 'alt', 'title'],
+  },
+  allowedClasses: {
+    a: ['footnote-ref', 'footnote-backref'],
+    li: ['footnote-item'],
+    sup: ['footnote-ref'],
+    section: ['footnotes'],
+    ol: ['footnotes-list'],
+    hr: ['footnotes-sep'],
+  },
+  // Discard the contents too; these elements have no feed fallback.
+  nonTextTags: ['script', 'style', 'textarea', 'option', 'iframe', 'object', 'embed', 'svg', 'math', 'template'],
+};
 
 export function renderPostForFeed(body: string, siteUrl: string): string {
-  const html = sanitizeHtml(parser.render(body ?? ''), {
-    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
+  const base = siteUrl.replace(/\/$/, '');
+  const diagramNodes: boolean[] = [];
+  const normalized = sanitizeHtml(parser.render(body ?? ''), {
+    ...feedPolicy,
     allowedAttributes: {
-      ...sanitizeHtml.defaults.allowedAttributes,
-      // Footnotes are only useful if the jump works. The default schema
-      // strips id/class, which left a numbered marker linking to nothing.
-      // Scoped to the elements the footnote plugin actually emits.
-      a: [...(sanitizeHtml.defaults.allowedAttributes.a ?? []), 'id', 'class'],
-      li: ['id', 'class'],
-      sup: ['class'],
-      section: ['class'],
-      ol: ['class'],
-      hr: ['class'],
-      img: ['src', 'alt', 'title'],
+      ...feedPolicy.allowedAttributes,
+      div: ['data-feed-label', 'data-feed-doodle'],
+      i: ['data-feed-detail'],
+      span: ['data-feed-detail'],
+    },
+    // Remove the decorative subtree without changing the parser's tag name.
+    exclusiveFilter: (frame) => frame.attribs['data-feed-doodle'] === 'true',
+    onOpenTag: (_tagName, attribs) => {
+      const classes = (attribs.class ?? '').split(/\s+/);
+      diagramNodes.push(classes.some((name) => ['flow-node', 'arch-chip', 'seq-step'].includes(name)));
+    },
+    onCloseTag: () => { diagramNodes.pop(); },
+    transformTags: {
+      '*': (tagName, attribs) => {
+        // Never rewrite text containing href/src, especially code examples.
+        for (const name of ['href', 'src']) {
+          if (/^\/(?!\/)/.test(attribs[name] ?? '')) attribs[name] = base + attribs[name];
+        }
+        delete attribs['data-feed-label'];
+        delete attribs['data-feed-doodle'];
+        delete attribs['data-feed-detail'];
+        if ((tagName === 'i' || tagName === 'span') && diagramNodes.at(-2)) {
+          attribs['data-feed-detail'] = 'true';
+        }
+        const classes = new Set((attribs.class ?? '').split(/\s+/));
+        if (tagName === 'div' && classes.has('zine-doodle')) {
+          return { tagName: 'div', attribs: { 'data-feed-doodle': 'true' } };
+        }
+        // CSS normally supplies these labels and makes chips separate blocks.
+        // A temporary attribute lets the HTML parser escape labels without
+        // transformTags.text replacing the element's own text or children.
+        let label: string | undefined;
+        if (tagName === 'section' && classes.has('arch-tier')) label = attribs['data-label'];
+        if (tagName === 'div' && classes.has('flow-leg')) label = attribs['data-branch'];
+        if (tagName === 'div' && classes.has('flow-parallel')) label = attribs['aria-label'] || 'Parallel steps';
+        if (label) return { tagName: 'div', attribs: { 'data-feed-label': label } };
+        if (tagName === 'span' && classes.has('arch-chip')) return { tagName: 'div', attribs: {} };
+        return { tagName, attribs };
+      },
     },
   });
-  return absolutiseUrls(html, siteUrl);
+  // This matches only our canonical, escaped sanitizer output, never raw HTML
+  // or Markdown. Keep entity escaping intact while moving labels into text.
+  const readable = normalized
+    .replace(/<div data-feed-label="([^"]*)">/g, '<div><p><strong>$1</strong></p>')
+    .replace(/<(i|span) data-feed-detail="true">/g, ' <$1>');
+  return sanitizeHtml(readable, feedPolicy);
 }
