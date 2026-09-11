@@ -50,16 +50,20 @@ def test_two_links_on_one_line_are_not_merged():
     ("respects [minimumReleaseAge](https://docs.renovatebot.com/configuration-options/#minimumreleaseage)'s window",
      "https://docs.renovatebot.com/configuration-options/#minimumreleaseage)'s"),
 ])
-def test_overcaptured_bare_url_is_recognised_as_its_markdown_link(line, overcaptured):
-    e = LinkExtractor.__new__(LinkExtractor)
-    assert e._is_part_of_markdown_link(line, overcaptured), (
-        "an over-captured bare hit must be suppressed; it starts with the href "
-        "it swallowed, so equality is the wrong test")
+def test_overcaptured_bare_url_is_recognised_as_its_markdown_link(tmp_path, line, overcaptured):
+    post = tmp_path / "post.md"
+    post.write_text(line, encoding="utf-8")
+    links = LinkExtractor(tmp_path).extract_all()
+    assert [link.url for link in links] == _hrefs(line)
+    assert overcaptured not in [link.url for link in links]
 
 
-def test_a_genuinely_separate_bare_url_is_still_extracted():
+def test_a_genuinely_separate_bare_url_is_still_extracted(tmp_path):
     """The guard must not swallow an unrelated bare URL on the same line."""
-    e = LinkExtractor.__new__(LinkExtractor)
-    line = "see [culori](https://culorijs.org/) and also https://other.test/page"
-    assert not e._is_part_of_markdown_link(line, "https://other.test/page")
-    assert e._is_part_of_markdown_link(line, "https://culorijs.org/")
+    post = tmp_path / "post.md"
+    post.write_text(
+        "see [culori](https://culorijs.org/) and also https://other.test/page",
+        encoding="utf-8",
+    )
+    links = LinkExtractor(tmp_path).extract_all()
+    assert [link.url for link in links] == ["https://culorijs.org/", "https://other.test/page"]
