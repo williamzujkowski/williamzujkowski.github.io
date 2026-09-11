@@ -86,7 +86,7 @@ The preview copy initially shared the dependency directory's Astro content cache
 
 The mechanical content advisory found zero NDA pattern hits across the two drafts and 100% post-level citation presence. That percentage measures posts containing citations, not semantic claim coverage; primary-source review supplied the latter judgment. The author-local skill pipeline was not invoked; no claim is made that those separate skills passed.
 
-Deliverables are [the security draft](../../src/posts/2026-09-08-agent-memory-recovery-plan.md), [the secondary search draft](../../src/posts/2026-09-08-search-is-part-of-the-static-build.md), this plan, and issues #549–#559. That initial review did not deploy changes. Subsequent implementation and validation are recorded below.
+Deliverables are [the security draft](../shelved-drafts/2026-09-08-agent-memory-recovery-plan.md), [the secondary search draft](../shelved-drafts/2026-09-08-search-is-part-of-the-static-build.md), this plan, and issues #549–#559. That initial review did not deploy changes. Subsequent implementation and validation are recorded below.
 
 
 ## Backlog execution, September 8

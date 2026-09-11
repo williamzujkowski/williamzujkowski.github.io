@@ -1,0 +1,189 @@
+{
+  "started_utc": "2026-09-11T19:21:09.047026+00:00",
+  "image": "postgres@sha256:d3e1620b530c944afa6e887d22eb899824da68e19c52024bf98f5220c88a65b2",
+  "tests": [
+    {
+      "test": "session identity",
+      "sql": "SELECT session_user, current_user;",
+      "expected": "agent_reader|agent_reader",
+      "observed": "agent_reader|agent_reader",
+      "passed": true
+    },
+    {
+      "test": "minimal role attributes",
+      "sql": "SELECT rolsuper, rolcreatedb, rolcreaterole, rolreplication, rolbypassrls FROM pg_roles WHERE rolname = current_user;",
+      "expected": "f|f|f|f|f",
+      "observed": "f|f|f|f|f",
+      "passed": true
+    },
+    {
+      "test": "effective grants",
+      "sql": "SELECT has_database_privilege(current_user, 'lab', 'CONNECT'), has_database_privilege(current_user, 'lab', 'CREATE'), has_database_privilege(current_user, 'lab', 'TEMP'), has_schema_privilege(current_user, 'inventory', 'USAGE'), has_schema_privilege(current_user, 'inventory', 'CREATE'), has_schema_privilege(current_user, 'public', 'CREATE'), has_table_privilege(current_user, 'inventory.hosts', 'SELECT'), has_table_privilege(current_user, 'inventory.hosts', 'UPDATE'), has_sequence_privilege(current_user, 'inventory.ticket_number', 'USAGE'), has_function_privilege(current_user, 'inventory.rename_host()', 'EXECUTE');",
+      "expected": "t|f|f|t|f|f|t|f|f|f",
+      "observed": "t|f|f|t|f|f|t|f|f|f",
+      "passed": true
+    },
+    {
+      "test": "allowed SELECT",
+      "sql": "SELECT id, name FROM inventory.hosts ORDER BY id;",
+      "expected": "1|lab-router\n2|lab-nas",
+      "observed": "1|lab-router\n2|lab-nas",
+      "passed": true
+    },
+    {
+      "test": "read-only default",
+      "sql": "SHOW default_transaction_read_only;",
+      "expected": "on",
+      "observed": "on",
+      "passed": true
+    },
+    {
+      "test": "default blocks UPDATE",
+      "sql": "UPDATE inventory.hosts SET name = 'changed' WHERE id = 1;",
+      "expected": "25006",
+      "observed": "ERROR:  25006: cannot execute UPDATE in a read-only transaction\nLOCATION:  PreventCommandIfReadOnly, utility.c:407",
+      "passed": true
+    },
+    {
+      "test": "role can request read-write",
+      "sql": "BEGIN READ WRITE; SHOW transaction_read_only; ROLLBACK;",
+      "expected": "off",
+      "observed": "off",
+      "passed": true
+    },
+    {
+      "test": "denied INSERT in read-write transaction",
+      "sql": "BEGIN READ WRITE; INSERT INTO inventory.hosts VALUES (3, 'extra'); ROLLBACK;",
+      "expected": "42501",
+      "observed": "ERROR:  42501: permission denied for table hosts\nLOCATION:  aclcheck_error, aclchk.c:2793",
+      "passed": true
+    },
+    {
+      "test": "denied UPDATE in read-write transaction",
+      "sql": "BEGIN READ WRITE; UPDATE inventory.hosts SET name = 'changed' WHERE id = 1; ROLLBACK;",
+      "expected": "42501",
+      "observed": "ERROR:  42501: permission denied for table hosts\nLOCATION:  aclcheck_error, aclchk.c:2793",
+      "passed": true
+    },
+    {
+      "test": "denied DELETE in read-write transaction",
+      "sql": "BEGIN READ WRITE; DELETE FROM inventory.hosts WHERE id = 1; ROLLBACK;",
+      "expected": "42501",
+      "observed": "ERROR:  42501: permission denied for table hosts\nLOCATION:  aclcheck_error, aclchk.c:2793",
+      "passed": true
+    },
+    {
+      "test": "denied TRUNCATE in read-write transaction",
+      "sql": "BEGIN READ WRITE; TRUNCATE inventory.hosts; ROLLBACK;",
+      "expected": "42501",
+      "observed": "ERROR:  42501: permission denied for table hosts\nLOCATION:  aclcheck_error, aclchk.c:2793",
+      "passed": true
+    },
+    {
+      "test": "denied ALTER in read-write transaction",
+      "sql": "BEGIN READ WRITE; ALTER TABLE inventory.hosts ADD COLUMN extra text; ROLLBACK;",
+      "expected": "42501",
+      "observed": "ERROR:  42501: must be owner of table hosts\nLOCATION:  aclcheck_error, aclchk.c:2931",
+      "passed": true
+    },
+    {
+      "test": "denied DROP in read-write transaction",
+      "sql": "BEGIN READ WRITE; DROP TABLE inventory.hosts; ROLLBACK;",
+      "expected": "42501",
+      "observed": "ERROR:  42501: must be owner of table hosts\nLOCATION:  aclcheck_error, aclchk.c:2931",
+      "passed": true
+    },
+    {
+      "test": "denied schema CREATE in read-write transaction",
+      "sql": "BEGIN READ WRITE; CREATE TABLE inventory.extra (id integer); ROLLBACK;",
+      "expected": "42501",
+      "observed": "ERROR:  42501: permission denied for schema inventory\nLINE 1: CREATE TABLE inventory.extra (id integer);\n                     ^\nLOCATION:  aclcheck_error, aclchk.c:2793",
+      "passed": true
+    },
+    {
+      "test": "denied public CREATE in read-write transaction",
+      "sql": "BEGIN READ WRITE; CREATE TABLE public.extra (id integer); ROLLBACK;",
+      "expected": "42501",
+      "observed": "ERROR:  42501: permission denied for schema public\nLINE 1: CREATE TABLE public.extra (id integer);\n                     ^\nLOCATION:  aclcheck_error, aclchk.c:2793",
+      "passed": true
+    },
+    {
+      "test": "denied temporary CREATE in read-write transaction",
+      "sql": "BEGIN READ WRITE; CREATE TEMP TABLE extra (id integer); ROLLBACK;",
+      "expected": "42501",
+      "observed": "ERROR:  42501: permission denied to create temporary tables in database \"lab\"\nLINE 1: CREATE TEMP TABLE extra (id integer);\n                          ^\nLOCATION:  InitTempTableNamespace, namespace.c:4413",
+      "passed": true
+    },
+    {
+      "test": "denied sequence nextval in read-write transaction",
+      "sql": "BEGIN READ WRITE; SELECT nextval('inventory.ticket_number'); ROLLBACK;",
+      "expected": "42501",
+      "observed": "ERROR:  42501: permission denied for sequence ticket_number\nLOCATION:  nextval_internal, sequence.c:652",
+      "passed": true
+    },
+    {
+      "test": "denied ungranted table SELECT in read-write transaction",
+      "sql": "BEGIN READ WRITE; SELECT * FROM inventory.private_notes; ROLLBACK;",
+      "expected": "42501",
+      "observed": "ERROR:  42501: permission denied for table private_notes\nLOCATION:  aclcheck_error, aclchk.c:2793",
+      "passed": true
+    },
+    {
+      "test": "denied owner role switch in read-write transaction",
+      "sql": "BEGIN READ WRITE; SET ROLE lab_owner; ROLLBACK;",
+      "expected": "42501",
+      "observed": "ERROR:  42501: permission denied to set role \"lab_owner\"\nLOCATION:  call_string_check_hook, guc.c:6936",
+      "passed": true
+    },
+    {
+      "test": "denied definer function in read-write transaction",
+      "sql": "BEGIN READ WRITE; SELECT inventory.rename_host(); ROLLBACK;",
+      "expected": "42501",
+      "observed": "ERROR:  42501: permission denied for function rename_host\nLOCATION:  aclcheck_error, aclchk.c:2793",
+      "passed": true
+    },
+    {
+      "test": "future table denied",
+      "sql": "SELECT * FROM inventory.future_data;",
+      "expected": "42501",
+      "observed": "ERROR:  42501: permission denied for table future_data\nLOCATION:  aclcheck_error, aclchk.c:2793",
+      "passed": true
+    },
+    {
+      "test": "granted definer function can write",
+      "sql": "BEGIN READ WRITE; SELECT inventory.rename_host(); SELECT name FROM inventory.hosts WHERE id = 1; ROLLBACK;",
+      "expected": "changed-by-function\nchanged-by-function",
+      "observed": "changed-by-function\nchanged-by-function",
+      "passed": true
+    },
+    {
+      "test": "revoked definer function denied",
+      "sql": "BEGIN READ WRITE; SELECT inventory.rename_host(); ROLLBACK;",
+      "expected": "42501",
+      "observed": "ERROR:  42501: permission denied for function rename_host\nLOCATION:  aclcheck_error, aclchk.c:2793",
+      "passed": true
+    },
+    {
+      "test": "original rows preserved",
+      "sql": "SELECT id, name FROM inventory.hosts ORDER BY id;",
+      "expected": "1|lab-router\n2|lab-nas",
+      "observed": "1|lab-router\n2|lab-nas",
+      "passed": true
+    }
+  ],
+  "server_version": "18.6",
+  "platform": "linux/amd64",
+  "passed": true,
+  "container_removed": true,
+  "recheck_provenance": {
+    "source_commit": "1f01d4bf9f3bc07b5c6303acd8fcb6bc5701c9db",
+    "sha256": {
+      "run.py": "34693a91c8a2a4180cf787670d9bda2f535c77a48007c6a70a11342761c1cd65",
+      "setup.sql": "4577147b59a46296a4e9c319de94755df1077e1d109e61125b800d407b1472bc"
+    },
+    "runner_exit_code": 0,
+    "elapsed_seconds": 5.158,
+    "runner_stderr": "",
+    "execution": "Agent-executed verification; original September 8 artifact retained unchanged."
+  }
+}
