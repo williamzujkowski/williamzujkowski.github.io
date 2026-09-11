@@ -1,12 +1,5 @@
 import { test, expect } from 'playwright/test';
-import { readdirSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const postsDir = fileURLToPath(new URL('../../../src/posts/', import.meta.url));
-const drafts = readdirSync(postsDir).filter((file) => file.endsWith('.md')
-  && /^draft:\s*true\s*$/m.test(readFileSync(join(postsDir, file), 'utf8').split('---')[1] || ''))
-  .map((file) => file.replace(/\.md$/, ''));
+import { expectedPosts, hiddenPosts } from '../helpers/publication';
 
 interface FeedItem { url: string; content_html: string; tags?: string[] }
 
@@ -18,6 +11,7 @@ test('archive, feeds, tags and generated cards share the published post set', as
   expect(items.length).toBeGreaterThan(80);
   const paths = items.map((item) => new URL(item.url).pathname);
   expect(new Set(paths).size).toBe(paths.length);
+  expect(paths).toEqual(expectedPosts.map((post) => `/posts/${post.id}/`));
 
   await page.goto('/posts/');
   const archive = await page.locator('.year-section .entry-title a').evaluateAll((links) =>
@@ -59,15 +53,40 @@ test('archive, feeds, tags and generated cards share the published post set', as
   }
 });
 
-test('drafts have no post or social image route and never appear in feeds', async ({ request }) => {
-  expect(drafts.length).toBeGreaterThan(0);
-  for (const format of ['json', 'xml']) {
-    const response = await request.get(`/feed.${format}`);
-    for (const slug of drafts) expect(await response.text()).not.toContain(`/posts/${slug}/`);
+test('drafts and future posts have no routes, listing metadata or search entries', async ({ page, request }) => {
+  expect(hiddenPosts.length).toBeGreaterThan(0);
+  for (const path of ['/', '/posts/', '/tags/', '/feed.json', '/feed.xml', '/sitemap-0.xml']) {
+    const response = await request.get(path);
+    expect(response.ok(), path).toBe(true);
+    const body = await response.text();
+    for (const post of hiddenPosts) expect(body, `${path}: ${post.id}`).not.toContain(`/posts/${post.id}/`);
   }
-  for (const slug of drafts) {
-    expect((await request.get(`/posts/${slug}/`)).status()).toBe(404);
-    expect((await request.get(`/og/${slug}.png`)).status()).toBe(404);
+  const publishedTags = new Set(expectedPosts.flatMap((post) => post.data.tags));
+  for (const post of hiddenPosts) {
+    expect((await request.get(`/posts/${post.id}/`)).status()).toBe(404);
+    expect((await request.get(`/og/${post.id}.png`)).status()).toBe(404);
+    for (const tag of post.data.tags) {
+      if (tag !== 'posts' && !publishedTags.has(tag)) {
+        expect((await request.get(`/tags/${encodeURIComponent(tag)}/`)).status()).toBe(404);
+      }
+    }
+  }
+  await page.goto('/');
+  const queries = ['ebpf', ...hiddenPosts.map((post) => post.data.title)];
+  const results = await page.evaluate(async (terms) => {
+    const moduleUrl = `${window.location.origin}/pagefind/pagefind.js`;
+    const pagefind = await import(/* @vite-ignore */ moduleUrl);
+    const matches: string[][] = [];
+    for (const term of terms) {
+      const result = await pagefind.search(term);
+      const data = await Promise.all(result.results.map((entry: { data: () => Promise<{ url: string }> }) => entry.data()));
+      matches.push(data.map((item: { url: string }) => new URL(item.url, window.location.origin).pathname));
+    }
+    return matches;
+  }, queries);
+  expect(results[0].length).toBeGreaterThan(0); // Prove the real index loaded.
+  for (const paths of results) {
+    for (const post of hiddenPosts) expect(paths).not.toContain(`/posts/${post.id}/`);
   }
 });
 
@@ -123,8 +142,10 @@ test('generated feed diagrams stay readable without site CSS', async ({ page, re
         const element = page.getByText(label, { exact: true }).first();
         await expect(element).toBeVisible();
         const box = await element.boundingBox();
-        expect(box!.y, `${sample.slug}: ${label}`).toBeGreaterThan(previousY);
-        previousY = box!.y;
+        // Prior samples scroll for screenshots; compare document coordinates.
+        const documentY = box!.y + await page.evaluate(() => window.scrollY);
+        expect(documentY, `${sample.slug}: ${label}`).toBeGreaterThan(previousY);
+        previousY = documentY;
       }
       const label = page.getByText(sample.labels[0], { exact: true }).first();
       await label.scrollIntoViewIfNeeded();

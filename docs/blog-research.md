@@ -113,7 +113,21 @@ arithmetic from raw inputs, report denominators and baseline, and retain negativ
 results. Never invent homelab anecdotes, measurements, citations, paper IDs or
 author participation. First person requires actual author-supplied or recorded
 experience. Use current publication dates; never backdate to match a source window.
-Write into the repository's existing draft mechanism until ready for publication.
+Keep `draft: true` until the post has completed review. For an authorized scheduled
+post, use `draft: false` and the intended future `date: YYYY-MM-DD`. Eligibility
+starts at 00:00 UTC on that date; builds exclude future posts from pages, social
+cards, feeds, archives, sitemap and search. This controls site publication only:
+source files in this public repository are already readable.
+
+The deploy workflow rebuilds main daily at 10:17 UTC, as well as on pushes and
+manual dispatch. Publication occurs after a successful eligible build/deploy;
+[GitHub schedules](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)
+can be delayed or dropped and are disabled after 60 days of repository inactivity.
+If a date is missed, inspect the deploy run and dispatch the workflow on main.
+For local QA, run build and tests with the same explicit UTC timestamp, e.g.
+`PUBLICATION_AS_OF=2026-09-21T00:00:00Z pnpm build`. This preview override is rejected
+when `CI` or `GITHUB_ACTIONS` is set; production deployments use the actual clock.
+Rebuild without the override before checking today's output or deploying.
 
 ## 5. Review, iterate and finish
 
