@@ -1,8 +1,9 @@
 # Shelved drafts
 
-Posts that were written, then contradicted by later evidence. Kept because the
-record of being wrong is worth more than a deleted file, and because the
-retraction is itself publishable material.
+Drafts retained outside the published content collection. Each entry records why
+it was shelved: an editorial hold, an obsolete standalone proposal, or a thesis
+refuted by evidence. Shelving does not by itself mean the research was invalid.
+Preserve the evidence and the specific decision when reconsidering a draft.
 
 ## `2026-08-01-dependency-risk-leading-indicators.md` — "Zero CVEs Is Not a Safety Rating"
 
@@ -30,3 +31,36 @@ The part of the draft that survives — that a low CVE count means "unknown", no
 (possibly) a post on the validation programme itself. Failing to validate your
 own tool across ten studies is a better story than the tool working would have
 been.
+
+
+## `2026-09-08-search-is-part-of-the-static-build.md` — "Search Is Part of the Static Build"
+
+**Shelved 2026-09-11. Obsolete as a standalone proposal; the fixes already shipped.**
+
+The September 8 observations were real, and the draft scopes its original index
+counts to the reviewed revision. Its proposed indexing, request-lifecycle and
+keyboard-focus changes were subsequently implemented and tested. Publishing the
+draft unchanged would present completed work as the next version's plan.
+
+The useful material remains in the [site-improvement record](../research/2026-09-08-site-improvement-plan.md).
+A future article would need a narrower reader question and completed evidence,
+such as the tradeoff between search results and navigation listings. This draft
+is historical working material, not a retraction or an active publishing plan.
+
+## `2026-09-08-agent-memory-recovery-plan.md` — "Your Agent’s Memory Needs a Recovery Plan"
+
+**Shelved 2026-09-11. Editorial hold for a narrower rewrite; the experiment is real.**
+
+The [executed experiment](../research/2026-09-08-memory-recovery-lab.md) retained 27
+model calls across nine prepared scenarios. Those scenarios supplied only four
+unique model inputs; repeated or equivalent states do not demonstrate nine
+independent recovery mechanisms. The deterministic fixture prepared the states:
+the model did not discover poisoning, authenticate a reference, repair persistent
+memory or send a real message.
+
+The defensible observation is narrower: repairing canonical data can leave a
+stale derived summary, and action success alone does not verify clean state.
+Keep the raw evidence, failed controls and preservation results. Reconsider this
+draft around that specific distinction after checking overlap with the published
+agent-gate and policy-change posts. The results have not been refuted; the broader
+recovery-plan framing has not earned publication.
