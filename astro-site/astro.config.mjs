@@ -7,6 +7,7 @@ import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import remarkSmartypants from 'remark-smartypants';
 import { visit } from 'unist-util-visit';
 import { createCssVariablesTheme } from 'shiki';
+import { writeFile } from 'node:fs/promises';
 import rehypeSidenotes from './src/lib/rehype-sidenotes.mjs';
 import rehypeTaskListLabels from './src/lib/rehype-task-list-labels.mjs';
 
@@ -307,6 +308,16 @@ export default defineConfig({
   prefetch: true,
   integrations: [
     svelte(),
+    {
+      name: 'publication-cutoff-manifest',
+      hooks: {
+        'astro:build:done': async ({ logger, dir }) => {
+          const cutoff = process.env.PUBLICATION_AS_OF ?? new Date().toISOString();
+          await writeFile(new URL('publication-cutoff.json', dir), `${JSON.stringify({ cutoff })}\n`);
+          logger.info(`publication cutoff recorded: ${cutoff}`);
+        },
+      },
+    },
     // Keep hidden easter-egg pages (e.g. /pizza-ops/) out of the sitemap.
     // They're also noindex'd in BaseLayout; this just stops them being
     // advertised. Reachable only via the posts that link them.
