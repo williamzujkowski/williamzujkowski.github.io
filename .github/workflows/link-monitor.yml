@@ -12,7 +12,8 @@ on:
 # Least privilege. check-links is now the only job: it opens a tracking issue
 # on scheduled failures (issues: write) and comments on PRs
 # (pull-requests: write). It never needs `contents: write` -- the job that did
-# was removed with the auto-repair path (#495).
+# was removed with the auto-repair path (#495). Keep write scopes at the job
+# level so future jobs do not inherit them accidentally.
 #
 # Note this workflow runs on `pull_request`, so a fork PR's Python is executed
 # on the runner. GitHub forces GITHUB_TOKEN read-only for fork PRs regardless
@@ -23,15 +24,14 @@ concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}"
   cancel-in-progress: true
 
-permissions:
-  contents: read
-  issues: write
-  pull-requests: write
-
 jobs:
   check-links:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
 
     steps:
     - name: Checkout Repository
