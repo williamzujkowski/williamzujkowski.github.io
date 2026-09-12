@@ -14,6 +14,9 @@ The [last post](/posts/2026-07-23-agent-controls-as-oscal) built a gate for an A
 
 The cases you didn't think to write are where the incident lives. So here is the stronger claim, and this post is about earning it: not "the gate passed my tests" but "the gate cannot allow a call the policy doesn't permit" — checked for every possible input at once, by a machine that doesn't get bored or optimistic. You cannot make that claim about an LLM. You can make it about the thing standing in front of the LLM.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/formal-gate.png'); width: min(300px, 76%); aspect-ratio: 420/198; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">Let the gate carry the proof.</p>
+
 ## Why the gate is the part you can prove
 
 A formal proof needs something total, deterministic, and small. Feed it a function that terminates on every input, always returns an answer, and fits in your head, and an automated prover will chew through every case for you. Feed it something that samples from a distribution and you get a shrug.
