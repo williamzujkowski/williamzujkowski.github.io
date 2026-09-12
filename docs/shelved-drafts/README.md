@@ -64,3 +64,7 @@ Keep the raw evidence, failed controls and preservation results. Reconsider this
 draft around that specific distinction after checking overlap with the published
 agent-gate and policy-change posts. The results have not been refuted; the broader
 recovery-plan framing has not earned publication.
+# 2026-09-12 replacements
+
+- `2026-08-14-nobody-publishes-the-denominator.md` — replaced by a source-led SYSSPEC post; the census draft made broader claims than its frame audit supported.
+- `2026-08-18-checks-that-pass-for-the-wrong-reason.md` — replaced by a source-led Pilot Execution post; the corpus audit overstated what rounded percentages and review comments could prove.
