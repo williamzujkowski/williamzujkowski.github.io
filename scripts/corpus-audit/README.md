@@ -1,6 +1,6 @@
 # Corpus audit scripts
 
-Measurement code behind [Nobody Ran It](../../src/posts/2026-08-18-checks-that-pass-for-the-wrong-reason.md).
+Measurement code retained from the shelved [Ninety-Two Posts as a Test Corpus](../../docs/shelved-drafts/2026-08-18-checks-that-pass-for-the-wrong-reason.md).
 Both are here so the numbers in that post can be reproduced or refuted.
 
 ## `grim_check.py` — GRIM-style arithmetic check

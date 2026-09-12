@@ -143,7 +143,7 @@ The pre-commit hook is still worth having. It gives you the fast feedback loop, 
 
 ## Where this pattern has gone since
 
-*The naming mistake in this post — calling a convention a mechanism — turned out to be a general one. It became part of the corpus in [Ninety-Two Posts as a Test Corpus](/posts/2026-08-18-checks-that-pass-for-the-wrong-reason).*
+*The naming mistake in this post — calling a convention a mechanism — remains in the archive audit notes retained with the site sources.*
 
 
 Written in July 2025, and the ground has moved. Claude Code now has first-class **Skills** (`.claude/skills/`), path-scoped **rules**, **hooks**, and **subagents** — which between them cover most of what the `@load` convention was reaching for, with actual dispatch behind them rather than a hopeful convention.
