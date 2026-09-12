@@ -72,3 +72,9 @@ def test_single_quoted_scalars_decode_yaml_doubled_apostrophes():
     fm, _, _ = batch.parse_frontmatter(text)
     assert fm["title"] == "An Author's Test"
     assert fm["tags"] == ["author's-work"]
+
+
+def test_flow_style_tags_keep_commas_inside_quoted_scalars():
+    text = "---\ntags: ['c, c++', \"rust,lang\", security]\n---\nBody prose."
+    fm, _, _ = batch.parse_frontmatter(text)
+    assert fm["tags"] == ["c, c++", "rust,lang", "security"]

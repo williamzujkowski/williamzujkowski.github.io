@@ -97,6 +97,32 @@ def _yaml_scalar(value):
     return value
 
 
+def _split_yaml_list(value):
+    """Split a flow-style YAML list on commas outside quoted scalars."""
+    items = []
+    start = 0
+    quote = None
+    escaped = False
+    for pos, char in enumerate(value):
+        if escaped:
+            escaped = False
+        elif char == "\\" and quote == '"':
+            escaped = True
+        elif char in "\"'":
+            if quote is None:
+                quote = char
+            elif quote == char:
+                # YAML single quotes escape an apostrophe by doubling it.
+                if char == "'" and pos + 1 < len(value) and value[pos + 1] == "'":
+                    continue
+                quote = None
+        elif char == "," and quote is None:
+            items.append(value[start:pos])
+            start = pos + 1
+    items.append(value[start:])
+    return items
+
+
 def parse_frontmatter(text):
     m = re.match(r"^---\n(.*?)\n---", text, re.DOTALL)
     if not m:
@@ -132,7 +158,7 @@ def parse_frontmatter(text):
             fm[k.strip()] = _yaml_scalar(v)
     tag_match = re.search(r"^tags:\s*\[(.*?)\]", m.group(1), re.MULTILINE)
     if tag_match:
-        fm["tags"] = [_yaml_scalar(t) for t in tag_match.group(1).split(",")]
+        fm["tags"] = [_yaml_scalar(t) for t in _split_yaml_list(tag_match.group(1))]
     elif tag_lines:
         fm["tags"] = tag_lines
     fm_end = text[:m.end()].count("\n") + 1
