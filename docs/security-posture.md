@@ -4,7 +4,7 @@
 accepted, and why — so that accepted risks are not re-litigated as findings on
 every sweep.
 
-Last reviewed: 2026-08-18 (issue #424).
+Last reviewed: 2026-09-12 (issue #505).
 
 ---
 
@@ -22,6 +22,15 @@ the sanitizer below is worth having.
 ---
 
 ## Enforced
+
+### Link-monitor token scope
+
+`link-monitor.yml` runs untrusted pull-request content through the link
+extractor. Its `issues: write` and `pull-requests: write` permissions are
+scoped to the single reporting job; future jobs in that workflow do not inherit
+them. GitHub must keep **Send write tokens to workflows from fork pull
+requests** disabled: fork pull requests receive a read-only token today, but
+enabling that repository setting would give fork-controlled code write access.
 
 ### HTML sanitization — the first line of defence
 
