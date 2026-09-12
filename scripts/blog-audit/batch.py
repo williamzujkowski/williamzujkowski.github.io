@@ -97,7 +97,17 @@ def parse_frontmatter(text):
         if in_tags:
             item = re.match(r"^\s*-\s+(.+)$", line)
             if item:
-                tag_lines.append(item.group(1).strip().strip('"').strip("'"))
+                value = item.group(1).strip()
+                # YAML comments begin at an unquoted '#'. Keep hashes that are
+                # part of a quoted tag value.
+                quote = None
+                for pos, char in enumerate(value):
+                    if char in "\"'":
+                        quote = None if quote == char else (char if quote is None else quote)
+                    elif char == "#" and quote is None and (pos == 0 or value[pos - 1].isspace()):
+                        value = value[:pos].rstrip()
+                        break
+                tag_lines.append(value.strip('"').strip("'"))
                 continue
             if not line.strip() or line.lstrip().startswith("#"):
                 continue

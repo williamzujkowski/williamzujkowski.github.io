@@ -59,3 +59,9 @@ def test_inline_elements_keep_surrounding_words_and_ignore_tag_case():
 def test_normal_prose_and_fenced_code_behavior_is_preserved():
     text = '<h2>Actual heading</h2>\n```js\ndelve leverage\n```\n<p>Actual prose.</p>'
     assert pages.strip_astro_to_prose(text) == [(1, "Actual heading"), (5, "Actual prose.")]
+
+
+def test_block_tags_strip_unquoted_inline_comments_but_keep_quoted_hashes():
+    text = "---\ntags:\n  - security  # classifier\n  - 'hash # in tag'\n---\nBody prose."
+    fm, _, _ = batch.parse_frontmatter(text)
+    assert fm["tags"] == ["security", "hash # in tag"]
