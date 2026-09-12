@@ -14,6 +14,9 @@ There is a familiar way to ask an AI system to build a filesystem: describe the 
 
 The FAST '26 paper [“Sharpen the Spec, Cut the Code”](https://www.usenix.org/conference/fast26/presentation/liu-qingyuan) starts from a better boundary. SYSSPEC asks for a structured specification of functionality, modules, and concurrency obligations. An agent generates the implementation from that specification, and later changes are patches to the specification itself. The paper was available at the February 24–26, 2026 conference; its earlier [arXiv version](https://arxiv.org/abs/2512.13047v4) was posted before this article's date.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/specification-blueprint.png'); width: min(260px, 68%); aspect-ratio: 319/420; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the contract gets the pencil first</p>
+
 That change sounds cosmetic until you follow where the invariant lives. In a prompt-only workflow, “lookup a directory entry” is a sentence. In SYSSPEC, it is a named operation with dependencies and rules that another operation must continue to respect. The generated code is still ordinary code. The contract is what makes a later change reviewable.
 
 ## A prompt is not a concurrency contract

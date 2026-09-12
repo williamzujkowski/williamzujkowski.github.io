@@ -14,6 +14,9 @@ Recovery commands are often reviewed as if they were harmless instructions: rest
 
 The NSDI '26 paper [“Pilot Execution: Simulating Failure Recovery In Situ for Production Distributed Systems”](https://www.usenix.org/conference/nsdi26/presentation/li-zhenyu) treats recovery as a program that deserves a preview. The paper was presented May 4–6, 2026, before this post's date. Its PILOT framework runs a dry version of a recovery action in the live system's context, observes the effects, and commits only after the operator has a view of what would change.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/formal-gate.png'); width: min(300px, 76%); aspect-ratio: 420/198; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">let the gate see the blast radius</p>
+
 The authors first study 75 real-world recovery failures. They report that cross-component interactions are a recurring source of trouble: a recovery path touches state that the initiating component does not own. PILOT is evaluated on five distributed systems and finds 17 of 20 recovery failures in that evaluation, including an unknown HBase bug. Those numbers belong to the paper's systems and workloads. They are not a universal failure rate.
 
 ## “Dry run” has to mean something
