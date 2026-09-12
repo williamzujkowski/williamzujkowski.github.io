@@ -87,13 +87,29 @@ def parse_frontmatter(text):
     if not m:
         return {}, text, 0
     fm = {}
+    tag_lines = []
+    in_tags = False
     for line in m.group(1).split("\n"):
+        if re.match(r"^tags:\s*(?:#.*)?$", line):
+            in_tags = True
+            fm["tags"] = []
+            continue
+        if in_tags:
+            item = re.match(r"^\s*-\s+(.+)$", line)
+            if item:
+                tag_lines.append(item.group(1).strip().strip('"').strip("'"))
+                continue
+            if not line.strip() or line.lstrip().startswith("#"):
+                continue
+            in_tags = False
         if ":" in line and not line.startswith(" "):
             k, _, v = line.partition(":")
             fm[k.strip()] = v.strip().strip('"').strip("'")
     tag_match = re.search(r"^tags:\s*\[(.*?)\]", m.group(1), re.MULTILINE)
     if tag_match:
         fm["tags"] = [t.strip().strip('"').strip("'") for t in tag_match.group(1).split(",")]
+    elif tag_lines:
+        fm["tags"] = tag_lines
     fm_end = text[:m.end()].count("\n") + 1
     return fm, text[m.end():], fm_end
 
