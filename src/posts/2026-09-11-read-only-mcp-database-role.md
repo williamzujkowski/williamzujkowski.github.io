@@ -10,6 +10,9 @@ The accompanying PostgreSQL lab gives a database role access to two pretend mach
 
 The recorded September 8 run separates three things often called “read-only”: a transaction default, table privileges, and the authority available through functions. Ordinary reads worked, direct writes failed, and a `SELECT` could still write after an explicit function grant. The label alone tells you very little.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/postgres-readonly.png'); width: min(240px, 62%); aspect-ratio: 420/417; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">The side door was a function call.</p>
+
 The prompt for this experiment was [AWS's September 4 bulletin](https://aws.amazon.com/security/security-bulletins/2026-101-aws/) about CVE-2026-85787. AWS describes incomplete SQL input validation in `awslabs.postgres-mcp-server` before version 1.1.7 that could permit changes outside its intended read-only scope. The bulletin reports a fix in 1.1.7 and recommends connecting through a dedicated, minimally privileged PostgreSQL role.
 
 On September 9, [AWS published a second bulletin](https://aws.amazon.com/security/security-bulletins/2026-104-aws/) for CVE-2026-87911. Its affected configuration is specific: the package before 1.1.7, a self-managed PostgreSQL deployment using `PG_WIRE_PROTOCOL`, and a database role with superuser or `pg_execute_server_program` authority. AWS reports an application read-only enforcement bypass that could permit operating-system command execution, also fixed in 1.1.7.

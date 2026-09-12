@@ -21,6 +21,9 @@ This is a local process experiment, motivated by a [July 2026 preprint about pag
 <figcaption>Separate processes can read the same cached file pages. The control uses separately created files containing the same bytes.</figcaption>
 </figure>
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/page-cache.png'); width: min(300px, 76%); aspect-ratio: 420/209; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">Same bytes are not the same file.</p>
+
 ## The new paper asks about the storage path
 
 Alon Abudraham, Xingyu Chen, Itamar Levi, and Ari Trachtenberg published *Isolation Failure From Shared Storage* on arXiv on July 20, 2026; this discussion uses [version 2, dated July 21](https://arxiv.org/html/2607.17518v2). The inspected record identifies a preprint, without a peer-reviewed venue.

@@ -14,6 +14,9 @@ Most writing about AI-agent risk is qualitative: prompt injection, excessive age
 
 I have reasons to care about this intersection. I'm an OSCAL Foundation member, and I authored a NIST SP 800-53 overlay for AI-agent behaviors. Control catalogs are already machine-readable; the part I keep circling is how to *use* that while building with LLMs — pulling the applicable controls as a checklist so the well-worn security angles get covered deliberately, alongside the new ones AI opens up, and documenting what a system actually enforces as CLI agents help build it. I've poked at this in the open — an early [standards repo](https://github.com/williamzujkowski/standards) and [an MCP server on top of it](/posts/2025-07-22-supercharging-claude-cli-with-standards), both experiments I've let go quiet rather than products. This post is the idea underneath them. I work most of this out in my own test environments first, where I have room to fail loudly and cheaply. The thinking generalizes to higher-stakes settings; the freedom to fail cheaply does not.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/oscal-agent-control.png'); width: min(260px, 68%); aspect-ratio: 420/326; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">The catalog has a small door.</p>
+
 ## The problem with borrowing a control catalog
 
 A control catalog was written for systems that do what they're told. You configure a firewall; it stays configured. You set a permission; it holds. The system is boring, and boring is exactly what you want from a control.

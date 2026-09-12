@@ -19,6 +19,9 @@ That is a more interesting backup property than a reassuring padlock icon. An ad
 <figcaption>The host requests storage changes; the isolated checker enforces retention. This is a conceptual view, not a wiring diagram.</figcaption>
 </figure>
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/timelock-retention.png'); width: min(240px, 62%); aspect-ratio: 380/417; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">Yesterday is still under guard.</p>
+
 ## Unfreeze does not mean writable
 
 The paper's particularly useful distinction is between *frozen* and *counting down*. A frozen block stays protected indefinitely. Unfreezing starts its original retention duration; it does not grant immediate permission to overwrite. The checker also protects metadata, because corrupting the record of a lock would defeat the lock. These mechanisms assume an isolated, non-decreasing checker clock. See [§§2–3 and Figure 2b](https://www.usenix.org/system/files/osdi26-rosenblum.pdf).
