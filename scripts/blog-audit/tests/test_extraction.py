@@ -65,3 +65,10 @@ def test_block_tags_strip_unquoted_inline_comments_but_keep_quoted_hashes():
     text = "---\ntags:\n  - security  # classifier\n  - 'hash # in tag'\n---\nBody prose."
     fm, _, _ = batch.parse_frontmatter(text)
     assert fm["tags"] == ["security", "hash # in tag"]
+
+
+def test_single_quoted_scalars_decode_yaml_doubled_apostrophes():
+    text = "---\ntitle: 'An Author''s Test'\ntags: ['author''s-work']\n---\nBody prose."
+    fm, _, _ = batch.parse_frontmatter(text)
+    assert fm["title"] == "An Author's Test"
+    assert fm["tags"] == ["author's-work"]

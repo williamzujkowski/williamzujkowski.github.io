@@ -82,6 +82,21 @@ REGISTRIES = ("npm", "pypi", "rubygems", "cargo", "crates.io", "maven", "nuget",
 TTR_THRESH_BLOG = (0.50, 0.45, 0.40, 0.35)  # rich, ok, thin (LOW), very-thin (MED), HIGH
 
 
+def _yaml_scalar(value):
+    """Decode the quoted scalar forms used by post frontmatter.
+
+    This helper deliberately remains a small subset parser: the audit only
+    needs strings and tags, while Astro owns full YAML/schema validation. YAML
+    escapes an apostrophe inside a single-quoted scalar by doubling it.
+    """
+    value = value.strip()
+    if len(value) >= 2 and value[0] == value[-1] == "'":
+        return value[1:-1].replace("''", "'")
+    if len(value) >= 2 and value[0] == value[-1] == '"':
+        return value[1:-1]
+    return value
+
+
 def parse_frontmatter(text):
     m = re.match(r"^---\n(.*?)\n---", text, re.DOTALL)
     if not m:
@@ -107,17 +122,17 @@ def parse_frontmatter(text):
                     elif char == "#" and quote is None and (pos == 0 or value[pos - 1].isspace()):
                         value = value[:pos].rstrip()
                         break
-                tag_lines.append(value.strip('"').strip("'"))
+                tag_lines.append(_yaml_scalar(value))
                 continue
             if not line.strip() or line.lstrip().startswith("#"):
                 continue
             in_tags = False
         if ":" in line and not line.startswith(" "):
             k, _, v = line.partition(":")
-            fm[k.strip()] = v.strip().strip('"').strip("'")
+            fm[k.strip()] = _yaml_scalar(v)
     tag_match = re.search(r"^tags:\s*\[(.*?)\]", m.group(1), re.MULTILINE)
     if tag_match:
-        fm["tags"] = [t.strip().strip('"').strip("'") for t in tag_match.group(1).split(",")]
+        fm["tags"] = [_yaml_scalar(t) for t in tag_match.group(1).split(",")]
     elif tag_lines:
         fm["tags"] = tag_lines
     fm_end = text[:m.end()].count("\n") + 1
