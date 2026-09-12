@@ -2,7 +2,7 @@
 
 author: William Zujkowski
 date: 2025-07-08
-description: Deploy DNS-over-HTTPS with Pi-hole and dnscrypt-proxy—encrypt DNS queries for home network privacy and prevent ISP monitoring with DoH implementation.
+description: Deploy DNS-over-HTTPS with Pi-hole and dnscrypt-proxy—encrypt DNS queries to reduce exposure of home-network lookups to local observers.
 title: Implementing DNS-over-HTTPS (DoH) for Home Networks
 tags:
   - cryptography
@@ -15,7 +15,7 @@ tags:
 
 A few years back, my ISP sent a notice that read like an olive branch: they'd started "enhancing" my browsing experience by analyzing my DNS queries for more relevant ads. Translation: every domain I'd ever looked up was a line item in someone's targeting model. That letter is the reason this post exists — it's what sent me down the DNS-over-HTTPS rabbit hole.
 
-After implementing DoH on my personal home network, I've achieved complete DNS privacy. The ISP only sees encrypted HTTPS traffic, protecting browsing patterns from commercial exploitation.
+After implementing DoH on my personal home network, I reduced the visibility of my DNS lookups to the ISP and other local observers. DoH protects the query contents in transit, but it does not hide every traffic signal: the resolver still sees the requests, and an observer can often infer destinations from connections, timing, or other metadata.
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/dns-doh.png'); width: min(360px, 85%); aspect-ratio: 400/342; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">DNS, now wearing a coat</p>
@@ -39,24 +39,24 @@ requests
 ssl
 statistics
 ```
-If you're tired of being the product, here's how to take back control of your DNS privacy. It's easier than you think, and I'll show you three different ways to do it.
+If you want more control over who handles your DNS lookups, here are three ways to deploy DoH. The setup is approachable, although the browser had opinions about edge cases.
 
 ## Understanding the DNS Privacy Problem
 
-DNS privacy is foundational to network security. Combine DoH with [zero-trust VLAN segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab) for complete homelab security.
+DNS privacy is one layer of network security. Combine DoH with [zero-trust VLAN segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab) to reduce the blast radius of a compromised device; neither control makes a homelab complete by itself.
 
 Traditional DNS has several privacy and security issues:
 
 1. **Plain Text Queries**: ISPs and network observers see all DNS lookups
 2. **DNS Hijacking**: Malicious actors can redirect your traffic
-3. **ISP Monetization**: Many ISPs sell DNS query data
+3. **Provider visibility**: The DNS operator and, depending on the setup, the network provider can observe or retain query data
 4. **Censorship**: DNS blocking is a common technique for content filtering
 5. **Interception Attacks**: Unencrypted DNS is vulnerable to tampering
 
 DNS-over-HTTPS solves these by:
 - Encrypting all DNS queries with HTTPS (learn more about [cryptography fundamentals](/posts/2024-01-18-demystifying-cryptography-beginners-guide))
 - Authenticating the DNS server
-- Hiding DNS queries from network observers
+- Hiding DNS query contents from observers who cannot inspect the encrypted connection
 - Preventing DNS-based filtering (though this may not be desirable in all environments)
 
 ## Implementation Approaches
@@ -234,7 +234,7 @@ See the geo-based provider selection logic in the advanced routing gist above.
 After running DoH for years, here's what changed for me:
 
 **The Good:**
-- ISP can't sell my browsing habits anymore (take that, "anonymous" marketing data)
+- My ISP has less direct access to the DNS queries handled by my chosen resolver
 - No more DNS hijacking to ISP "search assistance" pages
 - Kids' devices automatically protected from DNS-based malware
 - That warm fuzzy feeling of actual privacy
@@ -256,11 +256,11 @@ Don't try to boil the ocean. Here's your weekend project path:
 3. **Next month:** Configure your router for network-wide protection
 4. **Eventually:** Consider self-hosting if you're a control freak like me
 
-Remember: DNS privacy is just one piece of the puzzle. But it's a big piece. Every DNS query you encrypt is data your ISP can't monetize, a profile that can't be built, and a step toward the internet we deserve.
+Remember: DNS privacy is one piece of the puzzle. Encrypting a query limits what some network observers can read; it does not stop the resolver, endpoint, or traffic metadata from revealing useful information.
 
 The internet was built on open protocols, but that doesn't mean we have to accept surveillance as the price of connectivity. 
 
-Take back your DNS privacy. This weekend. I'll wait.
+If that trade-off fits your threat model, start with one device and verify the resolver and fallback behavior before rolling DoH across the network.
 
 
 

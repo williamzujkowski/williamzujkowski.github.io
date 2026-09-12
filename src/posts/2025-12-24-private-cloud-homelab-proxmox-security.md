@@ -58,7 +58,7 @@ Proxmox supports multiple storage backends. I tested five configurations over 12
 
 **NFS:** the most feature-complete of the lot, actually — PVE supports images, containers, templates, ISOs, backups and snippets on it, with snapshots on qcow2 images. It is file-level, so raw-image performance lags block storage.
 
-**Winner for VM disks:** ZFS over iSCSI. Note its content types are `images, rootdir` only — you cannot put backups, ISOs or templates on it, so you still need a file-level target alongside. My TrueNAS SCALE server provides ~30TB usable storage (from 40TB raw) with RAIDZ2 protection. Proxmox sees it as shared block storage, perfect for VM disks and backups.
+**Winner for VM disks:** ZFS over iSCSI. Its Proxmox content type is `images` only in the storage plugin I inspected, so backups, ISOs, templates, and container root directories need a separately supported file-level target. My TrueNAS SCALE server provides ~30TB usable storage (from 40TB raw) with RAIDZ2 protection. Proxmox sees the iSCSI target as shared block storage for VM disks; it is not the backup destination.
 
 <figure class="arch-fig">
 <div class="arch" role="group" aria-label="Proxmox storage architecture">

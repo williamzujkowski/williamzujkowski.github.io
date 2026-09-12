@@ -93,9 +93,18 @@ def strip_astro_to_prose(text):
                 fm_end = i + 1
                 break
 
+    # Remove complete raw-text elements before processing individual lines.
+    # Keep their newlines so prose after a block retains its source location.
+    body = "\n".join(lines[fm_end:])
+    body = re.sub(
+        r"<(script|style)\b[^>]*>.*?</\1\s*>",
+        lambda match: " " + "\n" * match.group(0).count("\n"),
+        body,
+        flags=re.DOTALL | re.IGNORECASE,
+    )
     out = []
     in_code = False
-    for i, raw in enumerate(lines[fm_end:], fm_end + 1):
+    for i, raw in enumerate(body.split("\n"), fm_end + 1):
         # Track fenced code blocks (rare in .astro but defensive)
         if raw.strip().startswith("```"):
             in_code = not in_code
@@ -116,9 +125,6 @@ def strip_astro_to_prose(text):
         # Strip HTML/JSX comments
         line = re.sub(r"<!--.*?-->", "", line)
         line = re.sub(r"\{/\*.*?\*/\}", "", line)
-        # Strip <script> and <style> blocks (rare inline; defensive)
-        line = re.sub(r"<script[^>]*>.*?</script>", "", line, flags=re.DOTALL)
-        line = re.sub(r"<style[^>]*>.*?</style>", "", line, flags=re.DOTALL)
         # Strip JSX tags but keep inner text. Preserve **bold** markers since
         # those are markdown-style bold inside the JSX.
         line = re.sub(r"<[^>]+>", "", line)
