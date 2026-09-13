@@ -110,3 +110,35 @@ Canonical `blog-artifact-check` procedure applied to this maintenance scope: sou
 ## Website validation
 
 The production build passed. The offline internal-link check inspected 216 pages, 8,511 links and 2,507 anchors; all internal links and anchors resolved. Rendered HTML contains the dated correction, virtual-environment installation command and incomplete-fragment qualification; the invalid original command is absent. A first text-extraction assertion inserted spaces between syntax-highlighting spans and was corrected to normalize the actual rendered text. No content defect was found in that check.
+
+## Follow-up: archive the six February implementation fragments (#628)
+
+The #622 import correction exposed a second, concrete problem: section-local link labels still presented incomplete fragments as working automation. This follow-up reads every canonical file again, adds precise archival README/description notices, and changes the article's nearby claims to intended roles and observed limitations. It does not replace missing implementations or run the scripts.
+
+Fresh reads reported no truncated files and matched the earlier revisions. Python `compile(source, filename, 'exec')` produced a code object or syntax error without executing the object. Five files failed syntax checks. The sixth parses, but source inspection places `self.update_pf_blocker_list(country_code)` inside the class body with those names and method undefined.
+
+| Original file/revision | Compile-only result and inspected limitation | Original SHA-256 |
+| --- | --- | --- |
+| [network-device-discovery.py](https://gist.github.com/williamzujkowski/2abad62ff98d044d09102ae06ecf3b0f/0b1b7e6e48e1d7ee045f9c4ac2aca7ad2a30ce6d) | `unexpected indent`, line 7. | `1e0d17e90f278f6c4b56a333d93aab495033abc60d3c70fae2f239b2ea46b379` |
+| [dynamic-firewall.py](https://gist.github.com/williamzujkowski/6af94c70d3afd57829d26c12940d1cb1/2a6dc0c2efca0bf3ed0194a67a7a015614496657) | Parses; undefined class-body names and method remain (source inspection). | `7ed107b2f89304f95255befafd00133e2ae7dd6ca2f5958b3e6f74113d0c4ef8` |
+| [dns-monitoring.py](https://gist.github.com/williamzujkowski/6c7c754be164e75b84f6b9e601753531/f136395de68f72943521fd1de8372d54f21f3908) | `unexpected indent`, line 8. | `862fbde85dd0e88080b430aece7db6f4a2185ba8848e8e5a6b4a11110401891c` |
+| [security-orchestrator.py](https://gist.github.com/williamzujkowski/9cc496653878271d7045108bead98a65/035adaca15e92f993b98f0d8a927639fc6aeec90) | `unexpected indent`, line 7. | `007ffd6cfef18fb1f445d4ff2bea7a8933b35944f55160528bf5eee3ca4f089e` |
+| [vulnerability-scanner.py](https://gist.github.com/williamzujkowski/e3e41c782e4099a06a6ac1f482cd3119/cd37a5b739a41eb28837c6e3da3e1ba324e70225) | `unexpected indent`, line 8. | `989ea88b8a0face6b1b3836b6b2d17db603fcc016b6cdf27f4e313491402cceb` |
+| [notification-system.py](https://gist.github.com/williamzujkowski/f025bd03e6d265b8aa9fdb8d73df9740/1450fff2a104cabe73877f0c385ec9c6673a9aea) | `unexpected indent`, line 8. | `a864e2ae67fe57041988cd7fcae09d0753f8e83c6e8152f4421771281b588ec8` |
+
+The article now labels all six links as archived, incomplete and unsupported. It removes claims that these specific files run hourly/weekly, deliver alerts or implement firewall/orchestration behavior. The metadata no longer promises deployable Ansible/patching examples. The previously verified dependency environment remains an optional import-inspection example, with no claim that installation repairs the archived files. The household features are framed as design requirements rather than implemented features of these fragments.
+
+Original author anecdotes and other unrelated historical statements were not evaluated by this artifact-only repair. Their retention is not independent verification. The original gist creation dates remain November 3, 2025; no inference about when underlying code was first written is added. No new implementation, experiment or measurement is supplied.
+
+The supervising reviewer approved all six exact README/description patches. The second pre-edit drift check again passed **45/45 mapped gists**; none of these six has a local mirror. After publication, fresh API reads matched every approved description and README exactly and confirmed all six original Python files byte-identical. The first immediate read after one update temporarily omitted the new README; a later read showed the complete update. No success was recorded until the contents matched, and that gist was not patched a second time. The linked article returned HTTP 200 with its already-published September 13 dependency correction.
+
+| Archived gist | Verified revision |
+| --- | --- |
+| [2abad62ff98d044d09102ae06ecf3b0f](https://gist.github.com/williamzujkowski/2abad62ff98d044d09102ae06ecf3b0f/12e2d01136a0b3e2588df5e5ed26391d868407e8) | `12e2d01136a0b3e2588df5e5ed26391d868407e8` |
+| [6af94c70d3afd57829d26c12940d1cb1](https://gist.github.com/williamzujkowski/6af94c70d3afd57829d26c12940d1cb1/87a972beced22a1bb0a89c73953384d60c5977c6) | `87a972beced22a1bb0a89c73953384d60c5977c6` |
+| [6c7c754be164e75b84f6b9e601753531](https://gist.github.com/williamzujkowski/6c7c754be164e75b84f6b9e601753531/aaa3da3410fea68ebc8e70b6109413e1275b4e24) | `aaa3da3410fea68ebc8e70b6109413e1275b4e24` |
+| [9cc496653878271d7045108bead98a65](https://gist.github.com/williamzujkowski/9cc496653878271d7045108bead98a65/943b4f39c2bbab7d313890d0dca115c90f389582) | `943b4f39c2bbab7d313890d0dca115c90f389582` |
+| [e3e41c782e4099a06a6ac1f482cd3119](https://gist.github.com/williamzujkowski/e3e41c782e4099a06a6ac1f482cd3119/f8cb3f838e921248c67289d5d42c220e33a3f556) | `f8cb3f838e921248c67289d5d42c220e33a3f556` |
+| [f025bd03e6d265b8aa9fdb8d73df9740](https://gist.github.com/williamzujkowski/f025bd03e6d265b8aa9fdb8d73df9740/ea855f155324c637ee74a9f68e76aba97f2b5c16) | `ea855f155324c637ee74a9f68e76aba97f2b5c16` |
+
+The follow-up production build passed. The offline link check again passed for 216 pages, 8,511 links and 2,507 anchors. Rendered HTML inspection verified the dated artifact correction, all six archived/incomplete/unsupported link labels, retention of the corrected optional dependency command, and removal of the previous hourly/weekly/script-delivery promises. No implementation files ran. These checks cover the changed guidance; they do not revalidate unrelated personal history.
