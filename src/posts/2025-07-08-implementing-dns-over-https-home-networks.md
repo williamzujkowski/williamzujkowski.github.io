@@ -1,6 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-07-08
+lastUpdate: 2026-09-13
 description: Choose where DNS-over-HTTPS belongs in a home network, distinguish browser and Pi-hole upstream encryption, and check fallback behavior.
 title: Implementing DNS-over-HTTPS (DoH) for Home Networks
 tags:

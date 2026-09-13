@@ -1,6 +1,7 @@
 {
   "post": "src/posts/2025-07-08-implementing-dns-over-https-home-networks.md",
-  "sha256": "169d8af15c7382ae458de15a97ec93de952c0ce1437d31e1bb02ea033fe101b1",
+  "sha256": "b9cd8d26c3bab9839b508da1abe86795b8fc0af93eaa3c30c80112f7fe7f8bf1",
+  "revision_note": "Independent prose/source lenses reviewed identical body at previous full-file SHA169d8af15c7382ae458de15a97ec93de952c0ce1437d31e1bb02ea033fe101b1. Root subsequently verified the sole post change: lastUpdate2026-09-13, using the existing schema and JSON Feed date_modified field while preserving date2025-07-08.",
   "reviewed_at": "2026-09-13",
   "stages": {
     "blog-overlap": {

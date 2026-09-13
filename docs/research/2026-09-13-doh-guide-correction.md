@@ -94,6 +94,11 @@ The content drafter's source/artifact inventory informed the review but was not
 counted as an independent reviewer. No numerical results remain to recompute.
 The adjacent February dependency defect is tracked separately in #622.
 
+The final post adds only `lastUpdate: 2026-09-13` after those body reviews, so the
+existing JSON Feed reports the correction date while retaining the original
+publication date. Root verified that metadata against the existing schema/feed.
+The seven-stage report records the resulting full-file hash.
+
 Targeted axe testing found a real shared-style defect: flow captions using
 `fg-muted` on Latte's surface had 4.25:1 contrast at 13px. The caption rule now
 uses `fg`. Two regressions verify the actual DoH page at 1440px Latte and 390px
