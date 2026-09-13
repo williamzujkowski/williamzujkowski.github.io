@@ -59,10 +59,36 @@ Future preview at `PUBLICATION_AS_OF=2026-09-28T00:00:00Z` built successfully.
 Root inspected full-page screenshots at1440px Latte and390px Dracula: readable
 native flow/table, no horizontal page overflow and no missing assets. Targeted
 axe WCAG2/2.1/2.2AA found zero violations in both views, with the repository's
-existing syntax-highlighted-code contrast exclusion. The visual is a specific
-mechanism diagram after the introduction; no decorative doodle is necessary.
+existing syntax-highlighted-code contrast exclusion. The mechanism diagram remains after the introduction. The author subsequently
+requested a zine illustration; the visual follow-up below records that addition.
 
 Design audits, Astro check and lint passed. The seven-stage coverage JSON binds
 the final file hash. Production build and required PR checks must pass before
 merge; today’s build must exclude the future post. No general archive-ready
 verdict is implied for the older scanning article merely because it is linked.
+
+## Zine illustration follow-up
+
+Resolved skill: `.agents/skills/blog-visuals/SKILL.md` in this checkout. Gemini
+3.1 Pro via agy generated the requested illustration using its `generate_image`
+tool in an isolated temporary directory. Root inspected the actual output before
+processing it with `scripts/zine-art/ink-mask.py --width 480`.
+
+The open box contains a ball and a key; its inventory card depicts only the ball.
+This is a metaphor for omitted entries, not an additional experimental result.
+The caption, “The inventory forgot the key,” adds no technical or personal claim.
+Root reviewed that caption for voice, attribution and claim scope; the existing
+research, argument and artifact reviews remain applicable to unchanged content.
+
+Asset: `astro-site/public/assets/doodles/zip-inventory.png`, 480×502 pixels,
+56,996 bytes, pure-black luminance with alpha spanning 0–255 and no metadata.
+The markup uses existing theme-mask classes, the measured aspect ratio, a
+responsive width and `aria-hidden` because the prose and accessible flow already
+carry its meaning. No stylesheet or publication-date change was needed.
+
+Independent reviewer `music_pilot` inspected the actual mask, metaphor and markup
+and found no blockers. Root inspected rendered screenshots at 1440px Latte and
+390px Dracula: the image is visible, centered and recolored appropriately, with
+no horizontal overflow. The PNG returned HTTP 200. Targeted axe WCAG 2/2.1/2.2 AA
+reported zero violations in both views using the existing code-block contrast
+exclusion. Future-preview build and all design audits passed again.

@@ -14,6 +14,9 @@ The [ZIP lab](https://github.com/williamzujkowski/research-labs/tree/68874f0a840
 
 The bytes never change. The readers disagree about which records belong in their list of files. If a content check and a later consumer build those lists differently, hashing the original upload does not resolve that disagreement. The lab isolates that boundary without running a scanner or extracting anything to disk.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/zip-inventory.png'); width: min(240px, 62%); aspect-ratio: 480/502; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">The inventory forgot the key.</p>
+
 <div class="flow" role="group" aria-label="Observed result for an archive with an unindexed local entry">
   <div class="flow-node"><b>Identical ZIP bytes</b><i>One indexed entry; an extra local entry</i></div>
   <div class="flow-branch" role="group" aria-label="Reader observations">
