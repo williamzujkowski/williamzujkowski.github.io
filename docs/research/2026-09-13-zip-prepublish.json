@@ -1,6 +1,6 @@
 {
   "post": "src/posts/2026-09-28-zip-index-stream-reader-disagreement.md",
-  "sha256": "2dd94a2ef667752063295a2b970115d755f600a701308b43438643bf70d2782c",
+  "sha256": "aef8ade14cf225425d9d49b9a63921908a69982d3a064d1e3dfe849fb08039e2",
   "reviewed_at": "2026-09-13",
   "stages": {
     "blog-overlap": {
@@ -16,7 +16,8 @@
       "verdict": "pass",
       "reviewer": "root and music_pilot",
       "evidence": [
-        "Primary APPNOTE6.3.10\u00a74.3.2,Java21,Python3.12,USENIX2025\u00a7\u00a72/4; recomputed6fixtures18runs17success1rejection and marker/sequence distinctions; source chronology precedesSep28. Full claim ledger2026-09-13-zip-post-review.md."
+        "Primary APPNOTE6.3.10\u00a74.3.2,Java21,Python3.12,USENIX2025\u00a7\u00a72/4; recomputed6fixtures18runs17success1rejection and marker/sequence distinctions; source chronology precedesSep28. Full claim ledger2026-09-13-zip-post-review.md.",
+        "Root reviewed added inventory metaphor and caption: no new experimental or personal claim, concise voice, no attribution issue; research and article prose unchanged."
       ]
     },
     "blog-llm-tells": {
@@ -24,7 +25,8 @@
       "verdict": "pass",
       "reviewer": "music_pilot and root",
       "evidence": [
-        "Whole post reviewed against canonical voice; direct project introduction, scoped results, no forced humor/unsupported anecdote; no material prose findings. Nexus documentation expert also reviewed prose, its wrong Mermaid rule rejected."
+        "Whole post reviewed against canonical voice; direct project introduction, scoped results, no forced humor/unsupported anecdote; no material prose findings. Nexus documentation expert also reviewed prose, its wrong Mermaid rule rejected.",
+        "Root reviewed added inventory metaphor and caption: no new experimental or personal claim, concise voice, no attribution issue; research and article prose unchanged."
       ]
     },
     "blog-nda-check": {
@@ -32,7 +34,8 @@
       "verdict": "pass",
       "reviewer": "music_pilot and root",
       "evidence": [
-        "Whole frontmatter/prose/diagram/commands reviewed: synthetic public lab only; no employer incidents, agencies, identifying private systems or invented homelab experience."
+        "Whole frontmatter/prose/diagram/commands reviewed: synthetic public lab only; no employer incidents, agencies, identifying private systems or invented homelab experience.",
+        "Root reviewed added inventory metaphor and caption: no new experimental or personal claim, concise voice, no attribution issue; research and article prose unchanged."
       ]
     },
     "blog-argument-shape": {
@@ -46,9 +49,10 @@
     "blog-visuals": {
       "coverage": "manual",
       "verdict": "pass",
-      "reviewer": "root",
+      "reviewer": "root and music_pilot",
       "evidence": [
-        "Native flow plus comparison table reviewed against claimledger. Full-page1440Latte/390Dracula screenshot inspection; HTTP200 main/post, no horizontal overflow; targetedaxeAA zero violations bothviews. Futurepreview build and design audits passed."
+        "Native flow plus comparison table reviewed against claimledger. Full-page1440Latte/390Dracula screenshot inspection; HTTP200 main/post, no horizontal overflow; targetedaxeAA zero violations bothviews. Futurepreview build and design audits passed.",
+        "Zine follow-up: Gemini via agy generated box/inventory metaphor; actual 480x502 PNG inspected, 56996 bytes, pure-black luminance, alpha 0-255, no metadata. Independent image/markup review passed. Root rechecked 1440px Latte and 390px Dracula rendered masks, asset HTTP200, no overflow and zero targeted axe AA violations; future build and design audits passed. See zine follow-up in 2026-09-13-zip-post-review.md."
       ]
     },
     "blog-artifact-check": {
