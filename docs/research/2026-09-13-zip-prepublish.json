@@ -1,0 +1,64 @@
+{
+  "post": "src/posts/2026-09-28-zip-index-stream-reader-disagreement.md",
+  "sha256": "2dd94a2ef667752063295a2b970115d755f600a701308b43438643bf70d2782c",
+  "reviewed_at": "2026-09-13",
+  "stages": {
+    "blog-overlap": {
+      "coverage": "manual",
+      "verdict": "pass",
+      "reviewer": "root",
+      "evidence": [
+        "Full archive ZIP/parser/ZipDiff search and full October2025 scanning article read; different content-identity question vs orchestration. Existing link eligible beforeSep28."
+      ]
+    },
+    "blog-factcheck": {
+      "coverage": "manual",
+      "verdict": "pass",
+      "reviewer": "root and music_pilot",
+      "evidence": [
+        "Primary APPNOTE6.3.10\u00a74.3.2,Java21,Python3.12,USENIX2025\u00a7\u00a72/4; recomputed6fixtures18runs17success1rejection and marker/sequence distinctions; source chronology precedesSep28. Full claim ledger2026-09-13-zip-post-review.md."
+      ]
+    },
+    "blog-llm-tells": {
+      "coverage": "manual",
+      "verdict": "pass",
+      "reviewer": "music_pilot and root",
+      "evidence": [
+        "Whole post reviewed against canonical voice; direct project introduction, scoped results, no forced humor/unsupported anecdote; no material prose findings. Nexus documentation expert also reviewed prose, its wrong Mermaid rule rejected."
+      ]
+    },
+    "blog-nda-check": {
+      "coverage": "manual",
+      "verdict": "pass",
+      "reviewer": "music_pilot and root",
+      "evidence": [
+        "Whole frontmatter/prose/diagram/commands reviewed: synthetic public lab only; no employer incidents, agencies, identifying private systems or invented homelab experience."
+      ]
+    },
+    "blog-argument-shape": {
+      "coverage": "manual",
+      "verdict": "pass",
+      "reviewer": "music_pilot and root",
+      "evidence": [
+        "Specific integration-test decision follows from content-list disagreement; malformed-input,prior-art,two-implementation,no-scanner/no-extraction objections answered. Conclusion limited to observed boundary."
+      ]
+    },
+    "blog-visuals": {
+      "coverage": "manual",
+      "verdict": "pass",
+      "reviewer": "root",
+      "evidence": [
+        "Native flow plus comparison table reviewed against claimledger. Full-page1440Latte/390Dracula screenshot inspection; HTTP200 main/post, no horizontal overflow; targetedaxeAA zero violations bothviews. Futurepreview build and design audits passed."
+      ]
+    },
+    "blog-artifact-check": {
+      "coverage": "manual",
+      "verdict": "pass",
+      "reviewer": "music_pilot and root",
+      "evidence": [
+        "Immutable68874f0Dockerfile/wrapper/generator/adapters reviewed;23tests and CI34741618089 artifact10312418126 independently inspected. Full18adapterresults and fixture hashes match;commands actual tested,source/runtime limits accurate."
+      ]
+    }
+  },
+  "decision": "READY"
+}
