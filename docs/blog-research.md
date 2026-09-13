@@ -95,8 +95,16 @@ Check licenses before copying figures/code or redistributing source materials.
 ## 4. Build an evidence record, then write
 
 Keep reviewed notes in `docs/research/YYYY-MM-DD-topic.md`; keep scratch under
-`/tmp`, never the repository root. Put reusable labs under the appropriate scripts
-family. Record commands, environment, revision/digest, raw outputs, timestamps,
+`/tmp`, never the repository root. Put new reusable experiment code in a dedicated research repository, starting with
+[research-labs](https://github.com/williamzujkowski/research-labs), rather than adding
+more experiment implementations to this website. Keep existing labs in place until
+a deliberate migration preserves their published provenance. Each new lab needs a
+common reproducible entry point (Docker or an equivalent), pinned dependencies and
+inputs, documented resource/isolation limits, meaningful tests, and retained raw
+results. Keep harness-neutral project guidance in that repository’s `AGENTS.md`.
+Blog posts must link the lab at an immutable commit or release; setup instructions
+and code stay with the lab. A working lab does not replace editorial review.
+Record commands, environment, revision/digest, raw outputs, timestamps,
 controls, failed runs and exclusions. Preserve enough evidence to recompute results.
 Use these [PostgreSQL](research/2026-09-08-postgres-readonly-lab.md) and
 [memory-recovery](research/2026-09-08-memory-recovery-lab.md) records as examples

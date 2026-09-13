@@ -162,3 +162,15 @@ not a cache-poisoning test. Source review and the narrower gates above control.
 Stop reason: all six existing proposals received a decision, nearest-archive
 comparison, source/method check and explicit next gate. This was not a fresh
 paper-discovery sweep. No new proposal issue was created.
+
+## Reproducible code follow-through
+
+The author approved a dedicated repository for implemented research, with common
+reproduction tooling. The first bounded ZIP API pilot lives in
+[research-labs](https://github.com/williamzujkowski/research-labs). It compares three
+API paths across two implementations, using one control and five inert variants,
+and supplies a digest-pinned Docker run, tests and raw observations. It does not
+measure filesystem extraction or claim an antivirus bypass. The proposal remains
+open for evidence review and an editorial decision; the other proposals retain
+the priorities above. New lab code follows the updated
+[research workflow](../blog-research.md#4-build-an-evidence-record-then-write).
