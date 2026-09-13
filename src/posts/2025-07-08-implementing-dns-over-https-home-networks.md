@@ -1,8 +1,7 @@
 ---
-
 author: William Zujkowski
 date: 2025-07-08
-description: Deploy DNS-over-HTTPS with Pi-hole and dnscrypt-proxy—encrypt DNS queries to reduce exposure of home-network lookups to local observers.
+description: Choose where DNS-over-HTTPS belongs in a home network, distinguish browser and Pi-hole upstream encryption, and check fallback behavior.
 title: Implementing DNS-over-HTTPS (DoH) for Home Networks
 tags:
   - cryptography
@@ -11,270 +10,61 @@ tags:
   - privacy
   - security
 ---
-## The ISP Letter That Started Everything
 
-A few years back, my ISP sent a notice that read like an olive branch: they'd started "enhancing" my browsing experience by analyzing my DNS queries for more relevant ads. Translation: every domain I'd ever looked up was a line item in someone's targeting model. That letter is the reason this post exists — it's what sent me down the DNS-over-HTTPS rabbit hole.
+DNS-over-HTTPS carries DNS queries inside HTTPS. For a home network, the useful question is where that encrypted connection begins. A browser talking directly to a remote resolver and Pi-hole forwarding through a local proxy protect different parts of the path. The protocol is defined in [RFC 8484](https://www.rfc-editor.org/rfc/rfc8484.html).
 
-After implementing DoH on my personal home network, I reduced the visibility of my DNS lookups to the ISP and other local observers. DoH protects the query contents in transit, but it does not hide every traffic signal: the resolver still sees the requests, and an observer can often infer destinations from connections, timing, or other metadata.
+Draw that path before changing settings. A padlock is easier to understand when you know which door it belongs to.
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/dns-doh.png'); width: min(360px, 85%); aspect-ratio: 400/342; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">DNS, now wearing a coat</p>
 
+**Correction, September 13, 2026:** The earlier version included incomplete deployment scripts, invalid Python dependency instructions, and personal deployment and latency claims without retained supporting evidence. Those have been removed. This article now explains the architecture and the checks a deployment needs. Cloudflare also announced that new releases would remove `cloudflared proxy-dns` beginning February 2, 2026; the old installation advice is no longer suitable for a new setup. That change was announced after this post's original date. [Cloudflare's November 2025 announcement](https://developers.cloudflare.com/changelog/post/2025-11-11-cloudflared-proxy-dns/).
 
-## Requirements
+## What DoH protects
 
-To run the code examples in this post, you'll need to install the following packages:
+DoH encrypts the exchange between a DoH client and its selected resolver, with HTTPS authenticating that resolver's identity. An observer outside that encrypted connection cannot simply read the DNS message from the wire. The resolver still receives the query, and encryption does not erase traffic-analysis signals. Nor does it establish that the resolver's answer is trustworthy in every respect. [RFC 8484, privacy and security considerations](https://www.rfc-editor.org/rfc/rfc8484.html#section-8).
 
-```bash
-pip install base64 dns hashlib requests ssl statistics
-```
+Treat resolver choice as a trust decision. Consider its query-retention policy, the filtering you want, and what happens when it becomes unavailable. DNS transport encryption and malware filtering are separate properties: DoH specifies how queries travel, not which domains a provider should block. [RFC 8484, server selection](https://www.rfc-editor.org/rfc/rfc8484.html#section-3).
 
-Or create a `requirements.txt` file:
+## Browser DoH: encryption starts at the application
 
-```text
-base64
-dns
-hashlib
-requests
-ssl
-statistics
-```
-If you want more control over who handles your DNS lookups, here are three ways to deploy DoH. The setup is approachable, although the browser had opinions about edge cases.
+A browser configured to use a remote DoH provider sends the applicable lookups from that browser to that provider over HTTPS. Its setting does not establish the DNS behavior of the other applications on the machine. Firefox's implementation also distinguishes ordinary lookups from excluded names and special requests. [Mozilla's implementation notes, June 2024 revision](https://github.com/mozilla-firefox/firefox/blob/ce8560edadf1e29fd9646be1fb3cfaa9b4e0d7b1/netwerk/docs/dns/dns-over-https-trr.md).
 
-## Understanding the DNS Privacy Problem
+The fallback choice matters. In those documented Firefox settings, `network.trr.mode = 2` means DoH first, with ordinary DNS available on failure. Mode `3` means DoH only for requests using that mode; excluded names and special requests still need separate attention. Calling either setting “all DNS encrypted” would hide the exceptions. The same [Mozilla notes](https://github.com/mozilla-firefox/firefox/blob/ce8560edadf1e29fd9646be1fb3cfaa9b4e0d7b1/netwerk/docs/dns/dns-over-https-trr.md#implementation) describe the fallback and exclusions.
 
-DNS privacy is one layer of network security. Combine DoH with [zero-trust VLAN segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab) to reduce the blast radius of a compromised device; neither control makes a homelab complete by itself.
+For a homelab with Pi-hole, make the routing choice deliberate. A browser sending a lookup directly to an external provider has taken a path around the local resolver, so Pi-hole cannot apply its local filtering to that lookup. That follows from the two different paths; it is not a defect in HTTPS.
 
-Traditional DNS has several privacy and security issues:
+## Pi-hole with an encrypted upstream
 
-1. **Plain Text Queries**: ISPs and network observers see all DNS lookups
-2. **DNS Hijacking**: Malicious actors can redirect your traffic
-3. **Provider visibility**: The DNS operator and, depending on the setup, the network provider can observe or retain query data
-4. **Censorship**: DNS blocking is a common technique for content filtering
-5. **Interception Attacks**: Unencrypted DNS is vulnerable to tampering
+The Pi-hole arrangement documented before this post's original date uses `dnscrypt-proxy` as a local upstream service. Pi-hole accepts ordinary DNS from clients and forwards requests to the proxy, which can send them to a selected DoH resolver. This is an upstream proxy arrangement, not a client-facing DoH server. [Pi-hole's March 2025 guide](https://github.com/pi-hole/docs/blob/7ca1c7b7aae00f0cb175c9b6ef02fe53ab2092e9/docs/guides/dns/dnscrypt-proxy.md).
 
-DNS-over-HTTPS solves these by:
-- Encrypting all DNS queries with HTTPS (learn more about [cryptography fundamentals](/posts/2024-01-18-demystifying-cryptography-beginners-guide))
-- Authenticating the DNS server
-- Hiding DNS query contents from observers who cannot inspect the encrypted connection
-- Preventing DNS-based filtering (though this may not be desirable in all environments)
+<div class="flow" role="group" aria-label="Pi-hole upstream DNS path; HTTPS begins at the local proxy">
+  <div class="flow-node"><b>Home device</b><i>Ordinary DNS to Pi-hole</i></div>
+  <div class="flow-node"><b>Pi-hole</b><i>DNS to a loopback listener</i></div>
+  <div class="flow-node"><b>dnscrypt-proxy</b><i>HTTPS to the selected DoH resolver</i></div>
+  <div class="flow-node"><b>Upstream resolver</b><i>Receives the query</i></div>
+</div>
 
-## Implementation Approaches
+In that layout, the local network hop remains ordinary DNS. The proxy-to-upstream hop is encrypted. Running both local services on one host makes their intervening connection a loopback connection; it does not retroactively encrypt the device-to-Pi-hole traffic.
 
-I'll cover three approaches, from simple to advanced:
+The historical guide separates Pi-hole's port 53 listener from the proxy's loopback port 5053, then points Pi-hole at `127.0.0.1#5053`. It also removes other upstream selections. Those details explain the topology; they are not a complete installation recipe for every distribution. Package defaults, service activation, and resolver lists need checking against the installed versions. [Historical configuration](https://github.com/pi-hole/docs/blob/7ca1c7b7aae00f0cb175c9b6ef02fe53ab2092e9/docs/guides/dns/dnscrypt-proxy.md#configuring-dnscrypt-proxy).
 
-1. **Device-Level**: Configure individual devices
-2. **Router-Level**: Protect your entire network
-3. **Self-Hosted**: Maximum control and privacy
+**Current installation reference, checked September 2026:** Pi-hole maintains a [dnscrypt-proxy guide](https://docs.pi-hole.net/guides/dns/dnscrypt-proxy/) with its current package and service assumptions. Follow that maintained procedure for a compatible system, and verify the selected upstream uses DoH if that is the transport you intend. The [old cloudflared guide](https://docs.pi-hole.net/guides/dns/cloudflared/) now advises against new installations using its removed proxy feature.
 
-## Approach 1: Device-Level DoH
+## Check the path and the failure case
 
-### Browser Configuration
+A successful lookup proves that an answer arrived. It does not identify every hop or demonstrate that fallback was encrypted. For a change on your own homelab network, use the documented routing and fallback behavior to build a small acceptance checklist:
 
-Most modern browsers support DoH natively:
+| Check | Evidence to collect |
+| --- | --- |
+| Resolver path | Browser or operating-system DNS settings, Pi-hole upstream settings, and the proxy's selected server. |
+| Actual transport | Service logs and a scoped capture on the relevant interfaces during a test lookup; identify local DNS separately from the upstream HTTPS connection. |
+| Failure behavior | In a controlled test, make the selected upstream unavailable and record whether resolution fails, retries, or uses another path. Restore the setup afterwards. |
+| Local names | Resolve a known homelab name and check which resolver answered it. |
+| Filtering | If filtering is part of the design, use the chosen service's documented test case and confirm that the query actually reaches it. |
 
-**Firefox:**
-```javascript
-// about:config settings
-network.trr.mode = 2  // Enable DoH with fallback
-network.trr.uri = "https://cloudflare-dns.com/dns-query"
-network.trr.bootstrapAddress = "1.1.1.1"
-```
+These are proposed checks, not results from a retained experiment. A packet capture also needs context: the presence of HTTPS traffic alone does not prove every query used the intended resolver. Firefox's [fallback documentation](https://github.com/mozilla-firefox/firefox/blob/ce8560edadf1e29fd9646be1fb3cfaa9b4e0d7b1/netwerk/docs/dns/dns-over-https-trr.md#implementation) gives one concrete reason to test failure as well as success.
 
-**Chrome/Edge:**
-```
-Settings → Privacy and Security → Security → Use secure DNS
-Select provider or enter custom: https://dns.google/dns-query
-```
+Measure latency separately if it affects your decision. Record the resolver, cache state, connection reuse, network conditions, and failed requests alongside timings.
 
-### System-Wide DoH on Linux
-
-For system-wide protection, I use `cloudflared`:
-
-🔖 [System-wide DoH setup with cloudflared ↗](https://gist.github.com/williamzujkowski/9ca841f8bdea7bced7c797ee2cfa5597)
-
-### Windows DoH Setup
-
-Windows 11 has native DoH support:
-
-```powershell
-# Enable DoH for network adapter
-netsh dns add encryption server=1.1.1.1 dohtemplate=https://cloudflare-dns.com/dns-query
-netsh dns add encryption server=8.8.8.8 dohtemplate=https://dns.google/dns-query
-
-# Configure network adapter to use DoH
-# GUI: Settings → Network → Ethernet/WiFi → DNS server assignment → Manual
-# Set preferred DNS encryption to "Encrypted only"
-```
-
-## Approach 2: Router-Level DoH
-
-Protecting your entire network requires a DoH-capable router or custom firmware.
-
-### Using Dream Machine Professional
-
-Dream Machine Professional doesn't natively support DoH, but I've found a workaround that works well (though be aware this requires SSH access and may not survive firmware updates):
-
-See the Dream Machine Pro configuration in the router setup gist above.
-
-### OpenWrt with DoH
-
-OpenWrt makes DoH implementation straightforward (see gist above).
-
-## Approach 3: Self-Hosted DoH Server
-
-For maximum privacy and control, run your own DoH server:
-
-### Pi-hole with DoH
-
-Transform Pi-hole into a DoH server:
-
-**Pseudocode - Simplified Pi-hole DoH Setup:**
-```bash
-# Install Pi-hole (if not already installed)
-curl -sSL https://install.pi-hole.net | bash
-
-# Install cloudflared for DoH upstream
-wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64
-
-# Configure Pi-hole DNS settings
-# Custom 1: 127.0.0.1#5053
-# Uncheck all other DNS servers
-```
-
-### Advanced: DoH Server with nginx
-
-Serve DoH directly to clients using nginx and dnsdist:
-
-**Pseudocode - Simplified nginx DoH Server Setup:**
-```bash
-# Install required packages
-sudo apt-get update
-sudo apt-get install -y nginx dnsdist certbot python3-certbot-nginx
-
-# Configure and start services
-sudo nginx -t && sudo systemctl restart nginx
-sudo systemctl enable dnsdist && sudo systemctl start dnsdist
-```
-
-## Monitoring and Validation
-
-### Verify DoH is Working
-
-🔖 [DNS-over-HTTPS validation and monitoring tools ↗](https://gist.github.com/williamzujkowski/82e4d29a006b6fc5b20b881760d6deb9)
-
-### Performance Monitoring
-
-While DoH improved privacy in my testing, it does add latency compared to traditional DNS. See the monitoring tools gist above for performance benchmarking and log analysis.
-
-In my tests, DoH typically adds 10-30ms per query, though results vary based on network conditions and provider selection.
-
-### Logging and Analytics
-
-See the log parsing script in the monitoring tools gist above.
-
-## Security Considerations
-
-### 1. DoH Provider Selection
-
-Not all DoH providers are equal, despite every one of them insisting otherwise in their marketing copy. Based on my research and testing, here are the key factors to consider:
-
-**Pseudocode - Simplified Provider Comparison:**
-```yaml
-Provider Comparison:
-  Cloudflare (1.1.1.1):
-    Privacy: Excellent (audited no-logs policy)
-    Performance: Fastest globally
-    Features: Malware blocking option (1.1.1.2)
-  Others:
-    Performance: Good
-    Features: Extensive filtering options
-```
-
-### 2. Preventing DoH Bypass
-
-Ensure all DNS queries use DoH:
-
-🔖 [DNS-over-HTTPS bypass prevention rules ↗](https://gist.github.com/williamzujkowski/48bd7c6e1d18e0d12cfcad67ff4a644c)
-
-### 3. Certificate Pinning
-
-For self-hosted DoH, implement certificate pinning (see Python script in the security hardening gist above).
-
-## Troubleshooting Common Issues
-
-🔖 [DNS-over-HTTPS troubleshooting configurations ↗](https://gist.github.com/williamzujkowski/365d9b3a0dc812e93ec8177e5bf84922)
-
-### 1. Slow Initial Queries
-
-See DNS caching configuration in the troubleshooting gist above.
-
-### 2. Connection Timeouts
-
-See timeout and redundancy configuration in the troubleshooting gist above.
-
-### 3. Corporate Network Compatibility
-
-Some corporate networks block DoH. See the corporate network detection script in the troubleshooting gist above.
-
-## Advanced Configurations
-
-🔖 [Advanced DNS-over-HTTPS routing configurations ↗](https://gist.github.com/williamzujkowski/8749d27f31c0c222e79033fc978069bd)
-
-### Load Balancing Multiple DoH Providers
-
-See the nginx configuration in the advanced routing gist above.
-
-### Geo-based DoH Selection
-
-See the geo-based provider selection logic in the advanced routing gist above.
-
-## The Bottom Line: Is DoH Worth It?
-
-After running DoH for years, here's what changed for me:
-
-**The Good:**
-- My ISP has less direct access to the DNS queries handled by my chosen resolver
-- No more DNS hijacking to ISP "search assistance" pages
-- Kids' devices automatically protected from DNS-based malware
-- That warm fuzzy feeling of actual privacy
-
-**The Annoying:**
-- Some corporate networks break (had to create a work profile that disables DoH)
-- Slightly slower initial connections (we're talking 10-20ms, though your mileage may vary)
-- Explaining to family why "the internet is broken" when DoH server is down
-- Captive portals at coffee shops require temporary disabling
-
-**My Verdict:** Absolutely worth it for my setup. The privacy gains far outweigh the minor inconveniences, though I recognize that the latency impact might be more noticeable on slower connections.
-
-## Your Next Steps
-
-Don't try to boil the ocean. Here's your weekend project path:
-
-1. **Right now (5 minutes):** Enable DoH in your browser. Just do it.
-2. **This weekend (2 hours):** Set up Pi-hole with DoH on a Raspberry Pi
-3. **Next month:** Configure your router for network-wide protection
-4. **Eventually:** Consider self-hosting if you're a control freak like me
-
-Remember: DNS privacy is one piece of the puzzle. Encrypting a query limits what some network observers can read; it does not stop the resolver, endpoint, or traffic metadata from revealing useful information.
-
-The internet was built on open protocols, but that doesn't mean we have to accept surveillance as the price of connectivity. 
-
-If that trade-off fits your threat model, start with one device and verify the resolver and fallback behavior before rolling DoH across the network.
-
-
-
-## Further Reading
-
-For more in-depth information on the topics covered in this post:
-
-[NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
-
-[OWASP Top 10](https://owasp.org/www-project-top-ten/)
-
-- [Cloudflare Learning Center](https://www.cloudflare.com/learning/)
-- [RFC Editor](https://www.rfc-editor.org/)
-
----
-
-*Running DoH in production? Hit me up to share experiences and optimization tips. Privacy is a community effort!*
+Start with one device and one explicit resolver path. Expand the setup once both the successful lookup and the failure case behave as intended. The useful outcome is knowing where DNS goes, including when the preferred route stops working.

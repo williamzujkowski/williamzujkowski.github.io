@@ -873,7 +873,7 @@ article .prose > p:first-of-type::first-letter {
 .prose .flow-node i {
   display: block; font-style: normal; font-weight: 400;
   font-family: var(--font-mono); font-size: 0.8125rem;
-  color: var(--color-fg-muted); margin-top: 0.1rem;
+  color: var(--color-fg); margin-top: 0.1rem;
 }
 /* decision / gate — dashed accent pill */
 .prose .flow-node.is-gate {
