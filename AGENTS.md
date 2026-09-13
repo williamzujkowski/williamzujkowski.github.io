@@ -1,7 +1,7 @@
 # Agent Instructions
 
 **Status:** Authoritative
-**Last Updated:** 2026-09-10
+**Last Updated:** 2026-09-13
 **Project:** Personal website and technical blog (Astro 7 + Svelte 5 + hand-written CSS / Remarque design tokens)
 
 This file is the canonical guidance for AI coding agents working in this repo (Claude Code, Codex, Cursor, Aider, etc.). Harness-specific entry points (e.g. `CLAUDE.md`) import this file — edit here, not there.
@@ -200,14 +200,26 @@ this file remains authoritative for voice, attribution and QA policy. Use the
 
 Four layers, each owning a distinct concern. When adding a new check,
 pick the layer that matches the latency, cost, and feedback profile.
-The Layer-1 skills are author-local tooling in `~/.claude/skills/blog-*/`.
-They are invoked by name from a session; there is no in-repo copy or symlink
-(an earlier version of this file claimed `.claude/skills/` symlinks — that
-directory does not exist). They are interactive author-time tools, not part
-of the published site or CI.
+The canonical Layer-1 skills live in `.agents/skills/blog-*/SKILL.md`, versioned
+with this repository in the open Agent Skills format. Read the relevant skill
+from that directory when requested or when its review concern applies. A native
+skill dispatcher is optional: a harness can read the same file and perform its
+procedure with available capabilities. See [docs/skills.md](docs/skills.md) for
+discovery, invocation and migration from the former author-local copies.
+Use repository skills for this project even if an older personal skill has the
+same name. Do not copy their procedures into harness entry points or link to
+machine-specific home directories. Credentials and personal settings stay local.
+These are interactive author-time reviews; CI tests their mechanical helpers,
+not the factual or editorial quality of every post.
+
+`blog-pre-publish` records all seven stages as `completed`, `manual`,
+`not-applicable` (with a reason), `missing`, or `failed`, separately from findings.
+Missing or failed required coverage must produce HOLD, never an unqualified READY.
+Only the artifact stage can be marked not applicable when no artifacts exist;
+the other stages must at least inspect the post and record their inventory.
 
 ```
-┌─ 1. Pre-publish (interactive, author-invoked via Skill tool) ─────┐
+┌─ 1. Pre-publish (interactive, portable skill procedures) ─────────┐
 │   blog-pre-publish runs:                                          │
 │     blog-overlap        → topic overlap with prior posts          │
 │     blog-factcheck      → semantic verification of cited claims   │
@@ -351,7 +363,8 @@ Tooling families under `scripts/`, sharing helpers from `scripts/lib/`
 |-----------|------------|-------------|
 | `link-validation/` | 7 scripts + pytest suite — the link/citation pipeline | yes (`link-monitor.yml`, `citation-validation.yml`, `tests.yml`) |
 | `compliance/` | `content_check.py` — NDA patterns + citation coverage | yes (`compliance-monitor.yml`, advisory) |
-| `blog-audit/` | `batch.py`, `pages.py` — author-time audit helpers | no |
+| `blog-audit/` | `batch.py`, `pages.py` — author-time audit helpers | regression tests only (`tests.yml`) |
+| `skills/` | stdlib review-coverage report validator; checks evidence bookkeeping, not claim truth | regression tests only (`tests.yml`) |
 | `corpus-audit/` | `grim_check.py`, `provenance.py` — one-shot analyses; hardcode `/tmp/grim/` paths | no |
 | `theme-deck/` | `generate.py` — regenerates `theme-deck.css`/`.json`; needs an external themes repo | no |
 | `zine-art/` | `ink-mask.py` — doodle masking; needs Pillow | no |
