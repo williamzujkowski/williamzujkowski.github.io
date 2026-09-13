@@ -18,7 +18,7 @@ DESCRIPTION:
     - regression testing after refining a skill's thresholds
     - generating per-post finding counts for a CI report
 
-    For the full five-skill audit on a single post, invoke the
+    For the full seven-stage audit on a single post, invoke the
     `blog-pre-publish` Skill.
 
 USAGE:
@@ -36,8 +36,8 @@ USAGE:
 
 THRESHOLDS:
     Calibrated to this blog's empirical voice (TTR 0.41–0.52 across 13 posts,
-    mean ~0.46). See ~/.claude/skills/blog-llm-tells/SKILL.md for the full
-    threshold rationale.
+    mean ~0.46). See .agents/skills/blog-llm-tells/SKILL.md for
+    interpretation; these metrics are advisory, not authorship evidence.
 """
 
 import argparse

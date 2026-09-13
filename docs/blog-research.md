@@ -149,10 +149,14 @@ plus independently completed reviews as fallback. Report gaps honestly. Agreemen
 does not establish factual truth; recompute every challenged number before editing.
 
 Apply existing Layer-1 reviews in AGENTS: overlap, facts, voice, contextual NDA,
-artifacts when applicable, argument and visuals. Use author-local skills when
-available; otherwise perform the same named concerns manually and record coverage.
-Mark every concern reviewed, not applicable with reason, or unresolved. Missing
-skills and skipped concerns cannot become an unqualified READY. Deeply review
+artifacts when applicable, argument and visuals. Read the canonical portable
+skills in `.agents/skills/` (discovery and invocation: [skills.md](skills.md)).
+When native skill invocation is unavailable, read the same procedure and perform
+the named concerns manually with available capabilities, recording coverage.
+Use the shared coverage contract: completed or manual with evidence, missing,
+failed, or not-applicable for absent artifacts only. The other stages must at
+least inspect the post and record their inventory. Missing skills and skipped
+concerns cannot become an unqualified READY. Deeply review
 load-bearing claims for prior art, fairness, security, accuracy and overclaiming.
 Check vestiges too: abandoned claims, stale dates, placeholders and unused assets.
 

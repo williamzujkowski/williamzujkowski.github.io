@@ -56,8 +56,8 @@ jobs:
       - name: Install UV
         uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d  # v10.0.1
 
-      - name: Run link-validation, CI-selection and offline lab regression tests
-        run: uv run --with pytest python -m pytest scripts/link-validation/tests/ scripts/ci/tests/ scripts/security-labs/ -q
+      - name: Run script regression tests
+        run: uv run --with pytest python -m pytest scripts/link-validation/tests/ scripts/ci/tests/ scripts/security-labs/ scripts/blog-audit/tests/ scripts/skills/tests/ -q
 
       # ruff was declared in pyproject.toml and configured with seven rule
       # families, but nothing ever invoked it (issue #497). At the time it was

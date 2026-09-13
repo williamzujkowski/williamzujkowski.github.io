@@ -1,0 +1,11 @@
+{
+  "stages": {
+    "blog-overlap": {"coverage": "completed", "verdict": "pass", "evidence": ["Fixture: compared corpus candidates A and B; thesis differs."]},
+    "blog-factcheck": {"coverage": "completed", "verdict": "pass", "evidence": ["Fixture: checked claim against dated primary source."]},
+    "blog-llm-tells": {"coverage": "completed", "verdict": "pass", "evidence": ["Fixture: reviewed whole draft and removed unsupported anecdote."]},
+    "blog-nda-check": {"coverage": "completed", "verdict": "pass", "evidence": ["Fixture: attribution review found only sourced public research."]},
+    "blog-argument-shape": {"coverage": "completed", "verdict": "pass", "evidence": ["Fixture: thesis has evidence and explicit limitations."]},
+    "blog-visuals": {"coverage": "completed", "verdict": "pass", "evidence": ["Fixture: inventoried visual needs; short source note needs no diagram."]},
+    "blog-artifact-check": {"coverage": "not-applicable", "verdict": "not-applicable", "reason": "Fixture: draft has no code, config or linked implementation artifacts."}
+  }
+}
