@@ -2,6 +2,7 @@
 
 author: William Zujkowski
 date: 2025-02-10
+lastUpdate: 2026-09-13
 description: "Automate home network security with Python and Ansible—deploy patching, threat detection, and compliance scanning for homelab infrastructure."
 title: Automating Home Network Security with Python and Open Source Tools
 tags:
@@ -22,17 +23,22 @@ My process used to be: check the router admin page when I remembered to, glance 
 
 ## Requirements
 
-To run the code examples in this post, you'll need to install the following packages:
+**Dependency correction, September 13, 2026:** The original command incorrectly listed Python standard-library modules as packages and used `nmap` where the intended Python distribution is `python-nmap`. The linked scripts are incomplete fragments; installing their imports does not make them runnable automation.
+
+For Python 3.11, `collections`, `email`, `ipaddress`, `smtplib`, `sqlite3`, and `subprocess` are supplied by the [standard library](https://docs.python.org/3.11/library/index.html). Install the third-party dependencies in a virtual environment:
 
 ⚠️ **Warning:** These automation tools perform network security operations for educational purposes. Only deploy in authorized environments with proper permissions and safeguards.
 
 ```bash
-pip install collections email ipaddress nmap requests smtplib sqlite3 subprocess vulners
+python3.11 -m venv .venv
+. .venv/bin/activate
+python -m pip install python-nmap requests vulners
 ```
 
-Or create a `requirements.txt` file with these dependencies:
+The [`python-nmap` distribution](https://pypi.org/project/python-nmap/0.7.1/) supplies `import nmap`. It wraps the separate [Nmap executable](https://nmap.org/book/install.html), which must be installed and available on `PATH` before scanning. The other external imports are [`requests`](https://pypi.org/project/requests/) and [`vulners`](https://pypi.org/project/vulners/). None of the inspected fragments imports `schedule`.
 
-🔖 [Home network security automation requirements file ↗](https://gist.github.com/williamzujkowski/7bb056a1b487f9fc2e4a61f9a76ab8a4)
+The [corrected requirements file](https://gist.github.com/williamzujkowski/7bb056a1b487f9fc2e4a61f9a76ab8a4) contains the same three distribution names. A clean Python 3.11.12 environment installed and imported `python-nmap` 0.7.1, `requests` 2.34.2, and `vulners` 4.3.0 on September 13, 2026. This verifies dependency installation and imports only; no scan, API request, firewall change, or notification ran. These are current verification versions, not a reconstruction of the February 2025 environment. [Inspection and validation record](https://github.com/williamzujkowski/williamzujkowski.github.io/blob/main/docs/research/2026-09-13-network-helper-maintenance.md).
+
 Managing home network security is like being a one-person SOC (Security Operations Center). You've got multiple devices, various family members with different tech literacy levels, and new threats emerging daily. Manual security management doesn't scale. Especially when you're also trying to be present for bedtime stories.
 
 After running my [home network](/posts/2025-04-24-building-secure-homelab-adventure) with 25+ connected devices (including IoT gadgets, family laptops, and that inevitable "smart" toaster), I've developed Python scripts and automation workflows that maintain security without sacrificing family time.
@@ -120,7 +126,7 @@ Here are the key tools I use in my homelab:
 - **nmap 7.94.0**: Network discovery and port scanning
 - **Pi-hole**: DNS filtering and logging (I configured mine on a [Raspberry Pi 4](/posts/2024-09-15-running-llama-raspberry-pi-pipeload))
 - **Dream Machine Professional**: Firewall and routing
-- **Python 3.11.5** with libraries: python-nmap, vulners, schedule
+- **Python 3.11** with the third-party imports shown in the fragments: python-nmap, requests, vulners; see the dated dependency correction above.
 - **Notification**: Pushover for mobile alerts
 
 For complete network security, [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide/) provides the foundation for the encryption implementations used in these scripts.
