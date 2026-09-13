@@ -23,16 +23,16 @@ DESCRIPTION:
 
 USAGE:
     # Audit every post matching the default glob (src/posts/*.md):
-    python3 scripts/blog-audit/batch.py
+    uv run python scripts/blog-audit/batch.py
 
     # Audit a specific year:
-    python3 scripts/blog-audit/batch.py --glob 'src/posts/2026-*.md'
+    uv run python scripts/blog-audit/batch.py --glob 'src/posts/2026-*.md'
 
     # Audit a single post:
-    python3 scripts/blog-audit/batch.py --glob 'src/posts/2026-05-07-*.md'
+    uv run python scripts/blog-audit/batch.py --glob 'src/posts/2026-05-07-*.md'
 
     # JSON output for CI consumption:
-    python3 scripts/blog-audit/batch.py --json > audit.json
+    uv run python scripts/blog-audit/batch.py --json > /tmp/blog-audit.json
 
 THRESHOLDS:
     Calibrated to this blog's empirical voice (TTR 0.41–0.52 across 13 posts,
@@ -47,6 +47,8 @@ import statistics
 import sys
 from collections import defaultdict
 from pathlib import Path
+
+import yaml
 
 REPO = Path(__file__).resolve().parent.parent.parent
 DEFAULT_GLOB = "src/posts/*.md"
@@ -82,44 +84,50 @@ REGISTRIES = ("npm", "pypi", "rubygems", "cargo", "crates.io", "maven", "nuget",
 TTR_THRESH_BLOG = (0.50, 0.45, 0.40, 0.35)  # rich, ok, thin (LOW), very-thin (MED), HIGH
 
 
-def parse_frontmatter(text):
-    m = re.match(r"^---\n(.*?)\n---", text, re.DOTALL)
+class FrontmatterLoader(yaml.SafeLoader):
+    """Safe YAML with string mapping keys and no silently overwritten metadata."""
+
+    def construct_mapping(self, node, deep=False):
+        if not isinstance(node, yaml.MappingNode):
+            raise yaml.constructor.ConstructorError(None, None, "expected a mapping", node.start_mark)
+        result = {}
+        for key_node, value_node in node.value:
+            key = self.construct_object(key_node, deep=deep)
+            if not isinstance(key, str):
+                raise yaml.constructor.ConstructorError(
+                    None, None, "frontmatter mapping keys must be strings", key_node.start_mark)
+            if key in result:
+                raise yaml.constructor.ConstructorError(
+                    None, None, f"duplicate frontmatter key: {key}", key_node.start_mark)
+            result[key] = self.construct_object(value_node, deep=deep)
+        return result
+
+
+def parse_frontmatter(text, source="<input>"):
+    """Parse metadata while retaining the original body slice and line offsets.
+
+    Missing/unclosed delimiters preserve the historical empty-metadata fallback.
+    Closed but invalid metadata raises: it must not silently lose overlap signals.
+    """
+    m = re.match(r"\A---[ \t]*\r?\n(.*?)^---[ \t]*(?=\r?\n|\Z)", text, re.DOTALL | re.MULTILINE)
     if not m:
         return {}, text, 0
-    fm = {}
-    tag_lines = []
-    in_tags = False
-    for line in m.group(1).split("\n"):
-        if re.match(r"^tags:\s*(?:#.*)?$", line):
-            in_tags = True
-            fm["tags"] = []
-            continue
-        if in_tags:
-            item = re.match(r"^\s*-\s+(.+)$", line)
-            if item:
-                value = item.group(1).strip()
-                # YAML comments begin at an unquoted '#'. Keep hashes that are
-                # part of a quoted tag value.
-                quote = None
-                for pos, char in enumerate(value):
-                    if char in "\"'":
-                        quote = None if quote == char else (char if quote is None else quote)
-                    elif char == "#" and quote is None and (pos == 0 or value[pos - 1].isspace()):
-                        value = value[:pos].rstrip()
-                        break
-                tag_lines.append(value.strip('"').strip("'"))
-                continue
-            if not line.strip() or line.lstrip().startswith("#"):
-                continue
-            in_tags = False
-        if ":" in line and not line.startswith(" "):
-            k, _, v = line.partition(":")
-            fm[k.strip()] = v.strip().strip('"').strip("'")
-    tag_match = re.search(r"^tags:\s*\[(.*?)\]", m.group(1), re.MULTILINE)
-    if tag_match:
-        fm["tags"] = [t.strip().strip('"').strip("'") for t in tag_match.group(1).split(",")]
-    elif tag_lines:
-        fm["tags"] = tag_lines
+    try:
+        fm = yaml.load(m.group(1), Loader=FrontmatterLoader)
+    except yaml.YAMLError as error:
+        raise ValueError(f"{source}: invalid frontmatter: {error}") from error
+    if fm is None and all(
+        not line.strip() or line.lstrip().startswith("#") for line in m.group(1).splitlines()
+    ):
+        fm = {}
+    if not isinstance(fm, dict):
+        raise ValueError(f"{source}: frontmatter must be a mapping")
+    if "title" in fm and not isinstance(fm["title"], str):
+        raise ValueError(f"{source}: frontmatter title must be a string")
+    if "tags" in fm and (
+        not isinstance(fm["tags"], list) or any(not isinstance(tag, str) for tag in fm["tags"])
+    ):
+        raise ValueError(f"{source}: frontmatter tags must be a list of strings")
     fm_end = text[:m.end()].count("\n") + 1
     return fm, text[m.end():], fm_end
 
@@ -199,7 +207,7 @@ def jaccard_weighted(a, b):
 
 def audit_post(post_path, all_signals):
     text = post_path.read_text()
-    fm, body, fm_end = parse_frontmatter(text)
+    fm, body, fm_end = parse_frontmatter(text, source=post_path)
     lines = text.split("\n")
     body_lines = lines[fm_end:]
 
@@ -403,7 +411,7 @@ def main():
         if not p.is_file() or p.name == "welcome.md":
             continue
         txt = p.read_text()
-        fm, body, _ = parse_frontmatter(txt)
+        fm, body, _ = parse_frontmatter(txt, source=p)
         all_signals.append((p, overlap_signals(body, fm),
                             set(fm.get("tags") or []), txt))
 
@@ -443,4 +451,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except ValueError as error:
+        print(error, file=sys.stderr)
+        sys.exit(2)

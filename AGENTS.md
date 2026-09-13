@@ -373,7 +373,9 @@ Tooling families under `scripts/`, sharing helpers from `scripts/lib/`
 | `gist-drift-check.py` | compares `gists/` against the published gists | no (run before touching `gists/`) |
 
 Runtime dependencies are declared in `pyproject.toml` (aiohttp, certifi,
-tqdm); `ruff` and `pytest` are the dev extras. Install with `uv sync`.
+tqdm, and pinned PyYAML for blog-audit frontmatter); `ruff` and `pytest` are the
+dev extras. Install with `uv sync`; run the batch audit with
+`uv run python scripts/blog-audit/batch.py`.
 Two tools need packages that are NOT declared, because they never run in CI —
 invoke them with `uv run --with playwright` (`link-validator.py`'s browser
 escalation) and `uv run --with pillow` (`ink-mask.py`).
