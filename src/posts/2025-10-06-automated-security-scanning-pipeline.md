@@ -2,6 +2,7 @@
 
 author: William Zujkowski
 date: 2025-10-06
+lastUpdate: 2026-09-13
 description: Build automated security scanning pipelines with Grype, OSV, and Trivy—integrate vulnerability detection into CI/CD workflows with actionable reporting.
 title: Automated Security Scanning Pipeline with Grype and OSV
 tags:
@@ -14,7 +15,9 @@ tags:
 ## The Dependency That Haunted Me
 
 
-I built an automated security pipeline that scans every commit with Grype, OSV-Scanner, and Trivy. Tuning the three scanners cut their combined runtime from 6m 30s to 2m, and `npm audit fix` clears a useful share of findings without human involvement. Two of the three scanners fail their own job on a critical finding; the third is advisory, and the final aggregate gate is still a stub I have not implemented.
+I built an automated security pipeline that scans every commit with Grype, OSV-Scanner, and Trivy. OSV runs first; Grype and Trivy can run alongside each other after that job succeeds. The final gate checks the three job results, while each scanner still needs its own failure policy. `npm audit fix` clears a useful share of findings without human involvement.
+
+**Correction, September 13, 2026:** The linked workflow already had a working aggregate gate by [August 18, 2026](https://gist.github.com/williamzujkowski/8185611a406dd91806f37d51778cdd16/a2ef3b7e0e070a7bbc4cf9a669ec0d9937e10c44). This article still called it a stub and described conflicting job orders. Those descriptions are corrected below. The timing table contains sums of listed scanner durations, not verified end-to-end workflow measurements.
 
 **Why it matters:** Last year, I deployed a "simple" web app to my homelab. Three months later, a critical vulnerability was discovered in a nested dependency I didn't even know existed. The vulnerable code ran there for months before a scanner told me. Hope is not a security strategy.
 
@@ -52,7 +55,7 @@ I built an automated security pipeline that scans every commit with Grype, OSV-S
   </div>
 </div>
 
-Today, every commit to my repositories is automatically scanned for vulnerabilities. Here's how I built it — including the part that is not finished.
+Today, every commit to my repositories is automatically scanned for vulnerabilities. The workflow below shows how the scanning jobs are connected.
 
 ## Tool Selection and Comparison
 
@@ -82,7 +85,7 @@ I installed all three scanners on my Ubuntu 22.04 homelab server. The process to
 
 ### Complete Scan Workflow
 
-The pipeline orchestrates three scanners in parallel with a final quality gate:
+The workflow runs OSV first, then makes the Grype and Trivy jobs eligible to run in parallel. A final gate checks all three job results:
 
 <div class="flow" role="group" aria-label="GitHub Actions security scanning pipeline">
   <div class="flow-node">Git Push / PR</div>
@@ -100,10 +103,9 @@ The pipeline orchestrates three scanners in parallel with a final quality gate:
 
 **What blocks, precisely.** OSV's critical check exits non-zero and fails
 `dependency-scan`. Grype's `fail-build: true` with `severity-cutoff: high` fails
-`container-scan`. The `security-gate` job then aggregates all three.
+`container-scan`. The [August 23 workflow revision](https://gist.github.com/williamzujkowski/8185611a406dd91806f37d51778cdd16/b8c467be7577d2280bc2f5fea388cb9109555121) makes `security-gate` fail unless all three job results are `success`. It aggregates job status; it does not add a missing failure policy to an advisory scanner.
 
-That gate is worth looking at closely, because the obvious way to write it is
-wrong in a way that is invisible:
+The [original published gist, November 1, 2025](https://gist.github.com/williamzujkowski/8185611a406dd91806f37d51778cdd16/bf17f1a749c35b88bdc1a1f5d77748dd1daaf63c), had this ineffective gate. The short example preserves that old failure mode:
 
 ```yaml
 security-gate:
@@ -117,19 +119,22 @@ security-gate:
 want it to report rather than be skipped. But `always()` also means the gate
 **passes** when everything upstream failed, unless it explicitly inspects the
 results. A job that echoes a string and exits 0 is not a gate; it is a label
-that says "gate". Mine has to read `needs.<job>.result` and exit non-zero itself,
-and treat `skipped` and `cancelled` as failures rather than passes.
+that says "gate". The corrected workflow reads `needs.<job>.result` and exits
+non-zero unless every result is `success`, including when a job is `skipped`
+or `cancelled`. That behavior is present in the August 18 and August 23 revisions.
 
-The scanners are not parallel, either. `container-scan` and `comprehensive-scan`
-both declare `needs: dependency-scan`, so OSV runs alone first and the other two
-follow. There is no matrix strategy over scanners anywhere in the file.
+The three scanner jobs do not all start together. `container-scan` and
+`comprehensive-scan` both declare `needs: dependency-scan`, so OSV runs alone
+first. After it succeeds, neither remaining job depends on the other, so they
+can overlap subject to runner availability. If OSV fails, both are skipped under
+GitHub Actions’ [job dependency rules](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-jobs#defining-prerequisite-jobs); the aggregate gate still runs through `if: always()`.
 
-**Every third-party action is pinned to a commit SHA**, with the version in a
-trailing comment. This matters more here than in most workflows: an action
-referenced as `@master` — which is how `trivy-action` is usually documented —
-means whoever controls that branch decides what runs in your CI, holding your
-repository credentials. In a pipeline whose entire purpose is supply-chain
-security, that is the wrong way round. Tags move too, so pin the SHA.
+**The three scanner actions are pinned to commit SHAs**, but the August 23
+workflow still uses `actions/checkout@v4` and
+`github/codeql-action/upload-sarif@v3`. The earlier claim that every action was
+pinned was wrong. I would pin those remaining actions to reviewed commits too:
+tags and branches can move, changing the code a workflow runs. A version comment
+beside each SHA makes the intended release easier to track.
 
 📎 **Full GitHub Actions workflow:**
 [Complete implementation with SARIF uploads, quality gates, and Slack notifications](https://gist.github.com/williamzujkowski/8185611a406dd91806f37d51778cdd16)
@@ -300,23 +305,31 @@ Shipping to my Wazuh SIEM let me track trends over time. I'm still figuring out 
 
 ## Performance Optimization
 
-When I first implemented this pipeline, builds were taking forever. Here are my actual scan times measured on October 15, 2024:
+The original article attributed the following scanner durations to October 15,
+2024. I could not find retained timing logs in this repository during the
+September 13, 2026 review, so those measurements and their runner provenance
+remain unverified. The arithmetic can be checked; elapsed CI time cannot be
+reconstructed from this table.
 
 | Stage | Initial | Optimized | Improvement |
 |-------|---------|-----------|-------------|
 | OSV Scan | 45s | 12s | 73% faster |
 | Grype Scan | 2m 30s | 35s | 77% faster |
 | Trivy Scan | 3m 15s | 1m 10s | 64% faster |
-| **Total** | **6m 30s** | **2m** | **69% faster** |
+| **Sum of listed scanner durations** | **6m 30s** | **1m 57s** | **70% reduction** |
 
 **Optimizations I added:**
 
-- **Scanner tuning**: the per-scanner gains above are the bulk of it. Note that these totals are column sums, i.e. the scanners running one after another — which is what the workflow actually does. Genuine parallel execution would put the total at the slowest scanner (1m 10s) rather than the sum
+- **Scanner tuning**: the listed durations sum to 390 seconds before tuning and 117 seconds afterward. These totals are arithmetic over the reported values. They do not measure the OSV-first, then Grype/Trivy workflow or include image builds, uploads, job setup and runner queues.
 - **Cached vulnerability databases**: Grype's DB cache alone saved 40 seconds per run
 - **Scoped scanning** (ignore test files): Cutting out `node_modules` and test fixtures dropped scan time by 25%
 - **Early failure** (stop on critical): When a critical CVE is found, I stop immediately instead of completing all scans
 
-These times are from GitHub-hosted `ubuntu-latest` runners, which is what every job in the workflow declares. Your mileage will vary with project size and runner spec.
+The linked workflow requests `ubuntu-latest` runners, but that setting does not
+verify where the historical timings were collected. A measured end-to-end
+comparison needs retained run timestamps and comparable inputs, not a sum or
+the slowest scanner’s duration. The additional optimization savings above also
+lack retained timing evidence in this repository.
 
 The complexity of running three scanners creates maintenance burden. Smaller teams might be better off with just Grype. I'm still testing whether the extra coverage justifies the extra complexity.
 
