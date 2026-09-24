@@ -25,7 +25,7 @@ import { spawnSync } from 'node:child_process';
 // as non-vacuity guards (post-structure's corpus>50, code-fence-content's
 // fenced-lines>1000, color-drift's luminance pin). A floor with slack is a
 // floor that lets you delete the thing measuring the slack.
-const MIN_TESTS = 53;
+const MIN_TESTS = 56;
 const GLOB = '../tests/unit/**/*.test.mjs';
 
 const result = spawnSync(process.execPath, ['--test', GLOB], {

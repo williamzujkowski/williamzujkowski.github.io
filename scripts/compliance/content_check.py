@@ -80,8 +80,21 @@ def iter_posts(posts_dir: Path):
 
 
 def strip_code(text: str) -> str:
-    """Drop fenced blocks and inline code before matching prose patterns."""
-    text = re.sub(r"```.*?```", "", text, flags=re.S)
+    """Blank fenced blocks and inline code, PRESERVING line structure.
+
+    The newlines have to survive. check_nda reports a line number by
+    counting "\n" in the stripped text, so deleting a fenced block shifts
+    every line after it upward and the finding points somewhere else.
+
+    Measured before this fix: 56 of 97 posts carried a wrong line number,
+    median offset 35 lines, worst 253
+    (2025-09-20-vulnerability-prioritization-epss-kev.md). This output
+    exists to be eyeballed by a human, so a number that is wrong more often
+    than right makes the check worse than silent.
+
+    color-token-audit.mjs:88 already does it this way.
+    """
+    text = re.sub(r"```.*?```", lambda m: "\n" * m.group(0).count("\n"), text, flags=re.S)
     return re.sub(r"`[^`\n]*`", "", text)
 
 
