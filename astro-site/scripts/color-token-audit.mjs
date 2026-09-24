@@ -40,9 +40,14 @@ const exts = new Set(['.css', '.astro', '.svelte', '.ts']);
 const violations = [];
 let filesScanned = 0;
 
-// Properties where hardcoded colors are forbidden
+// Properties where hardcoded colors are forbidden.
+//
+// `background(-color|-image)?` not `background(-color)?`: the old alternation
+// required the colon immediately after, so `background-image:
+// linear-gradient(#ff0000, #00ff00)` was never checked. `border-image` was
+// caught only because `border(-[\w-]+)?` happens to swallow it.
 const COLOR_PROPS =
-  /\b(color|background(-color)?|border(-[\w-]+)?-color|border(-[\w-]+)?|fill|stroke|outline(-color)?|text-decoration-color|caret-color|box-shadow|text-shadow|accent-color)\s*:/;
+  /\b(color|background(-color|-image)?|border(-[\w-]+)?-color|border(-[\w-]+)?|fill|stroke|outline(-color)?|text-decoration-color|caret-color|box-shadow|text-shadow|accent-color)\s*:/;
 
 const HEX = /#[0-9a-fA-F]{3,8}\b/;
 // color-mix() is deliberately absent: it COMPOSES colors, and its arguments
