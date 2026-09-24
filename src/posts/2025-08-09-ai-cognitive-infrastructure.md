@@ -58,7 +58,7 @@ According to [Giuseppe Riva's groundbreaking research](https://arxiv.org/abs/250
 
 ## The Invisible Takeover: Scale of AI Integration
 
-The AI infrastructure market is with forecasts spanning roughly $394B to $656B for the same year depending on which firm you ask, which is a good reason not to lean on any of them that reflects fundamental societal transformation.
+Published forecasts for AI infrastructure spend disagree by a quarter of a trillion dollars for the same year — roughly $394B to $656B depending on which firm you ask. That spread is the interesting number, and it is a good reason not to lean on any single one of them.
 
 **Current deployment across critical sectors:**
 
@@ -73,7 +73,7 @@ This isn't digitization. It's cognitive intermediation at civilization scale.
 
 ## The Cognitive Debt Crisis
 
-MIT's research on ["Your Brain on ChatGPT"](https://www.media.mit.edu/publications/) reveals a disturbing phenomenon. Cognitive debt accumulates when we offload thinking to AI systems, similar to technical debt in code.
+MIT's research on ["Your Brain on ChatGPT"](https://www.media.mit.edu/publications/your-brain-on-chatgpt/) reveals a disturbing phenomenon. Cognitive debt accumulates when we offload thinking to AI systems, similar to technical debt in code.
 
 **The damage is measurable:**
 
@@ -222,67 +222,53 @@ The answer depends on the choices we make now, while we still have the cognitive
 
 ### Foundational Research
 
-1. **[Invisible Architectures of Thought: Toward a New Science of AI as Cognitive Infrastructure](https://arxiv.org/abs/2507.22893)** (2025)
+1. **[Toward a New Science of AI as Cognitive Infrastructure](https://arxiv.org/abs/2507.22893)** (2025)
    - Giuseppe Riva's introduction of Cognitive Infrastructure Studies
-   - *arXiv preprint*
+   - *arXiv:2507.22893*
 
-2. **[Your Brain on ChatGPT: Accumulation of Cognitive Debt](https://www.media.mit.edu/publications/)** (2024)
-   - MIT Media Lab study on cognitive impacts of LLM usage
-   - *MIT Media Lab Publications*
+2. **[Your Brain on ChatGPT: Accumulation of Cognitive Debt when Using an AI Assistant for Essay Writing Task](https://www.media.mit.edu/publications/your-brain-on-chatgpt/)** (2025)
+   - MIT Media Lab EEG study on the cognitive cost of offloading to an LLM
+   - *MIT Media Lab* (preprint: [arXiv:2506.08872](https://arxiv.org/abs/2506.08872))
 
 3. **[AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking](https://www.mdpi.com/2075-4698/15/1/6)** (2025)
-   - Michael Gerlich's analysis of cognitive offloading
-   - *Societies Journal, Volume 15, Issue 1*
+   - Michael Gerlich's analysis of cognitive offloading; source of the r = 0.72 and r = -0.75 figures above
+   - *Societies* 15(1), 6
 
-### Market Analysis & Industry Reports
+### Market Analysis
 
-4. **[Artificial Intelligence Infrastructure Market Report](https://www.marketsandmarkets.com/Market-Reports/ai-infrastructure-market.asp)** (2024)
-   - Market growth projections and analysis
-   - *MarketsAndMarkets Research*
-
-5. **[IDC: AI Infrastructure Spending to Surpass $200Bn](https://my.idc.com/getdoc.jsp?containerId=prUS52758624)** (2024)
-   - Investment trends and geographic distribution
-   - *IDC Worldwide AI Infrastructure Tracker*
+4. **[Artificial Intelligence Infrastructure Market Report](https://www.marketsandmarkets.com/Market-Reports/ai-infrastructure-market.asp)**
+   - One of the forecasts in the spread quoted above, included so the range has at least one
+     inspectable endpoint rather than none
 
 ### Healthcare Applications
 
-6. **[Clinical Decision Support Systems: State of the Art](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8075456/)** (2023)
-   - Comprehensive review of AI in clinical settings
-   - *Journal of Medical Internet Research*
+5. **[Clinical Decision Support Systems: State of the Art](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8075456/)**
+   - Review of AI in clinical settings
 
-7. **[Alert Fatigue in Electronic Health Records](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7647168/)** (2023)
-   - Analysis of the 96% alert override rate
+6. **[Alert Fatigue in Electronic Health Records](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7647168/)**
+   - Source of the drug-safety alert override range quoted above
    - *Applied Clinical Informatics*
 
 ### Government & Policy
 
-9. **[UNESCO Recommendation on the Ethics of AI](https://www.unesco.org/en/artificial-intelligence/recommendation-ethics)** (2021)
+7. **[UNESCO Recommendation on the Ethics of AI](https://www.unesco.org/en/artificial-intelligence/recommendation-ethics)** (2021)
    - Global ethical framework for AI development
-   - *UNESCO Official Documents*
 
-10. **[The GovTech Maturity Index](https://www.worldbank.org/en/programs/govtech/gtmi)** (2024)
-    - World Bank analysis of government AI adoption
-    - *World Bank Group*
+8. **[The GovTech Maturity Index](https://www.worldbank.org/en/programs/govtech/gtmi)**
+   - World Bank analysis of government technology adoption
+   - *World Bank Group*
 
 ### Cognitive Science
 
-11. **[Cognitive Offloading](https://doi.org/10.1016/j.tics.2016.07.002)** — Risko & Gilbert, *Trends in Cognitive Sciences* 20(9), 2016
-    - Theoretical framework for understanding cognitive delegation
-    - *Trends in Cognitive Sciences*
+9. **[Cognitive Offloading](https://doi.org/10.1016/j.tics.2016.07.002)** — Risko & Gilbert, *Trends in Cognitive Sciences* 20(9), 2016
+   - Theoretical framework for understanding cognitive delegation
 
-12. **[The Extended Mind](https://www.jstor.org/stable/3328150)** — Clark & Chalmers, *Analysis* 58(1), 1998
-    - Clark & Chalmers' foundational work, updated for AI age
-    - *Analysis, Volume 58*
-
-
-14. **[AGI Timeline Predictions: Expert Survey](https://www.fhi.ox.ac.uk/reports/agi-timeline-surveys/)** (2024)
-    - 50% probability of AGI by 2040-2050
-    - *Future of Humanity Institute, Oxford*
+10. **[The Extended Mind](https://www.jstor.org/stable/3328150)** — Clark & Chalmers, *Analysis* 58(1), 1998
+    - The foundational argument this post is standing on
 
 ### Additional Resources
 
-- **[Cognitive Computing Market Analysis](https://www.grandviewresearch.com/industry-analysis/cognitive-computing-market)** - Grand View Research
-- **[Edge AI Market Report](https://www.gartner.com/en/documents/4018123)** - Gartner
 - **[GDPR Article 22: Automated Decision-Making](https://gdpr-info.eu/art-22-gdpr/)** - EU Regulation
 - **[NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework)** - NIST
-- **[Partnership on AI Publications](https://partnershiponai.org/publications/)** - Industry best practices
+- **[NIST IR 8280: Face Recognition Vendor Test, Demographic Effects](https://nvlpubs.nist.gov/nistpubs/ir/2019/nist.ir.8280.pdf)** - NIST, source of the false-positive disparity quoted above
+- **[Partnership on AI Resources](https://partnershiponai.org/resources/)** - Industry best practices
