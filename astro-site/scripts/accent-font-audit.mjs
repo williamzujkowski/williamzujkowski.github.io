@@ -114,7 +114,12 @@ function scanZineCss(rel, lines, rawLines) {
     const opens = (line.match(/{/g) || []).length;
     const closes = (line.match(/}/g) || []).length;
 
-    if (opens > 0 && /\.hand-note\b/.test(line)) {
+    // (?![\w-]) not \b: a word boundary sits between `e` and `-`, so
+    // /\.hand-note\b/ matched `.hand-note-wrapper` and opened the allowlist
+    // for that whole rule block. Planted proof it used to pass:
+    //   .hand-note-wrapper p, body, .post-content { font-family: var(--font-accent); }
+    // reported "confined to the approved allowlist", exit 0.
+    if (opens > 0 && /\.hand-note(?![\w-])/.test(line)) {
       handNoteDepth = depth;
     }
 

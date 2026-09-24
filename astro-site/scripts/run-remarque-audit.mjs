@@ -34,9 +34,13 @@ const here = dirname(fileURLToPath(import.meta.url));
 const cwd = resolve(here, '..');
 const baselinePath = resolve(here, 'remarque-audit-baseline.json');
 
-const NEVER_SUPPRESSIBLE_CATEGORIES = [
-  /^oklch\(\).*sRGB gamut/i, // handled separately below (gamut lines don't have a file:line prefix)
-];
+// There was a NEVER_SUPPRESSIBLE_CATEGORIES list here. Nothing read it.
+// The rule it encoded is enforced structurally instead: a contrast/gamut
+// failure comes from the --palette parse and carries no "file:line" prefix,
+// so it never matches srcScanMatch and takes the never-suppressible branch
+// below. Removed rather than wired up, because a list that looks like a
+// hardening knob and changes nothing is worse than no list -- an editor
+// adding a category to it would believe they had hardened the gate.
 
 const baseline = JSON.parse(readFileSync(baselinePath, 'utf8'));
 const baselineSet = new Set(
