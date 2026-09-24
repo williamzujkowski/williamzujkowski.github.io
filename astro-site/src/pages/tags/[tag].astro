@@ -43,7 +43,7 @@ const humanTagLabel = humanTag(tag);
 
   <ol class="entry-list">
     {posts.map(({ post, piece }) => (
-      <BroadsheetEntry post={post} variant="entry" number={piece} />
+      <BroadsheetEntry post={post} variant="entry" number={piece} headingLevel={2} />
     ))}
   </ol>
 </BaseLayout>

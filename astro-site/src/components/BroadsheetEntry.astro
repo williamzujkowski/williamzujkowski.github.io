@@ -15,9 +15,25 @@ interface Props {
   };
   number?: number | string;
   variant?: 'lead' | 'entry';
+  // headingLevel: see the note below the interface.
+  headingLevel?: 2 | 3;
 }
 
-const { post, number, variant = 'entry' } = Astro.props;
+/*
+ * headingLevel defaults to 3, which is right on the homepage: an h2 `lead`
+ * precedes the entries there. A listing with NO lead (tags, archives) must
+ * pass 2, or the page runs h1 -> h3 and a screen-reader heading walk implies
+ * a missing level. All 115 tag pages did exactly that.
+ *
+ * This note lives outside the interface deliberately. A JSDoc block INSIDE
+ * an Astro `Props` interface breaks Astro's Props type extraction:
+ * `Astro.props` degrades to `any` and `post.data.tags` loses its type,
+ * surfacing as ts(7006) on the `.find()` below rather than anywhere near
+ * the comment. Verified by adding and removing it.
+ */
+
+const { post, number, variant = 'entry', headingLevel = 3 } = Astro.props;
+const EntryHeading = `h${headingLevel}` as 'h2' | 'h3';
 
 
 const tag = (post.data.tags ?? []).find((t) => t !== 'posts') ?? 'Essay';
@@ -57,9 +73,9 @@ const dateStr = post.data.date.toLocaleDateString('en-US', {
         <span class="dot">·</span>
         <time datetime={iso}>{dateStr}</time>
       </p>
-      <h3 class="entry-title">
+      <EntryHeading class="entry-title">
         <a href={`/posts/${post.id}/`}>{post.data.title}</a>
-      </h3>
+      </EntryHeading>
       {post.data.description && <p class="entry-excerpt">{post.data.description}</p>}
     </div>
   </li>

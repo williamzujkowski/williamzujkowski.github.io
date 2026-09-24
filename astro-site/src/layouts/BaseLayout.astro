@@ -4,6 +4,7 @@ import '@/styles/theme-deck.css'; // must follow global.css: deck tokens overrid
 import '@/styles/zine.css'; // zine marginalia layer — last, decorates both
 import { Font } from 'astro:assets';
 import { SITE_CONFIG } from '@/lib/siteConfig';
+import { humanTag } from '@/lib/utils';
 import Search from '@components/Search.svelte';
 import CodeCopy from '@components/CodeCopy.svelte';
 import ThemeToggle from '@components/ThemeToggle.astro';
@@ -51,7 +52,13 @@ const pathSegments = Astro.url.pathname.split('/').filter(Boolean);
 const breadcrumbItems = [
   { name: 'Home', url: siteUrl },
   ...pathSegments.map((segment, i) => ({
-    name: segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' '),
+    // humanTag, not a bare title-case: the tag pages render <h1>AI</h1> via
+    // humanTag() while this emitted "Ai" into the breadcrumb schema for the
+    // same page. 37 of 115 tag pages disagreed with their own <h1> (Ai,
+    // Ebpf, Llm, Iot, Cve, Devops, Mcp), and it is visible in Google
+    // breadcrumb rich results. Two capitalisation functions, one unaware of
+    // the other -- the same shape as issue #506.
+    name: humanTag(segment),
     url: `${siteUrl}/${pathSegments.slice(0, i + 1).join('/')}/`,
   })),
 ];
@@ -300,7 +307,12 @@ function isActiveLink(linkHref: string): boolean {
     </header>
 
     <!-- Main -->
-    <main id="main" data-pagefind-body={searchIndex && !noindex ? true : undefined}>
+    {/* tabindex="-1": without it the skip link moves the sequential-focus
+        STARTING POINT but not document.activeElement, so the screen-reader
+        virtual cursor stays at the top of the page -- the documented
+        Safari/VoiceOver and older-NVDA failure. axe cannot see this; it
+        only checks that the target exists. */}
+    <main id="main" tabindex="-1" data-pagefind-body={searchIndex && !noindex ? true : undefined}>
       <slot />
     </main>
 

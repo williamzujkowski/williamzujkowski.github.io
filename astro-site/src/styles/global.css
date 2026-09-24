@@ -880,8 +880,35 @@ article .prose > p:first-of-type::first-letter {
   border-style: dashed; border-color: var(--color-accent);
   border-radius: 999px; color: var(--color-accent);
 }
-.prose .flow-node.is-good { border-color: var(--color-success); color: var(--color-success); }
-.prose .flow-node.is-bad  { border-color: var(--color-error);   color: var(--color-error); }
+/* State nodes carry a BORDER STYLE as well as a hue.
+ *
+ * These differed only in `color` and `border-color` across 74 instances in
+ * 32 posts ("DB Timeout", "Total Platform Outage", "No Internet"), with no
+ * textual marker of good/bad anywhere. A red/green deuteranope could not
+ * tell them apart, and under `forced-colors: active` both collapse to
+ * plain black -- pixel-identical to a neutral node.
+ *
+ * border-style is not a forced property, so it survives High Contrast Mode,
+ * and it is the pattern already used by .is-gate and .arch-chip.is-guard.
+ *
+ * This closes the visual half. Screen-reader users still get no signal,
+ * because that needs a word in the markup rather than a rule here -- see
+ * the accompanying issue. */
+.prose .flow-node.is-good {
+  border-color: var(--color-success); color: var(--color-success);
+  border-style: double; border-width: 3px;
+}
+.prose .flow-node.is-bad {
+  border-color: var(--color-error); color: var(--color-error);
+  border-style: dotted; border-width: 2px;
+}
+/* A post shipped `flow-node is-warn` with no rule to match, so it rendered
+ * as a neutral node beside an is-good sibling
+ * (2025-01-12-privacy-preserving-federated-learning-homelab). */
+.prose .flow-node.is-warn {
+  border-color: var(--color-warning); color: var(--color-warning);
+  border-style: dashed; border-width: 2px;
+}
 /* parallel steps — a row that wraps to a stack on narrow screens */
 .prose .flow-parallel {
   display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; width: 100%;
@@ -948,8 +975,18 @@ article .prose > p:first-of-type::first-letter {
 }
 .prose .arch-chip.is-primary { border-color: var(--color-accent); color: var(--color-accent); }
 .prose .arch-chip.is-guard { border-style: dashed; border-color: var(--color-accent); }
-.prose .arch-chip.is-warn { border-color: var(--color-warning); color: var(--color-warning); }
-.prose .arch-chip.is-bad { border-color: var(--color-error); color: var(--color-error); }
+.prose .arch-chip.is-warn {
+  border-color: var(--color-warning); color: var(--color-warning);
+  border-style: dashed;
+}
+.prose .arch-chip.is-bad {
+  border-color: var(--color-error); color: var(--color-error);
+  border-style: dotted; border-width: 2px;
+}
+.prose .arch-chip.is-good {
+  border-color: var(--color-success); color: var(--color-success);
+  border-style: double; border-width: 3px;
+}
 /* .arch captions use the canonical `.prose :where(figcaption)` styling. */
 
 /* ===== Native sequence diagrams (issue #421) — a vertical, numbered exchange
@@ -1298,6 +1335,18 @@ div:has(> .post-card) {
   .entry-title a:focus-visible {
     text-decoration: underline;
   }
+
+  /* The .flow connector stem is a `background` on a pseudo-element, which
+   * forced-colors flattens to Canvas. Across 68 .flow diagrams on 38 pages
+   * that left floating arrowheads joined by nothing -- the arrowhead itself
+   * survives because it is a border-top-color. */
+  .prose .flow > * + *::before { background: CanvasText; }
+
+  /* Zine doodles are a mask over `background-color: var(--color-fg-muted)`,
+   * forced to the Canvas colour, so all 98 of them become blank reserved
+   * boxes. They are aria-hidden so nothing semantic is lost, but the whole
+   * visual identity disappears. */
+  .zine-doodle { background-color: CanvasText; }
 }
 
 .lead-lede {
