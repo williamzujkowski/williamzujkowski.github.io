@@ -84,6 +84,15 @@ jobs:
           node-version: '22'
           cache: 'pnpm'
           cache-dependency-path: astro-site/pnpm-lock.yaml
+      # Runs BEFORE the frozen install, which is what fails when Dependabot
+      # rewrites the lockfile (#540). pnpm's own error names neither the
+      # cause nor the fix, and it cannot see the silent half at all: the bot
+      # also re-resolves parent-scoped overrides, which is how PR #638 put
+      # the vulnerable fflate 0.7.3 back under satori. Stdlib-only, so it
+      # needs nothing installed. It can only add a failure -- if it is buggy
+      # and passes, the frozen install behind it still refuses.
+      - name: Lockfile overrides match package.json (#540)
+        run: python3 scripts/ci/check-lockfile-overrides.py
       - name: Install deps
         run: cd astro-site && pnpm install --frozen-lockfile
       - name: Type-check (astro check — tsc diagnostics across .astro/.ts/.svelte)
