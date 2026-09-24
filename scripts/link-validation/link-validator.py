@@ -50,13 +50,18 @@ import re
 import ssl
 import sys
 import time
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlparse
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from lib.link_gatekeepers import is_unroutable
+from lib.link_gatekeepers import (
+    dns_failure_kind,
+    is_fetchable,
+    is_gatekeeper,
+    is_unroutable,
+)
 from lib.logging_config import setup_logger
 
 try:
@@ -116,6 +121,8 @@ class LinkValidator:
     def __init__(self, max_retries: int = 3, timeout: int = 30):
         self.max_retries = max_retries
         self._escalation_spent = 0.0
+        # None until probed. See _probe_resolver().
+        self._dns_trustworthy: bool | None = None
         self.timeout = timeout * 1000  # Convert to milliseconds for Playwright
         self.session = None
         self.browser = None
@@ -131,11 +138,52 @@ class LinkValidator:
             'errors': 0,
             'internal': 0,
             'unroutable': 0,
+            'unfetchable': 0,
+            'dns_dead': 0,
             'unique_urls': 0,
             'cached': 0
         }
 
-    async def initialize(self):
+    # Two positive controls and one negative. Both halves are required.
+    #
+    # The positive half catches the obvious failure: if the runner's resolver
+    # is down, every lookup fails and we would report the entire corpus as
+    # dead. The negative half catches the subtler one: a resolver that
+    # answers NXDOMAIN with a wildcard address (captive portals and some ISP
+    # resolvers do this) makes "not found" unobservable, so a genuinely dead
+    # domain would look alive. Either failure means DNS verdicts from this
+    # run cannot be trusted in EITHER direction.
+    DNS_CONTROL_RESOLVES = ('github.com', 'example.com')
+    DNS_CONTROL_NXDOMAIN = 'link-validator-negative-control.invalid'
+
+    async def _probe_resolver(self, logger=None) -> bool:
+        """Decide whether this run may treat a DNS miss as a verdict."""
+        loop = asyncio.get_running_loop()
+
+        async def resolves(host: str) -> bool:
+            try:
+                await loop.getaddrinfo(host, None)
+                return True
+            except OSError:
+                return False
+
+        for host in self.DNS_CONTROL_RESOLVES:
+            if not await resolves(host):
+                if logger:
+                    logger.warning(
+                        f"DNS control {host} did not resolve; this run will "
+                        "keep every DNS failure advisory.")
+                return False
+        if await resolves(self.DNS_CONTROL_NXDOMAIN):
+            if logger:
+                logger.warning(
+                    "DNS control: a reserved .invalid name RESOLVED, so this "
+                    "resolver synthesises answers for missing names. Dead "
+                    "domains are unobservable; keeping DNS failures advisory.")
+            return False
+        return True
+
+    async def initialize(self, logger=None):
         """Initialize HTTP session and Playwright browser"""
         # Create aiohttp session
         connector = aiohttp.TCPConnector(
@@ -161,6 +209,8 @@ class LinkValidator:
                 user_agent=self.USER_AGENTS['browser'],
                 viewport={'width': 1920, 'height': 1080}
             )
+
+        self._dns_trustworthy = await self._probe_resolver(logger)
 
     async def cleanup(self):
         """Clean up resources"""
@@ -265,6 +315,11 @@ class LinkValidator:
         key = {'redirect': 'redirects', 'timeout': 'timeouts', 'error': 'errors'}.get(
             result.status, result.status)
         self.stats[key] = self.stats.get(key, 0) + 1
+        # A sub-count, not a category: these are already counted as 'broken'.
+        # Surfaced so the run log can distinguish "the page is gone" from
+        # "the whole domain is gone", which need different repairs.
+        if result.issue_type == 'dns_not_found':
+            self.stats['dns_dead'] = self.stats.get('dns_dead', 0) + 1
 
     async def validate_link(self, url: str) -> ValidationResult:
         """Validate a single link"""
@@ -309,6 +364,25 @@ class LinkValidator:
                 issue_type='placeholder_host',
                 error_message=('Reserved/placeholder host (RFC 2606/6761/8375 '
                                'or a single-label container name)'),
+                response_time=0.0, content_type=None, page_title=None,
+                requires_js=False, ssl_valid=False,
+                validation_time=datetime.now().isoformat(), retry_count=0)
+            self._count_result(result)
+            self.cache[url] = result
+            return result
+
+        # A scheme we do not speak, or an address literal in private,
+        # loopback or link-local space. These tools fetch URLs taken out of
+        # post markdown -- including, through link-monitor.yml's
+        # pull_request trigger, markdown from a fork PR -- so the set of
+        # things they will request should be stated rather than left to
+        # whatever aiohttp happens to reject.
+        if not is_fetchable(url):
+            result = ValidationResult(
+                url=url, status='unfetchable', status_code=None, final_url=None,
+                issue_type='unfetchable',
+                error_message=('Refused: link checkers fetch only http(s), and '
+                               'never a private, loopback or link-local address'),
                 response_time=0.0, content_type=None, page_title=None,
                 requires_js=False, ssl_valid=False,
                 validation_time=datetime.now().isoformat(), retry_count=0)
@@ -375,6 +449,10 @@ class LinkValidator:
             result = await self._escalate(url, result)
 
         if result:
+            # Applied after escalation, so a browser rescue is never
+            # overturned by a host rule, and a DNS verdict is reached on the
+            # error the network actually returned.
+            result = self._apply_host_policy(result)
             self._count_result(result)
 
             # Cache result
@@ -571,6 +649,53 @@ class LinkValidator:
             return False
         return True
 
+    def _apply_host_policy(self, result: ValidationResult) -> ValidationResult:
+        """Turn a raw verdict into the one the report should carry.
+
+        Two adjustments, in this order:
+
+        1. A name that does not exist is BROKEN, not advisory -- but only if
+           this run's resolver passed both control halves. Without that
+           guard a wobbling CI resolver would mass-produce work items to
+           replace citations that are perfectly fine, which is the exact
+           failure link_gatekeepers exists to prevent.
+
+        2. A host on the gatekeeper list never reports `broken`. That list
+           documents its own reason: citation-validation.yml opens an issue
+           telling the author to "find replacement sources", so a publisher
+           that answers a bot with 404 instead of 403 produces a work item
+           to replace a perfectly good citation. simple-validator.py has
+           applied this since the list landed; this validator -- the one
+           citation-validation.yml actually runs -- never did. 64 citations
+           across 29 gatekeeper hosts were exposed to it.
+
+        Order matters: a dead domain that is also on the gatekeeper list
+        would be downgraded by (2), so (2) must not run on a (1) verdict.
+        Nothing is on both today, and the gatekeeper list was pruned of its
+        two dead hosts, but the ordering makes that safe rather than lucky.
+        """
+        kind = dns_failure_kind(result.error_message)
+        if kind == 'not_found':
+            if self._dns_trustworthy:
+                return replace(
+                    result, status='broken', issue_type='dns_not_found',
+                    error_message=(
+                        f'{result.error_message} -- host does not exist in DNS '
+                        '(verified against a resolver control set)'))
+            return result
+        if kind == 'temporary':
+            # The resolver failed, not the name. Advisory, always.
+            return result
+
+        if result.status == 'broken' and is_gatekeeper(result.url):
+            return replace(
+                result, status='restricted',
+                issue_type=f'gatekeeper_{result.issue_type or "broken"}',
+                error_message=(
+                    'Host is a known bot-blocker that answers checkers with a '
+                    'hard error; verify in a browser before replacing.'))
+        return result
+
     async def _escalate(self, url: str, result: ValidationResult) -> ValidationResult:
         """Re-check a non-valid result in a real browser. Returns the better of the two."""
         if not self._worth_escalating(result):
@@ -743,6 +868,14 @@ class LinkValidator:
             logger.info(f"✅ Validated {self.stats['total']} links")
             logger.info(f"✔️  Valid: {self.stats['valid']}")
             logger.info(f"❌ Broken: {self.stats['broken']}")
+            if self.stats.get('dns_dead'):
+                logger.info(
+                    f"   └─ of which whole domains gone from DNS: "
+                    f"{self.stats['dns_dead']}")
+            if self._dns_trustworthy is False:
+                logger.warning(
+                    "   DNS controls failed this run; name-resolution "
+                    "failures were kept advisory rather than counted broken.")
             logger.info(f"🔒 Restricted (unverifiable): {self.stats['restricted']}")
             logger.info(f"↪️  Redirects: {self.stats['redirects']}")
             logger.info(f"⏱️  Timeouts: {self.stats['timeouts']}")
@@ -791,7 +924,7 @@ async def main():
         timeout=args.timeout
     )
 
-    await validator.initialize()
+    await validator.initialize(logger)
 
     try:
         # Validate links

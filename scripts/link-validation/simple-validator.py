@@ -54,7 +54,7 @@ import aiohttp
 
 # Setup logging
 sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
-from link_gatekeepers import is_gatekeeper, is_unroutable
+from link_gatekeepers import is_fetchable, is_gatekeeper, is_unroutable
 from logging_config import setup_logger
 
 logger = setup_logger(__name__)
@@ -98,6 +98,7 @@ class SimpleValidator:
             'error': 0,
             'needs_manual': 0,
             'unroutable': 0,
+            'unfetchable': 0,
             'internal': 0,
         }
         self._domain_locks: dict[str, asyncio.Lock] = {}
@@ -194,6 +195,15 @@ class SimpleValidator:
                                'or a single-label container name). Not a real '
                                'citation; nothing to repair.')
             return self._record(result, 'unroutable', 'placeholder_host')
+
+        # Distinct from the above: these ARE real addresses, they are just
+        # not ones a link checker should be asking about. This runs on fork
+        # pull requests (link-monitor.yml), so the set of things it will
+        # request is stated rather than left to whatever aiohttp rejects.
+        if not is_fetchable(url):
+            result['notes'] = ('Refused: link checkers fetch only http(s), and '
+                               'never a private, loopback or link-local address.')
+            return self._record(result, 'unfetchable', 'unfetchable')
 
         try:
             await self._throttle(domain)
