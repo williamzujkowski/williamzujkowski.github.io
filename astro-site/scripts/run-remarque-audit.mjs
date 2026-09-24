@@ -129,13 +129,37 @@ if (realFailures > 0) {
   process.exit(1);
 }
 
-// A non-zero exit we did not account for as a parsed failure is still a
-// failure — the tool is telling us something this parser doesn't understand.
+// A non-zero exit we cannot fully account for is still a failure — the tool
+// is telling us something this parser does not understand.
+//
+// "Fully account for" is the load-bearing part, and it used to be missing.
+// This was previously `if (result.status !== 0) exit(1)` unconditionally,
+// which made the baseline UNUSABLE: the tool exits 1 whenever it finds
+// anything, so a finding that was reviewed and baselined still failed the
+// build. The baseline's own README describes adding an entry after hand
+// review as the supported path — it never worked. Nobody noticed because
+// the baseline has been empty since 2026-07-23, so the path was never
+// taken (issue #642's shape: a mechanism whose success case is unreachable).
+//
+// The fix is not to trust the parse. It is to prove the parse is COMPLETE:
+// the tool prints its own total as "audit FAILED — N problem(s)". If we
+// parsed and classified exactly N findings, our accounting covers
+// everything the tool objected to and a suppressed-to-zero run may pass.
+// If the numbers disagree, the tool saw something we did not, and we fail
+// closed exactly as before.
 if (result.status !== 0) {
-  console.error(
-    `\nremarque-audit exited ${result.status} but no failure line was parsed. ` +
-      'Failing closed rather than trusting the parse.\n',
-  );
-  process.exit(1);
+  const totalMatch = output.match(/audit FAILED\s*[—-]+\s*(\d+)\s*problem/i);
+  const reportedTotal = totalMatch ? Number(totalMatch[1]) : null;
+  const accountedFor = realFailures + suppressed;
+
+  if (reportedTotal === null || reportedTotal !== accountedFor) {
+    console.error(
+      `\nremarque-audit exited ${result.status} with ` +
+        `${reportedTotal ?? 'an unparseable number of'} problem(s), but this ` +
+        `wrapper accounted for ${accountedFor}. Failing closed rather than ` +
+        'trusting the parse.\n',
+    );
+    process.exit(1);
+  }
 }
 console.log('\nremarque-audit passed (contrast + gamut clean; all source-scan findings are reviewed, baselined false positives) ✓\n');

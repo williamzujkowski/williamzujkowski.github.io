@@ -1,4 +1,17 @@
 {
-  "_README": "Suppression list for remarque-audit's --src source-scan false positives (font-floor / hardcoded-color / oklch-literal) — NOT the --palette contrast/gamut checks, which always run and are never suppressed (see scripts/run-remarque-audit.mjs). EMPTY as of 2026-07-23: remarque-tokens 0.8.0's source scan (this site bumped to it in #345) fixed the over-aggressive checks that produced all 216 prior entries under remarque-audit@0.5.0 — it now strips comments and correctly recognizes this site's token files, so it emits ZERO source-scan findings against the current CSS (verified: a probe with a real hardcoded hex / sub-13px font / stray oklch literal is still correctly caught, so the scan works — the clean result is genuine, not a silently-disabled gate; #375). The fail-closed mechanism is retained: any future real source-scan finding hits an empty baseline and fails the build, requiring hand review before it may be added back. Entries are exact (file, line, category) matches. See astro-site/DESIGN-DEVIATIONS.md #6.",
-  "entries": []
+  "_README": "Suppression list for remarque-audit's --src source-scan false positives (font-floor / hardcoded-color / oklch-literal) \u2014 NOT the --palette contrast/gamut checks, which always run and are never suppressed (see scripts/run-remarque-audit.mjs). EMPTY as of 2026-07-23: remarque-tokens 0.8.0's source scan (this site bumped to it in #345) fixed the over-aggressive checks that produced all 216 prior entries under remarque-audit@0.5.0 \u2014 it now strips comments and correctly recognizes this site's token files, so it emits ZERO source-scan findings against the current CSS (verified: a probe with a real hardcoded hex / sub-13px font / stray oklch literal is still correctly caught, so the scan works \u2014 the clean result is genuine, not a silently-disabled gate; #375). The fail-closed mechanism is retained: any future real source-scan finding hits an empty baseline and fails the build, requiring hand review before it may be added back. Entries are exact (file, line, category) matches. See astro-site/DESIGN-DEVIATIONS.md #6.",
+  "entries": [
+    {
+      "file": "src/styles/zine.css",
+      "line": 136,
+      "category": "hardcoded hex/rgb/hsl color",
+      "reason": "Print block. Paper is a light ground, so these two must NOT follow the theme -- resolving them through var(--color-bg) is exactly the bug the print block exists to fix (in dark mode the browser drops the background under print-color-adjust: economy and keeps the near-white foreground, giving white-on-white). Also carries the allow-raw-color marker that color-token-audit.mjs honours; this gate uses a separate mechanism, which is tracked as drift in #649."
+    },
+    {
+      "file": "src/styles/zine.css",
+      "line": 137,
+      "category": "hardcoded hex/rgb/hsl color",
+      "reason": "See the entry above: the paired `color: #000` of the print block's light ground."
+    }
+  ]
 }

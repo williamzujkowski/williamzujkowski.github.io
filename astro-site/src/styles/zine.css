@@ -109,6 +109,71 @@ article .prose blockquote::before {
   .zine-grain::before { display: none; }
 }
 
+/* ---------- print ----------------------------------------------------- *
+ * The entire print output used to be the one rule above, 44 bytes of it.
+ *
+ * The consequence was not cosmetic. A reader in dark mode who prints or
+ * saves to PDF got the dark theme's `color` (oklch(0.92 0.03 140)) with
+ * the background dropped by the browser -- near-white text on white
+ * paper, on every page. `print-color-adjust` is `economy` by default, so
+ * backgrounds go and foregrounds stay.
+ *
+ * Forcing color-scheme to light is what actually fixes it: the tokens are
+ * defined per scheme, so pinning the scheme repaints text, borders and
+ * diagram states together rather than patching `body` alone. */
+@media print {
+  :root {
+    color-scheme: light;
+  }
+
+  /* Literals, deliberately, and marked so the token audit agrees.
+   * Paper is a light ground; these are not theme colours and must NOT
+   * follow the theme. Using var(--color-bg) here would re-introduce the
+   * exact bug this block exists to fix -- in dark mode it resolves to the
+   * dark ground, the browser drops the background (print-color-adjust is
+   * `economy`) and keeps the near-white foreground. */
+  body {
+    background: #fff; /* allow-raw-color */
+    color: #000; /* allow-raw-color */
+  }
+
+  /* Interactive furniture cannot be operated on paper. */
+  .site-masthead,
+  .site-footer,
+  .search-control,
+  .theme-deck,
+  .theme-toggle,
+  .remarque-toc-rail,
+  .skip-to-main,
+  .copy-btn {
+    display: none !important;
+  }
+
+  /* A blog that holds itself to 95%+ citation coverage should not print
+   * its citations unattributed. Internal and anchor links are skipped --
+   * their href is noise on paper. */
+  .prose a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    word-break: break-all;
+  }
+
+  /* Nothing that reads as one unit should be split across a page break. */
+  pre,
+  table,
+  blockquote,
+  figure,
+  .flow,
+  .arch,
+  .zine-doodle {
+    break-inside: avoid;
+  }
+
+  h1, h2, h3, h4 {
+    break-after: avoid;
+  }
+}
+
 /* ---------- hand-note voice (STRICT whitelist: .hand-note, 404) -------- */
 
 .hand-note {
