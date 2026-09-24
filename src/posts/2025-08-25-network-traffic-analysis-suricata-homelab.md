@@ -210,10 +210,19 @@ sudo systemctl reload suricata
 #!/bin/bash
 # /usr/local/bin/suricata-rule-update.sh
 
-set -e
+# pipefail matters as much as -e here. `set -e` tests the exit status of
+# the LAST command in a pipeline, which below is `tee` -- and tee succeeds
+# whatever it was fed. Without pipefail, a failed fetch sails straight past
+# the guard:
+#   $ bash -c 'set -e; false | tee /dev/null; echo REACHED'
+#   REACHED                      # exit 0
+#   $ bash -c 'set -eo pipefail; false | tee /dev/null; echo REACHED'
+#   (nothing)                    # exit 1
+set -eo pipefail
 
-# Update. suricata-update exits non-zero on a failed fetch, and `set -e`
-# above turns that into a stopped script, which is the check that matters.
+# Update. suricata-update exits non-zero on a failed fetch, and `set -eo
+# pipefail` above turns that into a stopped script, which is the check
+# that matters.
 sudo suricata-update --verbose 2>&1 | tee /var/log/suricata-update.log
 
 # Test that the new ruleset actually PARSES before anything reloads it.
