@@ -60,15 +60,6 @@
   },
   "pnpm": {
     "overrides": {
-      "fast-xml-parser": ">=5.5.8",
-      "fast-xml-builder": ">=1.1.7",
-      "uuid": ">=11.1.1",
-      "dompurify": ">=3.4.11",
-      "vite": ">=8.0.13",
-      "esbuild": ">=0.28.1",
-      "yaml@<2.8.3": ">=2.8.3",
-      "brace-expansion@5": ">=5.0.6",
-      "fast-uri": "^3.1.6",
       "satori>fflate": "0.7.5"
     }
   }
