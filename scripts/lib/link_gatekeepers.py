@@ -20,6 +20,7 @@ drives the alarm or the repair queue. Nothing is skipped or hidden.
 
 from __future__ import annotations
 
+import ipaddress
 from urllib.parse import urlparse
 
 # Publishers and platforms that actively block automated checkers.
@@ -49,7 +50,6 @@ BOT_BLOCKING = [
     "www.cloudflare.com",
     "www.enisa.europa.eu",
     "www.epa.gov",
-    "www.fhi.ox.ac.uk",
     "www.gartner.com",
     "www.hhs.gov",
     "www.idc.com",
@@ -76,9 +76,22 @@ RATE_LIMITING = [
 ]
 
 # Slow or intermittently unreachable.
+#
+# Entries here suppress an alarm, so a dead host on this list is worse than
+# no list at all: it converts "this citation is gone" into "this publisher is
+# slow, ignore it". Two were removed on 2026-09-24 after every host on the
+# list was resolved against a control set (github.com / example.com resolving,
+# two bogus names returning NXDOMAIN, so the resolver was proven to
+# discriminate before any result was believed):
+#
+#   www.fhi.ox.ac.uk  -- NXDOMAIN. The Future of Humanity Institute closed in
+#                        April 2024 and the domain is gone. It was suppressing
+#                        a genuinely dead citation in
+#                        2025-08-09-ai-cognitive-infrastructure.md.
+#   uptimekuma.com    -- NXDOMAIN, and cited by no post. The project lives at
+#                        github.com/louislam/uptime-kuma.
 SLOW_OR_FLAKY = [
     "azure.microsoft.com",
-    "uptimekuma.com",
 ]
 
 GATEKEEPER_HOSTS = frozenset(BOT_BLOCKING + RATE_LIMITING + SLOW_OR_FLAKY)
@@ -177,3 +190,133 @@ def is_unroutable(url: str) -> bool:
         return True
 
     return any(host == d or host.endswith("." + d) for d in UNROUTABLE_DOMAINS)
+
+
+# ---------------------------------------------------------------------------
+# A name that does not exist is a VERDICT, not a retry hint.
+#
+# citation-validation.yml's report files DNS failures under "Unresolved /
+# errors / timeouts", whose own header reads: "These findings are advisory,
+# not confirmed broken links." That is right for a timeout and wrong for a
+# name that does not resolve.
+#
+# It cost a real citation. On 2026-09-21 the weekly report said "Broken: 1"
+# while https://www.fhi.ox.ac.uk/reports/agi-timeline-surveys/ -- a domain
+# that ceased to exist when the Future of Humanity Institute closed in April
+# 2024 -- sat in the advisory bucket, cited for a specific quantitative claim.
+# The checker saw it, described it correctly, and filed it under "retry this".
+#
+# getaddrinfo distinguishes the two cases and the distinction is the whole
+# point:
+#
+#   EAI_NONAME  "Name or service not known", "nodename nor servname provided"
+#               The name does not exist. Definitive. No retry will change it.
+#   EAI_AGAIN   "Temporary failure in name resolution"
+#               The RESOLVER could not answer. Says nothing about the name.
+#               Stays advisory.
+#
+# Treating EAI_AGAIN as breakage would be the failure this module exists to
+# prevent, one layer down: a wobbling CI resolver would mass-produce work
+# items to replace citations that are perfectly fine.
+
+# EAI_NONAME, across the wordings glibc, musl and macOS use.
+DNS_NAME_NOT_FOUND_MARKERS = (
+    "name or service not known",
+    "nodename nor servname provided",
+    "no address associated with hostname",
+    "name does not resolve",
+)
+
+# EAI_AGAIN and friends: the resolver failed, not the name.
+DNS_TEMPORARY_MARKERS = (
+    "temporary failure in name resolution",
+    "try again",
+    "timed out",
+)
+
+
+def dns_failure_kind(error_message: str | None) -> str | None:
+    """Classify a connection error as a DNS verdict, a DNS wobble, or neither.
+
+    Returns 'not_found' (the name does not exist -- definitive),
+    'temporary' (the resolver could not answer -- advisory), or None (this
+    was not a DNS failure at all).
+
+    Temporary is checked FIRST: "Temporary failure in name resolution"
+    contains neither not-found marker today, but ordering it first means a
+    future wording that contains both can only ever degrade to advisory.
+    """
+    if not error_message:
+        return None
+    lowered = error_message.lower()
+    if any(marker in lowered for marker in DNS_TEMPORARY_MARKERS):
+        return "temporary"
+    if any(marker in lowered for marker in DNS_NAME_NOT_FOUND_MARKERS):
+        return "not_found"
+    return None
+
+
+# ---------------------------------------------------------------------------
+# What the checkers are allowed to fetch.
+#
+# These tools take URLs out of blog posts -- including, via link-monitor.yml's
+# pull_request trigger, posts in a fork PR -- and fetch them. Nothing
+# currently constrains the scheme or the destination address.
+#
+# The realistic blast radius here is small and worth stating so this is not
+# mistaken for more than it is: no response body is read on the HTTP path, no
+# custom headers can be set, and the report carries counts rather than
+# response content. The worst case is a blind, header-less GET whose result
+# the requester never sees. That is why this is a guard and not an incident.
+#
+# It closes two concrete holes:
+#
+#   1. Scheme. `file://` is rejected today only because aiohttp happens to
+#      raise NonHttpUrlClientError -- an implementation detail this repo
+#      neither asserts nor tests. The Playwright escalation path has no
+#      scheme check at all.
+#   2. Address literals. http://127.0.0.1:8080/, http://169.254.169.254/ and
+#      http://10.0.0.5/ are all fetched today. is_unroutable() deliberately
+#      does NOT cover these (an IP literal is a real address), so they need
+#      their own predicate.
+#
+# NOT closed: a public hostname whose DNS answer is a private address. That
+# needs a post-resolution check applied per redirect hop, which is a larger
+# change to the fetch path -- tracked separately rather than half-done here.
+
+ALLOWED_SCHEMES = frozenset({"http", "https"})
+
+
+def is_fetchable(url: str) -> bool:
+    """False if a link checker should refuse to request this URL at all.
+
+    Rejects any non-http(s) scheme, and any host that is an IP literal in
+    private, loopback, link-local, reserved or unspecified space.
+    """
+    try:
+        parsed = urlparse(url)
+    except ValueError:
+        return False
+
+    if parsed.scheme.lower() not in ALLOWED_SCHEMES:
+        return False
+
+    host = (parsed.hostname or "").strip()
+    if not host:
+        return False
+
+    try:
+        address = ipaddress.ip_address(host)
+    except ValueError:
+        # Not an IP literal. Hostnames are resolved by the fetcher; see the
+        # "NOT closed" note above.
+        return True
+
+    return not (
+        address.is_private
+        or address.is_loopback
+        or address.is_link_local
+        or address.is_reserved
+        or address.is_multicast
+        or address.is_unspecified
+    )

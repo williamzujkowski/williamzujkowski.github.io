@@ -62,7 +62,10 @@ def generate_citation_report(validation_data: dict, links_data: dict) -> str:
         sources[link['url']].append(link)
 
     groups = {name: defaultdict(list) for name in ('broken', 'restricted', 'unresolved')}
-    verified = {'valid', 'redirect', 'internal', 'unroutable'}
+    # 'unfetchable' belongs here, not in 'unresolved': the checker made a
+    # decision (non-http scheme, or a private/loopback address literal)
+    # rather than failing to reach a conclusion.
+    verified = {'valid', 'redirect', 'internal', 'unroutable', 'unfetchable'}
     for result in results:
         url = result['url']
         source = sources[url].popleft() if sources[url] else {}
@@ -93,6 +96,7 @@ def generate_citation_report(validation_data: dict, links_data: dict) -> str:
         'valid': 'Valid', 'broken': 'Broken', 'restricted': 'Access-restricted',
         'redirect': 'Redirects', 'timeout': 'Timeouts (unresolved)', 'error': 'Errors (unresolved)',
         'internal': 'Internal (checked separately)', 'unroutable': 'Placeholder (not checked online)',
+        'unfetchable': 'Refused (non-http scheme or private address)',
     }
     for status in dict.fromkeys([*labels, *counts]):
         report.append(f"| {labels.get(status, status + ' (unresolved)')} | {counts[status]} |")
@@ -110,9 +114,13 @@ def generate_citation_report(validation_data: dict, links_data: dict) -> str:
         'restricted': ('Access-restricted / unverifiable', 'The checker could not verify these '
                        'responses (including login walls, rate limits and server errors). '
                        'Check in a browser or retry later; these findings are advisory.'),
-        'unresolved': ('Unresolved / errors / timeouts', 'Retry these checks and inspect DNS or '
+        'unresolved': ('Unresolved / errors / timeouts', 'Retry these checks and inspect '
                        'connection errors before changing a citation. Missing results also appear '
-                       'here. These findings are advisory, not confirmed broken links.'),
+                       'here. These findings are advisory, not confirmed broken links. '
+                       'A host that does NOT EXIST in DNS is no longer filed here -- that is a '
+                       'verdict, not a retry hint, and it is reported under "Broken citations" '
+                       'with issue type `dns_not_found`. What remains here includes resolver '
+                       'wobble (EAI_AGAIN), which says nothing about whether the name is real.'),
     }
     for group, (heading, advice) in sections.items():
         report.extend([f'## {heading}', '', advice, ''])
