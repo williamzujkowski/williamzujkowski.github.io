@@ -1,6 +1,31 @@
 import { test, expect, type Page } from 'playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
+// Globals the mocked Pagefind module below plants on `window` so a test can
+// wait for, and then release, a deliberately-stalled search. Declaring them
+// is not ceremony: `window.releaseOld!()` would still typecheck
+// after the mock stopped defining it, and the test would hang instead of
+// failing to compile.
+declare global {
+  interface Window {
+    oldStarted?: boolean;
+    moreStarted?: boolean;
+    hydrationStarted?: boolean;
+    releaseOld?: () => void;
+    rejectOld?: () => void;
+    releaseMore?: () => void;
+    releaseHydration?: () => void;
+  }
+}
+
+// The shape this file relies on from Pagefind's real, untyped runtime.
+interface PagefindHit {
+  data: () => Promise<{ url: string }>;
+}
+interface PagefindResponse {
+  results: PagefindHit[];
+}
+
 async function openSearch(page: Page) {
   await page.goto('/');
   await page.getByRole('button', { name: 'Search site', exact: true }).click();
@@ -76,10 +101,10 @@ test('typing a new query cannot be overwritten by an older response', async ({ p
   `);
   const input = await openSearch(page);
   await input.fill('older');
-  await page.waitForFunction(() => (window as any).oldStarted);
+  await page.waitForFunction(() => window.oldStarted);
   await input.fill('newer');
   await expect(page.locator('.search-result-title')).toHaveText('newer');
-  await page.evaluate(() => (window as any).releaseOld());
+  await page.evaluate(() => window.releaseOld!());
   await expect(page.getByRole('status')).toHaveText('Showing 1 of 1 results');
   await expect(page.locator('.search-result-title')).toHaveText('newer');
 });
@@ -94,10 +119,10 @@ test('an old request failure cannot replace a newer successful search', async ({
   `);
   const input = await openSearch(page);
   await input.fill('older');
-  await page.waitForFunction(() => (window as any).oldStarted);
+  await page.waitForFunction(() => window.oldStarted);
   await input.fill('newer');
   await expect(page.locator('.search-result-title')).toHaveText('newer');
-  await page.evaluate(() => (window as any).rejectOld());
+  await page.evaluate(() => window.rejectOld!());
   await expect(page.getByRole('status')).toHaveText('Showing 1 of 1 results');
   await expect(page.getByRole('button', { name: 'Try again' })).toHaveCount(0);
 });
@@ -111,14 +136,14 @@ for (const action of ['clear', 'shorten', 'close'] as const) {
     } }] };`);
     const input = await openSearch(page);
     await input.fill('security');
-    await page.waitForFunction(() => (window as any).hydrationStarted);
+    await page.waitForFunction(() => window.hydrationStarted);
     if (action === 'clear') await page.getByRole('button', { name: 'Clear', exact: true }).click();
     if (action === 'shorten') await input.fill('s');
     if (action === 'close') {
       await page.getByRole('button', { name: 'Close search' }).click();
       await page.getByRole('button', { name: 'Search site', exact: true }).click();
     }
-    await page.evaluate(() => (window as any).releaseHydration());
+    await page.evaluate(() => window.releaseHydration!());
     await expect(page.getByRole('status')).toHaveText('Type at least two characters to search.');
     await expect(page.locator('.search-result-link')).toHaveCount(0);
     await expect(input).toBeFocused();
@@ -201,12 +226,12 @@ test('focus stays in the dialog while another result batch is pending', async ({
   await input.fill('security');
   const more = page.getByRole('button', { name: 'Show more results' });
   await more.click();
-  await page.waitForFunction(() => (window as any).moreStarted);
+  await page.waitForFunction(() => window.moreStarted);
   await expect(more).toBeFocused();
   await expect(more).toHaveAttribute('aria-disabled', 'true');
   await page.keyboard.press('Tab');
   await expect(input).toBeFocused();
-  await page.evaluate(() => (window as any).releaseMore());
+  await page.evaluate(() => window.releaseMore!());
   await expect(page.locator('.search-result-link').nth(8)).toBeFocused();
 });
 
@@ -234,8 +259,10 @@ test('production index includes articles and substantive pages, excludes listing
     await pagefind.init();
     // null returns every indexed document, avoiding assumptions about ranking.
     const response = await pagefind.search(null);
-    const results = await Promise.all(response.results.map((r: any) => r.data()));
-    return results.map((r: any) => new URL(r.url, location.origin).pathname) as string[];
+    const results = await Promise.all(
+      (response as PagefindResponse).results.map((r) => r.data())
+    );
+    return results.map((r) => new URL(r.url, location.origin).pathname);
   });
   expect(urls.length).toBeGreaterThan(80);
   for (const route of ['/about/', '/uses/', '/projects/', '/now/']) expect(urls).toContain(route);
