@@ -450,7 +450,9 @@ show log | match "DHCP-SNOOPING\|ARP-INSPECTION"
 📎 **Complete ruleset:**
 [All management firewall rules with logging](https://gist.github.com/williamzujkowski/088045937fa7c77821a67f31cf994556)
 
-Management VLAN (10.0.10.0/24) can access all VLANs. All VLANs can SSH to management.
+Management VLAN (10.0.10.0/24) can reach all VLANs. **Nothing reaches management except management.**
+
+An earlier version of this line read "All VLANs can SSH to management," which is the opposite of what the rest of this post argues for. It hands the compromised IoT camera from the opening threat model a direct path to Proxmox and the switches -- a management-plane route out of the segment the whole exercise exists to contain. It also contradicts the default-deny posture stated earlier and the IoT rules below. If you need to administer from a workstation, put that workstation on the management VLAN, or terminate a VPN into it; do not open an inbound SSH path from every segment.
 
 ### IoT VLAN Rules (Most Restrictive)
 

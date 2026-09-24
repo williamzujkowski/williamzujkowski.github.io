@@ -390,12 +390,16 @@ grep -r "CVE-2021-31440\|CVE-2021-33624\|CVE-2023-2163" /boot/config-$(uname -r)
 **2. Unprivileged eBPF Restrictions:**
 
 ```bash
-# Disable unprivileged eBPF (default on modern kernels)
+# Disable unprivileged eBPF. Most distro kernels already ship this as 2 via
+# CONFIG_BPF_UNPRIV_DEFAULT_OFF -- check before you set anything.
 # CRITICAL: Prevents non-root users from loading potentially malicious eBPF programs
-sysctl kernel.unprivileged_bpf_disabled=1
+#
+# Note 1 is a ONE-WAY transition: once set, the kernel refuses to move it
+# again until reboot. Prefer 2 unless you specifically want that lock.
+sysctl kernel.unprivileged_bpf_disabled=2
 
 # Verify setting persists across reboots
-echo "kernel.unprivileged_bpf_disabled=1" >> /etc/sysctl.d/99-ebpf-security.conf
+echo "kernel.unprivileged_bpf_disabled=2" >> /etc/sysctl.d/99-ebpf-security.conf
 
 # Check current setting
 sysctl kernel.unprivileged_bpf_disabled
@@ -446,15 +450,25 @@ uname -r
 
 # 2. Check if unprivileged eBPF is disabled
 sysctl kernel.unprivileged_bpf_disabled
-# Expected: kernel.unprivileged_bpf_disabled = 1
+# Expected: 2 on a modern distro kernel, which is the hardened state.
+#   0 = unprivileged eBPF allowed
+#   1 = disabled, and LOCKED -- no transition out of it without a reboot
+#   2 = disabled, set by CONFIG_BPF_UNPRIV_DEFAULT_OFF (default y upstream),
+#       and still changeable by an admin
+# A box reporting 2 is already correct. Do not "fix" it to 1 unless you
+# specifically want the one-way lock.
 
 # 3. Verify eBPF JIT hardening enabled
 sysctl net.core.bpf_jit_harden
 # Expected: net.core.bpf_jit_harden = 2 (hardening for all users; 1 would cover unprivileged users only). Note this costs JIT performance on your own monitoring programs too
 
-# 4. Check available eBPF capabilities
+# 4. Check that unprivileged user namespaces are restricted
 cat /proc/sys/kernel/apparmor_restrict_unprivileged_userns
-# Expected: 0 (user namespaces disabled, prevents container escape)
+# Expected: 1 -- the RESTRICTION IS ON. This is the Ubuntu 23.10+ default.
+# 0 means unprivileged user namespaces are unrestricted, which is the
+# weaker setting. An earlier version of this post had these backwards and
+# told you to expect 0; following that on a correctly-configured machine
+# would have had you turn the protection off.
 
 # 5. Audit eBPF program usage
 bpftool prog show

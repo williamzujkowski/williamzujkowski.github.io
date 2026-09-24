@@ -48,12 +48,26 @@ curl -sSL https://install.pi-hole.net | bash
 # Add custom blocklists for security. Register them as adlists rather than
 # dropping files into /etc/pihole by hand -- gravity rebuilds from the adlist
 # table, so a stray file there is ignored.
-pihole -a adlist add https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/malware
-pihole -a adlist add https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/Phishing-Angriffe
+#
+# CORRECTION: `pihole -a adlist add ...` was the v5 syntax and it is GONE in
+# Pi-hole v6 (released 2025-02-18). v6's argument dispatch has no `-a` case,
+# so the call falls through to `*) helpFunc`, which prints help and EXITS 0.
+# You see a success status, run `pihole -g`, and have added nothing. This is
+# the worst shape a broken command can take: it reports success.
+#
+# On v6, add lists through the web UI (Lists page) or the REST API:
+#   POST /api/lists   {"address": "<url>", "type": "block"}
+# On v5, the original form still works:
+#   pihole -a adlist add <url>
 
-# Update gravity database
+# Update gravity database (unchanged in v6)
 pihole -g
 ```
+
+Check which you are on before copying either form -- `pihole -v`. The two
+blocklists themselves are still live and still worth adding:
+`https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/malware`
+and `.../Blocklisten/Phishing-Angriffe`.
 
 ### Enhancements I Added
 

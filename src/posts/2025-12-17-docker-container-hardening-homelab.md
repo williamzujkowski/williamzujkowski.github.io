@@ -349,8 +349,32 @@ worse than having no rule at all.
 The chain Docker guarantees is evaluated before its own rules is `DOCKER-USER`:
 
 ```bash
-# Block container-to-host SSH
+# Block container-to-container / container-to-external traffic.
+# DOCKER-USER is jumped to from FORWARD, so it sees ROUTED packets.
+iptables -I DOCKER-USER -i docker0 -d 10.0.0.0/8 -j DROP
+```
+
+And immediately, the trap this post just warned about, in the other
+direction. An earlier version of this section put the container-to-**host**
+SSH block here:
+
+```bash
+# WRONG — this rule never sees the packet
 iptables -I DOCKER-USER -i docker0 -p tcp --dport 22 -j DROP
+```
+
+`DOCKER-USER` is reached only from `FORWARD`. A container connecting to the
+host's own address is **locally delivered**, so it traverses `INPUT` and
+never touches `FORWARD` at all. Measured: with that rule in place a container
+still connected to a host listener, and the `FORWARD -> DOCKER-USER` counter
+did not move. It is exactly the failure described two paragraphs above —
+a rule that reads as a control and is not one — and I shipped it anyway.
+
+Container-to-host belongs in `INPUT`:
+
+```bash
+# Block container-to-host SSH (INPUT, not DOCKER-USER)
+iptables -I INPUT -i docker0 -p tcp --dport 22 -j DROP
 ```
 
 Note also what Docker networks can and cannot express. Containers on the same

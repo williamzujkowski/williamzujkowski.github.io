@@ -129,7 +129,7 @@ Recovery codes are critical. Without them, device loss means account lockout.
 
 **Encrypted TOTP seed storage:** Your authenticator app's TOTP seeds should be backed up separately from Bitwarden. If you lose your phone AND master password simultaneously, recovery codes won't help if they're stored in the vault you can't access.
 
-**Recommended approach:** Export TOTP seeds from your authenticator app (Aegis supports encrypted exports, Google Authenticator does not). Encrypt the export with GPG using `gpg --symmetric --cipher-algo AES256 totp-seeds.txt > totp-backup.gpg`. Store encrypted backups in three locations: fireproof safe (home), bank safety deposit box (offsite), and encrypted cloud storage (Backblaze B2, separate passphrase from Bitwarden). Never store the decryption passphrase with the encrypted file. Test recovery quarterly by decrypting backup and importing to a test device to verify all TOTP codes work.
+**Recommended approach:** Export TOTP seeds from your authenticator app (Aegis supports encrypted exports, Google Authenticator does not). Encrypt the export with GPG using `gpg --symmetric --cipher-algo AES256 --output totp-backup.gpg totp-seeds.txt`. Use `--output`, not a shell redirect: `gpg ... totp-seeds.txt > totp-backup.gpg` writes the ciphertext to `totp-seeds.txt.gpg` and leaves `totp-backup.gpg` **zero bytes**, with exit status 0. The failure is silent, and what it silently produces is an empty disaster-recovery file. Check `ls -l` before you trust it. Store encrypted backups in three locations: fireproof safe (home), bank safety deposit box (offsite), and encrypted cloud storage (Backblaze B2, separate passphrase from Bitwarden). Never store the decryption passphrase with the encrypted file. Test recovery quarterly by decrypting backup and importing to a test device to verify all TOTP codes work.
 
 ### Backup Key Management (MODERATE)
 
@@ -168,18 +168,27 @@ echo "Primary 2FA Recovery: XXXX-XXXX-XXXX-XXXX-XXXX-XXXX" | gpg --symmetric --c
 
 #### Master Password Loss Scenarios
 
-**Scenario 1: Master password forgotten, 2FA device available**
-- **Impact:** CANNOT recover master password (zero-knowledge encryption)
-- **Solution:** Use 2FA recovery code to access vault, immediately export all passwords, create new vault with new master password, import passwords, update all recovery codes
-- **Time to recovery:** 2-4 hours (export + reimport + reconfigure)
+A correction, because the original version of this section got it
+backwards and the mistake is the kind that only shows up on the day you
+need it: **a two-step recovery code is not a master-password bypass.**
+Bitwarden's own page asks for "your email address, master password, and
+recovery code" -- the code disables two-step login so you can get past a
+lost authenticator. It does nothing about a forgotten master password.
 
-**Scenario 2: Master password forgotten, 2FA device lost, have recovery codes**
-- **Impact:** Can log in with recovery code, but still cannot recover master password
-- **Solution:** Same as Scenario 1 (export + rebuild)
-- **Time to recovery:** 2-4 hours
+So the scenarios split on the master password, not on the 2FA device:
+
+**Scenario 1: 2FA device lost, master password known**
+- **Impact:** Locked out of login until two-step is cleared
+- **Solution:** Log in with email + master password + recovery code, then re-enrol a new authenticator
+- **Time to recovery:** minutes
+
+**Scenario 2: Master password forgotten, 2FA device available**
+- **Impact:** TOTAL DATA LOSS. Zero-knowledge encryption means the vault cannot be decrypted without it, and no recovery code changes that
+- **Solution:** none for the existing vault. Your only outs are an export you made earlier, or Emergency Access granted to a trusted contact **before** the loss
+- **Time to recovery:** n/a -- this is the case the backups exist for
 
 **Scenario 3: Master password forgotten, 2FA device lost, NO recovery codes**
-- **Impact:** TOTAL DATA LOSS (permanent lockout)
+- **Impact:** TOTAL DATA LOSS (permanent lockout) -- same as Scenario 2, since the recovery code was never the thing standing between you and the vault
 - **Solution:** Restore from backup export file (if you have one)
 - **Time to recovery:** N/A if no backup exists
 
@@ -302,8 +311,9 @@ curl -X POST https://test-vault.local/identity/connect/token \
 # 3. Test encrypted export decryption
 bw import encrypted_json backup.json.enc --password "$BACKUP_PASSWORD"
 
-# 4. Verify 2FA recovery code works
-# Log out, log in with recovery code instead of TOTP
+# 4. Verify the 2FA recovery code works
+# Log out, then log in with email + MASTER PASSWORD + recovery code.
+# The code replaces the TOTP step, not the password.
 
 # 5. Test emergency access workflow
 # Initiate emergency access request, verify notification received
@@ -316,7 +326,7 @@ echo "$(date): Backup validation PASSED/FAILED" >> backup-validation-log.txt
 
 ### Admin Panel Security (CRITICAL)
 
-**The Problem:** Vaultwarden enables an admin panel at `/admin` by default. Without proper configuration, anyone who discovers this endpoint can access server settings, disable security features, and view administrative information.
+**The Problem:** Vaultwarden serves an admin panel at `/admin`. It is *not* on by default -- with no `ADMIN_TOKEN` set, the panel is disabled outright. The risk comes from the two ways of turning it on: setting a weak `ADMIN_TOKEN`, or setting `DISABLE_ADMIN_TOKEN=true`, which leaves the panel serving with no authentication at all. Anyone who then discovers the endpoint can change server settings, disable security features, and read administrative information.
 
 **Why it matters:** An exposed admin panel is a critical vulnerability for internet-facing deployments. The risk severity depends on your deployment:
 - **Internet-exposed:** CRITICAL (CVE-waiting-to-happen)
@@ -328,8 +338,15 @@ echo "$(date): Backup validation PASSED/FAILED" >> backup-validation-log.txt
 ```yaml
 environment:
   - ADMIN_TOKEN=${ADMIN_TOKEN}
-  - DISABLE_ADMIN_TOKEN=false  # Optional: Disable after initial setup
-  # - ADMIN_TOKEN="" # Completely disables admin panel (recommended after configuration)
+  # Leave DISABLE_ADMIN_TOKEN unset. Setting it to `true` does NOT disable
+  # the admin panel -- it disables the panel's AUTHENTICATION. Vaultwarden's
+  # own .env.template: "Enable this to bypass the admin panel security. This
+  # option is only meant to be used with the use of a separate auth layer in
+  # front." Set it true without that auth layer and /admin is open to anyone
+  # who finds it.
+  #
+  # To actually turn the panel off, leave ADMIN_TOKEN unset:
+  # - ADMIN_TOKEN=""
 ```
 
 **Generate secure admin token:**
