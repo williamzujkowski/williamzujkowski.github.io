@@ -452,4 +452,4 @@ Zero Trust is a journey. Start with current posture assessment, identify high-im
 
 11. **[NSA Embracing Zero Trust Security Model](https://media.defense.gov/2021/Feb/25/2002588479/-1/-1/0/CSI_EMBRACING_ZT_SECURITY_MODEL_UOO115131-21.PDF)** - National Security Agency, February 2021. Guidance for implementing Zero Trust in environments facing advanced persistent threats and nation-state actors.
 
-12. **[OWASP Application Security Verification Standard (ASVS)](https://owasp.org/www-project-application-security-verification-standard/)** - OWASP Foundation, 2024. Security verification requirements for modern applications supporting Zero Trust application layer controls.
+12. **[OWASP Application Security Verification Standard (ASVS)](https://owasp.org/ASVS/)** - OWASP Foundation, 2024. Security verification requirements for modern applications supporting Zero Trust application layer controls.
