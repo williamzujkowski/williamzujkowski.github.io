@@ -39,14 +39,10 @@ Comprehensive link validation infrastructure for maintaining citation quality an
    - Creates action plans for fixes
    - Produces manual review queues
 
-7. **batch-link-fixer.py**
-   - Orchestrates entire validation pipeline
-   - Applies repairs based on confidence thresholds
-   - Creates backups before modifications
 
 ## Quick Start
 
-Current post count: **92**.
+Current post count: **97**.
 
 ### 1. Extract Links
 ```bash
@@ -91,31 +87,17 @@ python scripts/link-validation/link-report-generator.py \
 ```
 
 ### 5. Apply Fixes
-```bash
-# Dry run to see changes
-python scripts/link-validation/batch-link-fixer.py \
-  --repairs repairs.json \
-  --confidence-threshold 90 \
-  --dry-run
 
-# Apply high-confidence fixes
-python scripts/link-validation/batch-link-fixer.py \
-  --repairs repairs.json \
-  --confidence-threshold 90 \
-  --apply \
-  --posts-dir src/posts
-```
+By hand. `reports/repairs.json` is a list of *suggestions*; read it and edit
+the posts yourself.
 
-## Full Pipeline
-
-Run the complete validation and repair pipeline:
-
-```bash
-# One command to rule them all
-python scripts/link-validation/batch-link-fixer.py \
-  --posts-dir src/posts \
-  --confidence-threshold 90
-```
+Automated application was removed in #495 after the repair job ran for months
+without ever opening a PR while carrying three reproduced markdown-corruption
+modes. The driver that remained after that, `batch-link-fixer.py`, was deleted
+too: nothing invoked it, one of its pipeline steps shelled out to a script that
+does not exist, every step failure was swallowed as a warning before it printed
+"Pipeline completed successfully", and -- contrary to what this file used to
+say -- it wrote to `src/posts/` by default.
 
 ## Continuous Monitoring
 
@@ -123,7 +105,6 @@ python scripts/link-validation/batch-link-fixer.py \
 The `.github/workflows/link-monitor.yml` workflow:
 - Runs daily link health checks
 - Validates links on pull requests
-- Auto-fixes high-confidence repairs
 - Creates issues for critical problems
 
 ### Local Check

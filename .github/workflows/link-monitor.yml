@@ -231,5 +231,9 @@ jobs:
   #
   # Detection and reporting above are kept -- they are the part that worked.
   # Repair is a human step now: read reports/ from the uploaded artifact.
-  # scripts/link-validation/batch-link-fixer.py is retained for manual,
-  # supervised use and still defaults to a dry run.
+  #
+  # batch-link-fixer.py, the driver this note used to say was "retained for
+  # manual, supervised use and still defaults to a dry run", is deleted. It
+  # did not default to a dry run: `dry_run` defaulted to False, `--dry-run`
+  # was opt-in, and the documented bare invocation ran the full pipeline
+  # ending in an unconditional apply_repairs() against src/posts/.

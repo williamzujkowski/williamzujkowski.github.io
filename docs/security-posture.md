@@ -12,12 +12,18 @@ Last reviewed: 2026-09-12 (issue #505).
 
 A static personal blog built with Astro and served from GitHub Pages. No
 authentication, no cookies, no forms, no user-generated content, no
-state-changing endpoints. Posts are written by the author and by automated
-pipelines in this repo (the link-monitor auto-repair workflow opens PRs against
-`src/posts/**`).
+state-changing endpoints. Posts are written by the author, with drafting help
+from AI agents working in this repo.
 
-That last point matters more than "single author" suggests, and it is the reason
-the sanitizer below is worth having.
+No workflow writes to `src/posts/**` any more -- the link-monitor auto-repair
+job was removed in #495 and its driver deleted -- so the earlier version of
+this paragraph, which justified the sanitizer by pointing at that workflow,
+described a pipeline that no longer exists.
+
+The sanitizer is still worth having, for a reason that survived: post markdown
+is machine-drafted, and `link-monitor.yml` runs the extractor over
+`src/posts/**` on pull requests, including from forks. Content nobody wrote by
+hand reaches the renderer either way.
 
 ---
 
