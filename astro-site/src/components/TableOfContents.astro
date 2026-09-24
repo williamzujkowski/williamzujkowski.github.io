@@ -50,10 +50,10 @@ const showToc = filteredHeadings.length >= 3;
       </details>
       <script is:inline>
         (function () {
-          var s = document.currentScript;
-          var details = s && s.parentElement && s.parentElement.querySelector('details');
+          const s = document.currentScript;
+          const details = s && s.parentElement && s.parentElement.querySelector('details');
           if (!details || !window.matchMedia) return;
-          var mq = window.matchMedia('(min-width: 80rem)');
+          const mq = window.matchMedia('(min-width: 80rem)');
           function sync(e) { details.open = e.matches; }
           sync(mq);
           if (mq.addEventListener) mq.addEventListener('change', sync);

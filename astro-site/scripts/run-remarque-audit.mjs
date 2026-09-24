@@ -88,7 +88,7 @@ for (const line of lines) {
   // not the --src walk) — that shape alone makes them structurally
   // ineligible for baseline suppression; the check below is an explicit,
   // redundant guarantee of that rule.
-  const srcScanMatch = line.match(/^  ✗ (\S+):(\d+) (.+)/);
+  const srcScanMatch = line.match(/^ {2}✗ (\S+):(\d+) (.+)/);
 
   if (!line.startsWith('  ✗')) {
     console.log(line);

@@ -72,7 +72,7 @@
  *           bottom rule replaces the masthead's functional border)
  */
 import { createServer } from 'node:http';
-import { oklchToSrgb255, relLum255, contrastFromLum, TRANSFER_FN_SOURCE } from './lib/color.mjs';
+import { oklchToSrgb255, relLum255, contrastFromLum } from './lib/color.mjs';
 import { readFile, stat } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { extname, join, dirname, resolve } from 'node:path';

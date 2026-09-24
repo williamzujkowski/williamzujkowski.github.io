@@ -2,7 +2,11 @@
   import { onMount, tick } from 'svelte';
 
   interface PagefindResult {
-    id: string;
+    // NOTE: no `id` here. Pagefind puts `id` on the search-result WRAPPER
+    // (see PagefindResponse below), not on what its data() resolves to.
+    // This interface used to declare one, which typechecked fine and was
+    // undefined at runtime -- keying the results list on it gave every row
+    // the same `undefined` key and Svelte rendered nothing.
     url: string;
     excerpt: string;
     meta: {
@@ -316,7 +320,7 @@
 
       {#if results.length > 0}
         <ul bind:this={resultsEl} class="search-results">
-          {#each results as result}
+          {#each results as result (result.url)}
             <li>
               <a href={result.url} class="search-result-link" onclick={close}>
                 <div class="search-result-title">
@@ -324,6 +328,17 @@
                 </div>
                 {#if result.excerpt}
                   <div class="search-result-excerpt">
+                    <!--
+                      Pagefind builds this excerpt from OUR OWN built HTML at
+                      index time, escaping the text and injecting only <mark>
+                      around the match. What reaches it has already been
+                      through rehype-sanitize during the build
+                      (astro.config.mjs). Same trust chain as the JSON-LD
+                      set:html in BaseLayout: our output, not a visitor's
+                      input. There is no request-time path for a third party
+                      to influence this string.
+                    -->
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     {@html result.excerpt}
                   </div>
                 {/if}

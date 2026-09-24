@@ -304,7 +304,7 @@
   <section class="po-strip">
     <h2 class="po-h po-h--strip">System status</h2>
     <ul class="po-status">
-      {#each statusComponents as c}
+      {#each statusComponents as c (c.name)}
         <li class="po-status-row po-state--{c.state}">
           <span class="po-status-dot"></span>
           <span class="po-status-name">{c.name}</span>
@@ -318,7 +318,7 @@
     <section class="po-strip">
       <h2 class="po-h po-h--strip">Recent incidents</h2>
       <ul class="po-log">
-        {#each incidents as i}
+        {#each incidents as i (i.text)}
           <li><span class="po-sev po-sev--{i.sev.split('-')[1]}">{i.sev}</span> {i.text}</li>
         {/each}
       </ul>
@@ -327,7 +327,7 @@
     <section class="po-strip">
       <h2 class="po-h po-h--strip">Changelog</h2>
       <ul class="po-log">
-        {#each changelog as c}
+        {#each changelog as c (c.v)}
           <li><span class="po-ver">{c.v}</span> {c.text}</li>
         {/each}
       </ul>
@@ -335,7 +335,7 @@
   </div>
 
   <footer class="po-legal">
-    {#each legalese as line}<span>{line}</span>{/each}
+    {#each legalese as line (line)}<span>{line}</span>{/each}
   </footer>
 </div>
 

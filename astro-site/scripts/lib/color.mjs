@@ -49,7 +49,7 @@ export function oklchToSrgb255(L, C, h) {
 export const TRANSFER_FN_SOURCE =
   '(v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4)';
 
-// eslint-disable-next-line no-eval
+ 
 const transfer = eval(TRANSFER_FN_SOURCE);
 
 /** WCAG relative luminance from an [r,g,b] triple in 0-255. */

@@ -73,35 +73,35 @@
 <script is:inline>
   (function () {
     // An explicit choice applies for this page even when persistence fails.
-    var themeOverride;
+    let themeOverride;
 
     // localStorage can throw (blocked cookies, some private modes) — treat
     // failed reads as "no stored preference" and skip failed writes.
     function storedTheme() {
       if (themeOverride !== undefined) return themeOverride;
-      try { return localStorage.theme; } catch (e) { return undefined; }
+      try { return localStorage.theme; } catch { return undefined; }
     }
     function storeTheme(value) {
       themeOverride = value;
       try {
         if (value === null) localStorage.removeItem('theme');
         else localStorage.theme = value;
-      } catch (e) { /* no persistence */ }
+      } catch { /* no persistence */ }
     }
 
     function isDark() {
-      var root = document.documentElement;
+      const root = document.documentElement;
       if (root.hasAttribute('data-theme-deck')) return root.classList.contains('dark');
-      var t = storedTheme();
+      const t = storedTheme();
       if (t === 'dark') return true;
       if (t === 'light') return false;
       return window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
 
     function applyTheme() {
-      var root = document.documentElement;
-      var dark = isDark();
-      var t = storedTheme();
+      const root = document.documentElement;
+      const dark = isDark();
+      const t = storedTheme();
 
       // When a deck theme is active it OWNS the mode class: BaseLayout's head
       // script sets data-theme-deck plus dark/light from the stored
@@ -111,7 +111,7 @@
       // ("switch to dark") on a page rendering a dark palette, and silently
       // breaking anything keyed on :root.dark. Issue #500.
       if (root.hasAttribute('data-theme-deck')) {
-        var btnDeck = document.getElementById('theme-toggle');
+        const btnDeck = document.getElementById('theme-toggle');
         if (btnDeck) {
           btnDeck.setAttribute(
             'aria-label',
@@ -126,7 +126,7 @@
       else if (t === 'light') root.classList.add('light');
       // If no localStorage, CSS @media handles it
 
-      var btn = document.getElementById('theme-toggle');
+      const btn = document.getElementById('theme-toggle');
       if (btn) {
         btn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
       }
@@ -140,7 +140,7 @@
     // timeout here too avoids pointless work for those users.
     function triggerCrossfade() {
       if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var root = document.documentElement;
+      const root = document.documentElement;
       // Single pending cleanup: rapid switches must not strip the class early.
       if (window.__themeFadeT) clearTimeout(window.__themeFadeT);
       root.classList.add('theme-transition');
@@ -150,14 +150,14 @@
 
     function toggle(e) {
       // Toggle the palette the reader sees, before clearing its deck state.
-      var dark = isDark();
+      const dark = isDark();
       triggerCrossfade();
 
       // The base toggle always exits any active deck theme — the two systems
       // never fight over the root classes.
       if (document.documentElement.hasAttribute('data-theme-deck')) {
         document.documentElement.removeAttribute('data-theme-deck');
-        try { localStorage.removeItem('themeDeck'); } catch (err) { /* no persistence */ }
+        try { localStorage.removeItem('themeDeck'); } catch { /* no persistence */ }
         document.dispatchEvent(new CustomEvent('theme-deck-cleared'));
       }
 
@@ -176,10 +176,10 @@
       applyTheme();
       document.addEventListener('theme-deck-changed', applyTheme);
       // CSS follows OS changes immediately; keep the action label alongside it.
-      var systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
       if (systemTheme.addEventListener) systemTheme.addEventListener('change', applyTheme);
       else systemTheme.addListener(applyTheme);
-      var btn = document.getElementById('theme-toggle');
+      const btn = document.getElementById('theme-toggle');
       if (btn) btn.addEventListener('click', toggle);
     }
 

@@ -218,18 +218,18 @@ const lightThemes = themes.filter((t) => !t.isDark);
 
 <script is:inline>
   (function () {
-    var DECK_KEY = 'themeDeck';
+    const DECK_KEY = 'themeDeck';
 
     // localStorage can throw (blocked cookies, some private modes) — the
     // picker must keep working without persistence.
     function storageGet(key) {
-      try { return localStorage.getItem(key); } catch (e) { return null; }
+      try { return localStorage.getItem(key); } catch { return null; }
     }
     function storageSet(key, value) {
-      try { localStorage.setItem(key, value); } catch (e) { /* no persistence */ }
+      try { localStorage.setItem(key, value); } catch { /* no persistence */ }
     }
     function storageRemove(key) {
-      try { localStorage.removeItem(key); } catch (e) { /* no persistence */ }
+      try { localStorage.removeItem(key); } catch { /* no persistence */ }
     }
 
     // Theme crossfade (issue #274 item 3) — armed ONLY on a deliberate deck
@@ -239,7 +239,7 @@ const lightThemes = themes.filter((t) => !t.isDark);
     // shared because both scripts are `is:inline` (no module bundling).
     function triggerCrossfade() {
       if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var root = document.documentElement;
+      const root = document.documentElement;
       // Single pending cleanup: rapid switches must not strip the class early.
       if (window.__themeFadeT) clearTimeout(window.__themeFadeT);
       root.classList.add('theme-transition');
@@ -249,7 +249,7 @@ const lightThemes = themes.filter((t) => !t.isDark);
 
     function applyDeck(slug, isDark) {
       triggerCrossfade();
-      var root = document.documentElement;
+      const root = document.documentElement;
       if (slug) {
         root.setAttribute('data-theme-deck', slug);
         // A deck theme is a complete palette: pin the base mode to match so
@@ -274,10 +274,10 @@ const lightThemes = themes.filter((t) => !t.isDark);
       if (active === undefined) {
         active = (storageGet(DECK_KEY) || '').split('|')[0];
       }
-      var current = document.getElementById('theme-deck-current');
-      var activeName = 'Remarque';
+      const current = document.getElementById('theme-deck-current');
+      let activeName = 'Remarque';
       document.querySelectorAll('.deck-option').forEach(function (btn) {
-        var checked = (btn.getAttribute('data-deck-slug') || '') === active;
+        const checked = (btn.getAttribute('data-deck-slug') || '') === active;
         btn.setAttribute('aria-checked', checked ? 'true' : 'false');
         // Roving tabindex per the ARIA radio-group pattern: one Tab stop.
         btn.setAttribute('tabindex', checked ? '0' : '-1');
@@ -288,7 +288,7 @@ const lightThemes = themes.filter((t) => !t.isDark);
       if (current) current.textContent = activeName;
     }
 
-    var options = Array.prototype.slice.call(document.querySelectorAll('.deck-option'));
+    const options = Array.prototype.slice.call(document.querySelectorAll('.deck-option'));
     options.forEach(function (btn) {
       btn.addEventListener('click', function () {
         applyDeck(
@@ -298,22 +298,22 @@ const lightThemes = themes.filter((t) => !t.isDark);
       });
     });
 
-    var panel = document.querySelector('.deck-panel');
+    const panel = document.querySelector('.deck-panel');
     if (panel) {
       panel.addEventListener('keydown', function (e) {
-        var delta = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+        const delta = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
         if (!delta) return;
-        var i = options.indexOf(document.activeElement);
+        const i = options.indexOf(document.activeElement);
         if (i === -1) return;
         e.preventDefault();
-        var next = options[(i + delta + options.length) % options.length];
+        const next = options[(i + delta + options.length) % options.length];
         next.focus();
         next.click(); // arrow moves selection, matching native radio behavior
       });
     }
 
     // Header popover manners: close on outside click or Escape.
-    var deck = document.getElementById('theme-deck');
+    const deck = document.getElementById('theme-deck');
     if (deck) {
       document.addEventListener('click', function (e) {
         if (deck.open && !deck.contains(e.target)) deck.open = false;
@@ -341,17 +341,17 @@ const lightThemes = themes.filter((t) => !t.isDark);
     // which is why returning to Remarque gave a different mode before and
     // after a reload.
     (function validateStoredDeck() {
-      var root = document.documentElement;
-      var slug = (storageGet(DECK_KEY) || '').split('|')[0];
+      const root = document.documentElement;
+      const slug = (storageGet(DECK_KEY) || '').split('|')[0];
       if (!slug) return;
-      var known = document.querySelector('.deck-option[data-deck-slug="' + slug + '"]');
+      const known = document.querySelector('.deck-option[data-deck-slug="' + slug + '"]');
       if (known) return;
 
       root.removeAttribute('data-theme-deck');
       storageRemove(DECK_KEY);
       root.classList.remove('dark', 'light');
-      var base = null;
-      try { base = localStorage.getItem('theme'); } catch (err) { /* no persistence */ }
+      let base = null;
+      try { base = localStorage.getItem('theme'); } catch { /* no persistence */ }
       if (base === 'dark') root.classList.add('dark');
       else if (base === 'light') root.classList.add('light');
       // else: no stored preference — the CSS @media query decides.
