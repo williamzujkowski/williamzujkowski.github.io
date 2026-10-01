@@ -79,12 +79,12 @@ I deployed both SIEMs in parallel to compare real-world performance. Infrastruct
 **Wazuh deployment (Docker Compose):**
 
 ```bash
-# Download official Docker Compose
-curl -sO https://packages.wazuh.com/4.9/docker-compose.yml
+# Official single-node stack (Wazuh 4.9 Docker documentation)
+git clone https://github.com/wazuh/wazuh-docker.git -b v4.9.2
+cd wazuh-docker/single-node
 
-# Configure environment
-export WAZUH_MANAGER_RAM=4GB
-export WAZUH_INDEXER_RAM=4GB
+# Generate the self-signed certificates the stack expects
+docker-compose -f generate-indexer-certs.yml run --rm generator
 
 # Deploy stack
 docker-compose up -d
@@ -93,6 +93,15 @@ docker-compose up -d
 docker-compose ps
 curl -u admin:"$WAZUH_PASSWORD" https://localhost:9200/
 ```
+
+*Correction (October 2026):* an earlier version of this block downloaded
+`https://packages.wazuh.com/4.9/docker-compose.yml` with `curl -sO`. That URL
+answers 403 with an XML `AccessDenied` body, and without `--fail` curl saves the
+error as `docker-compose.yml` and exits 0. The block now follows the
+[Wazuh 4.9 Docker deployment guide](https://documentation.wazuh.com/4.9/deployment-options/docker/wazuh-container.html).
+It also exported `WAZUH_MANAGER_RAM` and `WAZUH_INDEXER_RAM`, which the
+[v4.9.2 single-node compose file](https://github.com/wazuh/wazuh-docker/blob/v4.9.2/single-node/docker-compose.yml)
+never reads; the indexer heap is set there by `OPENSEARCH_JAVA_OPTS`.
 
 **Wazuh components:**
 
