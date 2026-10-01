@@ -3,7 +3,7 @@ title: "The Repository Link That Points at Nobody"
 date: 2026-10-29
 draft: false
 author: William Zujkowski
-description: "In a random sample of declared repository links from npm, PyPI, RubyGems and Packagist, about one in seven answered an anonymous clone with GitHub's credentials prompt. For about a fifth of those, the GitHub account named in the link no longer existed."
+description: "About one declared repository link in seven no longer cloned anonymously, and for about a fifth of those the GitHub account it names no longer existed."
 tags:
   - security
   - supply-chain
