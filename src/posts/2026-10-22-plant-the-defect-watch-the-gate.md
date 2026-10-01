@@ -3,7 +3,7 @@ title: "Plant the Defect, Watch the Gate"
 date: 2026-10-22
 draft: false
 author: William Zujkowski
-description: "Mutation testing pointed at CI checks instead of code: plant a known defect, require the gate to go red, and put a floor under how much it examined. Seven mutations against this site's own required checks."
+description: "Mutation testing pointed at CI checks instead of code: plant a known defect, require the gate to go red, and put a floor under how much it examined."
 tags:
   - software-engineering
   - devops
@@ -78,8 +78,8 @@ Planting a defect shows the gate *can* fail. It says nothing about a run that ex
   <div class="flow-node is-gate"><b>Run the real entry point</b><i>the command CI runs, not a helper</i></div>
   <div class="flow-node is-gate"><b>Assert a floor</b><i>files, links or tests examined</i></div>
   <div class="flow-branch" role="group" aria-label="Outcomes">
-    <div class="flow-leg" data-branch="Fails on the defect" role="group" aria-label="Fails on the defect"><div class="flow-node is-good"><b>Mutant killed</b><i>green now carries information</i></div></div>
-    <div class="flow-leg" data-branch="Passes the defect" role="group" aria-label="Passes the defect"><div class="flow-node is-bad"><b>Mutant survived</b><i>the check is a label</i></div></div>
+    <div class="flow-leg" data-branch="Caught" role="group" aria-label="Caught"><div class="flow-node is-good"><b>Mutant killed</b><i>green now carries information</i></div></div>
+    <div class="flow-leg" data-branch="Missed" role="group" aria-label="Missed"><div class="flow-node is-bad"><b>Mutant survived</b><i>the check is a label</i></div></div>
   </div>
 </div>
 
