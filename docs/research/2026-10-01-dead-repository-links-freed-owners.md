@@ -127,3 +127,14 @@ aggregates do not already show. No research-labs worktree was created.
 | blog-argument-shape | completed | thesis: "For those packages, the field a scorer reads names an account that, on the day it was checked, nobody held." Type: experiment report + prior-art positioning. Strongest objection (404 ≠ claimable; retirement protects popular repos) answered in its own section. Close follows from the body. Disconfirming result named in the post (protocol's <10% line) |
 | blog-visuals | manual | one `.flow` (role/aria-label on root, branch legs mirrored), one Markdown table; doodle left as TODO for root; render not inspected in a browser |
 | blog-artifact-check | completed | linked artifacts are DRP files at an immutable commit (verified to exist); Scorecard code pinned to commit with line range verified; no gists, no config, no commands for readers to run |
+
+## Independent review (2026-10-01)
+
+Claude reviewer (read-only, separate context): READY-WITH-FIXES. Applied: Makrushin's per-registry
+figures (PyPI 352 vulnerable of 293,470 unique repositories; npm 74 of 1,031,884; 426 registry-derived
+of 1,363 total; "0.03%" overall), re-verified by root against makrushin.com/repojacking-github/ on
+2026-10-01, with the unit differences stated rather than reconciled; "failed to clone" narrowed to the
+auth-prompt failures (11 further GitHub links failed for other reasons, 131/800 in all); Checkmarx
+"three of the four known bypasses"; the PyPI-verification sentence no longer implies the run separated
+verified links; closing "not X, Y" cut. Rejected: mirroring the doodle. The arrow's point is on the
+right end, toward the lot, as intended.
