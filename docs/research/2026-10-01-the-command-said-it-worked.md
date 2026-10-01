@@ -1,9 +1,8 @@
 # "The Command Said It Worked": research note, October 1, 2026
 
 Post: `src/posts/2026-10-08-the-command-said-it-worked.md` (scheduled 2026-10-08,
-`draft: false`). Status: drafted, self-reviewed, built and audited; lab committed on
-an unpushed research-labs branch. The post links the lab at the placeholder
-`RESEARCH_LABS_COMMIT`, which must be replaced with the merged commit.
+`draft: false`). Status: drafted, self-reviewed, built and audited; lab merged as
+research-labs PR #4 (merge commit `ea153aa2d92af0a6c3ce408ac6f5277f179eebf0`), which the post links.
 
 Companion change on the same website branch: a separate commit corrects the Wazuh
 post's `curl -sO` download (`src/posts/2025-11-05-siem-homelab-wazuh-graylog-comparison.md`).

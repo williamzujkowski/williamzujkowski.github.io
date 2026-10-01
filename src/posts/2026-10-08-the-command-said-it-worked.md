@@ -13,9 +13,10 @@ tags:
 
 On September 24 I merged [a pull request](https://github.com/williamzujkowski/williamzujkowski.github.io/pull/658) that corrected eight defects across six posts on this site. Four of the eight share a shape. You copy the command, run it, and get exit status 0 and no error. Then you move on, because nothing told you not to, and whatever the command was meant to do has not happened. A fifth command of the same kind, in the Wazuh post, did not make it into that pull request. It is corrected alongside this one.
 
-This post is the catalogue, plus a [small lab](https://github.com/williamzujkowski/research-labs/tree/RESEARCH_LABS_COMMIT/labs/exit-status) that reproduces four of the five in a container. It ends with the habit I'd use to stop publishing more of them: before a command goes into a post, run it once in a situation where it has to fail, and watch whether it says so.
+This post is the catalogue, plus a [small lab](https://github.com/williamzujkowski/research-labs/tree/ea153aa2d92af0a6c3ce408ac6f5277f179eebf0/labs/exit-status) that reproduces four of the five in a container. It ends with the habit I'd use to stop publishing more of them: before a command goes into a post, run it once in a situation where it has to fail, and watch whether it says so.
 
-<!-- DOODLE: a smoke detector on a ceiling, its green status light cheerfully lit, battery compartment hanging open and empty; the battery sits on the table below next to a cup of tea -->
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/sad-extinguisher.png'); width: min(260px, 66%); aspect-ratio: 440/422; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">Inspected. Passed. Mostly decorative.</p>
 
 <div class="flow" role="group" aria-label="One exit status, two outcomes the reader cannot tell apart">
   <div class="flow-node">Reader runs the published command</div>
@@ -59,7 +60,7 @@ The same pull request fixed two inversions that belong to a different family. A 
 
 The lab runs each published shape beside a corrected form in a digest-pinned Debian container: no network, read-only root, no capabilities, non-root user. The curl cases hit a throwaway HTTP server on the container's loopback that returns a synthetic 403. The Pi-hole cases run upstream's dispatcher, fetched by commit and hash-checked, with the three helper files it sources replaced by empty stubs, so only the argument handling executes.
 
-The [October 1 run](https://github.com/williamzujkowski/research-labs/tree/RESEARCH_LABS_COMMIT/docs/evidence/exit-status-2026-10-01) used bash 5.2.37, GnuPG 2.4.7 and curl 8.14.1. All 17 cases matched their stated expectations:
+The [October 1 run](https://github.com/williamzujkowski/research-labs/tree/ea153aa2d92af0a6c3ce408ac6f5277f179eebf0/docs/evidence/exit-status-2026-10-01) used bash 5.2.37, GnuPG 2.4.7 and curl 8.14.1. All 17 cases matched their stated expectations:
 
 - `set -e; false | tee out.log; echo REACHED` printed `REACHED` and exited 0. With `pipefail` it exited 1.
 - The redirect left `backup.gpg` at 0 bytes and wrote 131 bytes to `seeds.txt.gpg`. Decrypting the empty file exited 2. With `--output`, the file held 131 bytes and decrypted to the original.
@@ -100,7 +101,7 @@ From a POSIX shell with Git and Docker:
 ```sh
 git clone https://github.com/williamzujkowski/research-labs.git
 cd research-labs
-git checkout RESEARCH_LABS_COMMIT
+git checkout ea153aa2d92af0a6c3ce408ac6f5277f179eebf0
 ./scripts/exit-status-lab.sh test
 mkdir -p results
 ./scripts/exit-status-lab.sh run > results/exit-status.json
