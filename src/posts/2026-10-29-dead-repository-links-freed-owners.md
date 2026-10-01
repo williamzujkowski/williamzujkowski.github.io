@@ -44,7 +44,7 @@ That ambiguity is where the [dangling-links protocol](https://github.com/william
 
 Across npm, PyPI and RubyGems, roughly one declared link in five or six hit that prompt. Of the 118 owners behind the 120 failing links, 25 returned 404. The point estimate is 21.2%, and at this sample size the 95% interval runs from about 15% to 29%, so "about a fifth" is as precise as the data allows.
 
-The roughly 3% figure needs one more step. Owners were de-duplicated before lookup, so the result counts owners, not links. With 120 links and 118 owners, the 25 missing owners account for somewhere between 25 and 27 links: 3.1% to 3.4% of the 800 declared links attempted. That range describes this draw, these four ecosystems and a snapshot from mid-August 2026. Namespaces are freed and taken every day.
+The roughly 3% figure needs one more step. Owners were de-duplicated before lookup, so the result counts owners rather than links. With 120 links and 118 owners, the 25 missing owners account for somewhere between 25 and 27 links: 3.1% to 3.4% of the 800 declared links attempted. That range describes this draw, these four ecosystems and a snapshot from mid-August 2026. Namespaces are freed and taken every day.
 
 ## "Nobody holds it" is not "anyone can take it"
 
@@ -76,7 +76,7 @@ None of the exposure is news, and the attack has a name. Ladisa and colleagues' 
 
 The closest match is Denis Makrushin's [2025 study](https://makrushin.com/repojacking-github/), which started from the public GitHub dataset and applied the same method to repositories referenced from PyPI and npm. It checked each username against GitHub's signup form and reported 1,363 repositories tied to 986 accounts eligible for re-registration, 426 of them referenced from PyPI or npm, and about 0.03% of everything analysed. That is a stronger test than mine: it measures availability, where this one stops at existence. It is also a far lower rate. His PyPI figure works out to 352 of 293,470 unique repositories, about 0.12%, against roughly 3% here. The units differ twice over. His count is names confirmed claimable, mine is owners merely missing. His denominator is unique repositories, each counted once however many packages point at it, while mine is uniformly drawn packages, which weights the abandoned long tail. I have not reconciled the two, and the gap is a reason to read my 3% as a property of a random package, not of the repositories people actually install from.
 
-What the dependency-risk-profiler run adds is narrower. It starts from a uniform draw of registry packages, carries the denominator through to declared links per ecosystem, and connects the result to tools that compute scores from the field. It is not the first sighting of the problem, and its denominator is packages, not repositories.
+What the dependency-risk-profiler run adds is narrower. It starts from a uniform draw of registry packages, carries the denominator through to declared links per ecosystem, and connects the result to tools that compute scores from the field. It is another sighting of the problem, with packages as its denominator where the earlier studies used repositories.
 
 ## Packagist, and why a low rate is not immunity
 

@@ -138,3 +138,5 @@ auth-prompt failures (11 further GitHub links failed for other reasons, 131/800 
 "three of the four known bypasses"; the PyPI-verification sentence no longer implies the run separated
 verified links; closing "not X, Y" cut. Rejected: mirroring the doodle. The arrow's point is on the
 right end, toward the lot, as intended.
+
+External review (agy, Gemini 3.1 Pro): arithmetic, sources and safety found sound; two X-not-Y phrasings rewritten. Kept the section heading "Nobody holds it" is not "anyone can take it": the contrast is the section's substantive claim, not a reflex.
