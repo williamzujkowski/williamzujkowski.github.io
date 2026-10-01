@@ -22,7 +22,8 @@ audited 216 packages in 7s
 
 Exit code 0 both times. Both malicious versions carry attestations, and none was reported invalid. The check was right: it verified that each tarball came from the pipeline its certificate names, and each one did.
 
-<!-- DOODLE: a pristine, wax-sealed shipping label on a crate, with a raccoon visibly inside the crate peering out through the slats; the seal is perfect, the contents are not -->
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/sealed-crate.png'); width: min(240px, 62%); aspect-ratio: 380/327; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">The seal is genuine. So is the raccoon.</p>
 
 ## What provenance was ever promised to mean
 
