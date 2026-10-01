@@ -1,6 +1,6 @@
 ---
 title: "The Repository Link That Points at Nobody"
-date: 2026-11-05
+date: 2026-10-29
 draft: false
 author: William Zujkowski
 description: "In a random sample of declared repository links from npm, PyPI, RubyGems and Packagist, about one in seven failed to clone. For about a fifth of those, the GitHub account named in the link no longer existed."

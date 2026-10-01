@@ -1,6 +1,6 @@
 # Research note: dead declared repository links and freed GitHub owners
 
-**Post:** `src/posts/2026-11-05-dead-repository-links-freed-owners.md` (slot 2026-11-05, `draft: false`)
+**Post:** `src/posts/2026-10-29-dead-repository-links-freed-owners.md` (slot 2026-10-29, `draft: false`)
 **Written:** 2026-10-01. **Kind:** reading/analysis post over an existing, already-merged
 measurement in William's public `dependency-risk-profiler` repo. No new experiment was
 run, and no third party was probed for this post (see "Lab" below).
