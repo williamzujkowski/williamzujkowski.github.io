@@ -1,6 +1,6 @@
 # Research note: plant the defect, watch the gate
 
-**Post:** `src/posts/2026-10-15-plant-the-defect-watch-the-gate.md` (slot 2026-10-15, `draft: false`; root has said the final date will be 2026-10-22 and will rename at integration)
+**Post:** `src/posts/2026-10-22-plant-the-defect-watch-the-gate.md` (slot 2026-10-22, `draft: false`; root has said the final date will be 2026-10-22 and will rename at integration)
 **Prepared:** 2026-10-01. **Repo revision experimented on:** `fc0c1eb3cdb251e295fb5c908122e07892358839` (main).
 **Type:** experiment report on this repository's own CI gates + reading of prior art.
 **Lab:** none. The experiments are one-off mutations of this repository's checks, not
@@ -92,7 +92,7 @@ examples would not exist. Experiments 1-4 below are the attempt; five of seven r
 
 ## Build and audit
 
-- `pnpm install --frozen-lockfile` ok; `PUBLICATION_AS_OF=2026-10-15T00:00:00Z pnpm build` exit 0; page and `/og/2026-10-15-plant-the-defect-watch-the-gate.png` generated.
+- `pnpm install --frozen-lockfile` ok; `PUBLICATION_AS_OF=2026-10-15T00:00:00Z pnpm build` exit 0; page and `/og/2026-10-22-plant-the-defect-watch-the-gate.png` generated.
 - `pnpm run audit` exit 0 (the inner "audit FAILED — 2 problem(s)" line is the two baselined `zine.css` false positives; the wrapper reports 0 real failures).
 - `pnpm test:unit` 56/56.
 
@@ -116,7 +116,7 @@ Experiment scripts were run from scratch (`<scratch>` below) against the worktre
 # Experiment 1: typography floor vs the token it is named after (#642 item 1).
 # Plants each mutation in the worktree, runs the gate, records exit codes, reverts.
 set -u
-WT=/tmp/claude-worktrees/da2f7ebc-4212eac9bf09
+WT=$WORKTREE
 cd "$WT/astro-site" || exit 2
 CSS=src/styles/global.css
 echo "HEAD $(git -C "$WT" rev-parse HEAD)  node $(node --version)  date $(date -u +%FT%TZ)"
@@ -204,7 +204,7 @@ run-remarque-audit exit=0
 #!/usr/bin/env bash
 # Experiment 2: mutate the audit scripts themselves; does `pnpm test:unit` notice? (#660)
 set -u
-WT=/tmp/claude-worktrees/da2f7ebc-4212eac9bf09
+WT=$WORKTREE
 cd "$WT/astro-site" || exit 2
 TYPO=scripts/typography-audit.mjs
 ACCENT=scripts/accent-font-audit.mjs
@@ -318,7 +318,7 @@ test:unit exit=1
 # Runs the exact command from .github/workflows/tests.yml:60, then deletes a
 # whole suite's test files and runs it again.
 set -u
-WT=/tmp/claude-worktrees/da2f7ebc-4212eac9bf09
+WT=$WORKTREE
 cd "$WT" || exit 2
 echo "HEAD $(git rev-parse HEAD)  date $(date -u +%FT%TZ)"
 CMD=(uv run --with pytest python -m pytest scripts/link-validation/tests/ scripts/ci/tests/ scripts/security-labs/ scripts/blog-audit/tests/ scripts/skills/tests/ -q -p no:cacheprovider)
@@ -360,7 +360,7 @@ pytest exit=0
 # runs, against a COPY of the posts in scratch; the repo is not modified.
 # No network is touched because zero URLs reach the validator.
 set -u
-WT=/tmp/claude-worktrees/da2f7ebc-4212eac9bf09
+WT=$WORKTREE
 S=<scratch>/exp4
 rm -rf "$S"; mkdir -p "$S/posts/2026"
 cd "$WT" || exit 2
@@ -385,7 +385,7 @@ Positive control:
 ```bash
 #!/usr/bin/env bash
 # Positive control for experiment 4: same extractor, flat src/posts.
-WT=/tmp/claude-worktrees/da2f7ebc-4212eac9bf09
+WT=$WORKTREE
 S=<scratch>
 cd "$WT" || exit 2
 echo "=== control: same extractor, flat src/posts"
@@ -424,7 +424,7 @@ link-extractor exit=0
 ```bash
 #!/usr/bin/env bash
 # Verify #644 item 4: commits that merged with the four required checks reporting skipped.
-cd /tmp/claude-worktrees/da2f7ebc-4212eac9bf09 || exit 2
+cd $WORKTREE || exit 2
 for c in 3cfaf5f 336f1a4 9588210; do
   full=$(git rev-parse "$c")
   echo "== $c $(git log -1 --format=%s "$c")"
