@@ -157,3 +157,7 @@ candidate level as above. Proposal drafts (`proposal-1-tpm-event-log.md`, `propo
 Abstract-only for leads 3–8; title-only for 9–12. No Keylime or other appraiser examined.
 No VM, firmware or interposer, so nothing here replicates TPMSpy. Apt packages are
 version-pinned but not snapshot-pinned. One machine, linux/amd64.
+
+## Follow-through
+
+Proposal 1 filed as [#665](https://github.com/williamzujkowski/williamzujkowski.github.io/issues/665); the lab branch is pushed unmerged as evidence. Proposal 2 is not filed: its counterfactual-oracle lesson overlaps the October mutation-testing post, which may cite the paper as related work instead.
