@@ -83,7 +83,7 @@ Planting a defect shows the gate *can* fail. It says nothing about a run that ex
   </div>
 </div>
 
-The unit-test wrapper already has a floor, and its history shows how a floor goes soft. `MIN_TESTS` was 42 against 48 real tests. #652 recorded that seven of the ten test files could have been deleted with the floor still green, including the three files that exist as non-vacuity guards. It sat at the exact count, 56, when these mutations ran, and went to 62 the day a new suite landed: a ratchet, not a target.
+The unit-test wrapper already has a floor, and its history shows how a floor goes soft. `MIN_TESTS` was 42 against 48 real tests. #652 recorded that seven of the ten test files could have been deleted with the floor still green, including the three files that exist as non-vacuity guards. It sat at the exact count, 56, when these mutations ran, and went to 62 the day a new suite landed. It only ever moves up.
 
 The siblings have no floor. [#644](https://github.com/williamzujkowski/williamzujkowski.github.io/issues/644) lists them: the Playwright config does not set `forbidOnly`, so one stray `test.only` collapses the browser suite to a single green test, and pytest fails on zero collected tests only across *all* paths, which is how the deletion in the table lost 41 tests without complaint. The link pipeline ([#645](https://github.com/williamzujkowski/williamzujkowski.github.io/issues/645)) uses a non-recursive glob. Against the flat directory, the extractor found 1,544 links in 97 files. Against the same 97 posts one level down, it found nothing, and the validator and summary agreed there was nothing wrong with nothing.
 

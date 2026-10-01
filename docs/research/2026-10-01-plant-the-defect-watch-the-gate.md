@@ -483,3 +483,5 @@ the tool; the audit's coverage of literal violations stated precisely; Chen §5.
 "#516 fixed most of those"; branch labels renamed because `.flow-leg::before` takes its colour from the
 child node (Red rendered in success colour); duplicate "matters as much" and the X-not-Y line cut;
 #642 "proposes". Optional promtool prior art not added.
+
+External review (agy, Gemini 3.1 Pro): forbidOnly duplicate (already fixed); "ratchet, not a target" X-not-Y line rewritten. Rejected: "blocker" that the skipped-check sentence is an attack recipe. The behaviour is documented by GitHub, already public in #644, and a crash in `changes` reports a visible failure; the sentence explains a gate property, not a bypass.
