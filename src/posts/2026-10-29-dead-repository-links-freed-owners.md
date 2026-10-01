@@ -15,7 +15,8 @@ Most package registries let a publisher type in a source repository URL. npm cal
 
 In August that project ran a small, deliberately polite measurement. Take declared GitHub links that no longer clone. Ask GitHub one question about each: does the account in the URL still exist? For 25 of 118 distinct owners, the answer was no. That is about a fifth of the dead links, and roughly 3% of all the declared links sampled. For those packages, the field a scorer reads names an account that, on the day it was checked, nobody held.
 
-<!-- DOODLE: a signpost nailed to a fence post, its arrow pointing confidently at an empty, overgrown lot where a house used to stand; a blank sign stake leaning in the weeds -->
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/dead-link.png'); width: min(300px, 72%); aspect-ratio: 520/287; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">The sign still sounds very sure of itself.</p>
 
 ## Where the numbers come from
 
