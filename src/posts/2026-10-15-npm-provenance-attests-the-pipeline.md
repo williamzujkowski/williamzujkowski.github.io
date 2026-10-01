@@ -1,6 +1,6 @@
 ---
 title: "Provenance Attests the Pipeline, Not the Intent"
-date: 2026-10-22
+date: 2026-10-15
 draft: false
 author: William Zujkowski
 description: "Three 2026 npm compromises shipped malware with valid provenance. Only one of them is visible in the signed fields, and a fourth shows what provenance does catch."
