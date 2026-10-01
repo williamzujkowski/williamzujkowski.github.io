@@ -15,7 +15,8 @@ A pnpm override is one line in `package.json` that tells the package manager to 
 
 The line sits in `package.json`, where it is easy to read and review. The decision it makes is recorded in `pnpm-lock.yaml`, a file that Dependabot rewrites every week. Since the override arrived, every Dependabot lockfile in this repository has lost it in two ways. One fails every check that installs dependencies. The other moves satori back to the vulnerable version, and no error mentions it.
 
-<!-- DOODLE: a sticky note on a blueprint being fed through a photocopier; the copy slides out the other side without the note, and a small builder is already reaching for the copy -->
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/wiped-note.png'); width: min(260px, 66%); aspect-ratio: 440/336; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">Very thorough. Very tidy. Slightly too tidy.</p>
 
 ## A fix for a function nobody calls
 
