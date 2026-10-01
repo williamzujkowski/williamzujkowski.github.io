@@ -13,7 +13,7 @@ tags:
 
 A pnpm override is one line in `package.json` that tells the package manager to ignore what a dependency asked for. This site has exactly one: `"satori>fflate": "0.7.5"`. Satori, the library that draws the social cards, pins `fflate` to exactly 0.7.3, and 0.7.3 is affected by [GHSA-px8p-9vwx-vf98](https://github.com/advisories/GHSA-px8p-9vwx-vf98). The override swaps in the patched release for satori and nobody else.
 
-The line sits in `package.json`, where it is easy to read and review. The decision it makes is recorded in `pnpm-lock.yaml`, a file that Dependabot rewrites every week. Since the override arrived, every Dependabot lockfile in this repository has lost it in two ways. One fails every check that installs dependencies. The other moves satori back to the vulnerable version, and no error mentions it.
+The line sits in `package.json`, where it is easy to read and review. The decision it makes is recorded in `pnpm-lock.yaml`, a file that Dependabot rewrites every week. Since the override arrived, every Dependabot lockfile in this repository has lost it twice over, in the same file: the header that records the override, and satori's resolved edge to 0.7.5. The first loss fails every check that installs dependencies. The second moves satori back to the vulnerable version, and no error mentions it.
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/wiped-note.png'); width: min(260px, 66%); aspect-ratio: 440/336; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">Very thorough. Very tidy. Slightly too tidy.</p>

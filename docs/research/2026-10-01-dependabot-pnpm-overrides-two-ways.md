@@ -114,3 +114,5 @@ verified each finding before editing:
 | 10 | Truncated check-output quote | Job log line 187. | Completed. |
 | 12 | Why not `pnpm audit --prod` | Scratch run flagged `.>satori>fflate`. | Added a one-paragraph answer. |
 | 13 | Voice flat | n/a | Added two observations ("the best kind of vulnerability to lose control of"; the wet-paint sign) and the onset line. |
+
+External review (agy, Gemini 3.1 Pro): "lost it in two ways" clarified as two losses in the same bot lockfile (header and resolved edge). Kept "at least the override's version": the script compares against the override's floor, which is what this repository's one override is.
