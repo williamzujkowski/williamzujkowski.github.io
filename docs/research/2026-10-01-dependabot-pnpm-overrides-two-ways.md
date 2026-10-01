@@ -95,3 +95,22 @@ or issue proposes this post. Issues #540/#563/#639 are the source record, not pr
 | blog-argument-shape | completed | Experiment report + position. Thesis in close (L~105). Strongest objection — the vuln was unreachable — is stated up front; the scope paragraph limits to one repo, one override shape, lab-not-bot. Disconfirmer: a header-only repair that frozen install rejects. |
 | blog-visuals | completed (doodle pending) | One `.flow` (role/aria present, tokens via classes), one Markdown table; rendered at 390px light/dark and 1280px, no overflow. Doodle left as `<!-- DOODLE: … -->` for root. |
 | blog-artifact-check | completed | Commands/flags checked against pnpm 10.x docs and run in the lab (`--frozen-lockfile`, `--lockfile-only`, `dedupe --check`); check-script behaviour checked against its source and the #662 job log; lab link is a placeholder for root. |
+
+## Independent review (root, 2026-10-01): HOLD, then revised
+
+The reviewer re-ran the lab (4/4) and reproduced the header-only result. They also confirmed the
+advisory, the satori imports, the pnpm source lines, the fast-uri timing and #16232. I
+verified each finding before editing:
+
+| # | Finding | Verification | Action |
+| --- | --- | --- | --- |
+| 3 | "Every Dependabot PR" false before late August | Bot commits 34666fb (#446), cf6d5bf (#482), 40b6f70 (#523), cca617d (#524, 2026-08-23) all contain `overrides:`; 994335d (#530, 2026-08-25) does not. `git diff cca617d~1 8d50a67` on package.json/dependabot.yml shows only dependency-version changes. #530 failed the same five checks (9–25s). | Reworded to "From August 25 on", plus an onset paragraph. |
+| 4 | Six bot commits, not four | #638 commits 477fd50, ddb4c95, c1c4545 (force-pushes 2026-09-24T04:19/04:24Z, after #639 merged at 04:08Z); all three lack the header and have satori→0.7.3. | Fixed: six lockfiles across four PRs. |
+| 5 | "The fix it prints is the one that works" overclaims | Lab row: `--lockfile-only` leaves header-only unchanged. The script docstring said "the fix in every case is the same". It also said "the frozen install behind it still refuses", which is false for header-only, and asserted an unsourced code path ("rewrites … rather than shelling out to pnpm"). | Added a caveat and the remedy to the post. Edited the script docstring and failure hint; `pytest scripts/ci/tests/test_lockfile_overrides.py`: 18 passed; ruff clean. Restarting from the untouched bot lockfile is lab-tested. Restarting from `main`'s lockfile is ordinary pnpm re-resolution but untested here. |
+| 6 | Timing wording | #662 failed jobs ran 7–28s and #530's 9–25s; Trivy, Socket and security-scan passed. I did not re-derive the reviewer's 39–69s commit-to-red figure and did not use it. | "each within thirty seconds of starting"; "fails every check that installs dependencies". |
+| 7 | Prior art #13036 | Opened 2025-09-08, still open; `injectWorkspacePackages` removed from lockfile settings; quotes ERR_PNPM_LOCKFILE_CONFIG_MISMATCH. | Cited in the loud-half section. |
+| 8 | GitHub severity medium, CVSS 4.0 6.6 | Advisory API. | Added. |
+| 9 | fast-uri `^3.1.6` is a range | Pre-#639 lockfile header. | "floors or ranges". |
+| 10 | Truncated check-output quote | Job log line 187. | Completed. |
+| 12 | Why not `pnpm audit --prod` | Scratch run flagged `.>satori>fflate`. | Added a one-paragraph answer. |
+| 13 | Voice flat | n/a | Added two observations ("the best kind of vulnerability to lose control of"; the wet-paint sign) and the onset line. |

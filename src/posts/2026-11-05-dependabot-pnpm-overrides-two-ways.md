@@ -13,19 +13,19 @@ tags:
 
 A pnpm override is one line in `package.json` that tells the package manager to ignore what a dependency asked for. This site has exactly one: `"satori>fflate": "0.7.5"`. Satori, the library that draws the social cards, pins `fflate` to exactly 0.7.3, and 0.7.3 is affected by [GHSA-px8p-9vwx-vf98](https://github.com/advisories/GHSA-px8p-9vwx-vf98). The override swaps in the patched release for satori and nobody else.
 
-The line sits in `package.json`, where it is easy to read and review. The decision it makes is recorded in `pnpm-lock.yaml`, a file that Dependabot rewrites every week. Since the override arrived, every Dependabot lockfile in this repository has lost it in two ways. One fails every check within seconds. The other moves satori back to the vulnerable version, and no error mentions it.
+The line sits in `package.json`, where it is easy to read and review. The decision it makes is recorded in `pnpm-lock.yaml`, a file that Dependabot rewrites every week. Since the override arrived, every Dependabot lockfile in this repository has lost it in two ways. One fails every check that installs dependencies. The other moves satori back to the vulnerable version, and no error mentions it.
 
 <!-- DOODLE: a sticky note on a blueprint being fed through a photocopier; the copy slides out the other side without the note, and a small builder is already reaching for the copy -->
 
 ## A fix for a function nobody calls
 
-First, the stakes, because they are smaller than the advisory's CVSS 3.1 score of 7.5 suggests. The advisory describes an infinite loop in fflate's `unzipSync()` when it parses a malformed ZIP64 archive. It lists `>= 0.7.0, < 0.7.5` as affected on the 0.7 line. When the alert arrived, [issue #563](https://github.com/williamzujkowski/williamzujkowski.github.io/issues/563) checked the installed source: satori imports `inflateSync`, not `unzipSync`, and this site runs satori only at build time, on fonts from its own repository. A fresh install of satori 0.33.4 still imports only that one function from fflate.
+First, the stakes, because they are smaller than the advisory's CVSS 3.1 score of 7.5 suggests. GitHub itself rates it medium, with a CVSS 4.0 score of 6.6. The advisory describes an infinite loop in fflate's `unzipSync()` when it parses a malformed ZIP64 archive. It lists `>= 0.7.0, < 0.7.5` as affected on the 0.7 line. When the alert arrived, [issue #563](https://github.com/williamzujkowski/williamzujkowski.github.io/issues/563) checked the installed source: satori imports `inflateSync`, not `unzipSync`, and this site runs satori only at build time, on fonts from its own repository. A fresh install of satori 0.33.4 still imports only that one function from fflate.
 
-The override protects against a bug in a function this site never calls. That makes it a cheap test subject. Nothing below put a reader at risk. The mechanism is the same one you would use for a bug that did matter, and that is the reason to examine it.
+So the override guards against a bug in a function this site never calls, which is the best kind of vulnerability to lose control of. That makes it a cheap test subject. Nothing below put a reader at risk. The mechanism is the same one you would use for a bug that did matter, and that is the reason to examine it.
 
 ## The loud half
 
-Every Dependabot pull request that touched the lockfile failed all five site checks in under thirty seconds, with this error:
+From August 25 on, every Dependabot pull request that touched the lockfile failed all five site checks, each within thirty seconds of starting, with this error:
 
 ```text
 ERR_PNPM_LOCKFILE_CONFIG_MISMATCH  Cannot proceed with the frozen installation.
@@ -34,11 +34,13 @@ The current "overrides" configuration doesn't match the value found in the lockf
 
 The bot had written a lockfile without its top-level `overrides:` block, while `package.json` still declared it. `pnpm install --frozen-lockfile` compares the two and refuses. The message is accurate, but it does not say what produced the lockfile or how to fix it.
 
+The onset is odd. On August 23, [#523](https://github.com/williamzujkowski/williamzujkowski.github.io/pull/523) and [#524](https://github.com/williamzujkowski/williamzujkowski.github.io/pull/524) arrived with the header intact, as had #446 and #482 before them. Two days later [#530](https://github.com/williamzujkowski/williamzujkowski.github.io/pull/530) arrived without it. Between those, this repository's `package.json` changed only in dependency versions and `dependabot.yml` didn't change at all. Whatever changed, it wasn't on this side. The same error class is not new upstream, either: [dependabot-core#13036](https://github.com/dependabot/dependabot-core/issues/13036), open since September 2025, reports Dependabot dropping `injectWorkspacePackages` from a pnpm lockfile's settings, with the same `ERR_PNPM_LOCKFILE_CONFIG_MISMATCH`.
+
 My first diagnosis was wrong. [PR #533](https://github.com/williamzujkowski/williamzujkowski.github.io/pull/533) blamed a duplicated `overrides` block in `package.json` and removed it. Dependabot opened [#537](https://github.com/williamzujkowski/williamzujkowski.github.io/pull/537) 3 minutes 43 seconds after that merge, without the duplicate, and it failed identically. The duplicate was dead config and deserved to go. It was not the cause.
 
 ## The silent half
 
-The satori override arrived on September 8. Four Dependabot lockfiles have been written since then: the original bot commit on [#564](https://github.com/williamzujkowski/williamzujkowski.github.io/pull/564) (`d0160c5`), and those on #635, [#638](https://github.com/williamzujkowski/williamzujkowski.github.io/pull/638) and [#662](https://github.com/williamzujkowski/williamzujkowski.github.io/pull/662). In all four, the header is missing and so is the override's effect:
+The satori override arrived on September 8. Since then Dependabot has written six lockfiles across four pull requests: the original commit on [#564](https://github.com/williamzujkowski/williamzujkowski.github.io/pull/564) (`d0160c5`), #635, #662, and three versions of [#638](https://github.com/williamzujkowski/williamzujkowski.github.io/pull/638), the bot force-pushing it twice more after the fix below had merged. In all six, the header is missing and so is the override's effect:
 
 ```text
 satori@0.33.4:                       # 0.33.5 in #662
@@ -79,22 +81,24 @@ The third column is the one to remember. With the header restored, the frozen in
 
 `pnpm dedupe --check` catches both bad files in the lab, and pnpm documents it as exiting nonzero ["if changes are possible"](https://pnpm.io/10.x/cli/dedupe). It is less useful on a real dependency tree. Against this site's own lockfile it also fails on `main`, flagging ordinary duplicates such as two vite versions. A gate that is already red tells you nothing new.
 
+`pnpm audit --prod` also flags both bad files in a scratch run, reporting the path `.>satori>fflate`. It works here because an advisory exists for this exact package. The edge check works for any override, including one written for a reason no advisory database knows about.
+
 ## Check the edge, not the line
 
 The repository now runs [`scripts/ci/check-lockfile-overrides.py`](https://github.com/williamzujkowski/williamzujkowski.github.io/blob/main/scripts/ci/check-lockfile-overrides.py) before the frozen install. It reads both files and asserts two things: the header matches `package.json`, and for every `parent>child` override, the version the parent actually resolves is at least the override's version. It uses only Python's standard library, so it needs nothing installed, and it can only add a failure. On September 29, Dependabot opened #662, and the check reported both defects:
 
 ```text
 - pnpm-lock.yaml has no `overrides:` block, but package.json declares 1: satori>fflate.
-- RESOLUTION REGRESSED: satori resolves fflate to 0.7.3, below the overridden 0.7.5.
+- RESOLUTION REGRESSED: satori resolves fflate to 0.7.3, below the overridden 0.7.5. The `overrides:` header alone does not catch this.
 ```
 
-The fix it prints is the one that works: `cd astro-site && pnpm install --lockfile-only`. In the lab, that command restores the header and 0.7.5 when the header is missing. The order matters. Regenerate first, then confirm the edge.
+The fix it prints is `cd astro-site && pnpm install --lockfile-only`. In the lab, that command restores the header and 0.7.5, but only when the header is missing. Run it on a file whose header was already pasted back and it changes nothing, as the table shows. The repair for that file is to discard it, start again from the untouched bot lockfile or from `main`'s, and then regenerate. The order matters. Regenerate first, then confirm the edge.
 
 ## Nine of the ten were doing nothing
 
-While building that check, the repository measured its override block instead of assuming it worked. [The commit](https://github.com/williamzujkowski/williamzujkowski.github.io/commit/38e324bf60183d7cbd53255b7428a16ee90b0892) records ten entries. Two, `uuid` and `dompurify`, named packages that were not in the tree at all. Seven were floors such as `vite: '>=8.0.13'` that natural resolution already met or exceeded. Only `satori>fflate` changed the result. The other nine were removed.
+While building that check, the repository measured its override block instead of assuming it worked. [The commit](https://github.com/williamzujkowski/williamzujkowski.github.io/commit/38e324bf60183d7cbd53255b7428a16ee90b0892) records ten entries. Two, `uuid` and `dompurify`, named packages that were not in the tree at all. Seven were floors or ranges, such as `vite: '>=8.0.13'` and `fast-uri: ^3.1.6`, that natural resolution already satisfied. Only `satori>fflate` changed the result. The other nine were removed.
 
-The way pnpm [matches overrides](https://pnpm.io/10.x/settings#overrides) explains how an entry can parse cleanly and still change nothing. An override does not inspect the resolved version. It rewrites a request before resolution starts. In [pnpm 10.33.0's source](https://github.com/pnpm/pnpm/blob/v10.33.0/hooks/read-package-hook/src/createVersionsOverrider.ts), a key such as `yaml@<2.8.3` applies wherever a dependent's declared range [intersects](https://github.com/pnpm/pnpm/blob/v10.33.0/hooks/read-package-hook/src/isIntersectingRange.ts) `<2.8.3`. A `parent>child` key applies only inside packages whose name and version match the parent selector. So `yaml@<2.8.3: '>=2.8.3'` still turns a `^2.0.0` request into `>=2.8.3`. If the newest `^2.0.0` release is already above the floor, the tree comes out the same either way. pnpm gives no warning because nothing is wrong. These were CVE pins written when the CVEs were current. Upstream fixed them and the pins stayed.
+The way pnpm [matches overrides](https://pnpm.io/10.x/settings#overrides) explains how an entry can parse cleanly and still change nothing. An override does not inspect the resolved version. It rewrites a request before resolution starts. In [pnpm 10.33.0's source](https://github.com/pnpm/pnpm/blob/v10.33.0/hooks/read-package-hook/src/createVersionsOverrider.ts), a key such as `yaml@<2.8.3` applies wherever a dependent's declared range [intersects](https://github.com/pnpm/pnpm/blob/v10.33.0/hooks/read-package-hook/src/isIntersectingRange.ts) `<2.8.3`. A `parent>child` key applies only inside packages whose name and version match the parent selector. So `yaml@<2.8.3: '>=2.8.3'` still turns a `^2.0.0` request into `>=2.8.3`. If the newest `^2.0.0` release is already above the floor, the tree comes out the same either way. pnpm gives no warning because nothing is wrong. These were CVE pins written when the CVEs were current. Upstream fixed them and the pins stayed, like a wet-paint sign on a wall that dried months ago.
 
 Removing them did give something up. A floor that changes nothing today can still block a future downgrade. The commit describes the choice as shrinking "the surface the bot can silently re-resolve from 10 pins to 1".
 

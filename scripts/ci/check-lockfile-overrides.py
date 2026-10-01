@@ -3,9 +3,9 @@
 
 WHY THIS EXISTS (issue #540, upstream dependabot/dependabot-core#16232)
 
-Dependabot rewrites `astro-site/pnpm-lock.yaml` itself rather than shelling
-out to pnpm, and its serialiser loses overrides in TWO distinct ways. Only
-the first one is self-announcing:
+Dependabot's lockfiles for `astro-site/` have lost overrides in TWO distinct
+ways. (Which updater code path does this is unverified; see the upstream
+issue.) Only the first one is self-announcing:
 
 1. It drops the top-level `overrides:` header. `pnpm install
    --frozen-lockfile` then refuses with ERR_PNPM_LOCKFILE_CONFIG_MISMATCH.
@@ -30,12 +30,20 @@ for the header. Two cheaper checks were considered and both miss it:
     patched version being PRESENT says nothing about whether SATORI uses
     it.
 
-The fix in every case is the same, and this script prints it:
+When the header is missing, this regenerates both header and edge, and
+this script prints it:
 
     cd astro-site && pnpm install --lockfile-only
 
-This check can only ADD a failure. If it is buggy and passes, the frozen
-install behind it still refuses, so the gate is never weakened.
+It does NOT repair a lockfile whose header was restored by hand: with the
+header present, pnpm 10.33.0 keeps the regressed edge, and the frozen
+install accepts it (research-labs `labs/pnpm-override-drift`). In that case
+start again from main's lockfile or the untouched bot lockfile, then run
+the command above.
+
+This check can only ADD a failure. It runs before the frozen install, which
+refuses a missing header but not a hand-restored one, so it is the only
+gate that sees mode 2 on such a file.
 """
 
 from __future__ import annotations
@@ -193,7 +201,9 @@ def main() -> int:
     print(
         "  If this is a Dependabot branch, regenerate the lockfile and inspect\n"
         "  the resolved graph before pushing -- restoring the header alone can\n"
-        "  leave a downgraded, vulnerable dependency in place."
+        "  leave a downgraded, vulnerable dependency in place. If the header\n"
+        "  was already restored by hand, the fix above changes nothing: start\n"
+        "  from main's lockfile or the untouched bot lockfile, then rerun it."
     )
     return 1
 
