@@ -93,7 +93,7 @@ or issue proposes this post. Issues #540/#563/#639 are the source record, not pr
 | blog-llm-tells | manual | Read for filler, hedging, stock contrasts, three-item lists, em dashes (none in prose). Removed a repeated "It just…" construction and a redundant closing sentence. |
 | blog-nda-check | completed | All first-person claims trace to this repo's issues/PRs/commits; no employer or work context; homelab/site attribution only. |
 | blog-argument-shape | completed | Experiment report + position. Thesis in close (L~105). Strongest objection — the vuln was unreachable — is stated up front; the scope paragraph limits to one repo, one override shape, lab-not-bot. Disconfirmer: a header-only repair that frozen install rejects. |
-| blog-visuals | completed (doodle pending) | One `.flow` (role/aria present, tokens via classes), one Markdown table; rendered at 390px light/dark and 1280px, no overflow. Doodle left as `<!-- DOODLE: … -->` for root. |
+| blog-visuals | completed | One `.flow` (role/aria present, tokens via classes), one Markdown table; rendered at 390px light/dark and 1280px, no overflow. Doodle placed by root (`wiped-note.png`). |
 | blog-artifact-check | completed | Commands/flags checked against pnpm 10.x docs and run in the lab (`--frozen-lockfile`, `--lockfile-only`, `dedupe --check`); check-script behaviour checked against its source and the #662 job log; lab link is a placeholder for root. |
 
 ## Independent review (root, 2026-10-01): HOLD, then revised
