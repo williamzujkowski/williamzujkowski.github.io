@@ -75,15 +75,19 @@ integrity"), Corgea and Snyk all make the same point about these incidents.
 ## Commands run (2026-10-01)
 
 - `curl https://registry.npmjs.org/-/npm/v1/attestations/<pkg>@<ver>` for keyv 6.0.0 (404),
-  sdk-ts 1.20.20/1.20.21 (200), cline 2.3.0 (404), ai-sdk-ollama 0.13.1/1.1.1/2.2.1/3.8.5/3.8.6 (404), 3.8.4 (200).
+  sdk-ts 1.20.20/1.20.21 (200), cline 2.3.0 (404), ai-sdk-ollama removed burst versions 0.13.1/1.1.1/2.2.1/3.8.5 (404), the still-present
+  post-incident 3.8.6 (404, simply unattested: its packument has no `dist.attestations`), 3.8.4 (200).
 - `python3 2026-10-01-npm-provenance-scan.py` (run from a scratch dir holding `raw/search_jag.json`
   from `registry.npmjs.org/-/v1/search?text=maintainer:jagreehal&size=250`): 305 versions in
   2026-06-03..06-06, 100 present.
-- `python3 2026-10-01-npm-provenance-gypcheck.py`: 76 checked, 76 binding.gyp (157 bytes),
-  76 deprecated, 76 digest matches.
+- `python3 2026-10-01-npm-provenance-gypcheck.py --fetch-malicious-tarballs` (the 2026-10-01 run,
+  recorded for audit, not for reproduction): 76 checked, 76 root binding.gyp (157 bytes),
+  76 deprecated, 76 tarball digests match. The script now defaults to metadata only
+  (packument `dist.integrity` vs attestation subject, plus deprecation), which re-ran on
+  2026-10-01 with 76/76 matches and 76/76 deprecated without downloading any package content.
 - `uv run --no-project --with cryptography python 2026-10-01-npm-provenance-certdump.py …`:
   Fulcio extension values recorded in the results JSON.
-- Container (image `node@sha256:4d676821dff059fd00d277ee4261ef34ea712317fed0737c03941481b5760c96`,
+- **Recorded for audit, not for reproduction.** Container (image `node@sha256:4d676821dff059fd00d277ee4261ef34ea712317fed0737c03941481b5760c96`,
   `node:22-bookworm-slim`, npm 10.9.8): `--user node --read-only --tmpfs /tmp --cap-drop ALL
   --security-opt no-new-privileges --memory 2g`; `npm install --ignore-scripts --legacy-peer-deps`
   then `npm audit signatures`, malicious pair then clean pair. Network was needed for the
@@ -146,3 +150,39 @@ Scripts and raw output are kept here instead, following the 2026-09-11 page-cach
 | blog-argument-shape | completed | Thesis: "If an attacker can make the pipeline run, the certificate is accurate and the package is malware." Evidence: 3 decoded cases + audit-signatures demo + docs. Strongest objection (provenance never claimed this) is answered in section 2. Disconfirming result: a field-level check that separates the Injective or keyv publishes from their clean neighbours. Close follows: keep it, read the ref, gate before the pipeline. |
 | blog-visuals | manual | One `.flow` (5 nodes, role=group + aria-label, no blank lines, escaped text); one Markdown table. Doodle left as `<!-- DOODLE -->` TODO for root. Rendered review in browser not performed; build + `pnpm run audit` results recorded in the final report. |
 | blog-artifact-check | completed | The jq snippet was executed against autotel-audit 0.1.15 and 0.1.14 and prints the values the post quotes. Field names checked against the actual decoded predicate (`buildDefinition.externalParameters.workflow.{ref,path}`, `internalParameters.github.event_name`, `resolvedDependencies[0].digest.gitCommit`). Certificate extension names from Fulcio OIDs 1.3.6.1.4.1.57264.1.14 and .1.20. No gists. |
+
+## Independent review (2026-10-01, root-reconciled)
+
+Two reviews (Claude, decoding the attestations independently; Gemini 3.1 Pro, reconciled by
+root) returned READY-WITH-FIXES. Each item was checked against the source before editing.
+
+Applied:
+- SLSA v1.2 Source track: verified on slsa.dev/spec/v1.2/threats, (B1) "Submit change without
+  review", example "Adversary directly pushes a change to a git repo's main branch", solution
+  two-party review. Added; v1.0 called "now-retired" (its page shows "Status: Retired").
+- Closing evidence sentence scoped: October 1 measurements in this note; August figures as
+  recorded in #335, raw data not kept. "Three independent victims" attributed the same way.
+- Safety: `gypcheck.py` now defaults to metadata-only digest checks; tarball listing sits behind
+  `--fetch-malicious-tarballs` (default off). Container recipe marked "Recorded for audit, not
+  for reproduction." Post now tells readers not to repeat the install.
+- "Both malicious versions carry attestations, and none was reported invalid" added.
+- keyv: ref given as `refs/tags/v6.0.0` (August record); `workflow_dispatch` mentioned, verified
+  present in release.yaml at 90109616; field-level claim scoped to "by its August record"; noted
+  that ee2681a9 now compares as diverged from main (verified via compare API).
+- Snyk's keyv write-up credited; quote string-matched in the fetched page.
+- "npm has removed 204" changed to "204 are no longer on the registry".
+- Close thinned; Injective 49-minute timing moved to the Injective paragraph.
+- Gemini: conditional rewrite of the environment-reviewer point (keyv's protection rules are not
+  public); audit-output elapsed time made consistent (7s malicious pair, 6s clean pair, stated);
+  two three-item phrasings trimmed.
+
+Checked, no post change needed:
+- Gemini "four vs five ai-sdk-ollama versions": the post's "four removed" is correct; this
+  note's commands line had grouped the present, unattested 3.8.6 with them. Note corrected.
+
+Rejected (by root, no action): removing the `.flow` as an attack recipe. Re-checked: it states
+only orphan branch, own copy of release.yml, runs on push, repository + filename match. That is
+the level of Corgea's and StepSecurity's public write-ups; no workflow body, permissions block
+or token-exchange detail is reproduced.
+
+Left as is: DOODLE comment (root placing art).
