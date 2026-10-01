@@ -25,8 +25,9 @@ shapes without execution. ShellCheck `-o all` catches one of four (recorded belo
 
 - Repository: `~/git/research-labs`, worktree
   `<scratchpad>/post1/rl`, branch `lab/exit-status` (not pushed).
-- Commits: `70619f6` (lab), `f2e29de` (retained run), `0b2335e` (ShellCheck
-  cross-check), `1c91cd6` (article-snippet run).
+- Commits (pre-rebase): `70619f6` (lab), `f2e29de` (retained run), `0b2335e`
+  (ShellCheck cross-check), `1c91cd6` (article-snippet run). Root later rebased the
+  branch onto research-labs main for PR #4; SHAs changed, content did not.
 - Entry point: `./scripts/exit-status-lab.sh test|run`.
 - Container: `python:3.12-slim@sha256:78387bc3...` plus curl and gnupg from Debian
   snapshot `20260824T000000Z`; Pi-hole dispatcher fetched at commits `2d81552`
@@ -78,7 +79,10 @@ shapes without execution. ShellCheck `-o all` catches one of four (recorded belo
 | Bash pipeline quote | source finding | Bash manual Pipelines | — | verified (exact text) |
 | BashFAQ quote and head/pipe-buffer caveat | source finding | BashFAQ/105 | — | verified (exact text) |
 | gpg writes input+`.gpg`, redirect target empty | source finding + our observation | openfile.c; observations.json `gpg-redirect` (0 / 131 bytes) | GnuPG 2.4.7; batch passphrase flags added | verified |
-| Pi-hole v6.0 released 2025-02-18, 20 days before 2025-03-10 post | source finding | releases API; post frontmatter | — | verified |
+| Pi-hole v6.0 released 2025-02-18; the v5 line was added about 18 months later | source finding | releases API; commit `97deac2` | An earlier draft said "twenty days before that post" (the post's date), wrong in substance; corrected | verified |
+| Pi-hole line added 2026-09-04 (#544); DOCKER-USER rule added 2026-08-17 (#470); "the check that matters" comment added 2026-09-04 (#538); the pipeline itself from `c1f4b10` (2025-11-11) | source finding | pickaxe log search on each post: `97deac2`, `7fac896`, `ac0f499`, `c1f4b10` | gpg redirect came from `05b5061` (2025-11-15), not a correction pass | verified |
+| `docker compose config` on the 111-byte body fails with a YAML error, exit 1 | our observation | Docker Compose v5.5.1, scratch dir, 2026-10-01: `yaml: construct errors: line 1: cannot construct !!str ... into cli.named`, exit=1 | Independent reviewer reported the same | verified |
+| Wazuh: `vm.max_map_count=262144` prerequisite; default admin/SecretPassword; OpenSearch root response contains `cluster_name` | source finding | Wazuh 4.9 docker-installation page; wazuh-container page and compose `INDEXER_PASSWORD`; OpenSearch quickstart example response | Not executed | verified |
 | v6 dispatcher falls to helpFunc, exit 0; v6.4.3 same | source + observation | pihole L519-552; observations `pihole-*` (exit 0, stdout hash equal to `--help`) | Helpers stubbed; v6.4.3 prints one stderr line from the stub | verified |
 | `pihole` v6 has no list-adding subcommand; `api` only GETs | source finding | v6.4.3 helpFunc and dispatch; api.sh `apiFunc`→`GetFTLData` | — | verified |
 | URL answers 403, 111-byte XML; Wayback captures all 403 | our observation | live curl 2026-10-01; CDX listing | Cannot prove it never served 200 before 2025-12-17 | verified (bounded) |
@@ -140,5 +144,25 @@ for `packages.wazuh.com`.
 - The DOCKER-USER case is a source finding; the PR's measurement has no retained raw output.
 - The Wazuh replacement steps follow the vendor guide but were not executed.
 - No claim about how common these defects are outside this site.
-- The Wazuh post contains other claims (benchmark timings, `$WAZUH_PASSWORD`
-  verification against a self-signed endpoint) not reviewed here.
+- The Wazuh post contains other claims (benchmark timings) not reviewed here.
+- The Docker hardening post still recommends `INPUT -i docker0` as verified-looking
+  advice; the new post says it is unrun and bridge-specific, but that post itself was
+  not edited.
+
+## Independent review (2026-10-01)
+
+Two reviews arrived via root: Claude (HOLD; independently re-ran the lab at the
+pre-rebase commit `1c91cd6` on 2026-10-01 and reproduced 6/6 tests and 17/17 cases)
+and Gemini 3.1 Pro. Each item was checked against source before editing.
+
+| Item | Verification | Action |
+| --- | --- | --- |
+| "Twenty days before that post" false in substance | Pickaxe search: Pi-hole line `97deac2` (#544, 2026-09-04); DOCKER-USER `7fac896` (#470, 2026-08-17); comment `ac0f499` (#538, 2026-09-04) | Applied with one precision change: the Suricata pipeline predates the 2026 passes (`c1f4b10`, 2025-11-11) and #538 added the comment vouching for it, so the post says two of the four were introduced by correction passes and a third pass vouched for the pipeline, not "three of the four arrived" |
+| INPUT fix never run; `docker0` is only the default bridge | Docker post's corrected block uses `-i docker0`; no retained run | Applied: table cell and paragraph say "not verified" and describe the negative control. The Docker post itself is unchanged (flagged to root) |
+| Compose fails loudly one step later; scope the pre-December-2025 history | Reproduced `docker compose config` exit 1 (ledger) | Applied both |
+| Vaultwarden quote incomplete | Template L451-452 at `061694d` | Applied: full two-sentence quote |
+| Wazuh prerequisite; health check that cannot pass on a 401 | Wazuh docker-installation page; compose credentials; OpenSearch example response | Applied to the Wazuh post (steps still not executed) |
+| Compare before shredding `seeds.txt` | The check needs the plaintext | Applied |
+| Record the independent reproduction | Reported by root | Applied (this section) |
+
+No item was rejected.

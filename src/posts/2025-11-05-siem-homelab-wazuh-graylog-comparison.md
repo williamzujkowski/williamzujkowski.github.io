@@ -79,6 +79,10 @@ I deployed both SIEMs in parallel to compare real-world performance. Infrastruct
 **Wazuh deployment (Docker Compose):**
 
 ```bash
+# Host prerequisite: the indexer needs at least 262,144 memory-mapped areas
+# (persist it in /etc/sysctl.conf)
+sudo sysctl -w vm.max_map_count=262144
+
 # Official single-node stack (Wazuh 4.9 Docker documentation)
 git clone https://github.com/wazuh/wazuh-docker.git -b v4.9.2
 cd wazuh-docker/single-node
@@ -91,7 +95,9 @@ docker-compose up -d
 
 # Verify deployment
 docker-compose ps
-curl -u admin:"$WAZUH_PASSWORD" https://localhost:9200/
+# -k because the lab certificate is self-signed; SecretPassword is the shipped
+# default -- change it. A 401 body has no cluster_name, so bad credentials fail here.
+curl -sk -u admin:SecretPassword https://localhost:9200/ | grep -q cluster_name && echo "indexer up"
 ```
 
 *Correction (October 2026):* an earlier version of this block downloaded
@@ -101,7 +107,11 @@ error as `docker-compose.yml` and exits 0. The block now follows the
 [Wazuh 4.9 Docker deployment guide](https://documentation.wazuh.com/4.9/deployment-options/docker/wazuh-container.html).
 It also exported `WAZUH_MANAGER_RAM` and `WAZUH_INDEXER_RAM`, which the
 [v4.9.2 single-node compose file](https://github.com/wazuh/wazuh-docker/blob/v4.9.2/single-node/docker-compose.yml)
-never reads; the indexer heap is set there by `OPENSEARCH_JAVA_OPTS`.
+never reads; the indexer heap is set there by `OPENSEARCH_JAVA_OPTS`. The
+`vm.max_map_count` prerequisite comes from Wazuh's
+[Docker installation requirements](https://documentation.wazuh.com/4.9/deployment-options/docker/docker-installation.html),
+and the health check now looks for `cluster_name` in the indexer's response
+instead of trusting curl's exit status, which is 0 on a 401 too.
 
 **Wazuh components:**
 
