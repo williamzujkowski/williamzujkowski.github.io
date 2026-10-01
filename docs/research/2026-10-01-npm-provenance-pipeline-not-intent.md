@@ -1,6 +1,6 @@
 # npm provenance attests the pipeline, not the intent: evidence record
 
-**Post:** `src/posts/2026-10-15-npm-provenance-attests-the-pipeline.md` (scheduled 2026-10-22)
+**Post:** `src/posts/2026-10-15-npm-provenance-attests-the-pipeline.md` (scheduled 2026-10-15)
 **Evidence captured:** 2026-10-01, 04:45Z to 05:40Z, from public endpoints only.
 **Origin:** [dependency-risk-profiler #335](https://github.com/williamzujkowski/dependency-risk-profiler/issues/335)
 (opened and measured 2026-08-11). The August raw data for #335 was not retained in
