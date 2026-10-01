@@ -41,6 +41,13 @@ across all workers/machines under your control. Use one fetching worker, cache
 metadata, back off on throttling, and stop on denied access. Do not evade limits.
 Discovery aggregators and social posts are leads; they do not verify paper claims.
 
+Your own repositories are a source class too. Maintenance and measurement work in
+the author's projects regularly produces a finding with retained evidence: a
+merged correction, a withdrawn claim, a pre-registered result. Search their
+issues, PRs and `withdrawn-claims`/result documents alongside papers. These leads
+pass the same gates: re-derive every number from the retained artifact, and scope
+the claim to what that artifact measured.
+
 ## 2. Verify identity, evidence and novelty
 
 Open the official abstract/landing page, then read the relevant full text before
@@ -81,6 +88,12 @@ For a selected candidate, state a provisional thesis and what would falsify it.
 Choose a reading/analysis post, an original experiment, or an actual replication;
 call a paper-inspired toy exercise exactly that. Define inputs, controls/baselines,
 metrics, denominators, versions, repetitions, expected artifacts and stopping rules.
+Validate the control before running the matrix. Run the healthy/negative control
+alone first and confirm the chosen criterion classifies it correctly; a metric that
+fails its own healthy control cannot interpret anything else. The September 2026
+retry pilot ran all 54 scenarios before discovering that its recovery criterion
+failed the no-fault controls (research-labs `docs/pilot-decisions-2026-09-13.md`);
+a control-only run would have shown that first.
 Set time, compute, disk, network and paid-API budgets before execution, within the
 session's authority. If access/cost exceeds that scope, complete independent work
 and request only missing authorization. Failed feasibility is a useful result.
@@ -122,7 +135,11 @@ results. Never invent homelab anecdotes, measurements, citations, paper IDs or
 author participation. First person requires actual author-supplied or recorded
 experience. Use current publication dates; never backdate to match a source window.
 Keep `draft: true` until the post has completed review. For an authorized scheduled
-post, use `draft: false` and the intended future `date: YYYY-MM-DD`. Eligibility
+post, use `draft: false` and the intended future `date: YYYY-MM-DD`; the filename
+date must match. `tests/unit/editorial-calendar.test.mjs` fails when two scheduled
+posts share a day, or a scheduled post lands fewer than three days after its
+predecessor, so a calendar collision fails `pnpm test:unit` in the required
+`check-lint` job instead of shipping two posts at once. Eligibility
 starts at 00:00 UTC on that date; builds exclude future posts from pages, social
 cards, feeds, archives, sitemap and search. This controls site publication only:
 source files in this public repository are already readable.
