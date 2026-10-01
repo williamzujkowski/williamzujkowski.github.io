@@ -25,7 +25,8 @@ That output is from October 1, after I appended `:root { --text-micro: 0.5rem; }
 
 The audit is not broken in any way you can see from its output. That is the point of this post. A gate that cannot fail produces exactly the output of a gate that passed, so a green tick, by itself, carries no information about which one you have. The only way to find out is to hand the gate a defect you know is there and require it to go red. And because "red on a defect" says nothing about a run that examined nothing at all, the gate also needs a floor on how much it looked at.
 
-<!-- DOODLE: a smoke detector on a ceiling with a person on a stepladder holding a lit match up to it; the detector's little light is green and calm while the smoke curls straight around it -->
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/calm-detector.png'); width: min(150px, 40%); aspect-ratio: 360/849; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">Never once gone off. Excellent record.</p>
 
 ## This is mutation testing, pointed at the referee
 
