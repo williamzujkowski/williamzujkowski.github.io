@@ -133,7 +133,7 @@ for `packages.wazuh.com`.
 | blog-llm-tells | manual | Read in full. Zero em dashes. Removed an inaccurate `-s` aside and a "documented" overclaim; changed a 4-column table to 3 for phone width. American spelling to match the archive (40 vs 6 posts). |
 | blog-nda-check | completed | No employer, incident or agency references. First person limited to William's own PR/posts. ShellCheck and URL checks phrased impersonally because they were run by the drafting agent. |
 | blog-argument-shape | completed | Thesis in para 2 and "Run it where it must fail". Strongest objection (a linter could catch it) answered with retained ShellCheck output; corrected forms' own limits stated (pipefail/head, `--fail` 401/407). No prevalence claim. |
-| blog-visuals | manual | One `.flow` (roles/labels per contract), one table. Rendered at 390/1280 px light/dark, no overflow. `data-theme-deck` variants not checked. Doodle left as a `<!-- DOODLE -->` TODO. |
+| blog-visuals | manual | One `.flow` (roles/labels per contract), one table. Rendered at 390/1280 px light/dark, no overflow. `data-theme-deck` variants not checked. Doodle placed by root (`sad-extinguisher.png`). |
 | blog-artifact-check | completed | Every command/flag checked against upstream source or executed: lab cases, both inline snippets, Pi-hole `-a`/`api`/`/api/lists`, Wazuh replacement steps against the 4.9 guide (Wazuh steps not executed). |
 
 ## Limitations
