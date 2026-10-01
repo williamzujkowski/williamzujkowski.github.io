@@ -66,7 +66,7 @@ examples would not exist. Experiments 1-4 below are the attempt; five of seven r
 | Google: at most one mutant per line, arid lines incl. logging, usefulness 20%→80% | source finding | S3 abstract, §3, §4.1, contributions list | | verified |
 | "For a handful of CI gates the mutants can be hand-written" | inference | labelled as inference in post | | inference |
 | Scanning-pipeline post's original gate echoed a string | source (repo) | `src/posts/2025-10-06-automated-security-scanning-pipeline.md` "What blocks, precisely" + original-gist paragraph | | verified |
-| #642/#644/#645/#660 open; token mutation still passes on main | observation | `gh issue view` states 2026-10-01; Exp 1 | "as of this writing" = 2026-10-01; re-check before 10-15 | verified (date-bound) |
+| #642/#644/#645/#660 open; token mutation still passes on main | observation | `gh issue view` states 2026-10-01; Exp 1 | "as of this writing" = 2026-10-01; re-check before 10-22 | verified (date-bound) |
 
 ## Overlap check
 
@@ -472,3 +472,14 @@ pdftotext google.pdf / jia.pdf / arxiv.pdf; grep for quoted sentences     # S1, 
 # Render check: astro preview on :4399 + Playwright screenshots of .flow and table at
 # 375x900 and 1280x1000, colorScheme light/dark; scrollWidth == viewport width in all four.
 ```
+
+## Independent review (2026-10-01)
+
+Claude reviewer (separate context) re-ran six of seven mutations at fc0c1eb in a throwaway worktree;
+all six reproduced. READY-WITH-FIXES, all applied: skipped-check sentence corrected (#617 touched a
+workflow, and a crash in `changes` would itself report failure) and linked to GitHub's documentation;
+"never exercised" scoped to #644's 30-run sample; Playwright `forbidOnly` attributed to the config, not
+the tool; the audit's coverage of literal violations stated precisely; Chen §5.4 "on the patched build";
+"#516 fixed most of those"; branch labels renamed because `.flow-leg::before` takes its colour from the
+child node (Red rendered in success colour); duplicate "matters as much" and the X-not-Y line cut;
+#642 "proposes". Optional promtool prior art not added.
