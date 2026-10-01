@@ -2,7 +2,7 @@
 
 **Post:** `src/posts/2026-11-05-dependabot-pnpm-overrides-two-ways.md` (slot 2026-11-05, `draft: false`)
 **Researched:** 2026-10-01. **Lab:** research-labs branch `lab/pnpm-override-drift`
-(commits `c807b5d` lab, `2185517` evidence); the post links `RESEARCH_LABS_COMMIT`, which root replaces.
+(commits `c807b5d` lab, `2185517` evidence); merged as research-labs PR #5 (merge commit `d34cb745911a4af179513901cc2195bfd21d75a8`), which the post links.
 
 ## Question and thesis
 

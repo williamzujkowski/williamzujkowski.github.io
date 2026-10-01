@@ -58,7 +58,7 @@ The earlier record held a misleading piece of evidence too. Issue [#540](https:/
 
 The red build is useful as long as the repair is a real regeneration. The trouble starts when someone takes the error message literally and only restores the missing header.
 
-To see what pnpm does with each case, I built a [small lab](https://github.com/williamzujkowski/research-labs/tree/RESEARCH_LABS_COMMIT/labs/pnpm-override-drift) with one manifest (satori 0.33.4 plus the override) and three lockfiles, run offline against pnpm 10.33.0. The `no-header` file is a simulation. It was made by resolving once without the override and then restoring the manifest, which reproduces the missing header and both fflate edges from the real bot lockfiles. It does not run Dependabot. `header-only` is that file with the three-line `overrides:` block pasted back in.
+To see what pnpm does with each case, I built a [small lab](https://github.com/williamzujkowski/research-labs/tree/d34cb745911a4af179513901cc2195bfd21d75a8/labs/pnpm-override-drift) with one manifest (satori 0.33.4 plus the override) and three lockfiles, run offline against pnpm 10.33.0. The `no-header` file is a simulation. It was made by resolving once without the override and then restoring the manifest, which reproduces the missing header and both fflate edges from the real bot lockfiles. It does not run Dependabot. `header-only` is that file with the three-line `overrides:` block pasted back in.
 
 | Check | faithful | no-header | header-only |
 | --- | --- | --- | --- |
