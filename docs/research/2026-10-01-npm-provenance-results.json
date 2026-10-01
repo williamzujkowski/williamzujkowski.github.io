@@ -1,0 +1,3189 @@
+{
+ "captured_utc": "2026-10-01 (04:45Z-05:40Z)",
+ "jagreehal_window_scan": [
+  {
+   "pkg": "ai-sdk-ollama",
+   "ver": "0.13.1",
+   "time": "2026-06-04T00:25:27.228Z",
+   "present": false
+  },
+  {
+   "pkg": "ai-sdk-ollama",
+   "ver": "1.1.1",
+   "time": "2026-06-04T00:25:32.938Z",
+   "present": false
+  },
+  {
+   "pkg": "ai-sdk-ollama",
+   "ver": "2.2.1",
+   "time": "2026-06-04T00:25:38.458Z",
+   "present": false
+  },
+  {
+   "pkg": "ai-sdk-ollama",
+   "ver": "3.8.5",
+   "time": "2026-06-04T00:25:44.596Z",
+   "present": false
+  },
+  {
+   "pkg": "ai-sdk-ollama",
+   "ver": "3.8.6",
+   "time": "2026-06-05T23:21:35.508Z",
+   "present": true,
+   "att_status": 404
+  },
+  {
+   "pkg": "autotel",
+   "ver": "3.4.2",
+   "time": "2026-06-03T21:58:33.939Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/main",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "35a8a119f3e0dc0e5374e928efd4c91abce24fac",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26915492582/attempts/1"
+  },
+  {
+   "pkg": "autotel",
+   "ver": "2.26.4",
+   "time": "2026-06-04T00:26:40.465Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-e8ed3490",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "28a85158725069a332b9de300a143b2337f7a0f9",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26921849059/attempts/1"
+  },
+  {
+   "pkg": "autotel",
+   "ver": "3.4.3",
+   "time": "2026-06-04T00:27:05.047Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-e8ed3490",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "28a85158725069a332b9de300a143b2337f7a0f9",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26921849059/attempts/1"
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "1.0.1",
+   "time": "2026-06-04T00:26:36.554Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "2.0.2",
+   "time": "2026-06-04T00:26:47.524Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "3.0.1",
+   "time": "2026-06-04T00:26:58.278Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "4.0.1",
+   "time": "2026-06-04T00:27:09.000Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "5.0.1",
+   "time": "2026-06-04T00:27:20.139Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "6.0.1",
+   "time": "2026-06-04T00:27:30.995Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "7.0.1",
+   "time": "2026-06-04T00:27:43.488Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "8.0.1",
+   "time": "2026-06-04T00:27:52.774Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "9.0.1",
+   "time": "2026-06-04T00:28:03.851Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "10.0.1",
+   "time": "2026-06-04T00:28:12.858Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "11.0.1",
+   "time": "2026-06-04T00:28:22.454Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "12.0.1",
+   "time": "2026-06-04T00:28:31.732Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "13.0.1",
+   "time": "2026-06-04T00:28:41.384Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "14.0.1",
+   "time": "2026-06-04T00:28:50.863Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "15.0.1",
+   "time": "2026-06-04T00:29:00.497Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "16.0.1",
+   "time": "2026-06-04T00:29:09.882Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "17.0.1",
+   "time": "2026-06-04T00:29:19.296Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "18.1.1",
+   "time": "2026-06-04T00:29:29.481Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "19.0.1",
+   "time": "2026-06-04T00:29:38.784Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "20.0.2",
+   "time": "2026-06-04T00:29:48.588Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "21.0.1",
+   "time": "2026-06-04T00:29:58.546Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "22.0.2",
+   "time": "2026-06-04T00:30:07.804Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "23.0.0",
+   "time": "2026-06-05T23:37:15.200Z",
+   "present": true,
+   "att_status": 404
+  },
+  {
+   "pkg": "executable-stories-formatters",
+   "ver": "0.11.2",
+   "time": "2026-06-04T00:26:11.169Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "executable-stories-cypress",
+   "ver": "3.1.1",
+   "time": "2026-06-04T00:26:22.172Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "executable-stories-cypress",
+   "ver": "4.0.1",
+   "time": "2026-06-04T00:26:32.001Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "executable-stories-cypress",
+   "ver": "5.0.1",
+   "time": "2026-06-04T00:26:40.952Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "executable-stories-cypress",
+   "ver": "6.1.1",
+   "time": "2026-06-04T00:26:50.602Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "executable-stories-cypress",
+   "ver": "7.0.3",
+   "time": "2026-06-04T00:27:00.903Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "executable-stories-cypress",
+   "ver": "8.3.2",
+   "time": "2026-06-04T00:27:06.669Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "executable-stories-react",
+   "ver": "0.1.7",
+   "time": "2026-06-04T00:26:04.084Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "35.0.2",
+   "time": "2026-06-03T21:58:39.736Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/main",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "35a8a119f3e0dc0e5374e928efd4c91abce24fac",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26915492582/attempts/1"
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "4.1.1",
+   "time": "2026-06-04T00:26:24.406Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "5.0.1",
+   "time": "2026-06-04T00:26:49.682Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "6.0.1",
+   "time": "2026-06-04T00:27:11.574Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "7.0.1",
+   "time": "2026-06-04T00:27:20.131Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "8.0.1",
+   "time": "2026-06-04T00:27:28.078Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "9.0.1",
+   "time": "2026-06-04T00:27:36.127Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "10.0.1",
+   "time": "2026-06-04T00:27:43.861Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "11.0.1",
+   "time": "2026-06-04T00:27:52.166Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "12.0.1",
+   "time": "2026-06-04T00:27:59.758Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "13.0.1",
+   "time": "2026-06-04T00:28:07.112Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "14.1.1",
+   "time": "2026-06-04T00:28:14.962Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "15.0.1",
+   "time": "2026-06-04T00:28:23.098Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "16.0.2",
+   "time": "2026-06-04T00:28:30.663Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "17.0.1",
+   "time": "2026-06-04T00:28:38.526Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "18.0.3",
+   "time": "2026-06-04T00:28:46.629Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "19.0.1",
+   "time": "2026-06-04T00:28:54.605Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "20.0.1",
+   "time": "2026-06-04T00:29:00.923Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "21.0.1",
+   "time": "2026-06-04T00:29:07.517Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "22.0.2",
+   "time": "2026-06-04T00:29:13.584Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "23.0.2",
+   "time": "2026-06-04T00:29:19.641Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "24.0.1",
+   "time": "2026-06-04T00:29:27.447Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "25.0.1",
+   "time": "2026-06-04T00:29:35.277Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "26.0.1",
+   "time": "2026-06-04T00:29:42.919Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "27.0.2",
+   "time": "2026-06-04T00:29:48.343Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "28.0.2",
+   "time": "2026-06-04T00:29:54.346Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "29.0.6",
+   "time": "2026-06-04T00:30:00.122Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "30.0.4",
+   "time": "2026-06-04T00:30:05.907Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-subscribers",
+   "ver": "31.1.4",
+   "time": "2026-06-04T00:30:11.596Z",
+   "present": false
+  },
+  {
+   "pkg": "executable-stories-jest",
+   "ver": "3.1.1",
+   "time": "2026-06-04T00:26:21.534Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "executable-stories-jest",
+   "ver": "4.0.1",
+   "time": "2026-06-04T00:26:30.501Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "executable-stories-jest",
+   "ver": "5.0.1",
+   "time": "2026-06-04T00:26:40.023Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "executable-stories-jest",
+   "ver": "6.1.1",
+   "time": "2026-06-04T00:26:49.601Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "executable-stories-jest",
+   "ver": "7.0.3",
+   "time": "2026-06-04T00:26:59.100Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "executable-stories-jest",
+   "ver": "8.3.2",
+   "time": "2026-06-04T00:27:05.475Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "executable-stories-playwright",
+   "ver": "3.1.1",
+   "time": "2026-06-04T00:26:10.953Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "executable-stories-playwright",
+   "ver": "4.0.1",
+   "time": "2026-06-04T00:26:22.422Z",
+   "present": false
+  },
+  {
+   "pkg": "executable-stories-playwright",
+   "ver": "5.0.1",
+   "time": "2026-06-04T00:26:31.849Z",
+   "present": false
+  },
+  {
+   "pkg": "executable-stories-playwright",
+   "ver": "6.1.1",
+   "time": "2026-06-04T00:26:40.675Z",
+   "present": false
+  },
+  {
+   "pkg": "executable-stories-playwright",
+   "ver": "7.0.3",
+   "time": "2026-06-04T00:26:50.319Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "executable-stories-playwright",
+   "ver": "8.4.3",
+   "time": "2026-06-04T00:27:00.024Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "0.1.1",
+   "time": "2026-06-04T00:26:34.400Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "1.0.1",
+   "time": "2026-06-04T00:26:45.582Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "2.0.1",
+   "time": "2026-06-04T00:26:56.708Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "3.0.2",
+   "time": "2026-06-04T00:27:07.672Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "4.0.1",
+   "time": "2026-06-04T00:27:18.719Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "5.0.1",
+   "time": "2026-06-04T00:27:29.606Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "6.0.1",
+   "time": "2026-06-04T00:27:40.081Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "7.0.1",
+   "time": "2026-06-04T00:27:51.142Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "8.0.1",
+   "time": "2026-06-04T00:28:02.587Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "9.0.1",
+   "time": "2026-06-04T00:28:12.642Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "10.0.1",
+   "time": "2026-06-04T00:28:21.459Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "11.0.1",
+   "time": "2026-06-04T00:28:31.693Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "12.0.1",
+   "time": "2026-06-04T00:28:40.828Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "13.0.1",
+   "time": "2026-06-04T00:28:50.325Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "14.0.1",
+   "time": "2026-06-04T00:29:00.075Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "15.0.1",
+   "time": "2026-06-04T00:29:09.557Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "16.0.1",
+   "time": "2026-06-04T00:29:18.593Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "17.0.1",
+   "time": "2026-06-04T00:29:28.200Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "18.0.1",
+   "time": "2026-06-04T00:29:37.943Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "19.1.1",
+   "time": "2026-06-04T00:29:48.023Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "20.0.1",
+   "time": "2026-06-04T00:29:57.581Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "21.0.1",
+   "time": "2026-06-04T00:30:07.013Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "22.0.1",
+   "time": "2026-06-04T00:30:15.229Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "23.0.1",
+   "time": "2026-06-04T00:30:21.724Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "24.0.0",
+   "time": "2026-06-05T23:37:11.664Z",
+   "present": true,
+   "att_status": 404
+  },
+  {
+   "pkg": "executable-stories-vitest",
+   "ver": "2.0.1",
+   "time": "2026-06-04T00:26:01.811Z",
+   "present": false
+  },
+  {
+   "pkg": "executable-stories-vitest",
+   "ver": "3.1.1",
+   "time": "2026-06-04T00:26:14.526Z",
+   "present": false
+  },
+  {
+   "pkg": "executable-stories-vitest",
+   "ver": "4.0.1",
+   "time": "2026-06-04T00:26:23.268Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "executable-stories-vitest",
+   "ver": "5.0.1",
+   "time": "2026-06-04T00:26:32.033Z",
+   "present": false
+  },
+  {
+   "pkg": "executable-stories-vitest",
+   "ver": "6.1.1",
+   "time": "2026-06-04T00:26:41.192Z",
+   "present": false
+  },
+  {
+   "pkg": "executable-stories-vitest",
+   "ver": "7.0.3",
+   "time": "2026-06-04T00:26:50.626Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "executable-stories-vitest",
+   "ver": "8.3.3",
+   "time": "2026-06-04T00:27:00.332Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "autotel-devtools",
+   "ver": "6.1.1",
+   "time": "2026-06-03T21:58:44.118Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/main",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "35a8a119f3e0dc0e5374e928efd4c91abce24fac",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26915492582/attempts/1"
+  },
+  {
+   "pkg": "autotel-devtools",
+   "ver": "0.1.1",
+   "time": "2026-06-04T00:25:51.027Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-devtools",
+   "ver": "1.0.4",
+   "time": "2026-06-04T00:26:12.725Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-devtools",
+   "ver": "2.1.1",
+   "time": "2026-06-04T00:26:29.185Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-devtools",
+   "ver": "3.0.2",
+   "time": "2026-06-04T00:26:44.001Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-devtools",
+   "ver": "4.0.1",
+   "time": "2026-06-04T00:26:55.192Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-devtools",
+   "ver": "5.1.1",
+   "time": "2026-06-04T00:27:07.128Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-devtools",
+   "ver": "6.1.2",
+   "time": "2026-06-04T00:27:12.879Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-devtools",
+   "ver": "6.2.0",
+   "time": "2026-06-05T23:14:37.462Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-cloudflare",
+   "ver": "2.18.16",
+   "time": "2026-06-04T00:26:03.523Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-tanstack",
+   "ver": "1.13.26",
+   "time": "2026-06-03T21:58:38.047Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/main",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "35a8a119f3e0dc0e5374e928efd4c91abce24fac",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26915492582/attempts/1"
+  },
+  {
+   "pkg": "autotel-tanstack",
+   "ver": "1.13.27",
+   "time": "2026-06-04T00:26:05.131Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-adapters",
+   "ver": "0.3.4",
+   "time": "2026-06-03T21:58:32.418Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/main",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "35a8a119f3e0dc0e5374e928efd4c91abce24fac",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26915492582/attempts/1"
+  },
+  {
+   "pkg": "autotel-adapters",
+   "ver": "0.3.5",
+   "time": "2026-06-04T00:25:55.963Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-e8ed3490",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "28a85158725069a332b9de300a143b2337f7a0f9",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26921849059/attempts/1"
+  },
+  {
+   "pkg": "effect-analyzer",
+   "ver": "0.3.1",
+   "time": "2026-06-04T00:26:14.908Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-f04ac7af",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/effect-analyzer",
+   "event": "push",
+   "commit": "daf6e1f38644739442ffddd0f1d1ae3d47fbb4b5",
+   "run": "https://github.com/jagreehal/effect-analyzer/actions/runs/26921886174/attempts/1"
+  },
+  {
+   "pkg": "autotel-audit",
+   "ver": "0.1.14",
+   "time": "2026-06-03T21:58:32.649Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/main",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "35a8a119f3e0dc0e5374e928efd4c91abce24fac",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26915492582/attempts/1"
+  },
+  {
+   "pkg": "autotel-audit",
+   "ver": "0.1.15",
+   "time": "2026-06-04T00:25:34.584Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-e8ed3490",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "28a85158725069a332b9de300a143b2337f7a0f9",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26921849059/attempts/1"
+  },
+  {
+   "pkg": "autotel-aws",
+   "ver": "0.13.9",
+   "time": "2026-06-03T21:58:32.596Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/main",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "35a8a119f3e0dc0e5374e928efd4c91abce24fac",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26915492582/attempts/1"
+  },
+  {
+   "pkg": "autotel-aws",
+   "ver": "0.13.10",
+   "time": "2026-06-04T00:26:07.170Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-e8ed3490",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "28a85158725069a332b9de300a143b2337f7a0f9",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26921849059/attempts/1"
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "0.1.14",
+   "time": "2026-06-04T00:26:03.490Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "2.0.1",
+   "time": "2026-06-04T00:26:16.169Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "3.0.1",
+   "time": "2026-06-04T00:26:29.250Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "4.0.1",
+   "time": "2026-06-04T00:26:40.704Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "5.0.1",
+   "time": "2026-06-04T00:26:53.670Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "6.0.1",
+   "time": "2026-06-04T00:27:04.944Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "7.0.1",
+   "time": "2026-06-04T00:27:11.497Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "8.0.1",
+   "time": "2026-06-04T00:27:18.948Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "9.0.1",
+   "time": "2026-06-04T00:27:26.607Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "10.0.1",
+   "time": "2026-06-04T00:27:34.567Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "11.0.1",
+   "time": "2026-06-04T00:27:43.300Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "13.0.1",
+   "time": "2026-06-04T00:27:50.831Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "14.0.1",
+   "time": "2026-06-04T00:27:58.455Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "15.0.2",
+   "time": "2026-06-04T00:28:06.026Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "16.0.1",
+   "time": "2026-06-04T00:28:13.877Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "17.0.2",
+   "time": "2026-06-04T00:28:21.654Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "18.0.1",
+   "time": "2026-06-04T00:28:29.663Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "19.0.1",
+   "time": "2026-06-04T00:28:37.564Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "20.0.1",
+   "time": "2026-06-04T00:28:45.405Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "21.1.1",
+   "time": "2026-06-04T00:28:53.025Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "22.0.1",
+   "time": "2026-06-04T00:28:59.243Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "23.0.1",
+   "time": "2026-06-04T00:29:05.134Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "24.0.1",
+   "time": "2026-06-04T00:29:11.568Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "25.0.1",
+   "time": "2026-06-04T00:29:17.611Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "26.0.2",
+   "time": "2026-06-04T00:29:23.671Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "27.0.1",
+   "time": "2026-06-04T00:29:28.699Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "28.0.3",
+   "time": "2026-06-04T00:29:35.046Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp",
+   "ver": "29.0.1",
+   "time": "2026-06-04T00:29:41.203Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-playwright",
+   "ver": "0.4.31",
+   "time": "2026-06-03T21:58:32.178Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/main",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "35a8a119f3e0dc0e5374e928efd4c91abce24fac",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26915492582/attempts/1"
+  },
+  {
+   "pkg": "autotel-playwright",
+   "ver": "0.4.32",
+   "time": "2026-06-04T00:25:36.457Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-web",
+   "ver": "1.12.2",
+   "time": "2026-06-04T00:25:48.504Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-drizzle",
+   "ver": "0.0.26",
+   "time": "2026-06-03T21:58:32.242Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/main",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "35a8a119f3e0dc0e5374e928efd4c91abce24fac",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26915492582/attempts/1"
+  },
+  {
+   "pkg": "autotel-drizzle",
+   "ver": "0.0.27",
+   "time": "2026-06-04T00:25:36.377Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-backends",
+   "ver": "2.12.25",
+   "time": "2026-06-03T21:58:32.504Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/main",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "35a8a119f3e0dc0e5374e928efd4c91abce24fac",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26915492582/attempts/1"
+  },
+  {
+   "pkg": "autotel-backends",
+   "ver": "2.12.26",
+   "time": "2026-06-04T00:25:45.011Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp-instrumentation",
+   "ver": "29.0.2",
+   "time": "2026-06-04T00:25:50.352Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp-instrumentation",
+   "ver": "30.0.5",
+   "time": "2026-06-04T00:26:10.971Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp-instrumentation",
+   "ver": "31.0.1",
+   "time": "2026-06-04T00:26:25.580Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp-instrumentation",
+   "ver": "32.0.1",
+   "time": "2026-06-04T00:26:36.584Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp-instrumentation",
+   "ver": "33.0.2",
+   "time": "2026-06-04T00:26:51.495Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mcp-instrumentation",
+   "ver": "34.0.1",
+   "time": "2026-06-04T00:27:02.673Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-hono",
+   "ver": "0.4.25",
+   "time": "2026-06-03T21:58:32.608Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/main",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "35a8a119f3e0dc0e5374e928efd4c91abce24fac",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26915492582/attempts/1"
+  },
+  {
+   "pkg": "autotel-hono",
+   "ver": "0.4.26",
+   "time": "2026-06-04T00:25:34.284Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-pact",
+   "ver": "1.0.2",
+   "time": "2026-06-03T21:58:32.861Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/main",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "35a8a119f3e0dc0e5374e928efd4c91abce24fac",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26915492582/attempts/1"
+  },
+  {
+   "pkg": "autotel-pact",
+   "ver": "0.2.2",
+   "time": "2026-06-04T00:25:57.740Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-pact",
+   "ver": "1.0.3",
+   "time": "2026-06-04T00:26:20.235Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-plugins",
+   "ver": "0.19.25",
+   "time": "2026-06-03T21:58:37.756Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/main",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "35a8a119f3e0dc0e5374e928efd4c91abce24fac",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26915492582/attempts/1"
+  },
+  {
+   "pkg": "autotel-plugins",
+   "ver": "0.19.26",
+   "time": "2026-06-04T00:25:56.237Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "23.0.2",
+   "time": "2026-06-03T21:58:38.565Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/main",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "35a8a119f3e0dc0e5374e928efd4c91abce24fac",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26915492582/attempts/1"
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "2.1.1",
+   "time": "2026-06-04T00:25:34.948Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "3.0.1",
+   "time": "2026-06-04T00:25:54.027Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "4.0.2",
+   "time": "2026-06-04T00:26:05.196Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "5.0.1",
+   "time": "2026-06-04T00:26:18.023Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "6.0.3",
+   "time": "2026-06-04T00:26:29.326Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "7.0.1",
+   "time": "2026-06-04T00:26:40.135Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "8.0.1",
+   "time": "2026-06-04T00:26:52.280Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "9.0.1",
+   "time": "2026-06-04T00:27:02.677Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "10.0.2",
+   "time": "2026-06-04T00:27:10.604Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "11.0.1",
+   "time": "2026-06-04T00:27:18.459Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "12.0.1",
+   "time": "2026-06-04T00:27:26.542Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "13.0.1",
+   "time": "2026-06-04T00:27:34.668Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "14.0.1",
+   "time": "2026-06-04T00:27:42.317Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "15.0.2",
+   "time": "2026-06-04T00:27:50.186Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "16.0.2",
+   "time": "2026-06-04T00:27:57.814Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "17.0.10",
+   "time": "2026-06-04T00:28:05.805Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "18.0.4",
+   "time": "2026-06-04T00:28:13.851Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "19.0.8",
+   "time": "2026-06-04T00:28:21.450Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "20.0.2",
+   "time": "2026-06-04T00:28:29.272Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "21.0.1",
+   "time": "2026-06-04T00:28:37.054Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "22.0.2",
+   "time": "2026-06-04T00:28:44.995Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-terminal",
+   "ver": "23.0.3",
+   "time": "2026-06-04T00:28:52.748Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-vitest",
+   "ver": "0.4.25",
+   "time": "2026-06-03T21:58:38.561Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/main",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "35a8a119f3e0dc0e5374e928efd4c91abce24fac",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26915492582/attempts/1"
+  },
+  {
+   "pkg": "autotel-vitest",
+   "ver": "0.4.26",
+   "time": "2026-06-04T00:25:34.363Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-edge",
+   "ver": "3.16.13",
+   "time": "2026-06-04T00:25:56.008Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-e8ed3490",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/autotel",
+   "event": "push",
+   "commit": "28a85158725069a332b9de300a143b2337f7a0f9",
+   "run": "https://github.com/jagreehal/autotel/actions/runs/26921849059/attempts/1"
+  },
+  {
+   "pkg": "autotel-mongoose",
+   "ver": "0.0.3",
+   "time": "2026-06-04T00:25:35.911Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mongoose",
+   "ver": "1.0.2",
+   "time": "2026-06-04T00:25:56.180Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mongoose",
+   "ver": "2.0.5",
+   "time": "2026-06-04T00:26:09.124Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mongoose",
+   "ver": "3.0.1",
+   "time": "2026-06-04T00:26:20.054Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mongoose",
+   "ver": "4.0.1",
+   "time": "2026-06-04T00:26:30.996Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mongoose",
+   "ver": "5.0.2",
+   "time": "2026-06-04T00:26:42.214Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-mongoose",
+   "ver": "6.0.1",
+   "time": "2026-06-04T00:26:53.563Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-eventcatalog",
+   "ver": "1.0.1",
+   "time": "2026-06-04T00:25:54.228Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-eventcatalog",
+   "ver": "2.0.1",
+   "time": "2026-06-04T00:26:14.300Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-eventcatalog",
+   "ver": "3.0.1",
+   "time": "2026-06-04T00:26:33.086Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-eventcatalog",
+   "ver": "4.0.2",
+   "time": "2026-06-04T00:26:52.544Z",
+   "present": false
+  },
+  {
+   "pkg": "autotel-eventcatalog",
+   "ver": "5.0.1",
+   "time": "2026-06-04T00:27:08.667Z",
+   "present": false
+  },
+  {
+   "pkg": "node-env-resolver-aws",
+   "ver": "9.1.2",
+   "time": "2026-06-04T00:27:52.440Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-8dee74ce",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/node-env-resolver",
+   "event": "push",
+   "commit": "699bfd92dc672cd5b9cef20dc2600b95e8ae9d7f",
+   "run": "https://github.com/jagreehal/node-env-resolver/actions/runs/26921908288/attempts/1"
+  },
+  {
+   "pkg": "node-env-resolver-aws",
+   "ver": "10.0.1",
+   "time": "2026-06-04T00:27:57.103Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-8dee74ce",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/node-env-resolver",
+   "event": "push",
+   "commit": "699bfd92dc672cd5b9cef20dc2600b95e8ae9d7f",
+   "run": "https://github.com/jagreehal/node-env-resolver/actions/runs/26921908288/attempts/1"
+  },
+  {
+   "pkg": "node-env-resolver-aws",
+   "ver": "11.0.1",
+   "time": "2026-06-04T00:28:01.980Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-8dee74ce",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/node-env-resolver",
+   "event": "push",
+   "commit": "699bfd92dc672cd5b9cef20dc2600b95e8ae9d7f",
+   "run": "https://github.com/jagreehal/node-env-resolver/actions/runs/26921908288/attempts/1"
+  },
+  {
+   "pkg": "node-env-resolver-aws",
+   "ver": "12.0.1",
+   "time": "2026-06-04T00:28:06.794Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-8dee74ce",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/node-env-resolver",
+   "event": "push",
+   "commit": "699bfd92dc672cd5b9cef20dc2600b95e8ae9d7f",
+   "run": "https://github.com/jagreehal/node-env-resolver/actions/runs/26921908288/attempts/1"
+  },
+  {
+   "pkg": "autotel-cli",
+   "ver": "0.8.14",
+   "time": "2026-06-04T00:25:34.798Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly",
+   "ver": "1.33.3",
+   "time": "2026-06-04T00:26:46.856Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly",
+   "ver": "1.34.0",
+   "time": "2026-06-05T23:37:06.826Z",
+   "present": true,
+   "att_status": 404
+  },
+  {
+   "pkg": "node-env-resolver",
+   "ver": "6.5.1",
+   "time": "2026-06-04T00:27:43.928Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-8dee74ce",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/node-env-resolver",
+   "event": "push",
+   "commit": "699bfd92dc672cd5b9cef20dc2600b95e8ae9d7f",
+   "run": "https://github.com/jagreehal/node-env-resolver/actions/runs/26921908288/attempts/1"
+  },
+  {
+   "pkg": "awaitly-analyze",
+   "ver": "0.24.2",
+   "time": "2026-06-04T00:26:34.697Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-analyze",
+   "ver": "1.1.1",
+   "time": "2026-06-04T00:26:46.720Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-analyze",
+   "ver": "2.0.1",
+   "time": "2026-06-04T00:26:57.558Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-analyze",
+   "ver": "3.0.1",
+   "time": "2026-06-04T00:27:08.505Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-analyze",
+   "ver": "4.0.1",
+   "time": "2026-06-04T00:27:19.523Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-analyze",
+   "ver": "5.0.1",
+   "time": "2026-06-04T00:27:30.426Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-analyze",
+   "ver": "6.0.1",
+   "time": "2026-06-04T00:27:41.507Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-analyze",
+   "ver": "7.0.1",
+   "time": "2026-06-04T00:27:52.051Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-analyze",
+   "ver": "8.0.1",
+   "time": "2026-06-04T00:28:02.754Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-analyze",
+   "ver": "0.25.0",
+   "time": "2026-06-05T23:37:09.478Z",
+   "present": true,
+   "att_status": 404
+  },
+  {
+   "pkg": "eslint-plugin-executable-stories-jest",
+   "ver": "1.2.1",
+   "time": "2026-06-04T00:26:12.752Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "eslint-plugin-executable-stories-jest",
+   "ver": "2.1.8",
+   "time": "2026-06-04T00:26:23.098Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "eslint-plugin-awaitly",
+   "ver": "0.17.1",
+   "time": "2026-06-04T00:26:32.698Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "eslint-plugin-awaitly",
+   "ver": "1.0.1",
+   "time": "2026-06-04T00:26:45.717Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-6db883ad",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/awaitly",
+   "event": "push",
+   "commit": "8cf84f7ced07c81138ff1c657db28f58e3d2b28f",
+   "run": "https://github.com/jagreehal/awaitly/actions/runs/26921892114/attempts/1"
+  },
+  {
+   "pkg": "eslint-plugin-awaitly",
+   "ver": "1.1.0",
+   "time": "2026-06-05T23:37:13.949Z",
+   "present": true,
+   "att_status": 404
+  },
+  {
+   "pkg": "autotel-sentry",
+   "ver": "0.5.13",
+   "time": "2026-06-04T00:25:34.488Z",
+   "present": false
+  },
+  {
+   "pkg": "executable-stories-init",
+   "ver": "0.1.2",
+   "time": "2026-06-04T00:26:02.092Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "0.1.1",
+   "time": "2026-06-04T00:26:32.676Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "1.0.1",
+   "time": "2026-06-04T00:26:45.568Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "2.0.1",
+   "time": "2026-06-04T00:26:56.635Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "3.0.1",
+   "time": "2026-06-04T00:27:07.946Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "4.0.1",
+   "time": "2026-06-04T00:27:18.723Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "5.0.1",
+   "time": "2026-06-04T00:27:29.641Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "6.0.1",
+   "time": "2026-06-04T00:27:40.538Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "7.0.1",
+   "time": "2026-06-04T00:27:51.361Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "8.0.1",
+   "time": "2026-06-04T00:28:02.403Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "9.0.1",
+   "time": "2026-06-04T00:28:11.770Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "10.0.1",
+   "time": "2026-06-04T00:28:21.329Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "11.0.1",
+   "time": "2026-06-04T00:28:31.075Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "12.0.1",
+   "time": "2026-06-04T00:28:40.473Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "13.0.1",
+   "time": "2026-06-04T00:28:50.066Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "14.0.1",
+   "time": "2026-06-04T00:28:59.488Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "15.0.1",
+   "time": "2026-06-04T00:29:09.352Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "16.0.1",
+   "time": "2026-06-04T00:29:18.836Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "17.0.1",
+   "time": "2026-06-04T00:29:28.807Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "18.1.1",
+   "time": "2026-06-04T00:29:38.077Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "19.0.1",
+   "time": "2026-06-04T00:29:47.778Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "20.0.1",
+   "time": "2026-06-04T00:29:57.364Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "21.0.1",
+   "time": "2026-06-04T00:30:06.960Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "22.0.1",
+   "time": "2026-06-04T00:30:15.096Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-libsql",
+   "ver": "23.0.0",
+   "time": "2026-06-05T23:37:09.165Z",
+   "present": true,
+   "att_status": 404
+  },
+  {
+   "pkg": "eslint-plugin-executable-stories-vitest",
+   "ver": "1.2.1",
+   "time": "2026-06-04T00:26:07.193Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "eslint-plugin-executable-stories-vitest",
+   "ver": "2.1.8",
+   "time": "2026-06-04T00:26:22.247Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "0.1.1",
+   "time": "2026-06-04T00:26:34.286Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "1.0.1",
+   "time": "2026-06-04T00:26:45.596Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "2.0.1",
+   "time": "2026-06-04T00:26:56.610Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "3.0.1",
+   "time": "2026-06-04T00:27:07.651Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "4.0.1",
+   "time": "2026-06-04T00:27:18.640Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "5.0.1",
+   "time": "2026-06-04T00:27:29.908Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "6.0.1",
+   "time": "2026-06-04T00:27:40.926Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "7.0.1",
+   "time": "2026-06-04T00:27:51.259Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "8.0.1",
+   "time": "2026-06-04T00:28:02.290Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "9.1.1",
+   "time": "2026-06-04T00:28:12.197Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "10.0.1",
+   "time": "2026-06-04T00:28:21.563Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "11.0.1",
+   "time": "2026-06-04T00:28:31.166Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "12.0.1",
+   "time": "2026-06-04T00:28:40.644Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "13.0.1",
+   "time": "2026-06-04T00:28:50.006Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "14.0.1",
+   "time": "2026-06-04T00:28:59.969Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "15.0.1",
+   "time": "2026-06-04T00:29:08.940Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "16.0.1",
+   "time": "2026-06-04T00:29:18.595Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "17.0.1",
+   "time": "2026-06-04T00:29:28.378Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "18.0.1",
+   "time": "2026-06-04T00:29:38.343Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "19.1.1",
+   "time": "2026-06-04T00:29:47.853Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "20.0.1",
+   "time": "2026-06-04T00:29:57.326Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "21.0.1",
+   "time": "2026-06-04T00:30:06.991Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "22.0.1",
+   "time": "2026-06-04T00:30:15.274Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "23.0.1",
+   "time": "2026-06-04T00:30:21.808Z",
+   "present": false
+  },
+  {
+   "pkg": "awaitly-mongo",
+   "ver": "24.0.0",
+   "time": "2026-06-05T23:37:11.355Z",
+   "present": true,
+   "att_status": 404
+  },
+  {
+   "pkg": "node-env-resolver-dotenvx",
+   "ver": "1.0.1",
+   "time": "2026-06-04T00:26:57.948Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-8dee74ce",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/node-env-resolver",
+   "event": "push",
+   "commit": "699bfd92dc672cd5b9cef20dc2600b95e8ae9d7f",
+   "run": "https://github.com/jagreehal/node-env-resolver/actions/runs/26921908288/attempts/1"
+  },
+  {
+   "pkg": "node-env-resolver-dotenvx",
+   "ver": "2.0.1",
+   "time": "2026-06-04T00:27:09.049Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-8dee74ce",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/node-env-resolver",
+   "event": "push",
+   "commit": "699bfd92dc672cd5b9cef20dc2600b95e8ae9d7f",
+   "run": "https://github.com/jagreehal/node-env-resolver/actions/runs/26921908288/attempts/1"
+  },
+  {
+   "pkg": "node-env-resolver-vite",
+   "ver": "2.4.2",
+   "time": "2026-06-04T00:27:09.126Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-8dee74ce",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/node-env-resolver",
+   "event": "push",
+   "commit": "699bfd92dc672cd5b9cef20dc2600b95e8ae9d7f",
+   "run": "https://github.com/jagreehal/node-env-resolver/actions/runs/26921908288/attempts/1"
+  },
+  {
+   "pkg": "eslint-plugin-executable-stories-playwright",
+   "ver": "1.2.1",
+   "time": "2026-06-04T00:26:12.722Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-827ef3be",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/executable-stories",
+   "event": "push",
+   "commit": "5558a18708cc8de3b8a76a3e39581b0e36be1323",
+   "run": "https://github.com/jagreehal/executable-stories/actions/runs/26921864151/attempts/1"
+  },
+  {
+   "pkg": "eslint-plugin-executable-stories-playwright",
+   "ver": "2.1.8",
+   "time": "2026-06-04T00:26:22.764Z",
+   "present": false
+  },
+  {
+   "pkg": "wrangler-deploy",
+   "ver": "1.5.5",
+   "time": "2026-06-04T00:26:05.630Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-b528c42a",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/wrangler-deploy",
+   "event": "push",
+   "commit": "5970d29e33a3cb35a63bf3e5edcb32d99f79aa72",
+   "run": "https://github.com/jagreehal/wrangler-deploy/actions/runs/26921876837/attempts/1"
+  },
+  {
+   "pkg": "node-env-resolver-nextjs",
+   "ver": "7.4.2",
+   "time": "2026-06-04T00:27:31.264Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-8dee74ce",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/node-env-resolver",
+   "event": "push",
+   "commit": "699bfd92dc672cd5b9cef20dc2600b95e8ae9d7f",
+   "run": "https://github.com/jagreehal/node-env-resolver/actions/runs/26921908288/attempts/1"
+  },
+  {
+   "pkg": "mountly-tailwind",
+   "ver": "0.1.3",
+   "time": "2026-06-04T00:26:06.915Z",
+   "present": true,
+   "att_status": 200,
+   "ref": "refs/heads/snapshot-eee14e18",
+   "path": ".github/workflows/release.yml",
+   "repo": "https://github.com/jagreehal/mountly",
+   "event": "push",
+   "commit": "d410b53dba24c437bb15d08124de9bfd61a7a84b",
+   "run": "https://github.com/jagreehal/mountly/actions/runs/26921881848/attempts/1"
+  },
+  {
+   "pkg": "mountly",
+   "ver": "0.2.2",
+   "time": "2026-06-04T00:26:07.634Z",
+   "present": false
+  },
+  {
+   "pkg": "@jagreehal/workflow",
+   "ver": "1.16.1",
+   "time": "2026-06-04T00:27:08.739Z",
+   "present": false
+  },
+  {
+   "pkg": "create-wrangler-deploy",
+   "ver": "0.1.1",
+   "time": "2026-06-04T00:26:04.683Z",
+   "present": false
+  },
+  {
+   "pkg": "ai-workshop-taster",
+   "ver": "0.1.1",
+   "time": "2026-06-03T13:11:52.028Z",
+   "present": true,
+   "att_status": 404
+  }
+ ],
+ "jagreehal_burst_present_tarball_check": [
+  {
+   "pkg": "autotel",
+   "ver": "2.26.4",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "autotel",
+   "ver": "3.4.3",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "1.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "2.0.2",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "3.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "5.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "6.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "7.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "8.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "9.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "11.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "14.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "15.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "16.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "17.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "19.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "20.0.2",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-visualizer",
+   "ver": "22.0.2",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-formatters",
+   "ver": "0.11.2",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-cypress",
+   "ver": "3.1.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-cypress",
+   "ver": "4.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-cypress",
+   "ver": "5.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-cypress",
+   "ver": "6.1.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-cypress",
+   "ver": "7.0.3",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-cypress",
+   "ver": "8.3.2",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-react",
+   "ver": "0.1.7",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-jest",
+   "ver": "3.1.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-jest",
+   "ver": "4.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-jest",
+   "ver": "5.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-jest",
+   "ver": "6.1.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-jest",
+   "ver": "7.0.3",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-jest",
+   "ver": "8.3.2",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-playwright",
+   "ver": "3.1.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-playwright",
+   "ver": "7.0.3",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-playwright",
+   "ver": "8.4.3",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "0.1.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "1.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "4.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "7.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "9.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "10.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "11.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "12.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "15.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "17.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "18.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "19.1.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "20.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "awaitly-postgres",
+   "ver": "23.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-vitest",
+   "ver": "4.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-vitest",
+   "ver": "7.0.3",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-vitest",
+   "ver": "8.3.3",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "autotel-adapters",
+   "ver": "0.3.5",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "effect-analyzer",
+   "ver": "0.3.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "autotel-audit",
+   "ver": "0.1.15",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "autotel-aws",
+   "ver": "0.13.10",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "autotel-edge",
+   "ver": "3.16.13",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "node-env-resolver-aws",
+   "ver": "9.1.2",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "node-env-resolver-aws",
+   "ver": "10.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "node-env-resolver-aws",
+   "ver": "11.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "node-env-resolver-aws",
+   "ver": "12.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "node-env-resolver",
+   "ver": "6.5.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "eslint-plugin-executable-stories-jest",
+   "ver": "1.2.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "eslint-plugin-executable-stories-jest",
+   "ver": "2.1.8",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "eslint-plugin-awaitly",
+   "ver": "0.17.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "eslint-plugin-awaitly",
+   "ver": "1.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "executable-stories-init",
+   "ver": "0.1.2",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "eslint-plugin-executable-stories-vitest",
+   "ver": "1.2.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "eslint-plugin-executable-stories-vitest",
+   "ver": "2.1.8",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "node-env-resolver-dotenvx",
+   "ver": "1.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "node-env-resolver-dotenvx",
+   "ver": "2.0.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "node-env-resolver-vite",
+   "ver": "2.4.2",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "eslint-plugin-executable-stories-playwright",
+   "ver": "1.2.1",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "wrangler-deploy",
+   "ver": "1.5.5",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "node-env-resolver-nextjs",
+   "ver": "7.4.2",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  },
+  {
+   "pkg": "mountly-tailwind",
+   "ver": "0.1.3",
+   "binding_gyp_sizes": [
+    157
+   ],
+   "deprecated": true,
+   "digest_matches_attestation": true
+  }
+ ],
+ "certificate_fields_text": "== att_sdkts_1.20.21.json mediaType application/vnd.dev.sigstore.bundle.v0.3+json\n SAN: ['https://github.com/InjectiveLabs/injective-ts/.github/workflows/publish.yaml@refs/heads/master']\n notBefore: 2026-07-08 20:59:26+00:00\n  Issuer (V2): https://token.actions.githubusercontent.com\n  Build Signer URI: https://github.com/InjectiveLabs/injective-ts/.github/workflows/publish.yaml@refs/heads/master\n  Runner Environment: github-hosted\n  Source Repository URI: https://github.com/InjectiveLabs/injective-ts\n  Source Repository Digest: 5486f13e799d9c90095c5f581a04ad867d768f66\n  Source Repository Ref: refs/heads/master\n  Build Config URI: https://github.com/InjectiveLabs/injective-ts/.github/workflows/publish.yaml@refs/heads/master\n  Build Trigger: push\n  Run Invocation URI: https://github.com/InjectiveLabs/injective-ts/actions/runs/28975012939/attempts/1\n  Source Repository Visibility At Signing: public\n rekor logIndex: 2120114909 integratedTime: 1783544366\n== att_sdkts_1.20.20.json mediaType application/vnd.dev.sigstore.bundle.v0.3+json\n SAN: ['https://github.com/InjectiveLabs/injective-ts/.github/workflows/publish.yaml@refs/heads/master']\n notBefore: 2026-07-07 14:29:29+00:00\n  Issuer (V2): https://token.actions.githubusercontent.com\n  Build Signer URI: https://github.com/InjectiveLabs/injective-ts/.github/workflows/publish.yaml@refs/heads/master\n  Runner Environment: github-hosted\n  Source Repository URI: https://github.com/InjectiveLabs/injective-ts\n  Source Repository Digest: 447001fb552401e60bfc3ecbb44ef241020c6dd1\n  Source Repository Ref: refs/heads/master\n  Build Config URI: https://github.com/InjectiveLabs/injective-ts/.github/workflows/publish.yaml@refs/heads/master\n  Build Trigger: push\n  Run Invocation URI: https://github.com/InjectiveLabs/injective-ts/actions/runs/28873720672/attempts/1\n  Source Repository Visibility At Signing: public\n rekor logIndex: 2102412944 integratedTime: 1783434569\n== att_autotel-audit_0.1.15.json mediaType application/vnd.dev.sigstore.bundle.v0.3+json\n SAN: ['https://github.com/jagreehal/autotel/.github/workflows/release.yml@refs/heads/snapshot-e8ed3490']\n notBefore: 2026-06-04 00:25:29+00:00\n  Issuer (V2): https://token.actions.githubusercontent.com\n  Build Signer URI: https://github.com/jagreehal/autotel/.github/workflows/release.yml@refs/heads/snapshot-e8ed3490\n  Runner Environment: github-hosted\n  Source Repository URI: https://github.com/jagreehal/autotel\n  Source Repository Digest: 28a85158725069a332b9de300a143b2337f7a0f9\n  Source Repository Ref: refs/heads/snapshot-e8ed3490\n  Build Config URI: https://github.com/jagreehal/autotel/.github/workflows/release.yml@refs/heads/snapshot-e8ed3490\n  Build Trigger: push\n  Run Invocation URI: https://github.com/jagreehal/autotel/actions/runs/26921849059/attempts/1\n  Source Repository Visibility At Signing: public\n rekor logIndex: 1713395903 integratedTime: 1780532729\n== att_autotel-audit_0.1.14.json mediaType application/vnd.dev.sigstore.bundle.v0.3+json\n SAN: ['https://github.com/jagreehal/autotel/.github/workflows/release.yml@refs/heads/main']\n notBefore: 2026-06-03 21:58:31+00:00\n  Issuer (V2): https://token.actions.githubusercontent.com\n  Build Signer URI: https://github.com/jagreehal/autotel/.github/workflows/release.yml@refs/heads/main\n  Runner Environment: github-hosted\n  Source Repository URI: https://github.com/jagreehal/autotel\n  Source Repository Digest: 35a8a119f3e0dc0e5374e928efd4c91abce24fac\n  Source Repository Ref: refs/heads/main\n  Build Config URI: https://github.com/jagreehal/autotel/.github/workflows/release.yml@refs/heads/main\n  Build Trigger: push\n  Run Invocation URI: https://github.com/jagreehal/autotel/actions/runs/26915492582/attempts/1\n  Source Repository Visibility At Signing: public\n rekor logIndex: 1712601682 integratedTime: 1780523911\n",
+ "quote_check": {
+  "https://slsa.dev/spec/v1.2/threats :: cannot be directly mitigated through SLSA controls": true,
+  "https://slsa.dev/spec/v1.0/threats :: does not reflect the intent of the software producer": true,
+  "https://slsa.dev/spec/v1.0/threats :: SLSA v1.0 does not address source threats": true,
+  "https://slsa.dev/spec/v1.0/threats :: SLSA v1.0 does not address this threat": true,
+  "https://docs.npmjs.com/generating-provenance-statements :: does not guarantee the package has no malicious code": true,
+  "https://docs.npmjs.com/generating-provenance-statements :: a verifiable link to the package's source code and build instructions": true,
+  "https://www.endorlabs.com/learn/npm-malware-compromises-keyv-and-cacheable-with-500m-weekly-downloads-and-spreads-to-hundreds-of-packages :: through the project's legitimate GitHub Actions OIDC trusted publishing pipeline after a commit to": true,
+  "https://www.endorlabs.com/learn/npm-malware-compromises-keyv-and-cacheable-with-500m-weekly-downloads-and-spreads-to-hundreds-of-packages :: valid npm signatures and SLSA provenance": true,
+  "https://socket.dev/blog/popular-npm-packages-in-the-keyv-and-cacheable-namespaces-compromised-in-active-supply-chain :: provenance attests build integrity, not source integrity": true,
+  "https://www.stepsecurity.io/blog/binding-gyp-npm-supply-chain-attack-spreads-like-worm :: 157": true,
+  "https://www.stepsecurity.io/blog/binding-gyp-npm-supply-chain-attack-spreads-like-worm :: binding.gyp": true,
+  "https://www.stepsecurity.io/blog/binding-gyp-npm-supply-chain-attack-spreads-like-worm :: jagreehal": true,
+  "https://www.stepsecurity.io/blog/injective-npm-supply-chain-attack-18-packages-backdoored-to-steal-crypto-wallet-keys :: 5486f13e799d9c90095c5f581a04ad867d768f66": true,
+  "https://www.stepsecurity.io/blog/injective-npm-supply-chain-attack-18-packages-backdoored-to-steal-crypto-wallet-keys :: publish.yaml": true,
+  "https://github.com/cline/cline/security/advisories/GHSA-9ppg-jx86-fqw7 :: compromised npm publish token": true,
+  "https://docs.npmjs.com/trusted-publishers :: Workflow filename (required)": true,
+  "https://docs.npmjs.com/trusted-publishers :: Environment name (optional)": true,
+  "https://docs.npmjs.com/staged-publishing :: two-factor authentication (2FA)": true,
+  "https://docs.npmjs.com/staged-publishing :: npm stage publish": true
+ }
+}
