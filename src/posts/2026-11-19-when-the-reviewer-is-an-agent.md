@@ -22,7 +22,7 @@ Most findings were right. The wrong ones were formatted exactly like the right o
 
 The ledger behind this post rebuilds the batch's review record from the research notes, the five pull requests (#667 to #671) and the reviewers' raw outputs, which had survived only in a session scratch directory and are now [retained in the repository](https://github.com/williamzujkowski/williamzujkowski.github.io/blob/main/docs/research/2026-10-01-agent-review-raw.md). One row per numbered finding, in a [CSV](https://github.com/williamzujkowski/williamzujkowski.github.io/blob/main/docs/research/2026-10-01-agent-review-ledger.csv) anyone can recount.
 
-| | Claude reviewer | Gemini reviewer |
+| Measure | Claude reviewer | Gemini reviewer |
 | --- | --- | --- |
 | Findings | 53 | 15 |
 | Labelled blocker | 3, all unfilled placeholders; applied | 2, both "attack recipe"; both rejected |
