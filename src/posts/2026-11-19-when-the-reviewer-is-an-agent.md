@@ -15,7 +15,8 @@ Every post in my October batch went past two agent reviewers before it was sched
 
 Most findings were right. The wrong ones were formatted exactly like the right ones, and they were wrong in recognisable ways: mostly the reviewer had been given the wrong frame, or had attached precise evidence to a misreading. A review gate staffed by agents needs what [any other gate needs](/posts/2026-10-22-plant-the-defect-watch-the-gate): inputs whose right answer is known in advance, and recomputation of every claim before anyone acts on it.
 
-<!-- DOODLE: a referee in full kit, flag raised with total confidence, standing alone on an empty neighbouring pitch while the actual match carries on behind the fence -->
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/empty-pitch-card.png'); width: min(240px, 62%); aspect-ratio: 400/284; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">A firm decision, confidently delivered.</p>
 
 ## The ledger
 
