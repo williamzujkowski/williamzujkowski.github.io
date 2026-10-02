@@ -215,7 +215,7 @@ python3 ledger recount (above)
 | blog-llm-tells | manual | read for triplets, X-not-Y, em dashes (none in prose), closing summary. Replaced a three-item control list in the intro. Kept "one reviewer wearing three hats" (observation). The close restates the finding once; kept short |
 | blog-nda-check | completed | evidence is this repo, its public PRs/issues, and the public nexus-agents repo. No employer, agency or work reference. First person used for William's recorded pipeline and posts; actions by the drafting agent (ledger rebuild, re-checks, control run) phrased impersonally, following the 2026-10-08 note's precedent |
 | blog-argument-shape | completed | type: experiment report + position. Thesis in para 2. Evidence map = claim ledger. Strongest objection (prompts differ, small n, adjudication by the same pipeline) stated in the ledger section and close. Disconfirming result: a planted-control run where reviewers miss the plant at a high rate would strengthen; a larger ledger whose wrong findings show no pattern would falsify the pattern reading |
-| blog-visuals | manual | one `.flow` (role=group + aria-label on root and branch legs, no blank lines, escaped text), one Markdown table (3 columns). Doodle left as `<!-- DOODLE -->` TODO for root. Rendered via Playwright against `astro preview` at 390px and 1280px, light and dark: HTTP 200, `scrollWidth` equals viewport in all four; flow and table screenshots inspected. `data-theme-deck` variants not checked |
+| blog-visuals | manual | one `.flow` (role=group + aria-label on root and branch legs, no blank lines, escaped text), one Markdown table (3 columns). Doodle placed by root (`empty-pitch-card.png`). Rendered via Playwright against `astro preview` at 390px and 1280px, light and dark: HTTP 200, `scrollWidth` equals viewport in all four; flow and table screenshots inspected. `data-theme-deck` variants not checked |
 | blog-artifact-check | completed | no gists; commands in the post are `curl --fail` / `grep -c` behaviours verified by local execution; linked commits/issues/PRs exist (gh api) |
 
 ## Build and audit
@@ -231,7 +231,7 @@ and returned HOLD on framing. Each item was checked before editing.
 
 | # | Finding | Verification | Action |
 | --- | --- | --- | --- |
-| 1 | DOODLE placeholder | n/a | Left for root (art) |
+| 1 | DOODLE placeholder | n/a | Applied: root placed `empty-pitch-card.png` |
 | 2 | Most votes named the blog correctly and judged it against the nexus-agents mission; 49fb636f's security voter approved on substance, echoing the proposal | Notes: c8202293 "outside its Nexus-product mission", 9ce46750 "outside the Nexus product mandate", 7cd495d1 mission; only 34703d7d and 516414e8 record a wrong-repository assumption. Vote JSON: proposal text says "not Nexus product mission" | Applied: section retitled "The votes that used the wrong mission"; census sentence rewritten; security-voter sentence cut |
 | 3 | "Point the other way" does not follow; September used one model, January round-robin | January post L38, L68 describe round-robin; L153 hedge "though having both is better" | Applied with the suggested wording (no em dash); hedge restored |
 | 4 | Fairness to Gemini; 11-05 g2 missing from re-check table | Script L168 compares `resolved < spec`, so "at least" is exact | Applied: same Claude session adjudicated both columns; two wrong findings follow the prompt, one from our note; nine too few to rank. 11-05 g2 re-checked (table above) and kept as wrong |
