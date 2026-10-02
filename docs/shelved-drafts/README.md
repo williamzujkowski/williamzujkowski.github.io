@@ -68,3 +68,30 @@ recovery-plan framing has not earned publication.
 
 - `2026-08-14-nobody-publishes-the-denominator.md` — replaced by a source-led SYSSPEC post; the census draft made broader claims than its frame audit supported.
 - `2026-08-18-checks-that-pass-for-the-wrong-reason.md` — replaced by a source-led Pilot Execution post; the corpus audit overstated what rounded percentages and review comments could prove.
+
+## "The repo is an input" (proposal #674) — not committed
+
+**Shelved 2026-10-02. Editorial and safety hold; the draft is not in this repository.**
+
+The proposal was to show, with a hostile synthetic repository, which repo-supplied
+configuration each coding-agent harness executes before its sandbox or approval layer
+applies. Building that table was stopped by a model safety classifier: even with an inert
+marker-file payload, a per-tool, per-version "which key executes when" table is a working
+attack playbook. A defensive rewrite (the pattern, advisory-level citations, read-only
+inventory checks) was then drafted, reviewed (HOLD) and stopped by the classifier again
+while its fixes were being applied. Two stops on the same subject ended the attempt.
+
+What the reviews established, verified at primary sources on 2026-10-01/02, and worth
+keeping for anyone who reopens it:
+
+- Not everything was patched. aider's advisory (GHSA-h3gc-qfjg-2m69) listed no fixed
+  version and Aider-AI/aider#5254 was still open; the Codex advisories give no fixed version.
+  Gemini CLI was fixed in 0.39.1 (its Action in 0.1.22); GitPython in 3.1.59.
+- CVE-2022-24765 / `safe.directory` concerns a `.git` in a shared parent directory on a
+  multi-user machine. It does not protect an archive you extracted yourself: you own it.
+- An "inspect before you trust" check can itself execute repository-chosen code:
+  `git config --list` in a terminal starts a pager, and repo-local `pager.config` plus
+  `core.pager` choose it. Use `git --no-pager` or `GIT_PAGER=cat`, or read `.git/config`
+  and its included files with `cat` first. `--local` alone does not follow `include.path`.
+
+Reopen only as human-supervised work, at advisory-level detail, with the corrections above.
