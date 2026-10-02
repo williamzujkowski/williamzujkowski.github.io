@@ -17,7 +17,8 @@ Under `strace -f`, that one command started three lifecycle scripts. They wrote 
 
 None of that is a bug. npm documents every step of it. What interested me is the approval. A permission rule such as `Bash(npm install *)` names a command, and the command turned out to be the front door of a fairly large house.
 
-<!-- DOODLE: a big rubber stamp pressing a checkmark onto a house's front door, while round the back three small figures climb in through a side window, a cellar hatch and the chimney; no lettering -->
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/stamped-box.png'); width: min(260px, 66%); aspect-ratio: 420/457; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">Approved. All of it, apparently.</p>
 
 <div class="flow" role="group" aria-label="What one approved install command ran in the lab">
   <div class="flow-node is-gate"><b>Approved text</b><i>npm install</i></div>
