@@ -1,0 +1,69 @@
+post,reviewer,item,severity,kind,finding,outcome,reviewer_correct,recorded,evidence
+2026-10-08,claude,1,blocker,vestigial,RESEARCH_LABS_COMMIT placeholder x3,applied,yes,pr-only,PR #670 commit "link the merged lab and add the doodle"
+2026-10-08,claude,2,major,fact,"Pi-hole timeline: three of four defects arrived in 2026 correction passes",applied-modified,partly,note,"note table row 1; c1f4b10 (2025-11-11) predates #538 ac0f499, which only added a vouching comment"
+2026-10-08,claude,3,major,fact,INPUT fix never run; docker0 is only the default bridge,applied,yes,note,note table row 2
+2026-10-08,claude,4,minor,fact,curl exits 0 but compose fails loudly one step later,applied,yes,note,note table row 3; reviewer ran docker compose config (exit 1)
+2026-10-08,claude,5,minor,artifact,Wazuh vm.max_map_count prerequisite; health check passes on 401,applied,yes,note,note table row 5
+2026-10-08,claude,6,minor,vestigial,DOODLE placeholder,applied,yes,pr-only,sad-extinguisher.png in PR #670
+2026-10-08,claude,7,minor,fact,compare before shredding seeds.txt,applied,yes,note,note table row 6
+2026-10-08,claude,8,minor,note,record independent reproduction at 1c91cd6,applied,yes,note,note table row 7
+2026-10-08,gemini,1,major,fact,"compose fails on the 403 body; pre-December-2025 history unproven",applied,yes,note-unattributed,note table row 3 (not attributed to a reviewer)
+2026-10-08,gemini,2,major,fairness,Vaultwarden quote omits the separate-auth-layer sentence,applied,yes,note-unattributed,note table row 4; Claude reviewer had listed this quote as matching
+2026-10-15,claude,1,major,prior-art,SLSA v1.2 Source track names this case,applied,yes,note,note Applied list
+2026-10-15,claude,2,major,fact,closing evidence sentence false for August figures,applied,yes,note,note Applied list
+2026-10-15,claude,3,major,safety,gypcheck.py downloads 76 malicious tarballs by default,applied,yes,note,note Applied list
+2026-10-15,claude,4,minor,safety,no do-not-repeat warning,applied,yes,note,note Applied list
+2026-10-15,claude,5,minor,fact,three victims figure is unretained August data,applied,yes,note,note Applied list
+2026-10-15,claude,6,minor,fact,keyv field-level claim needs its August scope,applied,yes,note,note Applied list
+2026-10-15,claude,7,minor,prior-art,Snyk keyv write-up not credited,applied,yes,note,note Applied list
+2026-10-15,claude,8,minor,fact,npm removed 204 vs no longer on registry,applied,yes,note,note Applied list
+2026-10-15,claude,9,minor,fact,audit prints counts only; each tarball is inference,applied,yes,note,note Applied list
+2026-10-15,claude,10,minor,fact,keyv ref form and workflow_dispatch trigger,applied,yes,note,note Applied list
+2026-10-15,claude,11,major,vestigial,DOODLE placeholder,applied,yes,pr-only,sealed-crate doodle commit in PR #667
+2026-10-15,claude,12,minor,voice,three X-not-Y endings in the close; misplaced timing sentence,applied,judgement,note,note Applied list
+2026-10-15,gemini,1,blocker,security,.flow diagram is an attack recipe,rejected,no,note,note Rejected; same level as Corgea and StepSecurity public write-ups
+2026-10-15,gemini,2,major,fact,keyv reviewer-gate sentence overclaims,applied-modified,yes,note,conditional rewrite instead of deletion
+2026-10-15,gemini,3,minor,fact,five removed ai-sdk-ollama versions not four,rejected,no,note,post correct; reviewer read the note's grouping; note corrected
+2026-10-15,gemini,4,minor,fact,elapsed time 7s contradicts both runs printed the same,applied-modified,yes,note,times stated per pair instead of [time]
+2026-10-15,gemini,5,minor,voice,two three-item parallel phrasings,applied,judgement,note,note Applied list
+2026-10-29,claude,1,major,prior-art,Makrushin per-registry denominators and ~100x gap,applied,yes,note,note Applied; root re-verified makrushin.com
+2026-10-29,claude,2,minor,fact,failed to clone means auth-prompt failures only,applied,yes,note,note Applied
+2026-10-29,claude,3,minor,visual,doodle arrow points left away from the lot,rejected,no,note,dead-link.png arrow points right toward the lot (source and merged file)
+2026-10-29,claude,4,minor,fact,Checkmarx three of four bypasses,applied,yes,note,note Applied
+2026-10-29,claude,5,minor,fact,run did not separate PyPI-verified links,applied,yes,note,note Applied
+2026-10-29,claude,6,minor,voice,closing not-X-Y and re-summary,applied,judgement,note,note Applied
+2026-10-29,claude,7,minor,fact,"optional: redirect + auth failure implies deleted accounts",not-applied,unverified,unrecorded,post L53 unchanged; not mentioned in note
+2026-10-29,gemini,1,minor,voice,"counts owners, not links",applied,judgement,note,post L47 uses reviewer's wording
+2026-10-29,gemini,2,minor,voice,section heading is X-not-Y,rejected,judgement,note,heading kept as the section's claim
+2026-10-29,gemini,3,minor,voice,"not the first sighting / packages, not repositories",applied,judgement,note,post L79 uses reviewer's wording
+2026-10-22,claude,1,major,fact,skipped-check sentence wrong (#617 not docs-only; crash reports failure),applied,yes,note,note review paragraph
+2026-10-22,claude,2,minor,citation,link GitHub's documentation for skipped dependents,applied,yes,note,note review paragraph
+2026-10-22,claude,3,minor,fact,never exercised beyond #644's 30-run sample,applied,yes,note,note review paragraph
+2026-10-22,claude,4,minor,fact,Playwright has forbidOnly; the config omits it,applied,yes,note,note review paragraph
+2026-10-22,claude,5,minor,fact,audit catches shorthand/clamp/pt; literal vs token,applied,yes,note,note review paragraph
+2026-10-22,claude,6,minor,fact,Chen 5.4 on the patched build,applied,yes,note,note review paragraph
+2026-10-22,claude,7,minor,fact,#642 proposes the criterion,applied,yes,note,note review paragraph
+2026-10-22,claude,8,minor,fact,#516 fixed most of #511,applied,yes,note,note review paragraph
+2026-10-22,claude,9,minor,visual,branch label colour comes from the child node,applied,yes,note,note review paragraph
+2026-10-22,claude,10,minor,vestigial,DOODLE placeholder,applied,yes,pr-only,calm-detector doodle commit in PR #668
+2026-10-22,claude,11,minor,voice,"duplicate 'matters as much'; survivor X-not-Y; meta sentence",applied,judgement,partial,"note records two; removal of 'That is the point of this post.' unrecorded"
+2026-10-22,claude,12,minor,vestigial,note slot dates still 10-15,mixed,yes,unrecorded,note L69 fixed; note L95 build line still says 2026-10-15
+2026-10-22,claude,13,minor,prior-art,optional promtool prior art,not-applied,unverified,note,"note: Optional promtool prior art not added"
+2026-10-22,gemini,1,major,fact,Playwright has forbidOnly,applied,yes,note,duplicate of claude item 4
+2026-10-22,gemini,2,blocker,security,skipped-check explanation is an attack recipe,rejected,no,note,documented by GitHub and public in #644
+2026-10-22,gemini,3,minor,voice,three X-not-Y lines (model of the gate; ratchet; survivor),mixed,judgement,partial,"ratchet and survivor rewritten; 'tests a model of the gate rather than the gate' kept (post L70), unrecorded"
+2026-11-05,claude,1,blocker,vestigial,RESEARCH_LABS_COMMIT placeholder; lab branch not pushed,applied,yes,pr-only,PR #671 commit "link the merged lab"
+2026-11-05,claude,2,blocker,vestigial,DOODLE placeholder,applied,yes,pr-only,wiped-note doodle commit in PR #671
+2026-11-05,claude,3,major,fact,every Dependabot PR false before August 25,applied,yes,note,note table row 3
+2026-11-05,claude,4,major,fact,six bot lockfiles across four PRs,applied,yes,note,note table row 4
+2026-11-05,claude,5,major,fact,printed fix does not work on a header-only repair,applied,yes,note,note table row 5; script docstring corrected
+2026-11-05,claude,6,major,fact,"thirty seconds is per job; 39-69s from bot commit",applied-modified,partly,note,note table row 6: 39-69s not re-derived and not used
+2026-11-05,claude,7,major,prior-art,dependabot-core#13036 not cited,applied,yes,note,note table row 7
+2026-11-05,claude,8,minor,fact,GitHub severity medium CVSS 6.6,applied,yes,note,note table row 8
+2026-11-05,claude,9,minor,fact,fast-uri ^3.1.6 is a range,applied,yes,note,note table row 9
+2026-11-05,claude,10,minor,fact,truncated check-output quote,applied,yes,note,note table row 10
+2026-11-05,claude,11,minor,artifact,script docstring asserts an unsourced code path,applied,yes,note,folded into note table row 5
+2026-11-05,claude,12,minor,objection,why not pnpm audit --prod,applied,yes,note,note table row 12
+2026-11-05,claude,13,minor,voice,draft is flat,applied,judgement,note,note table row 13
+2026-11-05,gemini,1,minor,clarity,"'lost it in two ways' reads as two lockfile states",applied-modified,judgement,note,clarified rather than reworded as suggested
+2026-11-05,gemini,2,minor,fact,"'at least the override's version' should say 'satisfies the intent'",rejected,no,note,script compares against the floor; reviewer itself offered 'or leave as-is'

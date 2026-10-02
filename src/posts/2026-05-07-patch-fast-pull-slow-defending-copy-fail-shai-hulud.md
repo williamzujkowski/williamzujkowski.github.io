@@ -78,7 +78,7 @@ Patching applies a vendor-signed fix to known code. Pulling introduces new code 
 
 Those operations have different trust paths, different blast radii, and they should run on different cadences. One cadence for both is exactly what the squeeze exploits.
 
-| | Patch lane | Pull lane |
+| Dimension | Patch lane | Pull lane |
 |---|---|---|
 | **Trust anchor** | Vendor signing key, distro security team | Registry account, often a single maintainer |
 | **Failure mode** | Slow patch → public exploit hits unpatched host | Fast pull → install fresh malware |
