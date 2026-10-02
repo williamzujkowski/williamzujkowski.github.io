@@ -135,7 +135,7 @@ gates), 2026-07-02 (sandbox survey), 2026-10-15 (provenance). All publish before
 | blog-llm-tells | manual | Read for filler, hedging, stock contrasts, triads, em dashes (none in prose), closing summaries. One "where, not whether" contrast kept as the thesis line; one triad in the "what you run next" list kept as a literal list. |
 | blog-nda-check | completed | No employer or work context; first person limited to running the public lab; no reference to the excluded repositories or any agency. |
 | blog-argument-shape | completed | Experiment report with a position. Thesis: L18 + "constrains where effects land, not whether code runs". Strongest objection (install scripts are old news) answered in "Old news, new button". Falsifier stated and answered in Limits. Close follows from the body. |
-| blog-visuals | completed | One `.flow` (role/aria-label, tokens via classes) and one 4-column table; rendered 390px light/dark and 1280px light, no overflow after fixes. Doodle left as `<!-- DOODLE: ... -->` for root. |
+| blog-visuals | completed | One `.flow` (role/aria-label, tokens via classes) and one 4-column table; rendered 390px light/dark and 1280px light, no overflow after fixes. Doodle placed by root (`stamped-box.png`). |
 | blog-artifact-check | completed | Every flag and key in the post was run in the lab or checked against versioned docs/source: `--ignore-scripts`, `--foreground-scripts`, `npm query :attr`, `strace` snippet, `onlyBuiltDependencies` (run); `failIfUnavailable`, `autoAllowBashIfSandboxed`, `enableWeakerNestedSandbox`, exact-match `Bash(...)` rule grammar, `--no-verify` (docs/source). Lab link is a placeholder for root. |
 
 No independent (second-agent) review was run; root review pending.
