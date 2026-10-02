@@ -3,8 +3,7 @@
 **Post:** `src/posts/2026-11-12-approving-the-command-approves-what-it-runs.md` (slot 2026-11-12, `draft: false`)
 **Proposal:** issue #673. **Researched:** 2026-10-01 (UTC 2026-10-02).
 **Lab:** research-labs branch `lab/approval-scope`, commits `548b232` (lab) and `ce11f7d`
-(evidence). Not pushed. The post links `RESEARCH_LABS_COMMIT`, which root replaces with the
-merged commit.
+(evidence), merged as research-labs PR #7 (merge commit `6540fc4b645d8c74b0240254af92d25d79ac7232`), which the post links.
 
 ## Question and thesis
 
@@ -163,4 +162,4 @@ found the 3 scripts) and verified sources. Items, each checked before applying:
 
 Lab history rewritten (unpushed) so no commit contains the removed topic: one lab commit `548b232` on origin/main `d34cb74`, evidence `ce11f7d`; `git log -p origin/main..HEAD | grep -ci -E` for the two terms returns 0. Re-run at `548b232` from a clean tree: 8/8 tests; every observation identical to the
 first (pre-review) run (diffed summaries). Site rebuilt at `PUBLICATION_AS_OF=2026-11-12T00:00:00Z`;
-`pnpm run audit` passed. `RESEARCH_LABS_COMMIT` and the DOODLE comment left for root.
+`pnpm run audit` passed. Lab merged as research-labs PR #7 (merge commit `6540fc4b645d8c74b0240254af92d25d79ac7232`); doodle placed by root.

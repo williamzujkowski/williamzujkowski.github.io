@@ -11,7 +11,7 @@ tags:
   - npm
 ---
 
-The [approval-scope lab](https://github.com/williamzujkowski/research-labs/tree/RESEARCH_LABS_COMMIT/labs/approval-scope) is one synthetic JavaScript project and one command a coding agent might ask to run: `npm install`. The project's `postinstall` and `prepare` scripts, and a dependency's own `postinstall`, each write a marker file and nothing else. The `prepare` script also installs a git pre-commit hook, the way hook managers such as simple-git-hooks do.
+The [approval-scope lab](https://github.com/williamzujkowski/research-labs/tree/6540fc4b645d8c74b0240254af92d25d79ac7232/labs/approval-scope) is one synthetic JavaScript project and one command a coding agent might ask to run: `npm install`. The project's `postinstall` and `prepare` scripts, and a dependency's own `postinstall`, each write a marker file and nothing else. The `prepare` script also installs a git pre-commit hook, the way hook managers such as simple-git-hooks do.
 
 Under `strace -f`, that one command started three lifecycle scripts. They wrote markers inside the project and in a directory beside it, and left a hook in `.git/hooks`. A later `git commit` ran the hook. npm's own output named two of the three scripts; the dependency's ran without a word.
 
@@ -39,7 +39,7 @@ The rule is honest about its scope. The trouble is how the decision reads afterw
 
 ## What ran
 
-Each arm copies the fixture into a fresh git repository, runs one install under `strace -f`, then runs `git commit` the same way. The [retained run](https://github.com/williamzujkowski/research-labs/blob/RESEARCH_LABS_COMMIT/docs/evidence/approval-scope-2026-10-01/plain.json) used npm 10.9.8, pnpm 10.33.0 (always with `--frozen-lockfile`), Node 22 and git 2.39.5, offline, nonroot, with capabilities dropped.
+Each arm copies the fixture into a fresh git repository, runs one install under `strace -f`, then runs `git commit` the same way. The [retained run](https://github.com/williamzujkowski/research-labs/blob/6540fc4b645d8c74b0240254af92d25d79ac7232/docs/evidence/approval-scope-2026-10-01/plain.json) used npm 10.9.8, pnpm 10.33.0 (always with `--frozen-lockfile`), Node 22 and git 2.39.5, offline, nonroot, with capabilities dropped.
 
 | Command | Scripts run (named in output) | Marker outside | Hook fired at commit |
 | --- | --- | --- | --- |
@@ -67,7 +67,7 @@ Their proposed fix binds predicted effects into the approval record before the d
 
 Unlike a rule, Claude Code's [sandbox](https://code.claude.com/docs/en/sandboxing) applies to shell commands "and the processes they start." By default it allows writes to the working directory and "a per-user temp directory," and keeps [protected paths](https://code.claude.com/docs/en/sandboxing#protected-paths) write-denied inside them, including "`hooks` and `config` inside `.git`."
 
-I ran the installs inside [`@anthropic-ai/sandbox-runtime`](https://github.com/anthropics/sandbox-runtime) 0.0.78, the open-source package those docs say the sandbox is built on, with settings that mirror the documented defaults. This is the runtime on its own, not Claude Code, which computes its own configuration on top. It ran inside Docker with seccomp and AppArmor relaxed, in the runtime's `enableWeakerNestedSandbox` mode, which its README says "considerably weakens security"; and the lab allowed writes to all of `/tmp`, wider than the documented per-user temp directory. Every script still ran. Markers inside the project were written. The marker beside the project and the hook both failed with `EROFS`, and the next `git commit` ran nothing ([sandbox evidence](https://github.com/williamzujkowski/research-labs/blob/RESEARCH_LABS_COMMIT/docs/evidence/approval-scope-2026-10-01/sandbox.json)).
+I ran the installs inside [`@anthropic-ai/sandbox-runtime`](https://github.com/anthropics/sandbox-runtime) 0.0.78, the open-source package those docs say the sandbox is built on, with settings that mirror the documented defaults. This is the runtime on its own, not Claude Code, which computes its own configuration on top. It ran inside Docker with seccomp and AppArmor relaxed, in the runtime's `enableWeakerNestedSandbox` mode, which its README says "considerably weakens security"; and the lab allowed writes to all of `/tmp`, wider than the documented per-user temp directory. Every script still ran. Markers inside the project were written. The marker beside the project and the hook both failed with `EROFS`, and the next `git commit` ran nothing ([sandbox evidence](https://github.com/williamzujkowski/research-labs/blob/6540fc4b645d8c74b0240254af92d25d79ac7232/docs/evidence/approval-scope-2026-10-01/sandbox.json)).
 
 So the sandbox constrains where effects land, not whether code runs. Writes inside the project stay allowed by design, and the project is what you run next: `node_modules`, the build scripts, anything a `postinstall` chose to edit.
 
