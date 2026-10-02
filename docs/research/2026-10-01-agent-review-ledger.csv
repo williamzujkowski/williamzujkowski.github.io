@@ -48,7 +48,7 @@ post,reviewer,item,severity,kind,finding,outcome,reviewer_correct,recorded,evide
 2026-10-22,claude,10,minor,vestigial,DOODLE placeholder,applied,yes,pr-only,calm-detector doodle commit in PR #668
 2026-10-22,claude,11,minor,voice,"duplicate 'matters as much'; survivor X-not-Y; meta sentence",applied,judgement,partial,"note records two; removal of 'That is the point of this post.' unrecorded"
 2026-10-22,claude,12,minor,vestigial,note slot dates still 10-15,mixed,yes,unrecorded,note L69 fixed; note L95 build line still says 2026-10-15
-2026-10-22,claude,13,minor,prior-art,optional promtool prior art,not-applied,judgement,note,"note: Optional promtool prior art not added"
+2026-10-22,claude,13,minor,prior-art,optional promtool prior art,not-applied,unverified,note,"note: Optional promtool prior art not added"
 2026-10-22,gemini,1,major,fact,Playwright has forbidOnly,applied,yes,note,duplicate of claude item 4
 2026-10-22,gemini,2,blocker,security,skipped-check explanation is an attack recipe,rejected,no,note,documented by GitHub and public in #644
 2026-10-22,gemini,3,minor,voice,three X-not-Y lines (model of the gate; ratchet; survivor),mixed,judgement,partial,"ratchet and survivor rewritten; 'tests a model of the gate rather than the gate' kept (post L70), unrecorded"
