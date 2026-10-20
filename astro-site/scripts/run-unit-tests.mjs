@@ -28,7 +28,10 @@ import { spawnSync } from 'node:child_process';
 const MIN_TESTS = 62;
 const GLOB = '../tests/unit/**/*.test.mjs';
 
-const result = spawnSync(process.execPath, ['--test', GLOB], {
+// Pin the reporter: the count below is parsed from TAP's `# tests N`.
+// Node 23+ defaults to the spec reporter (`ℹ tests N`) even when piped,
+// which this parser would read as 0 -- failing closed, but on every run.
+const result = spawnSync(process.execPath, ['--test', '--test-reporter=tap', GLOB], {
   encoding: 'utf8',
   stdio: ['ignore', 'pipe', 'pipe'],
 });
