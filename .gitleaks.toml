@@ -25,6 +25,9 @@ useDefault = true
     '''root:root''',
     '''user:password''',
     '''test:test''',
+    # Wazuh's shipped indexer default, quoted in the 2025-11-05 SIEM post's
+    # corrected verify step and in the review record that suggested it.
+    '''admin:SecretPassword''',
     # Generic shell-variable placeholders ($VAR, ${VAR})
     '''-u\s+[A-Za-z_][A-Za-z0-9_]*:\$\{?[A-Za-z_][A-Za-z0-9_]*\}?''',
     # Obvious placeholder tokens (ghp_xxxxxxxx...) -- zero entropy by design
