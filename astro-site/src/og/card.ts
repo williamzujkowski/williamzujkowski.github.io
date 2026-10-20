@@ -162,8 +162,11 @@ export async function renderOgCard({
         'Field Notes'
       ),
       div({ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '50px 96px', maxWidth: '1010px' }, [
-        div({ fontFamily: 'FreeSansBold', fontSize: titleSize, color: TITLE, textAlign: 'center', lineHeight: 1.18 }, title),
-        div({ fontSize: 28, color: SUB, marginTop: '26px', textAlign: 'center' }, subtitle),
+        // maxWidth on the text itself: satori >=0.47 wraps text against the
+        // card width, ignoring this column's maxWidth and padding. 818 =
+        // 1010 - 2*96, the measure satori 0.33 derived from the column.
+        div({ fontFamily: 'FreeSansBold', fontSize: titleSize, color: TITLE, textAlign: 'center', lineHeight: 1.18, maxWidth: '818px' }, title),
+        div({ fontSize: 28, color: SUB, marginTop: '26px', textAlign: 'center', maxWidth: '818px' }, subtitle),
       ]),
       div({ position: 'absolute', bottom: '46px', flexDirection: 'row', alignItems: 'center' }, [
         // Plain ASCII only — the embedded font subsets (see fonts/README.md)
