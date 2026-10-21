@@ -105,6 +105,28 @@ test('blog post page renders content', async ({ page }) => {
   await expect(page.locator('.prose')).toBeVisible();
 });
 
+test('tag chips sit in the post footer beside Share, not above the body', async ({ page }) => {
+  // #698: in the header they pushed the first paragraph further below the
+  // first screen at 360px. One labelled row in the footer, all tags present.
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.goto('/posts/2024-01-08-writing-secure-code-developers-guide/');
+  await expect(page.locator('.post-header a.chip')).toHaveCount(0);
+  const footer = page.locator('article > footer');
+  const tagRow = footer.locator('.share-row').filter({ hasText: 'Tags:' });
+  const tagChips = tagRow.locator('a.chip[href^="/tags/"]');
+  expect(await tagChips.count()).toBeGreaterThanOrEqual(2);
+  for (const chip of await tagChips.all()) {
+    await expect(chip).toHaveAttribute('href', `/tags/${(await chip.textContent())!.trim()}/`);
+  }
+  await expect(footer.locator('.share-row').filter({ hasText: 'Share:' })).toBeVisible();
+  // The tag row precedes Share, inside the same footer.
+  const [tagsY, shareY] = await Promise.all([
+    tagRow.evaluate((el) => el.getBoundingClientRect().top),
+    footer.locator('.share-row').filter({ hasText: 'Share:' }).evaluate((el) => el.getBoundingClientRect().top),
+  ]);
+  expect(tagsY).toBeLessThan(shareY);
+});
+
 test('RSS feed is valid XML', async ({ page }) => {
   const response = await page.goto('/feed.xml');
   expect(response?.status()).toBe(200);
