@@ -43,14 +43,19 @@ These stay local by design — palette tier is meant to be overridden:
 - **Colors**: "Palette B — Departure" (photosensitive ivory + ferric ink
   + radar green, light; CRT phosphor on black-green, dark) — both themes
   independently APCA/WCAG-audited (`pnpm audit`).
-- **`--content-reading: 40rem`** — **this is NOT a deviation.** It is the
-  sanctioned measure-compensation value for a Source Serif 4 body font,
-  which remarque's own docs (`REMARQUE.md`'s "Measure Compensation"
-  table) cite this site as the reference example for: core's palette
-  default of 46rem is tuned for Inter (~70ch/line); the same width in a
-  text serif runs ~86ch, well past comfortable, so this site measured its
-  actual rendered text and landed on 40rem (~71ch/line at 17px Source
-  Serif 4). Ratified alongside the rest of #274's measure/rhythm item.
+- **`--content-reading: 38rem`** — a palette-tier measure-compensation
+  value for a Source Serif 4 body font (core's 46rem default is tuned for
+  Inter; the same width in a text serif runs ~86 characters). It was
+  40rem until #698, documented here and in `REMARQUE.md`'s "Measure
+  Compensation" table as "~71ch/line". That figure was the width of the
+  digit 0 (1ch = 9px at 17px), not of text: rendered body lines at 40rem
+  ran a **median of 77 characters** (p90 82, n = 9,491 full lines over 99
+  posts at 1280px). At 38rem the median is **73** (p90 78, max 90), inside
+  the 60-75 range. 38rem is 67.6ch by the same `ch` yardstick, which is
+  why `ch` is not used to describe it. `tests/e2e/measure.spec.ts` counts
+  glyphs per rendered line on three long posts and fails outside 60-75.
+  Upstream's table still cites 40rem/~71ch from this site and needs the
+  same correction.
   Per remarque#47's ratification notes, this flagship adoption — palette-
   tier-only overrides — *is* the acceptance test for the upstream tiering
   epic.
