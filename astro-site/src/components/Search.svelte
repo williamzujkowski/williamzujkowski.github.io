@@ -308,7 +308,11 @@
           bind:value={query}
           oninput={(event) => { query = event.currentTarget.value; search(); }}
           type="text"
-          placeholder="Search site..."
+          enterkeyhint="search"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+          placeholder="Search site…"
           aria-label="Search site content"
           class="search-input"
         />
@@ -501,6 +505,8 @@
     text-align: center;
   }
   .search-results {
+    /* Scrolling past the last result scrolled the page behind the dialog. */
+    overscroll-behavior: contain;
     max-height: min(20rem, 45dvh);
     overflow-y: auto;
     padding: 0.5rem;

@@ -33,8 +33,10 @@
 /* Native cross-document view transitions (Chromium; progressively
  * enhanced — no-op elsewhere). Replaces astro:transitions/ClientRouter,
  * which was removed so pages do plain full loads. */
-@view-transition {
-  navigation: auto;
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
 }
 
 /* ===== Remarque Design Tokens (oklch) =====
@@ -316,6 +318,10 @@ body {
   max-width: var(--content-standard);
   margin: 0 auto;
   padding: 2rem 1.5rem;
+  /* A bare URL or a long inline `code` span is one unbreakable word; without
+     this, 26 of 100 posts scrolled the whole page sideways at 320px. Only
+     breaks a word that cannot fit, so ordinary prose is untouched. */
+  overflow-wrap: break-word;
 }
 
 ::selection {
@@ -631,7 +637,7 @@ a.post-card-title:hover { color: var(--color-accent); }
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   text-decoration: none;
-  transition: all var(--motion-fast) var(--motion-easing);
+  transition: color var(--motion-fast) var(--motion-easing), border-color var(--motion-fast) var(--motion-easing);
 }
 .chip:hover { color: var(--color-fg); border-color: var(--color-border-bold); }
 
@@ -1128,6 +1134,10 @@ article .prose > p:first-of-type::first-letter {
 /* ===== Focus (WCAG) ===== */
 *:focus { outline: none; }
 *:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; border-radius: 2px; }
+/* The TOC rail is a scroll container (remarque-tokens essay.css sets
+   overflow-y: auto), which clips anything drawn outside it: the links sit flush
+   with its edge, so their ring lost a side and the summary's lost three. */
+.remarque-toc-rail :focus-visible { outline-offset: -2px; }
 
 /* ===== Skip Link ===== */
 .skip-to-main {

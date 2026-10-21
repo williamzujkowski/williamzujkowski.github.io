@@ -8,6 +8,22 @@
     const codeBlocks = document.querySelectorAll('pre');
     if (codeBlocks.length === 0) return;
 
+    // Swapping the icon told sighted users the copy worked and told screen
+    // readers nothing. A polite live region must exist before it changes, so
+    // it is created up front and only its text is set on copy.
+    const status = document.createElement('span');
+    status.className = 'sr-only';
+    status.setAttribute('role', 'status');
+    document.body.appendChild(status);
+    const confirm = (btn: HTMLButtonElement) => {
+      btn.innerHTML = CHECK_ICON;
+      status.textContent = 'Copied to clipboard';
+      setTimeout(() => {
+        btn.innerHTML = COPY_ICON;
+        status.textContent = '';
+      }, 2000);
+    };
+
     codeBlocks.forEach((pre) => {
       if (pre.querySelector('.copy-btn')) return;
 
@@ -25,10 +41,7 @@
         const code = pre.querySelector('code')?.textContent ?? pre.textContent ?? '';
         try {
           await navigator.clipboard.writeText(code);
-          btn.innerHTML = CHECK_ICON;
-          setTimeout(() => {
-            btn.innerHTML = COPY_ICON;
-          }, 2000);
+          confirm(btn);
         } catch {
           const textarea = document.createElement('textarea');
           textarea.value = code;
@@ -36,8 +49,9 @@
           textarea.style.left = '-9999px';
           document.body.appendChild(textarea);
           textarea.select();
-          document.execCommand('copy');
+          const copied = document.execCommand('copy');
           document.body.removeChild(textarea);
+          if (copied) confirm(btn);
         }
       });
 
@@ -71,6 +85,14 @@
 
   :global(div:hover > .copy-btn) {
     opacity: 1;
+  }
+
+  /* Touch screens have no hover, so the reveal above never fired and the
+     button sat at opacity 0 on every phone. */
+  @media (hover: none) {
+    :global(.copy-btn) {
+      opacity: 1;
+    }
   }
 
   /* The button is a real, tabbable button that drew a focus ring at
