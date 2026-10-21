@@ -7,7 +7,7 @@ tags:
 - open-source
 title: Building My Digital Garden with Eleventy
 ---
-> **Update (2026):** One of the first posts here, from when the site ran on [Eleventy](https://www.11ty.dev/). It's since been rebuilt on **[Astro](https://astro.build/)** — Svelte islands for the few interactive bits, hand-written CSS on the Remarque design system, still statically generated and hosted on GitHub Pages. The zero-tracking, privacy-first, fast-by-default philosophy below hasn't changed; only the build tool did. I've left the original text as a record of where it started.
+> **Update (2026):** One of the first posts here, from when the site ran on [Eleventy](https://www.11ty.dev/). It's since been rebuilt on [Astro](https://astro.build/) — Svelte islands for the few interactive bits, hand-written CSS on the Remarque design system, still statically generated and hosted on GitHub Pages. The zero-tracking, privacy-first, fast-by-default philosophy below hasn't changed; only the build tool did. I've left the original text as a record of where it started.
 
 Welcome to my digital corner of the internet! After years of working in security engineering and incident response, I decided it was time to create a proper home for my thoughts, projects, and learnings. This site documents [my secure homelab journey](/posts/2025-04-24-building-secure-homelab-adventure/), development workflows, and technical experiments.
 
@@ -15,10 +15,10 @@ Welcome to my digital corner of the internet! After years of working in security
 
 Like many engineers, I've had my share of personal websites over the years – from hand-coded HTML in the early days to various CMS platforms. But I wanted something different this time:
 
-- **Complete control** over my content and how it's presented
-- **Lightning-fast performance** without sacrificing functionality
-- **Privacy-respecting** with no tracking scripts or third-party dependencies
-- **Developer-friendly** workflow that gets out of my way
+- Complete control over my content and how it's presented
+- Lightning-fast performance without sacrificing functionality
+- Privacy-respecting with no tracking scripts or third-party dependencies
+- Developer-friendly workflow that gets out of my way
 
 After evaluating options ranging from Next.js to Hugo, I landed on [Eleventy](https://www.11ty.dev/) Here's why:
 
@@ -46,11 +46,11 @@ This site is more than just a blog. It's:
 
 Some features I'm particularly proud of:
 
-- **Client-side search** that works offline and respects privacy
-- **Automatic dark mode** that remembers your preference
-- **Git-based timestamps** showing when content was last updated
-- **Accessible navigation** with keyboard support and ARIA labels
-- **Lightning performance** with perfect Lighthouse scores
+- Client-side search that works offline and respects privacy
+- Automatic dark mode that remembers your preference
+- Git-based timestamps showing when content was last updated
+- Accessible navigation with keyboard support and ARIA labels
+- Lightning performance with perfect Lighthouse scores
 
 ## What's Coming Next
 

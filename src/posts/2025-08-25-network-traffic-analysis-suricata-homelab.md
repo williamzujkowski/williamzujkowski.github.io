@@ -41,13 +41,13 @@ Building my network traffic analysis lab with Suricata turned my homelab from a 
 
 My Ubiquiti Dream Machine Pro supports port mirroring, but I also tested with a dedicated network TAP for comparison.
 
-**SPAN Port (What I Use):**
+SPAN Port (What I Use):
 - Ubiquiti allows mirroring specific VLANs
 - No additional hardware required
 - Sufficient for homelab traffic volumes
 - Some packet loss under heavy load
 
-**Network TAP (Optional):**
+Network TAP (Optional):
 - Passive optical TAP for 100% packet capture
 - No packet loss or latency
 - More expensive ($200-500)
@@ -63,9 +63,9 @@ I run Suricata on my Dell R910 with:
 
 ### AF_PACKET Performance Tuning
 
-**Ring buffer sizing:** Suricata's AF_PACKET capture mode uses kernel ring buffers to handle burst traffic. Default 4MB ring buffers cause packet drops at >5Gbps sustained traffic. Set `ring-size: 67108864` (64MB per interface) in `/etc/suricata/suricata.yaml` under `af-packet` section to handle 10Gbps bursts without drops. Monitor `/proc/net/pf_ring/stats` for packet loss—anything above 0.1% requires tuning.
+Ring buffer sizing: Suricata's AF_PACKET capture mode uses kernel ring buffers to handle burst traffic. Default 4MB ring buffers cause packet drops at >5Gbps sustained traffic. Set `ring-size: 67108864` (64MB per interface) in `/etc/suricata/suricata.yaml` under `af-packet` section to handle 10Gbps bursts without drops. Monitor `/proc/net/pf_ring/stats` for packet loss—anything above 0.1% requires tuning.
 
-**Fanout configuration:** Enable multi-threaded packet capture with `cluster-type: cluster_qm` (queue-mapping fanout) to distribute packets across CPU cores. Set `cluster-id: 99` and `threads: auto` to match your CPU count (8 cores = 8 worker threads). This reduces per-thread packet processing latency from ~200μs to ~25μs in my testing. Verify performance with `suricata --af-packet=ens1f0 --runmode=workers -i ens1f0` and check `stats.log` for `capture.kernel_drops` (should be near 0). If drops persist above 1%, increase ring buffer to 128MB or reduce rule complexity.
+Fanout configuration: Enable multi-threaded packet capture with `cluster-type: cluster_qm` (queue-mapping fanout) to distribute packets across CPU cores. Set `cluster-id: 99` and `threads: auto` to match your CPU count (8 cores = 8 worker threads). This reduces per-thread packet processing latency from ~200μs to ~25μs in my testing. Verify performance with `suricata --af-packet=ens1f0 --runmode=workers -i ens1f0` and check `stats.log` for `capture.kernel_drops` (should be near 0). If drops persist above 1%, increase ring buffer to 128MB or reduce rule complexity.
 
 ## Suricata Installation and Configuration
 
@@ -122,9 +122,9 @@ Custom visualization queries:
 
 ## Rule Update Security (CRITICAL)
 
-**The Problem:** Suricata rule updates are a supply chain attack vector. Rules are code your sensor executes against every packet, and a compromised update source could inject rules that disable monitoring, exfiltrate data, or manufacture false negatives. The uncomfortable part, which took me embarrassingly long to check, is that the control everyone assumes is protecting them here does not exist.
+The Problem: Suricata rule updates are a supply chain attack vector. Rules are code your sensor executes against every packet, and a compromised update source could inject rules that disable monitoring, exfiltrate data, or manufacture false negatives. The uncomfortable part, which took me embarrassingly long to check, is that the control everyone assumes is protecting them here does not exist.
 
-**Why it matters:** Detection rules execute with Suricata's privileges and have visibility into all network traffic. A malicious rule could:
+Why it matters: Detection rules execute with Suricata's privileges and have visibility into all network traffic. A malicious rule could:
 - Disable legitimate detections (create blind spots)
 - Exfiltrate sensitive data patterns via DNS queries
 - Trigger false positives to cause alert fatigue
@@ -132,7 +132,7 @@ Custom visualization queries:
 
 ### Secure Rule Update Workflow
 
-**Updating is the easy part:**
+Updating is the easy part:
 
 ```bash
 # Install suricata-update (comes with Suricata 6.0+)
@@ -146,7 +146,7 @@ sudo systemctl reload suricata
 
 Rules land in `/var/lib/suricata/rules/suricata.rules`.
 
-**Knowing what that actually guarantees is the hard part**, and it is worth
+Knowing what that actually guarantees is the hard part, and it is worth
 being precise, because I was wrong about it here for a year.
 
 suricata-update does not verify who signed your rules. There are no GPG keys
@@ -180,7 +180,7 @@ signed.
 
 ### Staging Environment Testing
 
-**Never deploy rules directly to production:**
+Never deploy rules directly to production:
 
 ```bash
 # Test rules in staging first
@@ -204,7 +204,7 @@ sudo systemctl reload suricata
 
 ### Automated Update Pipeline
 
-**Safe automation includes verification + staging:**
+Safe automation includes verification + staging:
 
 ```bash
 #!/bin/bash
@@ -240,7 +240,7 @@ sudo suricatasc -c "capture-mode"
 # Verify packet drops haven't increased
 ```
 
-**Schedule with caution:**
+Schedule with caution:
 
 ```cron
 # Update daily at 3 AM (low traffic window)
@@ -249,7 +249,7 @@ sudo suricatasc -c "capture-mode"
 
 ### Rule Source Trust Hierarchy
 
-**Prioritize rule sources by trust:**
+Prioritize rule sources by trust:
 
 1. **ET Open (Community):** free, 30-day delay from Pro, safe for homelab.
    Authenticity rests on TLS to `rules.emergingthreats.net` — there is no
@@ -262,30 +262,30 @@ sudo suricatasc -c "capture-mode"
 
 #### ET Open 30-Day Delay: Understanding the Trade-Offs (MODERATE)
 
-**The Problem:** ET Open rules are released 30 days after ET Pro rules. This means homelabs using free ET Open have a **30-day window** where zero-day threats are detectable by ET Pro subscribers but invisible to ET Open users. For rapidly exploited vulnerabilities, 30 days is an eternity.
+The Problem: ET Open rules are released 30 days after ET Pro rules. This means homelabs using free ET Open have a 30-day window where zero-day threats are detectable by ET Pro subscribers but invisible to ET Open users. For rapidly exploited vulnerabilities, 30 days is an eternity.
 
-**Why it matters:** The delay is intentional (business model for Proofpoint), but creates a detection gap for emerging threats. Understanding this trade-off helps you decide when ET Open is sufficient vs when you need compensating controls.
+Why it matters: The delay is intentional (business model for Proofpoint), but creates a detection gap for emerging threats. Understanding this trade-off helps you decide when ET Open is sufficient vs when you need compensating controls.
 
-**Why the 30-Day Delay Exists:**
+Why the 30-Day Delay Exists:
 
 1. **Business Model:** ET Pro subscription revenue ($900/year per sensor) funds Proofpoint's threat research team
 2. **Value Differentiation:** Zero-day detection rules justify commercial pricing
 3. **Community Sustainability:** ET Open free tier maintains community adoption, creates pipeline for Pro upgrades
 4. **Threat Intelligence Lag:** By day 30, most threats are publicly known, ET Open provides "good enough" detection for non-targeted environments
 
-**Security Implications:**
+##### Security Implications
 
-**Zero-Day Window (Day 0-30):**
+Zero-Day Window (Day 0-30):
 - **ET Pro:** Has detection rule immediately when threat discovered
 - **ET Open:** No detection rule, attack succeeds undetected
 - **Impact:** Homelab vulnerable to fast-spreading threats (worms, ransomware, critical RCEs)
 
-**Public Disclosure Window (Day 30+):**
+Public Disclosure Window (Day 30+):
 - **ET Pro:** Already has rule, benefited from 30-day head start
 - **ET Open:** Rule released, now protected (better late than never)
 - **Impact:** Protection catches up, but missed initial attack wave
 
-**Real-World Example: CVE-2024-X Critical RCE**
+Real-World Example: CVE-2024-X Critical RCE
 
 ```
 Timeline:
@@ -299,9 +299,9 @@ ET Pro users: Protected from Day 1, detected attack attempts during Days 1-30
 ET Open users: Vulnerable Days 1-30, protected starting Day 31 (after attack wave passed)
 ```
 
-**Compensating Controls for ET Open Users:**
+##### Compensating Controls for ET Open Users
 
-**1. Threat Intelligence Feeds (Real-Time):**
+1. Threat Intelligence Feeds (Real-Time):
 
 ```bash
 # Integrate AlienVault OTX (free threat intel)
@@ -316,7 +316,7 @@ grep -E "^(IP|Domain)" otx-iocs.txt | awk '{print "drop ip any any -> "$2" any (
 sudo suricatasc -c "ruleset-reload-rules"
 ```
 
-**2. Custom Rules for Published CVEs (Proactive):**
+2. Custom Rules for Published CVEs (Proactive):
 
 ```bash
 # When CVE published (Day 0), write custom rule before ET Open release (Day 30)
@@ -335,7 +335,7 @@ alert http any any -> $HOME_NET any (
 # Deploy immediately, don't wait 30 days for ET Open
 ```
 
-**3. Behavioral Detection (Protocol Anomalies):**
+3. Behavioral Detection (Protocol Anomalies):
 
 ```bash
 # Generic anomaly detection catches novel attacks ET Open doesn't have rules for yet
@@ -354,7 +354,7 @@ alert dns any any -> any any (
 )
 ```
 
-**4. Layered Defense (Defense-in-Depth):**
+4. Layered Defense (Defense-in-Depth):
 
 ```bash
 # ET Open is ONE layer, not the ONLY layer
@@ -365,7 +365,7 @@ alert dns any any -> any any (
 # - Network segmentation (limit lateral movement if Suricata misses initial entry)
 ```
 
-**When ET Open is Sufficient:**
+When ET Open is Sufficient:
 
 - ✅ Homelab environments (non-production, learning/testing)
 - ✅ Low-value targets (attackers don't specifically target you)
@@ -373,7 +373,7 @@ alert dns any any -> any any (
 - ✅ Defense-in-depth implemented (Suricata is backup, not primary defense)
 - ✅ Threat model: opportunistic attacks (broad scanning, not targeted)
 
-**When ET Pro is Necessary:**
+When ET Pro is Necessary:
 
 - ❌ Production environments (business-critical services)
 - ❌ High-value targets (financial data, PII, intellectual property)
@@ -382,7 +382,7 @@ alert dns any any -> any any (
 - ❌ Threat model: targeted attacks (APTs, nation-state actors)
 - ❌ Compliance requirements (PCI-DSS, HIPAA, NIST 800-53)
 
-**Cost-Benefit Analysis for Homelab:**
+Cost-Benefit Analysis for Homelab:
 
 | **Option** | **Annual Cost** | **Zero-Day Protection** | **Homelab Value** |
 |------------|----------------|-------------------------|-------------------|
@@ -391,7 +391,7 @@ alert dns any any -> any any (
 | ET Open + Custom Rules | $0 + time investment | Day 0+ (manual) | Medium (proactive, educational) |
 | ET Open + Threat Intel Feeds | $0 | Day 1-7 (depends on feed) | High (automated, near-real-time) |
 
-**Recommended Homelab Strategy:**
+Recommended Homelab Strategy:
 
 ```bash
 # My homelab approach (zero cost, reasonable protection):
@@ -412,7 +412,7 @@ sudo suricata-update enable-source et/open
 # Trade-off: Homelab value doesn't justify $900/year ET Pro cost
 ```
 
-**Validation Commands:**
+Validation Commands:
 
 ```bash
 # Check which ruleset you're using
@@ -433,7 +433,7 @@ sudo suricata-update list-sources --enabled | grep "modified"
 # ET Open rules are 30 days behind latest threats
 ```
 
-**Senior engineer perspective:** Years of IDS management taught me ET Open's 30-day delay is acceptable for 95% of homelabs. The key insight: zero-day detection is valuable only if you're a high-value target worth the attacker's effort to deploy zero-days against. Random homelab on residential ISP? Attackers use commodity exploits that ET Open detects fine once published. Targeted attacks against your specific homelab? You have bigger problems than IDS rule delays. ET Pro makes sense for production environments protecting revenue-generating services or sensitive data. For learning and personal infrastructure, ET Open + custom rules + threat intel feeds provides 90% of the protection at 0% of the cost. I ran ET Open for 3 years in my homelab, never once thought "I wish I'd spent $900/year for 30-day earlier detection." But I DID write 47 custom rules for CVEs specific to my stack—that proactive approach provided better ROI than commercial rules for threats I don't face.
+Senior engineer perspective: Years of IDS management taught me ET Open's 30-day delay is acceptable for 95% of homelabs. The key insight: zero-day detection is valuable only if you're a high-value target worth the attacker's effort to deploy zero-days against. Random homelab on residential ISP? Attackers use commodity exploits that ET Open detects fine once published. Targeted attacks against your specific homelab? You have bigger problems than IDS rule delays. ET Pro makes sense for production environments protecting revenue-generating services or sensitive data. For learning and personal infrastructure, ET Open + custom rules + threat intel feeds provides 90% of the protection at 0% of the cost. I ran ET Open for 3 years in my homelab, never once thought "I wish I'd spent $900/year for 30-day earlier detection." But I DID write 47 custom rules for CVEs specific to my stack—that proactive approach provided better ROI than commercial rules for threats I don't face.
 
 ### Supply Chain Attack Scenarios
 
@@ -479,7 +479,7 @@ sudo suricata-update list-sources --all
 sudo suricata-update check-versions
 ```
 
-**Senior engineer perspective:** Years of managing IDS deployments taught me that rule updates are code execution, and should be treated like any other software update: test in staging, automate carefully, read what changed. What I got wrong for a long time was the last step — I assumed "verify signatures" was on that list because it is on every other list, and never checked whether the signature existed. It does not. Writing the mitigation down is not the same as having it, and a control you have never exercised is a control you do not have. That is a more useful lesson than the one I thought I was writing.
+Senior engineer perspective: Years of managing IDS deployments taught me that rule updates are code execution, and should be treated like any other software update: test in staging, automate carefully, read what changed. What I got wrong for a long time was the last step — I assumed "verify signatures" was on that list because it is on every other list, and never checked whether the signature existed. It does not. Writing the mitigation down is not the same as having it, and a control you have never exercised is a control you do not have. That is a more useful lesson than the one I thought I was writing.
 
 ## Incident Response Workflow
 
@@ -515,25 +515,25 @@ Regularly test that your rules actually fire. A rule that never alerts might be 
 
 ### IDS/IPS Technology
 
-1. **[Snort vs Suricata Performance](https://ieeexplore.ieee.org/document/8726695)** (2019)
+1. [Snort vs Suricata Performance](https://ieeexplore.ieee.org/document/8726695) (2019)
    - IEEE - Comparative analysis of IDS performance
 
-2. **[Suricata Official Documentation](https://docs.suricata.io/)** - Comprehensive configuration guide
+2. [Suricata Official Documentation](https://docs.suricata.io/) - Comprehensive configuration guide
 
 ### Threat Detection Research
 
-1. **[Machine Learning for Intrusion Detection](https://arxiv.org/abs/1904.02426)** (2019)
+1. [Machine Learning for Intrusion Detection](https://arxiv.org/abs/1904.02426) (2019)
    - arXiv preprint - ML-based network anomaly detection
 
-2. **[MITRE ATT&CK for Network Defense](https://attack.mitre.org/)** - Adversary tactics and techniques
+2. [MITRE ATT&CK for Network Defense](https://attack.mitre.org/) - Adversary tactics and techniques
 
-3. **[MITRE ATT&CK Dashboard Implementation](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard)** - Correlate Suricata detections with ATT&CK tactics
+3. [MITRE ATT&CK Dashboard Implementation](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard) - Correlate Suricata detections with ATT&CK tactics
 
 ### Rule Development
 
-- **[Emerging Threats Rules](https://rules.emergingthreats.net/)** - Community ruleset
-- **[Suricata Language Reference](https://suricata.readthedocs.io/en/latest/rules/index.html)** - Rule syntax documentation
-- **[OISF GitHub](https://github.com/OISF/suricata)** - Suricata source code and examples
+- [Emerging Threats Rules](https://rules.emergingthreats.net/) - Community ruleset
+- [Suricata Language Reference](https://suricata.readthedocs.io/en/latest/rules/index.html) - Rule syntax documentation
+- [OISF GitHub](https://github.com/OISF/suricata) - Suricata source code and examples
 - Container Security Hardening - Protect containerized Suricata deployments
 
 ## Conclusion

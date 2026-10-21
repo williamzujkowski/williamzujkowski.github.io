@@ -34,17 +34,17 @@ I run local LLMs up to 34B parameters on my RTX 3090 (24GB VRAM), completely off
 
 Let me be honest about why I went local:
 
-**The privacy wake-up call**: It's easy to share sensitive code with cloud LLMs without thinking about where it goes. For more on AI privacy risks, see my guide on [securing personal AI/ML experiments](/posts/2025-04-10-securing-personal-ai-experiments).
+The privacy wake-up call: It's easy to share sensitive code with cloud LLMs without thinking about where it goes. For more on AI privacy risks, see my guide on [securing personal AI/ML experiments](/posts/2025-04-10-securing-personal-ai-experiments).
 
-**The monthly bill shock**: $120/month adds up fast when you're using AI daily.
+The monthly bill shock: $120/month adds up fast when you're using AI daily.
 
-**The compliance question**: Organizations increasingly need to know where sensitive data is processed. "Somewhere in the cloud" isn't an acceptable answer.
+The compliance question: Organizations increasingly need to know where sensitive data is processed. "Somewhere in the cloud" isn't an acceptable answer.
 
-**The offline need**: Internet went down during a critical project deadline.
+The offline need: Internet went down during a critical project deadline.
 
-**The speed addiction**: Sub-second local responses make cloud latency feel painful.
+The speed addiction: Sub-second local responses make cloud latency feel painful.
 
-**The tinkerer's itch**: Running your own AI is cool.
+The tinkerer's itch: Running your own AI is cool.
 
 ## The Hardware Reality Check
 
@@ -63,14 +63,14 @@ My first deployment crashed spectacularly, in the specific way a 2019 gaming rig
 
 My current LLM deployment infrastructure handles 7B-34B models natively in GPU memory, with CPU offloading support for larger 70B models. For the broader homelab context, see my [security-focused homelab journey](/posts/2025-04-24-building-secure-homelab-adventure).
 
-**Primary LLM Server:**
+Primary LLM Server:
 - NVIDIA RTX 3090 (24GB VRAM) — runs 7B-34B models fully in GPU
 - AMD Ryzen 9 7950X (16C/32T)
 - 64GB DDR5-5200 — enables CPU offloading for 70B models
 - 2TB NVMe SSD (Gen4)
 - Ubuntu 24.04 LTS
 
-**Performance reality:**
+Performance reality:
 - 7B-13B models: 40-60 tokens/second (native GPU)
 - 34B models: 12-15 tokens/second (native GPU)
 - 70B models: 2-5 tokens/second (CPU offloaded)
@@ -168,17 +168,17 @@ Sanitize prompts to prevent injection attacks:
 
 ### Privacy-Focused Models
 
-**Llama 2** (7B/13B/70B):
+Llama 2 (7B/13B/70B):
 - Well-documented, broad language support
 - Requires license acceptance
 - Best for general purpose and code generation
 
-**Mistral 7B**:
+Mistral 7B:
 - Excellent performance/size ratio, Apache 2.0 license
 - Limited to 7B size
 - Best for resource-constrained deployments
 
-**Falcon** (7B/40B):
+Falcon (7B/40B):
 - Truly open license, good multilingual support
 - Higher memory requirements
 - Best for commercial applications
@@ -187,7 +187,7 @@ For deeper model comparison, see [open-source vs. proprietary LLMs](/posts/2024-
 
 ### Quantization for Efficiency
 
-Reduce model size and memory requirements using llama.cpp quantization. A typical 13GB float16 model compresses to **q8_0 (7.16GB, minimal quality loss)**, **q5_1 (5.66GB, slight quality loss)**, or **q4_0 (4.08GB, noticeable but acceptable loss)**. Use the `quantize` binary to convert models: `./quantize models/llama-2-7b.gguf models/llama-2-7b-q4_0.gguf q4_0`
+Reduce model size and memory requirements using llama.cpp quantization. A typical 13GB float16 model compresses to q8_0 (7.16GB, minimal quality loss), q5_1 (5.66GB, slight quality loss), or q4_0 (4.08GB, noticeable but acceptable loss). Use the `quantize` binary to convert models: `./quantize models/llama-2-7b.gguf models/llama-2-7b-q4_0.gguf q4_0`
 
 ## Monitoring and Optimization
 
@@ -202,13 +202,13 @@ Use `prometheus_client` with custom collectors. `GPUtil.getGPUs()` provides NVID
 
 ### Optimization Tips
 
-**Batch Processing**: Group similar requests for efficiency.
+Batch Processing: Group similar requests for efficiency.
 
-**Caching**: Implement prompt/response caching for common queries.
+Caching: Implement prompt/response caching for common queries.
 
-**Model Loading**: Keep frequently used models in memory.
+Model Loading: Keep frequently used models in memory.
 
-**GPU Optimization**: Use Flash Attention for supported models.
+GPU Optimization: Use Flash Attention for supported models.
 
 ## Real-World Implementation
 
@@ -218,12 +218,12 @@ A privacy-first LLM service combines FastAPI for async HTTP endpoints, Pydantic 
 
 Local deployment vs cloud APIs:
 
-**Local Deployment (One-Time)**:
+Local Deployment (One-Time):
 - Hardware: $3,000 - $10,000 (GPU-dependent)
 - Electricity: $30-50/month (continuous operation)
 - Maintenance: Your time
 
-**Cloud API Costs (Ongoing)**:
+Cloud API Costs (Ongoing):
 - GPT-4: $0.03 per 1K tokens
 - Claude: $0.025 per 1K tokens
 - Average usage (100K tokens/day): $75-90/month
@@ -283,7 +283,7 @@ My advice: Start small. Grab a used RTX 3060 for $300, install Ollama, try Mistr
 
 You'll know within days if this is your path. Once you experience sub-second responses with complete privacy, you'll wonder why you trusted the cloud. For more privacy-first approaches, see [building a privacy-first AI lab](/posts/2025-10-29-privacy-first-ai-lab-local-llms).
 
-**But here's the catch:** Local LLMs aren't magic. You're trading convenience for control. Cloud services will always be more polished, better supported, and easier to use. Local deployment is for people who value privacy and autonomy over convenience.
+But here's the catch: Local LLMs aren't magic. You're trading convenience for control. Cloud services will always be more polished, better supported, and easier to use. Local deployment is for people who value privacy and autonomy over convenience.
 
 ### Your Turn
 
@@ -303,31 +303,31 @@ Drop me a line – I'd love to hear about your setup or help troubleshoot if you
 
 ### Privacy-Preserving ML Research
 
-1. **[Extracting Training Data from Large Language Models](https://arxiv.org/abs/2012.07805)** (2021)
+1. [Extracting Training Data from Large Language Models](https://arxiv.org/abs/2012.07805) (2021)
    - Carlini et al. demonstrate memorization risks in LLMs
    - *USENIX Security Symposium*
 
 ### Model Optimization Techniques
 
-1. **[LLM.int8(): 8-bit Matrix Multiplication](https://arxiv.org/abs/2208.07339)** (2022)
+1. [LLM.int8(): 8-bit Matrix Multiplication](https://arxiv.org/abs/2208.07339) (2022)
    - Dettmers et al. - Quantization techniques for large models
    - *arXiv preprint*
 
-2. **[GPTQ: Accurate Post-Training Quantization](https://arxiv.org/abs/2210.17323)** (2023)
+2. [GPTQ: Accurate Post-Training Quantization](https://arxiv.org/abs/2210.17323) (2023)
    - Frantar et al. - Advanced quantization methods
    - *ICLR 2023*
 
 ### Open Source Models & Tools
 
-- **[Ollama Documentation](https://ollama.ai/)** - Local LLM deployment platform
-- **[LangChain](https://python.langchain.com/)** - LLM application framework
-- **[Hugging Face Model Hub](https://huggingface.co/models)** - Open model repository
+- [Ollama Documentation](https://ollama.ai/) - Local LLM deployment platform
+- [LangChain](https://python.langchain.com/) - LLM application framework
+- [Hugging Face Model Hub](https://huggingface.co/models) - Open model repository
 
 ### Privacy Regulations & Standards
 
-- **[GDPR Article 25](https://gdpr-info.eu/art-25-gdpr/)** - Data protection by design
-- **[HIPAA Security Rule](https://www.hhs.gov/hipaa/for-professionals/security/)** - Healthcare data protection
-- **[NIST Privacy Framework](https://www.nist.gov/privacy-framework)** - Privacy risk management
+- [GDPR Article 25](https://gdpr-info.eu/art-25-gdpr/) - Data protection by design
+- [HIPAA Security Rule](https://www.hhs.gov/hipaa/for-professionals/security/) - Healthcare data protection
+- [NIST Privacy Framework](https://www.nist.gov/privacy-framework) - Privacy risk management
 
 ### Performance Benchmarks
 

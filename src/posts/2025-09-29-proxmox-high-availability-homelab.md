@@ -38,19 +38,19 @@ This incident became a driving force behind [building a security-focused homelab
 
 ### Hardware Requirements
 
-**Minimum (3 nodes required for quorum):**
+Minimum (3 nodes required for quorum):
 - Node 1: Dell R910 (primary) - 32GB RAM, 8 cores
 - Node 2: Dell R730 (secondary) - 24GB RAM, 6 cores
 - Node 3: Custom build (witness) - 16GB RAM, 4 cores
 
 > *That was the rig at the time. The lab has since been consolidated down to a single Dell R910 and a Raspberry Pi fleet — the other two nodes are retired — but the HA design below is the part that matters, and it holds for any three machines that clear the quorum minimum.*
 
-**Network Requirements:**
+Network Requirements:
 - Two separate networks (cluster + management)
 - 10Gb preferred for Ceph storage network
 - 1Gb acceptable for management/corosync
 
-**Storage Requirements:**
+Storage Requirements:
 - 3× identical disks per node for Ceph (minimum)
 - NVMe recommended for journal/metadata
 - Dedicated disks for Ceph (not shared with OS)
@@ -64,20 +64,20 @@ Proxmox HA requires an odd number of nodes for quorum:
 - **5 nodes**: Survives 2 node failures
 - **7 nodes**: Survives 3 node failures (overkill for homelab)
 
-**My setup then**: 3 nodes gave a good balance of reliability vs. cost.
+My setup then: 3 nodes gave a good balance of reliability vs. cost.
 
 ## Initial Proxmox Cluster Setup
 
 ### Prepare Each Node
 
-📎 **Complete setup script:**
+📎 Complete setup script:
 [Full node preparation with networking and repositories](https://gist.github.com/williamzujkowski/4e5328d0f87d7c5cb227536ec28508f3)
 
 Update packages, configure bridge interfaces with static IPs
 
 ### Create Cluster
 
-📎 **Complete cluster setup:**
+📎 Complete cluster setup:
 [Full 3-node cluster creation with dual links](https://gist.github.com/williamzujkowski/b7e8c6f80865e952b2e04ccac9a208cd)
 
 Create cluster on node 1: `pvecm create homelab-cluster`
@@ -85,7 +85,7 @@ Join from other nodes: `pvecm add <node1-ip>`
 
 ### Configure Corosync
 
-📎 **Complete configuration:**
+📎 Complete configuration:
 [Full corosync.conf with redundant rings and crypto](https://gist.github.com/williamzujkowski/f9db6bfc2a99d7a60d4138b9c4e485e0)
 
 Enable knet transport with AES256 encryption, configure redundant links
@@ -94,14 +94,14 @@ Enable knet transport with AES256 encryption, configure redundant links
 
 ### Install Ceph
 
-📎 **Complete setup:**
+📎 Complete setup:
 [Full Ceph installation with all monitors](https://gist.github.com/williamzujkowski/372c1276a16f72eeb5e938206f12695c)
 
 Install Ceph packages, initialize cluster on storage network, create monitors
 
 ### Configure Ceph OSDs
 
-📎 **Complete setup:**
+📎 Complete setup:
 [OSD creation script for all nodes and disks](https://gist.github.com/williamzujkowski/c7e3679bd125f4cc06212b74dc4f9086)
 
 Create OSD on each disk: `pveceph osd create /dev/sdX`
@@ -118,7 +118,7 @@ Set placement groups to 128, enable RBD caching
 
 ### Enable HA Manager
 
-📎 **Complete HA setup:**
+📎 Complete HA setup:
 [Full HA manager configuration and verification](https://gist.github.com/williamzujkowski/62daa9dbf0756881424c0cbbfdf513a8)
 
 Verify HA services running, check cluster status
@@ -131,7 +131,7 @@ Install fence-agents, configure IPMI credentials for each node
 
 ### Enable HA for VMs
 
-📎 **Complete VM HA configuration:**
+📎 Complete VM HA configuration:
 [HA resource management with groups and priorities](https://gist.github.com/williamzujkowski/65bfcda35551568a539ba575fd6cb36c)
 
 Add VMs to HA: `ha-manager add vm:100 --state started --max_restart 3`
@@ -154,7 +154,7 @@ Stop OSD daemon, verify data remains accessible via replication
 
 ### Proxmox Backup Server Integration
 
-📎 **Complete backup configuration:**
+📎 Complete backup configuration:
 [Full PBS setup with schedules and retention](https://gist.github.com/williamzujkowski/763dfba35128942ebe45c6a3f1f335b3)
 
 Add PBS storage, schedule nightly snapshots at 2 AM
@@ -167,7 +167,7 @@ Backup cluster config to tarball, sync offsite with rclone
 
 ### Prometheus Exporter
 
-📎 **Complete monitoring setup:**
+📎 Complete monitoring setup:
 [Full Prometheus exporter config with metrics](https://gist.github.com/williamzujkowski/6d6197585a388ffb16c6bb303d61b0d6)
 
 Install exporter, configure PVE credentials, expose metrics
@@ -194,29 +194,29 @@ Migrate VMs, update packages, reboot node, repeat for all nodes
 
 ### Scenario 1: Single Node Failure
 
-**Automatic Response:**
+Automatic Response:
 1. Corosync detects node failure
 2. Fencing agent confirms node is offline
 3. HA manager migrates VMs to surviving nodes
 4. Services resume on new nodes
 
-**Time to Recovery:** 2-5 minutes (automatic)
+Time to Recovery: 2-5 minutes (automatic)
 
 ### Scenario 2: Split-Brain
 
-**Automatic Response:**
+Automatic Response:
 1. Network partition detected
 2. Majority partition maintains quorum
 3. Minority partition loses quorum, stops VMs
 4. Fencing prevents both partitions from writing to Ceph
 
-**Manual Recovery:**
+Manual Recovery:
 
 Set expected votes, restart cluster services, verify quorum
 
 ### Scenario 3: Total Cluster Failure
 
-**Manual Recovery:**
+Manual Recovery:
 
 Set expected=1, start VMs manually, restore quorum after nodes rejoin
 
@@ -234,11 +234,11 @@ That 3-node HA cluster cost, at the time:
 | UPS systems (3) | $300 | Power protection |
 | **Total** | **$3,100** | One-time investment |
 
-**Monthly costs:** ~$30 (electricity, though this varies by region)
+Monthly costs: ~$30 (electricity, though this varies by region)
 
-**Compared to cloud:** $150-300/month for equivalent HA VMs
+Compared to cloud: $150-300/month for equivalent HA VMs
 
-**Break-even:** Probably around 1 year
+Break-even: Probably around 1 year
 
 ## Lessons Learned
 
@@ -277,18 +277,18 @@ That cluster's performance:
 
 ### Proxmox Documentation
 
-1. **[Proxmox VE Administration Guide](https://pve.proxmox.com/pve-docs/pve-admin-guide.html)** - Official documentation
-2. **[Proxmox Cluster Documentation](https://pve.proxmox.com/wiki/Cluster_Manager)** - Cluster setup guide
+1. [Proxmox VE Administration Guide](https://pve.proxmox.com/pve-docs/pve-admin-guide.html) - Official documentation
+2. [Proxmox Cluster Documentation](https://pve.proxmox.com/wiki/Cluster_Manager) - Cluster setup guide
 
 ### Ceph Storage
 
-1. **[Ceph Architecture and Design](https://docs.ceph.com/en/latest/architecture/)** - Official Ceph docs
+1. [Ceph Architecture and Design](https://docs.ceph.com/en/latest/architecture/) - Official Ceph docs
 
 ### High Availability Concepts
 
-1. **[CAP Theorem](https://en.wikipedia.org/wiki/CAP_theorem)** - Consistency, Availability, Partition tolerance
-2. **[Raft Consensus Algorithm](https://raft.github.io/)** - Distributed consensus explanation
-3. **[Corosync Documentation](https://corosync.github.io/corosync/)** - Cluster communication
+1. [CAP Theorem](https://en.wikipedia.org/wiki/CAP_theorem) - Consistency, Availability, Partition tolerance
+2. [Raft Consensus Algorithm](https://raft.github.io/) - Distributed consensus explanation
+3. [Corosync Documentation](https://corosync.github.io/corosync/) - Cluster communication
 
 ## Conclusion
 

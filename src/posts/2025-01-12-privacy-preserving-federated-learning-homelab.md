@@ -52,23 +52,23 @@ This approach breaks privacy in obvious ways. If I'm training a medical diagnosi
 <figcaption>Centralized training uploads raw hospital data; federated training keeps data local and exchanges gradients plus updated weights.</figcaption>
 </figure>
 
-**The dilemma:** How do you train accurate models without seeing the raw data?
+The dilemma: How do you train accurate models without seeing the raw data?
 
 Federated learning offers one solution. Instead of moving data to the model, move the model to the data. Each participant trains locally on their own data, then shares only model updates (gradients) back to a central aggregator.
 
-But here's the catch: **gradients leak information about training data**. Research shows you can reconstruct training examples from gradient updates with surprisingly high fidelity ([Deep Leakage from Gradients, NeurIPS 2019](https://arxiv.org/abs/1906.08935)). That's still a privacy problem.
+But here's the catch: gradients leak information about training data. Research shows you can reconstruct training examples from gradient updates with surprisingly high fidelity ([Deep Leakage from Gradients, NeurIPS 2019](https://arxiv.org/abs/1906.08935)). That's still a privacy problem.
 
-**Differential privacy** helps by adding noise to gradients, but it introduces a tough trade-off. More noise means better privacy but worse model accuracy. Finding the right balance is probably more art than science in my experience.
+Differential privacy helps by adding noise to gradients, but it introduces a tough trade-off. More noise means better privacy but worse model accuracy. Finding the right balance is probably more art than science in my experience.
 
 ## Granular-Ball Computing: Coarse Privacy Through Segmentation
 
 The [GrBFL paper](https://arxiv.org/abs/2501.04940) introduces a different approach: granular-ball computing. Instead of sharing gradients, participants share coarse statistical representations of their local data. This complements the [privacy-first AI infrastructure approach](/posts/2025-10-29-privacy-first-ai-lab-local-llms) by adding distributed training to local inference capabilities.
 
-**The concept:** Segment your local dataset into "granular balls," which are clusters of similar data points represented by their center and radius. Instead of sending gradients derived from individual examples, you send aggregated statistics from these coarse clusters.
+The concept: Segment your local dataset into "granular balls," which are clusters of similar data points represented by their center and radius. Instead of sending gradients derived from individual examples, you send aggregated statistics from these coarse clusters.
 
-**Why it might matter for privacy:** Coarser statistics give a reconstruction attack less to work with than per-example gradients do. That's a plausible argument rather than a guarantee, and the payload as written has real leaks in it — see the privacy section below before relying on any of this.
+Why it might matter for privacy: Coarser statistics give a reconstruction attack less to work with than per-example gradients do. That's a plausible argument rather than a guarantee, and the payload as written has real leaks in it — see the privacy section below before relying on any of this.
 
-**The trade-off:** You lose fine-grained information during aggregation. The model learns from coarse patterns rather than individual examples. This probably reduces accuracy, and the GrBFL paper reports composite utility scores rather than raw accuracy gaps, so I can't put a percentage on it.
+The trade-off: You lose fine-grained information during aggregation. The model learns from coarse patterns rather than individual examples. This probably reduces accuracy, and the GrBFL paper reports composite utility scores rather than raw accuracy gaps, so I can't put a percentage on it.
 
 ### How Granular-Ball Segmentation Works
 
@@ -81,10 +81,10 @@ In my homelab implementation, each Raspberry Pi performs these steps locally:
 
 The Dell R910 aggregator then:
 
-1. **Receives cluster statistics** from all participants
-2. **Merges overlapping clusters** based on distance metrics
-3. **Trains a global model** using the aggregated coarse representations
-4. **Distributes updated model weights** back to participants
+1. Receives cluster statistics from all participants
+2. Merges overlapping clusters based on distance metrics
+3. Trains a global model using the aggregated coarse representations
+4. Distributes updated model weights back to participants
 
 <ol class="seq" aria-label="federated learning training round">
   <li class="seq-note">Round N begins</li>
@@ -110,7 +110,7 @@ The Dell R910 aggregator then:
   <li class="seq-note">Round N+1 begins</li>
 </ol>
 
-**Key insight:** The variance threshold controls the privacy-accuracy trade-off. Lower thresholds preserve more information (better accuracy, weaker privacy). Higher thresholds increase privacy but lose more signal.
+Key insight: The variance threshold controls the privacy-accuracy trade-off. Lower thresholds preserve more information (better accuracy, weaker privacy). Higher thresholds increase privacy but lose more signal.
 
 ## Implementation: Flower + PyTorch on Pi Cluster
 
@@ -123,7 +123,7 @@ I used [Flower](https://flower.dev/) for federated orchestration and PyTorch for
 - **Dataset:** CIFAR-10 (60,000 images split across 3 Pis, 20,000 each)
 - **Model:** ResNet-18 (11.7M parameters)
 
-**Network topology:** All devices on the same VLAN (192.168.2.0/24) with 1 Gbps Ethernet connectivity. No WAN traffic, pure LAN federation. Following [zero trust VLAN segmentation principles](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab), I isolated federated learning traffic from other homelab services.
+Network topology: All devices on the same VLAN (192.168.2.0/24) with 1 Gbps Ethernet connectivity. No WAN traffic, pure LAN federation. Following [zero trust VLAN segmentation principles](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab), I isolated federated learning traffic from other homelab services.
 
 ### Installing Dependencies
 
@@ -184,7 +184,7 @@ def compute_granular_balls(X, n_clusters=100, variance_threshold=0.03):
     return balls
 ```
 
-**Key difference from standard federated learning:** This function never sends raw data or per-example gradients. Only aggregated cluster statistics leave the device. Wiring it into a Flower client/server loop is mechanical from here: the balls become the payload each client sends to the aggregator.
+Key difference from standard federated learning: This function never sends raw data or per-example gradients. Only aggregated cluster statistics leave the device. Wiring it into a Flower client/server loop is mechanical from here: the balls become the payload each client sends to the aggregator.
 
 ### Training Configuration
 
@@ -209,7 +209,7 @@ After 50 training rounds (roughly 18 hours of compute time), here's what I measu
 | GrBFL (threshold=0.03) | 92.1% | -2.4% |
 | GrBFL (threshold=0.1) | 82.3% | -12.2% |
 
-**Observation:** The granular-ball approach with balanced threshold (0.03) achieves reasonable accuracy while filtering 33% of cluster information. Standard federated learning is slightly more accurate but shares more privacy-sensitive gradients.
+Observation: The granular-ball approach with balanced threshold (0.03) achieves reasonable accuracy while filtering 33% of cluster information. Standard federated learning is slightly more accurate but shares more privacy-sensitive gradients.
 
 ### Network Transfer Per Round
 
@@ -240,7 +240,7 @@ Training round time breakdown, using the measured 47.3 minutes:
 | Network Transfer | 3.1 | 6.6% |
 | Server Aggregation | 21.3 | 45.0% |
 
-**Bottleneck:** Server aggregation was surprisingly slow. The Dell R910 spent most of its time merging overlapping clusters from 3 Pis. Probably a CPU-bound operation that doesn't parallelize well. I didn't optimize this part, so there's likely room for improvement.
+Bottleneck: Server aggregation was surprisingly slow. The Dell R910 spent most of its time merging overlapping clusters from 3 Pis. Probably a CPU-bound operation that doesn't parallelize well. I didn't optimize this part, so there's likely room for improvement.
 
 ### Privacy Guarantees
 
@@ -263,15 +263,15 @@ Training round time breakdown, using the measured 47.3 minutes:
   </div>
 </div>
 
-**What this does and doesn't give you, precisely.** The GrBFL paper contains no theorems. It offers an informal argument — coarser inputs give a reconstruction attack less to work with — plus empirical reconstruction-error measurements. That's evidence, and it isn't a bound.
+What this does and doesn't give you, precisely. The GrBFL paper contains no theorems. It offers an informal argument — coarser inputs give a reconstruction attack less to work with — plus empirical reconstruction-error measurements. That's evidence, and it isn't a bound.
 
 Differential privacy gives a formal, worst-case, composable guarantee that holds against adversaries you didn't think of. Deterministic clustering with a variance threshold gives none of that: no epsilon, nothing that composes across 50 rounds, no statement about an attack you failed to imagine. If you need a guarantee you can reason about, you want DP, and this is not a substitute for it.
 
 Three specific problems with what my code actually transmits:
 
-- **`radius` is an unclipped maximum** — an exact function of the single most extreme point in the cluster. Releasing an un-noised maximum is the textbook unbounded-sensitivity case, and it's precisely why DP mechanisms clip before releasing. Drop it, or replace it with a clipped quantile.
-- **There's no minimum cluster size.** A two-point cluster ships a `center` that's the midpoint of two real images and a `radius` that's half their separation, with `size` alongside so an attacker knows when that applies. Enforce a floor — 50 or more.
-- **`KMeans(random_state=42)` is deterministic across all 50 rounds**, so watching a cluster's mean and count move between rounds is a differencing attack. Bucket `size`, or reseed.
+- `radius` is an unclipped maximum — an exact function of the single most extreme point in the cluster. Releasing an un-noised maximum is the textbook unbounded-sensitivity case, and it's precisely why DP mechanisms clip before releasing. Drop it, or replace it with a clipped quantile.
+- There's no minimum cluster size. A two-point cluster ships a `center` that's the midpoint of two real images and a `radius` that's half their separation, with `size` alongside so an attacker knows when that applies. Enforce a floor — 50 or more.
+- `KMeans(random_state=42)` is deterministic across all 50 rounds, so watching a cluster's mean and count move between rounds is a differencing attack. Bucket `size`, or reseed.
 
 Two things worth being clear about on scope. In GrBFL, granular-ball segmentation is a *local preprocessing step on each image* — clients still train locally and upload model parameters, so granular balls aren't the wire format, and the paper's own reconstruction experiments assume the attacker has gradients and weights.
 
@@ -283,23 +283,23 @@ After three weeks of testing, here's what I learned about when granular-ball fed
 
 ### When This Approach Works
 
-**Strong privacy requirements:** Not this. If your threat model includes reconstruction attacks, use differential privacy, which gives you a bound you can reason about. Granular balls give you a heuristic I haven't tested.
+Strong privacy requirements: Not this. If your threat model includes reconstruction attacks, use differential privacy, which gives you a bound you can reason about. Granular balls give you a heuristic I haven't tested.
 
-**Large datasets:** Clustering overhead is negligible when local datasets have 10K+ examples. My 20K images per Pi clustered in under 9 minutes.
+Large datasets: Clustering overhead is negligible when local datasets have 10K+ examples. My 20K images per Pi clustered in under 9 minutes.
 
-**Bandwidth-constrained networks:** this is the one dimension where the approach clearly wins. A few megabytes per round beats shipping gradients by roughly two orders of magnitude, so satellite or cellular federation is where it earns its keep.
+Bandwidth-constrained networks: this is the one dimension where the approach clearly wins. A few megabytes per round beats shipping gradients by roughly two orders of magnitude, so satellite or cellular federation is where it earns its keep.
 
-**Slightly reduced accuracy acceptable:** 2-3% accuracy gap is tolerable for many applications. Medical diagnostics maybe not, spam detection probably yes.
+Slightly reduced accuracy acceptable: 2-3% accuracy gap is tolerable for many applications. Medical diagnostics maybe not, spam detection probably yes.
 
 ### When This Approach Struggles
 
-**Small local datasets:** With fewer than 5K examples per client, clustering quality degrades. Granular balls become too coarse to preserve useful signal.
+Small local datasets: With fewer than 5K examples per client, clustering quality degrades. Granular balls become too coarse to preserve useful signal.
 
-**When accuracy matters more than bandwidth:** you're paying 2.4 points of accuracy for the transfer saving. If the link isn't your constraint, standard federated learning with differential privacy gives you a real privacy bound and better numbers.
+When accuracy matters more than bandwidth: you're paying 2.4 points of accuracy for the transfer saving. If the link isn't your constraint, standard federated learning with differential privacy gives you a real privacy bound and better numbers.
 
-**Real-time requirements:** 47 minutes per training round is slow. If you need sub-minute model updates (like online learning), this approach won't work without serious optimization.
+Real-time requirements: 47 minutes per training round is slow. If you need sub-minute model updates (like online learning), this approach won't work without serious optimization.
 
-**Perfect accuracy required:** If you can't accept any accuracy degradation, use centralized training with proper access controls instead.
+Perfect accuracy required: If you can't accept any accuracy degradation, use centralized training with proper access controls instead.
 
 ### Open Questions I Haven't Figured Out
 
@@ -317,31 +317,31 @@ After three weeks of testing, here's what I learned about when granular-ball fed
 
 ### Failures That Taught Me Things
 
-**Variance threshold too high (0.1):** My first training run shared only 23% of clusters. Accuracy dropped to 82.3%. I spent 6 hours debugging the aggregation logic before realizing the threshold was filtering too aggressively. Lesson: Start with lower thresholds (0.01-0.03) and increase gradually.
+Variance threshold too high (0.1): My first training run shared only 23% of clusters. Accuracy dropped to 82.3%. I spent 6 hours debugging the aggregation logic before realizing the threshold was filtering too aggressively. Lesson: Start with lower thresholds (0.01-0.03) and increase gradually.
 
-**Raspberry Pi thermal throttling:** During the second round, all 3 Pis hit thermal limits and throttled CPUs to 600 MHz. Training time jumped from 14 minutes to 38 minutes per round. I added heatsinks and case fans. Now they run at 1.8 GHz consistently.
+Raspberry Pi thermal throttling: During the second round, all 3 Pis hit thermal limits and throttled CPUs to 600 MHz. Training time jumped from 14 minutes to 38 minutes per round. I added heatsinks and case fans. Now they run at 1.8 GHz consistently.
 
-**Network congestion during aggregation:** I initially ran all 3 Pis on WiFi. Bad idea. Network transfer took 17 minutes instead of 3 minutes due to WiFi contention. Switched to Ethernet, problem solved.
+Network congestion during aggregation: I initially ran all 3 Pis on WiFi. Bad idea. Network transfer took 17 minutes instead of 3 minutes due to WiFi contention. Switched to Ethernet, problem solved.
 
-**Server aggregation bottleneck:** The Dell R910 has 24 cores but the aggregation code is single-threaded. Only one core was pegged at 100% while the other 23 sat idle. I didn't fix this, but parallelizing cluster merging would probably cut aggregation time by 80%.
+Server aggregation bottleneck: The Dell R910 has 24 cores but the aggregation code is single-threaded. Only one core was pegged at 100% while the other 23 sat idle. I didn't fix this, but parallelizing cluster merging would probably cut aggregation time by 80%.
 
-**K-means initialization instability:** Using random initialization caused clustering to vary wildly between rounds. Accuracy fluctuated ±5%. Switching to `k-means++` initialization stabilized training.
+K-means initialization instability: Using random initialization caused clustering to vary wildly between rounds. Accuracy fluctuated ±5%. Switching to `k-means++` initialization stabilized training.
 
 ### What Actually Worked
 
-**Starting with small cluster counts:** I began with 50 clusters to validate the pipeline, then scaled to 100. Made debugging much faster than starting with 500 clusters.
+Starting with small cluster counts: I began with 50 clusters to validate the pipeline, then scaled to 100. Made debugging much faster than starting with 500 clusters.
 
-**Monitoring cluster statistics:** I logged cluster size distributions after each round. Caught an issue where 90% of data points were assigned to 5 clusters (k-means converged poorly). Fixed by increasing cluster count.
+Monitoring cluster statistics: I logged cluster size distributions after each round. Caught an issue where 90% of data points were assigned to 5 clusters (k-means converged poorly). Fixed by increasing cluster count.
 
-**Separate VLAN for federation traffic:** Isolated the federated learning traffic from other homelab services to validate no data leakage occurred. Prevented network congestion when I was running other experiments simultaneously.
+Separate VLAN for federation traffic: Isolated the federated learning traffic from other homelab services to validate no data leakage occurred. Prevented network congestion when I was running other experiments simultaneously.
 
-**TensorBoard for tracking:** Logging training metrics to TensorBoard made it easy to spot when something went wrong (like the 12% accuracy drop from threshold=0.1).
+TensorBoard for tracking: Logging training metrics to TensorBoard made it easy to spot when something went wrong (like the 12% accuracy drop from threshold=0.1).
 
 ## Conclusion
 
 In November 2024, I set out to train an image classifier across 4 devices without sharing raw data. Three weeks and 12 failed training runs later, I have a working privacy-preserving federated learning setup.
 
-**Key findings:**
+Key findings:
 - Granular-ball segmentation cuts per-round network transfer by roughly two orders of magnitude compared to shipping gradients
 - Balanced variance threshold (0.03) achieves 92.1% accuracy, within 2.4% of centralized training
 - Training time per round: 47 minutes (14 min local, 9 min clustering, 3 min network, 21 min aggregation)
@@ -349,7 +349,7 @@ In November 2024, I set out to train an image classifier across 4 devices withou
 
 I'm still figuring out optimal cluster counts and variance thresholds for different datasets. The 100 clusters and 0.03 threshold worked for CIFAR-10, but probably not universal. Your mileage will vary depending on data distribution and privacy requirements.
 
-The biggest lesson: **Privacy-preserving machine learning is all about trade-offs.** You can have strong privacy (high variance threshold), good accuracy (low variance threshold), or fast training (fewer clusters), but probably not all three. Pick two.
+The biggest lesson: Privacy-preserving machine learning is all about trade-offs. You can have strong privacy (high variance threshold), good accuracy (low variance threshold), or fast training (fewer clusters), but probably not all three. Pick two.
 
 If you try this, start with threshold=0.03 and 100 clusters. Probably the best balance for most image classification tasks on homelab-scale datasets. Monitor cluster size distributions and adjust based on your accuracy requirements.
 
@@ -358,32 +358,32 @@ The server aggregation bottleneck is fixable with parallelization, but I didn't 
 ## Sources
 
 ### Primary Research
-- [**A New Perspective on Privacy Protection in Federated Learning with Granular-Ball Computing**](https://arxiv.org/abs/2501.04940) (2025) - Lai et al., arXiv:2501.04940
+- [A New Perspective on Privacy Protection in Federated Learning with Granular-Ball Computing](https://arxiv.org/abs/2501.04940) (2025) - Lai et al., arXiv:2501.04940
   *The GrBFL paper introducing granular-ball federated learning*
 
-- [**Deep Leakage from Gradients**](https://arxiv.org/abs/1906.08935) (2019) - Zhu et al., NeurIPS 2019
+- [Deep Leakage from Gradients](https://arxiv.org/abs/1906.08935) (2019) - Zhu et al., NeurIPS 2019
   *Demonstrates gradient reconstruction attacks in standard federated learning*
 
-- [**Communication-Efficient Learning of Deep Networks from Decentralized Data**](https://arxiv.org/abs/1602.05629) (2017) - McMahan et al., AISTATS 2017
+- [Communication-Efficient Learning of Deep Networks from Decentralized Data](https://arxiv.org/abs/1602.05629) (2017) - McMahan et al., AISTATS 2017
   *Original federated learning paper from Google*
 
 ### Federated Learning Frameworks
-- [**Flower: A Friendly Federated Learning Framework**](https://flower.dev/) - Open-source FL framework for PyTorch, TensorFlow, JAX
+- [Flower: A Friendly Federated Learning Framework](https://flower.dev/) - Open-source FL framework for PyTorch, TensorFlow, JAX
   *What I actually used for orchestration*
 
-- [**PySyft**](https://github.com/OpenMined/PySyft) - Privacy-preserving ML library with differential privacy support
+- [PySyft](https://github.com/OpenMined/PySyft) - Privacy-preserving ML library with differential privacy support
 
-- [**FedML**](https://github.com/FedML-AI/FedML) - Research library for federated learning algorithms
+- [FedML](https://github.com/FedML-AI/FedML) - Research library for federated learning algorithms
 
 ### Privacy-Preserving ML
-- [**Differential Privacy for Deep Learning**](https://arxiv.org/abs/1607.00133) (2016) - Abadi et al., ACM CCS 2016
+- [Differential Privacy for Deep Learning](https://arxiv.org/abs/1607.00133) (2016) - Abadi et al., ACM CCS 2016
   *Standard approach to private SGD training*
 
-- [**NIST Privacy Framework**](https://www.nist.gov/privacy-framework) - Privacy engineering guidelines for ML systems
+- [NIST Privacy Framework](https://www.nist.gov/privacy-framework) - Privacy engineering guidelines for ML systems
 
-- [**Homomorphic Encryption for Machine Learning**](https://eprint.iacr.org/2018/462.pdf) (2018) - Gilad-Bachrach et al.
+- [Homomorphic Encryption for Machine Learning](https://eprint.iacr.org/2018/462.pdf) (2018) - Gilad-Bachrach et al.
   *Alternative approach using encrypted computation*
 ### Kubernetes and Raspberry Pi Resources
-- [**K3s Lightweight Kubernetes**](https://k3s.io/) - What I use for orchestrating multi-Pi experiments
+- [K3s Lightweight Kubernetes](https://k3s.io/) - What I use for orchestrating multi-Pi experiments
 
-- [**Raspberry Pi 5 Specifications**](https://www.raspberrypi.com/products/raspberry-pi-5/) - Hardware details for the 16GB model
+- [Raspberry Pi 5 Specifications](https://www.raspberrypi.com/products/raspberry-pi-5/) - Hardware details for the 16GB model

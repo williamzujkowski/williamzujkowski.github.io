@@ -15,15 +15,15 @@ tags:
 
 ## Bottom Line Up Front
 
-I ran a 7 billion parameter language model on an 8GB Raspberry Pi 4 using a layer-streaming inference approach modelled on PIPELOAD. On my hardware the memory reduction was **88.6%** against loading the whole model, and BERT-style inference came out **4.25x** faster than the swap-thrashing baseline.
+I ran a 7 billion parameter language model on an 8GB Raspberry Pi 4 using a layer-streaming inference approach modelled on PIPELOAD. On my hardware the memory reduction was 88.6% against loading the whole model, and BERT-style inference came out 4.25x faster than the swap-thrashing baseline.
 
 The generation throughput I originally reported here doesn't survive its own arithmetic, so I've pulled it: at the 120-180ms per-layer load time I measured, a 32-layer model cannot stream faster than about 0.2 tokens/second, and every token re-reads every layer. The figure I published was an order of magnitude above that. I'd rather leave a gap than a number I can't reconstruct.
 
-**Why it matters:** Edge AI deployment typically fails due to memory constraints. A standard 7B model requires 14-28GB RAM for full-precision inference. PIPELOAD's dynamic memory management and parallel model loading reduce this to under 3GB, making edge deployment practical on consumer hardware.
+Why it matters: Edge AI deployment typically fails due to memory constraints. A standard 7B model requires 14-28GB RAM for full-precision inference. PIPELOAD's dynamic memory management and parallel model loading reduce this to under 3GB, making edge deployment practical on consumer hardware.
 
-**The catch:** real per-token latency overhead, and it only applies to models with clean layer-wise decomposition. Works best for BERT, ViT, GPT-style architectures. Struggles with models requiring global attention or cross-layer dependencies.
+The catch: real per-token latency overhead, and it only applies to models with clean layer-wise decomposition. Works best for BERT, ViT, GPT-style architectures. Struggles with models requiring global attention or cross-layer dependencies.
 
-**What I tested:**
+What I tested:
 - LLaMA 2 7B quantized (Q4_K_M) on Raspberry Pi 4 8GB
 - Comparison: Standard PyTorch vs PIPELOAD pipeline
 - Benchmarks: Memory usage, inference latency, throughput
@@ -46,16 +46,16 @@ Standard PyTorch inference for LLaMA 2 7B:
 
 My Raspberry Pi 4 has 8GB RAM. The math doesn't work. I tried anyway.
 
-**First attempt:** Loaded LLaMA 2 7B directly with PyTorch. OOM killed after 47 seconds when loading the 12th transformer layer. Pi's kernel logs showed:
+First attempt: Loaded LLaMA 2 7B directly with PyTorch. OOM killed after 47 seconds when loading the 12th transformer layer. Pi's kernel logs showed:
 ```
 [  47.382] Out of memory: Killed process 2847 (python3) total-vm:8248976kB
 ```
 
-**Second attempt:** Quantized to Q4_K_M (4-bit weights). Reduced model size to 4.1GB. Loaded successfully. Generated 3 tokens. Then froze for 2 minutes before thermal throttling kicked in at 82°C. Inference speed: 0.4 tokens/sec. Unusable.
+Second attempt: Quantized to Q4_K_M (4-bit weights). Reduced model size to 4.1GB. Loaded successfully. Generated 3 tokens. Then froze for 2 minutes before thermal throttling kicked in at 82°C. Inference speed: 0.4 tokens/sec. Unusable.
 
-**Third attempt:** PIPELOAD pipeline inference from the [Hermes paper](https://arxiv.org/abs/2409.04249). Loaded model in stages, unloaded layers after use, parallelized memory operations. Result: 2.5 tokens/sec sustained, 2.1GB peak memory usage, no thermal throttling.
+Third attempt: PIPELOAD pipeline inference from the [Hermes paper](https://arxiv.org/abs/2409.04249). Loaded model in stages, unloaded layers after use, parallelized memory operations. Result: 2.5 tokens/sec sustained, 2.1GB peak memory usage, no thermal throttling.
 
-**Why it matters:** Memory-efficient inference enables edge deployment without cloud dependencies. No API costs, no latency from round-trip requests, no privacy concerns from sending data to third parties.
+Why it matters: Memory-efficient inference enables edge deployment without cloud dependencies. No API costs, no latency from round-trip requests, no privacy concerns from sending data to third parties.
 
 ---
 
@@ -74,7 +74,7 @@ Instead of loading the entire model into RAM at once, PIPELOAD loads layers on-d
 
 This trades storage I/O for memory efficiency. On Raspberry Pi 4 with NVMe storage (via USB 3.1), layer load time is 120-180ms per layer. For a 32-layer model, that's 3.8-5.7 seconds of I/O overhead per inference.
 
-**Why this works:** Transformer layers are mostly independent. Each layer's output depends only on the previous layer's output. No need to keep all layers in memory simultaneously (except for residual connections, which PIPELOAD caches).
+Why this works: Transformer layers are mostly independent. Each layer's output depends only on the previous layer's output. No need to keep all layers in memory simultaneously (except for residual connections, which PIPELOAD caches).
 
 ### 2. Parallel Model Loading
 
@@ -115,20 +115,20 @@ The [Hermes paper](https://arxiv.org/abs/2409.04249) (Han et al.) reports up to 
   <div class="flow-node">Output Tokens</div>
 </div>
 
-**Key insight:** By the time layer N completes execution, layer N+1 is already loaded and ready. No idle CPU cycles waiting for I/O.
+Key insight: By the time layer N completes execution, layer N+1 is already loaded and ready. No idle CPU cycles waiting for I/O.
 
 ---
 
 ## Implementation: Setting Up PIPELOAD
 
-**Prerequisites:**
+Prerequisites:
 - Raspberry Pi 4 (8GB model) or similar ARM64 device
 - Ubuntu 24.04 LTS (ARM64)
 - Python 3.11+
 - PyTorch 2.1+ with ARM64 optimizations
 - 128GB+ NVMe storage (USB 3.1 or faster)
 
-**Hardware note:** I used my Raspberry Pi 4 8GB from my K3s cluster. Added a 512GB Samsung T7 USB NVMe drive because the microSD card's I/O was too slow (25MB/s read). NVMe gives 400MB/s, essential for PIPELOAD's layer-loading performance.
+Hardware note: I used my Raspberry Pi 4 8GB from my K3s cluster. Added a 512GB Samsung T7 USB NVMe drive because the microSD card's I/O was too slow (25MB/s read). NVMe gives 400MB/s, essential for PIPELOAD's layer-loading performance.
 
 ### Step 1: Install Dependencies
 
@@ -143,7 +143,7 @@ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.o
 pip3 install pipeload-inference
 ```
 
-**Reality check:** As of September 2024, PIPELOAD isn't a public package. The [Hermes paper](https://arxiv.org/abs/2409.04249) describes the mechanism but doesn't release code. I implemented a minimal version (~450 lines of Python) based on their algorithm description. The snippets below are the core of that implementation.
+Reality check: As of September 2024, PIPELOAD isn't a public package. The [Hermes paper](https://arxiv.org/abs/2409.04249) describes the mechanism but doesn't release code. I implemented a minimal version (~450 lines of Python) based on their algorithm description. The snippets below are the core of that implementation.
 
 ### Step 2: Configure Model Loading
 
@@ -161,7 +161,7 @@ model = PipelineModel.from_pretrained(
 )
 ```
 
-**What this does:**
+What this does:
 - `memory_limit`: Caps per-layer memory at 2GB (prevents OOM)
 - `parallel_loading`: Enables I/O overlap with computation
 - `cache_residuals`: Keeps skip connections in memory (small overhead, large quality improvement)
@@ -179,7 +179,7 @@ model = model.quantize(
 print(f"Model size: {model.size_gb():.2f}GB")  # ~4.1GB for LLaMA 7B
 ```
 
-**Why 4-bit quantization:** Reduces model size from 14GB (FP16) to 4.1GB (Q4_K_M) with minimal accuracy loss. Quality loss at 4-bit is small but I don't have a clean number for this model and quantization pair — note Q4_K_M is a llama.cpp k-quant, which is a different algorithm from GPTQ and needs no calibration data. For my use case (homelab experimentation), this trade-off is acceptable.
+Why 4-bit quantization: Reduces model size from 14GB (FP16) to 4.1GB (Q4_K_M) with minimal accuracy loss. Quality loss at 4-bit is small but I don't have a clean number for this model and quantization pair — note Q4_K_M is a llama.cpp k-quant, which is a different algorithm from GPTQ and needs no calibration data. For my use case (homelab experimentation), this trade-off is acceptable.
 
 ### Step 4: Run Inference
 
@@ -196,7 +196,7 @@ output = model.generate(
 print(output)
 ```
 
-**Inference output:**
+Inference output:
 
 ⚠️ **Warning:** This output demonstrates LLM inference on edge devices for educational purposes. Running LLMs requires substantial computational resources and proper licensing compliance.
 
@@ -213,7 +213,7 @@ Generated in 42.3 seconds (2.36 tokens/sec, 100 tokens)
 Peak memory usage: 2.1GB
 ```
 
-**Performance on Raspberry Pi 4:**
+Performance on Raspberry Pi 4:
 - Inference speed: 2.36 tokens/sec
 - Memory usage: 2.1GB peak (vs 18GB standard PyTorch)
 - CPU usage: 87% average (4 cores maxed during layer execution)
@@ -227,13 +227,13 @@ I tested three scenarios on my homelab hardware:
 
 ### Test Setup
 
-**Hardware:**
+Hardware:
 - **Edge device:** Raspberry Pi 4 8GB (ARM Cortex-A72, 1.5GHz)
 - **Storage:** Samsung T7 512GB NVMe (USB 3.1)
 - **Cooling:** Argon ONE V2 case with active fan
 - **Comparison device:** My workstation (Intel i9-9900K, 64GB RAM, RTX 3090)
 
-**Models:**
+Models:
 - LLaMA 2 7B (quantized Q4_K_M)
 - BERT-base (110M parameters)
 - Vision Transformer (ViT-B/16, 86M parameters)
@@ -242,11 +242,11 @@ I tested three scenarios on my homelab hardware:
 
 | Model | Standard PyTorch | PIPELOAD | Reduction |
 |-------|------------------|----------|-----------|
-| LLaMA 2 7B | 18.4GB | 2.1GB | **88.6%** |
-| BERT-base | 1.8GB | 0.24GB | **86.7%** |
-| ViT-B/16 | 1.4GB | 0.19GB | **86.4%** |
+| LLaMA 2 7B | 18.4GB | 2.1GB | 88.6% |
+| BERT-base | 1.8GB | 0.24GB | 86.7% |
+| ViT-B/16 | 1.4GB | 0.19GB | 86.4% |
 
-**Observation:** Memory reduction is consistent across architectures. PIPELOAD achieves 86-90% reduction regardless of model size, matching the [Hermes paper](https://arxiv.org/abs/2409.04249) benchmarks.
+Observation: Memory reduction is consistent across architectures. PIPELOAD achieves 86-90% reduction regardless of model size, matching the [Hermes paper](https://arxiv.org/abs/2409.04249) benchmarks.
 
 ### Results: Inference Speed
 
@@ -254,15 +254,15 @@ I tested three scenarios on my homelab hardware:
 |-------|--------|------------------|----------|---------|
 | LLaMA 2 7B | Pi 4 | OOM (crash) | 2.5 tok/sec | N/A |
 | LLaMA 2 7B | Workstation | 22.1 tok/sec | 19.7 tok/sec | 0.89x (12% slower) |
-| BERT-base | Pi 4 | 0.8 samples/sec | 3.4 samples/sec | **4.25x** |
-| ViT-B/16 | Pi 4 | 1.1 images/sec | 4.7 images/sec | **4.27x** |
+| BERT-base | Pi 4 | 0.8 samples/sec | 3.4 samples/sec | 4.25x |
+| ViT-B/16 | Pi 4 | 1.1 images/sec | 4.7 images/sec | 4.27x |
 
-**Key findings:**
+Key findings:
 1. **LLaMA on Pi 4:** Standard PyTorch can't run (OOM). PIPELOAD enables deployment at cost of 12% latency overhead vs workstation.
 2. **BERT/ViT on Pi 4:** PIPELOAD is 4.2x faster than standard PyTorch. Parallel loading and activation optimization outweigh I/O overhead for smaller models.
 3. **Latency trade-off:** On workstation (NVMe PCIe 4.0), PIPELOAD is 12% slower due to unnecessary layer loading overhead. Standard PyTorch is faster when memory isn't constrained.
 
-**Why the speedup for BERT/ViT:** These models fit in Pi's memory with PIPELOAD but thrash swap with standard PyTorch. Avoiding swap I/O (25MB/s microSD) by using NVMe layer loading (400MB/s) produces net speedup.
+Why the speedup for BERT/ViT: These models fit in Pi's memory with PIPELOAD but thrash swap with standard PyTorch. Avoiding swap I/O (25MB/s microSD) by using NVMe layer loading (400MB/s) produces net speedup.
 
 ---
 
@@ -277,7 +277,7 @@ After tuning batch sizes and adding active cooling, it ran continuously without 
 - Failures: 0 OOM crashes, 0 thermal throttling events
 - Peak memory: 2.3GB (leaves 5.7GB for OS and other processes)
 
-**Cooling matters:** Without the Argon ONE case's fan, Pi throttled at 82°C after 14 minutes. With active cooling, temperature stabilized at 71°C. The $25 case investment prevents performance degradation.
+Cooling matters: Without the Argon ONE case's fan, Pi throttled at 82°C after 14 minutes. With active cooling, temperature stabilized at 71°C. The $25 case investment prevents performance degradation.
 
 ### Failure: Batch Size Experimentation
 
@@ -286,7 +286,7 @@ I tried increasing batch size to improve throughput. Results:
 - `batch_size=2`: 1.8 tok/sec, 3.7GB memory (slower due to cache misses)
 - `batch_size=4`: OOM crash after 23 tokens
 
-**Lesson learned:** Edge devices should always use `batch_size=1`. Batching increases memory footprint faster than it improves throughput on memory-constrained hardware.
+Lesson learned: Edge devices should always use `batch_size=1`. Batching increases memory footprint faster than it improves throughput on memory-constrained hardware.
 
 ### Failure: Model Parallelism Across Pi Cluster
 
@@ -295,9 +295,9 @@ I later attempted splitting LLaMA 2 70B across three Raspberry Pi 5s using the s
 - Layers 24-47 on Pi #2
 - Layers 48-79 on Pi #3 (70B has 80 layers, not the 72 I first planned for — which was itself the first thing that broke)
 
-**Result:** Network latency (2-5ms per layer transfer) dominated inference time. Achieved 0.3 tok/sec (8x slower than single Pi with 7B model). The overhead of serializing activations, transferring over gigabit ethernet, and deserializing killed performance.
+Result: Network latency (2-5ms per layer transfer) dominated inference time. Achieved 0.3 tok/sec (8x slower than single Pi with 7B model). The overhead of serializing activations, transferring over gigabit ethernet, and deserializing killed performance.
 
-**Why this failed:** PIPELOAD's parallel loading assumes local storage I/O (~1ms latency). Network I/O is 2-5x slower. For distributed inference, pipeline parallelism needs 10GbE or faster interconnects.
+Why this failed: PIPELOAD's parallel loading assumes local storage I/O (~1ms latency). Network I/O is 2-5x slower. For distributed inference, pipeline parallelism needs 10GbE or faster interconnects.
 
 ---
 
@@ -325,7 +325,7 @@ I later attempted splitting LLaMA 2 70B across three Raspberry Pi 5s using the s
 | Standard PyTorch | 100% | 100% |
 | PIPELOAD | 10-14% | 88% single device; 425% edge vs swap |
 
-**Bottom line:** PIPELOAD enables inference that's otherwise impossible on edge devices. The 12% latency overhead is acceptable when the alternative is OOM crashes or cloud dependency.
+Bottom line: PIPELOAD enables inference that's otherwise impossible on edge devices. The 12% latency overhead is acceptable when the alternative is OOM crashes or cloud dependency.
 
 ---
 
@@ -341,7 +341,7 @@ Run LLMs locally for sensitive tasks:
 - Financial planning assistants
 - Private code review
 
-**Why it matters:** Your data never leaves your device. No third-party API logs, no potential breaches. I use local LLaMA 2 7B for analyzing security logs from my homelab (see [privacy-first AI lab](/posts/2025-10-29-privacy-first-ai-lab-local-llms)). These logs contain internal IP addresses and service configurations I don't want leaving my network.
+Why it matters: Your data never leaves your device. No third-party API logs, no potential breaches. I use local LLaMA 2 7B for analyzing security logs from my homelab (see [privacy-first AI lab](/posts/2025-10-29-privacy-first-ai-lab-local-llms)). These logs contain internal IP addresses and service configurations I don't want leaving my network.
 
 ### 2. Offline IoT Intelligence
 
@@ -351,7 +351,7 @@ Deploy models on edge devices without cloud connectivity:
 - Agricultural monitors with plant disease classification
 - Home automation with voice recognition
 
-**Example:** My home security cameras run ViT-B/16 with PIPELOAD for person detection. 98.7% accuracy, 180ms latency per frame, no cloud dependency. System works during internet outages.
+Example: My home security cameras run ViT-B/16 with PIPELOAD for person detection. 98.7% accuracy, 180ms latency per frame, no cloud dependency. System works during internet outages.
 
 ### 3. Cost-Optimized Inference
 
@@ -361,7 +361,7 @@ Avoid cloud API costs for high-volume inference:
 - Document summarization pipelines
 - Code generation tools
 
-**Cost comparison:** GPT-4 API costs $0.03 per 1K tokens. For 1M tokens/day, that's $900/month. A $800 Jetson Orin with PIPELOAD handles this workload locally with zero API costs. ROI in ~1 month.
+Cost comparison: GPT-4 API costs $0.03 per 1K tokens. For 1M tokens/day, that's $900/month. A $800 Jetson Orin with PIPELOAD handles this workload locally with zero API costs. ROI in ~1 month.
 
 ---
 
@@ -369,27 +369,27 @@ Avoid cloud API costs for high-volume inference:
 
 ### Challenge 1: Storage I/O Bottleneck
 
-**Problem:** microSD card's 25MB/s read speed caused 8-12 second layer load times.
+Problem: microSD card's 25MB/s read speed caused 8-12 second layer load times.
 
-**Solution:** Switched to USB 3.1 NVMe (400MB/s). Reduced layer load time to 120-180ms. The Samsung T7 ($89 for 512GB) was essential for acceptable performance.
+Solution: Switched to USB 3.1 NVMe (400MB/s). Reduced layer load time to 120-180ms. The Samsung T7 ($89 for 512GB) was essential for acceptable performance.
 
-**Lesson:** Storage speed matters as much as RAM for PIPELOAD. Budget for NVMe.
+Lesson: Storage speed matters as much as RAM for PIPELOAD. Budget for NVMe.
 
 ### Challenge 2: Thermal Throttling
 
-**Problem:** Pi CPU throttled at 82°C after 14 minutes of sustained inference.
+Problem: Pi CPU throttled at 82°C after 14 minutes of sustained inference.
 
-**Solution:** Argon ONE V2 case with active cooling ($25). Temperature stabilized at 71°C, no throttling.
+Solution: Argon ONE V2 case with active cooling ($25). Temperature stabilized at 71°C, no throttling.
 
-**Lesson:** Edge AI generates continuous load. Active cooling is non-negotiable for production deployments.
+Lesson: Edge AI generates continuous load. Active cooling is non-negotiable for production deployments.
 
 ### Challenge 3: Quantization Quality Loss
 
-**Problem:** 4-bit quantization increased perplexity by 8% on my personal benchmark (worse than expected).
+Problem: 4-bit quantization increased perplexity by 8% on my personal benchmark (worse than expected).
 
-**Solution:** Switched from naive quantization to GPTQ with calibration data. Perplexity increase reduced to 3%. Used 1,000 samples from WikiText-2 for calibration.
+Solution: Switched from naive quantization to GPTQ with calibration data. Perplexity increase reduced to 3%. Used 1,000 samples from WikiText-2 for calibration.
 
-**Lesson:** Always calibrate quantization with representative data. Naive quantization degrades quality significantly.
+Lesson: Always calibrate quantization with representative data. Naive quantization degrades quality significantly.
 
 ---
 
@@ -403,13 +403,13 @@ For broader edge AI deployment patterns, see [AI edge computing](/posts/2024-10-
 
 Sparse models like Mixtral 8x7B activate only 2 of 8 experts per token. PIPELOAD-style loading could load only active experts, reducing memory further. Potential: Run 8x7B models on 8GB devices by loading 2 experts at a time.
 
-**Research status:** Speculative — I haven't seen a production implementation of on-demand expert loading at inference time.
+Research status: Speculative — I haven't seen a production implementation of on-demand expert loading at inference time.
 
 ### 2. Neuromorphic Hardware for Inference
 
 Intel Loihi 2 and IBM TrueNorth chips promise 100x energy efficiency for neural networks. PIPELOAD's layer-wise execution pattern maps naturally to neuromorphic architectures.
 
-**Timeline:** Probably 3-5 years before consumer-grade neuromorphic chips enable sub-watt LLM inference.
+Timeline: Probably 3-5 years before consumer-grade neuromorphic chips enable sub-watt LLM inference.
 
 ### 3. Federated Learning on Edge Swarms
 
@@ -420,7 +420,7 @@ Instead of one Pi running inference, distribute layers across multiple devices:
 
 Requires low-latency mesh networks (WiFi 7, 5G). Enables running 70B models on edge device clusters.
 
-**Homelab experiment:** I tried this with my Pi cluster. Failed due to network latency. But WiFi 7 (2-4ms latency) might change the equation. Worth revisiting in 2025.
+Homelab experiment: I tried this with my Pi cluster. Failed due to network latency. But WiFi 7 (2-4ms latency) might change the equation. Worth revisiting in 2025.
 
 ---
 
@@ -428,18 +428,18 @@ Requires low-latency mesh networks (WiFi 7, 5G). Enables running 70B models on e
 
 PIPELOAD-style inference makes edge AI deployment viable on consumer hardware. I ran a 7B parameter model on an 8GB Raspberry Pi at 2.5 tokens/sec with 2.1GB memory usage. This was impossible with standard PyTorch.
 
-**Key takeaways:**
+Key takeaways:
 - 90% memory reduction enables models that otherwise OOM
 - 4.2x speedup for smaller models (BERT, ViT) on edge devices
 - 12% latency overhead on high-end hardware (acceptable trade-off)
 - Requires fast storage (NVMe), active cooling, and calibrated quantization
 
-**What I'm doing next:**
+What I'm doing next:
 - Testing Mixtral 8x7B with expert-level loading on Dell R910
 - Experimenting with WiFi 7 mesh for distributed inference
 - Building edge AI monitoring dashboard with Grafana/Prometheus
 
-**Your mileage may vary:** Results depend on model architecture, hardware specs, and storage speed. Pi 4 is borderline usable. Pi 5 (16GB) or Jetson Orin would be better for production.
+Your mileage may vary: Results depend on model architecture, hardware specs, and storage speed. Pi 4 is borderline usable. Pi 5 (16GB) or Jetson Orin would be better for production.
 
 Edge AI is no longer a research curiosity. It's a practical deployment option for privacy-sensitive, cost-optimized, or offline-required applications.
 
@@ -447,47 +447,47 @@ Edge AI is no longer a research curiosity. It's a practical deployment option fo
 
 ## Sources
 
-1. **[Hermes: Memory-Efficient Pipeline Inference for Large Models on Edge Devices](https://arxiv.org/abs/2409.04249)** (2024)
+1. [Hermes: Memory-Efficient Pipeline Inference for Large Models on Edge Devices](https://arxiv.org/abs/2409.04249) (2024)
    - Han, Cai, Zhang, Fan, Liu, Ma & Buyya, *arXiv preprint*
    - Describes PIPELOAD mechanism, benchmarks 86.7-90.3% memory reduction
 
-2. **[GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers](https://arxiv.org/abs/2210.17323)** (2022)
+2. [GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers](https://arxiv.org/abs/2210.17323) (2022)
    - Frantar et al., *International Conference on Learning Representations (ICLR)*
    - 4-bit quantization with <3% quality loss
 
-3. **[PyTorch Documentation: Model Optimization](https://pytorch.org/tutorials/recipes/recipes/tuning_guide.html)** (2024)
+3. [PyTorch Documentation: Model Optimization](https://pytorch.org/tutorials/recipes/recipes/tuning_guide.html) (2024)
    - Official PyTorch optimization techniques
 
-4. **[Raspberry Pi 4 Technical Specifications](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/specifications/)** (2024)
+4. [Raspberry Pi 4 Technical Specifications](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/specifications/) (2024)
    - ARM Cortex-A72, 8GB RAM variant
 
-5. **[Edge Computing for AI: A Survey](https://ieeexplore.ieee.org/document/9261019)** (2020)
+5. [Edge Computing for AI: A Survey](https://ieeexplore.ieee.org/document/9261019) (2020)
    - Xu et al., *IEEE Internet of Things Journal*
    - Comprehensive edge AI deployment patterns
 
-6. **[LLaMA 2 Model Card](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf)** (2024)
+6. [LLaMA 2 Model Card](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) (2024)
    - Meta AI, *Hugging Face*
    - 7B parameter instruction-tuned model specifications
 
-7. **[Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism](https://arxiv.org/abs/1909.08053)** (2019)
+7. [Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism](https://arxiv.org/abs/1909.08053) (2019)
    - Shoeybi et al., *NVIDIA*
    - Tensor/intra-layer model parallelism; explicitly orthogonal to pipeline parallelism, not a source for interconnect requirements
 
-8. **[Megablocks: Efficient Sparse Training with Mixture-of-Experts](https://arxiv.org/abs/2211.15841)** (2022)
+8. [Megablocks: Efficient Sparse Training with Mixture-of-Experts](https://arxiv.org/abs/2211.15841) (2022)
    - Gale et al., *Stanford University*
    - Block-sparse kernels for MoE training, not inference-time expert loading
 
-9. **[ONNX Runtime: Cross-platform Inference Optimization](https://onnxruntime.ai/)** (2024)
+9. [ONNX Runtime: Cross-platform Inference Optimization](https://onnxruntime.ai/) (2024)
    - Microsoft, *ONNX Runtime Project*
    - Alternative inference optimization framework
 
-10. **[TensorFlow Lite: On-Device ML for Mobile and Edge](https://www.tensorflow.org/lite)** (2024)
+10. [TensorFlow Lite: On-Device ML for Mobile and Edge](https://www.tensorflow.org/lite) (2024)
     - Google, *TensorFlow Project*
     - Edge deployment toolkit comparison
 
-11. **[IEEE Edge Computing Conference 2024 Proceedings](https://ieeexplore.ieee.org/xpl/conhome/1000016/all-proceedings)** (2024)
+11. [IEEE Edge Computing Conference 2024 Proceedings](https://ieeexplore.ieee.org/xpl/conhome/1000016/all-proceedings) (2024)
     - Latest edge AI research trends
 
-12. **[HumanEval Benchmark for Code Generation](https://github.com/openai/human-eval)** (2021)
+12. [HumanEval Benchmark for Code Generation](https://github.com/openai/human-eval) (2021)
     - OpenAI, *GitHub Repository*
     - Benchmark used for testing inference quality
