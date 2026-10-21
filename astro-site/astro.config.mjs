@@ -305,6 +305,12 @@ function rehypeScrollWrap() {
 
 export default defineConfig({
   site: 'https://williamzujkowski.github.io',
+  // Off on purpose. Astro 7's compressor deletes a line break between text and
+  // an inline element on the next source line, so `via\n<a>` rendered as
+  // "via<a>" in the footer of every page and in 16 places on About/Now/Uses.
+  // Turning it off costs ~3.6% of gzipped HTML; tests/e2e/reflow.spec.ts fails
+  // if any word is glued to a link again.
+  compressHTML: false,
   prefetch: true,
   integrations: [
     svelte(),
