@@ -17,7 +17,7 @@ test('deck theme applies, persists across reload, and survives navigation', asyn
 
   // And across a REAL link click — a review finding showed page.goto() can't
   // detect navigation-mode regressions (it always forces a full load).
-  await page.getByRole('link', { name: 'Colophon' }).first().click();
+  await page.getByRole('link', { name: 'About', exact: true }).first().click();
   await expect(page).toHaveURL(/about/);
   await expect(page.locator('html')).toHaveAttribute('data-theme-deck', 'dracula');
   const bg = await page.evaluate(() =>

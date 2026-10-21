@@ -6,8 +6,8 @@ import { test, expect } from 'playwright/test';
 const pages = [
   { path: '/', title: 'William Zujkowski', selector: 'h1' },
   { path: '/about/', title: 'About', selector: 'h1' },
-  { path: '/posts/', title: 'Blog', selector: 'h1' },
-  { path: '/projects/', title: 'Projects', selector: 'h1' },
+  { path: '/posts/', title: 'Dispatches', selector: 'h1' },
+  { path: '/projects/', title: 'Workbench', selector: 'h1' },
   { path: '/uses/', title: 'Uses', selector: 'h1' },
   { path: '/now/', title: 'Now', selector: 'h1' },
   { path: '/tags/', title: 'Tags', selector: 'h1' },
