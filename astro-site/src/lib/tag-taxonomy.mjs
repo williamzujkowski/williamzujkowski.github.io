@@ -9,9 +9,12 @@
  * `null` retires a tag with no apt parent (it was vague, not a topic); its
  * old page redirects to the tag index.
  *
- * Merges were made by judgement, not name: docker and container-security,
- * and networking and its one network-security post, stay distinct where at
- * least three posts are genuinely about the narrower topic.
+ * Merges were made by judgement, not name: a narrower tag stays where at
+ * least three posts are genuinely about it and its post set differs from the
+ * broader tag's (mcp, raspberry-pi, cloud). docker went because it listed
+ * exactly the same posts as container-security; tutorial and projects went
+ * because they described a post's type, not its subject, and covered only a
+ * few of the posts that qualified (consensus vote, #698).
  */
 export const RETIRED_TAGS = Object.freeze({
   'alerting': 'monitoring',
@@ -31,6 +34,7 @@ export const RETIRED_TAGS = Object.freeze({
   'databases': 'storage',
   'defense-in-depth': 'security',
   'distributed-systems': 'architecture',
+  'docker': 'container-security',
   'ebpf': 'linux',
   'eleventy': 'web-development',
   'filesystems': 'storage',
@@ -51,7 +55,7 @@ export const RETIRED_TAGS = Object.freeze({
   'learning': 'professional-development',
   'lsm': 'linux',
   'monorepo': 'software-engineering',
-  'music': 'projects',
+  'music': 'mcp',
   'network-security': 'networking',
   'nodejs': 'supply-chain',
   'npm': 'supply-chain',
@@ -67,10 +71,11 @@ export const RETIRED_TAGS = Object.freeze({
   'performance': 'monitoring',
   'playwright': 'web-development',
   'programming': 'software-engineering',
+  'projects': null,
   'prometheus': 'monitoring',
   'proxmox': 'virtualization',
   'quantum-computing': 'computational-science',
-  'reading': 'projects',
+  'reading': 'web-development',
   'reliability': 'architecture',
   'rust': 'software-engineering',
   'sbom': 'supply-chain',
@@ -82,6 +87,7 @@ export const RETIRED_TAGS = Object.freeze({
   'systems': 'architecture',
   'testing': 'software-engineering',
   'tooling': 'devops',
+  'tutorial': null,
   'typography': 'design',
   'uefi': 'hardware',
   'wazuh': 'threat-detection',

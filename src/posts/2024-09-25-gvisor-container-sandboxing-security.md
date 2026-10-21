@@ -7,7 +7,6 @@ author: "William Zujkowski"
 reading_time: 9
 tags:
   - container-security
-  - docker
   - homelab
   - security
 ---
