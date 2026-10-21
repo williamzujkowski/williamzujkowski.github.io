@@ -31,6 +31,10 @@
 
   let query = $state('');
   let ready = $state(false);
+  // Ctrl+K / Cmd+K is the only shortcut. A bare "/" used to open search
+  // too: a single-character shortcut with no way to turn it off fails WCAG
+  // 2.1.4, and speech-input users trigger it by accident (#698).
+  let shortcutHint = $state('Ctrl K');
   let results = $state<PagefindResult[]>([]);
   let isOpen = $state(false);
   let isLoading = $state(false);
@@ -237,15 +241,12 @@
         e.preventDefault();
         open();
       }
-      if (e.key === '/' && !isOpen && !['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement).tagName)) {
-        e.preventDefault();
-        open();
-      }
       if (e.key === 'Escape' && isOpen) {
         close();
       }
     }
     document.addEventListener('keydown', handleKeydown);
+    if (/Mac|iPhone|iPad/.test(navigator.platform)) shortcutHint = '⌘K';
     // SSR renders the trigger before its click handler is attached. Keep it
     // disabled until hydration completes so an early click cannot disappear.
     ready = true;
@@ -269,11 +270,12 @@
   disabled={!ready}
   class="search-trigger"
   aria-label="Search site"
+  aria-keyshortcuts="Control+K Meta+K"
 >
   <svg class="search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
   </svg>
-  <kbd class="search-kbd">&sol;K</kbd>
+  <kbd class="search-kbd">{shortcutHint}</kbd>
 </button>
 
 <!-- Search dialog -->

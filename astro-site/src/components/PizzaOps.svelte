@@ -428,7 +428,9 @@
     width: 0.5rem; height: 0.5rem; border-radius: 50%;
     background: var(--color-accent);
     box-shadow: 0 0 0 0 var(--color-accent);
-    animation: po-pulse 2.4s ease-out infinite;
+    /* Two pulses (4.8s), then still: WCAG 2.2.2 caps unstoppable motion
+       at 5s (#698). The last keyframe is the resting dot. */
+    animation: po-pulse 2.4s ease-out 2;
   }
   .po-health.degraded { color: var(--color-error); }
   .po-health.degraded .po-dot { background: var(--color-error); animation: none; }

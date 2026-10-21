@@ -102,6 +102,10 @@ issue #274 ("Direction B," 7-0) unless noted:
   `@keyframes zine-wander`, scoped inside
   `@media (prefers-reduced-motion: no-preference)` in `zine.css`, so it's
   fully inert for anyone with a reduced-motion preference (WCAG 2.3.3).
+  It runs once, 4.8s, starting and ending at rest; it used to loop
+  forever. Automatic motion on this site (this, the PizzaOps status
+  pulse) stays at or under 5s total so WCAG 2.2.2 needs no pause control
+  (#698); `tests/e2e/motion.spec.ts` checks duration × iterations.
 - **Tag chips** — `.chip` tag/filter chips (`PostCard.astro`,
   `tags/index.astro`) with uppercase `--text-micro` labels and a token-driven
   border at `--radius-sm` (4px rectangles, not pills); a presentational choice layered on top of core's typography
