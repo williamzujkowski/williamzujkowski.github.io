@@ -113,7 +113,7 @@ One-off fluid display sizes, all ratified under #274: `.lead-title` clamp(2.25re
 | `--leading-body` | 1.75 | Prose |
 | `--leading-meta` | 1.5 | Mono metadata |
 | `--tracking-display` / `-title` | -0.02em / -0.015em | h1 / h2 and card titles (`.prose h2` is -0.01em, `global.css:1587`) |
-| `--tracking-meta` / `-caps` | 0.02em / 0.06em | Mono metadata / small-caps labels |
+| `--tracking-meta` / `-caps` | 0.02em / 0.06em | Mono metadata / uppercase labels |
 | weights | 400 / 500 / 600 | h1 400, h2 500, h3, h4 and `strong` 600 |
 
 Uppercase mono kickers track wider than the tokens: 0.12em (post, lead and entry kickers, issue label), 0.15em (masthead kicker, archive count), 0.08em (nav, archive stats) (`global.css:491-503`, `:1185-1195`, `:1242-1254`, `:1290-1301`, `:1474-1494`, `:1519-1528`).
@@ -125,7 +125,7 @@ Uppercase mono kickers track wider than the tokens: 0.12em (post, lead and entry
 - **Numerals.** Prose uses `oldstyle-nums proportional-nums`; metadata (time, chips, card meta, breadcrumbs, code) uses `tabular-nums lining-nums` (`global.css:666`, `:1574-1579`). Never mix them in one context (`RT/REMARQUE.md:190-197`).
 - **Headings** get `text-wrap: balance`, `font-optical-sizing: auto`, `font-synthesis: none` and discretionary ligatures; prose gets `text-wrap: pretty` and `hanging-punctuation: first last` (`global.css:665-673`, `:685-692`).
 - **External links** in prose carry a small `↗` in `--color-muted` (`global.css:1552-1559`).
-- **Small caps.** Chips, post-card meta and section eyebrows use `font-variant-caps: all-small-caps` (`global.css:694-701`, `:1591-1598`). IBM Plex Mono has no true small caps, so the browser synthesizes them below the 13px floor; this is being fixed in `fix/od-review-typography`. Do not add new `all-small-caps` to mono text.
+- **Caps labels.** Chips, post-card meta, section eyebrows and the TOC summary use `text-transform: uppercase` at `--text-micro` with `--tracking-caps`. Never `font-variant-caps: all-small-caps`: no subset font ships `smcp`/`c2sc`, so browsers synthesize them at about 0.75× and land below the 13px floor while the computed font-size still reads 14px.
 - **Whitespace is literal.** `compressHTML` is off, because Astro's compressor deleted the line break between text and an inline element on the next line ("via<a>"). `tests/e2e/reflow.spec.ts` fails on any word glued to a link (`astro.config.mjs:308-313`).
 
 ## 4. Component Stylings
@@ -278,18 +278,9 @@ Placeholder copy should sound like the blog ([AGENTS.md](../../../AGENTS.md), Wr
 Places where the site's own sources disagree. Follow the CSS.
 
 1. **13px vs 14px for non-timestamp text.** `RT/REMARQUE.md:543` and `global.css:535-537` say 13px is for timestamps and 14px is the floor for other text. Kickers, eyebrows, archive counts, `.uses-meta`, `.series-position`, the `pre` title tab and every diagram label use 13px.
-2. **Sub-floor relative sizes.** `.chip sup` is 0.7em of 14px ≈ 9.8px (`global.css:1600`); the external-link `↗` is 0.7em of 17px ≈ 11.9px (`:1554`). `typography-audit.mjs:8-10` exempts `em` on purpose, which contradicts "keep all visual text at 0.8125rem or larger" in content-visuals.md.
+2. **Sub-floor relative size.** The external-link `↗` is 0.7em of 17px ≈ 11.9px. `typography-audit.mjs:8-10` exempts `em` on purpose, which contradicts "keep all visual text at 0.8125rem or larger" in content-visuals.md.
 3. **999px capsules.** `.flow-node.is-gate` and `.flow-leg::before` use `border-radius: 999px` (`global.css:887`, `:934`) against the 8px ceiling.
 4. **Functional border on surface.** `--color-border-bold` is 3.16:1 against `--color-bg` (`global.css:82`), but `.flow-node` draws it on `--color-surface` (`:874`), which computes to ≈2.99:1 in light mode, just under WCAG 1.4.11's 3:1. `remarque-audit` checks against `--color-bg` only.
-
-Being fixed in `fix/od-review-typography`:
-
-- "Newsreader" comments describing the display face (`global.css:333`, `:684`, `:1586`); it is Fraunces.
-- The remarque-tokens version comment (`global.css:8` says v0.24.0; 0.26.0 is installed).
-- Bare `z-index` values (`global.css:1144`, `Search.svelte:424`, `ThemeDeck.astro:198`) and literal durations (`global.css:454`, `:507`, `:1326`, `:1425`, `:1471`, `:1643`).
-- `.search-dialog` radius of 1rem (`Search.svelte:440`).
-- Synthesized small caps on IBM Plex Mono rendering below 13px.
-- `.section-eyebrow`: the later rule (`global.css:1121-1128`) restores `text-transform: uppercase` and `--tracking-caps`, overriding the small-caps rule at `:694-701`.
 
 ## Appendix C — Provenance
 

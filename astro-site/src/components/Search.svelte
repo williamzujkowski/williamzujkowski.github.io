@@ -421,7 +421,7 @@
   .search-overlay {
     position: fixed;
     inset: 0;
-    z-index: 100;
+    z-index: var(--z-modal);
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -437,7 +437,7 @@
     width: 100%;
     max-width: 32rem;
     margin: 0 1rem;
-    border-radius: 1rem;
+    border-radius: var(--radius-md);
     box-shadow: 0 25px 50px -12px var(--color-shadow);
     overflow: hidden;
     background-color: var(--color-surface);

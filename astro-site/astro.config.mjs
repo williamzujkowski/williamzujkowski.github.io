@@ -10,6 +10,7 @@ import { createCssVariablesTheme } from 'shiki';
 import { writeFile } from 'node:fs/promises';
 import rehypeSidenotes from './src/lib/rehype-sidenotes.mjs';
 import rehypeTaskListLabels from './src/lib/rehype-task-list-labels.mjs';
+import rehypeDropCap from './src/lib/rehype-drop-cap.mjs';
 
 /**
  * Remarque syntax-highlighting theme (remarque-tokens 0.15.0, REMARQUE.md
@@ -410,6 +411,8 @@ export default defineConfig({
         rehypeRaw,
         rehypeTaskListLabels,
         [rehypeSanitize, sanitizeSchema],
+        // Lowercase lead paragraphs skip the drop cap (global.css).
+        rehypeDropCap,
       ],
     }),
   },

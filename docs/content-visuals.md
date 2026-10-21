@@ -199,6 +199,16 @@ theme-token styling.
 | Trivy | Broad scanner | Slower | One tool needs to cover several surfaces |
 ```
 
+Table cells use tabular lining figures, so digits line up down a column.
+Right-align a numeric column with GFM's `---:`; the header follows it:
+
+```markdown
+| Host | Containers | Idle RAM (MiB) |
+|---|---:|---:|
+| pve-1 | 14 | 3,210 |
+| pve-2 | 9 | 870 |
+```
+
 ## Images
 
 ### Zine Doodles

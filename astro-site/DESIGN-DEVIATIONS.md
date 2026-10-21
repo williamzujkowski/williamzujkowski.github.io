@@ -98,7 +98,7 @@ issue #274 ("Direction B," 7-0) unless noted:
   `@media (prefers-reduced-motion: no-preference)` in `zine.css`, so it's
   fully inert for anyone with a reduced-motion preference (WCAG 2.3.3).
 - **Tag chips** — `.chip` tag/filter chips (`PostCard.astro`,
-  `tags/index.astro`) with small-caps typography and a token-driven
+  `tags/index.astro`) with uppercase `--text-micro` labels and a token-driven
   border at `--radius-sm` (4px rectangles, not pills); a presentational choice layered on top of core's typography
   machinery, not part of it.
 
@@ -408,10 +408,10 @@ than re-forked locally:
 
 | Aspect | This site's former CSS | `essay.css` (adopted) |
 |---|---|---|
-| Sidenote column width / pull-out | `11.5rem` / `-13rem` (hand-measured) | `var(--space-10)` (8rem) / `-(space-10 + space-6)` (-10rem) — token-derived |
+| Sidenote column width / pull-out | `11.5rem` / `-13rem` (hand-measured) | `var(--space-10)` (8rem) / `-(space-10 + space-6)` (-10rem) — token-derived. **Re-overridden in `global.css`** to `var(--space-12)` / `-(space-12 + space-6)`: 8rem held ~14 characters a line, and this site's left track is 13rem wide |
 | TOC rail width | `minmax(12rem, 14rem)` | `minmax(var(--space-11), var(--space-12))` (10-12rem) — token-derived |
 | TOC disclosure marker | Inline `<svg>` chevron, rotates 180° | `content: "\25B8"` unicode triangle, rotates 90° |
-| TOC label case treatment | `text-transform: uppercase` | `font-variant-caps: all-small-caps` — REMARQUE.md's "Small Caps" rule; upstream's own CHANGELOG calls this out as a correction, not a stylistic swap |
+| TOC label case treatment | `text-transform: uppercase` | `font-variant-caps: all-small-caps` — REMARQUE.md's "Small Caps" rule. **Reverted locally** to `text-transform: uppercase` at `--text-micro`: none of this site's font subsets has `smcp`/`c2sc`, so the browser synthesized small caps at ~0.75x (14px rendered ~10.5px, under the 13px floor) |
 | Rail open/close mechanics | Inline `<script>` force-opens `<details>` on every `matchMedia('(min-width: 1280px)')` breakpoint crossing | `<details open>` no-JS baseline **plus** a tiny inline enhancement script (issue #438) that clears `open` below the 80rem rail breakpoint and restores it above, syncing on breakpoint crossings — collapsed on mobile, expanded rail on desktop. JS-disabled readers keep the static `<details open>`. This supersedes the #378 no-JS-only default, which left the TOC expanded (noisy) on phones; a CSS-only force-open was rejected because a closed `<details>` is not reliably re-openable via CSS on modern Chromium (`::details-content` content-visibility). |
 | Footnote numbering | Rehype plugin injects a literal `<span class="sidenote-number">` (GFM's own reference digit) | CSS counters (`counter-reset`/`counter-increment`/generated `::before`/`::after` content) scoped to `.remarque-prose` — the plugin now blanks the GFM digit instead of authoring one, so the two mechanisms never both render a number |
 
