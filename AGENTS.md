@@ -363,7 +363,7 @@ Tooling families under `scripts/`, sharing helpers from `scripts/lib/`
 |-----------|------------|-------------|
 | `link-validation/` | 7 scripts + pytest suite — the link/citation pipeline | yes (`link-monitor.yml`, `citation-validation.yml`, `tests.yml`) |
 | `compliance/` | `content_check.py` — NDA patterns + citation coverage | yes (`compliance-monitor.yml`, advisory) |
-| `blog-audit/` | `batch.py`, `pages.py` — author-time audit helpers | regression tests only (`tests.yml`) |
+| `blog-audit/` | `batch.py`, `pages.py` — author-time audit helpers; `bold_density.py` (bold per 400 words, worst first) and `plaintext_gate.py` (fails if a markup-only post edit changed any words) for #698 | regression tests only (`tests.yml`) |
 | `skills/` | stdlib review-coverage report validator; checks evidence bookkeeping, not claim truth | regression tests only (`tests.yml`) |
 | `corpus-audit/` | `grim_check.py`, `provenance.py` — one-shot analyses; hardcode `/tmp/grim/` paths | no |
 | `theme-deck/` | `generate.py` — regenerates `theme-deck.css`/`.json`; needs an external themes repo | no |

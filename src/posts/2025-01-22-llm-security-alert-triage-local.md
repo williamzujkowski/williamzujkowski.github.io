@@ -18,17 +18,17 @@ Here's how local LLM triage reduces alert fatigue while preserving data privacy.
 
 Security tools generate thousands of alerts. Analysts manually triage each one: real threat or false positive? Investigations take 45 minutes average. Vectra puts false positives at 83% of alerts.
 
-**Alert volume breakdown (my homelab, 7 days):**
+Alert volume breakdown (my homelab, 7 days):
 
 - **Wazuh SIEM:** 2,847 alerts (brute force, file changes, malware detection)
 - **Suricata IDS:** 1,923 alerts (network anomalies, port scans, suspicious traffic)
 - **Fail2ban:** 1,156 alerts (SSH attacks, HTTP probes)
 - **ClamAV:** 78 alerts (malware signatures)
-- **Total:** 6,004 alerts per week = **858 alerts/day**
+- **Total:** 6,004 alerts per week = 858 alerts/day
 
-**Analyst workload:** 6,004 alerts × 3 minutes triage = **300 hours/week** (impossible for a single admin, by a wide margin).
+Analyst workload: 6,004 alerts × 3 minutes triage = 300 hours/week (impossible for a single admin, by a wide margin).
 
-**What I needed:** Automated first-pass triage. LLM reads alert, classifies severity, suggests investigation steps. Humans review only high-priority items.
+What I needed: Automated first-pass triage. LLM reads alert, classifies severity, suggests investigation steps. Humans review only high-priority items.
 
 ## Local LLMs: Privacy-Preserving AI
 
@@ -36,7 +36,7 @@ Cloud LLM APIs (OpenAI, Anthropic, Google) send data to third-party servers. Sec
 
 names, internal network topology. Local LLM inference keeps all data in homelab.
 
-**Ollama advantages:**
+Ollama advantages:
 
 - **Privacy:** All inference runs locally (no cloud API calls)
 - **Cost:** Zero per-request fees (vs $0.03-0.15/1K tokens for GPT-4)
@@ -44,7 +44,7 @@ names, internal network topology. Local LLM inference keeps all data in homelab.
 - **Offline:** Works without internet connectivity
 - **Control:** Choose models (Llama 3.1, Mistral, Qwen)
 
-**Ollama architecture:**
+Ollama architecture:
 
 <div class="flow" role="group" aria-label="Ollama alert triage architecture">
   <div class="flow-node"><b>Security Alerts</b><i>Wazuh / Suricata JSON</i></div>
@@ -57,7 +57,7 @@ names, internal network topology. Local LLM inference keeps all data in homelab.
   </div>
 </div>
 
-**How it works:**
+How it works:
 
 1. **Alert ingestion:** Python script polls Wazuh/Suricata APIs every 60 seconds
 2. **Prompt generation:** Convert alert JSON to natural language prompt
@@ -65,13 +65,13 @@ names, internal network topology. Local LLM inference keeps all data in homelab.
 4. **Classification:** LLM outputs severity (Critical/High/Medium/Low) + reasoning
 5. **Action:** High-severity alerts → Slack notification, all alerts logged to database
 
-**Privacy guarantee:** inference never leaves the homelab. Note the Slack notification path does ship alert descriptions to a third party — swap it for an on-prem notifier if that matters to you. LLM runs on local GPU, no external API calls.
+Privacy guarantee: inference never leaves the homelab. Note the Slack notification path does ship alert descriptions to a third party — swap it for an on-prem notifier if that matters to you. LLM runs on local GPU, no external API calls.
 
 ## Implementation: Ollama + Python Automation
 
 I deployed Ollama on dedicated VM with NVIDIA RTX 3060 (12GB VRAM). Python script orchestrates alert processing and LLM inference.
 
-**Ollama installation:**
+Ollama installation:
 
 ```bash
 # Install Ollama
@@ -87,11 +87,11 @@ ollama list
 ollama run llama3.1:8b "Classify this security alert: SSH login from 192.168.1.100"
 ```
 
-**Alert triage script:** https://gist.github.com/williamzujkowski/c501bf21bf504d84fa21edb3688da814
+Alert triage script: https://gist.github.com/williamzujkowski/c501bf21bf504d84fa21edb3688da814
 
-**Key components:**
+Key components:
 
-**1. Alert retrieval (Wazuh API):**
+1. Alert retrieval (Wazuh API):
 
 ```python
 import requests
@@ -110,7 +110,7 @@ def get_recent_alerts(hours=1):
     return response.json()["data"]["alerts"]
 ```
 
-**2. Prompt engineering for security context:**
+2. Prompt engineering for security context:
 
 ```python
 def create_triage_prompt(alert):
@@ -139,7 +139,7 @@ def create_triage_prompt(alert):
     return prompt
 ```
 
-**3. LLM inference via Ollama API:**
+3. LLM inference via Ollama API:
 
 ```python
 import ollama
@@ -161,7 +161,7 @@ def classify_alert(prompt):
     return response['message']['content']
 ```
 
-**4. Automated action based on classification:**
+4. Automated action based on classification:
 
 ```python
 def process_alert(alert):
@@ -187,13 +187,13 @@ def process_alert(alert):
     return result
 ```
 
-**Complete automation script:** https://gist.github.com/williamzujkowski/c501bf21bf504d84fa21edb3688da814
+Complete automation script: https://gist.github.com/williamzujkowski/c501bf21bf504d84fa21edb3688da814
 
 ## Triage Results: 78% Automation Rate
 
 I ran the LLM triage system for 30 days on my homelab alerts. It classified 91.1% of sampled alerts correctly, and 22% still needed a human look.
 
-**Classification accuracy (1,500 alerts sampled):**
+Classification accuracy (1,500 alerts sampled):
 
 | Alert Type | Total | LLM Correct | Accuracy |
 |------------|-------|-------------|----------|
@@ -205,20 +205,20 @@ I ran the LLM triage system for 30 days on my homelab alerts. It classified 91.1
 | Web attack (SQL injection) | 156 | 142 | 91.0% |
 | **Overall** | **1,500** | **1,367** | **91.1%** |
 
-**Why network anomalies had lower accuracy:** Legitimate traffic patterns (VPN reconnects, DNS queries) flagged as anomalies. LLM lacks context on expected behavior. Improved with retrieval context (see RAG, below).
+Why network anomalies had lower accuracy: Legitimate traffic patterns (VPN reconnects, DNS queries) flagged as anomalies. LLM lacks context on expected behavior. Improved with retrieval context (see RAG, below).
 
-**False positives/negatives:**
+False positives/negatives:
 
 - **False positives:** 8.9% (133 alerts) - LLM marked low-severity events as high (e.g., routine software updates flagged as malware)
 - **False negatives:** 0.7% (11 alerts) - LLM missed critical alerts (privilege escalation buried in verbose logs)
 
-**Time savings:** 1,367 alerts triaged automatically × 3 min/alert = **68.4 hours saved/month**. Manual review required for 22% (297 alerts) = **14.9 hours/month**. Net reduction: **78% time savings**.
+Time savings: 1,367 alerts triaged automatically × 3 min/alert = 68.4 hours saved/month. Manual review required for 22% (297 alerts) = 14.9 hours/month. Net reduction: 78% time savings.
 
 ## Advanced: RAG for Alert Context
 
 Large Language Models benefit from context. Retrieval-Augmented Generation (RAG) provides LLM with historical alert data and threat intelligence.
 
-**RAG architecture:**
+RAG architecture:
 
 <div class="flow" role="group" aria-label="RAG alert context pipeline">
   <div class="flow-node">New Alert</div>
@@ -228,7 +228,7 @@ Large Language Models benefit from context. Retrieval-Augmented Generation (RAG)
   <div class="flow-node"><b>Triage Decision</b><i>classification</i></div>
 </div>
 
-**How RAG improves triage:**
+How RAG improves triage:
 
 1. **Alert arrives:** "SSH login from 203.0.113.5"
 2. **Vector search:** Find similar historical alerts (same source IP, similar timestamp pattern)
@@ -236,7 +236,7 @@ Large Language Models benefit from context. Retrieval-Augmented Generation (RAG)
 4. **Enriched prompt:** Include context in LLM prompt: "Previous 10 logins from this IP were legitimate VPN connections"
 5. **Better classification:** LLM correctly classifies as Low severity (routine VPN login)
 
-**Implementation using ChromaDB:**
+Implementation using ChromaDB:
 
 ```python
 import chromadb
@@ -285,15 +285,15 @@ def create_rag_prompt(alert):
     return prompt
 ```
 
-**RAG impact:** Accuracy on network anomaly alerts improved from 70.2% to 94.8% — that category was the weakest before retrieval, which is why it moved most.
+RAG impact: Accuracy on network anomaly alerts improved from 70.2% to 94.8% — that category was the weakest before retrieval, which is why it moved most.
 
-**RAG implementation:** https://gist.github.com/williamzujkowski/81c7b4914517758e7a7fdc0c61aeb699
+RAG implementation: https://gist.github.com/williamzujkowski/81c7b4914517758e7a7fdc0c61aeb699
 
 ## Performance: LLM Inference Speed
 
 Local LLM inference speed depends on hardware. I tested Llama 3.1 (8B) on different configurations.
 
-**Hardware benchmarks:**
+Hardware benchmarks:
 
 | Hardware | Tokens/Second | Alert Triage Time | Cost |
 |----------|---------------|-------------------|------|
@@ -302,17 +302,17 @@ Local LLM inference speed depends on hardware. I tested Llama 3.1 (8B) on differ
 | CPU only (16-core Xeon) | 4 tokens/sec | 18 seconds | $0 (existing) |
 | M1 Mac (8GB unified) | 22 tokens/sec | 3.2 seconds | $1,000 |
 
-**My setup:** RTX 3060 (12GB VRAM) handles 38 tokens/second. Average triage prompt = 250 tokens input + 100 tokens output = 350 tokens total. Processing time: 350 / 38 = **9.2 seconds per alert**.
+My setup: RTX 3060 (12GB VRAM) handles 38 tokens/second. Average triage prompt = 250 tokens input + 100 tokens output = 350 tokens total. Processing time: 350 / 38 = 9.2 seconds per alert.
 
-**Throughput:** 858 alerts/day ÷ 86,400 seconds/day = 0.01 alerts/second. LLM can handle 0.11 alerts/second (38 tokens/sec ÷ 350 tokens). **Headroom: 11x current load.**
+Throughput: 858 alerts/day ÷ 86,400 seconds/day = 0.01 alerts/second. LLM can handle 0.11 alerts/second (38 tokens/sec ÷ 350 tokens). Headroom: 11x current load.
 
-**Optimization:** Batch processing 10 alerts concurrently reduces per-alert overhead to 1.9 seconds (5x speedup).
+Optimization: Batch processing 10 alerts concurrently reduces per-alert overhead to 1.9 seconds (5x speedup).
 
 ## Research: AI-Augmented SOC
 
 Academic research validates LLM effectiveness for security operations. Several 2025 surveys discuss production viability.
 
-**Key findings:**
+Key findings:
 
 1. **Survey on LLM SOC Applications** (arXiv:2509.10858, September 2025)
    - LLMs show strong potential in log summarization, alert triage, threat intelligence, incident response
@@ -325,71 +325,71 @@ Academic research validates LLM effectiveness for security operations. Several 2
    - Evaluated with LLM-as-judge metrics; mentions Azure only in passing, with no reported production accuracy figure
 
 3. **Lightweight LLMs for IR** (2025 research)
-   - Smaller fine-tuned models + RAG achieve **22% faster recovery** than frontier models
+   - Smaller fine-tuned models + RAG achieve 22% faster recovery than frontier models
    - Reduced ineffective actions through decision-theoretic planning
    - Lower hallucination rates with retrieval-augmented approaches
 
-**My implementation aligns with research:** Local LLM + RAG + decision thresholds for automated triage. I have no published automation-rate benchmark to compare this against; the surveys I found report no specific figure.
+My implementation aligns with research: Local LLM + RAG + decision thresholds for automated triage. I have no published automation-rate benchmark to compare this against; the surveys I found report no specific figure.
 
-**Citations:**
+Citations:
 
 - [Large Language Models for Security Operations Centers](https://arxiv.org/abs/2509.10858) - arXiv:2509.10858, comprehensive SOC automation survey
 - [Advancing Autonomous Incident Response](https://arxiv.org/html/2508.10677v1) - arXiv:2508.10677, RAG-based IR automation
 
 ## Limitations and Trade-Offs
 
-**Challenge 1: Model hallucination**
+### Challenge 1: Model hallucination
 
 - **Problem:** LLMs occasionally invent facts (claims IP is known attacker when it's not)
 - **Impact:** 8.9% false positive rate from hallucinated threat intel
 - **Mitigation:** Confidence scores, human review for Critical/High severity, RAG grounding
 
-**Challenge 2: Context window limits**
+### Challenge 2: Context window limits
 
 - **Problem:** Ollama's default `num_ctx` is 2048 tokens regardless of what the model supports
 - **Impact:** long log files are silently truncated unless you raise it — Llama 3.1 8B itself handles 128K
 - **Mitigation:** Summarize logs before LLM processing, use sliding window for large files
 
-**Challenge 3: Domain-specific knowledge**
+### Challenge 3: Domain-specific knowledge
 
 - **Problem:** General-purpose LLMs lack security expertise (miss advanced persistent threat patterns)
 - **Impact:** Lower accuracy on complex attacks (APT, zero-days)
 - **Mitigation:** Fine-tune on security-specific dataset (MISP, AlienVault OTX)
 
-**Challenge 4: GPU requirements**
+### Challenge 4: GPU requirements
 
 - **Problem:** 8B model needs roughly 6GB of VRAM at 4-bit
 - **Impact:** Not feasible on low-end hardware (CPU-only inference roughly 9.5x slower)
 - **Mitigation:** Use smaller models (Llama 3.2 1B or 3B), quantization (4-bit reduces VRAM 75%)
 
-**What I learned:** Start with small model (1B-3B parameters), validate on historical alerts, scale up if accuracy insufficient. Don't over-engineer: 91% accuracy good enough for first-pass triage.
+What I learned: Start with small model (1B-3B parameters), validate on historical alerts, scale up if accuracy insufficient. Don't over-engineer: 91% accuracy good enough for first-pass triage.
 
 ## Further Reading
 
-**Research papers:**
+Research papers:
 
 - [Large Language Models for Security Operations Centers: A Comprehensive Survey](https://arxiv.org/abs/2509.10858) - arXiv:2509.10858, SOC automation with LLMs
 - [Advancing Autonomous Incident Response: Leveraging LLMs and CTI](https://arxiv.org/html/2508.10677v1) - arXiv:2508.10677, RAG-based incident response
 - [AI-Augmented SOC: A Survey of LLMs and Agents](https://www.mdpi.com/2624-800X/5/4/95) - MDPI 2024, comprehensive LLM SOC survey
 
-**LLM deployment:**
+LLM deployment:
 
 - [Ollama](https://ollama.com/) - Local LLM deployment platform
 - [Llama 3.1 Model Card](https://github.com/meta-llama/llama-models) - Meta's open-source LLM
 - [ChromaDB](https://www.trychroma.com/) - Vector database for RAG
 
-**Security automation:**
+Security automation:
 
 - [Wazuh API Documentation](https://documentation.wazuh.com/current/user-manual/api/reference.html) - SIEM API integration
 - [Suricata JSON Output](https://docs.suricata.io/en/latest/output/eve/index.html) - IDS alert format
 - [MISP Threat Intel Platform](https://www.misp-project.org/) - Open-source threat intelligence
 
-**Prompt engineering:**
+Prompt engineering:
 
 - [OpenAI Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering) - Best practices (applies to Llama too)
 - [LangChain Documentation](https://python.langchain.com/docs/get_started/introduction) - LLM orchestration framework
 
-**Implementation examples:**
+Implementation examples:
 
 - **Alert triage script:** https://gist.github.com/williamzujkowski/c501bf21bf504d84fa21edb3688da814
 - **RAG implementation:** https://gist.github.com/williamzujkowski/81c7b4914517758e7a7fdc0c61aeb699
@@ -397,6 +397,6 @@ Academic research validates LLM effectiveness for security operations. Several 2
 
 ---
 
-**Deploy local LLM triage for your alerts.** Install Ollama, download Llama 3.1, point it at your SIEM. Start with read-only mode (classify but don't act), validate accuracy, then enable automated actions.
+Deploy local LLM triage for your alerts. Install Ollama, download Llama 3.1, point it at your SIEM. Start with read-only mode (classify but don't act), validate accuracy, then enable automated actions.
 
 Most alert fatigue comes from manual triage of obvious false positives. LLMs excel at pattern recognition: "SSH login from office IP during business hours = probably legitimate." In my homelab, 78% of alerts now self-triage. I investigate the interesting 22%.
