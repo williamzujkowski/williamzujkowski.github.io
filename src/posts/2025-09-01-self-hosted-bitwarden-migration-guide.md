@@ -14,7 +14,7 @@ tags:
 ## The Cloud Password Manager Breach That Changed Everything
 
 
-**BLUF:** Cloud password manager breaches happen every few years. When LastPass disclosed their 2022 incident, I moved 500+ passwords to self-hosted Bitwarden. Two years later, I have better security, zero vendor lock-in, and complete data ownership. Here's how to migrate safely.
+BLUF: Cloud password manager breaches happen every few years. When LastPass disclosed their 2022 incident, I moved 500+ passwords to self-hosted Bitwarden. Two years later, I have better security, zero vendor lock-in, and complete data ownership. Here's how to migrate safely.
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/bitwarden-vault.png'); width: min(200px, 55%); aspect-ratio: 400/388; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">your passwords, in a vault you own</p>
@@ -44,14 +44,14 @@ tags:
 
 Self-hosting password management shifts trust from vendors to yourself. The trade-off is operational responsibility. This aligns with [zero-trust security principles](/posts/2024-07-09-zero-trust-architecture-implementation) where you verify everything and trust nothing by default.
 
-**Benefits:**
+Benefits:
 - **Full control**: Own infrastructure and data
 - **Zero vendor risk**: No third-party breaches
 - **Network privacy**: Passwords never leave your network
 - **Custom security**: Tailor to your threat model
 - **Zero cost**: Free for personal use (Vaultwarden)
 
-**Drawbacks:**
+Drawbacks:
 - **You're the security team**: Patching, monitoring, incident response
 - **Complexity overhead**: More components to secure
 - **Availability burden**: Downtime affects all devices
@@ -63,13 +63,13 @@ Self-hosting makes sense if you have technical skills and reliable infrastructur
 
 Two implementations offer different trade-offs:
 
-**Bitwarden (Official):**
+Bitwarden (Official):
 - Full feature set
 - Requires .NET runtime
 - ~500MB RAM usage
 - Official support channels
 
-**Vaultwarden (Rust rewrite):**
+Vaultwarden (Rust rewrite):
 - ~10MB RAM (98% reduction)
 - Single binary deployment
 - API-compatible with all clients
@@ -127,19 +127,19 @@ Recovery codes are critical. Without them, device loss means account lockout.
 
 ### TOTP Backup Storage Strategy
 
-**Encrypted TOTP seed storage:** Your authenticator app's TOTP seeds should be backed up separately from Bitwarden. If you lose your phone AND master password simultaneously, recovery codes won't help if they're stored in the vault you can't access.
+Encrypted TOTP seed storage: Your authenticator app's TOTP seeds should be backed up separately from Bitwarden. If you lose your phone AND master password simultaneously, recovery codes won't help if they're stored in the vault you can't access.
 
-**Recommended approach:** Export TOTP seeds from your authenticator app (Aegis supports encrypted exports, Google Authenticator does not). Encrypt the export with GPG using `gpg --symmetric --cipher-algo AES256 --output totp-backup.gpg totp-seeds.txt`. Use `--output`, not a shell redirect: `gpg ... totp-seeds.txt > totp-backup.gpg` writes the ciphertext to `totp-seeds.txt.gpg` and leaves `totp-backup.gpg` **zero bytes**, with exit status 0. The failure is silent, and what it silently produces is an empty disaster-recovery file. Check `ls -l` before you trust it. Store encrypted backups in three locations: fireproof safe (home), bank safety deposit box (offsite), and encrypted cloud storage (Backblaze B2, separate passphrase from Bitwarden). Never store the decryption passphrase with the encrypted file. Test recovery quarterly by decrypting backup and importing to a test device to verify all TOTP codes work.
+Recommended approach: Export TOTP seeds from your authenticator app (Aegis supports encrypted exports, Google Authenticator does not). Encrypt the export with GPG using `gpg --symmetric --cipher-algo AES256 --output totp-backup.gpg totp-seeds.txt`. Use `--output`, not a shell redirect: `gpg ... totp-seeds.txt > totp-backup.gpg` writes the ciphertext to `totp-seeds.txt.gpg` and leaves `totp-backup.gpg` zero bytes, with exit status 0. The failure is silent, and what it silently produces is an empty disaster-recovery file. Check `ls -l` before you trust it. Store encrypted backups in three locations: fireproof safe (home), bank safety deposit box (offsite), and encrypted cloud storage (Backblaze B2, separate passphrase from Bitwarden). Never store the decryption passphrase with the encrypted file. Test recovery quarterly by decrypting backup and importing to a test device to verify all TOTP codes work.
 
 ### Backup Key Management (MODERATE)
 
-**The Problem:** Self-hosted password managers create a single point of failure for ALL your credentials. Lose access to your Bitwarden instance + master password, and every account password is gone. Backup key management isn't optional—it's disaster recovery planning.
+The Problem: Self-hosted password managers create a single point of failure for ALL your credentials. Lose access to your Bitwarden instance + master password, and every account password is gone. Backup key management isn't optional—it's disaster recovery planning.
 
-**Why it matters:** Unlike cloud providers with account recovery workflows, self-hosted means YOU are responsible for ALL recovery scenarios. No support team can help you. Master password loss + no backup export = permanent data loss.
+Why it matters: Unlike cloud providers with account recovery workflows, self-hosted means YOU are responsible for ALL recovery scenarios. No support team can help you. Master password loss + no backup export = permanent data loss.
 
 #### Recovery Code Storage Best Practices
 
-**2FA recovery codes (30-digit codes from Authenticator setup):**
+2FA recovery codes (30-digit codes from Authenticator setup):
 
 ```bash
 # CRITICAL: Store recovery codes in multiple secure locations
@@ -154,13 +154,13 @@ echo "Primary 2FA Recovery: XXXX-XXXX-XXXX-XXXX-XXXX-XXXX" | gpg --symmetric --c
 # DO NOT store decryption passphrase with encrypted file
 ```
 
-**Storage location requirements:**
+Storage location requirements:
 - [ ] Physical copy in fireproof/waterproof safe (home)
 - [ ] Encrypted digital copy offsite (bank safety deposit box)
 - [ ] Encrypted cloud backup (Backblaze B2, encrypted before upload)
 - [ ] Decryption passphrase memorized or stored separately
 
-**Common mistakes:**
+Common mistakes:
 - ❌ Screenshot saved to cloud photos (plaintext, accessible if cloud compromised)
 - ❌ Stored in Bitwarden itself (can't access if locked out)
 - ❌ Single location only (house fire = total loss)
@@ -177,29 +177,29 @@ lost authenticator. It does nothing about a forgotten master password.
 
 So the scenarios split on the master password, not on the 2FA device:
 
-**Scenario 1: 2FA device lost, master password known**
+##### Scenario 1: 2FA device lost, master password known
 - **Impact:** Locked out of login until two-step is cleared
 - **Solution:** Log in with email + master password + recovery code, then re-enrol a new authenticator
 - **Time to recovery:** minutes
 
-**Scenario 2: Master password forgotten, 2FA device available**
+##### Scenario 2: Master password forgotten, 2FA device available
 - **Impact:** TOTAL DATA LOSS. Zero-knowledge encryption means the vault cannot be decrypted without it, and no recovery code changes that
-- **Solution:** none for the existing vault. Your only outs are an export you made earlier, or Emergency Access granted to a trusted contact **before** the loss
+- **Solution:** none for the existing vault. Your only outs are an export you made earlier, or Emergency Access granted to a trusted contact before the loss
 - **Time to recovery:** n/a -- this is the case the backups exist for
 
-**Scenario 3: Master password forgotten, 2FA device lost, NO recovery codes**
+##### Scenario 3: Master password forgotten, 2FA device lost, NO recovery codes
 - **Impact:** TOTAL DATA LOSS (permanent lockout) -- same as Scenario 2, since the recovery code was never the thing standing between you and the vault
 - **Solution:** Restore from backup export file (if you have one)
 - **Time to recovery:** N/A if no backup exists
 
-**Scenario 4: Server failure, have backup database, forgot master password**
+##### Scenario 4: Server failure, have backup database, forgot master password
 - **Impact:** Database encrypted with master password, cannot decrypt
 - **Solution:** None (database is useless without master password)
 - **Prevention:** Regular encrypted exports that you CAN decrypt
 
 #### Emergency Access Setup
 
-**For family/trusted contacts (Bitwarden Premium feature):**
+For family/trusted contacts (Bitwarden Premium feature):
 
 ```bash
 # Configure emergency access for spouse/family member
@@ -212,18 +212,18 @@ So the scenarios split on the master password, not on the 2FA device:
 # 4. They can view/takeover vault depending on permission level
 ```
 
-**Emergency access levels:**
+Emergency access levels:
 - **View:** Read-only access to passwords (for account recovery assistance)
 - **Takeover:** Full access, can change master password (for estate planning)
 
-**Wait period considerations:**
+Wait period considerations:
 - **7 days:** Balance between security and actual emergency (recommended)
 - **30 days:** Maximum security, delays legitimate emergency access
 - **0 days:** Security risk, compromised contact = immediate vault access
 
 #### Backup Export Encryption
 
-**Database backups vs password exports:**
+Database backups vs password exports:
 
 | **Backup Type** | **Encryption** | **Master Password Required** | **Use Case** |
 |-----------------|----------------|------------------------------|--------------|
@@ -231,7 +231,7 @@ So the scenarios split on the master password, not on the 2FA device:
 | JSON export (unencrypted) | NONE | NO | Dangerous, only for migrations |
 | JSON export (encrypted) | Password-protected file | YES (decryption) | Secure offline backup |
 
-**Create encrypted export:**
+Create encrypted export:
 
 ```bash
 # Export from Bitwarden CLI
@@ -251,7 +251,7 @@ bw import encrypted_json test-decrypt.json.enc --password "$BACKUP_PASSWORD"
 # 3. Memorized passphrase (minimum 8 words, Diceware recommended)
 ```
 
-**Backup storage hierarchy:**
+Backup storage hierarchy:
 1. **Local encrypted backup:** NAS with encrypted ZFS pool (daily automated)
 2. **Offsite encrypted backup:** Encrypted before uploading to Backblaze B2 (weekly)
 3. **Cold storage backup:** Encrypted USB in bank safety deposit box (monthly)
@@ -259,13 +259,13 @@ bw import encrypted_json test-decrypt.json.enc --password "$BACKUP_PASSWORD"
 
 #### Encryption Key Rotation
 
-**When to rotate master password:**
+When to rotate master password:
 - [ ] Annually (proactive security hygiene)
 - [ ] After suspected compromise (immediately)
 - [ ] After employee/family member loses access (within 24 hours)
 - [ ] After exporting for migration (export file contains old passwords)
 
-**Rotation procedure:**
+Rotation procedure:
 
 ```bash
 # 1. Export current vault (encrypted)
@@ -287,7 +287,7 @@ shred -vfz -n 10 pre-rotation-backup.json.enc
 # Emergency contacts must be re-invited after master password change
 ```
 
-**Frequency recommendations:**
+Frequency recommendations:
 - **Master password:** Annually or after incident
 - **2FA recovery codes:** After master password change
 - **Backup exports:** Weekly (automated)
@@ -322,18 +322,18 @@ bw import encrypted_json backup.json.enc --password "$BACKUP_PASSWORD"
 echo "$(date): Backup validation PASSED/FAILED" >> backup-validation-log.txt
 ```
 
-**Senior engineer perspective:** Years of security work taught me that backup testing is where theory meets reality. I've seen teams lose entire vaults because "we have backups" actually meant "we have encrypted files we can't decrypt because the backup password was stored IN the vault." Test your full recovery workflow quarterly under simulated emergency conditions: no access to production server, no cached browser sessions, only your printed recovery codes and encrypted backups. If you can't recover from that scenario, your backup strategy is fiction.
+Senior engineer perspective: Years of security work taught me that backup testing is where theory meets reality. I've seen teams lose entire vaults because "we have backups" actually meant "we have encrypted files we can't decrypt because the backup password was stored IN the vault." Test your full recovery workflow quarterly under simulated emergency conditions: no access to production server, no cached browser sessions, only your printed recovery codes and encrypted backups. If you can't recover from that scenario, your backup strategy is fiction.
 
 ### Admin Panel Security (CRITICAL)
 
-**The Problem:** Vaultwarden serves an admin panel at `/admin`. It is *not* on by default -- with no `ADMIN_TOKEN` set, the panel is disabled outright. The risk comes from the two ways of turning it on: setting a weak `ADMIN_TOKEN`, or setting `DISABLE_ADMIN_TOKEN=true`, which leaves the panel serving with no authentication at all. Anyone who then discovers the endpoint can change server settings, disable security features, and read administrative information.
+The Problem: Vaultwarden serves an admin panel at `/admin`. It is *not* on by default -- with no `ADMIN_TOKEN` set, the panel is disabled outright. The risk comes from the two ways of turning it on: setting a weak `ADMIN_TOKEN`, or setting `DISABLE_ADMIN_TOKEN=true`, which leaves the panel serving with no authentication at all. Anyone who then discovers the endpoint can change server settings, disable security features, and read administrative information.
 
-**Why it matters:** An exposed admin panel is a critical vulnerability for internet-facing deployments. The risk severity depends on your deployment:
+Why it matters: An exposed admin panel is a critical vulnerability for internet-facing deployments. The risk severity depends on your deployment:
 - **Internet-exposed:** CRITICAL (CVE-waiting-to-happen)
 - **Internal-only:** HIGH (lateral movement risk)
 - **Localhost-only:** MEDIUM (requires local access)
 
-**Required configuration in docker-compose.yml:**
+Required configuration in docker-compose.yml:
 
 ```yaml
 environment:
@@ -349,7 +349,7 @@ environment:
   # - ADMIN_TOKEN=""
 ```
 
-**Generate secure admin token:**
+Generate secure admin token:
 
 ```bash
 # Generate 48-byte random token
@@ -362,13 +362,13 @@ echo "ADMIN_TOKEN=$(openssl rand -base64 48)" >> .env
 chmod 600 .env
 ```
 
-**Best practices:**
+Best practices:
 1. **Initial setup:** Set ADMIN_TOKEN for configuration access
 2. **After configuration:** Either disable completely (`ADMIN_TOKEN=""`) or restrict by IP
 3. **Never:** Leave admin panel accessible without authentication
 4. **Production:** Disable panel entirely unless actively debugging
 
-**IP restriction (if panel needed long-term):**
+IP restriction (if panel needed long-term):
 
 Add to nginx configuration:
 
@@ -380,7 +380,7 @@ location /admin {
 }
 ```
 
-**Verification:**
+Verification:
 
 ```bash
 # Test authentication requirement
@@ -392,7 +392,7 @@ curl -I https://vault.example.com/admin
 # From restricted IP: Should return 403 Forbidden
 ```
 
-**Senior engineer note:** Years of production experience taught me admin interfaces are often forgotten after initial setup. The security-conscious approach: configure once, disable immediately. Vaultwarden's runtime configuration rarely needs changes. If you do need admin access later, temporarily enable with environment variable, make changes, then disable again.
+Senior engineer note: Years of production experience taught me admin interfaces are often forgotten after initial setup. The security-conscious approach: configure once, disable immediately. Vaultwarden's runtime configuration rarely needs changes. If you do need admin access later, temporarily enable with environment variable, make changes, then disable again.
 
 ### YubiKey Integration
 
@@ -407,7 +407,7 @@ For hardware 2FA:
 
 ### Exporting from Cloud Password Managers
 
-**From LastPass:**
+#### From LastPass
 ```
 1. Log into LastPass web vault
 2. More Options → Advanced → Export
@@ -415,14 +415,14 @@ For hardware 2FA:
 4. Import to Bitwarden: Tools → Import Data
 ```
 
-**From 1Password:**
+#### From 1Password
 ```
 1. File → Export → All Items
 2. Choose format: 1Password Interchange Format (1PIF)
 3. Import to Bitwarden
 ```
 
-**From Dashlane:**
+#### From Dashlane
 ```
 1. File → Export → Unsecured Archive (CSV)
 2. Import to Bitwarden
@@ -457,7 +457,7 @@ Schedule with cron:
 
 🔖 [Vaultwarden backup restoration test workflow ↗](https://gist.github.com/williamzujkowski/327bbe4806d93f947478373788a4ede5)
 
-**Test your backups regularly!** A backup you haven't tested is just wishful thinking.
+Test your backups regularly! A backup you haven't tested is just wishful thinking.
 
 ## Monitoring and Maintenance
 
@@ -496,13 +496,13 @@ Export metrics for monitoring:
 
 ### Mobile Apps
 
-**iOS:**
+#### iOS
 1. Install Bitwarden from App Store
 2. Settings → Self-hosted
 3. Enter Server URL: `https://vault.example.com`
 4. Log in
 
-**Android:**
+#### Android
 1. Install Bitwarden from F-Droid or Play Store
 2. Settings → Self-hosted
 3. Enter Server URL: `https://vault.example.com`
@@ -537,33 +537,33 @@ Export metrics for monitoring:
 
 Two years of self-hosting taught specific operational realities:
 
-**1. Test backups monthly**
+### 1. Test backups monthly
 I caught a corrupted backup during routine testing. That would have been catastrophic during real disaster recovery. Testing is not optional.
 
-**2. Single server works for personal use**
+### 2. Single server works for personal use
 99.9% uptime without HA cluster. Good backups matter more than redundancy. Restoring from backup takes 15 minutes.
 
-**3. Automate monitoring**
+### 3. Automate monitoring
 Caught expiring SSL certificate via automated checks. Manual vigilance fails. Scripts catch problems at 3 AM.
 
-**4. Security is about trade-offs**
+### 4. Security is about trade-offs
 Perfect security makes systems unusable. Match security to your threat model, not theoretical maximums.
 
-**5. Documentation saves time**
+### 5. Documentation saves time
 2 AM outages require clear runbooks. Past-you writing documentation helps future-you during emergencies.
 
 ## Security Considerations
 
-**Risks I Accept:**
+Risks I Accept:
 - Single server (mitigated by backups)
 - Self-signed internal CA (for internal services)
 - Home internet outage (have mobile backup)
 
-**Risks I Don't Accept:**
+Risks I Don't Accept:
 - Unencrypted backups
 - Weak master passwords
 - Missing 2FA
-- **Exposed admin panel** (see Admin Panel Security section for mitigation)
+- Exposed admin panel (see Admin Panel Security section for mitigation)
 
 ## Performance and Scaling
 

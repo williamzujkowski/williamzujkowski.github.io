@@ -41,7 +41,7 @@ My homelab isn't just for fun – it's my gym for cybersecurity skills. I docume
 
 ### Current Lab Setup
 
-**Pseudocode - Simplified Lab Configuration:**
+Pseudocode - Simplified Lab Configuration:
 ```yaml
 Production_Like_Environment:
   - Domain: homelab.local (Active Directory)
@@ -117,7 +117,7 @@ Inspired by Agile, I do 2-week learning sprints:
 
 ### Sprint Planning
 
-**Pseudocode - Simplified Sprint Template:**
+Pseudocode - Simplified Sprint Template:
 ```markdown
 ## Learning Sprint: Jan 15-29, 2024
 
@@ -165,7 +165,7 @@ Certifications are controversial. Here's my approach:
 
 ### My Certification Strategy
 
-**Pseudocode - Simplified Decision Function:**
+Pseudocode - Simplified Decision Function:
 ```python
 def should_get_cert(cert_name):
     questions = {
@@ -189,7 +189,7 @@ Every incident is a masterclass in what not to do.
 
 ### Personal Incident Journal
 
-**Pseudocode - Simplified Incident Template:**
+Pseudocode - Simplified Incident Template:
 ```markdown
 ## Incident: Ransomware Near-Miss
 **Date**: October 17, 2023
@@ -239,7 +239,7 @@ Deep Expertise (1 mile deep):
 
 ⚠️ **Warning:** This note-taking example includes security monitoring tools. Use these tools only in authorized environments for legitimate security purposes.
 
-**Pseudocode - Simplified Note Template:**
+Pseudocode - Simplified Note Template:
 ```markdown
 # Tool: Wazuh
 
@@ -372,34 +372,34 @@ For more in-depth information on the topics covered in this post:
 
 ### Cybersecurity Education Research
 
-1. **[The Skills Gap in Cybersecurity Education](https://www.nist.gov/itl/applied-cybersecurity/nice)** (2024)
+1. [The Skills Gap in Cybersecurity Education](https://www.nist.gov/itl/applied-cybersecurity/nice) (2024)
    - NIST NICE Framework for cybersecurity education
    - *NIST Special Publication*
 
-2. **[Cybersecurity Skills Development](https://www.enisa.europa.eu/topics/education)** (2024)
+2. [Cybersecurity Skills Development](https://www.enisa.europa.eu/topics/education) (2024)
    - ENISA European cybersecurity skills framework
    - *European Union Agency for Cybersecurity*
 
 ### Professional Certifications
 
-- **[ISC² Certifications](https://www.isc2.org/)** - CISSP, CCSP, SSCP
-- **[CompTIA Security+](https://www.comptia.org/certifications/security)** - Entry-level security
-- **[EC-Council](https://www.eccouncil.org/)** - CEH, CHFI, security certifications
-- **[SANS/GIAC](https://www.giac.org/)** - Specialized security certifications
+- [ISC² Certifications](https://www.isc2.org/) - CISSP, CCSP, SSCP
+- [CompTIA Security+](https://www.comptia.org/certifications/security) - Entry-level security
+- [EC-Council](https://www.eccouncil.org/) - CEH, CHFI, security certifications
+- [SANS/GIAC](https://www.giac.org/) - Specialized security certifications
 
 ### Learning Platforms
 
-- **[Cybrary](https://www.cybrary.it/)** - Cybersecurity career development
-- **[TryHackMe](https://tryhackme.com/)** - Hands-on security training
-- **[HackTheBox](https://www.hackthebox.com/)** - Penetration testing practice
-- **[PentesterLab](https://pentesterlab.com/)** - Web application security
+- [Cybrary](https://www.cybrary.it/) - Cybersecurity career development
+- [TryHackMe](https://tryhackme.com/) - Hands-on security training
+- [HackTheBox](https://www.hackthebox.com/) - Penetration testing practice
+- [PentesterLab](https://pentesterlab.com/) - Web application security
 
 ### Industry Reports
 
-1. **[CyberSeek Cybersecurity Supply/Demand Heat Map](https://www.cyberseek.org/)** (2024)
+1. [CyberSeek Cybersecurity Supply/Demand Heat Map](https://www.cyberseek.org/) (2024)
    - Real-time cybersecurity job market data
    - *NICE/CompTIA*
 
-2. **[Global Information Security Workforce Study](https://www.isc2.org/Research)** (2024)
+2. [Global Information Security Workforce Study](https://www.isc2.org/Research) (2024)
    - ISC² workforce analysis and skills gaps
    - *ISC² Research*
