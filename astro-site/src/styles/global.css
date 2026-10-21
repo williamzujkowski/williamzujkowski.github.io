@@ -5,7 +5,7 @@
  * See: https://github.com/williamzujkowski/remarque
  */
 
-/* consumes remarque-tokens v0.24.0 (core tier) + local palette layer.
+/* consumes remarque-tokens v0.26.0 (core tier) + local palette layer.
  * Core tier (type scale, rhythm, spacing, content-standard/wide, radius,
  * motion, base resets, prose/typography machinery) is imported below;
  * this file keeps only the PALETTE tier (fonts, colors, --content-reading)
@@ -330,7 +330,7 @@ body {
 }
 
 /* ===== Remarque Typography ===== */
-/* Display headings use Newsreader serif — the editorial signature */
+/* Display headings use Fraunces — the editorial signature */
 h1 {
   font-family: var(--font-display);
   font-size: var(--text-display);
@@ -451,7 +451,7 @@ a:hover { color: var(--color-accent-hover); }
   text-decoration: none;
   color: var(--color-fg);
   text-align: center;
-  transition: color 180ms ease;
+  transition: color var(--motion-normal) ease;
   min-height: 44px;
   padding: 0 0.5rem;
 }
@@ -471,7 +471,7 @@ a:hover { color: var(--color-accent-hover); }
   font-weight: 400;
   line-height: 0.95;
   letter-spacing: -0.03em;
-  font-feature-settings: "liga" 1, "dlig" 1, "kern" 1;
+  font-feature-settings: "liga" 1, "kern" 1;
   font-optical-sizing: auto;
 }
 .site-nameplate-title em {
@@ -504,7 +504,7 @@ a:hover { color: var(--color-accent-hover); }
 .site-sections a {
   text-decoration: none;
   color: var(--color-muted);
-  transition: color 180ms ease;
+  transition: color var(--motion-normal) ease;
   min-height: 44px;
   min-width: 44px;
   padding: 0 0.25rem;
@@ -663,7 +663,8 @@ a.post-card-title:hover { color: var(--color-accent); }
   line-height: var(--leading-body);
   /* Publication-grade typography (Wave 1) */
   hanging-punctuation: first last;
-  font-variant-numeric: oldstyle-nums proportional-nums;
+  /* No oldstyle-nums here: none of the shipped font subsets has onum, so it
+   * rendered nothing. Tables opt into tabular figures below. */
   /* text-wrap: pretty (progressive enhancement — unsupported browsers
    * fall back to normal wrapping) cascades to every :where(p) below
    * since nothing more specific overrides it; only headings opt back
@@ -681,24 +682,22 @@ time, pre, code, .chip {
 }
 
 /* OpenType features on display typography (Wave 2) */
-/* Newsreader has optical-size axis 6-72; let the font choose the right grade */
+/* Fraunces has an optical-size axis (9-144); let the font choose the grade.
+ * No "dlig": the shipped subsets have none, so it did nothing. */
 h1, h2, h3, h4, h5, h6,
 .post-card-title, .uses-name,
 .prose :where(h1, h2, h3, h4) {
-  font-feature-settings: "liga" 1, "calt" 1, "dlig" 1, "kern" 1;
+  font-feature-settings: "liga" 1, "calt" 1, "kern" 1;
   font-optical-sizing: auto;
   font-synthesis: none;
   text-wrap: balance;
 }
 
-/* True small caps for section eyebrows and year headings (Wave 2) */
-/* Replaces text-transform: uppercase — renders at cap-height, not x-height */
-.section-eyebrow,
-.related-posts h2 {
-  font-variant-caps: all-small-caps;
-  text-transform: none;
-  letter-spacing: 0.08em;
-}
+/* Caps labels (.section-eyebrow, .related-posts h2, .chip, .post-card-meta,
+ * the TOC summary) use real capitals, never font-variant-caps: no shipped
+ * font subset has smcp/c2sc, so small caps were synthesized by shrinking
+ * capitals to ~0.75x. 14px text rendered at ~10.5px, under the 13px floor,
+ * while the computed font-size still said 14px. */
 .prose :where(p) { margin-block: 1.25em; }
 .prose :where(li) { font-size: var(--text-body); line-height: var(--leading-body); margin-block-end: 0.5em; }
 .prose :where(ul, ol) { padding-inline-start: var(--space-5); margin-block: 1em; }
@@ -758,6 +757,12 @@ h1, h2, h3, h4, h5, h6,
    figcaption/code/pre, not th. */
 .prose :where(th) { text-align: left; letter-spacing: var(--tracking-meta); font-weight: var(--weight-semibold); padding: var(--space-2); border-bottom: 2px solid var(--color-border); }
 .prose :where(td) { padding: var(--space-2); border-bottom: 1px solid var(--color-border); }
+/* Figures in a column should line up: tabular lining digits in every cell. */
+.prose :where(td, th) { font-variant-numeric: lining-nums tabular-nums; }
+/* The text-align: left above outranks GFM's align="right" (`---:`), which
+   left a numeric column's header sitting over the wrong edge. */
+.prose :where(th[align="right"]) { text-align: right; }
+.prose :where(th[align="center"]) { text-align: center; }
 .prose :where(code):not(:where(pre *)) {
   background-color: var(--color-code-bg);
   padding: 0.15em 0.35em;
@@ -796,8 +801,11 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* Drop cap on essay lead paragraph (Wave 3) */
-/* Only on blog posts — scoped to article.prose, not general .prose usage */
-article .prose > p:first-of-type::first-letter {
+/* Only on blog posts — scoped to article.prose, not general .prose usage.
+ * .no-drop-cap comes from rehype-drop-cap.mjs: a lead that opens on a
+ * lowercase name ("npm", "gVisor") would otherwise lose its first letter
+ * to a capital-sized initial. */
+article .prose > p:first-of-type:not(.no-drop-cap)::first-letter {
   font-family: var(--font-display);
   font-style: italic;
   font-size: 3.5em;
@@ -805,7 +813,7 @@ article .prose > p:first-of-type::first-letter {
   float: left;
   padding: 0.08em 0.12em 0 0;
   color: var(--color-fg);
-  font-feature-settings: "liga" 1, "calt" 1, "dlig" 1;
+  font-feature-settings: "liga" 1, "calt" 1;
 }
 
 /* Shiki syntax highlighting — Remarque CSS-variables bridge
@@ -1141,7 +1149,7 @@ article .prose > p:first-of-type::first-letter {
 
 /* ===== Skip Link ===== */
 .skip-to-main {
-  position: absolute; left: -9999px; z-index: 999;
+  position: absolute; left: -9999px; z-index: var(--z-skip-link);
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-bg); color: var(--color-fg); text-decoration: none;
 }
@@ -1151,6 +1159,30 @@ article .prose > p:first-of-type::first-letter {
 @media (max-width: 640px) {
   body { padding: var(--space-5) var(--space-4); }
   .prose { font-size: var(--text-body); }
+  /* About 38 characters fit on a 360px line, so one long word left the line
+     before it short (34% of lines under 85% full on one post, 21% with
+     this). Code keeps its spelling: an inserted hyphen would read as part
+     of the identifier. */
+  .prose :where(p, li) { hyphens: auto; }
+  .prose :where(code) { hyphens: manual; }
+  /* h3 (19px semibold) outweighed h2 (22px medium) here. */
+  h3, .prose :where(h3) { font-weight: var(--weight-medium); }
+  /* 24px of padding left ~34 columns of code. A 4px edge shadow marks the
+     side that has more: the `local` covers scroll with the code and hide it
+     at either end. Kept to 4px because the syntax tokens clear 4.5:1 by a
+     hair, and only an already-clipped glyph sits that close to the edge. */
+  .prose :where(pre) {
+    padding: var(--space-4) var(--space-3);
+    background-image:
+      linear-gradient(to right, var(--color-code-bg) 50%, transparent),
+      linear-gradient(to left, var(--color-code-bg) 50%, transparent),
+      linear-gradient(to right, var(--color-border-bold), transparent),
+      linear-gradient(to left, var(--color-border-bold), transparent);
+    background-position: left, right, left, right;
+    background-size: 1rem 100%, 1rem 100%, var(--space-1) 100%, var(--space-1) 100%;
+    background-repeat: no-repeat;
+    background-attachment: local, local, scroll, scroll;
+  }
 }
 
 /* ===== Remarque Centering — all content within reading column ===== */
@@ -1172,6 +1204,31 @@ section:has(.post-card),
 div:has(> .post-card) {
   max-width: var(--content-reading);
   margin-inline: auto;
+}
+
+@media (min-width: 80rem) {
+  /* In the essay grid the middle track is already the reading width, so auto
+     margins only shrink-wrap a short child (breadcrumb, share footer) and
+     centre it, 270px and 150px right of the column's left edge. */
+  .remarque-essay > :not(.remarque-toc-rail) { margin-inline: 0; }
+  /* essay.css's 8rem note column held ~14 characters a line. The left track
+     is 13rem at this width (body caps at 72rem, so it never grows), which
+     fits 12rem plus the 2rem gap; the TOC rail is on the other side. */
+  .remarque-sidenote {
+    width: var(--space-12);
+    margin-inline-start: calc(-1 * (var(--space-12) + var(--space-6)));
+  }
+}
+
+/* TOC: essay.css leaves entries on the 17px body line (30px), so a wrapped
+   entry's lines sat as far apart as separate entries. */
+.remarque-toc-rail li { font-size: var(--text-meta); line-height: var(--leading-meta); }
+.remarque-toc-rail li + li { margin-top: var(--space-2); }
+/* Real capitals, not essay.css's synthesized small caps (see "Caps labels"). */
+.remarque-toc-rail summary {
+  font-size: var(--text-micro);
+  font-variant-caps: normal;
+  text-transform: uppercase;
 }
 
 /* ===== Broadsheet layout (landing, /posts/, tag pages) ===== */
@@ -1202,7 +1259,7 @@ div:has(> .post-card) {
   font-weight: 400;
   color: var(--color-fg);
   margin: 0;
-  font-feature-settings: "liga" 1, "dlig" 1, "kern" 1;
+  font-feature-settings: "liga" 1, "kern" 1;
   font-optical-sizing: auto;
   text-wrap: balance;
 }
@@ -1323,7 +1380,7 @@ div:has(> .post-card) {
   background-size: 0 1px;
   background-repeat: no-repeat;
   background-position: 0 95%;
-  transition: background-size 220ms ease;
+  transition: background-size var(--motion-normal) ease;
 }
 .lead-title a:hover,
 .entry-title a:hover { background-size: 100% 1px; }
@@ -1422,7 +1479,7 @@ div:has(> .post-card) {
   text-align: right;
   padding-top: 0.1em;
   user-select: none;
-  transition: color 180ms ease;
+  transition: color var(--motion-normal) ease;
 }
 .entry:hover .entry-numeral { color: var(--color-accent); }
 
@@ -1468,7 +1525,7 @@ div:has(> .post-card) {
   font-size: 1.25rem;
   font-weight: 400;
   letter-spacing: -0.005em;
-  transition: color 180ms ease;
+  transition: color var(--motion-normal) ease;
 }
 .archive-link:hover { color: var(--color-accent); }
 .archive-count {
@@ -1583,21 +1640,21 @@ h1, h2, h3, .post-card-title {
   hanging-punctuation: first allow-end last;
 }
 
-/* Newsreader at display sizes prefers slight negative tracking */
+/* Fraunces at display sizes prefers slight negative tracking */
 .prose h2 { letter-spacing: -0.01em; }
 .prose h2 + p { margin-top: var(--space-2); }
 
-/* Post-card meta as small-caps eyebrow */
+/* Post-card meta and chips as caps labels (real capitals: see "Caps labels") */
 .post-card-meta {
-  font-variant-caps: all-small-caps;
-  letter-spacing: 0.1em;
+  font-size: var(--text-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
   color: var(--color-muted);
 }
-
-/* Chip small-caps treatment */
-.chip { font-variant-caps: all-small-caps; letter-spacing: 0.06em; }
+.chip { font-size: var(--text-micro); text-transform: uppercase; letter-spacing: var(--tracking-caps); }
 .chip sup {
-  font-size: 0.7em;
+  /* Not 0.7em: on a 13px chip that is 9.1px, under the floor. */
+  font-size: var(--text-micro);
   margin-left: 0.3em;
   color: var(--color-muted);
   font-variant-numeric: tabular-nums lining-nums;
@@ -1640,7 +1697,7 @@ h1, h2, h3, .post-card-title {
   .theme-transition .prose :where(pre),
   .theme-transition .prose :where(code):not(:where(pre *)),
   .theme-transition a {
-    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+    transition: background-color var(--motion-normal) ease, color var(--motion-normal) ease, border-color var(--motion-normal) ease;
   }
 }
 
