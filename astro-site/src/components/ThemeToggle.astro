@@ -98,7 +98,35 @@
       return window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
 
+    // The static theme-color metas in BaseLayout only know the OS scheme, so
+    // a reader who toggles or picks a deck got browser chrome in the other
+    // palette. Mirror the live page background into them. Read --color-bg
+    // from body rather than body's background-color: during the crossfade
+    // the latter is mid-transition, the token is already final. Converted
+    // to hex through a canvas because the token is oklch() and theme-color
+    // support for it is uneven across browsers.
+    function syncThemeColor() {
+      const metas = document.querySelectorAll('meta[name="theme-color"]');
+      if (!metas.length) return;
+      const bg = getComputedStyle(document.body).getPropertyValue('--color-bg').trim();
+      const ctx = bg && document.createElement('canvas').getContext('2d');
+      if (!ctx) return;
+      const sentinel = '#010203';
+      ctx.fillStyle = sentinel;
+      ctx.fillStyle = bg;
+      if (ctx.fillStyle === sentinel) return; // unparseable: keep the no-JS defaults
+      ctx.fillRect(0, 0, 1, 1);
+      const px = ctx.getImageData(0, 0, 1, 1).data;
+      const hex = '#' + [px[0], px[1], px[2]].map(function (v) { return v.toString(16).padStart(2, '0'); }).join('');
+      metas.forEach(function (m) { m.setAttribute('content', hex); });
+    }
+
     function applyTheme() {
+      applyThemeClasses();
+      syncThemeColor();
+    }
+
+    function applyThemeClasses() {
       const root = document.documentElement;
       const dark = isDark();
       const t = storedTheme();

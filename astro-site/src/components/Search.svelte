@@ -373,6 +373,12 @@
         <div class="search-actions">
           <button bind:this={moreEl} type="button" class="search-control" onclick={loadMore} aria-disabled={isLoading}>Show more results</button>
         </div>
+      {:else if !isLoading && results.length === 0 && query.trim().length >= 2}
+        <!-- No results used to be a dead end; offer the two ways to browse. -->
+        <div class="search-actions">
+          <a href="/posts/" onclick={close}>Browse all posts</a>
+          <a href="/tags/" onclick={close}>Browse tags</a>
+        </div>
       {/if}
     </div>
   </div>
@@ -445,6 +451,7 @@
   }
   .search-input-row {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0.75rem;
     padding: 1rem;
@@ -457,7 +464,9 @@
     color: var(--color-muted);
   }
   .search-input {
-    flex: 1 1 auto;
+    /* With Clear and Close kept whole, the input fell to 83px at 320px; below
+       ~10rem the buttons wrap to their own line instead. */
+    flex: 1 1 10rem;
     min-width: 0;
     background: transparent;
     border: none;
@@ -477,6 +486,11 @@
     border-radius: 2px;
   }
   .search-control {
+    /* A one-word label: since body gained overflow-wrap: break-word (#697),
+       a squeezed flex item broke "Clear" mid-word at 360px instead of
+       keeping its width. */
+    flex-shrink: 0;
+    white-space: nowrap;
     min-width: 44px;
     min-height: 44px;
     padding: 0.375rem 0.625rem;

@@ -121,6 +121,27 @@
 
   onDestroy(() => stepTimers.forEach(clearTimeout));
 
+  // ─── Help hints (toggletips) ───
+  // These lived only in title=, which needs a mouse: no keyboard focus, no
+  // touch. Now a button reveals the same copy below the label. One open at a
+  // time; Escape or a click anywhere else closes it.
+  const HELP = {
+    consumers: 'Human units to be fed. Non-human units are out of scope.',
+    intensity: '0.0 = grazing. 1.0 = this is the whole meal and everyone skipped lunch.',
+    meal: 'Side act: 1.0× multiplier. Main event: 1.35×. Choose honestly.',
+    daypart: 'Hunger increases nonlinearly after 11 PM. We do not know why. We have stopped asking.',
+    teens: 'Applies a mandatory 1.5× multiplier. This value is not configurable. We have seen things.',
+  } as const;
+  type HelpId = keyof typeof HELP;
+  let openHelp = $state<HelpId | null>(null);
+
+  function onWindowKeydown(e: KeyboardEvent) {
+    if (e.key === 'Escape' && openHelp) openHelp = null;
+  }
+  function onWindowClick(e: MouseEvent) {
+    if (openHelp && !(e.target as Element | null)?.closest?.('.po-help')) openHelp = null;
+  }
+
   const daypartNote = $derived(
     daypart === 'late' ? 'late-daypart surcharge applied (people eat more after 10pm; we have data)' : ''
   );
@@ -174,6 +195,24 @@
   ];
 </script>
 
+<svelte:window onkeydown={onWindowKeydown} onclick={onWindowClick} />
+
+{#snippet helpButton(id: HelpId, topic: string)}
+  <button
+    type="button"
+    class="po-help"
+    aria-label={`Help: ${topic}`}
+    aria-expanded={openHelp === id}
+    aria-controls={`po-help-${id}`}
+    onclick={() => { openHelp = openHelp === id ? null : id; }}
+  >?</button>
+{/snippet}
+
+{#snippet helpTip(id: HelpId)}
+  <!-- Always in the DOM so the status role announces the text as it appears. -->
+  <p id={`po-help-${id}`} class="po-help-tip" role="status">{#if openHelp === id}{HELP[id]}{/if}</p>
+{/snippet}
+
 <div class="pizzaops">
   <!-- Title bar -->
   <div class="po-titlebar">
@@ -195,9 +234,11 @@
       <h2 class="po-h">Provisioning target</h2>
 
       <div class="po-field">
-        <label for="po-consumers">Consumers
-          <span class="po-help" title="Human units to be fed. Non-human units are out of scope.">?</span>
-        </label>
+        <div class="po-label">
+          <label for="po-consumers">Consumers</label>
+          {@render helpButton('consumers', 'Consumers')}
+        </div>
+        {@render helpTip('consumers')}
         <div class="po-stepper">
           <button type="button" onclick={() => { consumers = Math.max(0, consumers - 1); invalidate(); }} aria-label="Decrease consumers">−</button>
           <input id="po-consumers" type="number" min="0" max="500" bind:value={consumers} oninput={invalidate} />
@@ -206,17 +247,20 @@
       </div>
 
       <div class="po-field">
-        <label for="po-intensity">Hunger intensity
-          <span class="po-help" title="0.0 = grazing. 1.0 = this is the whole meal and everyone skipped lunch.">?</span>
+        <div class="po-label">
+          <label for="po-intensity">Hunger intensity</label>
+          {@render helpButton('intensity', 'Hunger intensity')}
           <span class="po-val">{intensity.toFixed(2)}</span>
-        </label>
+        </div>
+        {@render helpTip('intensity')}
         <input id="po-intensity" type="range" min="0" max="1" step="0.05" bind:value={intensity} oninput={invalidate} />
       </div>
 
       <div class="po-field">
         <span class="po-label">Meal class
-          <span class="po-help" title="Side act: 1.0× multiplier. Main event: 1.35×. Choose honestly.">?</span>
+          {@render helpButton('meal', 'Meal class')}
         </span>
+        {@render helpTip('meal')}
         <div class="po-seg" role="radiogroup" aria-label="Meal class">
           <button type="button" class:active={mealClass === 'main'} role="radio" aria-checked={mealClass === 'main'} onclick={() => { mealClass = 'main'; invalidate(); }}>Main event</button>
           <button type="button" class:active={mealClass === 'side'} role="radio" aria-checked={mealClass === 'side'} onclick={() => { mealClass = 'side'; invalidate(); }}>Side act</button>
@@ -225,8 +269,9 @@
 
       <div class="po-field">
         <span class="po-label">Daypart
-          <span class="po-help" title="Hunger increases nonlinearly after 11 PM. We do not know why. We have stopped asking.">?</span>
+          {@render helpButton('daypart', 'Daypart')}
         </span>
+        {@render helpTip('daypart')}
         <div class="po-seg" role="radiogroup" aria-label="Daypart">
           <button type="button" class:active={daypart === 'lunch'} role="radio" aria-checked={daypart === 'lunch'} onclick={() => { daypart = 'lunch'; invalidate(); }}>Lunch</button>
           <button type="button" class:active={daypart === 'dinner'} role="radio" aria-checked={daypart === 'dinner'} onclick={() => { daypart = 'dinner'; invalidate(); }}>Dinner</button>
@@ -234,12 +279,16 @@
         </div>
       </div>
 
-      <label class="po-toggle">
-        <input type="checkbox" bind:checked={teenagers} onchange={invalidate} />
-        <span>Teenagers present
-          <span class="po-help" title="Applies a mandatory 1.5× multiplier. This value is not configurable. We have seen things.">?</span>
-        </span>
-      </label>
+      <div class="po-toggle-row">
+        <div class="po-toggle-line">
+          <label class="po-toggle">
+            <input type="checkbox" bind:checked={teenagers} onchange={invalidate} />
+            <span>Teenagers present</span>
+          </label>
+          {@render helpButton('teens', 'Teenagers present')}
+        </div>
+        {@render helpTip('teens')}
+      </div>
 
       <button type="button" class="po-provision" onclick={provision} disabled={phase === 'provisioning'}>
         {phase === 'provisioning' ? 'Achieving consensus…' : 'Provision'}
@@ -420,7 +469,22 @@
     width: 1.25rem; height: 1.25rem; border-radius: 50%;
     border: 1px solid var(--color-border-bold); color: var(--color-muted);
     font-size: 0.8125rem; cursor: help; user-select: none; flex: none;
+    /* button reset: it was a span, and must still look like one */
+    background: none; padding: 0; font-family: inherit; line-height: 1;
+    position: relative;
   }
+  /* Hit area to 24px (WCAG 2.5.8) without growing the 20px circle. */
+  .po-help::after { content: ''; position: absolute; inset: -0.125rem; border-radius: 50%; }
+  .po-help:hover, .po-help[aria-expanded='true'] { color: var(--color-fg); border-color: var(--color-accent); }
+  .po-help:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+  .po-label label { margin: 0; }
+  .po-help-tip {
+    margin: 0 0 0.6rem; padding: 0.45rem 0.6rem;
+    font-size: 0.8125rem; line-height: 1.5; color: var(--color-fg-muted);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-bold); border-radius: 0.3rem;
+  }
+  .po-help-tip:empty { display: none; }
 
   .po-stepper { display: flex; align-items: stretch; }
   .po-stepper button {
@@ -457,7 +521,10 @@
     font-weight: 600; position: relative; z-index: 1;
   }
 
-  .po-toggle { display: flex; align-items: center; gap: 0.55rem; font-size: 0.82rem; cursor: pointer; margin-bottom: 1.2rem; }
+  .po-toggle { display: flex; align-items: center; gap: 0.55rem; font-size: 0.82rem; cursor: pointer; }
+  .po-toggle-row { margin-bottom: 1.2rem; }
+  .po-toggle-line { display: flex; align-items: center; gap: 0.55rem; }
+  .po-toggle-row .po-help-tip { margin: 0.4rem 0 0; }
   .po-toggle input { accent-color: var(--color-accent); width: 1.05rem; height: 1.05rem; }
 
   .po-provision {

@@ -257,3 +257,62 @@ test('system theme changes update the toggle action without overriding explicit 
   await page.emulateMedia({ colorScheme: 'dark' });
   await expect(toggle).toHaveAttribute('aria-label', 'Switch to light theme');
 });
+
+test('theme-color meta tracks the painted background through toggles and decks', async ({ browser }) => {
+  // Light OS, so the static media-keyed metas both start out wrong for a
+  // reader who picks dark or any deck: the case issue #698 measured.
+  const ctx = await browser.newContext({ colorScheme: 'light', reducedMotion: 'reduce' });
+  const page = await ctx.newPage();
+  const state = () =>
+    page.evaluate(() => {
+      // Normalise both sides through a canvas: the meta holds hex, the
+      // computed background is rgb()/oklch() depending on the engine.
+      const hex = (color: string) => {
+        const g = document.createElement('canvas').getContext('2d')!;
+        g.fillStyle = color;
+        g.fillRect(0, 0, 1, 1);
+        const d = g.getImageData(0, 0, 1, 1).data;
+        return [d[0], d[1], d[2]].map((v) => v.toString(16).padStart(2, '0')).join('');
+      };
+      const active = [...document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')]
+        .filter((m) => !m.media || matchMedia(m.media).matches)
+        .map((m) => hex(m.content));
+      const bg = hex(getComputedStyle(document.body).backgroundColor);
+      return active.length === 1 && active[0] === bg ? 'match' : `meta ${active.join(',')} vs body ${bg}`;
+    });
+  const expectMatch = (when: string) => expect.poll(state, { message: when }).toBe('match');
+
+  await page.goto('/');
+  await expectMatch('default');
+  await page.locator('#theme-toggle').click();
+  await expect(page.locator('html')).toHaveClass(/\bdark\b/);
+  await expectMatch('after toggling to dark');
+  await page.reload();
+  await expectMatch('dark restored on reload');
+  for (const slug of ['dracula', 'nord-light', 'gruvbox-dark-hard']) {
+    await page.locator('.theme-deck summary').click();
+    await page.locator(`[data-deck-slug="${slug}"]`).click();
+    await expect(page.locator('html')).toHaveAttribute('data-theme-deck', slug);
+    await expectMatch(`deck ${slug}`);
+    await page.keyboard.press('Escape');
+  }
+  await page.reload();
+  await expectMatch('deck restored on reload');
+  await ctx.close();
+});
+
+for (const viewport of [{ width: 360, height: 800 }, { width: 1280, height: 900 }]) {
+  test(`deck panel shows its last option without an inner scroll at ${viewport.width}px`, async ({ browser }) => {
+    const ctx = await browser.newContext({ viewport });
+    const page = await ctx.newPage();
+    await page.goto('/');
+    await page.locator('.theme-deck summary').click();
+    const last = page.locator('.deck-option').last();
+    await last.scrollIntoViewIfNeeded();
+    await expect(last).toBeInViewport({ ratio: 1 });
+    // A capped scroll box hid "Nord Light" below its fold with no visible cue.
+    const clipped = await page.locator('.deck-panel').evaluate((p) => p.scrollHeight > p.clientHeight + 1);
+    expect(clipped).toBe(false);
+    await ctx.close();
+  });
+}

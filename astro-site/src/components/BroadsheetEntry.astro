@@ -36,8 +36,13 @@ const { post, number, variant = 'entry', headingLevel = 3 } = Astro.props;
 const EntryHeading = `h${headingLevel}` as 'h2' | 'h3';
 
 
-const tag = (post.data.tags ?? []).find((t) => t !== 'posts') ?? 'Essay';
-const section = humanTag(tag);
+const realTag = (post.data.tags ?? []).find((t) => t !== 'posts');
+const section = humanTag(realTag ?? 'Essay');
+// The kicker is styled in the link accent, so it has to behave like one.
+// Every tag a published post carries gets a /tags/<tag>/ page (same
+// postTags() filter); the untagged 'Essay' fallback has no page and stays text.
+const sectionHref = realTag ? `/tags/${realTag}/` : undefined;
+const SectionEl = sectionHref ? 'a' : 'span';
 const rt = getReadingTime(post.body ?? '');
 const iso = post.data.date.toISOString().split('T')[0];
 const dateStr = post.data.date.toLocaleDateString('en-US', {
@@ -51,7 +56,7 @@ const dateStr = post.data.date.toLocaleDateString('en-US', {
 {variant === 'lead' ? (
   <article class="lead">
     <p class="lead-kicker">
-      <span class="lead-section">{section}</span>
+      <SectionEl class="lead-section" href={sectionHref}>{section}</SectionEl>
       <span class="dot">·</span>
       <span>{rt} min read</span>
       <span class="dot">·</span>
@@ -67,7 +72,7 @@ const dateStr = post.data.date.toLocaleDateString('en-US', {
     <span class="entry-numeral" aria-hidden="true">{number}</span>
     <div class="entry-body">
       <p class="entry-kicker">
-        <span class="entry-section">{section}</span>
+        <SectionEl class="entry-section" href={sectionHref}>{section}</SectionEl>
         <span class="dot">·</span>
         <span>{rt} min read</span>
         <span class="dot">·</span>
