@@ -33,7 +33,7 @@
     "@resvg/resvg-js": "^2.6.2",
     "astro": "^7.3.8",
     "cookie": "^2.0.1",
-    "markdown-it": "^15.0.2",
+    "markdown-it": "^15.0.3",
     "remarque-tokens": "^0.26.0",
     "sanitize-html": "^2.18.0",
     "satori": "^0.47.1",
