@@ -56,3 +56,29 @@ test('every post has frontmatter delimiters', () => {
   const offenders = posts.filter((n) => !readFileSync(join(postsDir, n), 'utf8').startsWith('---'));
   assert.deepEqual(offenders, [], `missing opening frontmatter: ${offenders.join(', ')}`);
 });
+
+// The bold-density pass (#698) turns bold lead-ins into headings, and the
+// level depends on the enclosing section: h3 under an h2, h4 under an h3.
+// Getting that wrong renders fine and reads fine, but axe's best-practice
+// `heading-order` rule fails it in a11y.yml -- and only for the posts the
+// axe suite happens to visit. This walks every post. Climbing back out any
+// number of levels (h4 -> h2) is legal; only descending more than one is not.
+// The layout's <h1> is the starting level, so a body opening on h3 is a skip.
+test('no post skips a heading level going deeper (h2 -> h4)', () => {
+  const offenders = [];
+  for (const name of posts) {
+    let prev = 1;
+    for (const line of bodyLines(readFileSync(join(postsDir, name), 'utf8'))) {
+      const m = /^(#{1,6})\s+\S/.exec(line);
+      if (!m) continue;
+      const level = m[1].length;
+      if (level > prev + 1) offenders.push(`${name}: h${prev} -> h${level} "${line.trim().slice(0, 60)}"`);
+      prev = level;
+    }
+  }
+  assert.deepEqual(
+    offenders,
+    [],
+    `axe heading-order fails a level skipped on the way down:\n  ${offenders.join('\n  ')}`,
+  );
+});

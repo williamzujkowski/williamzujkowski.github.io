@@ -15,7 +15,7 @@ tags:
 
 AI escaped the screen in 2025. [Google DeepMind's Gemini Robotics](https://arxiv.org/abs/2503.20020) reports 25-44% success zero-shot on real ALOHA 2 hardware, rising to about 79% across six dexterous tasks after 2,000-5,000 demonstrations each — real robots rather than simulation, and a long way from solved. Vision-Language-Action (VLA) models bridge the gap between AI that writes code and robots that execute it, transforming digital intelligence into physical capability.
 
-**Why it matters:** When AI gains physical agency, software bugs become safety hazards. A bad recommendation is annoying, but a robot arm moving incorrectly causes injury. We're deploying systems that manipulate the physical world with minimal testing frameworks and emerging safety standards, though I should note that this rapid deployment raises concerns about premature adoption. The security implications extend beyond data breaches to physical harm.
+Why it matters: When AI gains physical agency, software bugs become safety hazards. A bad recommendation is annoying, but a robot arm moving incorrectly causes injury. We're deploying systems that manipulate the physical world with minimal testing frameworks and emerging safety standards, though I should note that this rapid deployment raises concerns about premature adoption. The security implications extend beyond data breaches to physical harm.
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/edge-robots.png'); width: min(200px, 55%); aspect-ratio: 400/380; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the brain, brought on board</p>
@@ -111,7 +111,7 @@ sudo apt install ros-humble-realsense2-camera
 sudo apt install ros-humble-moveit
 ```
 
-**Key components:**
+Key components:
 - **ROS2 Humble**: Robot Operating System for control and coordination (released May 2022)
 - **MoveIt2**: Motion planning and collision avoidance
 - **OpenVLA**: Open-source VLA model for fine-tuning (7B parameters)
@@ -124,11 +124,11 @@ Physical AI introduces attack surfaces software developers don't typically consi
 ### When Things Go Wrong
 
 VLA models are powerful but immature, and I'm frankly concerned about how quickly we're deploying them:
-- **No standardized testing frameworks** for physical AI safety
-- **Limited real-world failure data** publicly available
+- No standardized testing frameworks for physical AI safety
+- Limited real-world failure data publicly available
 - **Regulatory gaps**: [ISO 10218-1:2025](https://www.iso.org/standard/73933.html) was revised in February 2025 and now adds a robot classification scheme and explicit cybersecurity requirements — but it still governs industrial robots, and says nothing about learned end-to-end policies
 - **Adversarial robustness unknown**: a carefully placed object could trigger dangerous behavior
-- **Emergency protocols underdeveloped** compared to traditional automation
+- Emergency protocols underdeveloped compared to traditional automation
 
 Formal safety frameworks for robotics exist, but most VLA deployments lack rigorous implementation of them.
 
@@ -146,7 +146,7 @@ Formal safety frameworks for robotics exist, but most VLA deployments lack rigor
 <figcaption>Model output passes through runtime guards and stop controls before it can move the physical robot.</figcaption>
 </figure>
 
-**Required safety layers:**
+Required safety layers:
 
 1. **Model-level**: Constrain VLA outputs to safe action spaces during training
 2. **Software validation**: Check all commands against physics constraints before execution
@@ -161,7 +161,7 @@ Formal safety frameworks for robotics exist, but most VLA deployments lack rigor
 - **Sensor spoofing**: Camera feeds and force sensors can be manipulated
 - **Model extraction**: High-value trained models on accessible hardware
 
-**Homelab security measures I'm implementing:**
+Homelab security measures I'm implementing:
 - VLAN isolation for robot control (`10.0.50.0/24` dedicated network on my Dream Machine Pro, see [zero-trust VLAN segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab))
 - TLS 1.3 encryption for all control signals
 - Audit logging to immutable storage (writing to my Wazuh SIEM, see [Suricata network monitoring](/posts/2025-08-25-network-traffic-analysis-suricata-homelab))
@@ -179,36 +179,36 @@ Formal safety frameworks for robotics exist, but most VLA deployments lack rigor
 
 ## Getting Started: Incremental Approach
 
-**Phase 1: Simulation** (Current, free)
+Phase 1: Simulation (Current, free)
 - Run [Isaac Sim](https://docs.omniverse.nvidia.com/isaacsim/) on existing GPU
 - Train simple pick-and-place tasks in virtual environments
 - Validate safety protocols before touching hardware
 - Docker containers for reproducible experiments
 
-**Phase 2: Budget Hardware** (3-6 months, $1,000)
+Phase 2: Budget Hardware (3-6 months, $1,000)
 - Used Lynxmotion AL5D arm
 - Basic RealSense for vision
 - OpenVLA fine-tuning on simple tasks (see [running LLaMA on Raspberry Pi](/posts/2024-09-15-running-llama-raspberry-pi-pipeload) for edge inference patterns)
 - Safety monitoring through existing Wazuh setup
 
-**Phase 3: Scale If Validated** (Aspirational, $3,000-10,000+)
+Phase 3: Scale If Validated (Aspirational, $3,000-10,000+)
 - Better robot arm or mobile manipulator
 - Multi-camera coverage
 - Dedicated edge compute
 - Production-grade safety systems
 
-**For software developers:**
+For software developers:
 1. Learn [ROS2 basics](https://docs.ros.org/en/humble/) (2-4 weeks)
 2. Set up simulation environment (Gazebo or Isaac Sim)
 3. Experiment with [OpenVLA](https://github.com/openvla/openvla)
 4. Start with cheap hardware ($500 used arm)
 
-**For roboticists:**
+For roboticists:
 - VLA models are starting to complement classical motion planning for unstructured tasks
 - Language grounding enables non-expert instruction
 - Transfer learning reduces per-task engineering
 
-**For AI/ML engineers:**
+For AI/ML engineers:
 - Learn robot dynamics (kinematics, control theory)
 - Understand real-time requirements (VLA policies run far slower than control loops — 6-10 Hz is common — which is why the fast systems pair a slow reasoner with a 200 Hz visuomotor policy, see [local LLM deployment](/posts/2025-06-25-local-llm-deployment-privacy-first))
 - Recognize safety-critical constraints (one bad prediction causes physical damage)
@@ -218,19 +218,19 @@ Formal safety frameworks for robotics exist, but most VLA deployments lack rigor
 
 We're at an inflection point similar to language models in 2020. GPT-3 (released June 2020) proved scale works for language. VLA models are proving scale works for physical intelligence, though the timeline to practical deployment remains uncertain.
 
-**Near-term (2026-2027):**
+Near-term (2026-2027):
 - Consumer robot assistants with genuine manipulation capability (maybe)
 - Warehouse automation handling unstructured environments
 - Home robots that do more than vacuum
 - Manufacturing systems that adapt without reprogramming
 
-**Medium-term (2028-2030):**
+Medium-term (2028-2030):
 - Humanoid robots with practical utility (Tesla Optimus, Figure 01)
 - Surgical robotics with natural language control
 - Agricultural robots handling delicate crops
 - Construction automation for complex tasks
 
-**Long-term (2030-2035):**
+Long-term (2030-2035):
 - General-purpose manipulation rivaling human dexterity (aspirational)
 - Integration of VLA models with general AI reasoning systems
 - Robots as ubiquitous as smartphones
@@ -244,7 +244,7 @@ That 3D printer failure in January wasn't a frustration, it was a glimpse of the
 
 The next decade is about giving digital intelligence a body. VLA models bridge Claude writing code in your terminal and robots executing those plans in your workshop.
 
-**Three key takeaways:**
+Three key takeaways:
 - VLA models generalize across robot platforms and tasks at unprecedented scale (though long-term reliability remains unproven)
 - Physical AI introduces safety and security challenges beyond traditional software
 - The technology is accessible now, simulation is free, budget hardware is $500-2,000
@@ -259,30 +259,30 @@ The embodied AI results are real and the deployment gap is still wide. The quest
 
 ### Primary Research
 
-1. **[Gemini Robotics: Bringing AI into the Physical World](https://arxiv.org/abs/2503.20020)** (2025)
+1. [Gemini Robotics: Bringing AI into the Physical World](https://arxiv.org/abs/2503.20020) (2025)
    - Gemini Robotics Team
    - *arXiv preprint* - State-of-the-art VLA model architecture and results
 
-2. **[Open X-Embodiment: Robotic Learning Datasets and RT-X Models](https://arxiv.org/abs/2310.08864)** (2023)
+2. [Open X-Embodiment: Robotic Learning Datasets and RT-X Models](https://arxiv.org/abs/2310.08864) (2023)
    - Open X-Embodiment Collaboration
    - *arXiv preprint* - Cross-embodiment training methodology
 
-3. **[RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control](https://arxiv.org/abs/2307.15818)** (2023)
+3. [RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control](https://arxiv.org/abs/2307.15818) (2023)
    - Brohan, Anthony et al.
    - *arXiv preprint* - Foundation for language-grounded robot control
 
 ### Supporting Research
 
-4. **[π0: A Vision-Language-Action Flow Model for General Robot Control](https://arxiv.org/abs/2410.24164)** (2024)
+4. [π0: A Vision-Language-Action Flow Model for General Robot Control](https://arxiv.org/abs/2410.24164) (2024)
    - Physical Intelligence Team
    - *arXiv preprint* - Alternative VLA architecture approach
 
 ### Industry Standards & Resources
 
-- **[ROS2 Security Best Practices](https://design.ros2.org/articles/ros2_dds_security.html)** - Open Robotics
-- **[ISO 10218: Robots and Robotic Devices](https://www.iso.org/standard/51330.html)** - Safety standards
-- **[NVIDIA Isaac Sim Documentation](https://docs.omniverse.nvidia.com/isaacsim/)** - Robot simulation platform
-- **[OpenVLA on GitHub](https://github.com/openvla/openvla)** - 7B parameter VLA model
-- **[MoveIt2 Motion Planning](https://moveit.ros.org/)** - ROS2 manipulation framework
-- **[RealSense Depth Cameras](https://store.realsenseai.com/buy-realsense-depth-camera-d435.html)** - Depth sensing hardware (formerly Intel RealSense)
-- **[Unitree Robotics](https://www.unitree.com/g1)** - Humanoid robot platform
+- [ROS2 Security Best Practices](https://design.ros2.org/articles/ros2_dds_security.html) - Open Robotics
+- [ISO 10218: Robots and Robotic Devices](https://www.iso.org/standard/51330.html) - Safety standards
+- [NVIDIA Isaac Sim Documentation](https://docs.omniverse.nvidia.com/isaacsim/) - Robot simulation platform
+- [OpenVLA on GitHub](https://github.com/openvla/openvla) - 7B parameter VLA model
+- [MoveIt2 Motion Planning](https://moveit.ros.org/) - ROS2 manipulation framework
+- [RealSense Depth Cameras](https://store.realsenseai.com/buy-realsense-depth-camera-d435.html) - Depth sensing hardware (formerly Intel RealSense)
+- [Unitree Robotics](https://www.unitree.com/g1) - Humanoid robot platform

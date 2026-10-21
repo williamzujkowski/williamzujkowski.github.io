@@ -43,17 +43,17 @@ The race to develop quantum-resistant algorithms felt like watching history unfo
 
 ### Lattice-Based Cryptography
 
-**The Promise**: Lattice problems like finding shortest vectors in high-dimensional lattices appear resistant to quantum attacks.
+The Promise: Lattice problems like finding shortest vectors in high-dimensional lattices appear resistant to quantum attacks.
 
-**CRYSTALS-Kyber**: This key encapsulation mechanism became my first hands-on post-quantum crypto experience in April 2022. Implementing it revealed elegance and complexity. Public key size: 800 bytes (Kyber-512) compared to 32 bytes for X25519, a 25x increase. Kyber-768 variant (NIST standardized as ML-KEM-768 in August 2024) uses 1,184-byte public keys and 1,088-byte ciphertexts. Despite larger sizes, handshake completed in under 150ms on my test server. Cloudflare's testing showed Kyber requires less computation than X25519, just with larger message sizes.
+CRYSTALS-Kyber: This key encapsulation mechanism became my first hands-on post-quantum crypto experience in April 2022. Implementing it revealed elegance and complexity. Public key size: 800 bytes (Kyber-512) compared to 32 bytes for X25519, a 25x increase. Kyber-768 variant (NIST standardized as ML-KEM-768 in August 2024) uses 1,184-byte public keys and 1,088-byte ciphertexts. Despite larger sizes, handshake completed in under 150ms on my test server. Cloudflare's testing showed Kyber requires less computation than X25519, just with larger message sizes.
 
-**CRYSTALS-Dilithium**: Digital signature scheme based on lattice problems. NIST standardized it as ML-DSA (Module-Lattice-Based Digital Signature Algorithm) in FIPS 204. Signature sizes substantially larger than classical algorithms: Dilithium-2 produces 2,420-byte signatures compared to ECDSA's 64 bytes, approximately 38x larger. Size increase is the primary trade-off for quantum resistance.
+CRYSTALS-Dilithium: Digital signature scheme based on lattice problems. NIST standardized it as ML-DSA (Module-Lattice-Based Digital Signature Algorithm) in FIPS 204. Signature sizes substantially larger than classical algorithms: Dilithium-2 produces 2,420-byte signatures compared to ECDSA's 64 bytes, approximately 38x larger. Size increase is the primary trade-off for quantum resistance.
 
-**Real-World Testing**: Early implementations revealed performance characteristics different from RSA or ECC. When I benchmarked CRYSTALS-Dilithium signature generation in August 2023, it took 0.8ms compared to 0.3ms for Ed25519 on same hardware. Verification times were faster: 0.6ms versus 0.7ms.
+Real-World Testing: Early implementations revealed performance characteristics different from RSA or ECC. When I benchmarked CRYSTALS-Dilithium signature generation in August 2023, it took 0.8ms compared to 0.3ms for Ed25519 on same hardware. Verification times were faster: 0.6ms versus 0.7ms.
 
 ### Hash-Based Signatures: Proven Security
 
-**SPHINCS+:** This signature scheme's security relies only on the collision resistance of hash functions, properties we understand well and trust deeply. Hash-based signatures offer strong security guarantees but come with trade-offs:
+SPHINCS+: This signature scheme's security relies only on the collision resistance of hash functions, properties we understand well and trust deeply. Hash-based signatures offer strong security guarantees but come with trade-offs:
 
 - Larger signature sizes compared to traditional algorithms
 - Higher computational overhead during signing and verification
@@ -61,9 +61,9 @@ The race to develop quantum-resistant algorithms felt like watching history unfo
 
 ### Code-Based Cryptography: Hidden Structure
 
-**Classic McEliece:** Based on error-correcting codes, this approach offered strong security guarantees but came with very large key sizes.
+Classic McEliece: Based on error-correcting codes, this approach offered strong security guarantees but came with very large key sizes.
 
-**Implementation Challenges:** Working with Classic McEliece revealed the practical difficulties of deploying systems with megabyte-sized keys. I attempted to integrate it into an API authentication system in December 2022, and the 1.3MB public keys caused timeout issues on mobile clients with slower connections. Requests that used to take 200ms were failing after 30 seconds on 3G networks.
+Implementation Challenges: Working with Classic McEliece revealed the practical difficulties of deploying systems with megabyte-sized keys. I attempted to integrate it into an API authentication system in December 2022, and the 1.3MB public keys caused timeout issues on mobile clients with slower connections. Requests that used to take 200ms were failing after 30 seconds on 3G networks.
 
 ### Multivariate Cryptography: Polynomial Equations
 
@@ -84,19 +84,19 @@ Moving from theoretical post-quantum algorithms to practical implementations rev
 
 ### Performance Considerations
 
-**Key Sizes:** Post-quantum algorithms often require much larger keys than traditional cryptography. A Classic McEliece public key can exceed 1MB, compared to 256 bytes for an ECC key. I ran into storage issues during testing in September 2023 when trying to store 1,000 Classic McEliece keys in a database that had previously held 100,000 ECC keys without issue.
+Key Sizes: Post-quantum algorithms often require much larger keys than traditional cryptography. A Classic McEliece public key can exceed 1MB, compared to 256 bytes for an ECC key. I ran into storage issues during testing in September 2023 when trying to store 1,000 Classic McEliece keys in a database that had previously held 100,000 ECC keys without issue.
 
-**Computational Overhead:** Operations like key generation, encryption, and signature verification often require more processing power than traditional algorithms. During testing in May 2023, I measured FALCON-512 key generation at 12ms compared to 2ms for Ed25519 on the same hardware. That might seem trivial, but for systems generating thousands of keys per hour, it meant our key server could only handle 83 requests per second instead of 500.
+Computational Overhead: Operations like key generation, encryption, and signature verification often require more processing power than traditional algorithms. During testing in May 2023, I measured FALCON-512 key generation at 12ms compared to 2ms for Ed25519 on the same hardware. That might seem trivial, but for systems generating thousands of keys per hour, it meant our key server could only handle 83 requests per second instead of 500.
 
-**Memory Requirements:** Larger keys and intermediate values strain memory-constrained devices like IoT sensors or embedded systems. I tested CRYSTALS-Kyber on a Raspberry Pi Zero in July 2023, and the 2.3KB ciphertext size combined with the computation overhead caused the device to max out its 512MB RAM during concurrent operations. We had to limit it to processing one key exchange at a time, which reduced throughput by 75%.
+Memory Requirements: Larger keys and intermediate values strain memory-constrained devices like IoT sensors or embedded systems. I tested CRYSTALS-Kyber on a Raspberry Pi Zero in July 2023, and the 2.3KB ciphertext size combined with the computation overhead caused the device to max out its 512MB RAM during concurrent operations. We had to limit it to processing one key exchange at a time, which reduced throughput by 75%.
 
 ### Integration Challenges
 
-**Protocol Compatibility:** Existing protocols like TLS weren't designed for multi-megabyte keys or signatures. This required careful adaptation. When I tested CRYSTALS-Kyber in a TLS 1.3 handshake in June 2023, the initial connection time increased from 47ms to 124ms, which is probably acceptable for most applications but could impact high-frequency trading systems. For more context, see [demystifying cryptography: a beginner's guide to encryption, hashing, and digital signatures](/posts/2024-01-18-demystifying-cryptography-beginners-guide).
+Protocol Compatibility: Existing protocols like TLS weren't designed for multi-megabyte keys or signatures. This required careful adaptation. When I tested CRYSTALS-Kyber in a TLS 1.3 handshake in June 2023, the initial connection time increased from 47ms to 124ms, which is probably acceptable for most applications but could impact high-frequency trading systems. For more context, see [demystifying cryptography: a beginner's guide to encryption, hashing, and digital signatures](/posts/2024-01-18-demystifying-cryptography-beginners-guide).
 
-**Certificate Infrastructure:** PKI systems needed updates to handle new key formats and signature algorithms. When I tried integrating CRYSTALS-Dilithium certificates into our existing PKI in October 2023, I discovered our certificate validation library couldn't parse the new OIDs (Object Identifiers). We had to update four different components just to get basic certificate validation working, which took three weeks instead of the two days I had estimated. For more context, see [zero trust architecture: a practical implementation guide](/posts/2024-07-09-zero-trust-architecture-implementation).
+Certificate Infrastructure: PKI systems needed updates to handle new key formats and signature algorithms. When I tried integrating CRYSTALS-Dilithium certificates into our existing PKI in October 2023, I discovered our certificate validation library couldn't parse the new OIDs (Object Identifiers). We had to update four different components just to get basic certificate validation working, which took three weeks instead of the two days I had estimated. For more context, see [zero trust architecture: a practical implementation guide](/posts/2024-07-09-zero-trust-architecture-implementation).
 
-**Hardware Support:** Cryptographic hardware acceleration, optimized for RSA and ECC, required redesign for post-quantum algorithms. When I tested our HSM (Hardware Security Module) with CRYSTALS-Dilithium in January 2024, I discovered it didn't support the polynomial arithmetic needed for lattice-based crypto. The fallback to software implementations was roughly 15x slower for signature operations. For more context, see [quantum computing's leap forward](/posts/2024-08-02-quantum-computing-leap-forward).
+Hardware Support: Cryptographic hardware acceleration, optimized for RSA and ECC, required redesign for post-quantum algorithms. When I tested our HSM (Hardware Security Module) with CRYSTALS-Dilithium in January 2024, I discovered it didn't support the polynomial arithmetic needed for lattice-based crypto. The fallback to software implementations was roughly 15x slower for signature operations. For more context, see [quantum computing's leap forward](/posts/2024-08-02-quantum-computing-leap-forward).
 
 ### Operational Considerations
 
@@ -115,7 +115,7 @@ The transition to post-quantum cryptography won't happen overnight. Hybrid appro
 - **Risk Mitigation:** If post-quantum algorithms prove vulnerable to unexpected attacks, traditional algorithms provide backup security (these algorithms are relatively new, and undiscovered edge cases likely exist)
 - **Performance Balance:** Combining fast traditional algorithms with secure post-quantum ones optimizes performance while maintaining security
 
-**Bandwidth Overhead:** According to AWS testing with S2N-TLS, hybrid post-quantum key establishment (ECDHE + Kyber) adds approximately 2,356 bytes compared to classical ECDHE alone. When I tested hybrid TLS in my lab in March 2024, this translated to handshakes around 3.5KB instead of 1.2KB for classical TLS, roughly a 3x increase. The latency impact was minimal (about 0.3ms additional overhead), but the bandwidth increase could be significant for applications handling thousands of concurrent connections.
+Bandwidth Overhead: According to AWS testing with S2N-TLS, hybrid post-quantum key establishment (ECDHE + Kyber) adds approximately 2,356 bytes compared to classical ECDHE alone. When I tested hybrid TLS in my lab in March 2024, this translated to handshakes around 3.5KB instead of 1.2KB for classical TLS, roughly a 3x increase. The latency impact was minimal (about 0.3ms additional overhead), but the bandwidth increase could be significant for applications handling thousands of concurrent connections.
 
 ## Preparing Organizations: Practical Steps
 
@@ -195,20 +195,20 @@ The quantum future is coming whether we're ready or not. The question isn't whet
 
 ### Further Reading:
 
-**NIST Standards and Guidelines:**
+NIST Standards and Guidelines:
 - [FIPS 203: Module-Lattice-Based Key-Encapsulation Mechanism Standard (ML-KEM)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.pdf) - NIST (August 2024)
 - [FIPS 204: Module-Lattice-Based Digital Signature Standard (ML-DSA)](https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.204.pdf) - NIST (August 2024)
 - [NIST SP 800-57: Recommendation for Key Management](https://csrc.nist.gov/publications/detail/sp/800-57-part-1/rev-5/final) - Key size and security strength guidance
 - [NIST IR 8413: Getting Ready for Post-Quantum Cryptography](https://csrc.nist.gov/pubs/ir/8413/final) - Migration planning guide
 - [NIST IR 8547: Transition to Post-Quantum Cryptography Standards](https://nvlpubs.nist.gov/nistpubs/ir/2024/NIST.IR.8547.ipd.pdf) - Timeline and recommendations
 
-**Implementation and Performance:**
+Implementation and Performance:
 - [How to Tune TLS for Hybrid Post-Quantum Cryptography with Kyber](https://aws.amazon.com/blogs/security/how-to-tune-tls-for-hybrid-post-quantum-cryptography-with-kyber/) - AWS (Performance benchmarks)
 - [Post-Quantum Readiness for TLS at Meta](https://engineering.fb.com/2024/05/22/security/post-quantum-readiness-tls-pqr-meta/) - Real-world deployment insights
 - [CRYSTALS-Kyber Official Site](https://pq-crystals.org/kyber/) - Algorithm specifications
 - [CRYSTALS-Dilithium Official Site](https://pq-crystals.org/dilithium/) - Algorithm specifications
 
-**Industry Resources:**
+Industry Resources:
 - [Quantum-Safe Cryptography](https://www.etsi.org/technologies/quantum-safe-cryptography) - ETSI
 - [Post-Quantum Cryptography](https://www.enisa.europa.eu/topics/cryptography/post-quantum-cryptography) - ENISA
 - [IBM Quantum Network](https://qiskit.org/textbook/ch-algorithms/shor.html) - Shor's Algorithm Implementation

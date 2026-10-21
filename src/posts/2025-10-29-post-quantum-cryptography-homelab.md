@@ -34,7 +34,7 @@ Adversaries are capturing encrypted network traffic right now, storing it in mas
 
 According to RAND Corporation's analysis,[^rand-analysis] if your data needs to remain confidential for 20-30 years (think: medical records, financial data, personal backups), and it takes you 10-15 years to fully migrate your infrastructure to post-quantum cryptography, then by the time quantum computers arrive in the 2035-2040 window, everything you encrypted between 2015-2030 becomes retroactively vulnerable.
 
-The math is simple and it's called [Mosca's Theorem](https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/): If **X** (how long your data must stay secret) + **Y** (how long it takes to migrate) > **Z** (when quantum computers arrive), you're already behind schedule.
+The math is simple and it's called [Mosca's Theorem](https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/): If X (how long your data must stay secret) + Y (how long it takes to migrate) > Z (when quantum computers arrive), you're already behind schedule.
 
 <figure class="arch-fig">
 <div class="flow" role="group" aria-label="Mosca theorem migration timing test">
@@ -87,21 +87,21 @@ The algorithm comes in three security levels:
 
 For comparison, a typical X25519 public key is just 32 bytes. Yes, that's roughly [37 times larger for ML-KEM-768](https://pq-crystals.org/kyber/). This size difference is why I kept breaking things, my Nginx configuration assumed TLS ClientHello messages would fit in a single 1,500-byte Ethernet frame. Spoiler: they don't anymore.
 
-But here's the surprising part: [recent benchmarks](https://www.mdpi.com/2410-387X/8/2/21) show ML-KEM-768 performing encapsulation and decapsulation in approximately **0.05 milliseconds on a Raspberry Pi 4**. That's genuinely usable for homelab projects. My Intel i9-9900K handles it even faster, though I haven't measured exactly how much faster because I was too busy fixing my broken certificate chain.
+But here's the surprising part: [recent benchmarks](https://www.mdpi.com/2410-387X/8/2/21) show ML-KEM-768 performing encapsulation and decapsulation in approximately 0.05 milliseconds on a Raspberry Pi 4. That's genuinely usable for homelab projects. My Intel i9-9900K handles it even faster, though I haven't measured exactly how much faster because I was too busy fixing my broken certificate chain.
 
 ### ML-DSA (CRYSTALS-Dilithium) - The Signature Algorithm
 
 [ML-DSA (Module-Lattice-Based Digital Signature Algorithm)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf), formerly CRYSTALS-Dilithium, handles digital signatures, the cryptographic proof that a message actually came from who you think it did.
 
-The challenge here is signature size. ML-DSA-44 (the smallest variant, roughly equivalent to RSA-2048 security) produces signatures of **2,420 bytes** compared to RSA-2048's roughly 256 bytes. That's almost 10x larger. When you're signing X.509 certificates, this matters because certificate chains get transmitted during every TLS handshake.
+The challenge here is signature size. ML-DSA-44 (the smallest variant, roughly equivalent to RSA-2048 security) produces signatures of 2,420 bytes compared to RSA-2048's roughly 256 bytes. That's almost 10x larger. When you're signing X.509 certificates, this matters because certificate chains get transmitted during every TLS handshake.
 
-According to research from NIST's PQC Conference,[^nist-pqc-conference] when certificate chains exceed **16 KB**, TLS implementations trigger record fragmentation which adds an extra TCP round-trip due to congestion control. That 200ms delay I mentioned earlier? That was exactly this problem. My certificate chain with ML-DSA signatures hit 18KB and my monitoring dashboard immediately showed the latency spike.
+According to research from NIST's PQC Conference,[^nist-pqc-conference] when certificate chains exceed 16 KB, TLS implementations trigger record fragmentation which adds an extra TCP round-trip due to congestion control. That 200ms delay I mentioned earlier? That was exactly this problem. My certificate chain with ML-DSA signatures hit 18KB and my monitoring dashboard immediately showed the latency spike.
 
 ### Dilithium Variant Selection: Security vs Performance Trade-offs
 
-**Three security levels available:** ML-DSA comes in three variants with different security-performance characteristics. ML-DSA-44 (Dilithium2) provides NIST Security Level 2 (equivalent to AES-128), ML-DSA-65 (Dilithium3) provides Level 3 (AES-192), and ML-DSA-87 (Dilithium5) provides Level 5 (AES-256). Higher security levels increase signature and public key sizes: Dilithium2 signatures are 2,420 bytes, Dilithium3 are 3,309 bytes (+37%), Dilithium5 are 4,595 bytes (+90%). For most homelabs, Dilithium2 is sufficient—NIST Level 2 security exceeds classical RSA-2048. Use Dilithium3 for high-value assets (password managers, backup encryption) or Dilithium5 for long-term archival (20+ year confidentiality requirements).
+Three security levels available: ML-DSA comes in three variants with different security-performance characteristics. ML-DSA-44 (Dilithium2) provides NIST Security Level 2 (equivalent to AES-128), ML-DSA-65 (Dilithium3) provides Level 3 (AES-192), and ML-DSA-87 (Dilithium5) provides Level 5 (AES-256). Higher security levels increase signature and public key sizes: Dilithium2 signatures are 2,420 bytes, Dilithium3 are 3,309 bytes (+37%), Dilithium5 are 4,595 bytes (+90%). For most homelabs, Dilithium2 is sufficient—NIST Level 2 security exceeds classical RSA-2048. Use Dilithium3 for high-value assets (password managers, backup encryption) or Dilithium5 for long-term archival (20+ year confidentiality requirements).
 
-**Performance impact:** Signing speed decreases with higher security levels. On my i9-9900K: Dilithium2 signs at ~24K operations/second, Dilithium3 at ~16K ops/sec (-33%), Dilithium5 at ~8K ops/sec (-67%). Verification speeds follow similar patterns. For certificate signing (infrequent operation), performance differences are negligible. For high-throughput signing workloads (code signing servers, timestamp authorities), Dilithium2's speed advantage matters. Raspberry Pi 4 performance degrades more severely: Dilithium5 drops to ~600 signatures/second, making it impractical for IoT edge devices. My recommendation: Dilithium2 (Level 2) for 99% of use cases, Dilithium3 (Level 3) for government/compliance requirements (FedRAMP High), Dilithium5 (Level 5) only for nuclear/defense applications requiring maximum security.
+Performance impact: Signing speed decreases with higher security levels. On my i9-9900K: Dilithium2 signs at ~24K operations/second, Dilithium3 at ~16K ops/sec (-33%), Dilithium5 at ~8K ops/sec (-67%). Verification speeds follow similar patterns. For certificate signing (infrequent operation), performance differences are negligible. For high-throughput signing workloads (code signing servers, timestamp authorities), Dilithium2's speed advantage matters. Raspberry Pi 4 performance degrades more severely: Dilithium5 drops to ~600 signatures/second, making it impractical for IoT edge devices. My recommendation: Dilithium2 (Level 2) for 99% of use cases, Dilithium3 (Level 3) for government/compliance requirements (FedRAMP High), Dilithium5 (Level 5) only for nuclear/defense applications requiring maximum security.
 
 ### SLH-DSA (SPHINCS+) - The Backup Plan
 
@@ -117,31 +117,31 @@ After implementing ML-DSA on my homelab, I hit the 16KB certificate chain thresh
 
 | Metric | Falcon-512 | ML-DSA-44 (Dilithium2) | Winner | Context |
 |--------|-----------|----------------------|--------|---------|
-| **Signature Size** | ~666 bytes | ~2,420 bytes | **Falcon** (72% smaller) | Critical for certificate chains |
+| **Signature Size** | ~666 bytes | ~2,420 bytes | Falcon (72% smaller) | Critical for certificate chains |
 | **Public Key Size** | ~897 bytes | ~1,312 bytes | Falcon (32% smaller) | Minimal impact on most deployments |
-| **Signing Speed** | ~15,000 signs/sec | ~24,000 signs/sec | **ML-DSA** (60% faster) | Matters for high-throughput signing |
+| **Signing Speed** | ~15,000 signs/sec | ~24,000 signs/sec | ML-DSA (60% faster) | Matters for high-throughput signing |
 | **Verification Speed** | ~35,000 verifies/sec | ~28,000 verifies/sec | Falcon (25% faster) | Better for services that verify more than sign |
-| **Energy per Signature** | ~2.1 mJ | ~1.0 mJ | **ML-DSA** (52% lower) | Significant on battery-powered devices |
-| **FIPS Status** | Not standardized yet | **FIPS 204** (approved) | **ML-DSA** (compliance-ready) | Critical for regulated environments |
+| **Energy per Signature** | ~2.1 mJ | ~1.0 mJ | ML-DSA (52% lower) | Significant on battery-powered devices |
+| **FIPS Status** | Not standardized yet | FIPS 204 (approved) | ML-DSA (compliance-ready) | Critical for regulated environments |
 | **Security Level** | NIST Level 1 (AES-128) | NIST Level 2 (AES-192) | ML-DSA (higher security) | Falcon-1024 matches Level 5 if needed |
 
 *Benchmarks from [IACR ePrint: Post-Quantum Authentication in TLS 1.3](https://eprint.iacr.org/2020/071.pdf) and [MDPI Post-Quantum Cryptography Performance](https://www.mdpi.com/2410-387X/8/2/21), measured on x86_64 hardware.*
 
 #### Use Case Decision Matrix
 
-**Choose Falcon-512 when:**
-- **Certificate chains approach 16KB** (the fragmentation threshold I hit)
-- **Verification > signing workload** (e.g., Pi-hole, reverse proxies, IoT devices)
-- **Embedded devices with limited bandwidth** (LoRa, satellite links)
-- **Multi-certificate chains** (intermediate CAs push ML-DSA over threshold)
+Choose Falcon-512 when:
+- Certificate chains approach 16KB (the fragmentation threshold I hit)
+- Verification > signing workload (e.g., Pi-hole, reverse proxies, IoT devices)
+- Embedded devices with limited bandwidth (LoRa, satellite links)
+- Multi-certificate chains (intermediate CAs push ML-DSA over threshold)
 
-**Choose ML-DSA-44 when:**
-- **High-throughput signing required** (code signing servers, timestamp authorities)
-- **FIPS compliance mandatory** (government, healthcare, finance)
-- **Energy consumption critical** (battery-powered sensors, solar-powered devices)
-- **Default recommendation** (it's the NIST standard, tooling support is better)
+Choose ML-DSA-44 when:
+- High-throughput signing required (code signing servers, timestamp authorities)
+- FIPS compliance mandatory (government, healthcare, finance)
+- Energy consumption critical (battery-powered sensors, solar-powered devices)
+- Default recommendation (it's the NIST standard, tooling support is better)
 
-**My hybrid approach for 47 services:**
+My hybrid approach for 47 services:
 - ML-DSA-44: 39/47 services (83%) - Default for x86_64 servers, adequate performance
 - Falcon-512: 8/47 services (17%) - Raspberry Pi 4 endpoints only (Pi-hole, Wazuh agents, edge sensors)
 - SLH-DSA: 0/47 services (0%) - Too slow for my threat model, reserved for archival use
@@ -150,7 +150,7 @@ After implementing ML-DSA on my homelab, I hit the 16KB certificate chain thresh
 
 This is where Falcon saved my deployment. Here's the math that wasn't obvious until I measured it:
 
-**ML-DSA-44 certificate chain breakdown:**
+ML-DSA-44 certificate chain breakdown:
 ```
 Leaf certificate:         ~2,420 bytes (signature)
 Intermediate CA cert:     ~2,420 bytes (signature)
@@ -160,9 +160,9 @@ X.509 metadata/keys:      ~4,500 bytes (combined)
 Total chain size:         ~11,760 bytes (no OCSP, no timestamp)
 ```
 
-Add a second intermediate (corporate environments) → 14,180 bytes. Add OCSP response (~2KB) → 16,180 bytes. **Over 16KB threshold → TCP fragmentation → +200ms latency** ([NIST PQC Conference research](https://csrc.nist.gov/csrc/media/Events/2024/fifth-pqc-standardization-conference/documents/papers/the-impact-of-data-heavy-post-quantum.pdf)).
+Add a second intermediate (corporate environments) → 14,180 bytes. Add OCSP response (~2KB) → 16,180 bytes. Over 16KB threshold → TCP fragmentation → +200ms latency ([NIST PQC Conference research](https://csrc.nist.gov/csrc/media/Events/2024/fifth-pqc-standardization-conference/documents/papers/the-impact-of-data-heavy-post-quantum.pdf)).
 
-**Falcon-512 certificate chain breakdown:**
+Falcon-512 certificate chain breakdown:
 ```
 Leaf certificate:         ~666 bytes (signature)
 Intermediate CA cert:     ~666 bytes (signature)
@@ -178,12 +178,12 @@ Falcon keeps you under 8KB even with 3-CA chains plus OCSP. No fragmentation, no
 
 On my Pi 4 (4GB RAM, Cortex-A72 ARM cores at 1.5GHz):
 
-**ML-DSA-44 (Dilithium2):**
+ML-DSA-44 (Dilithium2):
 - Signing: ~2,100 signatures/second
 - Verification: ~3,200 verifications/second
 - Energy: 1.2 mJ per signature ([MDPI energy study](https://www.mdpi.com/2410-387X/9/2/32))
 
-**Falcon-512:**
+Falcon-512:
 - Signing: ~1,800 signatures/second
 - Verification: ~4,100 verifications/second
 - Energy: 2.5 mJ per signature (2.1x higher than ML-DSA)
@@ -194,19 +194,19 @@ For battery-powered IoT sensors sending data once per minute, ML-DSA's lower ene
 
 #### FIPS Standardization Status (Critical for Compliance)
 
-**ML-DSA status:**
+ML-DSA status:
 - ✅ FIPS 204 approved (August 2024)
 - ✅ NIST-standardized parameters
 - ✅ Federal compliance-ready
 - ✅ Widespread tooling support (OpenSSL 3.5+, Bouncy Castle, liboqs)
 
-**Falcon status:**
+Falcon status:
 - ⚠️ Not FIPS-standardized (as of November 2025)
 - ⚠️ NIST Round 3 finalist (submitted, not approved)
 - ⚠️ Limited compliance acceptance
 - ✅ Open Quantum Safe (OQS) library support
 
-**Implication:** If you work in regulated environments (healthcare HIPAA, financial PCI-DSS, government FedRAMP), ML-DSA is the **only** viable choice right now. Falcon's lack of FIPS approval blocks deployment in these sectors.
+Implication: If you work in regulated environments (healthcare HIPAA, financial PCI-DSS, government FedRAMP), ML-DSA is the only viable choice right now. Falcon's lack of FIPS approval blocks deployment in these sectors.
 
 For homelabs and non-regulated environments, Falcon's technical advantages (smaller signatures, faster verification) outweigh the compliance limitation.
 
@@ -214,31 +214,31 @@ For homelabs and non-regulated environments, Falcon's technical advantages (smal
 
 Years of security engineering taught me "default to standards, optimize for exceptions." Here's my decision tree:
 
-1. **Start with ML-DSA-44 everywhere** (it's the NIST standard)
-2. **Measure certificate chain sizes** (run `openssl s_client -connect host:443 -showcerts | wc -c`)
-3. **If chain >12KB**, switch to Falcon-512 for that specific service
-4. **If energy-constrained device**, stick with ML-DSA-44 (lower energy wins)
-5. **If FIPS compliance required**, ML-DSA-44 only (no alternatives allowed)
+1. Start with ML-DSA-44 everywhere (it's the NIST standard)
+2. Measure certificate chain sizes (run `openssl s_client -connect host:443 -showcerts | wc -c`)
+3. If chain >12KB, switch to Falcon-512 for that specific service
+4. If energy-constrained device, stick with ML-DSA-44 (lower energy wins)
+5. If FIPS compliance required, ML-DSA-44 only (no alternatives allowed)
 
-**My 8 Falcon deployments:**
+My 8 Falcon deployments:
 - 4× Raspberry Pi 4 edge endpoints (Pi-hole, Wazuh agents)
 - 2× IoT gateways with limited bandwidth (LoRaWAN forwarder)
 - 2× High-certificate-count services (multi-CA lab environment)
 
-**My 39 ML-DSA deployments:**
+My 39 ML-DSA deployments:
 - Everything else (default choice for x86_64 servers)
 
 #### The Hybrid Approach I Recommend
 
 Don't choose one algorithm for your entire infrastructure. Use both strategically:
 
-**ML-DSA-44 for:**
+ML-DSA-44 for:
 - Main web services (adequate performance, standard compliance)
 - High-throughput signing workloads (code signing, timestamping)
 - Battery-powered devices (lower energy consumption)
 - Anywhere FIPS compliance matters
 
-**Falcon-512 for:**
+Falcon-512 for:
 - Certificate-heavy deployments (multi-CA chains)
 - Verification-heavy workloads (DNS filters, reverse proxies)
 - Bandwidth-constrained links (satellite, cellular)
@@ -248,9 +248,9 @@ Clients advertise `signature_algorithms` and `signature_algorithms_cert` in Clie
 
 ## The Quantum Threat Timeline: When Should You Actually Worry?
 
-The [Global Risk Institute's 2024 expert survey](https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/) estimates a **19-34% probability** of CRQCs emerging within 10 years (by 2034), and **5-14% probability** within 5 years (by 2029). That's up from 17-31% and 4-11% respectively in their 2023 survey, the probability is increasing as quantum hardware improves. For context on why quantum computing represents such a fundamental shift, see my analysis of [quantum computing's leap forward](/posts/2024-08-02-quantum-computing-leap-forward).
+The [Global Risk Institute's 2024 expert survey](https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/) estimates a 19-34% probability of CRQCs emerging within 10 years (by 2034), and 5-14% probability within 5 years (by 2029). That's up from 17-31% and 4-11% respectively in their 2023 survey, the probability is increasing as quantum hardware improves. For context on why quantum computing represents such a fundamental shift, see my analysis of [quantum computing's leap forward](/posts/2024-08-02-quantum-computing-leap-forward).
 
-But here's where it gets interesting: [Craig Gidney from Google Quantum AI published a paper in May 2025](https://arxiv.org/abs/2505.15917) showing that breaking RSA-2048 now requires **less than a million noisy qubits**, down from his [2019 estimate of 20 million qubits](https://arxiv.org/abs/1905.09749). That's a **95% reduction** in hardware requirements. Companies like IBM are targeting [100,000-qubit systems by 2033](https://www.ibm.com/quantum/roadmap), which suddenly makes the 2033-2035 threat window look a lot more realistic than the conservative 2045 estimates.
+But here's where it gets interesting: [Craig Gidney from Google Quantum AI published a paper in May 2025](https://arxiv.org/abs/2505.15917) showing that breaking RSA-2048 now requires less than a million noisy qubits, down from his [2019 estimate of 20 million qubits](https://arxiv.org/abs/1905.09749). That's a 95% reduction in hardware requirements. Companies like IBM are targeting [100,000-qubit systems by 2033](https://www.ibm.com/quantum/roadmap), which suddenly makes the 2033-2035 threat window look a lot more realistic than the conservative 2045 estimates.
 
 The [RAND Corporation analysis from 2020](https://www.rand.org/pubs/research_reports/RR3102.html) noted that quantum computing threats have been "15 years away" since the 1980s, suggesting either the problem is harder than we think (good for security) or we're approaching a tipping point (concerning for security). Given the recent algorithmic improvements and billion-dollar investments from governments and tech companies, I'm leaning toward the "approaching tipping point" interpretation.
 
@@ -274,9 +274,9 @@ Protocol ossification strikes again. This is exactly why I broke my homelab on a
 
 [AWS enabled ML-KEM support in KMS, ACM, and Secrets Manager in May 2025](https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/), and their benchmarks are reassuring for homelab performance expectations.
 
-In the worst-case scenario (full TLS handshake on every request, no connection reuse), AWS measured a **2.3% decrease** in transactions per second: from 108.7 TPS with classical crypto to 106.2 TPS with hybrid ML-KEM. The bandwidth overhead was approximately **1,600 additional bytes** per handshake, with compute overhead of **80-150 microseconds**.
+In the worst-case scenario (full TLS handshake on every request, no connection reuse), AWS measured a 2.3% decrease in transactions per second: from 108.7 TPS with classical crypto to 106.2 TPS with hybrid ML-KEM. The bandwidth overhead was approximately 1,600 additional bytes per handshake, with compute overhead of 80-150 microseconds.
 
-But here's the critical part: with TLS connection reuse enabled (which is the default for most applications), the overhead dropped to **0.05%**, negligible. This matches Cloudflare's observation[^cloudflare-2019] that NTRU-HRSS performance was "hard to distinguish by eye from control connections" during their 2019 experiments.
+But here's the critical part: with TLS connection reuse enabled (which is the default for most applications), the overhead dropped to 0.05%, negligible. This matches Cloudflare's observation[^cloudflare-2019] that NTRU-HRSS performance was "hard to distinguish by eye from control connections" during their 2019 experiments.
 
 If AWS can run ML-KEM at scale with 0.05% overhead, my homelab with maybe 20 simultaneous TLS connections can definitely handle it.
 
@@ -284,7 +284,7 @@ If AWS can run ML-KEM at scale with 0.05% overhead, my homelab with maybe 20 sim
 
 [Signal deployed PQXDH (Post-Quantum Extended Diffie-Hellman) in September 2023](https://signal.org/blog/pqxdh/) and recently released [SPQR (Sparse Post-Quantum Ratchet) in October 2025](https://signal.org/blog/spqr/). [Apple launched iMessage PQ3 in March 2024](https://security.apple.com/blog/imessage-pq3), claiming "Level 3 security", the first protocol to protect not just the initial handshake but also ongoing message exchanges with post-quantum cryptography.
 
-Apple's rekeying mechanism is particularly clever: keys automatically rotate every **50 messages** or **7 days**, whichever comes first. This means even if an attacker compromises a session key somehow, the vulnerability window is limited to 50 messages maximum before the protocol self-heals with fresh quantum-resistant keys.
+Apple's rekeying mechanism is particularly clever: keys automatically rotate every 50 messages or 7 days, whichever comes first. This means even if an attacker compromises a session key somehow, the vulnerability window is limited to 50 messages maximum before the protocol self-heals with fresh quantum-resistant keys.
 
 For my homelab, this suggests that protecting the initial TLS handshake with ML-KEM is good, but setting up proper session resumption and periodic rekeying would be even better. Though honestly, I haven't figured out how to implement automatic rekeying for my reverse proxy yet, that's probably weekend #4.
 
@@ -299,7 +299,7 @@ My test environment:
 - **Raspberry Pi 4 Model B** (edge devices): 4GB RAM, running Pi-hole, Wazuh agent
 - **Dell PowerEdge R910** (homelab server): 256GB RAM, mostly running VMs and containers
 
-According to [Springer's study on Raspberry Pi post-quantum implementations](https://doi.org/10.1007/s42452-025-07201-z), **Dilithium2 emerges as the most balanced option for Raspberry Pi 4** deployments. [MDPI's benchmarking research](https://www.mdpi.com/2410-387X/8/2/21) confirms that ML-KEM-768 performs encapsulation/decapsulation in roughly **0.05 milliseconds** on Pi 4 hardware.
+According to [Springer's study on Raspberry Pi post-quantum implementations](https://doi.org/10.1007/s42452-025-07201-z), Dilithium2 emerges as the most balanced option for Raspberry Pi 4 deployments. [MDPI's benchmarking research](https://www.mdpi.com/2410-387X/8/2/21) confirms that ML-KEM-768 performs encapsulation/decapsulation in roughly 0.05 milliseconds on Pi 4 hardware.
 
 My Raspberry Pi 4 running Wazuh absolutely had no problems handling ML-KEM in my testing. The bottleneck was never CPU, it was always my misconfigured TLS settings or oversized certificate chains.
 
@@ -309,7 +309,7 @@ The i9-9900K is obviously overkill and handles PQC without breaking a sweat. If 
 
 I went through two paths: the hard way (building everything from source) and the easy way (using Caddy 2.10).
 
-**The Hard Way (OpenSSL 3.5 + oqs-provider):**
+#### The Hard Way (OpenSSL 3.5 + oqs-provider)
 
 ⚠️ **Warning:** This configuration demonstrates post-quantum cryptography implementation for educational purposes. Only deploy in controlled environments with proper testing and backup procedures.
 
@@ -339,9 +339,9 @@ sudo make install
 
 [OpenSSL 3.5.0 (released April 2025)](https://openssl-foundation.org/post/2025-04-22-pqc/) has native support for ML-KEM, ML-DSA, and SLH-DSA, which is fantastic. You can also use the [Open Quantum Safe oqs-provider](https://github.com/open-quantum-safe/oqs-provider) for extended algorithm support beyond the NIST standards.
 
-**The Easy Way (Caddy 2.10):**
+#### The Easy Way (Caddy 2.10)
 
-[Caddy 2.10 (released April 2025)](https://linuxiac.com/caddy-2-10-web-server-debuts-enhanced-tls-privacy/) enables X25519MLKEM768 hybrid key exchange **by default**. Literally zero configuration required. You install Caddy, point it at your backend service, and it just works.
+[Caddy 2.10 (released April 2025)](https://linuxiac.com/caddy-2-10-web-server-debuts-enhanced-tls-privacy/) enables X25519MLKEM768 hybrid key exchange by default. Literally zero configuration required. You install Caddy, point it at your backend service, and it just works.
 
 ```bash
 # Caddyfile - yes, this is the entire configuration
@@ -353,7 +353,7 @@ example.com {
 
 After fighting with Nginx for two weekends, I switched to Caddy and had working PQC in 10 minutes. Sometimes the easy path is the right path.
 
-**The Middle Way (Nginx with OpenSSL 3.5):**
+#### The Middle Way (Nginx with OpenSSL 3.5)
 
 If you're married to Nginx like I initially was, here's what finally worked:
 
@@ -382,7 +382,7 @@ http {
 }
 ```
 
-The critical part is listing **X25519MLKEM768** first (your PQC preference) but keeping classical algorithms like **x25519** and **secp384r1** as fallbacks. This is hybrid mode, clients that don't support ML-KEM gracefully fall back to X25519.
+The critical part is listing X25519MLKEM768 first (your PQC preference) but keeping classical algorithms like x25519 and secp384r1 as fallbacks. This is hybrid mode, clients that don't support ML-KEM gracefully fall back to X25519.
 
 ### Testing Your Deployment
 
@@ -403,17 +403,17 @@ If you see "X25519MLKEM768" in the OpenSSL output, congratulations, you're runni
 
 I set up monitoring on my Proxmox host to track TLS handshake performance before and after enabling ML-KEM.
 
-**Baseline (X25519 only):**
+Baseline (X25519 only):
 - Handshake time: ~18ms average
 - Certificate chain size: 4.2KB
 - CPU usage during handshake: negligible
 
-**After ML-KEM (hybrid X25519+ML-KEM-768):**
+After ML-KEM (hybrid X25519+ML-KEM-768):
 - Handshake time: ~19ms average (5.5% increase)
 - Certificate chain size: 5.8KB (still under 16KB threshold)
 - CPU usage: still negligible on i9-9900K
 
-My **1ms overhead** sits an order of magnitude above [AWS's measured](https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/) 80-150 microseconds of additional compute — most of my delta is scheduling noise on a busy Proxmox host, not ML-KEM. With TLS session resumption enabled (which it is by default), the overhead effectively disappears because the expensive handshake only happens once per hour instead of on every request.
+My 1ms overhead sits an order of magnitude above [AWS's measured](https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/) 80-150 microseconds of additional compute — most of my delta is scheduling noise on a busy Proxmox host, not ML-KEM. With TLS session resumption enabled (which it is by default), the overhead effectively disappears because the expensive handshake only happens once per hour instead of on every request.
 
 On my Raspberry Pi 4 running Pi-hole with HTTPS enabled, I saw similar results, maybe 2-3ms handshake overhead, completely unnoticeable in actual browsing.
 
@@ -439,52 +439,52 @@ The following diagram shows how a hybrid TLS handshake works, combining classica
   <li class="seq-note">Hybrid mode uses PQC when possible with graceful fallback to classical.</li>
 </ol>
 
-**Hybrid mode** (what everyone actually uses in production):
+Hybrid mode (what everyone actually uses in production):
 - Combines classical X25519 with ML-KEM-768
 - Compatibility: Falls back to classical if client doesn't support PQC
 - Performance: Minimal overhead (0.3-0.4ms according to [MDPI research](https://www.mdpi.com/2410-387X/9/2/32))
 
 #### Hybrid Crypto Security Model (MAJOR Clarification)
 
-**The oversimplification:** "You're protected as long as *either* algorithm remains unbroken" ← This statement requires critical context about WHICH attacks it applies to.
+The oversimplification: "You're protected as long as *either* algorithm remains unbroken" ← This statement requires critical context about WHICH attacks it applies to.
 
-**The reality:** Hybrid cryptography security depends on your threat model. Different attack scenarios have different protection guarantees.
+The reality: Hybrid cryptography security depends on your threat model. Different attack scenarios have different protection guarantees.
 
-**Security Against Quantum Attacks:**
+Security Against Quantum Attacks:
 - **Threat:** Quantum computer breaks X25519 classical key exchange
 - **Protection:** ML-KEM-768 must remain secure
 - **Outcome:** If ML-KEM is broken by quantum attack → VULNERABLE (despite X25519 working)
 - **Conclusion:** ML-KEM is the ONLY defense against quantum threats
 
-**Security Against Classical Attacks:**
+Security Against Classical Attacks:
 - **Threat:** Classical computer breaks ML-KEM-768 (hypothetical cryptanalysis)
 - **Protection:** X25519 must remain secure
 - **Outcome:** If X25519 is broken classically → VULNERABLE (despite ML-KEM working)
 - **Conclusion:** X25519 is the ONLY defense against classical threats
 
-**Security Against Combined Attacks:**
+Security Against Combined Attacks:
 - **Threat:** Attacker breaks BOTH X25519 AND ML-KEM simultaneously
 - **Protection:** BOTH algorithms must fail for complete compromise
 - **Outcome:** Hybrid provides defense-in-depth, not "either algorithm" protection
 - **Conclusion:** Attacker needs TWO breakthroughs, not just one
 
-**When "Either Algorithm" Claim is Correct:**
+##### When "Either Algorithm" Claim is Correct
 
 The "protected as long as either remains unbroken" statement ONLY applies when:
 1. Attacker attacks ONLY classical crypto (X25519 protects) OR
 2. Attacker attacks ONLY PQC (ML-KEM protects) OR
 3. Attacker attacks BOTH but only ONE succeeds (remaining algorithm protects)
 
-**When "Either Algorithm" Claim is WRONG:**
+##### When "Either Algorithm" Claim is WRONG
 
 The claim FAILS when:
 - Quantum computer + ML-KEM cryptanalysis breakthrough occurs simultaneously → VULNERABLE
 - Both algorithms broken via side-channel attacks → VULNERABLE
 - Implementation bugs compromise both key exchanges → VULNERABLE
 
-**Threat Model Breakdown:**
+##### Threat Model Breakdown
 
-| **Threat Scenario** | **X25519 Status** | **ML-KEM Status** | **Hybrid Security** | **Protected?** |
+| Threat Scenario | X25519 Status | ML-KEM Status | Hybrid Security | Protected? |
 |---------------------|-------------------|-------------------|---------------------|----------------|
 | Quantum attack (2035) | Broken | Secure | ML-KEM protects | ✅ YES |
 | ML-KEM cryptanalysis (classical) | Secure | Broken | X25519 protects | ✅ YES |
@@ -492,25 +492,25 @@ The claim FAILS when:
 | Side-channel attack (both) | Compromised | Compromised | No protection | ❌ NO |
 | Implementation bug (both) | Broken | Broken | No protection | ❌ NO |
 
-**Practical Example: Store Now, Decrypt Later (SNDL)**
+##### Practical Example: Store Now, Decrypt Later (SNDL)
 
-**Scenario:** Adversary records your TLS traffic today (2025), waits for quantum computer (2035).
+Scenario: Adversary records your TLS traffic today (2025), waits for quantum computer (2035).
 
-**Hybrid Protection Analysis:**
+Hybrid Protection Analysis:
 1. **Attacker records encrypted traffic** (today)
 2. **Quantum computer breaks X25519** (2035)
 3. **Can attacker decrypt?** NO, because ML-KEM-768 remains quantum-resistant
 4. **Outcome:** Hybrid protects against SNDL attacks IF ML-KEM remains unbroken
 
-**Counter-scenario:** What if ML-KEM has undiscovered classical weakness discovered in 2030?
+Counter-scenario: What if ML-KEM has undiscovered classical weakness discovered in 2030?
 1. **Attacker discovers ML-KEM cryptanalysis** (2030)
 2. **Attacker also has quantum computer** (2035)
 3. **Can attacker decrypt?** YES, because BOTH algorithms are now broken
 4. **Outcome:** Hybrid fails if BOTH algorithms broken by 2035
 
-**Correct Statement:** "Hybrid protects against quantum attacks IF ML-KEM remains secure, and protects against classical attacks IF X25519 remains secure. Protection requires at least ONE algorithm to remain unbroken against the specific attack being attempted."
+Correct Statement: "Hybrid protects against quantum attacks IF ML-KEM remains secure, and protects against classical attacks IF X25519 remains secure. Protection requires at least ONE algorithm to remain unbroken against the specific attack being attempted."
 
-**Implementation Validation:**
+##### Implementation Validation
 
 ```bash
 # Verify hybrid key exchange negotiation
@@ -523,7 +523,7 @@ openssl s_client -connect example.com:443 -groups X25519MLKEM768 -tls1_3 2>&1 | 
 # This confirms BOTH classical and PQC key material is exchanged
 ```
 
-**Test failure scenarios:**
+Test failure scenarios:
 
 ```bash
 # Test fallback to classical (simulate ML-KEM not supported)
@@ -535,21 +535,21 @@ openssl s_client -connect pqc-only.example.com:443 -groups x25519 -tls1_3
 # Should fail with: "alert handshake failure" (if pure PQC enforced)
 ```
 
-**Security Trade-Off Analysis:**
+##### Security Trade-Off Analysis
 
-**Hybrid Advantages:**
+Hybrid Advantages:
 - ✅ Defense-in-depth (two independent algorithms)
 - ✅ Compatibility with classical-only clients
 - ✅ Gradual migration path
 - ✅ Protection against single-algorithm failure
 
-**Hybrid Disadvantages:**
+Hybrid Disadvantages:
 - ❌ NOT protected if BOTH algorithms fail
 - ❌ Larger handshake overhead (~1.6KB additional data)
 - ❌ Slightly slower handshake (~0.3-0.4ms overhead)
 - ❌ False sense of security if threat model unclear
 
-**Threat Model Checklist:**
+##### Threat Model Checklist
 
 Before deploying hybrid crypto, answer these questions:
 - [ ] Am I protecting against quantum threats? (Requires ML-KEM security)
@@ -559,15 +559,15 @@ Before deploying hybrid crypto, answer these questions:
 - [ ] Do I trust ML-KEM implementation? (Lattice math is complex)
 - [ ] Can my clients support fallback? (Compatibility requirements)
 
-**Senior engineer perspective:** Years of cryptography implementation taught me that "either algorithm" statements hide critical assumptions. Hybrid crypto isn't magic insurance—it's defense-in-depth against SPECIFIC threat models. I've seen teams deploy hybrid thinking they're "covered if either breaks" without understanding that quantum attacks ONLY care about ML-KEM security, and classical attacks ONLY care about X25519 security. The "either" claim is technically correct but dangerously incomplete without threat model context. Always ask: protected against WHICH attack scenario? The answer determines which algorithm actually matters.
+Senior engineer perspective: Years of cryptography implementation taught me that "either algorithm" statements hide critical assumptions. Hybrid crypto isn't magic insurance—it's defense-in-depth against SPECIFIC threat models. I've seen teams deploy hybrid thinking they're "covered if either breaks" without understanding that quantum attacks ONLY care about ML-KEM security, and classical attacks ONLY care about X25519 security. The "either" claim is technically correct but dangerously incomplete without threat model context. Always ask: protected against WHICH attack scenario? The answer determines which algorithm actually matters.
 
-**Pure PQC mode** (what I accidentally tried first):
+Pure PQC mode (what I accidentally tried first):
 - ML-KEM-768 only, no classical fallback
 - Security: Maximum future-proofing, but if ML-KEM gets broken before quantum computers arrive, you're vulnerable to classical attacks
 - Compatibility: Breaks connections with any client that doesn't support the specific PQC algorithm
 - Performance: Slightly faster than hybrid (no double key exchange)
 
-**Decision matrix:**
+Decision matrix:
 - **Use Hybrid When:** You need real-world compatibility (99% of use cases)
 - **Use Pure PQC When:** All your clients are controlled and support PQC, and you want to test future-only scenarios
 - **Never Use Pure Classical:** That's the whole point of this migration
@@ -582,23 +582,23 @@ What that costs depends entirely on your RTT, which is why it is easy to oversta
 
 And the fix isn't switching signature algorithms. Raising `initcwnd` to 20 eliminates it — Cloudflare runs 30.
 
-**Classical RSA-2048 certificate chain:**
+Classical RSA-2048 certificate chain:
 - Leaf cert: ~1,200 bytes (with RSA-2048 signature)
 - Intermediate cert: ~1,500 bytes
 - Total: ~2,700 bytes
 
-**ML-DSA-44 certificate chain:**
+ML-DSA-44 certificate chain:
 - Leaf cert: ~3,600 bytes (with ML-DSA-44 signature)
 - Intermediate cert: ~4,800 bytes
 - Total: ~8,400 bytes
 
 If you add a second intermediate CA (like many corporate environments do), you're suddenly at 12-13KB. Add a timestamp or OCSP response and you've crossed the 16KB threshold. That's when the mysterious 200ms delay appears.
 
-**My solution:** I switched to Falcon-512 for signatures instead of ML-DSA on my Raspberry Pi 4 endpoints. Falcon signatures are only ~666 bytes compared to ML-DSA-44's 2,420 bytes, keeping my certificate chains comfortably under 8KB. The trade-off is that [Falcon signing uses 2x the energy of Dilithium](https://www.mdpi.com/2410-387X/9/2/32), but on a device that mostly verifies signatures (like my Pi-hole), that's acceptable.
+My solution: I switched to Falcon-512 for signatures instead of ML-DSA on my Raspberry Pi 4 endpoints. Falcon signatures are only ~666 bytes compared to ML-DSA-44's 2,420 bytes, keeping my certificate chains comfortably under 8KB. The trade-off is that [Falcon signing uses 2x the energy of Dilithium](https://www.mdpi.com/2410-387X/9/2/32), but on a device that mostly verifies signatures (like my Pi-hole), that's acceptable.
 
 ### ARM Performance Considerations: The Raspberry Pi Experience
 
-[Research from Brazilian Symposium on Information Security](https://sol.sbc.org.br/index.php/sbseg/article/view/21681) shows that ARM NEON instructions provide **1.16-1.38x speed-ups** for Kyber operations on Raspberry Pi 4. But there's a catch: you need to enable NEON optimizations explicitly when building liboqs.
+[Research from Brazilian Symposium on Information Security](https://sol.sbc.org.br/index.php/sbseg/article/view/21681) shows that ARM NEON instructions provide 1.16-1.38x speed-ups for Kyber operations on Raspberry Pi 4. But there's a catch: you need to enable NEON optimizations explicitly when building liboqs.
 
 ```bash
 cmake -DCMAKE_BUILD_TYPE=Release \
@@ -615,13 +615,13 @@ The Raspberry Pi Zero W, however, is a different story. Its ARM11 processor from
 
 I'm running production PQC on infrastructure that hosts my password manager (Bitwarden), my file storage (TrueNAS), and my home automation (Home Assistant). Here are the risks I'm consciously accepting:
 
-**Algorithm vulnerability:** ML-KEM is relatively new compared to RSA's 40+ years of cryptanalysis. If someone discovers a classical attack against lattice problems, I'm protected by hybrid mode (classical algorithms still work). But if there's an implementation bug in liboqs or SymCrypt, I might not notice until it's too late.
+Algorithm vulnerability: ML-KEM is relatively new compared to RSA's 40+ years of cryptanalysis. If someone discovers a classical attack against lattice problems, I'm protected by hybrid mode (classical algorithms still work). But if there's an implementation bug in liboqs or SymCrypt, I might not notice until it's too late.
 
-**Migration churn:** NIST selected Kyber in Round 3, then renamed it to ML-KEM and made minor modifications for FIPS 203. [AWS is deprecating CRYSTALS-Kyber support in 2026](https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/) to push everyone toward the standardized ML-KEM. If NIST makes changes in future rounds or discovers issues with current standards, I'll need to migrate again.
+Migration churn: NIST selected Kyber in Round 3, then renamed it to ML-KEM and made minor modifications for FIPS 203. [AWS is deprecating CRYSTALS-Kyber support in 2026](https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/) to push everyone toward the standardized ML-KEM. If NIST makes changes in future rounds or discovers issues with current standards, I'll need to migrate again.
 
-**Compatibility regressions:** Every OS update or browser release could potentially break PQC support. Chrome 124 worked great with my Nginx setup, then Chrome 131 switched to ML-KEM and I had to update my ciphersuites. Caddy 2.10 handles this automatically, but if you're managing OpenSSL configurations manually, prepare for maintenance.
+Compatibility regressions: Every OS update or browser release could potentially break PQC support. Chrome 124 worked great with my Nginx setup, then Chrome 131 switched to ML-KEM and I had to update my ciphersuites. Caddy 2.10 handles this automatically, but if you're managing OpenSSL configurations manually, prepare for maintenance.
 
-**Increased attack surface:** I'm running experimental cryptographic code (liboqs) in a privileged position (TLS termination). If there's a memory safety bug in the PQC implementations, that's a potential remote code execution vulnerability. The [Trail of Bits review](https://github.com/trailofbits/publications/blob/master/reviews/2025-04-quantum-open-safe-liboqs-securityreview.pdf) found no high or medium findings, but read its scope before taking comfort: it explicitly excluded the algorithm implementations ("we did not aim to review the implementation of each algorithm, as these implementations originate from third parties"), which is exactly where a memory-safety bug would live. It audited the wrapper, not the maths.
+Increased attack surface: I'm running experimental cryptographic code (liboqs) in a privileged position (TLS termination). If there's a memory safety bug in the PQC implementations, that's a potential remote code execution vulnerability. The [Trail of Bits review](https://github.com/trailofbits/publications/blob/master/reviews/2025-04-quantum-open-safe-liboqs-securityreview.pdf) found no high or medium findings, but read its scope before taking comfort: it explicitly excluded the algorithm implementations ("we did not aim to review the implementation of each algorithm, as these implementations originate from third parties"), which is exactly where a memory-safety bug would live. It audited the wrapper, not the maths.
 
 My personal risk tolerance says these trade-offs are acceptable for homelab experimentation and learning. If I were running a business or handling other people's data, I'd probably wait another 1-2 years for the ecosystem to mature.
 
@@ -755,19 +755,19 @@ The [Cloudflare PQC test site](https://pq.cloudflareresearch.com/) is useful for
 
 After three weekends and probably 30+ hours of work, here are my key lessons:
 
-**1. Hybrid mode is non-negotiable.** Pure PQC breaks too many clients and provides no real security advantage (since we're already combining algorithms). Always configure fallback options.
+1. Hybrid mode is non-negotiable. Pure PQC breaks too many clients and provides no real security advantage (since we're already combining algorithms). Always configure fallback options.
 
-**2. Certificate size matters more than I expected.** That 16KB threshold is real. Keep your certificate chains under 12KB to be safe. Use Falcon instead of Dilithium if you need smaller signatures.
+2. Certificate size matters more than I expected. That 16KB threshold is real. Keep your certificate chains under 12KB to be safe. Use Falcon instead of Dilithium if you need smaller signatures.
 
-**3. Start with Caddy, graduate to Nginx later.** I wasted an entire weekend fighting Nginx because I assumed my experience with classical TLS would transfer. It doesn't. Caddy abstracts away the complexity and gives you working PQC in minutes.
+3. Start with Caddy, graduate to Nginx later. I wasted an entire weekend fighting Nginx because I assumed my experience with classical TLS would transfer. It doesn't. Caddy abstracts away the complexity and gives you working PQC in minutes.
 
-**4. Your Raspberry Pi is more capable than you think.** The 0.05ms overhead on Pi 4 is completely negligible. Don't use hardware limitations as an excuse to delay PQC adoption.
+4. Your Raspberry Pi is more capable than you think. The 0.05ms overhead on Pi 4 is completely negligible. Don't use hardware limitations as an excuse to delay PQC adoption.
 
-**5. Browser compatibility is better than expected.** Chrome 124+, Edge 124+, and Firefox 128+ all support X25519Kyber768 or ML-KEM. Safari support is coming (iOS 17.4+ already has PQC for iMessage). The only clients that failed were my Roku TV and an old Android tablet running Android 10.
+5. Browser compatibility is better than expected. Chrome 124+, Edge 124+, and Firefox 128+ all support X25519Kyber768 or ML-KEM. Safari support is coming (iOS 17.4+ already has PQC for iMessage). The only clients that failed were my Roku TV and an old Android tablet running Android 10.
 
-**6. Performance is genuinely not the bottleneck.** I spent so much time worrying about CPU overhead and it turned out to be irrelevant. The real problems were configuration mistakes and protocol compatibility.
+6. Performance is genuinely not the bottleneck. I spent so much time worrying about CPU overhead and it turned out to be irrelevant. The real problems were configuration mistakes and protocol compatibility.
 
-**7. The Store Now, Decrypt Later threat is real enough to act on.** I procrastinated on PQC for months because "quantum computers don't exist yet." But when I actually calculated how long my backups need to remain confidential (10+ years) and how long migration would take (already spent 3 weekends, probably need 3 more), the math says I'm already behind schedule.
+7. The Store Now, Decrypt Later threat is real enough to act on. I procrastinated on PQC for months because "quantum computers don't exist yet." But when I actually calculated how long my backups need to remain confidential (10+ years) and how long migration would take (already spent 3 weekends, probably need 3 more), the math says I'm already behind schedule.
 
 ## After Three Weekends of Breaking Things, Here's What Actually Matters
 
@@ -775,11 +775,11 @@ If you're running a homelab in 2025, you should start experimenting with post-qu
 
 The three things that matter most:
 
-**1. Use hybrid mode everywhere.** X25519+ML-KEM-768 gives you both classical and quantum protection. It's supported by Chrome, Edge, Firefox, Caddy, Nginx, and OpenSSL 3.5. There's no good reason to avoid it.
+1. Use hybrid mode everywhere. X25519+ML-KEM-768 gives you both classical and quantum protection. It's supported by Chrome, Edge, Firefox, Caddy, Nginx, and OpenSSL 3.5. There's no good reason to avoid it.
 
-**2. Test with Caddy 2.10 first.** Spend 30 minutes getting it working, learn what PQC feels like in practice, then migrate to your preferred web server if needed. The learning curve is drastically shorter.
+2. Test with Caddy 2.10 first. Spend 30 minutes getting it working, learn what PQC feels like in practice, then migrate to your preferred web server if needed. The learning curve is drastically shorter.
 
-**3. Don't wait for perfect standards.** NIST finalized ML-KEM in August 2024. [AWS deployed it in May 2025](https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/). [Google deployed it to billions of users in Chrome 124/131](https://www.chromium.org/cecpq2/). The ecosystem has moved past the experimental phase. It's production-ready enough for homelabs.
+3. Don't wait for perfect standards. NIST finalized ML-KEM in August 2024. [AWS deployed it in May 2025](https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/). [Google deployed it to billions of users in Chrome 124/131](https://www.chromium.org/cecpq2/). The ecosystem has moved past the experimental phase. It's production-ready enough for homelabs.
 
 My homelab now handles TLS with hybrid X25519+ML-KEM-768 for key exchange, classical RSA-2048 certificates (for now), and a documented migration plan for when ML-DSA certificates become widely available in 2026-2027. It took three weekends, multiple debugging sessions, and one embarrassing moment where I locked myself out of my own Bitwarden instance because the Caddy config had a typo.
 
@@ -795,92 +795,92 @@ The quantum future is coming. Your homelab can be ready for it.
 
 ## Sources
 
-1. **[NIST FIPS 203: ML-KEM (Module-Lattice-Based Key-Encapsulation Mechanism)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.pdf)** (August 2024)
+1. [NIST FIPS 203: ML-KEM (Module-Lattice-Based Key-Encapsulation Mechanism)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.pdf) (August 2024)
    - NIST's finalized standard for post-quantum key encapsulation
 
-2. **[NIST FIPS 204: ML-DSA (Module-Lattice-Based Digital Signature Algorithm)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf)** (August 2024)
+2. [NIST FIPS 204: ML-DSA (Module-Lattice-Based Digital Signature Algorithm)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf) (August 2024)
    - NIST's finalized standard for post-quantum digital signatures
 
-3. **[NIST FIPS 205: SLH-DSA (Stateless Hash-Based Digital Signature Algorithm)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf)** (August 2024)
+3. [NIST FIPS 205: SLH-DSA (Stateless Hash-Based Digital Signature Algorithm)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf) (August 2024)
    - NIST's finalized hash-based signature standard
 
-4. **[Global Risk Institute: Quantum Threat Timeline Report 2024](https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/)** (December 2024)
+4. [Global Risk Institute: Quantum Threat Timeline Report 2024](https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/) (December 2024)
    - Expert survey on cryptographically-relevant quantum computer (CRQC) timeline
 
-5. **[RAND Corporation: Securing Communications in the Quantum Computing Age](https://www.rand.org/pubs/research_reports/RR3102.html)** (April 2020)
+5. [RAND Corporation: Securing Communications in the Quantum Computing Age](https://www.rand.org/pubs/research_reports/RR3102.html) (April 2020)
    - Analysis of quantum threat timelines and migration strategies
 
-6. **[Craig Gidney (Google Quantum AI): RSA Factorization with Less Than a Million Qubits](https://arxiv.org/abs/2505.15917)** (May 2025)
+6. [Craig Gidney (Google Quantum AI): RSA Factorization with Less Than a Million Qubits](https://arxiv.org/abs/2505.15917) (May 2025)
    - 95% reduction in qubit requirements for breaking RSA-2048
 
-7. **[Craig Gidney & Martin Ekerå: RSA Factorization with 20 Million Qubits](https://arxiv.org/abs/1905.09749)** (May 2019)
+7. [Craig Gidney & Martin Ekerå: RSA Factorization with 20 Million Qubits](https://arxiv.org/abs/1905.09749) (May 2019)
    - Original estimate for quantum computing attack feasibility
 
-8. **[White House NSM-10: Migrating to Post-Quantum Cryptography](https://www.whitehouse.gov/wp-content/uploads/2022/11/M-23-02-M-Memo-on-Migrating-to-Post-Quantum-Cryptography.pdf)** (May 2022)
+8. [White House NSM-10: Migrating to Post-Quantum Cryptography](https://www.whitehouse.gov/wp-content/uploads/2022/11/M-23-02-M-Memo-on-Migrating-to-Post-Quantum-Cryptography.pdf) (May 2022)
    - Federal government policy mandating PQC migration by 2035
 
-9. **[MDPI: Constrained Device Performance Benchmarking with PQC](https://www.mdpi.com/2410-387X/8/2/21)** (May 2024)
+9. [MDPI: Constrained Device Performance Benchmarking with PQC](https://www.mdpi.com/2410-387X/8/2/21) (May 2024)
    - Raspberry Pi 4 benchmarks showing 0.05ms performance for ML-KEM-768
 
-10. **[MDPI: Practical Performance Benchmark Across Heterogeneous Environments](https://www.mdpi.com/2410-387X/9/2/32)** (May 2025)
+10. [MDPI: Practical Performance Benchmark Across Heterogeneous Environments](https://www.mdpi.com/2410-387X/9/2/32) (May 2025)
     - TLS handshake overhead analysis showing 0.3-0.4ms additional latency
 
-11. **[AWS Security Blog: ML-KEM Post-Quantum TLS Support](https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/)** (May 2025)
+11. [AWS Security Blog: ML-KEM Post-Quantum TLS Support](https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/) (May 2025)
     - Production deployment metrics showing 0.05% performance impact
 
-12. **[arXiv: Performance Analysis for Consumer Electronics](https://arxiv.org/html/2505.02239v1)** (June 2025)
+12. [arXiv: Performance Analysis for Consumer Electronics](https://arxiv.org/html/2505.02239v1) (June 2025)
     - Raspberry Pi 4 performance analysis (45-50x slower than Apple M4)
 
-13. **[Springer: Efficient Implementation of Post-Quantum Digital Signatures on Raspberry Pi](https://doi.org/10.1007/s42452-025-07201-z)** (2025)
+13. [Springer: Efficient Implementation of Post-Quantum Digital Signatures on Raspberry Pi](https://doi.org/10.1007/s42452-025-07201-z) (2025)
     - Dilithium2 identified as optimal choice for Raspberry Pi 4
 
-14. **[OpenSSL Foundation: Post-Quantum Algorithms in OpenSSL 3.5](https://openssl-foundation.org/post/2025-04-22-pqc/)** (April 2025)
+14. [OpenSSL Foundation: Post-Quantum Algorithms in OpenSSL 3.5](https://openssl-foundation.org/post/2025-04-22-pqc/) (April 2025)
     - OpenSSL 3.5.0 release with native ML-KEM support
 
-15. **[Open Quantum Safe: liboqs Library](https://github.com/open-quantum-safe/liboqs)** (Ongoing)
+15. [Open Quantum Safe: liboqs Library](https://github.com/open-quantum-safe/liboqs) (Ongoing)
     - Core C library for PQC algorithm implementations
 
-16. **[Open Quantum Safe: oqs-provider for OpenSSL 3](https://github.com/open-quantum-safe/oqs-provider)** (Ongoing)
+16. [Open Quantum Safe: oqs-provider for OpenSSL 3](https://github.com/open-quantum-safe/oqs-provider) (Ongoing)
     - OpenSSL 3 provider enabling post-quantum algorithms
 
-17. **[Google Chrome: CECPQ2 Project (ML-KEM Deployment)](https://www.chromium.org/cecpq2/)** (April 2024)
+17. [Google Chrome: CECPQ2 Project (ML-KEM Deployment)](https://www.chromium.org/cecpq2/) (April 2024)
     - Chrome 124 deployment to billions of users
 
-18. **[The Hacker News: Chrome Switches to ML-KEM](https://thehackernews.com/2024/09/google-chrome-switches-to-ml-kem-for.html)** (November 2024)
+18. [The Hacker News: Chrome Switches to ML-KEM](https://thehackernews.com/2024/09/google-chrome-switches-to-ml-kem-for.html) (November 2024)
     - Chrome 131 migration from experimental Kyber to standardized ML-KEM
 
-19. **[Cloudflare Blog: The TLS Post-Quantum Experiment](https://blog.cloudflare.com/the-tls-post-quantum-experiment/)** (October 2019)
+19. [Cloudflare Blog: The TLS Post-Quantum Experiment](https://blog.cloudflare.com/the-tls-post-quantum-experiment/) (October 2019)
     - NTRU-HRSS vs SIKE performance comparison
 
-20. **[Cloudflare Blog: State of the Post-Quantum Internet 2024](https://blog.cloudflare.com/pq-2024/)** (August 2024)
+20. [Cloudflare Blog: State of the Post-Quantum Internet 2024](https://blog.cloudflare.com/pq-2024/) (August 2024)
     - 16% of global HTTPS traffic using post-quantum cryptography
 
-21. **[Signal: Quantum Resistance and the Signal Protocol (PQXDH)](https://signal.org/blog/pqxdh/)** (September 2023)
+21. [Signal: Quantum Resistance and the Signal Protocol (PQXDH)](https://signal.org/blog/pqxdh/) (September 2023)
     - Post-Quantum Extended Diffie-Hellman protocol deployment
 
-22. **[Signal: Triple Ratchet (SPQR)](https://signal.org/blog/spqr/)** (October 2025)
+22. [Signal: Triple Ratchet (SPQR)](https://signal.org/blog/spqr/) (October 2025)
     - Sparse Post-Quantum Ratchet for ongoing message protection
 
-23. **[Apple Security Research: iMessage with PQ3](https://security.apple.com/blog/imessage-pq3)** (February 2024)
+23. [Apple Security Research: iMessage with PQ3](https://security.apple.com/blog/imessage-pq3) (February 2024)
     - Level 3 security with automatic rekeying every 50 messages
 
-24. **[Linux Iac: Caddy 2.10 Web Server Debuts](https://linuxiac.com/caddy-2-10-web-server-debuts-enhanced-tls-privacy/)** (April 2025)
+24. [Linux Iac: Caddy 2.10 Web Server Debuts](https://linuxiac.com/caddy-2-10-web-server-debuts-enhanced-tls-privacy/) (April 2025)
     - Caddy 2.10 with default X25519MLKEM768 support
 
-25. **[Linode Documentation: Post-Quantum Encryption with NGINX](https://www.linode.com/docs/guides/post-quantum-encryption-nginx-ubuntu2404/)** (2025)
+25. [Linode Documentation: Post-Quantum Encryption with NGINX](https://www.linode.com/docs/guides/post-quantum-encryption-nginx-ubuntu2404/) (2025)
     - Practical guide to configuring Nginx with ML-KEM
 
-26. **[NIST PQC Conference: Impact of Data-Heavy Post-Quantum TLS 1.3](https://csrc.nist.gov/csrc/media/Events/2024/fifth-pqc-standardization-conference/documents/papers/the-impact-of-data-heavy-post-quantum.pdf)** (2024)
+26. [NIST PQC Conference: Impact of Data-Heavy Post-Quantum TLS 1.3](https://csrc.nist.gov/csrc/media/Events/2024/fifth-pqc-standardization-conference/documents/papers/the-impact-of-data-heavy-post-quantum.pdf) (2024)
     - Analysis of 16KB certificate chain threshold and TCP fragmentation
 
-27. **[IACR ePrint: Post-Quantum Authentication in TLS 1.3](https://eprint.iacr.org/2020/071.pdf)** (2020)
+27. [IACR ePrint: Post-Quantum Authentication in TLS 1.3](https://eprint.iacr.org/2020/071.pdf) (2020)
     - Performance study showing Dilithium and Falcon competitive with classical
 
-28. **[arXiv: Post-Quantum Cryptography for Internet of Things](https://arxiv.org/abs/2401.17538)** (January 2024)
+28. [arXiv: Post-Quantum Cryptography for Internet of Things](https://arxiv.org/abs/2401.17538) (January 2024)
     - IoT survey showing Kyber512/768 optimal for constrained devices
 
-29. **[Brazilian Symposium on Information Security: Kyber and Saber on ARMv8](https://sol.sbc.org.br/index.php/sbseg/article/view/21681)** (2022)
+29. [Brazilian Symposium on Information Security: Kyber and Saber on ARMv8](https://sol.sbc.org.br/index.php/sbseg/article/view/21681) (2022)
     - ARM NEON optimizations providing 1.16-1.38x speed-ups
 
-30. **[Trail of Bits: liboqs Security Review](https://github.com/trailofbits/publications/blob/master/reviews/2025-04-quantum-open-safe-liboqs-securityreview.pdf)** (April 2025)
+30. [Trail of Bits: liboqs Security Review](https://github.com/trailofbits/publications/blob/master/reviews/2025-04-quantum-open-safe-liboqs-securityreview.pdf) (April 2025)
     - Independent security audit finding no critical vulnerabilities
