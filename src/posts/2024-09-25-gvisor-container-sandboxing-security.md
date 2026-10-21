@@ -6,7 +6,6 @@ description: "Secure containers with gVisor sandboxing—prevent kernel exploits
 author: "William Zujkowski"
 reading_time: 9
 tags:
-  - container-orchestration
   - container-security
   - docker
   - homelab

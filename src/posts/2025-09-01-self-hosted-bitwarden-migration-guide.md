@@ -7,7 +7,6 @@ title: 'Self-Hosted Password Manager Migration: Bitwarden Deep Dive'
 tags:
   - cryptography
   - homelab
-  - passwords
   - privacy
   - security
 ---

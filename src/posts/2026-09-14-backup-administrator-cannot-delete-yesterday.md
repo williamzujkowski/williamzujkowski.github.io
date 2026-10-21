@@ -2,7 +2,7 @@
 title: "Your Backup Administrator Should Not Be Able to Delete Yesterday"
 date: 2026-09-14
 description: "Timelock Drive puts retention below a compromised host. An offline model shows why unfreezing a backup must start a countdown, not erase its protection."
-tags: [security, backup, storage, research, homelab]
+tags: [security, storage, research, homelab]
 draft: false
 ---
 

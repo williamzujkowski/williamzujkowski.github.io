@@ -4,7 +4,6 @@ date: 2025-02-24
 description: Master continuous cybersecurity learning with lab exercises, research tracking, and community engagement—stay current without burnout.
 title: 'Continuous Learning in Cybersecurity: Strategies That Work'
 tags:
-  - learning
   - professional-development
   - security
 ---

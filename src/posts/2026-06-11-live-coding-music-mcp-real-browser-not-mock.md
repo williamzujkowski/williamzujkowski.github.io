@@ -2,7 +2,7 @@
 title: "live-coding-music-mcp: Handing Claude a Browser and a Drum Machine"
 date: 2026-06-11
 description: "An MCP server that lets Claude live-code music in Strudel through a real, visible Chromium browser — no mocked audio API. What it does, what broke while I built it, and the engineering that came out of my first real browser-automation project."
-tags: [typescript, mcp, ai, music, playwright]
+tags: [typescript, mcp, ai, projects, web-development]
 author: William Zujkowski
 ---
 

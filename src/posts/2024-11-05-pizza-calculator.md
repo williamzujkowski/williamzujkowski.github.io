@@ -4,7 +4,7 @@ author: William Zujkowski
 description: "I asked an early LLM to build a pizza calculator to find out whether it could write working code. It could. Then it kept adding features nobody asked for, and I made the mistake of encouraging it."
 title: 'PizzaOps: How a Dumb LLM Experiment Became a Distributed System'
 tags:
-  - programming
+  - software-engineering
   - homelab
   - tutorial
 ---

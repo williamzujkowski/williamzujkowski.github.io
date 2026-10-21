@@ -2,7 +2,7 @@
 title: "No GIFs, No Script Tags: How Far a Single SVG File Can Go"
 date: 2026-05-26
 description: "svg-terminal is an experiment in how much you can make one self-contained SVG do: type, blink, phone an API for live stats, and survive a renderer that assumes every SVG is hostile. 48 blocks, zero JavaScript, one wry aside about trusting my own config file."
-tags: [svg, typescript, github, projects, security]
+tags: [web-development, typescript, open-source, projects, security]
 author: William Zujkowski
 ---
 

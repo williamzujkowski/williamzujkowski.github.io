@@ -7,7 +7,7 @@ tags:
   - ai
   - homelab
   - machine-learning
-  - programming
+  - software-engineering
 ---
 **BLUF:** In March 2025, I attempted to fine-tune Llama 3 8B on my RTX 3090. The first attempt consumed all 24GB of VRAM in under 3 minutes and crashed with a CUDA out-of-memory error.
 

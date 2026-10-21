@@ -7,7 +7,7 @@ tags:
   - ai
   - mcp
   - open-source
-  - programming
+  - software-engineering
 ---
 ## Bottom Line Up Front
 

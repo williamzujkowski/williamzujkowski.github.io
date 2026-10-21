@@ -6,7 +6,7 @@ description: Test IoT security with OWASP IoTGoat—practice firmware extraction
 author: William Zujkowski
 tags:
   - homelab
-  - iot
+  - hardware
   - networking
   - security
   - vulnerability-management

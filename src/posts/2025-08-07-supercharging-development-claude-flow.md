@@ -7,7 +7,7 @@ title: 'Supercharging Development with Claude-Flow: AI Swarm Intelligence for Mo
 tags:
   - ai
   - automation
-  - programming
+  - software-engineering
 ---
 ## From solo coding to swarm intelligence
 

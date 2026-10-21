@@ -7,7 +7,6 @@ description: "Three 2026 npm compromises shipped malware with valid provenance. 
 tags:
   - security
   - supply-chain
-  - npm
 ---
 
 npm provenance is a signed note stapled to a package. It says which repository, workflow file, git ref and commit built this exact tarball, and a Sigstore certificate vouches for the note. With [trusted publishing](https://docs.npmjs.com/trusted-publishers), a GitHub Actions job publishes using a short-lived OIDC credential instead of a stored token, and the provenance comes for free. It is one of the better things to happen to the npm registry in years. It also does exactly what it says, which turns out to be less than a green checkmark implies.

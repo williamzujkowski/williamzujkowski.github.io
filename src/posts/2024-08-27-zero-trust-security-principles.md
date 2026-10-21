@@ -5,8 +5,9 @@ description: Deploy zero trust security with continuous verification and identit
 title: 'Implementing Zero Trust Security: Never Trust, Always Verify'
 tags:
   - devops
-  - programming
+  - software-engineering
   - security
+  - zero-trust
 ---
 ## BLUF
 

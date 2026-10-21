@@ -1,5 +1,6 @@
 import { test, expect } from 'playwright/test';
 import { expectedPosts, hiddenPosts } from '../helpers/publication';
+import { tagRedirects } from '../../src/lib/tag-taxonomy.mjs';
 
 interface FeedItem { url: string; content_html: string; tags?: string[] }
 
@@ -50,6 +51,25 @@ test('archive, feeds, tags and generated cards share the published post set', as
     }, await response.text());
     expect(actual, tag).toEqual(items.filter((item) => item.tags?.includes(tag)).map((item) => new URL(item.url).pathname));
     expect(pieces, tag).toEqual(actual.map((path) => paths.length - paths.indexOf(path!)));
+  }
+});
+
+test('retired tag pages redirect to a live tag page and stay out of the sitemap', async ({ request }) => {
+  const redirects = Object.entries(tagRedirects());
+  expect(redirects.length).toBeGreaterThan(0);
+  const sitemap = await (await request.get('/sitemap-0.xml')).text();
+  for (const [from, to] of redirects) {
+    const response = await request.get(from);
+    expect(response.ok(), from).toBe(true);
+    const html = await response.text();
+    // GitHub Pages cannot send a 301, so the page itself is the redirect.
+    expect(html, from).toContain(`<meta http-equiv="refresh" content="0;url=${to}">`);
+    expect(html, from).toContain(`<link rel="canonical" href="https://williamzujkowski.github.io${to}">`);
+    expect(html, from).toContain('<meta name="robots" content="noindex">');
+    expect(sitemap, from).not.toContain(from);
+    const target = await request.get(to);
+    expect(target.ok(), `${from} -> ${to}`).toBe(true);
+    expect(await target.text(), `${from} -> ${to}`).not.toContain('http-equiv="refresh"');
   }
 });
 

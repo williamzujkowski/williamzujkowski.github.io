@@ -7,7 +7,6 @@ description: "A one-line pnpm override kept this site off a vulnerable fflate. D
 tags:
   - security
   - supply-chain
-  - npm
   - devops
 ---
 

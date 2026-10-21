@@ -2,7 +2,7 @@
 title: "545 Terminal Themes, and the Rabbit Hole That Produced Them"
 date: 2026-07-19
 description: "A dataset of 545 terminal color schemes, converted to OKLCH and republished as an npm package — and the theme picker in this site's own header that quietly runs on it."
-tags: [design, open-source, css, typescript]
+tags: [design, open-source, web-development, typescript]
 author: William Zujkowski
 ---
 

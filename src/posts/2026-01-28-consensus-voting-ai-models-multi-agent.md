@@ -4,7 +4,7 @@ date: "2026-01-28"
 lastUpdate: "2026-01-28"
 description: "How multi-model consensus voting catches blind spots that single models miss. The research behind adversarial roles, Bayesian aggregation, and structured deliberation across Claude, Gemini, and Codex."
 author: "William Zujkowski"
-tags: [ai, software-engineering, open-source, orchestration, security]
+tags: [ai, software-engineering, open-source, ai-agents, security]
 series: "Building AI Systems"
 seriesOrder: 2
 readingTime: "9 min read"

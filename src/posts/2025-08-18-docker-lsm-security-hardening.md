@@ -3,7 +3,7 @@ title: "Docker Runtime Security Hardening with Linux Security Modules"
 description: "Harden Docker containers using AppArmor and SELinux for isolation without orchestration overhead. LSM profiles, seccomp filters, and capability dropping at homelab scale."
 author: "William Zujkowski"
 date: 2025-08-18
-tags: [docker, security, apparmor, selinux, container-security, homelab, linux, lsm]
+tags: [docker, security, linux, container-security, homelab]
 post_type: tutorial
 ---
 

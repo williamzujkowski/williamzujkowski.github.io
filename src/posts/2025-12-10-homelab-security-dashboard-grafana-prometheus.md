@@ -3,7 +3,7 @@ title: "Building a Homelab Security Dashboard with Grafana and Prometheus"
 date: "2025-12-10"
 description: "Real-world guide to monitoring security events in your homelab. Covers Prometheus configuration, Grafana dashboards, and alerting rules for threat detection."
 author: "William Zujkowski"
-tags: [security, monitoring, grafana, prometheus, homelab, observability, alerting, dashboard]
+tags: [security, monitoring, homelab]
 series: "Homelab Security"
 seriesOrder: 1
 readingTime: "8 min read"

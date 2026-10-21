@@ -1,6 +1,7 @@
 ---
 import { getReadingTime } from '@/lib/utils';
 import { humanTag } from '@/lib/utils';
+import { getKickerTag } from '@/lib/posts';
 
 interface Props {
   post: {
@@ -36,7 +37,8 @@ const { post, number, variant = 'entry', headingLevel = 3 } = Astro.props;
 const EntryHeading = `h${headingLevel}` as 'h2' | 'h3';
 
 
-const realTag = (post.data.tags ?? []).find((t) => t !== 'posts');
+// The most specific tag, not the first: see kickerTag() in publication.mjs.
+const realTag = await getKickerTag(post.data);
 const section = humanTag(realTag ?? 'Essay');
 // The kicker is styled in the link accent, so it has to behave like one.
 // Every tag a published post carries gets a /tags/<tag>/ page (same

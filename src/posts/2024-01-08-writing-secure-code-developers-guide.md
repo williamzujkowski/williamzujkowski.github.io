@@ -5,7 +5,7 @@ author: William Zujkowski
 description: 'Master secure code development with input validation, parameterized queries, and secrets management—prevent SQL injection and XSS in production systems.'
 title: 'Writing Secure Code: A Developer''s Guide to Thwarting Security Exploits'
 tags:
-  - programming
+  - software-engineering
   - security
   - vulnerability-management
 ---

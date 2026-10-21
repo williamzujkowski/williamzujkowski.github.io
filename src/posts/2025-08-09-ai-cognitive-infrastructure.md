@@ -5,10 +5,8 @@ title: 'AI as Cognitive Infrastructure: The Invisible Architecture Reshaping Hum
 description: "Understand AI cognitive infrastructure shaping how billions think—explore societal effects of language models transforming from tools to thought systems."
 tags:
   - ai
-  - cognitive-science
-  - future-technology
   - infrastructure
-  - society
+  - ethics
 ---
 ## Bottom Line Up Front
 

@@ -3,7 +3,7 @@ title: "Hardening Docker Containers in Your Homelab: A Defense-in-Depth Approach
 description: "Eight security layers that stopped real attacks in homelab testing: minimal base images, user namespaces, seccomp profiles, network segmentation, and more. Defense-in-depth without Kubernetes overhead."
 author: "William Zujkowski"
 date: 2025-12-17
-tags: [security, docker, homelab, containers, defense-in-depth, hardening, network-security]
+tags: [security, docker, homelab, container-security, networking]
 series: "Homelab Security"
 seriesOrder: 2
 post_type: experience

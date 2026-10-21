@@ -5,9 +5,9 @@ description: "Formal verification for AI-agent security. You can't prove a proba
 tags:
 - security
 - ai
-- formal-verification
+- software-engineering
 - ai-agents
-- oscal
+- compliance
 ---
 
 The [last post](/posts/2026-07-23-agent-controls-as-oscal) built a gate for an AI agent and proved it *ran* — negative tests, an audit trail, a machine-readable finding you could diff on the next commit. That's a real improvement over a policy document nobody executes. It is also the weakest useful thing you can say about a security control: it passed the cases I thought to write.

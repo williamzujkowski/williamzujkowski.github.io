@@ -8,7 +8,6 @@ tags:
   - ai
   - security
   - software-engineering
-  - testing
 ---
 
 Every post in my October batch went past two agent reviewers before it was scheduled. One was a Claude reviewer running in a separate context; the other was Gemini 3.1 Pro, run through the agy CLI. Their punch lists went back to the session that wrote the posts, which checked each finding against its source and recorded in the post's research note what it applied and what it rejected. Five posts, ten reviews, 68 findings, each now assigned a disposition. That is the nearest thing I have to ground truth about agent review when it gates real work.

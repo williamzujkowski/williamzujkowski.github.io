@@ -3,7 +3,7 @@ title: "NodeShield: Runtime SBOM Enforcement Stops 98% of Supply Chain Attacks"
 description: "NodeShield enforces SBOMs at runtime using CBOM policies to prevent supply chain attacks. Homelab Docker deployment guide with attack simulations, 98.3% prevention rate, and <1ms overhead."
 author: "William Zujkowski"
 date: 2025-11-23
-tags: [supply-chain, sbom, nodejs, security, docker, homelab, container-security]
+tags: [supply-chain, security, docker, homelab, container-security]
 post_type: tutorial
 ---
 

@@ -178,6 +178,9 @@ The old rule was right about precision and wrong to strip out the personality. K
 ### Content Standards
 
 - Blog posts require frontmatter: title, date, description, tags
+- Tags: reuse an existing tag (`/tags/` lists them); the kicker shows a post's
+  least-used tag. Retired tags live in `astro-site/src/lib/tag-taxonomy.mjs`
+  and fail the build if used; retiring one there also emits its redirect.
 - Citations required for technical claims (target 90%+ coverage; the
   advisory check in `scripts/compliance/content_check.py` warns below the
   same 90% — it used to say 70%, which contradicted this line. Actual

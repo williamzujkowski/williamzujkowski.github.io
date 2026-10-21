@@ -2,7 +2,7 @@
 title: "Patch Fast, Pull Slow: Defending in the Year of Copy Fail"
 date: 2026-05-07
 description: "AI is finding bugs faster, researchers pile on the moment one drops, and registries ship malware by the hundred-thousand. Defenders are caught between two contradictory imperatives. The fix is architectural, not temporal."
-tags: [security, supply-chain, vulnerability-management, kernel, npm, homelab]
+tags: [security, supply-chain, vulnerability-management, linux, homelab]
 author: William Zujkowski
 ---
 

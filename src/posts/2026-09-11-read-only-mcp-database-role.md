@@ -2,7 +2,7 @@
 title: "The Database Gets a Vote on Your Read-Only Agent"
 date: 2026-09-11
 description: "A disposable PostgreSQL lab tests what an agent-facing database role can actually do, including the SELECT that writes through a privileged function."
-tags: [security, ai, homelab, databases]
+tags: [security, ai, homelab, storage]
 author: William Zujkowski
 ---
 

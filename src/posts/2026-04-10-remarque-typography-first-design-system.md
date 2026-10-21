@@ -2,7 +2,7 @@
 title: "Remarque: A Typography-First Design System for Technical Sites"
 date: 2026-04-10
 description: "Most developer sites look like SaaS dashboards. Remarque is the antidote — a design system rooted in book typography, 17px body text, 46rem reading columns, and the OKLCH color space. Self-hosted fonts, AI-native tokens, zero CDN dependencies."
-tags: [design, typography, open-source, frontend, css]
+tags: [design, open-source, web-development]
 author: William Zujkowski
 ---
 

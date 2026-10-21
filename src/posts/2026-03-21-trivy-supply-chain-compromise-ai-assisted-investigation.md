@@ -2,7 +2,7 @@
 title: "Investigating the Trivy Supply Chain Compromise with AI Agents"
 date: 2026-03-21
 description: "How I used AI-assisted investigation to triage the trivy-action supply chain attack across my homelab repos — and some thoughts on weekend incident response and community notification gaps."
-tags: [security, supply-chain, homelab, ai, incident-response]
+tags: [security, supply-chain, homelab, ai, threat-detection]
 author: William Zujkowski
 ---
 

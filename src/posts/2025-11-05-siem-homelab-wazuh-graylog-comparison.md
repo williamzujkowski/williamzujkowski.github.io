@@ -3,7 +3,7 @@ title: "SIEM for Homelab: Wazuh vs Graylog Performance Comparison"
 description: "Deploy and benchmark Wazuh and Graylog SIEM solutions in your homelab. Performance analysis, resource usage, and integration patterns for security monitoring."
 author: "William Zujkowski"
 date: 2025-11-05
-tags: [siem, wazuh, graylog, security, monitoring, homelab, python, observability]
+tags: [threat-detection, security, monitoring, homelab, python]
 post_type: tutorial
 ---
 

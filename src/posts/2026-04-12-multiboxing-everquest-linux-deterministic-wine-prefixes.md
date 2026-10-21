@@ -2,7 +2,7 @@
 title: "Multiboxing EverQuest on Linux: Deterministic Wine Prefixes and Programmatic Window Layout"
 date: 2026-04-12
 description: "I left Windows behind for good. Norrath-Native is an IaC-style toolkit that deploys EverQuest on Ubuntu 24.04 with Wine and DXVK, and a growing exploration into what you can actually do with programmatic window management on Linux."
-tags: [linux, homelab, devops, gaming, automation]
+tags: [linux, homelab, devops, automation]
 author: William Zujkowski
 ---
 

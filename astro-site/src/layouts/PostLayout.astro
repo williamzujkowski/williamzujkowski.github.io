@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import { SITE_CONFIG } from '@/lib/siteConfig';
 import { humanTag } from '@/lib/utils';
+import { getKickerTag } from '@/lib/posts';
 import TableOfContents from '@components/TableOfContents.astro';
 import RelatedPosts from '@components/RelatedPosts.astro';
 import SeriesNav from '@components/SeriesNav.astro';
@@ -36,7 +37,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
   timeZone: 'UTC', // dates are UTC-midnight; format in UTC so text matches <time datetime>
 });
 
-const primaryTag = tags.find((t) => t !== 'posts');
+const primaryTag = await getKickerTag({ tags });
 const section = primaryTag ? humanTag(primaryTag) : 'Essay';
 ---
 

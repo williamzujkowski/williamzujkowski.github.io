@@ -6,7 +6,7 @@ description: Build security-focused homelab with Proxmox, VLANs, and IDS/IPS—c
 title: 'Building a Security-Focused Homelab: My Journey'
 tags:
   - homelab
-  - learning
+  - professional-development
   - networking
   - security
 ---

@@ -7,7 +7,7 @@ tags:
   - cryptography
   - security
   - privacy
-  - learning
+  - professional-development
 ---
 ## BLUF: Why This Matters
 

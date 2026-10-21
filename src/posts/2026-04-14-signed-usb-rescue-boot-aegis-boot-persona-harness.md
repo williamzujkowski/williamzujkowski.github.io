@@ -2,7 +2,7 @@
 title: "Signed USB Rescue Boot: aegis-boot and the QEMU+OVMF Persona Harness"
 date: 2026-04-14
 description: "A UEFI-Secure-Boot-preserving rescue USB for any ISO, and the companion QEMU harness that validates it against 11 hardware personas without physical Frameworks, ThinkPads, or Dells on a lab bench."
-tags: [security, firmware, rust, homelab, uefi]
+tags: [security, hardware, software-engineering, homelab]
 author: William Zujkowski
 ---
 
