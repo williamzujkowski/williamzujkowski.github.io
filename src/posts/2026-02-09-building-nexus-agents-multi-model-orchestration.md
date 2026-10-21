@@ -23,7 +23,7 @@ Most AI-assisted development workflows look like this: you pick one model, send 
 
 I was spending time not writing software but context-switching between tools. Open Claude for architecture planning. Switch to Gemini for broad research. Use Codex for rapid code generation. Copy context between them. Lose track of which model said what. Frustrating.
 
-**The core insight:** Model selection is a routing problem, not a loyalty problem. Research on [LLM routing](https://arxiv.org/abs/2406.18665) confirms that different tasks have measurably different performance across models. A system that routes intelligently should outperform any single model used for everything. The [RouteLLM paper](https://arxiv.org/abs/2406.18665) showed this could cut costs by more than 2x while maintaining quality, which convinced me the approach was worth pursuing.
+The core insight: Model selection is a routing problem, not a loyalty problem. Research on [LLM routing](https://arxiv.org/abs/2406.18665) confirms that different tasks have measurably different performance across models. A system that routes intelligently should outperform any single model used for everything. The [RouteLLM paper](https://arxiv.org/abs/2406.18665) showed this could cut costs by more than 2x while maintaining quality, which convinced me the approach was worth pursuing.
 
 ## Architecture: Research-Backed, Not Ad Hoc
 
@@ -65,15 +65,15 @@ The `ResilientAdapter` wrapper adds circuit breaker patterns. If a model fails t
 
 Picking the right model for a task isn't simple. I built a five-stage routing pipeline, each stage backed by research:
 
-**Stage 1, Budget Router:** If the billing mode is `plan` (monthly subscription), cost drops out entirely. Strongest models win. If billing is `api` (pay-per-token), cost factors into scoring.
+Stage 1, Budget Router: If the billing mode is `plan` (monthly subscription), cost drops out entirely. Strongest models win. If billing is `api` (pay-per-token), cost factors into scoring.
 
-**Stage 2, Zero Router:** Eliminates models that can't handle the task at all. If a task needs 100K context and a model maxes at 32K, it's out.
+Stage 2, Zero Router: Eliminates models that can't handle the task at all. If a task needs 100K context and a model maxes at 32K, it's out.
 
-**Stage 3, Preference Router:** User preferences and task hints influence scoring. If you ask for a "security review," models with higher security quality scores get a boost.
+Stage 3, Preference Router: User preferences and task hints influence scoring. If you ask for a "security review," models with higher security quality scores get a boost.
 
-**Stage 4, TOPSIS Router:** Multi-criteria decision analysis based on the [MoMA framework](https://arxiv.org/abs/2509.07571). Balances quality scores, context window fit, speed, and cost using the TOPSIS algorithm. This produces a ranked list of candidates.
+Stage 4, TOPSIS Router: Multi-criteria decision analysis based on the [MoMA framework](https://arxiv.org/abs/2509.07571). Balances quality scores, context window fit, speed, and cost using the TOPSIS algorithm. This produces a ranked list of candidates.
 
-**Stage 5, LinUCB Bandit:** The adaptive layer. Based on [PILOT](https://arxiv.org/abs/2508.21141), LinUCB is a contextual bandit algorithm that learns from outcomes. When a model succeeds at a task type, it gets a higher score next time. When it fails, the score drops. Over time, the system converges on optimal routing without manual tuning.
+Stage 5, LinUCB Bandit: The adaptive layer. Based on [PILOT](https://arxiv.org/abs/2508.21141), LinUCB is a contextual bandit algorithm that learns from outcomes. When a model succeeds at a task type, it gets a higher score next time. When it fails, the score drops. Over time, the system converges on optimal routing without manual tuning.
 
 The entire pipeline runs in under 10ms. I was surprised how fast TOPSIS is when you're only ranking 6-8 models. The routing decision is nearly free compared to actual model inference. I wrote a [deeper dive on the routing research](/posts/2026-01-15-routellm-contextual-bandits-model-router-research/) separately, including the approaches that didn't work.
 
@@ -189,11 +189,11 @@ The test suite grew to 22,000+ tests across 811 files. Full suite runs in about 
 
 Nexus-agents processes untrusted input: GitHub issues, PR comments, user-provided tasks. I learned from [MCP safety research](https://arxiv.org/abs/2601.08012) and the [Agent-SafetyBench evaluation](https://arxiv.org/abs/2412.14470) that treating all external content as potentially hostile isn't paranoia. It's engineering.
 
-**Trust tiers:** Every input gets classified into four tiers. Repo files are authoritative (Tier 1). Collaborator issue bodies are semi-trusted (Tier 2). Unknown user comments are untrusted (Tier 3). Content with injection patterns is hostile (Tier 4).
+Trust tiers: Every input gets classified into four tiers. Repo files are authoritative (Tier 1). Collaborator issue bodies are semi-trusted (Tier 2). Unknown user comments are untrusted (Tier 3). Content with injection patterns is hostile (Tier 4).
 
-**Typed actions:** When processing untrusted input, agents can only emit predefined action types: `SummarizeIssue`, `ProposeLabels`, `DraftReply`, `RequestHumanApproval`, `RefuseAction`. No free-form tool calls. This prevents prompt injection from escalating into arbitrary actions.
+Typed actions: When processing untrusted input, agents can only emit predefined action types: `SummarizeIssue`, `ProposeLabels`, `DraftReply`, `RequestHumanApproval`, `RefuseAction`. No free-form tool calls. This prevents prompt injection from escalating into arbitrary actions.
 
-**Rule of Two:** borrowed from [Meta's Agents Rule of Two](https://ai.meta.com/blog/practical-ai-agent-security/), itself built on Simon Willison's lethal trifecta. No agent may simultaneously process untrusted input, have write access to the repository, and access secrets. If all three are needed, the system requires human approval.
+Rule of Two: borrowed from [Meta's Agents Rule of Two](https://ai.meta.com/blog/practical-ai-agent-security/), itself built on Simon Willison's lethal trifecta. No agent may simultaneously process untrusted input, have write access to the repository, and access secrets. If all three are needed, the system requires human approval.
 
 The hostile input firewall has 62 tests covering injection patterns I've encountered in the wild. It's one of the most valuable pieces of the system. Not because it's clever, but because it's paranoid in exactly the right ways.
 

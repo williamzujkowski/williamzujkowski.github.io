@@ -92,13 +92,13 @@ Stop optimizing for "patch velocity" as a single number. Optimize for blast radi
 
 These aren't hypothetical. This is what's deployed today on my home infrastructure:
 
-**Patch lane — kernel and OS:**
+### Patch lane — kernel and OS
 
 - Unattended-upgrades runs nightly on every Debian/Ubuntu host. Security pocket only.
 - KEV/EPSS-driven prioritization (the system [I described last September](/posts/2025-09-20-vulnerability-prioritization-epss-kev)) re-runs daily and pages me on KEV additions. For Copy Fail, the alert fired before I'd seen the announcement on Mastodon.
 - Multi-tenant boxes (Proxmox guests that run user code, build runners, anything with `unprivileged_userns_clone=1`) get a different policy: I take them down and patch within hours, not days. The Copy Fail PoC works against them. Wait-and-see is not on the menu.
 
-**Pull lane — application dependencies:**
+### Pull lane — application dependencies
 
 - Lockfiles committed for everything. `npm ci` / `pip install --require-hashes`, never `npm install` in CI.
 - A 7-day cool-off on new package versions, enforced via [Renovate](https://docs.renovatebot.com/configuration-options/#minimumreleaseage)'s `minimumReleaseAge: "7 days"` setting. Yes, this means I'm 7 days behind on ecosystem updates. That is the point. A one-week cool-off costs you a week of freshness and buys the ecosystem time to surface a worm before you pull it and costs me almost nothing in genuine velocity. Aggressive auto-pullers are footsteps in sand. The 7-day cool-off is closer to sandwalking: by the time I reach for the package, someone faster has already surfaced the worm and triggered the unpublish.
@@ -107,7 +107,7 @@ These aren't hypothetical. This is what's deployed today on my home infrastructu
 - Socket.dev wired into PR review on the repos I care about, mostly to flag install-script abuse and post-publish drift.
 - A periodic `npm-why` / `pipdeptree` audit of how many packages I'm actually pulling, and an ongoing project to remove the ones I don't actually need. Every dependency is a trust surface; the cheapest one is the one I deleted.
 
-**Scanner lane — treat security tools as privileged, not trusted:**
+### Scanner lane — treat security tools as privileged, not trusted
 
 After the Trivy/KICS year, scanners get their own policy:
 
@@ -116,7 +116,7 @@ After the Trivy/KICS year, scanners get their own policy:
 - Outbound network egress from CI runners restricted where the runtime supports it. The TeamPCP payload exfiltrated to attacker-controlled infrastructure. A CI runner that cannot reach arbitrary internet has a much smaller failure surface.
 - A "second-opinion" cadence for findings: when a scanner says "you're clean," I do not treat that as evidence of cleanliness. I treat it as evidence the scanner ran. Different question.
 
-**The cross-cutting practice — runtime containment:**
+### The cross-cutting practice — runtime containment
 
 The patch lane and pull lane both eventually fail. When they do, the question is what the malicious code can reach. seccomp, user namespaces, eBPF egress filtering, capability dropping in Docker, and the SBOM-runtime enforcement experiment [I ran with NodeShield](/posts/2025-11-23-nodeshield-runtime-sbom-enforcement) all push toward the same answer: assume the install will eventually contain hostile code, and reduce what hostile code can do.
 

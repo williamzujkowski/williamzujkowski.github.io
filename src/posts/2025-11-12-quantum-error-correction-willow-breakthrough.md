@@ -30,13 +30,13 @@ The theoretical solution has been known since the 1990s: surface codes and logic
 <figcaption>Physical data qubits and syndrome ancillas form a surface-code layout that decodes into one protected logical qubit.</figcaption>
 </figure>
 
-**The problem:** Nobody could prove it actually worked at scale. Every demonstration either used too few qubits or showed errors getting worse as systems grew larger.
+The problem: Nobody could prove it actually worked at scale. Every demonstration either used too few qubits or showed errors getting worse as systems grew larger.
 
 ## What Willow Actually Achieved
 
 Google's Willow chip finally cracked the code. They built logical qubits using surface codes with three different array sizes: 3×3 (9 physical qubits), 5×5 (25 qubits), and 7×7 (49 qubits).
 
-**The breakthrough:** As they increased from 3x3 to 5x5 to 7x7, the logical error rate decreased exponentially. Adding more physical qubits made the logical qubit more reliable, not less.
+The breakthrough: As they increased from 3x3 to 5x5 to 7x7, the logical error rate decreased exponentially. Adding more physical qubits made the logical qubit more reliable, not less.
 
 <div class="flow" role="group" aria-label="Willow logical qubit scaling">
   <div class="flow-node is-bad"><b>3x3 Array</b><i>9 Physical Qubits; Higher Error Rate</i></div>
@@ -46,7 +46,7 @@ Google's Willow chip finally cracked the code. They built logical qubits using s
 
 This is the "below threshold" operation that quantum error correction theory predicted. Willow's physical qubit error rates (0.1-0.2%) are well below the surface code threshold (~1%), enabling exponential error suppression.
 
-**The technical achievement details:**
+The technical achievement details:
 - Physical qubit coherence time: 100 microseconds (5x improvement over previous generation)
 - Gate fidelity: 99.7% for single-qubit gates, 99.5% for two-qubit gates
 - Error detection latency: <1 microsecond (real-time correction)
@@ -67,17 +67,17 @@ The paper (["Quantum error correction below the surface code threshold"](https:/
 
 Think of this like the moment transistors became reliable enough for integrated circuits. We've proven the fundamental scaling law that makes quantum computing work.
 
-**For computing:** Fault-tolerant quantum computers are now inevitable, not theoretical. Google estimates they're ~7-10 years from quantum computers that can outperform classical computers on practical problems, not just artificial benchmarks.
+For computing: Fault-tolerant quantum computers are now inevitable, not theoretical. Google estimates they're ~7-10 years from quantum computers that can outperform classical computers on practical problems, not just artificial benchmarks.
 
 I tested quantum error correction simulators in my homelab using IBM's Qiskit framework. Even simulated surface codes with 9 qubits showed the basic error suppression behavior. But seeing it work at scale in real hardware took 14 hours of simulation on my dual-Xeon workstation just to model the 3×3 case. The real hardware breakthrough validates what the math predicted.
 
-**For cryptography:** Current encryption (RSA, elliptic curve) becomes vulnerable once quantum computers reach ~4000 logical qubits. Willow proves we can build logical qubits reliably. The cryptographic clock is now ticking.
+For cryptography: Current encryption (RSA, elliptic curve) becomes vulnerable once quantum computers reach ~4000 logical qubits. Willow proves we can build logical qubits reliably. The cryptographic clock is now ticking.
 
-**Real-world impact:** Your bank's SSL certificates, Signal's end-to-end encryption, Bitcoin's digital signatures. All vulnerable when quantum computers scale up. That's why NIST spent 8 years developing quantum-resistant algorithms. Migration isn't optional anymore.
+Real-world impact: Your bank's SSL certificates, Signal's end-to-end encryption, Bitcoin's digital signatures. All vulnerable when quantum computers scale up. That's why NIST spent 8 years developing quantum-resistant algorithms. Migration isn't optional anymore.
 
-**For artificial intelligence:** Quantum algorithms could accelerate optimization problems, machine learning training, and neural network architectures. Some problems that take months on classical supercomputers might run in hours on quantum machines.
+For artificial intelligence: Quantum algorithms could accelerate optimization problems, machine learning training, and neural network architectures. Some problems that take months on classical supercomputers might run in hours on quantum machines.
 
-**For scientific research:** Quantum simulation will unlock new materials, drug discovery, and climate modeling. We'll be able to simulate quantum systems directly instead of approximating them on classical computers.
+For scientific research: Quantum simulation will unlock new materials, drug discovery, and climate modeling. We'll be able to simulate quantum systems directly instead of approximating them on classical computers.
 
 I've been tracking quantum computing progress for over 15 years. Most "breakthroughs" were incremental. Better qubits, longer coherence times, fancier gates. This is different. This proves quantum error correction scales. The rest is engineering.
 
@@ -85,13 +85,13 @@ I've been tracking quantum computing progress for over 15 years. Most "breakthro
 
 Don't buy quantum stocks yet. While Willow proves error correction works, practical quantum computers need millions of physical qubits to create thousands of logical qubits for useful computation.
 
-**Current limitations:**
+Current limitations:
 - Willow has 105 physical qubits. Useful algorithms need 1000+ logical qubits
 - Each logical qubit requires 100-1000 physical qubits depending on error rates
 - Current quantum computers work for seconds. Practical algorithms need hours
 - Connectivity limitations: not every physical qubit connects to every other
 
-**Still unsolved problems:**
+Still unsolved problems:
 - Manufacturing consistency: every physical qubit needs identical error rates
 - Quantum networking: connecting multiple quantum processors
 - Quantum-classical interfaces: moving data between quantum and classical systems efficiently
@@ -107,7 +107,7 @@ IBM's quantum roadmap targets 100,000 physical qubits by 2030. Microsoft is bett
 
 The winner gets cryptographic dominance, AI acceleration, and materials science advantages. The United States just proved quantum error correction works. The next phase is scaling from hundreds to millions of qubits.
 
-**Personal reflection:** I remember reading the original surface code papers in graduate school. The math was elegant, but it seemed impossibly hard to implement. Years later, Google's engineers made it work. Sometimes the most important breakthroughs come from turning theory into reality.
+Personal reflection: I remember reading the original surface code papers in graduate school. The math was elegant, but it seemed impossibly hard to implement. Years later, Google's engineers made it work. Sometimes the most important breakthroughs come from turning theory into reality.
 
 ## What This Means for Your Future
 
@@ -116,13 +116,13 @@ The winner gets cryptographic dominance, AI acceleration, and materials science 
 - **2030-2035** — Quantum advantage in optimization, drug discovery acceleration, and AI training with quantum speedups.
 - **2035+** — Fault-tolerant quantum computers, climate modeling breakthroughs, and fundamentally quantum cryptography.
 
-**Short term (2-5 years):** Start planning post-quantum cryptography migration. NIST's quantum-resistant algorithms aren't theoretical anymore. They're necessary preparation.
+Short term (2-5 years): Start planning post-quantum cryptography migration. NIST's quantum-resistant algorithms aren't theoretical anymore. They're necessary preparation.
 
-**Medium term (5-10 years):** Quantum advantage in optimization, drug discovery, and materials science. Classical AI training gets quantum acceleration. Financial modeling becomes dramatically faster.
+Medium term (5-10 years): Quantum advantage in optimization, drug discovery, and materials science. Classical AI training gets quantum acceleration. Financial modeling becomes dramatically faster.
 
-**Long term (10+ years):** Quantum computers solve climate modeling, traffic optimization, and supply chain problems that classical computers can't handle. Cryptography is inherently quantum. AI training uses quantum-classical hybrid algorithms.
+Long term (10+ years): Quantum computers solve climate modeling, traffic optimization, and supply chain problems that classical computers can't handle. Cryptography is inherently quantum. AI training uses quantum-classical hybrid algorithms.
 
-**Concrete example:** Current weather models take 6 hours on supercomputers to predict 5 days ahead. Quantum simulation could process the same atmospheric data in 30 minutes with higher accuracy. That means hurricane evacuations get 5.5 hours more lead time. Climate change models that take months could run in days.
+Concrete example: Current weather models take 6 hours on supercomputers to predict 5 days ahead. Quantum simulation could process the same atmospheric data in 30 minutes with higher accuracy. That means hurricane evacuations get 5.5 hours more lead time. Climate change models that take months could run in days.
 
 This breakthrough matters because it proves quantum computing isn't just possible. It's inevitable. Willow shows the path from laboratory curiosities to practical quantum computers that change how we solve hard problems.
 
@@ -132,16 +132,16 @@ The quantum computing revolution just became real. Time to start preparing.
 
 ## Further Reading
 
-**Primary Sources:**
+Primary Sources:
 - [Quantum error correction below the surface code threshold](https://arxiv.org/abs/2408.13687) - Google's Willow paper on arXiv
 - [Google AI Quantum](https://quantumai.google/) - Official quantum research updates
 - [Nature: Quantum error correction below the surface code threshold](https://www.nature.com/articles/s41586-024-08449-y) - Peer-reviewed publication (the Willow result)
 
-**Technical Background:**
+Technical Background:
 - [Surface Codes: Towards Practical Large-Scale Quantum Computation](https://arxiv.org/abs/1208.0928) - Foundational surface code theory
 - [NIST Post-Quantum Cryptography Standards](https://csrc.nist.gov/Projects/post-quantum-cryptography) - Quantum-resistant encryption standards
 
-**Industry Analysis:**
+Industry Analysis:
 - [IBM Quantum Network](https://www.ibm.com/quantum/ibm-quantum-network) - Competing quantum computing roadmap
 - [Quantum Computing Report](https://quantumcomputingreport.com/) - Independent industry analysis
 - [Microsoft Azure Quantum](https://azure.microsoft.com/en-us/products/quantum) - Alternative quantum computing approaches

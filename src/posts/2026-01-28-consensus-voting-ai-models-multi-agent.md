@@ -109,13 +109,13 @@ I tried running without the catfish for a week. Went back to it within three day
 
 Three basic strategies exist, plus one advanced:
 
-**Simple majority (>50%):** Used for sprint planning, feature prioritization, routine decisions. Fast and usually sufficient.
+Simple majority (>50%): Used for sprint planning, feature prioritization, routine decisions. Fast and usually sufficient.
 
-**Supermajority (>66%):** Used for architecture changes and [security modifications](/posts/2025-10-06-automated-security-scanning-pipeline/). Requires broader agreement because the blast radius of a bad decision is larger.
+Supermajority (>66%): Used for architecture changes and [security modifications](/posts/2025-10-06-automated-security-scanning-pipeline/). Requires broader agreement because the blast radius of a bad decision is larger.
 
-**Unanimous:** Used for breaking API changes. If any agent objects, the proposal doesn't pass. This is intentionally high-friction. Breaking changes should be hard to approve.
+Unanimous: Used for breaking API changes. If any agent objects, the proposal doesn't pass. This is intentionally high-friction. Breaking changes should be hard to approve.
 
-**Higher-order voting:** Based on [Bayesian-optimal aggregation](https://arxiv.org/abs/2510.01499). Instead of treating each vote equally, this strategy weights votes by estimated agent competence and accounts for correlation between agents. If two agents running on the same model both approve, that's less informative than two agents on different models both approving. The higher-order strategy adjusts for this.
+Higher-order voting: Based on [Bayesian-optimal aggregation](https://arxiv.org/abs/2510.01499). Instead of treating each vote equally, this strategy weights votes by estimated agent competence and accounts for correlation between agents. If two agents running on the same model both approve, that's less informative than two agents on different models both approving. The higher-order strategy adjusts for this.
 
 I'm honestly still evaluating whether higher-order voting is worth the complexity. It adds roughly 200ms to vote aggregation (Bayesian computation) versus zero for simple counting. For most decisions, simple majority or supermajority works fine. Higher-order voting probably matters most when you have correlated agents, like when two of your three CLIs are down and all agents run on the same model.
 
@@ -136,13 +136,13 @@ The [multi-agent committee research](https://arxiv.org/abs/2512.21352) on autono
 
 Consensus voting isn't perfect. I've hit these failure modes:
 
-**Correlated agreement:** When all agents agree but they're all wrong. This happens most when the proposal has a subtle bug that none of the models' training data covered. Voting can't fix a knowledge gap that's shared across all available models.
+Correlated agreement: When all agents agree but they're all wrong. This happens most when the proposal has a subtle bug that none of the models' training data covered. Voting can't fix a knowledge gap that's shared across all available models.
 
-**Catfish fatigue:** After reading dozens of catfish rejections on minor points, it's tempting to start ignoring the catfish. I've caught myself dismissing valid concerns because the catfish "always complains." I try to read the reasoning carefully even when I'm in a hurry.
+Catfish fatigue: After reading dozens of catfish rejections on minor points, it's tempting to start ignoring the catfish. I've caught myself dismissing valid concerns because the catfish "always complains." I try to read the reasoning carefully even when I'm in a hurry.
 
-**Abstention cascades:** Sometimes 2-3 agents abstain because they lack context for the decision. With only 2-3 actual votes, the result isn't meaningful. I treat high-abstention votes as "need more information" rather than "approved with low participation."
+Abstention cascades: Sometimes 2-3 agents abstain because they lack context for the decision. With only 2-3 actual votes, the result isn't meaningful. I treat high-abstention votes as "need more information" rather than "approved with low participation."
 
-**Latency pressure:** When debugging a breaking issue in my project, waiting 30 seconds for five agents to vote can feel like an eternity. The temptation to skip voting on "just this one urgent change" is real — I've skipped it twice when confidence was high. Both times the change was fine, but the sample size is too small to draw conclusions.
+Latency pressure: When debugging a breaking issue in my project, waiting 30 seconds for five agents to vote can feel like an eternity. The temptation to skip voting on "just this one urgent change" is real — I've skipped it twice when confidence was high. Both times the change was fine, but the sample size is too small to draw conclusions.
 
 ## Lessons Learned
 

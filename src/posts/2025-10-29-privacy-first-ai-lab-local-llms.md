@@ -42,11 +42,11 @@ After that wake-up call, I rebuilt my thinking around three distinct threat laye
 <figcaption>The model is only private when controls hold at the network, storage, and inference layers.</figcaption>
 </figure>
 
-**Network Layer:** Who can access my LLM endpoints? What data crosses network boundaries? Is telemetry being sent somewhere?
+Network Layer: Who can access my LLM endpoints? What data crosses network boundaries? Is telemetry being sent somewhere?
 
-**Storage Layer:** Where are prompts and responses stored? Are Docker volumes encrypted? What about model files themselves?
+Storage Layer: Where are prompts and responses stored? Are Docker volumes encrypted? What about model files themselves?
 
-**Inference Layer:** Can GPU memory be read by other processes? Are intermediate states (like key-value caches) protected?
+Inference Layer: Can GPU memory be read by other processes? Are intermediate states (like key-value caches) protected?
 
 Each layer requires different security controls. Miss one layer, and your privacy evaporates.
 
@@ -95,11 +95,11 @@ Not all "local" LLM tools are created equal. I tested seven popular options and 
 
 ### The Good: Truly Private by Default
 
-**LM Studio** gets this right. Their [privacy policy](https://lmstudio.ai/app-privacy) says the app "does not include telemetry or user-specific tracking" — though read the rest of that page, because update checks send your OS, build and IP, and model searches go out as anonymised queries. No inference data leaves, which is the part that matters, but "zero telemetry" it is not. It's now my go-to for sensitive work.
+LM Studio gets this right. Their [privacy policy](https://lmstudio.ai/app-privacy) says the app "does not include telemetry or user-specific tracking" — though read the rest of that page, because update checks send your OS, build and IP, and model searches go out as anonymised queries. No inference data leaves, which is the part that matters, but "zero telemetry" it is not. It's now my go-to for sensitive work.
 
-**llama.cpp** is even better: it's just C++ code doing math. No network stack, no telemetry hooks, [nothing but local computation](https://github.com/ggml-org/llama.cpp). When I run it in airplane mode, it works perfectly. Finance and defense sectors use it for air-gapped deployments for exactly this reason.
+llama.cpp is even better: it's just C++ code doing math. No network stack, no telemetry hooks, [nothing but local computation](https://github.com/ggml-org/llama.cpp). When I run it in airplane mode, it works perfectly. Finance and defense sectors use it for air-gapped deployments for exactly this reason.
 
-**Text Generation Web UI** (oobabooga) also scores perfectly: [documented as "100% offline and private, with zero telemetry"](https://github.com/oobabooga/text-generation-webui). I verified this claim. It's true.
+Text Generation Web UI (oobabooga) also scores perfectly: [documented as "100% offline and private, with zero telemetry"](https://github.com/oobabooga/text-generation-webui). I verified this claim. It's true.
 
 ### The Concerning: Ollama's Default Configuration
 
@@ -137,7 +137,7 @@ After reading through safety research from Anthropic, OpenAI, and DeepMind, I re
 
 [Anthropic's Constitutional AI approach](https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback) provides a practical framework: define principles, critique responses against those principles, and revise outputs accordingly. I adapted this for my homelab:
 
-**My Personal Constitution:**
+My Personal Constitution:
 - Never generate content I wouldn't want discovered in a security audit
 - Decline requests for information about current work systems
 - Explain why certain prompts are problematic rather than just refusing
@@ -149,7 +149,7 @@ I implemented this through system prompts and custom filters. It's not perfect, 
 
 [DeepMind's Frontier Safety Framework](https://deepmind.google/discover/blog/introducing-the-frontier-safety-framework/) defines Critical Capability Levels across four domains: autonomy, biosecurity, cybersecurity, and ML R&D. I adapted this for homelab scale:
 
-**My Capability Levels:**
+My Capability Levels:
 - **Low-Capability Models (7B-13B):** Basic network isolation, standard access controls
 - **Medium-Capability Models (13B-34B):** VLAN isolation, Wazuh monitoring, encrypted storage
 - **High-Capability Models (70B+ offloaded or cloud API):** Air-gapped VLAN, no internet access, hardware security module for keys
@@ -160,7 +160,7 @@ My RTX 3090 runs 34B models natively (full VRAM), which I treat as medium-capabi
 
 [OpenAI's external red teaming framework](https://cdn.openai.com/papers/openais-approach-to-external-red-teaming.pdf) emphasizes diverse perspectives and adversarial thinking. I can't hire 100+ red teamers like OpenAI does, but I can systematically probe my own systems.
 
-**My Red Teaming Checklist:**
+My Red Teaming Checklist:
 1. Attempt prompt injection attacks (roleplay-based jailbreaks worked 3/5 times)
 2. Try to access the LLM from outside my network (failed after hardening, succeeded before)
 3. Search for leaked GPU memory artifacts (need specialized tools, ongoing)
@@ -211,7 +211,7 @@ Here's how I actually locked things down. This took about 6 hours to configure p
 
 My Unifi Dream Machine Pro manages VLANs using [zero trust microsegmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab). AI workloads live in VLAN 20, completely isolated from my main network (VLAN 1) and DMZ (VLAN 10).
 
-**Firewall Rules (VLAN 20 → External):**
+Firewall Rules (VLAN 20 → External):
 ```
 # Block all outbound by default
 DENY * -> ANY (internet)
@@ -246,7 +246,7 @@ The `firewall=1` flag is critical, it enables Proxmox's firewall at the VM level
 
 I configured [Wazuh to monitor AI-specific threats](https://documentation.wazuh.com/) with custom rules to detect suspicious patterns:
 
-**Rule: Detect Ollama Unauthorized Access Attempts**
+Rule: Detect Ollama Unauthorized Access Attempts
 ```xml
 <rule id="100001" level="10">
   <if_sid>5710</if_sid>
@@ -256,7 +256,7 @@ I configured [Wazuh to monitor AI-specific threats](https://documentation.wazuh.
 </rule>
 ```
 
-**Rule: Detect Unusual Model File Access**
+Rule: Detect Unusual Model File Access
 ```xml
 <rule id="100002" level="8">
   <if_sid>550</if_sid>
@@ -274,7 +274,7 @@ Every privacy enhancement comes with a cost. Here are the real trade-offs I've e
 
 ### Privacy vs Convenience: Time Investment
 
-**Reality check:** Securing Ollama properly took 6 hours. Setting up VLAN isolation, configuring Wazuh rules, implementing differential privacy, testing everything, it all adds up. Compare that to signing up for OpenAI API access (5 minutes) or Claude API (10 minutes).
+Reality check: Securing Ollama properly took 6 hours. Setting up VLAN isolation, configuring Wazuh rules, implementing differential privacy, testing everything, it all adds up. Compare that to signing up for OpenAI API access (5 minutes) or Claude API (10 minutes).
 
 I'm fine with this trade-off because the material I keep locally would be awkward sitting in a vendor's logs. But for someone just wanting to experiment with LLMs, cloud APIs make way more sense.
 
@@ -296,7 +296,7 @@ The sweet spot for me is "Hardened Ollama + Differential Privacy", 27% slower th
 
 Running everything locally means I'm limited to models that fit in 24GB VRAM fully, or larger models with CPU offloading. My RTX 3090 handles 7B-34B models natively (full GPU speed), while 70B models require offloading to system RAM (2-5x slower). Cloud services offer 405B parameter models (Llama 3.1), which are noticeably more capable for complex reasoning tasks.
 
-**When I Use Cloud APIs (Despite Privacy Concerns):**
+When I Use Cloud APIs (Despite Privacy Concerns):
 - Public information research (no sensitive data)
 - Benchmarking my local models against state-of-the-art
 - Exploring new model capabilities before local versions exist
@@ -364,25 +364,25 @@ I spent $1,200 on a used RTX 3090 specifically for "private AI," then configured
 
 If I were building my privacy-first AI lab from scratch today, I'd:
 
-**Week 1: Foundation**
+Week 1: Foundation
 1. Set up VLAN isolation FIRST, before any AI tools
 2. Deploy Wazuh monitoring before the first model download
 3. Use llama.cpp initially (simplest, most auditable)
 4. Test network isolation thoroughly before adding complexity
 
-**Week 2: Gradual Capability Growth**
+Week 2: Gradual Capability Growth
 1. Add LM Studio for user-friendly interface (zero telemetry)
 2. Implement basic content filtering
 3. Set up encrypted Docker volumes
 4. Document everything in runbooks
 
-**Week 3: Advanced Privacy**
+Week 3: Advanced Privacy
 1. Add differential privacy for sensitive workloads
 2. Implement KV cache protection
 3. Deploy red teaming automation
 4. Establish regular security audit schedule
 
-**What I Did (The Hard Way):**
+What I Did (The Hard Way):
 1. Deploy Ollama with defaults (listening on all network interfaces)
 2. Run it accessible to IoT VLAN for 3 months
 3. Discover internal network exposure via Wireshark
@@ -396,21 +396,21 @@ Learn from my mistakes. Start secure, not comfortable.
 
 After six months of running a hardened AI homelab, here's my honest assessment:
 
-**When It's Worth It (My Criteria):**
+When It's Worth It (My Criteria):
 - You work with sensitive personal data (medical, financial, legal)
 - You're in government/defense and can't use cloud services
 - You're doing AI safety research that might reveal vulnerabilities
 - You have specific regulatory requirements (HIPAA, GDPR, etc.)
 - You simply enjoy the learning process (valid reason!)
 
-**When Cloud APIs Make More Sense:**
+When Cloud APIs Make More Sense:
 - General knowledge questions and public information
 - Rapid prototyping and experimentation
 - When you need the latest model capabilities (405B+)
 - Limited time or technical background
 - Cost constraints (ironically, cloud can be cheaper for light usage)
 
-**My Personal Calculus:**
+My Personal Calculus:
 - **Hardware cost:** $1,200 (used RTX 3090) + $800 (server upgrades) = $2,000
 - **Time investment:** ~40 hours setup and hardening
 - **Ongoing electricity:** about $5-6/month ($60-72/year), measured
@@ -424,34 +424,34 @@ For me, the privacy guarantees and learning experience justify the cost. For mos
 
 If you want to build something similar:
 
-**Step 1: Threat Model**
+### Step 1: Threat Model
 Define what "privacy" means for your use case:
 - Who are you protecting data from? (Cloud providers? Adversaries? Government?)
 - What data is sensitive? (All prompts? Just specific topics?)
 - What's your risk tolerance? (Paranoid? Pragmatic?)
 
-**Step 2: Tool Selection**
+### Step 2: Tool Selection
 Choose based on your threat model:
 - **Maximum Privacy:** llama.cpp (air-gapped)
 - **Usability + Privacy:** LM Studio
 - **Performance + Privacy:** Text Generation Web UI
 - **Production Scale:** vLLM (with telemetry disabled)
 
-**Step 3: Network Architecture**
+### Step 3: Network Architecture
 Start with basic isolation:
 1. Dedicated VLAN for AI workloads
 2. Firewall rules blocking external access
 3. VPN-only access for remote use
 4. Network monitoring (Wireshark, tcpdump)
 
-**Step 4: Incremental Hardening**
+### Step 4: Incremental Hardening
 Don't do everything at once:
 1. Week 1: Basic setup, verify offline operation
 2. Week 2: Network isolation, access controls
 3. Week 3: Monitoring and logging
 4. Week 4: Advanced privacy (differential privacy, etc.)
 
-**Step 5: Continuous Testing**
+### Step 5: Continuous Testing
 Monthly security checks:
 - Run red team tests (prompt injection, extraction attempts)
 - Review Wazuh logs for anomalies
@@ -463,10 +463,10 @@ Monthly security checks:
 
 Three key principles emerged:
 
-**1. Default Settings Are Rarely Secure**
+### 1. Default Settings Are Rarely Secure
 Every tool I tested had at least one default configuration that compromised privacy. Ollama exposed ports, vLLM enabled telemetry, Docker stored everything in plaintext. Assume you need to harden everything.
 
-**2. Privacy Is a Spectrum, Not Binary**
+### 2. Privacy Is a Spectrum, Not Binary
 There's no "perfectly private" system. Instead, there are privacy levels you can stack:
 - Level 1: Local inference (vs cloud)
 - Level 2: Network isolation (vs exposed)
@@ -476,30 +476,30 @@ There's no "perfectly private" system. Instead, there are privacy levels you can
 
 Choose the level appropriate for each workload.
 
-**3. "Privacy Theater" Is Worse Than Honest Cloud Use**
+### 3. "Privacy Theater" Is Worse Than Honest Cloud Use
 Running a "local" LLM that's actually exposed to the internet is worse than just using OpenAI's API with their privacy policies. At least with OpenAI, you know their security team is competent. With DIY solutions, you're responsible for everything.
 
 If you're not willing to properly secure your deployment, use a reputable cloud provider instead.
 
 ## Sources
 
-**Research Papers:**
+Research Papers:
 - [MPC-Minimized Secure LLM Inference](https://arxiv.org/abs/2408.03561) - Secure multi-party computation techniques
 - [A First Look At Efficient And Secure On-Device LLM Inference Against KV Leakage](https://arxiv.org/abs/2409.04040) - GPU memory protection
 - [CMIF Framework: Differential Privacy in LLM Inference](https://arxiv.org/html/2509.09091) - Performance overhead measurements
 
-**AI Safety Frameworks:**
+AI Safety Frameworks:
 - [Constitutional AI: Harmlessness from AI Feedback](https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback) - Anthropic's alignment approach
 - [DeepMind Frontier Safety Framework](https://deepmind.google/discover/blog/introducing-the-frontier-safety-framework/) - Capability-based controls
 - [OpenAI's Approach to External Red Teaming](https://cdn.openai.com/papers/openais-approach-to-external-red-teaming.pdf) - Testing methodologies
 
-**Tools and Security Guides:**
+Tools and Security Guides:
 - [LM Studio Privacy Policy](https://lmstudio.ai/app-privacy) - Zero telemetry example
 - [Ollama Security Guide](https://github.com/tarunboricha/ollama-security-guide) - Hardening instructions
 - [vLLM Security Documentation](https://docs.vllm.ai/en/latest/usage/security/) - Production deployment
 - [Wazuh AI Workload Monitoring](https://documentation.wazuh.com/) - Security monitoring
 
-**Community Resources:**
+Community Resources:
 - [r/LocalLLaMA](https://www.reddit.com/r/LocalLLaMA/) - Practical deployment discussions
 - [Cisco: Detecting Exposed LLM Servers](https://blogs.cisco.com/security/detecting-exposed-llm-servers-shodan-case-study-on-ollama) - Security research
 
