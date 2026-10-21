@@ -2,7 +2,7 @@
 title: "Quantum Error Correction Breakthrough: How Google's Willow Chip Changes Everything"
 date: 2025-11-12
 description: "Google's Willow chip achieved the first quantum error correction breakthrough below the critical threshold, proving that adding more qubits can actually reduce errors. This changes the future of computing, cryptography, and AI forever."
-tags: [quantum-computing, research, breakthrough, future-technology]
+tags: [computational-science, research]
 author: "William Zujkowski"
 ---
 

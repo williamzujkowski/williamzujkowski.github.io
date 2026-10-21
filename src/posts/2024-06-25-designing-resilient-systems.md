@@ -7,7 +7,7 @@ tags:
   - architecture
   - software-engineering
   - devops
-  - observability
+  - monitoring
 ---
 ## When "Bulletproof" Systems Fail Perfectly
 

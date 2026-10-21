@@ -4,7 +4,7 @@ date: "2026-02-09"
 lastUpdate: "2026-02-09"
 description: "The engineering story behind nexus-agents, a research-backed multi-model orchestration system that coordinates Claude, Gemini, and Codex through consensus voting, adaptive routing, and graph workflows."
 author: "William Zujkowski"
-tags: [ai, software-engineering, open-source, orchestration, typescript]
+tags: [ai, software-engineering, open-source, ai-agents, typescript]
 series: "Building AI Systems"
 seriesOrder: 3
 readingTime: "12 min read"

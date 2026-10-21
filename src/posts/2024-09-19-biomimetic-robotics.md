@@ -5,7 +5,7 @@ description: Design biomimetic robots inspired by nature—implement gecko adhes
 title: 'Learning from Nature: How Biomimetic Robotics is Revolutionizing Engineering'
 tags:
   - ai
-  - programming
+  - software-engineering
   - robotics
   - sustainability
 ---

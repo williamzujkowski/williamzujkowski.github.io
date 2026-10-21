@@ -11,6 +11,7 @@ import { writeFile } from 'node:fs/promises';
 import rehypeSidenotes from './src/lib/rehype-sidenotes.mjs';
 import rehypeTaskListLabels from './src/lib/rehype-task-list-labels.mjs';
 import rehypeDropCap from './src/lib/rehype-drop-cap.mjs';
+import { tagRedirects } from './src/lib/tag-taxonomy.mjs';
 
 /**
  * Remarque syntax-highlighting theme (remarque-tokens 0.15.0, REMARQUE.md
@@ -331,6 +332,10 @@ export default defineConfig({
   // Turning it off costs ~3.6% of gzipped HTML; tests/e2e/reflow.spec.ts fails
   // if any word is glued to a link again.
   compressHTML: false,
+  // Retired tag pages (issue #698). Static output writes each as a
+  // meta-refresh page with rel=canonical; tagRedirects() throws on a chain
+  // or self-map, which fails the build.
+  redirects: tagRedirects(),
   prefetch: true,
   integrations: [
     svelte(),

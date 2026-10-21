@@ -4,7 +4,7 @@ date: "2025-12-24"
 lastUpdate: "2025-12-24"
 description: "Learn to build and secure a production-grade private cloud using Proxmox VE. Covers network segmentation, backup strategies, security hardening, and resource management with real homelab implementation lessons."
 author: "William Zujkowski"
-tags: [cloud, security, homelab, virtualization, proxmox, networking, backup]
+tags: [cloud, security, homelab, virtualization, networking, storage]
 series: "Homelab Security"
 seriesOrder: 3
 readingTime: "8-9 min read"

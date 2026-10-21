@@ -3,7 +3,7 @@ title: "Zero-Knowledge Proof Authentication for Homelab Services"
 description: "Implement privacy-preserving authentication using ZK-SNARKs for homelab SSO. No passwords transmitted, cryptographic proof of identity without revealing credentials."
 author: "William Zujkowski"
 date: 2024-06-11
-tags: [privacy, zero-knowledge, authentication, cryptography, homelab, security, zk-snark]
+tags: [privacy, cryptography, security, homelab]
 post_type: tutorial
 ---
 

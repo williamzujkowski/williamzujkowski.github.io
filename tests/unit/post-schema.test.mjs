@@ -36,6 +36,8 @@ test('invalid known fields fail validation instead of becoming defaults or metad
   const invalid = [
     ['title', undefined], ['title', 12], ['draft', 'false'], ['draft', 0],
     ['tags', 'security'], ['tags', ['security', 1]], ['tags', null],
+    // Retired by the tag consolidation (#698), and a slug that would not be a URL.
+    ['tags', ['oscal']], ['tags', ['breakthrough']], ['tags', ['Security']], ['tags', ['zero trust']],
     ['author', null], ['series', 2], ['seriesOrder', '2'],
     ['date', 'not-a-date'], ['date', new Date(NaN)], ['lastUpdate', 'not-a-date'],
   ];

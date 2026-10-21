@@ -4,10 +4,8 @@ date: 2026-08-18
 description: "Pilot Execution treats recovery as a state-changing program and previews its cross-component effects before committing the action."
 title: "The Recovery Button Deserves a Dry Run"
 tags:
-  - systems
-  - reliability
+  - architecture
   - security
-  - distributed-systems
 ---
 
 Recovery commands are often reviewed as if they were harmless instructions: restart the member, rebuild the index, move the leader, try again. The system is already unhealthy when someone runs them, which is precisely when a side effect is hardest to see. A recovery action can be locally sensible and still make another component's state worse.

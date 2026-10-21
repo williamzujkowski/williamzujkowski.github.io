@@ -14,8 +14,9 @@ export function getReadingTime(body: string): number {
  * `Iot`, `Sbom`, `Siem`, `Mcp`, `Cve` and `Nvd` on the archive, every post
  * kicker and every tag page heading (issue #506).
  *
- * The map is exhaustive over the current 109-tag vocabulary; a tag not in it
- * falls through to title case, which is correct for ordinary words.
+ * The map covers every acronym in the tag vocabulary, including some retired
+ * by #698 (src/lib/tag-taxonomy.mjs); a tag not in it falls through to title
+ * case, which is correct for ordinary words.
  */
 const TAG_ACRONYMS: Record<string, string> = {
   ai: 'AI',
@@ -30,6 +31,7 @@ const TAG_ACRONYMS: Record<string, string> = {
   nvd: 'NVD',
   sbom: 'SBOM',
   siem: 'SIEM',
+  typescript: 'TypeScript',
 };
 
 export function humanTag(slug: string): string {

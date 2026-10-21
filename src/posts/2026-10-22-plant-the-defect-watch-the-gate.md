@@ -7,7 +7,6 @@ description: "Mutation testing pointed at CI checks instead of code: plant a kno
 tags:
   - software-engineering
   - devops
-  - testing
   - security
 ---
 

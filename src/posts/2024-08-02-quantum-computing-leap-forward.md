@@ -6,7 +6,6 @@ title: Quantum Computing's Leap Forward
 tags:
   - computational-science
   - cryptography
-  - future-technology
 ---
 Working through IBM's Qiskit tutorials, my first attempt at a Bell pair failed in a way I found genuinely instructive. I had reached for a Pauli-X where I wanted a Hadamard — so instead of a superposition I got `|1⟩`, the CNOT dutifully flipped its target, and every single shot came back `11`. A histogram with exactly one bar. The bug announced itself perfectly, which is more than most bugs do: a correct Bell state gives you `00` and `11` at roughly fifty-fifty, and there is no mistaking one for the other.
 

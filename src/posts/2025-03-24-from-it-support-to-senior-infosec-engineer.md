@@ -5,7 +5,6 @@ date: 2025-03-24
 description: Navigate IT support to senior InfoSec engineer path—learn from 15+ years securing federal systems with practical career transition advice.
 title: 'From IT Support to Senior InfoSec Engineer: My 15+ Year Journey'
 tags:
-  - learning
   - professional-development
   - security
 ---

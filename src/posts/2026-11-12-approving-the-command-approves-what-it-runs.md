@@ -8,7 +8,6 @@ tags:
   - security
   - ai
   - supply-chain
-  - npm
 ---
 
 The [approval-scope lab](https://github.com/williamzujkowski/research-labs/tree/6540fc4b645d8c74b0240254af92d25d79ac7232/labs/approval-scope) is one synthetic JavaScript project and one command a coding agent might ask to run: `npm install`. The project's `postinstall` and `prepare` scripts, and a dependency's own `postinstall`, each write a marker file and nothing else. The `prepare` script also installs a git pre-commit hook, the way hook managers such as simple-git-hooks do.

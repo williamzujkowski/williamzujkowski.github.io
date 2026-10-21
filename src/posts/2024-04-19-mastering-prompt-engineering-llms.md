@@ -6,7 +6,6 @@ title: 'Mastering Prompt Engineering: Unlocking the Full Potential of LLMs'
 tags:
   - ai
   - llm
-  - tutorial
 ---
 
 ## BLUF

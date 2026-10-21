@@ -6,7 +6,7 @@ title: 'Context Windows in Large Language Models: The Memory That Shapes AI'
 tags:
   - ai
   - architecture
-  - programming
+  - software-engineering
 ---
 In late 2024 I tried to hand a large codebase to a locally-hosted model and spent an evening working out why the answers kept drifting. The lesson turned out to be one I had to learn twice: a context window is a hard ceiling, and everything below the ceiling is not equally well remembered. Those are two separate problems, and I'd been treating them as one.
 

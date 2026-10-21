@@ -4,8 +4,6 @@ author: William Zujkowski
 description: How this site began — a privacy-first, zero-tracking static digital garden. Originally built with Eleventy; since rebuilt on Astro.
 tags:
 - web-development
-- eleventy
-- astro
 - open-source
 title: Building My Digital Garden with Eleventy
 ---

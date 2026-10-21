@@ -3,7 +3,7 @@ title: "LLM-Powered Security Alert Triage with Local Models"
 description: "Automate security alert analysis using local LLMs (Ollama) for privacy-preserving incident response. Reduce alert fatigue with AI-powered triage without cloud dependencies."
 author: "William Zujkowski"
 date: 2025-11-20
-tags: [llm, security, incident-response, automation, ollama, homelab, python, ai]
+tags: [llm, security, threat-detection, automation, homelab, python, ai]
 post_type: tutorial
 ---
 

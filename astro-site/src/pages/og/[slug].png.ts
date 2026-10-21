@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { getPublishedPosts } from '@/lib/posts';
+import { getKickerTag, getPublishedPosts } from '@/lib/posts';
 import { renderOgCard } from '../../og/card';
 
 export async function getStaticPaths() {
@@ -15,7 +15,7 @@ export const GET: APIRoute = async ({ props }) => {
     day: 'numeric',
     timeZone: 'UTC', // dates are UTC-midnight; format in UTC for consistency
   });
-  const tag = post.data.tags?.filter((t) => t !== 'posts')[0];
+  const tag = await getKickerTag(post.data);
   const subtitle = tag ? `${date} · ${tag}` : date;
 
   const png = await renderOgCard({ title: post.data.title, subtitle });
