@@ -11,7 +11,7 @@ This describes a site that already exists; nothing here is a proposal. Every val
 
 A technical broadsheet printed on slightly warm photographic paper, then annotated in the margins. Three layers, in order of authority:
 
-1. **Remarque core** (`remarque-tokens` 0.26.0). Book typography: 17px body, 1.75 leading, a ~71-character column, borders instead of shadows, an 8px radius ceiling, near-invisible motion. Remarque's stated identity is "a modern technical publication", not an app dashboard (`RT/REMARQUE.md:23`).
+1. **Remarque core** (`remarque-tokens` 0.26.0). Book typography: 17px body, 1.75 leading, a column of about 70 characters, borders instead of shadows, an 8px radius ceiling, near-invisible motion. Remarque's stated identity is "a modern technical publication", not an app dashboard (`RT/REMARQUE.md:23`).
 2. **Palette B, "Departure"**. Ivory ground, ferric red-black ink, one radar-green accent, and an amber that appears only on hover. Dark mode is a different instrument, not an inversion.
 3. **Zine marginalia**. Hand-drawn doodles, wobbly rules, a hand-lettered caption face and paper grain on the masthead and footer. It sits over the system, never touches body typography, and every mark is coloured by a token (`zine.css:1-6`).
 
@@ -170,7 +170,7 @@ Centred nameplate: Fraunces italic light byline over "*Field* Notes" at the name
 
 ## 5. Layout Principles
 
-- **One column.** `body` is capped at `--content-standard` (72rem) with 2rem × 1.5rem padding; nearly everything inside is centred at `--content-reading` (40rem ≈ 71 characters of Source Serif 4 at 17px) so mono and serif edges line up (`global.css:318-325`, `:1156-1175`). The masthead is the one wider element (64rem).
+- **One column.** `body` is capped at `--content-standard` (72rem) with 2rem × 1.5rem padding; nearly everything inside is centred at `--content-reading` (38rem: a median of 73 rendered characters per line of Source Serif 4 at 17px, measured, not derived from `ch`) so mono and serif edges line up (`global.css:318-325`, `:1156-1175`). The masthead is the one wider element (64rem).
 - **Rhythm** from the spacing scale: h1 `--space-5` above / `--space-4` below; h2 `--space-7` above; h3 `--space-6`; `hr` `--space-7`; prose paragraphs 1.25em. A paragraph right after h2/h3 is pulled up to pair with it (`global.css:334-368`, `:702`, `:791-796`).
 - **Spacing scale** (rem): 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 10, 12 for `--space-1…12` (`RT/tokens-core.css:49-60`). `--space-5` is 24px.
 - **Density.** At most three distinct content sections above the fold (`RT/REMARQUE.md:258`). No hero banners, CTAs or feature grids. The front page shows six posts: one lead, five numbered entries.
@@ -295,7 +295,7 @@ Paths are relative to the repository root at commit `00f96b9`. `G` = `astro-site
 | Dark syntax, state, dataviz | `G:186-214` |
 | System-preference dark block | `G:225-285` |
 | `--text-display` override | `G:55`; rationale `astro-site/DESIGN-DEVIATIONS.md` §1 |
-| `--content-reading: 40rem` | `G:73`; `RT/REMARQUE.md` Measure Compensation |
+| `--content-reading: 38rem` | `G:73`; `RT/REMARQUE.md` Measure Compensation |
 | Type scale, leading, tracking, weights | `RT/tokens-core.css:21-27`, `:30-34`, `:37-41`, `:44-46` |
 | Spacing, content widths, radius | `RT/tokens-core.css:49-60`, `:65-66`, `:69-71` |
 | Motion, `--z-*`, reduced-motion zeroing | `RT/tokens-core.css:80-82`, `:92-98`, `:109-115` |

@@ -61,16 +61,17 @@
    * the column stays visually aligned edge-to-edge; it is intentionally
    * NOT swapped to a literal `ch` unit, which would make the column
    * width font-dependent and desync mono elements from the serif prose
-   * next to them. 40rem was picked by measuring actual rendered text:
-   * at --text-body (17px) in Source Serif 4, 40rem ≈ 71ch — close to
-   * the ~68ch editorial target (was 46rem ≈ 86ch under Inter, too wide
-   * for a text serif). Adjusted conservatively, not dropped straight to
-   * the raw 38.25rem (68ch) measurement. This is NOT a deviation — it's
-   * the sanctioned measure-compensation value core's own docs cite this
-   * site as the reference example for (see REMARQUE.md's "Measure
-   * Compensation" table). core's own palette default is 46rem, tuned for
-   * Inter; this site's body font is Source Serif 4, hence 40rem. */
-  --content-reading: 40rem;
+   * next to them.
+   *
+   * Count characters, not `ch`. The old note said "40rem ≈ 71ch", which
+   * was true of the digit 0 (1ch = 9px in Source Serif 4 at 17px) and
+   * false of text: rendered body lines at 40rem ran a median of 77
+   * characters (p90 82). 38rem sets a median of 73 (p90 78) across all
+   * posts at 1280px, inside the 60-75 range (#698, consensus option B).
+   * tests/e2e/measure.spec.ts counts glyphs per rendered line so the
+   * number can't drift from the claim again. Core's palette default is
+   * 46rem, tuned for Inter; see DESIGN-DEVIATIONS.md §2. */
+  --content-reading: 38rem;
 
   /* ─── Palette tier: colors — Palette B "Departure": photosensitive ivory + ferric ink + radar green ─── */
   --color-bg: oklch(0.95 0.015 75);
