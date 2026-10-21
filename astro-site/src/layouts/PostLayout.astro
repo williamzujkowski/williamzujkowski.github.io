@@ -73,20 +73,6 @@ const section = primaryTag ? humanTag(primaryTag) : 'Essay';
       <h1>{title}</h1>
 
       {description && <p class="post-description">{description}</p>}
-
-      {
-        tags.length > 0 && (
-          <div class="chip-row" style="margin-block-start: 1rem;">
-            {tags
-              .filter((t) => t !== 'posts')
-              .map((tag) => (
-                <a href={`/tags/${tag}/`} class="chip">
-                  {tag}
-                </a>
-              ))}
-          </div>
-        )
-      }
     </header>
 
     <!-- Series Navigation -->
@@ -100,8 +86,24 @@ const section = primaryTag ? humanTag(primaryTag) : 'Essay';
       <slot />
     </div>
 
-    <!-- Share -->
+    <!-- Tags + share. The tag chips used to sit in the header, where at 360px
+         they helped push every post's first paragraph off the first screen
+         (#698); the kicker still names the primary tag up there. -->
     <footer style="margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid var(--color-border);">
+      {
+        tags.some((t) => t !== 'posts') && (
+          <div class="share-row" style="margin-block-end: var(--space-4);">
+            <span class="share-label">Tags:</span>
+            {tags
+              .filter((t) => t !== 'posts')
+              .map((tag) => (
+                <a href={`/tags/${tag}/`} class="chip">
+                  {tag}
+                </a>
+              ))}
+          </div>
+        )
+      }
       <div class="share-row">
         <span class="share-label">Share:</span>
             <a
