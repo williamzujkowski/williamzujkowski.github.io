@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "od-design-system-project/v1",
+  "id": "remarque",
+  "name": "Remarque — Field Notes",
+  "category": "Editorial & Print",
+  "description": "William Zujkowski's Field Notes blog on remarque-tokens: warm ivory paper, ferric red-black ink and one radar-green accent (CRT phosphor in dark mode), a serif voice for prose and a mono voice for every machine surface, flat hairline surfaces, a 13px type floor and an 8px radius ceiling.",
+  "source": {
+    "type": "github",
+    "url": "https://github.com/williamzujkowski/williamzujkowski.github.io",
+    "branch": "main",
+    "commit": "00f96b9eae1af7b9216e94ba1ad2b10c364790f0",
+    "importedAt": "2026-10-21T05:12:34Z"
+  },
+  "files": {
+    "design": "DESIGN.md",
+    "tokens": "tokens.css"
+  }
+}
