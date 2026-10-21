@@ -1,0 +1,344 @@
+/* ─────────────────────────────────────────────────────────────────────────
+ * docs/design/remarque/tokens.css
+ *
+ * "Field Notes" — williamzujkowski.github.io, built on remarque-tokens core
+ * (installed 0.26.0) plus the site's own palette tier ("Palette B —
+ * Departure": photosensitive ivory + ferric ink + radar green; dark is CRT
+ * phosphor on black-green).
+ *
+ * Every value below is copied from the site, not designed here. Short refs
+ * point at the source (line numbers as of commit 00f96b9); the full
+ * file:line list is DESIGN.md Appendix C. If they drift, the CSS wins.
+ *   G  = astro-site/src/styles/global.css
+ *   C  = astro-site/node_modules/remarque-tokens/tokens-core.css
+ *   A  = astro-site/astro.config.mjs
+ *   Z  = astro-site/src/styles/zine.css
+ * oklch values are exactly as written in the source; approximate hex is in
+ * DESIGN.md §2.
+ *
+ * Paste order for an artifact:
+ *   1. Block 1 (OD shared schema) — always.
+ *   2. Block 2 (Remarque native names) — whenever you reuse site CSS such as
+ *      the .flow / .arch / .seq diagram rules, which reference --color-*,
+ *      --text-meta, --space-7 and friends directly.
+ *   3. The dark blocks and the reduced-motion block — always.
+ *
+ * Where a schema name could carry a generic value, it carries the site's:
+ *   --space-N     Remarque's scale BY NAME (--space-5 = 1.5rem, --space-6 =
+ *                 2rem, --space-8 = 4rem, --space-12 = 12rem). Site CSS uses
+ *                 these names everywhere; other values would re-space every
+ *                 pasted rule.
+ *   --text-xs     0.8125rem, the 13px floor
+ *   --radius-lg, --radius-pill  0.5rem, the 8px ceiling
+ *   --elev-raised floating UI only; reading surfaces stay flat
+ *   --focus-ring  mirrors the outline the site draws; prefer `outline`
+ *                 (DESIGN.md §6)
+ * ─────────────────────────────────────────────────────────────────── */
+
+/* ═══ Block 1 — Open Design shared schema (light) ═══════════════════ */
+:root {
+  color-scheme: light;
+
+  /* Surface */
+  --bg: oklch(0.95 0.015 75);               /* G:76  --color-bg */
+  --surface: oklch(0.93 0.015 75);          /* G:83  --color-surface */
+  --surface-warm: var(--surface);           /* no third interactive surface tier on the site */
+
+  /* Foreground */
+  --fg: oklch(0.18 0.04 25);                /* G:78  --color-fg, ferric red-black */
+  --fg-2: oklch(0.42 0.04 25);              /* G:79  --color-fg-muted, 7:1 AAA body-adjacent prose */
+  --muted: oklch(0.52 0.03 25);             /* G:80  --color-muted, 4.5:1 meta/captions */
+  --meta: var(--muted);                     /* site uses one tier for meta and captions */
+
+  /* Border */
+  --border: oklch(0.85 0.02 75);            /* G:81  --color-border — DECORATIVE ONLY, < 3:1 */
+  --border-soft: var(--border);             /* one decorative tier */
+
+  /* Accent */
+  --accent: oklch(0.48 0.15 140);           /* G:84  radar green */
+  --accent-on: var(--bg);                   /* PizzaOps.svelte:466 (bg text on accent fill) */
+  --accent-hover: oklch(0.50 0.10 75);      /* G:85  flight-deck amber */
+  --accent-active: var(--accent);           /* site defines no :active colour state */
+
+  /* Semantic (feedback moments only, never decoration) */
+  --success: oklch(0.50 0.12 145);          /* G:122 */
+  --warn: oklch(0.52 0.105 85);             /* G:124 --color-warning */
+  --danger: oklch(0.52 0.12 25);            /* G:120 --color-error */
+
+  /* Fonts — the site self-hosts these via Astro's Fonts API (A:339-386),
+     which injects hashed family names at build time. Mockups load the same
+     families by their public names. */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;           /* A:342-344 */
+  --font-body: "Source Serif 4", Georgia, serif;                            /* A:355-357 */
+  --font-mono: "IBM Plex Mono", ui-monospace, "Courier New", monospace;     /* A:367-369 */
+
+  /* Type scale — mapped from Remarque's role names (see DESIGN.md §3) */
+  --text-xs: 0.8125rem;                        /* C:27  --text-micro, 13px FLOOR */
+  --text-sm: 0.875rem;                         /* C:26  --text-meta, 14px */
+  --text-base: 1.0625rem;                      /* C:25  --text-body, 17px */
+  --text-lg: 1.1875rem;                        /* C:24  --text-body-lg, 19px */
+  --text-xl: clamp(1.375rem, 2.25vw, 2rem);    /* C:23  --text-section (h2) */
+  --text-2xl: clamp(1.875rem, 3.5vw, 3rem);    /* C:22  --text-title */
+  --text-3xl: clamp(2.25rem, 3.5vw, 3.5rem);   /* G:55  --text-display (h1, site override) */
+  --text-4xl: clamp(2.25rem, 5.5vw, 4.25rem);  /* G:470 .site-nameplate-title */
+
+  --leading-body: 1.75;                     /* C:33 */
+  --leading-tight: 1.15;                    /* C:31  --leading-title */
+  --tracking-display: -0.02em;              /* C:37 */
+
+  /* Spacing — Remarque scale, bound by NAME (C:49-60) */
+  --space-1: 0.25rem;                       /* 4px */
+  --space-2: 0.5rem;                        /* 8px */
+  --space-3: 0.75rem;                       /* 12px */
+  --space-4: 1rem;                          /* 16px */
+  --space-5: 1.5rem;                        /* 24px */
+  --space-6: 2rem;                          /* 32px */
+  --space-8: 4rem;                          /* 64px */
+  --space-12: 12rem;                        /* 192px */
+
+  /* Section rhythm — h2 and hr both use --space-7 (3rem) above (G:349, G:368).
+     The site has no viewport-dependent section rhythm. */
+  --section-y-desktop: 3rem;
+  --section-y-tablet: 3rem;
+  --section-y-phone: 3rem;
+
+  /* Radius — 8px is the ceiling for any component (C:70) */
+  --radius-sm: 0.25rem;                     /* C:69 */
+  --radius-md: 0.5rem;                      /* C:70 */
+  --radius-lg: 0.5rem;                      /* no lg tier; capped at --radius-md */
+  --radius-pill: 0.5rem;                    /* no pills for generic UI; capped at --radius-md */
+
+  /* Elevation — reading surfaces are flat; borders, not shadows */
+  --elev-flat: none;
+  --elev-ring: 0 0 0 1px var(--border);     /* = 1px solid --color-border on .card (G:646) */
+  --elev-raised: 0 4px 16px oklch(0 0 0 / 0.5);  /* ThemeDeck.astro:199 with G:90 shadow colour; popovers only */
+
+  /* Focus — site draws outline: 2px solid accent; offset 2px (G:1136, C:245-246).
+     This box-shadow reproduces that geometry for components that need it. */
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+
+  /* Motion (C:80-82) */
+  --motion-fast: 120ms;                     /* hover, focus ring */
+  --motion-base: 180ms;                     /* --motion-normal, theme transitions */
+  --ease-standard: ease-out;                /* --motion-easing */
+
+  /* Layout */
+  --container-max: 72rem;                   /* C:65 --content-standard; body max-width (G:318) */
+  --container-gutter-desktop: 1.5rem;       /* G:320 body padding-inline */
+  --container-gutter-tablet: 1.5rem;        /* no tablet breakpoint on the site */
+  --container-gutter-phone: 1rem;           /* G:1152 var(--space-4) at <=640px */
+}
+
+/* ═══ Block 2 — Remarque native names (outside the OD schema) ═══════════
+ * These keep site CSS paste-compatible. Where a block-1 token already holds
+ * the value, the native name aliases it so there is one source per value. */
+:root {
+  /* Palette (G:76-90) */
+  --color-bg: var(--bg);
+  --color-bg-subtle: oklch(0.93 0.015 75);        /* G:77 (same value as surface) */
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-2);
+  --color-muted: var(--muted);
+  --color-border: var(--border);                  /* decorative only */
+  --color-border-bold: oklch(0.62 0.02 25);       /* G:82 functional 3:1 boundary */
+  --color-surface: var(--surface);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-code-bg: oklch(0.92 0.015 75);          /* G:86 */
+  --color-code-fg: oklch(0.18 0.04 25);           /* G:87 */
+  --color-selection-bg: oklch(0.88 0.10 140);     /* G:88 */
+  --color-overlay: oklch(0 0 0 / 0.5);            /* G:89 modal scrim */
+  --color-shadow: oklch(0 0 0 / 0.5);             /* G:90 */
+
+  /* Syntax highlighting (G:101-109) */
+  --color-syntax-keyword: oklch(0.51 0.12 250);
+  --color-syntax-string: oklch(0.49 0.12 145);
+  --color-syntax-constant: oklch(0.51 0.105 85);
+  --color-syntax-comment: oklch(0.505 0.01 80);
+  --color-syntax-function: oklch(0.52 0.12 310);
+  --color-syntax-type: oklch(0.50 0.085 196);
+  --color-syntax-punctuation: oklch(0.505 0.01 80);
+  --color-syntax-variable: oklch(0.26 0.01 80);
+  --color-syntax-link: var(--color-accent);
+
+  /* State (G:120-126) */
+  --color-error: var(--danger);
+  --color-error-subtle: oklch(0.95 0.02 25);
+  --color-success: var(--success);
+  --color-success-subtle: oklch(0.95 0.02 145);
+  --color-warning: var(--warn);
+  --color-warning-subtle: oklch(0.95 0.02 85);
+  --color-disabled: var(--color-muted);
+
+  /* Dataviz categorical — reserved, no consumer yet (G:134-139) */
+  --color-viz-1: oklch(0.538 0.121 250.5);
+  --color-viz-2: oklch(0.541 0.111 85.5);
+  --color-viz-3: oklch(0.524 0.12 24.6);
+  --color-viz-4: oklch(0.499 0.12 144.8);
+  --color-viz-5: oklch(0.524 0.121 309.6);
+  --color-viz-6: oklch(0.528 0.09 195.8);
+
+  /* Core-consumed aliases (G:154-157) */
+  --color-link: var(--color-accent);
+  --color-link-hover: var(--color-accent-hover);
+  --color-focus-ring: var(--color-accent);
+  --color-selection-fg: var(--color-fg);
+
+  /* Fourth font slot — .hand-note marginalia ONLY (A:379-381, Z:179-186) */
+  --font-accent: "Shantell Sans", "Comic Sans MS", cursive;
+
+  /* Type roles (C:21-27, G:55) */
+  --text-display: var(--text-3xl);
+  --text-title: var(--text-2xl);
+  --text-section: var(--text-xl);
+  --text-body-lg: var(--text-lg);
+  --text-body: var(--text-base);
+  --text-meta: var(--text-sm);
+  --text-micro: var(--text-xs);
+
+  /* Leading, tracking, weights (C:30-46) */
+  --leading-display: 1.05;
+  --leading-title: var(--leading-tight);
+  --leading-section: 1.2;
+  --leading-meta: 1.5;
+  --tracking-title: -0.015em;
+  --tracking-body: 0em;
+  --tracking-meta: 0.02em;
+  --tracking-caps: 0.06em;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  /* Spacing steps block 1 has no name for (C:55-59) */
+  --space-7: 3rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+  --space-11: 10rem;
+
+  /* Widths (G:73, C:65-66) */
+  --content-reading: 40rem;
+  --content-standard: var(--container-max);
+  --content-wide: 88rem;
+
+  /* Radius, motion aliases, stacking (C:71, C:81-82, C:92-98) */
+  --radius-none: 0;
+  --motion-normal: var(--motion-base);
+  --motion-easing: var(--ease-standard);
+  --z-base: 0;
+  --z-sticky: 10;
+  --z-dropdown: 20;
+  --z-overlay: 30;
+  --z-modal: 40;
+  --z-toast: 50;
+  --z-skip-link: 60;
+}
+
+/* ═══ Dark — CRT phosphor on black-green (G:161-222) ═══════════════════
+ * [data-theme="dark"] is remarque-tokens' canonical selector;
+ * :root.dark is what the site itself sets (astro-site/DESIGN-DEVIATIONS.md §5). */
+[data-theme="dark"],
+:root.dark {
+  color-scheme: dark;
+
+  --bg: oklch(0.14 0.015 140);              /* G:170 */
+  --surface: oklch(0.17 0.015 140);         /* G:177 */
+  --fg: oklch(0.92 0.03 140);               /* G:172 phosphor green */
+  --fg-2: oklch(0.85 0.03 140);             /* G:173 */
+  --muted: oklch(0.78 0.03 140);            /* G:174 */
+  --border: oklch(0.25 0.02 140);           /* G:175 decorative only */
+  --accent: oklch(0.82 0.17 140);           /* G:178 bright radar */
+  --accent-hover: oklch(0.78 0.15 75);      /* G:179 amber */
+  --success: oklch(0.61 0.11 145);          /* G:201 */
+  --warn: oklch(0.62 0.11 85);              /* G:203 */
+  --danger: oklch(0.62 0.11 26);            /* G:199 */
+  --elev-raised: 0 4px 16px oklch(0 0 0 / 0.8);  /* G:169 shadow alpha */
+
+  --color-bg-subtle: oklch(0.17 0.015 140);       /* G:171 */
+  --color-border-bold: oklch(0.60 0.03 140);      /* G:176 */
+  --color-code-bg: oklch(0.17 0.015 140);         /* G:180 */
+  --color-code-fg: oklch(0.88 0.03 140);          /* G:181 */
+  --color-selection-bg: oklch(0.30 0.08 140);     /* G:182 */
+  --color-overlay: oklch(0 0 0 / 0.72);           /* G:168 */
+  --color-shadow: oklch(0 0 0 / 0.8);             /* G:169 */
+
+  --color-syntax-keyword: oklch(0.61 0.11 250);   /* G:186-193 */
+  --color-syntax-string: oklch(0.60 0.11 145);
+  --color-syntax-constant: oklch(0.61 0.11 84);
+  --color-syntax-comment: oklch(0.60 0.005 80);
+  --color-syntax-function: oklch(0.62 0.11 310);
+  --color-syntax-type: oklch(0.60 0.10 195);
+  --color-syntax-punctuation: oklch(0.60 0.005 80);
+  --color-syntax-variable: oklch(0.82 0.005 80);
+
+  --color-error-subtle: oklch(0.22 0.04 25);      /* G:200 */
+  --color-success-subtle: oklch(0.22 0.04 145);   /* G:202 */
+  --color-warning-subtle: oklch(0.22 0.04 85);    /* G:204 */
+
+  --color-viz-1: oklch(0.708 0.129 249.5);        /* G:209-214 */
+  --color-viz-2: oklch(0.712 0.13 85.3);
+  --color-viz-3: oklch(0.724 0.129 310.2);
+  --color-viz-4: oklch(0.725 0.129 25.4);
+  --color-viz-5: oklch(0.696 0.129 144.9);
+  --color-viz-6: oklch(0.697 0.119 194.8);
+}
+
+/* System preference, unless the reader chose light (G:225-285; the site's
+ * selector is :root:not(.light)). Values identical to the block above —
+ * keep them in sync. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not(.light) {
+    color-scheme: dark;
+
+    --bg: oklch(0.14 0.015 140);
+    --surface: oklch(0.17 0.015 140);
+    --fg: oklch(0.92 0.03 140);
+    --fg-2: oklch(0.85 0.03 140);
+    --muted: oklch(0.78 0.03 140);
+    --border: oklch(0.25 0.02 140);
+    --accent: oklch(0.82 0.17 140);
+    --accent-hover: oklch(0.78 0.15 75);
+    --success: oklch(0.61 0.11 145);
+    --warn: oklch(0.62 0.11 85);
+    --danger: oklch(0.62 0.11 26);
+    --elev-raised: 0 4px 16px oklch(0 0 0 / 0.8);
+
+    --color-bg-subtle: oklch(0.17 0.015 140);
+    --color-border-bold: oklch(0.60 0.03 140);
+    --color-code-bg: oklch(0.17 0.015 140);
+    --color-code-fg: oklch(0.88 0.03 140);
+    --color-selection-bg: oklch(0.30 0.08 140);
+    --color-overlay: oklch(0 0 0 / 0.72);
+    --color-shadow: oklch(0 0 0 / 0.8);
+
+    --color-syntax-keyword: oklch(0.61 0.11 250);
+    --color-syntax-string: oklch(0.60 0.11 145);
+    --color-syntax-constant: oklch(0.61 0.11 84);
+    --color-syntax-comment: oklch(0.60 0.005 80);
+    --color-syntax-function: oklch(0.62 0.11 310);
+    --color-syntax-type: oklch(0.60 0.10 195);
+    --color-syntax-punctuation: oklch(0.60 0.005 80);
+    --color-syntax-variable: oklch(0.82 0.005 80);
+
+    --color-error-subtle: oklch(0.22 0.04 25);
+    --color-success-subtle: oklch(0.22 0.04 145);
+    --color-warning-subtle: oklch(0.22 0.04 85);
+
+    --color-viz-1: oklch(0.708 0.129 249.5);
+    --color-viz-2: oklch(0.712 0.13 85.3);
+    --color-viz-3: oklch(0.724 0.129 310.2);
+    --color-viz-4: oklch(0.725 0.129 25.4);
+    --color-viz-5: oklch(0.696 0.129 144.9);
+    --color-viz-6: oklch(0.697 0.119 194.8);
+  }
+}
+
+/* Reduced motion zeroes both durations, which disables every sanctioned
+ * transition at once (C:109-115). */
+@media (prefers-reduced-motion: reduce) {
+  :root,
+  [data-theme="light"],
+  [data-theme="dark"] {
+    --motion-fast: 0ms;
+    --motion-base: 0ms;
+  }
+}

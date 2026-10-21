@@ -1,7 +1,8 @@
 # Design Deviations
 
 This site consumes [`remarque-tokens`](https://www.npmjs.com/package/remarque-tokens)
-(v0.5.0) for the **core tier** — type scale, rhythm, spacing, content
+(`^0.26.0` in `package.json`, 0.26.0 installed; the sections below record each
+bump when it happened) for the **core tier** — type scale, rhythm, spacing, content
 widths, radius, motion, and base prose/typography machinery — via
 `@import "remarque-tokens/core";` in `src/styles/global.css`. The
 **palette tier** (fonts, colors, `--content-reading`) stays local, as
@@ -35,7 +36,7 @@ it, with no shadowing duplicate left behind to rot out of sync.
 These stay local by design — palette tier is meant to be overridden:
 
 - **Fonts**: Fraunces (display), Source Serif 4 (body), IBM Plex Mono
-  (mono) — registered via Astro 6's Fonts API in `astro.config.mjs` and
+  (mono) — registered via Astro's Fonts API in `astro.config.mjs` and
   injected onto the root element by `<Font>` in `BaseLayout.astro`, so
   they are intentionally *not* redeclared as CSS custom properties in
   `global.css` (see the comment at the top of that file).
@@ -69,7 +70,7 @@ Design-review ratified 7-0: hand-drawn geometry, masks, and scoped
 texture over the Remarque system — body typography untouched, every
 color still derives from theme tokens. Per the 2026-07-20 multi-agent
 review's governance disposition, this layer stays **site-local by
-design** (not a packaging candidate); `theme-deck.css` (14 terminal
+design** (not a packaging candidate); `theme-deck.css` (12 terminal
 palettes keyed on `[data-theme-deck]`) is slated to graduate into an
 official upstream module, with this site becoming its first consumer
 instead of its only home. Neither is adopted as a package dependency in
@@ -80,8 +81,9 @@ issue #274 ("Direction B," 7-0) unless noted:
 
 - **Share links in post footers** (`.share-row` / `.share-label` in
   `PostLayout.astro`) — not part of core Remarque's prose machinery.
-- **Zine border-radii** — `zine.css`'s squiggle-box radii (e.g.
-  `255px 15px 225px 15px / 15px 225px 15px 255px` on `.callout`) vary
+- **Zine border-radii** — `zine.css`'s squiggle-box radii on `.series-nav`,
+  `.deck-panel` and `pre[data-title]::before` (e.g.
+  `15px 225px 15px 255px / 255px 15px 225px 15px` on `.series-nav`) vary
   per component so the wobble never reads as a uniform theme pack;
   deliberately not the flat `--radius-sm`/`--radius-md` scale.
   Design-review ratified 7-0 (zine layer).
@@ -95,15 +97,15 @@ issue #274 ("Direction B," 7-0) unless noted:
   `@keyframes zine-wander`, scoped inside
   `@media (prefers-reduced-motion: no-preference)` in `zine.css`, so it's
   fully inert for anyone with a reduced-motion preference (WCAG 2.3.3).
-- **Pill tag chips** — `.chip` tag/filter chips (`PostCard.astro`,
+- **Tag chips** — `.chip` tag/filter chips (`PostCard.astro`,
   `tags/index.astro`) with small-caps typography and a token-driven
-  border; a presentational choice layered on top of core's typography
+  border at `--radius-sm` (4px rectangles, not pills); a presentational choice layered on top of core's typography
   machinery, not part of it.
 
 ## 5. Theming attribute convention
 
 This site keys themes on `:root.dark` / `:root.light` classes plus
-`[data-theme-deck='<name>']` for the 12 terminal-theme deck (generated,
+`[data-theme-deck='<name>']` for the 12-theme terminal deck (generated,
 `theme-deck.css`). Upstream remarque-tokens keys on `[data-theme="dark"]`
 / `[data-theme="light"]` attributes (see `tokens-palette.css`'s "Manual
 dark mode toggle support" block) and a bare `@media
@@ -141,7 +143,7 @@ replaces the site's own former `scripts/contrast-audit.mjs`, which is
 `:root.dark` fg/bg pairs remarque-audit's `CHECKS` table now covers
 (confirmed line-for-line: `fg`, `fg-muted`, `muted`, `border-bold`,
 `accent`, `accent-hover` against `bg`, both themes), had no coverage of
-`theme-deck.css`'s 14 terminal palettes or anything else remarque-audit
+`theme-deck.css`'s 12 terminal palettes or anything else remarque-audit
 doesn't also see, so nothing was trimmed-and-kept — the whole file's
 job moved upstream. **Kept as-is**, not covered by remarque-audit and not
 duplicative of it: `scripts/apca-audit.mjs` (APCA/WCAG 3 draft — upstream
@@ -495,6 +497,39 @@ across decks to solve a palette problem, and because on a deck whose entire
 purpose is *higher contrast*, raising the text contrast is the more faithful
 fix. Worth revisiting if a future deck fails for a reason the palette cannot
 absorb.
+
+## 12. Font-slot roles: small Fraunces, mono navigation
+
+**Status:** recorded, CSS unchanged.
+
+`REMARQUE.md`'s font-slot table approves Fraunces for "display sizes only,
+≥2rem", and its font rules restrict the display face to text "at or above the
+section heading size" (`--text-section`, minimum 1.375rem). The site sets
+Fraunces below 2rem in nine places, five of them below 1.375rem:
+
+| Selector | File | Size |
+|---|---|---|
+| `.site-sections a[aria-current="page"]::before` (the `§` marker) | `global.css` | inherits `--text-meta` (0.875rem) |
+| `.site-nameplate-byline` | `global.css` | `clamp(0.85rem, 1.4vw, 1rem)` |
+| `a.post-card-title` | `global.css` | `--text-body-lg` (1.1875rem) |
+| `.uses-name` | `global.css` | `--text-body-lg` (1.1875rem); `--text-body` at ≤640px |
+| `.archive-link` | `global.css` | 1.25rem |
+| `.lede` | `src/pages/about.astro` | 1.25rem |
+| `.landing-tagline` | `global.css` | `clamp(1.25rem, 2.2vw, 1.625rem)` |
+| `.lead-lede` | `global.css` | 1.375rem |
+| `.entry-title` | `global.css` | `clamp(1.5rem, 2.5vw, 1.875rem)` |
+
+Each is an italic or title role where the display face is the point. The
+`clamp()` sizes are among the display sizes ratified under #274 (see §6's
+baseline notes); the fixed sizes were not recorded anywhere until now. h2 (`--text-section`) also starts below
+2rem; it satisfies the "section heading size" rule by definition, so the two
+spec lines disagree there rather than the site.
+
+The same table assigns navigation and UI labels to the body face. This site's
+two-voice system (#274, the `Voice: machine (mono)` block in `global.css`)
+puts navigation, breadcrumbs and every other machine surface in IBM Plex Mono
+instead (ratified 7-0). Deliberate, and the most recognisable trait of the
+design.
 
 ---
 

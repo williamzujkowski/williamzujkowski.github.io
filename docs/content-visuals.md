@@ -2,6 +2,7 @@
 
 Use native HTML patterns first. They inherit Remarque tokens, survive the theme deck,
 and stay readable on phones. Mermaid still renders, but it is legacy for new posts.
+For site UI and page CSS (not post visuals), read [the Remarque design system](design/remarque/DESIGN.md).
 
 ## Decision Rule
 
@@ -40,7 +41,10 @@ Class contract:
 </div>
 ```
 
-Allowed node variants: `.is-gate`, `.is-good`, `.is-bad`.
+Allowed node variants: `.is-gate` (decision, dashed accent pill), `.is-good`
+(success, double border), `.is-bad` (failure, dotted), `.is-warn` (degraded or
+needs attention, dashed warning). Each pairs its colour with a border style so it
+survives colour-blindness and forced colours; still say the state in the label.
 
 Raw HTML rules:
 
@@ -92,7 +96,9 @@ Class contract:
 </figure>
 ```
 
-Allowed chip variants: `.is-primary`, `.is-guard`, `.is-warn`, `.is-bad`.
+Allowed chip variants: `.is-primary`, `.is-guard`, `.is-warn`, `.is-bad`,
+`.is-good` (healthy or passing component, double success border, matching the
+`.flow-node.is-good` treatment).
 Chips may use `<b>` and `<i>` for a two-line label. `<figcaption>` is optional,
 but use it when the interpretation is not obvious.
 

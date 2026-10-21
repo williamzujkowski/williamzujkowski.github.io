@@ -183,7 +183,7 @@ The old rule was right about precision and wrong to strip out the personality. K
   same 90% — it used to say 70%, which contradicted this line. Actual
   coverage is 95.7%, counting only external, non-badge links.)
 - Social images are generated per post at build time (`/og/<slug>.png`) — no hero-image frontmatter
-- **Visuals:** follow `docs/content-visuals.md` — `.flow` for processes, `.arch` for layers/zones, Markdown tables for matrices, split dense diagrams; Mermaid is legacy for genuine node graphs. Zine doodles must carry the idea visually (a specific metaphor), never a stamped label. All authored visuals use `var(--color-*)` tokens (never hardcoded colors), stay ≥0.8125rem, and reflow on mobile.
+- **Visuals:** follow `docs/content-visuals.md` — `.flow` for processes, `.arch` for layers/zones, Markdown tables for matrices, split dense diagrams; Mermaid is legacy for genuine node graphs. Zine doodles must carry the idea visually (a specific metaphor), never a stamped label. All authored visuals use `var(--color-*)` tokens (never hardcoded colors), stay ≥0.8125rem, and reflow on mobile. Agents generating site UI or CSS read `docs/design/remarque/DESIGN.md` first (tokens, components, do/don't).
 - SEO: canonical URLs, Open Graph, Twitter Cards, structured data
 
 ---
