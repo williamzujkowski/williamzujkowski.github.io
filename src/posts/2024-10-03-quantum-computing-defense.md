@@ -35,11 +35,11 @@ These aren't just research curiosities anymore. They're operational systems begi
 
 The computational properties that make quantum computing particularly powerful for certain defense applications include:
 
-**Exponential Parallelism**: Quantum computers can consider vast numbers of possibilities simultaneously, making them powerful for optimization problems like logistics planning or battlefield simulations.
+Exponential Parallelism: Quantum computers can consider vast numbers of possibilities simultaneously, making them powerful for optimization problems like logistics planning or battlefield simulations.
 
-**Probabilistic Modeling**: They excel at modeling uncertainty and probabilistic processes, enhancing predictive capabilities for complex scenarios.
+Probabilistic Modeling: They excel at modeling uncertainty and probabilistic processes, enhancing predictive capabilities for complex scenarios.
 
-**Pattern Recognition**: Quantum machine learning algorithms show superior performance in identifying subtle patterns in massive datasets. This capability is particularly valuable for intelligence analysis, though understanding the practical limits of quantum machine learning in production environments remains an active area of research.
+Pattern Recognition: Quantum machine learning algorithms show superior performance in identifying subtle patterns in massive datasets. This capability is particularly valuable for intelligence analysis, though understanding the practical limits of quantum machine learning in production environments remains an active area of research.
 
 ⚠️ **Warning:** This code demonstrates conceptual quantum computing algorithms for educational purposes. Quantum computing research should follow ethical guidelines and proper authorization.
 
@@ -82,9 +82,9 @@ This isn't theoretical. It's mathematically inevitable once quantum hardware mat
 
 In response, defense agencies worldwide are investing heavily in post-quantum cryptography. NIST has standardized several quantum-resistant algorithms, building on foundations explored in [cryptography fundamentals](/posts/2024-01-18-demystifying-cryptography-beginners-guide) and [quantum-resistant cryptography implementations](/posts/2024-04-30-quantum-resistant-cryptography-guide).
 
-**Lattice-based cryptography**: Security based on finding shortest vectors in high-dimensional lattices, believed hard even for quantum computers.
+Lattice-based cryptography: Security based on finding shortest vectors in high-dimensional lattices, believed hard even for quantum computers.
 
-**Hash-based signatures**: Digital signatures using cryptographic hash functions that remain quantum-resistant.
+Hash-based signatures: Digital signatures using cryptographic hash functions that remain quantum-resistant.
 
 The challenge is enormous: transitioning global security infrastructure while ensuring backward compatibility and maintaining security during the transition period.
 

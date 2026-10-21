@@ -19,7 +19,7 @@ This is a case study in scope creep, premature optimization, and what happens wh
 
 But here's the thing: personal projects are where we learn by overdoing it, by making every mistake in the book when the stakes are low. This post walks through the evolution from working prototype to over-engineered monstrosity, examining the classic developer pitfalls I hit along the way, including tool-driven architecture, the seduction of sophisticated patterns, and the massive gap between "it works" and "it's production ready."
 
-**The Numbers**: Version 1 (200 lines, 2 hours, functional) → Version 4 (6,000+ lines, 3 weeks, questionably necessary). Redis cache with 30-minute TTL for documentation that changes once a month. Vector search implementation for 50 markdown files. Six language-specific analyzers for standards that are 90% YAML. This isn't a success story: it's a cautionary tale about knowing when good enough is perfect.
+The Numbers: Version 1 (200 lines, 2 hours, functional) → Version 4 (6,000+ lines, 3 weeks, questionably necessary). Redis cache with 30-minute TTL for documentation that changes once a month. Vector search implementation for 50 markdown files. Six language-specific analyzers for standards that are 90% YAML. This isn't a success story: it's a cautionary tale about knowing when good enough is perfect.
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/mcp-server.png'); width: min(240px, 62%); aspect-ratio: 400/386; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">one server, many tools</p>
@@ -38,7 +38,7 @@ Three weeks and several rewrites later, I have [github.com/williamzujkowski/mcp-
 
 "I'll wrap my standards in an MCP server. How hard could it be?"
 
-**Pseudocode - Simplified Initial Vision:**
+Pseudocode - Simplified Initial Vision:
 ```python
 # My naive first attempt
 class StandardsServer:
@@ -53,7 +53,7 @@ class StandardsServer:
 
 ⚠️ **Warning:** This code illustrates over-engineering patterns for educational purposes. Implement security controls and proper authentication for production MCP servers with external access.
 
-**Pseudocode - Simplified Current Architecture:**
+Pseudocode - Simplified Current Architecture:
 ```python
 # Current reality - 6000+ lines of code later
 # Simplified representation showing core components
@@ -148,7 +148,7 @@ context = {
 standards = engine.evaluate(context)
 ```
 
-**Capabilities:**
+Capabilities:
 - Analyzes project structure and dependencies
 - Maps requirements to relevant standards automatically
 - Loads 3-5 standards per project (vs. 25 total available)
@@ -166,7 +166,7 @@ mcp-standards validate src/ --language auto
 # Generates fix patches automatically
 ```
 
-**Features:**
+Features:
 - Supports 6 languages: Python, JavaScript, Go, Java, Rust, TypeScript
 - Auto-detects language from file extensions and syntax
 - Provides violation explanations with line numbers
@@ -198,7 +198,7 @@ Compressed formats reduce LLM token costs by 70-90%:
 standard = get_standard("react-patterns", format="compressed")
 ```
 
-**Compression strategies:**
+Compression strategies:
 - Bullet-point summaries (500 tokens, 90% reduction)
 - Reference-only mode (50 tokens, 99% reduction)
 - Dynamic expansion: Request details only when needed
@@ -230,54 +230,54 @@ standard = get_standard("react-patterns", format="compressed")
 
 I spent two frustrating days tracking down silent cache failures before I realized I'd configured Redis with a noeviction policy. My "temporary" cache was storing everything indefinitely.
 
-**The Problem:**
+The Problem:
 - Spent 2 days debugging silent cache failures
 - Redis exceeded memory limits (maxmemory policy: noeviction)
 - "Temporary" cache stored everything indefinitely
 - 200MB cached data for documentation that changes monthly
 - Cache hit rate: 99% (because nothing ever expired)
 
-**The Fix:**
+The Fix:
 - Added 30-minute TTL on all cache entries
 - Reduced maxmemory from 512MB to 64MB
 - Implemented [LRU eviction policy](https://redis.io/docs/latest/develop/reference/eviction/)
 - Result: Memory usage dropped 87%, performance unchanged
 
-**Lesson learned**: TTLs exist for a reason. Use them.
+Lesson learned: TTLs exist for a reason. Use them.
 
 ### Vector Databases Are Hungry
 
-**The Absurdity:**
+The Absurdity:
 - [ChromaDB](https://docs.trychroma.com) plus a sentence-transformer model is a few hundred MB of runtime before you index anything
 - That cost is fixed, not per document — adding a 26th file costs nothing
 - Index generation: 47 seconds
 - Query latency: 89ms average
 - Alternative: `grep -r "pattern" docs/` → 12ms
 
-**The Reality Check:**
+The Reality Check:
 - Total corpus size: 250KB of text
 - Vector embeddings: 384 dimensions per chunk (all-MiniLM-L6-v2)
 - Total corpus that justified any of it: 250KB of markdown
 - Use cases requiring semantic search: 0
 
-**Lesson learned**: Sometimes grep is enough. Not everything needs AI.
+Lesson learned: Sometimes grep is enough. Not everything needs AI.
 
 ### The MCP Protocol Is Still Evolving
 
-**The Breaking Change:**
+The Breaking Change:
 - Spec revision 2025-03-26 → 2025-06-18 landed the day before I started
 - It removed JSON-RPC batching and reworked tool output
 - Server worked on Friday; Monday every tool call failed with cryptic errors
 - My perfectly working implementation: broken against a spec that had moved under it
 
-**The Recovery:**
+The Recovery:
 - 6 hours rewriting tool definitions
 - Updated SDK dependencies
 - Rewrote the affected tests
 - Added version checking middleware
 - Now: Server checks MCP protocol version on startup
 
-**Lesson learned**, in theory. `pyproject.toml` still reads `mcp>=0.1.0`, so evidently not in practice. Check breaking change logs religiously.
+Lesson learned, in theory. `pyproject.toml` still reads `mcp>=0.1.0`, so evidently not in practice. Check breaking change logs religiously.
 
 ## Unexpected Discoveries
 
@@ -292,7 +292,7 @@ cd web && ./start.sh
 # Rule testing playground
 ```
 
-**What Started as a 2-Hour Debug Tool:**
+What Started as a 2-Hour Debug Tool:
 - Interactive standards browser with search
 - Real-time [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) updates when standards change
 - Rule testing playground with live validation
@@ -301,7 +301,7 @@ cd web && ./start.sh
 - Dark mode toggle (essential)
 - 50+ components, 3,000 lines of [React](https://react.dev/reference/react/hooks)
 
-**The Irony**: I use this more than the CLI now. Sometimes procrastination produces useful things.
+The Irony: I use this more than the CLI now. Sometimes procrastination produces useful things.
 
 ### Performance Benchmarking Addiction
 
@@ -316,7 +316,7 @@ python benchmarks/run_benchmarks.py
 # Rule evaluation: 3ms average
 ```
 
-**Optimization Journey:**
+Optimization Journey:
 - Initial measurements: 340ms average retrieval (embarrassing)
 - Profiled with cProfile: 85% time in JSON parsing
 - Added [msgpack serialization](https://msgpack.org): 180ms (47% faster)
@@ -325,26 +325,26 @@ python benchmarks/run_benchmarks.py
 - Time invested: 1 week
 - Users who care about 12ms vs 45ms: 0 (only me)
 
-**The Graphs**: Created dashboards tracking latency percentiles, cache hit rates, memory usage over time. Nobody asked for these metrics. But they're pretty.
+The Graphs: Created dashboards tracking latency percentiles, cache hit rates, memory usage over time. Nobody asked for these metrics. But they're pretty.
 
 ## Current State: "It Works on My Machine"
 
 The honest status:
 
-✅ **What's Working:**
+✅ What's Working:
 - MCP server starts and serves standards
 - 25 standards available and searchable
 - CLI works (mostly)
 - Tests pass (when Redis is running)
 - Web UI loads (in Chrome)
 
-⚠️ **What's Flaky:**
+⚠️ What's Flaky:
 - Redis randomly disconnects
 - Web UI websocket reconnection
 - Performance under load (untested with >1 user)
 - The documentation
 
-❌ **What's Broken:**
+❌ What's Broken:
 - Windows support (WSL2 or suffer)
 - The release automation I spent 3 days on
 - My sleep schedule
@@ -371,60 +371,60 @@ Version value versus complexity:
 
 ### Start Smaller Than You Think
 
-**The Evolution:**
+The Evolution:
 - Week 1: "Simple wrapper" (200 lines, 1 file)
 - Week 2: Added caching (1,200 lines, 8 files)
 - Week 3: Added vector search (3,800 lines, 23 files, 4GB RAM)
 - Week 4: Added web UI (about 2,000 lines of React across 16 files)
 
-**What I Should Have Done:**
+What I Should Have Done:
 - Ship Version 1
 - Get feedback
 - Add features based on actual needs, not hypothetical ones
 - Iterate based on real usage
 
-**The Reality**: Built for an audience of one (me). Over-engineered for problems I don't have.
+The Reality: Built for an audience of one (me). Over-engineered for problems I don't have.
 
 ### Perfect Is the Enemy of Deployed
 
-**Version Comparison:**
+Version Comparison:
 - **Version 1**: 200 lines, works, deployed, useful
 - **Version 2**: 1,200 lines, faster caching, zero users noticed
 - **Version 3**: 3,800 lines, semantic search, solves no real problems
 - **Version 4**: ~32,000 lines, full UI, impressive demos, occasional Redis crashes
 
-**Value Added Per Version:**
+Value Added Per Version:
 - V1 → V2: Marginal (caching saves 50ms on repeated queries)
 - V2 → V3: Negative (added complexity, solved nothing)
 - V3 → V4: Mixed (UI is useful, but could have been separate project)
 
-**Lesson**: Should have shipped V1 three weeks ago. Iterated based on real feedback.
+Lesson: Should have shipped V1 three weeks ago. Iterated based on real feedback.
 
 ### Tools Shape Solutions
 
-**The Pattern I Fell Into:**
+The Pattern I Fell Into:
 - Had Redis → Added caching to everything
 - Had ChromaDB → Added vector search everywhere
 - Had React experience → Built unnecessary UI
 - Had time → Spent it adding features instead of shipping
 
-**Tools That Influenced Architecture:**
+Tools That Influenced Architecture:
 - Redis: L1/L2 cache architecture (for 25 files)
 - ChromaDB: Semantic search (for text searchable by grep)
 - React: Full web UI (for debugging tool)
 - [Python async](https://docs.python.org/3/library/asyncio.html): Everything became async (unnecessary complexity)
 
-**The Trap**: "I have this hammer, so everything looks like a nail." Technology-driven architecture instead of problem-driven. Classic [scope creep](https://www.pmi.org/learning/library/top-five-causes-scope-creep-6675) in action.
+The Trap: "I have this hammer, so everything looks like a nail." Technology-driven architecture instead of problem-driven. Classic [scope creep](https://www.pmi.org/learning/library/top-five-causes-scope-creep-6675) in action.
 
 ## What's Next (The Roadmap I'll Probably Ignore)
 
-**The Realistic List:**
+The Realistic List:
 - Fix the Redis connection issues (week 5 of saying this)
 - Write actual documentation
 - Add integration tests that test integration
 - Simplify the architecture (ha!)
 
-**The Dream List:**
+The Dream List:
 - VS Code extension
 - Direct Claude Desktop integration  
 - Distributed standards federation
@@ -434,7 +434,7 @@ Version value versus complexity:
 
 If you're brave enough to try this server, you might also want to explore my simpler (and more practical) approach to [supercharging Claude CLI with standards](/posts/2025-07-22-supercharging-claude-cli-with-standards) that doesn't require Redis or ChromaDB.
 
-**AI skepticism note:** MCP is bleeding-edge technology from Anthropic. The spec changes. The libraries break. The examples in the docs don't always work. Building production systems on top of experimental protocols is a recipe for midnight debugging sessions.
+AI skepticism note: MCP is bleeding-edge technology from Anthropic. The spec changes. The libraries break. The examples in the docs don't always work. Building production systems on top of experimental protocols is a recipe for midnight debugging sessions.
 
 ⚠️ **Warning:** These installation commands modify system packages. Use isolated environments (virtual environments, containers) to avoid conflicts.
 
@@ -460,7 +460,7 @@ Fair warning: This is a work in progress. It works, but "works" is doing some he
 
 This project taught me something important: The gap between "working prototype" and "production ready" is vast. My standards repository was immediately useful. This MCP server is technically superior and practically inferior. It's harder to install, easier to break, and solves problems that don't exist.
 
-**The honest assessment:** This is over-engineering as a learning exercise. The first version (200 lines) worked fine. The current version (6,000+ lines) is more impressive and less useful. Sometimes the best code is the code you don't write.
+The honest assessment: This is over-engineering as a learning exercise. The first version (200 lines) worked fine. The current version (6,000+ lines) is more impressive and less useful. Sometimes the best code is the code you don't write.
 
 But I learned a ton:
 - How MCP works (and doesn't)

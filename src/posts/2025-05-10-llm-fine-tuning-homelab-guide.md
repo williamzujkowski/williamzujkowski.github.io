@@ -9,7 +9,7 @@ tags:
   - machine-learning
   - software-engineering
 ---
-**BLUF:** In March 2025, I attempted to fine-tune Llama 3 8B on my RTX 3090. The first attempt consumed all 24GB of VRAM in under 3 minutes and crashed with a CUDA out-of-memory error.
+BLUF: In March 2025, I attempted to fine-tune Llama 3 8B on my RTX 3090. The first attempt consumed all 24GB of VRAM in under 3 minutes and crashed with a CUDA out-of-memory error.
 
 After 47 hours of experimentation across two weeks, I finally got it working using QLoRA with 4-bit quantization. The successful training run took 14 hours at 340W average power consumption, which cost me roughly $8.40 in electricity. This guide shares everything I learned from that journey, including the five failures that taught me more than the eventual success.
 
@@ -82,11 +82,11 @@ Quality matters more than quantity. A carefully curated dataset of 500 high-qual
 
 Most fine-tuning frameworks expect data in specific formats. I primarily use three patterns:
 
-**Instruction Format**: Pairs of instructions and responses, teaching the model to follow specific patterns. This format worked best for my task-specific adaptations. My testing suggests this approach is most effective when you have at least 200-300 diverse instruction examples.
+Instruction Format: Pairs of instructions and responses, teaching the model to follow specific patterns. This format worked best for my task-specific adaptations. My testing suggests this approach is most effective when you have at least 200-300 diverse instruction examples.
 
-**Conversational Format**: Multi-turn dialogues that capture context and back-and-forth interaction patterns. I used this for a chatbot experiment in April 2025, with mixed results. The model learned conversational flow well but occasionally generated responses that referenced fictional prior context.
+Conversational Format: Multi-turn dialogues that capture context and back-and-forth interaction patterns. I used this for a chatbot experiment in April 2025, with mixed results. The model learned conversational flow well but occasionally generated responses that referenced fictional prior context.
 
-**Completion Format**: Prompts with expected completions. This is the simplest format, and I use it when I just need the model to learn specific output patterns without complex instruction following.
+Completion Format: Prompts with expected completions. This is the simplest format, and I use it when I just need the model to learn specific output patterns without complex instruction following.
 
 ### Data Cleaning and Validation
 
@@ -109,11 +109,11 @@ My third training attempt in March failed because I used a learning rate of 2e-3
 
 Several hyperparameters significantly impact fine-tuning quality and efficiency. Here's what I've learned from trial and error:
 
-**Learning Rate**: This parameter probably has the biggest impact on training success. I started with 2e-4 for my first successful LoRA run, then reduced to 5e-5 for QLoRA after experiencing instability. Too high causes the divergence I mentioned earlier. Too low results in glacially slow convergence, I tested 1e-6 once and training barely progressed after 8 hours.
+Learning Rate: This parameter probably has the biggest impact on training success. I started with 2e-4 for my first successful LoRA run, then reduced to 5e-5 for QLoRA after experiencing instability. Too high causes the divergence I mentioned earlier. Too low results in glacially slow convergence, I tested 1e-6 once and training barely progressed after 8 hours.
 
 My current approach: Start with 1e-4 for LoRA, 5e-5 for QLoRA, and adjust based on training loss behavior in the first few hundred steps.
 
-**Rank (r)**: For LoRA, this determines the dimensionality of adapter matrices. I tested r=8, 16, 32, and 64 systematically:
+Rank (r): For LoRA, this determines the dimensionality of adapter matrices. I tested r=8, 16, 32, and 64 systematically:
 
 - r=8: VRAM usage 16.2GB, validation perplexity 3.14
 - r=16: VRAM usage 16.9GB, validation perplexity 2.87
@@ -122,11 +122,11 @@ My current approach: Start with 1e-4 for LoRA, 5e-5 for QLoRA, and adjust based 
 
 The diminishing returns above r=16 weren't worth the memory cost for my use case.
 
-**Alpha**: LoRA scaling factor that controls the magnitude of adapter updates. I typically set this to 32 (2x my rank of 16). When I tried alpha=8, training loss decreased more slowly. Alpha=64 caused occasional instability spikes in loss curves.
+Alpha: LoRA scaling factor that controls the magnitude of adapter updates. I typically set this to 32 (2x my rank of 16). When I tried alpha=8, training loss decreased more slowly. Alpha=64 caused occasional instability spikes in loss curves.
 
-**Batch Size**: I use an effective batch size of 32 with gradient accumulation over 4 steps, giving me actual batch size of 8. This configuration seems to balance training stability and memory usage well. My experiments with effective batch size 64 showed minimal quality improvement but substantially longer training times.
+Batch Size: I use an effective batch size of 32 with gradient accumulation over 4 steps, giving me actual batch size of 8. This configuration seems to balance training stability and memory usage well. My experiments with effective batch size 64 showed minimal quality improvement but substantially longer training times.
 
-**Training Epochs**: I typically train for 3-4 epochs on my 3,400-example dataset. Training for 6 epochs caused clear overfitting, with validation loss increasing while training loss continued decreasing. One epoch seems insufficient, validation metrics typically still improve significantly into epoch 2.
+Training Epochs: I typically train for 3-4 epochs on my 3,400-example dataset. Training for 6 epochs caused clear overfitting, with validation loss increasing while training loss continued decreasing. One epoch seems insufficient, validation metrics typically still improve significantly into epoch 2.
 
 ### Training Monitoring
 
@@ -145,7 +145,7 @@ Fine-tuning LLMs presents several practical challenges. I've hit almost all of t
 
 My April experiment with a 287-example dataset resulted in severe overfitting. The model memorized training examples nearly verbatim and performed poorly on held-out test cases. Validation loss peaked at epoch 2.3 and then started increasing while training loss approached 0.12.
 
-**Prevention strategies that worked for me**:
+Prevention strategies that worked for me:
 - Using larger, more diverse datasets (my 3,400-example set overfits much less)
 - Training for 3 epochs instead of 6 (validated via early stopping)
 - Monitoring validation loss every 0.25 epochs
@@ -155,7 +155,7 @@ My April experiment with a 287-example dataset resulted in severe overfitting. T
 
 After my first successful fine-tuning run, the model performed well on my specific task but had noticeably degraded on general question answering. It "forgot" how to handle questions outside my narrow training distribution. This was probably my most frustrating realization.
 
-**Mitigation approaches I've tested**:
+Mitigation approaches I've tested:
 - Including 420 diverse general examples alongside my 3,400 task-specific examples (this helped substantially)
 - Using learning rate 5e-5 instead of 1e-4 (makes smaller updates, seems to preserve more base knowledge)
 - Training for 3 epochs instead of 5 (less time to forget)
@@ -165,7 +165,7 @@ After my first successful fine-tuning run, the model performed well on my specif
 
 My third training run in March exhibited wild loss spikes every 200-300 steps. Loss would be decreasing smoothly, then suddenly spike from 1.2 to 4.7, then recover. This pattern repeated throughout training.
 
-**Stabilization techniques that solved this**:
+Stabilization techniques that solved this:
 - Reduced learning rate from 1e-4 to 5e-5 (eliminated most spikes)
 - Enabled gradient clipping at norm 1.0 (smoothed remaining instability)
 - Found and removed 8 corrupted examples from my dataset (one had malformed UTF-8)
@@ -175,7 +175,7 @@ My third training run in March exhibited wild loss spikes every 200-300 steps. L
 
 My RTX 3090 with 24GB VRAM seems generous until you try fitting a 13B parameter model. My April attempt to fine-tune Llama 2 13B failed even with aggressive QLoRA settings.
 
-**Optimization strategies I've used**:
+Optimization strategies I've used:
 - QLoRA with 4-bit quantization (essential for anything over 7B parameters on my hardware)
 - Gradient checkpointing enabled (trades roughly 23% more training time for 4.1GB memory savings)
 - Batch size 8 with gradient accumulation (simulates larger batches without memory cost)
@@ -191,9 +191,9 @@ After spending 14 hours on training, I learned to invest serious time in evaluat
 
 Quantitative metrics provide objective assessment, though they don't tell the whole story.
 
-**Perplexity**: My validation perplexity typically drops from 4.23 (base Llama 3 8B) to around 2.87 after fine-tuning on my 3,400-example dataset. Lower is better, though absolute values depend heavily on your domain. One of my domain-specific models achieved perplexity 1.92, but that's not directly comparable to the general dataset.
+Perplexity: My validation perplexity typically drops from 4.23 (base Llama 3 8B) to around 2.87 after fine-tuning on my 3,400-example dataset. Lower is better, though absolute values depend heavily on your domain. One of my domain-specific models achieved perplexity 1.92, but that's not directly comparable to the general dataset.
 
-**Task-Specific Metrics**: For my code documentation task, I measure BLEU score and exact match rate. My fine-tuned model achieves BLEU 0.67 and exact match 34% on held-out test cases, compared to base model BLEU 0.42 and exact match 12%. These metrics are more meaningful to me than perplexity.
+Task-Specific Metrics: For my code documentation task, I measure BLEU score and exact match rate. My fine-tuned model achieves BLEU 0.67 and exact match 34% on held-out test cases, compared to base model BLEU 0.42 and exact match 12%. These metrics are more meaningful to me than perplexity.
 
 ### Human Evaluation
 
@@ -284,13 +284,13 @@ Learn from my failures to save time and electricity costs:
 
 The field of efficient fine-tuning continues to evolve rapidly. I'm watching several promising developments:
 
-**Mixture of Experts**: Training sparse models where only subsets of parameters activate for each input. This could enable larger effective model capacity within my VRAM constraints. I haven't tested this yet due to limited tooling support.
+Mixture of Experts: Training sparse models where only subsets of parameters activate for each input. This could enable larger effective model capacity within my VRAM constraints. I haven't tested this yet due to limited tooling support.
 
-**Meta-Learning**: Models that learn how to fine-tune themselves more efficiently. The research looks promising, though I'm skeptical about real-world practicality based on what I've read.
+Meta-Learning: Models that learn how to fine-tune themselves more efficiently. The research looks promising, though I'm skeptical about real-world practicality based on what I've read.
 
-**Automated Hyperparameter Optimization**: Systems that automatically search for optimal configurations. This would have saved me probably 20+ hours of manual experimentation, though current tools seem immature.
+Automated Hyperparameter Optimization: Systems that automatically search for optimal configurations. This would have saved me probably 20+ hours of manual experimentation, though current tools seem immature.
 
-**Few-Shot and Zero-Shot Adaptation**: Techniques for task adaptation with minimal training. I'm testing prompt engineering approaches that may eliminate fine-tuning for simple tasks, though results are mixed so far.
+Few-Shot and Zero-Shot Adaptation: Techniques for task adaptation with minimal training. I'm testing prompt engineering approaches that may eliminate fine-tuning for simple tasks, though results are mixed so far.
 
 ---
 
