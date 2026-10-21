@@ -185,7 +185,7 @@ Centred nameplate: Fraunces italic light byline over "*Field* Notes" at the name
 
 **Focus.** `outline: 2px solid var(--color-accent); outline-offset: 2px` on `:focus-visible` (`global.css:1136`). Use `outline`, not `box-shadow`: forced-colours mode removes shadows, and core pins the outline to `Highlight` there (`RT/tokens-core.css:275-278`). Inside a scroll container the ring is inset (`.remarque-toc-rail`, `global.css:1140`).
 
-**Motion.** Nearly none. Hover and focus use `--motion-fast` (120ms), theme switches `--motion-normal` (180ms), easing `ease-out`. No scroll, entrance, stagger or parallax animation; nothing animates on a non-interactive element (`RT/REMARQUE.md:435-450`). A deliberate theme toggle crossfades colour properties briefly (`global.css:1613-1645`). The cross-document view transition runs only under `prefers-reduced-motion: no-preference` (`global.css:36-40`). Under `reduce`, core zeroes both duration tokens and a global rule clamps anything left (`global.css:1647-1653`). The one ambient animation is the 404 doodle's wander, also motion-gated (`zine.css:217-225`). Transition named properties, never `all`.
+**Motion.** Nearly none. Hover and focus use `--motion-fast` (120ms), theme switches `--motion-normal` (180ms), easing `ease-out`. No scroll, entrance, stagger or parallax animation; nothing animates on a non-interactive element (`RT/REMARQUE.md:435-450`). A deliberate theme toggle crossfades colour properties briefly (`global.css:1613-1645`). The cross-document view transition runs only under `prefers-reduced-motion: no-preference` (`global.css:36-40`). Under `reduce`, core zeroes both duration tokens and a global rule clamps anything left (`global.css:1647-1653`). The one ambient animation is the 404 doodle's wander, also motion-gated, and it runs once for 4.8s; like the PizzaOps status pulse (2 × 2.4s), it stops within 5s, so WCAG 2.2.2 needs no pause control (`zine.css:217-229`, `tests/e2e/motion.spec.ts`). Transition named properties, never `all`.
 
 ## 7. Do's and Don'ts
 
@@ -319,7 +319,7 @@ Paths are relative to the repository root at commit `00f96b9`. `G` = `astro-site
 | Theme crossfade, view transition, reduced motion | `G:1613-1645`, `:36-40`, `:1647-1653` |
 | Zine masks, squiggle radii, wobble, quote mark, grain | `astro-site/src/styles/zine.css:10-21`, `:23-36`, `:40-68`, `:72-88`, `:92-106` |
 | Print | `zine.css:108-175` |
-| `.hand-note`, `.zine-doodle`, 404 wander | `zine.css:179-188`, `:190-204`, `:217-225` |
+| `.hand-note`, `.zine-doodle`, 404 wander | `zine.css:179-188`, `:190-204`, `:217-229` |
 | Theme decks (12) | `astro-site/src/styles/theme-deck.css`; `astro-site/src/data/theme-deck.json` |
 | Theme selectors | `astro-site/src/layouts/BaseLayout.astro:247-265`; `astro-site/DESIGN-DEVIATIONS.md` §5 |
 | `theme-color` hex | `BaseLayout.astro:200-205` |

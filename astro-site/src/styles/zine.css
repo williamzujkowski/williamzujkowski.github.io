@@ -214,12 +214,16 @@ article .prose blockquote::before {
 
 .lost-doodle .doodle-accent { color: var(--color-accent); }
 
+/* One 4.8s wander that starts and ends at rest. It used to loop forever
+   (6s, infinite): WCAG 2.2.2 wants a pause control for automatic motion
+   lasting more than 5s, and a 404 doodle doesn't merit one (#698). */
 @media (prefers-reduced-motion: no-preference) {
   .lost-doodle .doodle-wander {
-    animation: zine-wander 6s ease-in-out infinite alternate;
+    animation: zine-wander 4.8s ease-in-out 1;
   }
   @keyframes zine-wander {
-    from { transform: rotate(-2deg) translateX(-2px); }
-    to { transform: rotate(2.5deg) translateX(3px); }
+    0%, 100% { transform: none; }
+    30% { transform: rotate(-2deg) translateX(-2px); }
+    70% { transform: rotate(2.5deg) translateX(3px); }
   }
 }

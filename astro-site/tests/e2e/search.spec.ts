@@ -301,3 +301,22 @@ test('structured data does not advertise an unsupported search URL', async ({ pa
   expect(schemas.some((schema) => JSON.parse(schema)['@type'] === 'WebSite')).toBe(true);
   expect(schemas.join('')).not.toContain('SearchAction');
 });
+
+test('only Ctrl/Cmd+K opens search; a bare "/" is typed, not captured', async ({ page }) => {
+  // WCAG 2.1.4: a single-character shortcut with no off switch fires for
+  // speech-input users who say a word containing it (#698).
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('/');
+  const trigger = page.getByRole('button', { name: 'Search site', exact: true });
+  await expect(trigger).toBeEnabled();
+  await page.locator('main').focus();
+  await page.keyboard.press('/');
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+
+  await expect(trigger).toHaveAttribute('aria-keyshortcuts', 'Control+K Meta+K');
+  await expect(trigger.locator('kbd')).toBeVisible();
+  await expect(trigger.locator('kbd')).not.toContainText('/');
+
+  await page.keyboard.press('Control+k');
+  await expect(page.getByRole('dialog')).toBeVisible();
+});
