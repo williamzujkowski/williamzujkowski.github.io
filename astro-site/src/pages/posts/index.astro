@@ -37,6 +37,12 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
       <span class="dot">·</span>
       {tagCounts.size} tags
     </p>
+    {/* The archive runs to ~48 screens at phone width; the year headings
+        below carry these ids so a reader can skip straight to one. */}
+    <nav class="archive-years" aria-label="Jump to year">
+      <span class="archive-years-label">Jump to year</span>
+      {years.map((year) => <a href={`#y${year}`}>{year}</a>)}
+    </nav>
     <div class="archive-filter">
       {topTags.map(([tag, count]) => (
         <a href={`/tags/${tag}/`} class="chip">{tag}<sup>{count}</sup></a>
@@ -66,7 +72,7 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
 
   {years.map((year) => (
     <section class="year-section">
-      <h2 class="year-divider">
+      <h2 class="year-divider" id={`y${year}`}>
         <span class="year-number">{year}</span>
         <span class="year-rule" aria-hidden="true"></span>
         <span class="year-count">{postsByYear.get(year)!.length} entries</span>
@@ -81,6 +87,26 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
 </BaseLayout>
 
 <style>
+  .archive-years {
+    /* Machine voice, like .archive-stats above it. Set here rather than in
+       global.css's shared mono list so this page owns its own new row. */
+    font-family: var(--font-mono);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0 var(--space-3);
+    font-size: var(--text-meta);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .archive-years a {
+    /* Pad the hit area to 24px (WCAG 2.5.8) without loosening the line. */
+    display: inline-block;
+    padding-block: 0.25rem;
+  }
   .reading-paths {
     max-width: var(--content-reading);
     margin: var(--space-6) auto;

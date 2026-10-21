@@ -243,8 +243,14 @@ test('mobile controls are visible, keyboard focus stays in the dialog, and axe p
   await expect(page.getByRole('status')).toHaveText('No results for "unmatched"');
   await expect(page.getByRole('button', { name: 'Clear', exact: true })).toBeInViewport();
   await expect(page.getByRole('button', { name: 'Close search' })).toBeInViewport();
+  // No results is not a dead end: two ways to browse instead (issue #698).
+  await expect(page.getByRole('link', { name: 'Browse all posts' })).toHaveAttribute('href', '/posts/');
+  const tagsLink = page.getByRole('link', { name: 'Browse tags' });
+  await expect(tagsLink).toHaveAttribute('href', '/tags/');
+  await expect(tagsLink).toBeInViewport();
+  // The trap wraps from the input to the dialog's last control, and back.
   await page.keyboard.press('Shift+Tab');
-  await expect(page.getByRole('button', { name: 'Close search' })).toBeFocused();
+  await expect(tagsLink).toBeFocused();
   await page.keyboard.press('Tab');
   await expect(input).toBeFocused();
   const audit = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();

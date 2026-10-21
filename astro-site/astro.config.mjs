@@ -280,13 +280,32 @@ function transformerCodeTitle() {
   };
 }
 
+/** Plain text of a hast node, for building accessible names. */
+function hastText(node) {
+  if (node.type === 'text') return node.value;
+  return (node.children || []).map(hastText).join('');
+}
+
 /** Wrap <table> elements in a scrollable div */
 function rehypeScrollWrap() {
   return (tree) => {
+    let tableNumber = 0;
     visit(tree, 'element', (node, index, parent) => {
       if (!parent || index == null) return;
       const isTable = node.tagName === 'table';
       if (!isTable) return;
+      // A focusable div with no role or name announces as an unnamed group,
+      // so the region pattern: role="region" plus a name. GFM tables have no
+      // <caption>, so the name comes from the header row. The number keeps
+      // two tables with the same columns distinct (axe landmark-unique).
+      tableNumber += 1;
+      const headerRow = [];
+      const thead = node.children.find((child) => child.tagName === 'thead') ?? node;
+      visit(thead, 'element', (cell) => {
+        if (cell.tagName === 'th') headerRow.push(hastText(cell).trim());
+      });
+      const columns = headerRow.filter(Boolean).join(', ');
+      const ariaLabel = columns ? `Table ${tableNumber}: ${columns}` : `Table ${tableNumber}`;
       const wrapper = {
         type: 'element',
         tagName: 'div',
@@ -296,7 +315,7 @@ function rehypeScrollWrap() {
         // content wide enough to actually overflow `.scroll-wrap` until
         // the sidenotes pilot post's comparison table did. Fixed here
         // since it's a one-line addition to the same wrapper.
-        properties: { className: ['scroll-wrap'], tabIndex: 0 },
+        properties: { className: ['scroll-wrap'], tabIndex: 0, role: 'region', ariaLabel },
         children: [node],
       };
       parent.children[index] = wrapper;

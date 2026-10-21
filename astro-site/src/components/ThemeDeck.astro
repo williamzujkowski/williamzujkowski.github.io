@@ -14,7 +14,7 @@ const lightThemes = themes.filter((t) => !t.isDark);
 ---
 
 <details class={`theme-deck theme-deck--${variant}`} id="theme-deck">
-  <summary aria-label="Terminal theme picker">
+  <summary aria-label="Terminal theme picker" title="Terminal theme">
     {
       variant === 'header' ? (
         <span class="deck-mini" aria-hidden="true">
@@ -128,6 +128,10 @@ const lightThemes = themes.filter((t) => !t.isDark);
     align-items: center;
     gap: 0.75ch;
     width: 100%;
+    /* 44px, the same target as the header buttons that open this panel.
+       WCAG 2.5.8 only asks for 24px, which the old 32px rows met; but these
+       rows are the panel's whole purpose and are mostly tapped on phones. */
+    min-height: 2.75rem;
     padding: 0.3rem 0.4rem;
     background: none;
     border: none;
@@ -192,8 +196,10 @@ const lightThemes = themes.filter((t) => !t.isDark);
     right: 0;
     top: calc(100% + 0.4rem);
     width: min(22rem, calc(100vw - 2rem));
-    max-height: min(70vh, 30rem);
-    overflow-y: auto;
+    /* No max-height: a 30rem cap clipped "Nord Light" inside a scroll box
+       with no visible cue, on every viewport. The masthead is not sticky,
+       so a tall panel simply extends the page and an ordinary page scroll
+       reaches the last option. */
     background: var(--color-bg);
     z-index: var(--z-dropdown);
     box-shadow: 0 4px 16px var(--color-shadow);
