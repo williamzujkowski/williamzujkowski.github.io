@@ -269,12 +269,15 @@
   onclick={open}
   disabled={!ready}
   class="search-trigger"
-  aria-label="Search site"
+  aria-label={`Search site, ${shortcutHint}`}
   aria-keyshortcuts="Control+K Meta+K"
 >
   <svg class="search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
   </svg>
+  <!-- The hint is the button's only visible text, so it must also be in the
+       accessible name (WCAG 2.5.3 Label in Name): a voice user says what they see.
+       Not in parentheses: axe 4.14 drops parentheticals before comparing. -->
   <kbd class="search-kbd">{shortcutHint}</kbd>
 </button>
 

@@ -28,7 +28,7 @@ interface PagefindResponse {
 
 async function openSearch(page: Page) {
   await page.goto('/');
-  await page.getByRole('button', { name: 'Search site', exact: true }).click();
+  await page.getByRole('button', { name: /^Search site, (Ctrl K|⌘K)$/ }).click();
   await expect(page.getByRole('textbox', { name: 'Search site content' })).toBeFocused();
   return page.getByRole('textbox', { name: 'Search site content' });
 }
@@ -59,7 +59,7 @@ test('search cannot accept a click before its island has hydrated', async ({ pag
   try {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
     await moduleRequested;
-    const trigger = page.getByRole('button', { name: 'Search site', exact: true });
+    const trigger = page.getByRole('button', { name: /^Search site, (Ctrl K|⌘K)$/ });
     await expect(trigger).toBeVisible();
     await expect(trigger).toBeDisabled();
     await expect(page.getByRole('dialog')).toHaveCount(0);
@@ -76,7 +76,7 @@ test('search cannot accept a click before its island has hydrated', async ({ pag
 test('repeated shortcuts preserve inert cleanup, external inert state and original focus', async ({ page }) => {
   await page.goto('/');
   await page.locator('footer').evaluate((el) => el.setAttribute('inert', ''));
-  const trigger = page.getByRole('button', { name: 'Search site', exact: true });
+  const trigger = page.getByRole('button', { name: /^Search site, (Ctrl K|⌘K)$/ });
   await trigger.click();
   await expect(page.getByRole('textbox')).toBeFocused();
   await page.keyboard.press('Control+k');
@@ -141,7 +141,7 @@ for (const action of ['clear', 'shorten', 'close'] as const) {
     if (action === 'shorten') await input.fill('s');
     if (action === 'close') {
       await page.getByRole('button', { name: 'Close search' }).click();
-      await page.getByRole('button', { name: 'Search site', exact: true }).click();
+      await page.getByRole('button', { name: /^Search site, (Ctrl K|⌘K)$/ }).click();
     }
     await page.evaluate(() => window.releaseHydration!());
     await expect(page.getByRole('status')).toHaveText('Type at least two characters to search.');
@@ -277,7 +277,7 @@ test('production index includes articles and substantive pages, excludes listing
   // through its companion post only. Preserve that existing page policy.
   expect(urls.filter((url) => url === '/' || url === '/posts/' || url === '/pizza-ops/' || url.startsWith('/tags/') || url.includes('404'))).toEqual([]);
   // Check that the user-facing UI also works with the actual generated index.
-  await page.getByRole('button', { name: 'Search site', exact: true }).click();
+  await page.getByRole('button', { name: /^Search site, (Ctrl K|⌘K)$/ }).click();
   await page.getByRole('textbox').fill('security');
   await expect(page.locator('.search-result-link').first()).toBeVisible();
   await expect(page.getByRole('status')).toHaveText(/Showing 8 of \d+ results/);
@@ -307,7 +307,7 @@ test('only Ctrl/Cmd+K opens search; a bare "/" is typed, not captured', async ({
   // speech-input users who say a word containing it (#698).
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto('/');
-  const trigger = page.getByRole('button', { name: 'Search site', exact: true });
+  const trigger = page.getByRole('button', { name: /^Search site, (Ctrl K|⌘K)$/ });
   await expect(trigger).toBeEnabled();
   await page.locator('main').focus();
   await page.keyboard.press('/');
