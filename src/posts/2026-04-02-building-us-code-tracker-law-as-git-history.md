@@ -2,7 +2,7 @@
 title: "Building US Code Tracker: Federal Law as Git History"
 date: 2026-04-02
 description: "How I built an end-to-end pipeline that converts the United States Code from XML into a Git-versioned, searchable static site with 53,000+ sections and inline case law annotations."
-tags: [civic-tech, open-data, typescript, astro, git]
+tags: [open-source, typescript, web-development, software-engineering]
 author: William Zujkowski
 ---
 

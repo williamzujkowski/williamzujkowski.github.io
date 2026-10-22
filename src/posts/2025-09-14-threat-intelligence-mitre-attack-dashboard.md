@@ -18,7 +18,7 @@ Years ago, I learned the hard way that reading threat reports isn't enough. Afte
 
 ## Why Personal Threat Intelligence Matters
 
-**BLUF:** Generic threat feeds are like drinking from a fire hose. Lots of volume, little value.
+BLUF: Generic threat feeds are like drinking from a fire hose. Lots of volume, little value.
 
 Threat intelligence works best when integrated with [vulnerability prioritization](/posts/2025-09-20-vulnerability-prioritization-epss-kev) and complementary security monitoring tools.
 
@@ -27,14 +27,14 @@ According to [research from the Cyber Threat Alliance (2024)](https://www.cybert
 
 ## Understanding MITRE ATT&CK
 
-**The Pareto principle applies:** a small subset of ATT&CK techniques shows up in the large majority of real-world attacks, so focusing on the most commonly used ones buys you substantial coverage for comparatively little effort.
+The Pareto principle applies: a small subset of ATT&CK techniques shows up in the large majority of real-world attacks, so focusing on the most commonly used ones buys you substantial coverage for comparatively little effort.
 
 
 ### The ATT&CK Matrix Structure
 
 ⚠️ **Warning:** Threat intelligence systems collect sensitive security information. Implement proper access controls and follow data protection requirements for security monitoring.
 
-Each tactic contains multiple techniques. **Initial Access includes:**
+Each tactic contains multiple techniques. Initial Access includes:
 - Phishing (T1566)
 - External Remote Services (T1133)
 - Valid Accounts (T1078)
@@ -46,32 +46,32 @@ The most effective approach aggregates threat data, maps it to ATT&CK, and visua
 
 ### System Components
 
-📎 **Complete implementation:**
+📎 Complete implementation:
 [Full ThreatIntelligenceDashboard class](https://gist.github.com/williamzujkowski/222a6d72b84fa44ef17ba09ea1cb5a37)
 
 Core pattern: `dashboard.initialize()` loads ATT&CK data via STIX format
 
 ### Fetching MITRE ATT&CK Data
 
-📎 **Complete implementation:**
+📎 Complete implementation:
 [Full ATTACKDataLoader with STIX processing](https://gist.github.com/williamzujkowski/0e06bcfd7a5ef936c0ed0309f9b0296b)
 
 Uses STIX2 library to query attack patterns from MITRE's repository
 
 ## Integrating Threat Intelligence Feeds
 
-**Multiple feeds matter:** combining several independent threat feeds widens your coverage — any single source has blind spots the others fill. Let's integrate several open-source feeds:
+Multiple feeds matter: combining several independent threat feeds widens your coverage — any single source has blind spots the others fill. Let's integrate several open-source feeds:
 
 ### AlienVault OTX Integration
 
-📎 **Complete implementation:**
+📎 Complete implementation:
 [Full AlienVaultCollector with pulse caching](https://gist.github.com/williamzujkowski/185bc14b8514a9b8c4ee0ab5bdd03db9)
 
 Extracts ATT&CK technique tags (starting with 'T') from threat pulses
 
 ### CISA Alerts Mapping
 
-📎 **Complete implementation:**
+📎 Complete implementation:
 [Full CISAAlertMapper with vulnerability categorization](https://gist.github.com/williamzujkowski/5534c363757980ecf1d8ebcf414a1b29)
 
 Maps CVE vulnerability types to relevant ATT&CK techniques (T1210, T1068, T1190)
@@ -80,10 +80,10 @@ Maps CVE vulnerability types to relevant ATT&CK techniques (T1210, T1068, T1190)
 
 Visualizing threat data makes triage faster — patterns jump out of a dashboard that you'd never catch scanning a table. Let's build an interactive dashboard:
 
-📎 **Complete visualization code:**
+📎 Complete visualization code:
 [Full ThreatVisualizer with Plotly heatmaps](https://gist.github.com/williamzujkowski/03d4dcd49f436d7b73839be73e88ad72)
 
-**Key features:**
+Key features:
 - Interactive heatmaps for technique frequency (Plotly)
 - Timeline views with severity-based sizing
 - Configurable color scales (Reds for threats)
@@ -92,7 +92,7 @@ Visualizing threat data makes triage faster — patterns jump out of a dashboard
 
 Tracking a threat actor's TTPs is what turns a pile of disconnected indicators into a recognizable adversary you can actually anticipate. Let's add actor profiling:
 
-📎 **Complete implementation:**
+📎 Complete implementation:
 [Full ThreatActorProfiler with MITRE groups database](https://gist.github.com/williamzujkowski/f840bcab11952a1aa1bf56fe87749b17)
 
 Matches observed techniques to known actor profiles using set overlap, sorted by confidence
@@ -101,7 +101,7 @@ Matches observed techniques to known actor profiles using set overlap, sorted by
 
 Automated alerting is what actually cuts mean time to detect — a feed nobody is watching detects nothing.
 
-📎 **Complete implementation:**
+📎 Complete implementation:
 [Full ThreatAlerting class with SMTP, Slack, and PagerDuty](https://gist.github.com/williamzujkowski/70cf0c33d82fb391ce11c63aaa189072)
 
 Checks new threats against priority techniques, sends alerts via configured channels
@@ -110,7 +110,7 @@ Checks new threats against priority techniques, sends alerts via configured chan
 
 Here's the complete dashboard implementation:
 
-📎 **Complete implementation:**
+📎 Complete implementation:
 [Full MITREDashboard with async collection loop](https://gist.github.com/williamzujkowski/c7715b89372e56b06771f87a6336e618)
 
 Main loop collects threats hourly, maps to ATT&CK, checks alert conditions, updates visualizations
@@ -126,13 +126,13 @@ After running this dashboard for six months in my environment:
 
 ## Customization for Your Environment
 
-**The key to effective threat intelligence is relevance.** Here's how to customize:
+The key to effective threat intelligence is relevance. Here's how to customize:
 
-1. **Identify your critical assets** and their attack surface
-2. **Map your defensive capabilities** to ATT&CK techniques
-3. **Prioritize techniques** you can't currently detect
-4. **Focus feeds** on your industry and technology stack
-5. **Tune alerting** based on false positive rates
+1. Identify your critical assets and their attack surface
+2. Map your defensive capabilities to ATT&CK techniques
+3. Prioritize techniques you can't currently detect
+4. Focus feeds on your industry and technology stack
+5. Tune alerting based on false positive rates
 
 ## Lessons Learned
 
@@ -146,7 +146,7 @@ Building and maintaining this dashboard taught me several lessons:
 
 ## Next Steps
 
-**Ready to build your own threat intelligence capability?**
+Ready to build your own threat intelligence capability?
 
 1. Start with [MITRE ATT&CK Navigator](https://mitre-attack.github.io/attack-navigator/)
 2. Pick 2-3 relevant threat feeds
@@ -158,11 +158,11 @@ Threat intelligence is only valuable if it drives action.
 
 ## Sources
 
-1. **[MITRE ATT&CK Framework](https://attack.mitre.org/)** (2024)
+1. [MITRE ATT&CK Framework](https://attack.mitre.org/) (2024)
    - MITRE Corporation
    - *Adversarial Tactics, Techniques, and Common Knowledge*
 
-2. **[Cyber Threat Intelligence Sharing Standards](https://www.cyberthreatalliance.org/resources/)** (2024)
+2. [Cyber Threat Intelligence Sharing Standards](https://www.cyberthreatalliance.org/resources/) (2024)
    - Cyber Threat Alliance
    - *Industry Threat Sharing Guidelines*
 

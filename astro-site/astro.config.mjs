@@ -10,6 +10,8 @@ import { createCssVariablesTheme } from 'shiki';
 import { writeFile } from 'node:fs/promises';
 import rehypeSidenotes from './src/lib/rehype-sidenotes.mjs';
 import rehypeTaskListLabels from './src/lib/rehype-task-list-labels.mjs';
+import rehypeDropCap from './src/lib/rehype-drop-cap.mjs';
+import { tagRedirects } from './src/lib/tag-taxonomy.mjs';
 
 /**
  * Remarque syntax-highlighting theme (remarque-tokens 0.15.0, REMARQUE.md
@@ -279,13 +281,32 @@ function transformerCodeTitle() {
   };
 }
 
+/** Plain text of a hast node, for building accessible names. */
+function hastText(node) {
+  if (node.type === 'text') return node.value;
+  return (node.children || []).map(hastText).join('');
+}
+
 /** Wrap <table> elements in a scrollable div */
 function rehypeScrollWrap() {
   return (tree) => {
+    let tableNumber = 0;
     visit(tree, 'element', (node, index, parent) => {
       if (!parent || index == null) return;
       const isTable = node.tagName === 'table';
       if (!isTable) return;
+      // A focusable div with no role or name announces as an unnamed group,
+      // so the region pattern: role="region" plus a name. GFM tables have no
+      // <caption>, so the name comes from the header row. The number keeps
+      // two tables with the same columns distinct (axe landmark-unique).
+      tableNumber += 1;
+      const headerRow = [];
+      const thead = node.children.find((child) => child.tagName === 'thead') ?? node;
+      visit(thead, 'element', (cell) => {
+        if (cell.tagName === 'th') headerRow.push(hastText(cell).trim());
+      });
+      const columns = headerRow.filter(Boolean).join(', ');
+      const ariaLabel = columns ? `Table ${tableNumber}: ${columns}` : `Table ${tableNumber}`;
       const wrapper = {
         type: 'element',
         tagName: 'div',
@@ -295,7 +316,7 @@ function rehypeScrollWrap() {
         // content wide enough to actually overflow `.scroll-wrap` until
         // the sidenotes pilot post's comparison table did. Fixed here
         // since it's a one-line addition to the same wrapper.
-        properties: { className: ['scroll-wrap'], tabIndex: 0 },
+        properties: { className: ['scroll-wrap'], tabIndex: 0, role: 'region', ariaLabel },
         children: [node],
       };
       parent.children[index] = wrapper;
@@ -305,6 +326,16 @@ function rehypeScrollWrap() {
 
 export default defineConfig({
   site: 'https://williamzujkowski.github.io',
+  // Off on purpose. Astro 7's compressor deletes a line break between text and
+  // an inline element on the next source line, so `via\n<a>` rendered as
+  // "via<a>" in the footer of every page and in 16 places on About/Now/Uses.
+  // Turning it off costs ~3.6% of gzipped HTML; tests/e2e/reflow.spec.ts fails
+  // if any word is glued to a link again.
+  compressHTML: false,
+  // Retired tag pages (issue #698). Static output writes each as a
+  // meta-refresh page with rel=canonical; tagRedirects() throws on a chain
+  // or self-map, which fails the build.
+  redirects: tagRedirects(),
   prefetch: true,
   integrations: [
     svelte(),
@@ -404,6 +435,8 @@ export default defineConfig({
         rehypeRaw,
         rehypeTaskListLabels,
         [rehypeSanitize, sanitizeSchema],
+        // Lowercase lead paragraphs skip the drop cap (global.css).
+        rehypeDropCap,
       ],
     }),
   },

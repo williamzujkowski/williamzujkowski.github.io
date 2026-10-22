@@ -18,7 +18,7 @@ The stakes have fundamentally shifted. We're no longer racing for raw speed. We'
 
 When the Department of Energy's Frontier system broke the exascale barrier in 2022, achieving 1.102 exaflops, it did so while consuming less power per calculation than systems from five years prior. Meanwhile, researchers are using these machines to compress drug discovery timelines from years to weeks, design materials that don't yet exist in nature, and run quantum chemistry simulations at scales previously confined to theory. The transformation isn't only technical. It's redefining what problems we can reasonably attempt to solve.
 
-**The scale of change:**
+The scale of change:
 - **Performance leap**: Frontier's 1.102 exaflops[3] was about a 430-fold increase over 2010's fastest system, enabling simulations with quintillions of calculations per second[1]
 - **Energy revolution**: The Green500 leader achieves 72.7 GFlops/Watt[2], solving the same problem as older systems while using a fraction of the electricity
 - **Application impact**: Climate models now run at 3.25km resolution (vs. 100km a decade ago), while AI-accelerated drug discovery operates 50-100× faster than traditional methods
@@ -54,7 +54,7 @@ The most interesting development I've observed is how AI and HPC have become sym
 
 Modern HPC centers are employing AI-driven scheduling systems that fundamentally change how computational resources are allocated. I remember when job scheduling was a manual art form, with administrators constantly tweaking parameters:
 
-**Intelligent job scheduling capabilities:**
+Intelligent job scheduling capabilities:
 - Real-time workload prediction using historical job data and user patterns
 - Dynamic resource allocation that adapts to changing computational demands
 - GPU utilization optimization achieving 85-95% efficiency (vs. traditional 60-70%)
@@ -64,7 +64,7 @@ Modern HPC centers are employing AI-driven scheduling systems that fundamentally
 
 AI-driven scheduling systems fundamentally change how computational resources are allocated. I remember when job scheduling was a manual art form, with administrators constantly tweaking parameters.
 
-**Advanced resource management techniques:**
+Advanced resource management techniques:
 - Machine learning models predict job runtime with 90%+ accuracy
 - Adaptive mesh refinement guided by neural networks
 - Automatic detection and mitigation of resource bottlenecks
@@ -107,20 +107,20 @@ PINNs represent a paradigm shift in scientific computing by embedding physical l
 
 PINNs embed physical laws directly into neural network architectures. This creates a paradigm shift in scientific computing.
 
-**PINN methodology and architecture:**
+PINN methodology and architecture:
 - Incorporate partial differential equations (PDEs) as soft constraints in loss functions
 - Embed conservation laws (mass, momentum, energy) directly into network training
 - Combine sparse observational data with physics-based priors
 - Automatically satisfy boundary and initial conditions through network design
 - Enable solutions for ill-posed or inverse problems that confound traditional methods
 
-**Training efficiency and data requirements:**
+Training efficiency and data requirements:
 - Reduce training data needs by 50-90% compared to pure data-driven approaches
 - Learn from as few as 100-1000 observations vs. millions for standard neural nets
 - Achieve physically consistent predictions even in data-sparse regions
 - Generalize better to out-of-distribution scenarios through physics constraints
 
-**Application domains:**
+Application domains:
 - Computational fluid dynamics (turbulence modeling, flow prediction)
 - Materials science (stress-strain relationships, phase transitions)
 - Climate modeling (weather prediction, ocean dynamics)
@@ -128,7 +128,7 @@ PINNs embed physical laws directly into neural network architectures. This creat
 - Structural engineering (deformation analysis, failure prediction)
 - Biomedical applications (blood flow modeling, tissue mechanics)
 
-**Performance advantages:**
+Performance advantages:
 - 10-100× speedup compared to finite element methods for certain PDEs
 - Real-time inference enabling interactive simulations
 - Mesh-free formulations eliminating discretization errors
@@ -142,7 +142,7 @@ Perhaps the most significant change I've witnessed is the democratization of HPC
 
 ### Cloud HPC Platforms
 
-**Major cloud providers now offer HPC-as-a-Service:**
+Major cloud providers now offer HPC-as-a-Service:
 - **AWS ParallelCluster**: Elastic HPC environment with automatic scaling
 - **Azure CycleCloud**: Orchestration for HPC workloads with hybrid cloud support
 - **Google Cloud HPC Toolkit**: Infrastructure-as-code for reproducible HPC environments
@@ -150,7 +150,7 @@ Perhaps the most significant change I've witnessed is the democratization of HPC
 
 Performance and cost-effectiveness typically depend on workload characteristics and optimization effort. Some specialized applications may still benefit from dedicated on-premise systems.
 
-**Cost transformation:**
+Cost transformation:
 - Traditional on-premise HPC: $5-50M capital expense + $1-5M annual operations
 - Cloud HPC burst: Pay-per-use starting at $0.03-0.10 per core-hour for CPU nodes
 - Eliminates upfront infrastructure investment
@@ -161,13 +161,13 @@ Performance and cost-effectiveness typically depend on workload characteristics 
 
 The concept of "serverless supercomputing" would have sounded like an oxymoron a few years back. Now, you can submit computational jobs without managing any infrastructure:
 
-**Resource flexibility:**
+Resource flexibility:
 - Request specific resources (CPU cores, GPU hours, memory) for exactly the duration needed
 - Access specialized accelerators including quantum processing units and neuromorphic chips
 - Use domain-specific templates for pharmaceutical research, financial modeling, materials discovery
 - Automatic provisioning and deprovisioning eliminates idle resource waste
 
-**Accessibility impact:**
+Accessibility impact:
 - Startups and individual researchers now access exascale-class computing
 - Academic institutions supplement on-premise systems with cloud bursting
 - Developing countries gain access to world-class computational resources
@@ -183,7 +183,7 @@ Energy consumption has become the critical limiting factor in HPC scaling. When 
 
 The cooling innovations I've seen recently represent significant advances. I remember visiting facilities where the cooling systems consumed nearly as much power as the computers themselves:
 
-**Advanced cooling technologies:**
+Advanced cooling technologies:
 - **Two-phase immersion cooling**: Components submerged in dielectric fluid that boils off to remove heat
   - Achieves up to 95% heat removal efficiency
   - Eliminates fan power consumption entirely (10-15% of total system power)[4]
@@ -201,7 +201,7 @@ The cooling innovations I've seen recently represent significant advances. I rem
   - Reduces cooling loads by 15-25% through intelligent timing
   - Integrates with renewable energy availability predictions
 
-**Power usage effectiveness (PUE) improvements:**
+Power usage effectiveness (PUE) improvements:
 - Traditional data centers: PUE of 1.6-2.0 (60-100% overhead)
 - Modern HPC facilities: PUE of 1.05-1.15 (5-15% overhead)
 - Best-in-class: PUE approaching 1.02 with immersion cooling
@@ -210,12 +210,12 @@ The cooling innovations I've seen recently represent significant advances. I rem
 
 What's particularly interesting is how this sustainability focus is changing software development practices:
 
-**Dynamic voltage and frequency scaling (DVFS) techniques:**
+Dynamic voltage and frequency scaling (DVFS) techniques:
 - Automatically adjust processor clock speeds based on workload demands
 - Achieve 30-40% energy savings during I/O-bound or memory-bound phases[5]
 - Minimal performance impact (<5%) with intelligent scaling policies
 
-**Energy-efficient algorithms:**
+Energy-efficient algorithms:
 - Cache-aware algorithms minimize energy-intensive DRAM accesses
 - Precision-adaptive computing uses lower precision when accuracy allows
 - Communication-avoiding algorithms reduce expensive network traffic
@@ -239,7 +239,7 @@ def power_aware_matrix_multiply(A, B, power_constraint):
         return blocked_algorithm(A, B, blocks)  # Balance power and performance
 ```
 
-**Carbon-aware scheduling:**
+Carbon-aware scheduling:
 - Jobs scheduled during periods of high renewable energy availability
 - Geographically distribute workloads to regions with cleaner energy grids
 - Some facilities achieve 75-90% renewable energy usage through intelligent scheduling
@@ -286,7 +286,7 @@ The specialized AI systems I've encountered recently go well beyond having more 
 
 The integration between quantum and classical HPC systems has evolved rapidly over the past few years. Rather than quantum computers replacing classical ones, they're becoming specialized components within larger classical workflows.
 
-**Hybrid Architecture and Integration:**
+Hybrid Architecture and Integration:
 - **Quantum as co-processor model**: Quantum processing units (QPUs) function as specialized accelerators within classical HPC workflows, similar to GPUs for specific computational tasks
 - **Classical preprocessing and postprocessing**: Classical systems prepare quantum-suitable problem instances and interpret results, leveraging decades of HPC optimization expertise
 - **Variational quantum algorithms**: Techniques like Variational Quantum Eigensolver (VQE) and Quantum Approximate Optimization Algorithm (QAOA) iteratively optimize between quantum and classical systems
@@ -321,7 +321,7 @@ def optimize_molecular_configuration(molecule, target_properties):
     return current_configuration
 ```
 
-**Practical Applications and NISQ-Era Utility:**
+Practical Applications and NISQ-Era Utility:
 - **Materials discovery acceleration**: Hybrid approaches predict novel battery materials, catalysts, and superconductors by simulating molecular interactions that are classically infeasible to compute
 - **Quantum chemistry simulations**: Electronic structure calculations for drug discovery and chemical engineering use quantum advantage for specific correlation problems
 - **Combinatorial optimization**: Problems in logistics, portfolio optimization, and supply chain management show promising speedups using QAOA and related algorithms
@@ -395,31 +395,31 @@ The HPC revolution isn't only changing how we compute. It's changing what we can
 
 ## Sources
 
-1. **[LINPACK Benchmark - High Performance Linpack](https://www.netlib.org/benchmark/hpl/)** - The HPL (High-Performance Linpack) benchmark measures floating-point computing performance and serves as the foundation for TOP500 supercomputer rankings. It solves dense linear systems of equations to determine peak FLOPS (floating-point operations per second).
+1. [LINPACK Benchmark - High Performance Linpack](https://www.netlib.org/benchmark/hpl/) - The HPL (High-Performance Linpack) benchmark measures floating-point computing performance and serves as the foundation for TOP500 supercomputer rankings. It solves dense linear systems of equations to determine peak FLOPS (floating-point operations per second).
 
-2. **[Green500 List (November 2024)](https://www.top500.org/lists/green500/2024/11/)** - The Green500 ranks supercomputers by energy efficiency measured in GFlops/Watt. The November 2024 list is led by the JEDI system achieving 72.7 GFlops/Watt, demonstrating that extreme performance and sustainability are no longer mutually exclusive.
+2. [Green500 List (November 2024)](https://www.top500.org/lists/green500/2024/11/) - The Green500 ranks supercomputers by energy efficiency measured in GFlops/Watt. The November 2024 list is led by the JEDI system achieving 72.7 GFlops/Watt, demonstrating that extreme performance and sustainability are no longer mutually exclusive.
 
-3. **[Frontier Supercomputer - Oak Ridge National Laboratory](https://www.olcf.ornl.gov/frontier/)** - ORNL's Frontier system achieved 1.35 exaflops on the HPL benchmark and 11.4 exaflops on HPL-MxP (mixed-precision), making it the first true exascale supercomputer. Its AMD EPYC CPUs and AMD Instinct MI250X GPUs represent a milestone in computational capability.
+3. [Frontier Supercomputer - Oak Ridge National Laboratory](https://www.olcf.ornl.gov/frontier/) - ORNL's Frontier system achieved 1.35 exaflops on the HPL benchmark and 11.4 exaflops on HPL-MxP (mixed-precision), making it the first true exascale supercomputer. Its AMD EPYC CPUs and AMD Instinct MI250X GPUs represent a milestone in computational capability.
 
-4. **[Data Center Liquid Cooling Market Report](https://www.grandviewresearch.com/industry-analysis/data-center-liquid-cooling-market-report)** - Research on advanced cooling technologies including two-phase immersion cooling and direct-to-chip liquid cooling systems. Studies show these approaches can remove 95% of heat while reducing power consumption by up to 70% compared to traditional air cooling.
+4. [Data Center Liquid Cooling Market Report](https://www.grandviewresearch.com/industry-analysis/data-center-liquid-cooling-market-report) - Research on advanced cooling technologies including two-phase immersion cooling and direct-to-chip liquid cooling systems. Studies show these approaches can remove 95% of heat while reducing power consumption by up to 70% compared to traditional air cooling.
 
-5. **[Power-Aware Computing Strategies (MDPI Energies)](https://www.mdpi.com/1996-1073/16/2/890)** - Academic research on Dynamic Voltage and Frequency Scaling (DVFS) and power-aware computing techniques in HPC environments. Demonstrates 30-40% energy savings through intelligent frequency scaling with minimal performance impact.
+5. [Power-Aware Computing Strategies (MDPI Energies)](https://www.mdpi.com/1996-1073/16/2/890) - Academic research on Dynamic Voltage and Frequency Scaling (DVFS) and power-aware computing techniques in HPC environments. Demonstrates 30-40% energy savings through intelligent frequency scaling with minimal performance impact.
 
-6. **[GROMACS Molecular Dynamics Software](https://onlinelibrary.wiley.com/doi/10.1002/jcc.70059)** - Research on GROMACS scalability showing parallel efficiency above 0.9 (90%) on 65,536 cores for molecular dynamics simulations. A pure HPC scaling study, not a drug-discovery-timeline finding.
+6. [GROMACS Molecular Dynamics Software](https://onlinelibrary.wiley.com/doi/10.1002/jcc.70059) - Research on GROMACS scalability showing parallel efficiency above 0.9 (90%) on 65,536 cores for molecular dynamics simulations. A pure HPC scaling study, not a drug-discovery-timeline finding.
 
-7. **[E3SM: A Decade of Progress](https://e3sm.org/e3sm-a-decade-of-progress-a-timeline/)** - DOE's E3SM project timeline. SCREAMv1 (Simple Cloud-Resolving E3SM Atmosphere Model) ran on the GPU-enabled exascale machine Frontier, "breaking the 1 SYPD (Simulated Year Per Day) barrier" and earning the team a Gordon Bell Prize. For the model itself see Donahue et al., ["To Exascale and Beyond—SCREAM, a Performance Portable Global Atmosphere Model for Cloud-Resolving Scales"](https://doi.org/10.1029/2024ms004314), *JAMES* (2024).
+7. [E3SM: A Decade of Progress](https://e3sm.org/e3sm-a-decade-of-progress-a-timeline/) - DOE's E3SM project timeline. SCREAMv1 (Simple Cloud-Resolving E3SM Atmosphere Model) ran on the GPU-enabled exascale machine Frontier, "breaking the 1 SYPD (Simulated Year Per Day) barrier" and earning the team a Gordon Bell Prize. For the model itself see Donahue et al., ["To Exascale and Beyond—SCREAM, a Performance Portable Global Atmosphere Model for Cloud-Resolving Scales"](https://doi.org/10.1029/2024ms004314), *JAMES* (2024).
 
-8. **[Full-Stack Quantum-Classical Integration](https://arxiv.org/abs/2510.20128)** - arXiv preprint on unified programming models for quantum-classical hybrid workflows using platforms like IBM Qiskit Runtime, Amazon Braket, and Azure Quantum.
+8. [Full-Stack Quantum-Classical Integration](https://arxiv.org/abs/2510.20128) - arXiv preprint on unified programming models for quantum-classical hybrid workflows using platforms like IBM Qiskit Runtime, Amazon Braket, and Azure Quantum.
 
-9. **[HPC-Quantum Convergence in Supercomputing Centers](https://arxiv.org/abs/2503.01787)** - Research on integrating quantum accelerators into traditional HPC infrastructure to create unified computational environments for hybrid workloads.
+9. [HPC-Quantum Convergence in Supercomputing Centers](https://arxiv.org/abs/2503.01787) - Research on integrating quantum accelerators into traditional HPC infrastructure to create unified computational environments for hybrid workloads.
 
-10. **[Scalable Quantum Framework Architectures](https://arxiv.org/abs/2509.14470)** - Framework for integrating multiple quantum backends under a single unified interface.
+10. [Scalable Quantum Framework Architectures](https://arxiv.org/abs/2509.14470) - Framework for integrating multiple quantum backends under a single unified interface.
 
-11. **[Portable Quantum Abstraction Layers](https://arxiv.org/abs/2407.18527)** - Framework for quantum algorithm portability across different quantum processing unit (QPU) architectures without code rewrites.
+11. [Portable Quantum Abstraction Layers](https://arxiv.org/abs/2407.18527) - Framework for quantum algorithm portability across different quantum processing unit (QPU) architectures without code rewrites.
 
-12. **[TOP500 Supercomputer List](https://www.top500.org/)** - Authoritative ranking of the world's 500 most powerful supercomputers, updated biannually. Provides performance metrics, system configurations, and trends in HPC evolution.
+12. [TOP500 Supercomputer List](https://www.top500.org/) - Authoritative ranking of the world's 500 most powerful supercomputers, updated biannually. Provides performance metrics, system configurations, and trends in HPC evolution.
 
-13. **[Exascale Computing Project (ECP)](https://www.exascaleproject.org/)** - U.S. Department of Energy initiative focused on developing exascale computing capabilities, software, and applications. Coordinates research across national laboratories to advance scientific computing at unprecedented scales.
+13. [Exascale Computing Project (ECP)](https://www.exascaleproject.org/) - U.S. Department of Energy initiative focused on developing exascale computing capabilities, software, and applications. Coordinates research across national laboratories to advance scientific computing at unprecedented scales.
 
 ---
 

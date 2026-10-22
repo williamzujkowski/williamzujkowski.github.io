@@ -31,13 +31,13 @@ I've found several compelling reasons through my own experiments:
 
 ## Project 1: The Network Sentinel – DNS Sinkhole & Monitor
 
-**Problem Solved**: Ads, tracking, and malicious domains accessing your network
+Problem Solved: Ads, tracking, and malicious domains accessing your network
 
 For enterprise-grade DNS security, see my guide on [implementing DNS-over-HTTPS](/posts/2025-07-08-implementing-dns-over-https-home-networks) to encrypt DNS traffic and prevent eavesdropping.
 
-**The Backstory**: Devices on my home network were hitting 400+ tracking domains per hour. Per. Hour. That's when I knew I needed a bouncer at the network door.
+The Backstory: Devices on my home network were hitting 400+ tracking domains per hour. Per. Hour. That's when I knew I needed a bouncer at the network door.
 
-**Hardware**: Raspberry Pi 4 (2GB), microSD card, Ethernet cable
+Hardware: Raspberry Pi 4 (2GB), microSD card, Ethernet cable
 
 ### Implementation
 
@@ -73,59 +73,59 @@ and `.../Blocklisten/Phishing-Angriffe`.
 
 The DNS monitoring script uses Python's `tailer` library to follow Pi-hole's query log in real-time. It watches for suspicious patterns like excessive queries to unknown domains, connections to known malicious IPs from threat feeds, and domain generation algorithm (DGA) patterns using regex matching. When detected, it sends notifications via Pushover or email.
 
-**Results**: Blocking 30-40% of DNS queries (mostly ads/tracking), caught 3 malware callbacks in 6 months, kids' devices are significantly faster.
+Results: Blocking 30-40% of DNS queries (mostly ads/tracking), caught 3 malware callbacks in 6 months, kids' devices are significantly faster.
 
 ## Project 2: The Silent Guardian – Motion Detection Security Camera
 
-**Problem Solved**: Package theft, wanting to monitor specific areas without cloud dependencies
+Problem Solved: Package theft, wanting to monitor specific areas without cloud dependencies
 
-**Hardware**: Raspberry Pi Zero W, Pi Camera v2, PIR motion sensor, 3D printed case
+Hardware: Raspberry Pi Zero W, Pi Camera v2, PIR motion sensor, 3D printed case
 
 ### Implementation
 
 Using OpenCV's background subtraction and contour detection, the motion security system analyzes frames from the Pi Camera, filtering false positives through frame differencing and minimum area thresholds. Detected motion triggers GPIO outputs (siren, lights) and saves annotated frames with bounding boxes.
 
-**Results**: Caught multiple package delivery attempts, identified a raccoon problem (AI classifier initially misidentified it as a person), zero false alerts after tuning.
+Results: Caught multiple package delivery attempts, identified a raccoon problem (AI classifier initially misidentified it as a person), zero false alerts after tuning.
 
 ## Project 3: The Honeypot – Early Warning System
 
-**Problem Solved**: Detecting network intrusion attempts before they reach real systems
+Problem Solved: Detecting network intrusion attempts before they reach real systems
 
 Honeypot data integrates well with [threat intelligence dashboards](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard) to map attacker TTPs to MITRE ATT&CK.
 
-**Hardware**: Raspberry Pi 3B+, Ethernet connection
+Hardware: Raspberry Pi 3B+, Ethernet connection
 
 ### Implementation
 
 The SSH honeypot listens on ports 22, 2222, and 8022 using Python's socket library with multi-threaded handling. It logs connection attempts, captures login credentials (stored hashed), and records basic interaction patterns to identify scanning behavior vs targeted attacks.
 
-**Results**: Detected 3 targeted scans of my network, identified compromised IoT device attempting lateral movement, fascinating data on bot behavior.
+Results: Detected 3 targeted scans of my network, identified compromised IoT device attempting lateral movement, fascinating data on bot behavior.
 
 ## Project 4: The Vault Guardian – Hardware Security Key Backup
 
-**Problem Solved**: Secure backup for 2FA recovery codes and emergency access
+Problem Solved: Secure backup for 2FA recovery codes and emergency access
 
-**Hardware**: Raspberry Pi Zero, OLED display, button, encrypted SD card
+Hardware: Raspberry Pi Zero, OLED display, button, encrypted SD card
 
 ### Implementation
 
 The secure vault combines AES-256 encryption (Python `cryptography` library) with physical access control. A tactile button triggers the OLED display to show time-based recovery codes (TOTP), ensuring secrets remain encrypted at rest and only accessible via physical presence.
 
-**Results**: Peace of mind knowing recovery codes are offline but accessible, survived a YubiKey failure gracefully, spouse approved the "break glass" simplicity.
+Results: Peace of mind knowing recovery codes are offline but accessible, survived a YubiKey failure gracefully, spouse approved the "break glass" simplicity.
 
 ## Project 5: The Compliance Scanner – Automated Security Auditing
 
-**Problem Solved**: Keeping track of security posture across multiple devices
+Problem Solved: Keeping track of security posture across multiple devices
 
 Scale this approach with [open-source vulnerability management](/posts/2025-07-15-vulnerability-management-scale-open-source) for enterprise-grade scanning across 200+ assets.
 
-**Hardware**: Raspberry Pi 4 (4GB), good network connection
+Hardware: Raspberry Pi 4 (4GB), good network connection
 
 ### Implementation
 
 Automated daily scans use `nmap` for service discovery and `paramiko` for SSH-based configuration checks. The scanner verifies settings like SSH key-only authentication, disabled root login, firewall status, and automatic updates. Results generate markdown reports with findings categorized by risk level (critical/high/medium/low).
 
-**Results**: Found 2 IoT devices with default passwords, discovered forgotten test VM with open services, maintains security baseline visibility.
+Results: Found 2 IoT devices with default passwords, discovered forgotten test VM with open services, maintains security baseline visibility.
 
 ## Lessons Learned
 

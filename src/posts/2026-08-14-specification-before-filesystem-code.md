@@ -4,9 +4,9 @@ date: 2026-08-14
 description: "SYSSPEC treats a filesystem specification as the thing an agent edits, then asks generated code to live up to the contract."
 title: "The Filesystem Should Start as a Specification"
 tags:
-  - systems
+  - architecture
   - ai
-  - filesystems
+  - storage
   - security
 ---
 

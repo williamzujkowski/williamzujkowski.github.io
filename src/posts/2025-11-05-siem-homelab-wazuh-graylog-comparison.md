@@ -3,7 +3,7 @@ title: "SIEM for Homelab: Wazuh vs Graylog Performance Comparison"
 description: "Deploy and benchmark Wazuh and Graylog SIEM solutions in your homelab. Performance analysis, resource usage, and integration patterns for security monitoring."
 author: "William Zujkowski"
 date: 2025-11-05
-tags: [siem, wazuh, graylog, security, monitoring, homelab, python, observability]
+tags: [threat-detection, security, monitoring, homelab, python]
 post_type: tutorial
 ---
 
@@ -18,22 +18,22 @@ Here's how to choose and deploy the right SIEM for your homelab.
 
 Distributed logs across 47 services make security monitoring impossible. Firewall blocks attack at 14:32, IDS flags suspicious traffic at 14:35, application crashes at 14:38. Are these related? Manual correlation takes 45 minutes. You need SIEM.
 
-**What SIEM solves:**
+What SIEM solves:
 
 - **Centralized visibility:** All logs in one place (firewall, IDS, application, system)
 - **Correlation:** "SSH brute force + successful login + sudo su" = potential compromise
 - **Alerting:** Real-time notifications for security events
 - **Investigation:** Query logs from last 30 days in seconds
 
-**Why homelab SIEMs different from enterprise:** Resource constraints (8-64GB RAM vs enterprise 256GB+), complexity tolerance (manual setup OK), cost sensitivity (free open source only).
+Why homelab SIEMs different from enterprise: Resource constraints (8-64GB RAM vs enterprise 256GB+), complexity tolerance (manual setup OK), cost sensitivity (free open source only).
 
-**Options compared:** Wazuh (security-focused), Graylog (log management-focused), ELK Stack (not tested - resource intensive), Splunk (not free).
+Options compared: Wazuh (security-focused), Graylog (log management-focused), ELK Stack (not tested - resource intensive), Splunk (not free).
 
 ## Architecture: Wazuh vs Graylog
 
 Both use agent-based collection, centralized storage, and web UI. Architectures differ in focus.
 
-**Wazuh architecture:**
+Wazuh architecture:
 
 <div class="flow" role="group" aria-label="Wazuh log collection architecture">
   <div class="flow-parallel" role="group" aria-label="Runs in parallel">
@@ -47,7 +47,7 @@ Both use agent-based collection, centralized storage, and web UI. Architectures 
   </div>
 </div>
 
-**Graylog architecture:**
+Graylog architecture:
 
 <div class="flow" role="group" aria-label="Graylog log collection architecture">
   <div class="flow-parallel" role="group" aria-label="Runs in parallel">
@@ -62,7 +62,7 @@ Both use agent-based collection, centralized storage, and web UI. Architectures 
   </div>
 </div>
 
-**Key differences:**
+Key differences:
 
 | Feature | Wazuh | Graylog |
 |---------|-------|---------|
@@ -76,7 +76,7 @@ Both use agent-based collection, centralized storage, and web UI. Architectures 
 
 I deployed both SIEMs in parallel to compare real-world performance. Infrastructure: Proxmox cluster, 3 VMs (16GB RAM each), Ubuntu 24.04.
 
-**Wazuh deployment (Docker Compose):**
+### Wazuh deployment (Docker Compose)
 
 ```bash
 # Host prerequisite: the indexer needs at least 262,144 memory-mapped areas
@@ -113,13 +113,13 @@ never reads; the indexer heap is set there by `OPENSEARCH_JAVA_OPTS`. The
 and the health check now looks for `cluster_name` in the indexer's response
 instead of trusting curl's exit status, which is 0 on a 401 too.
 
-**Wazuh components:**
+Wazuh components:
 
 - **Wazuh Manager:** Log processing, rule engine, alerting
 - **Wazuh Indexer:** OpenSearch cluster (3 nodes in production, 1 for homelab)
 - **Wazuh Dashboard:** Kibana fork for visualization
 
-**Graylog deployment (Docker Compose):**
+### Graylog deployment (Docker Compose)
 
 ```bash
 # MongoDB for metadata
@@ -141,21 +141,21 @@ docker run -d --name graylog \
   graylog/graylog:5.2
 ```
 
-**Complete deployment scripts:** https://gist.github.com/williamzujkowski/79146ef623363155e85d244a91c383cf
+Complete deployment scripts: https://gist.github.com/williamzujkowski/79146ef623363155e85d244a91c383cf
 
-**Agent deployment (both):**
+### Agent deployment (both)
 
-- **47 homelab hosts** monitored (Docker containers, VMs, physical servers)
+- 47 homelab hosts monitored (Docker containers, VMs, physical servers)
 - **Wazuh agents:** Installed via package manager (`apt-get install wazuh-agent`)
 - **Filebeat agents:** Configured for Graylog syslog input
 
-**Deployment time:** Wazuh 32 minutes (manager + indexer + dashboard + 47 agents), Graylog 18 minutes (server + MongoDB + Elasticsearch + 47 Filebeat agents).
+Deployment time: Wazuh 32 minutes (manager + indexer + dashboard + 47 agents), Graylog 18 minutes (server + MongoDB + Elasticsearch + 47 Filebeat agents).
 
 ## Performance Benchmark: Detection Speed
 
 I simulated 5 common attack patterns to measure detection speed.
 
-**Test scenarios:**
+Test scenarios:
 
 1. **SSH brute force:** 50 failed login attempts in 60 seconds
 2. **Port scan:** Nmap SYN scan of 1,000 ports
@@ -163,7 +163,7 @@ I simulated 5 common attack patterns to measure detection speed.
 4. **Privilege escalation:** Unauthorized sudo command
 5. **File integrity:** Modify /etc/passwd
 
-**Detection speed results:**
+Detection speed results:
 
 | Attack Type | Wazuh Detection Time | Graylog Detection Time* |
 |-------------|---------------------|------------------------|
@@ -176,20 +176,20 @@ I simulated 5 common attack patterns to measure detection speed.
 
 *Graylog detection via custom stream rules. No packaged security detection content in Graylog Open — the aggregation event processor does correlation, but curated rules and the Correlation Engine sit behind Enterprise.
 
-**Why Wazuh faster:** Built-in correlation rules trigger on pattern match. Graylog requires manual stream creation and alert conditions.
+Why Wazuh faster: Built-in correlation rules trigger on pattern match. Graylog requires manual stream creation and alert conditions.
 
-**Alert accuracy:**
+Alert accuracy:
 
 - **Wazuh false positive rate:** 7.2% (flagged legitimate SSH retries as brute force)
 - **Graylog false positive rate:** 12.4% (stream rules less sophisticated)
 
-**Winner (detection):** Wazuh excels at security-specific use cases with minimal configuration.
+Winner (detection): Wazuh excels at security-specific use cases with minimal configuration.
 
 ## Performance Benchmark: Log Search Speed
 
 Query performance matters when investigating incidents.
 
-**Test queries:**
+Test queries:
 
 1. **Simple keyword:** Search "error" in last 24 hours
 2. **Field filter:** Find all SSH events (`program:sshd`) in last 7 days
@@ -197,7 +197,7 @@ Query performance matters when investigating incidents.
 4. **Aggregation:** Count events by source IP, last 30 days
 5. **Complex:** Multi-field correlation (source IP + failed auth + 10 minute window)
 
-**Query speed results:**
+Query speed results:
 
 | Query Type | Wazuh (OpenSearch) | Graylog (Elasticsearch) |
 |------------|-------------------|------------------------|
@@ -208,17 +208,17 @@ Query performance matters when investigating incidents.
 | Complex correlation | 8.4 seconds | 3.2 seconds |
 | **Mean query time** | **4.2 seconds** | **1.4 seconds** |
 
-**Data volume:** 2.4 million events indexed (7 days retention, 47 hosts logging).
+Data volume: 2.4 million events indexed (7 days retention, 47 hosts logging).
 
-**Why Graylog faster:** Elasticsearch-first design optimizes for search speed. Wazuh adds security processing overhead (rule evaluation, enrichment).
+Why Graylog faster: Elasticsearch-first design optimizes for search speed. Wazuh adds security processing overhead (rule evaluation, enrichment).
 
-**Winner (search):** Graylog delivers 3x faster queries for log investigation workflows.
+Winner (search): Graylog delivers 3x faster queries for log investigation workflows.
 
 ## Resource Usage Comparison
 
 Both SIEMs consume significant resources. Graylog lighter footprint.
 
-**Memory usage (steady state):**
+Memory usage (steady state):
 
 | Component | Wazuh | Graylog |
 |-----------|-------|---------|
@@ -227,29 +227,29 @@ Both SIEMs consume significant resources. Graylog lighter footprint.
 | Database (N/A/MongoDB) | N/A | 0.6 GB |
 | **Total** | **5.0 GB** | **4.2 GB** |
 
-**CPU usage (during log ingestion - 10K events/second):**
+CPU usage (during log ingestion - 10K events/second):
 
 - **Wazuh Manager:** 24% CPU (4 cores)
 - **Graylog Server:** 18% CPU (4 cores)
 
-**Disk I/O (write performance):**
+Disk I/O (write performance):
 
 - **Wazuh Indexer:** 45 MB/s sustained writes
 - **Elasticsearch (Graylog):** 38 MB/s sustained writes
 - **MongoDB (Graylog):** 12 MB/s (metadata only)
 
-**Storage growth rate (47 hosts):**
+Storage growth rate (47 hosts):
 
 - **Wazuh:** 4.7 GB/day (compressed logs + indices)
 - **Graylog:** 3.9 GB/day (Elasticsearch indices only)
 
-**Winner (resources):** Graylog uses 16% less memory and 17% less disk space.
+Winner (resources): Graylog uses 16% less memory and 17% less disk space.
 
 ## Integration: Custom Python Automation
 
 Both SIEMs expose REST APIs for automation. I built Python scripts to automate alert enrichment and response.
 
-**Wazuh API example (alert query):**
+Wazuh API example (alert query):
 
 ```python
 import requests
@@ -271,7 +271,7 @@ for alert in alerts:
     print(f"[{alert['severity']}] {alert['rule']['description']}")
 ```
 
-**Graylog API example (stream query):**
+Graylog API example (stream query):
 
 ```python
 import requests
@@ -291,14 +291,14 @@ for alert in alerts:
     print(f"[{alert['condition_title']}] Triggered at {alert['triggered_at']}")
 ```
 
-**Automation built:**
+Automation built:
 
 1. **Auto-remediation:** Block IP addresses after 10 failed SSH attempts (firewall API integration)
 2. **Enrichment:** Query VirusTotal for file hashes in malware alerts
 3. **Escalation:** Create PagerDuty incident for critical alerts
 4. **Reporting:** Daily security summary (Slack notification)
 
-**API comparison:**
+API comparison:
 
 | Feature | Wazuh API | Graylog API |
 |---------|-----------|-------------|
@@ -307,13 +307,13 @@ for alert in alerts:
 | Response format | JSON | JSON |
 | Rate limiting | 300 req/min | not documented |
 
-**Python integration examples:** https://gist.github.com/williamzujkowski/4df107e30a0d2e5f5156df1d9203ca13
+Python integration examples: https://gist.github.com/williamzujkowski/4df107e30a0d2e5f5156df1d9203ca13
 
 ## Security Detection: Built-In Rules vs Custom
 
 Wazuh ships with 4,400+ security rules. Graylog requires custom stream creation.
 
-**Wazuh out-of-box detections:**
+Wazuh out-of-box detections:
 
 - SSH brute force (8 failed attempts in 120 seconds, rule 5712's shipped default)
 - Web attacks (SQL injection, XSS, LFI patterns)
@@ -322,7 +322,7 @@ Wazuh ships with 4,400+ security rules. Graylog requires custom stream creation.
 - Malware detection (ClamAV integration)
 - Compliance (PCI-DSS, GDPR, HIPAA rule sets)
 
-**Graylog custom rule example (SSH brute force):**
+Graylog custom rule example (SSH brute force):
 
 ```
 # Create stream: "Failed SSH Logins"
@@ -335,7 +335,7 @@ Condition: message count > 10 in 2 minutes
 Action: Send email notification
 ```
 
-**Detection coverage (my homelab):**
+Detection coverage (my homelab):
 
 | Detection Type | Wazuh (Built-in) | Graylog (Custom) |
 |----------------|------------------|------------------|
@@ -346,13 +346,13 @@ Action: Send email notification
 | Malware | ✅ ClamAV integration | ❌ External only |
 | Anomaly detection | ⚠️ Basic | Licensed content pack (Graylog Security) |
 
-**Winner (detection):** Wazuh requires zero configuration for common threats. Graylog demands security expertise to replicate coverage.
+Winner (detection): Wazuh requires zero configuration for common threats. Graylog demands security expertise to replicate coverage.
 
 ## Hybrid Deployment: Best of Both
 
 Some teams run Wazuh + Graylog together. Wazuh handles threat detection, Graylog provides flexible log search.
 
-**Hybrid architecture:**
+Hybrid architecture:
 
 <figure class="arch-fig">
 <div class="arch" role="group" aria-label="Hybrid Wazuh and Graylog deployment">
@@ -364,21 +364,21 @@ Some teams run Wazuh + Graylog together. Wazuh handles threat detection, Graylog
 <figcaption>Security logs flow to Wazuh, application logs flow to Graylog, and the two systems exchange alerts for unified investigation.</figcaption>
 </figure>
 
-**Integration patterns:**
+Integration patterns:
 
 1. **Wazuh → Graylog:** Forward Wazuh alerts to Graylog for unified dashboard
 2. **Graylog → Wazuh:** Send suspicious events from Graylog to Wazuh for correlation
 3. **Shared storage:** Both write to same Elasticsearch cluster (resource optimization)
 
-**Real-world example:** Use Wazuh for security monitoring (SSH, malware, FIM). Use Graylog for application logs (Django debug logs, Nginx access logs). Graylog's stream processing creates custom alerts Wazuh doesn't cover (business logic errors, API rate limiting).
+Real-world example: Use Wazuh for security monitoring (SSH, malware, FIM). Use Graylog for application logs (Django debug logs, Nginx access logs). Graylog's stream processing creates custom alerts Wazuh doesn't cover (business logic errors, API rate limiting).
 
-**Why hybrid works:** Separate concerns (security vs operations), leverage strengths (Wazuh rules vs Graylog search).
+Why hybrid works: Separate concerns (security vs operations), leverage strengths (Wazuh rules vs Graylog search).
 
-**Configuration:** https://gist.github.com/williamzujkowski/c5ea53300957068928678f3f6927cab6
+Configuration: https://gist.github.com/williamzujkowski/c5ea53300957068928678f3f6927cab6
 
 ## When to Choose Wazuh vs Graylog
 
-**Choose Wazuh if:**
+Choose Wazuh if:
 
 - Primary goal is security threat detection
 - Need out-of-box coverage (brute force, malware, compliance)
@@ -386,7 +386,7 @@ Some teams run Wazuh + Graylog together. Wazuh handles threat detection, Graylog
 - Regulatory compliance matters (PCI-DSS, HIPAA)
 - Limited security expertise (pre-built rules)
 
-**Choose Graylog if:**
+Choose Graylog if:
 
 - Primary goal is centralized log aggregation
 - Need fast log search and investigation
@@ -394,23 +394,23 @@ Some teams run Wazuh + Graylog together. Wazuh handles threat detection, Graylog
 - Custom log parsing and enrichment critical
 - Resource constrained (Graylog lighter footprint)
 
-**My homelab choice:** Started with Graylog (easier setup, faster search). Added Wazuh 6 months later for security-specific rules. Now run hybrid deployment.
+My homelab choice: Started with Graylog (easier setup, faster search). Added Wazuh 6 months later for security-specific rules. Now run hybrid deployment.
 
 ## Limitations and Trade-Offs
 
-**Wazuh challenges:**
+Wazuh challenges:
 
 1. **Resource usage:** 5GB RAM minimum for production (Indexer memory hungry)
 2. **Learning curve:** Dashboard overwhelming (100+ pre-built visualizations)
 3. **Alert noise:** Default rules generate high false positive rate (tuning required)
 
-**Graylog challenges:**
+Graylog challenges:
 
 1. **Security rules:** Manual creation time-consuming (spent 8 hours building 23 streams)
 2. **No FIM:** File integrity monitoring requires external tools (OSSEC, AIDE)
 3. **Correlation limits:** Stream-based correlation less powerful than Wazuh event engine
 
-**Common challenges (both):**
+Common challenges (both):
 
 - **Retention costs:** Storing 30 days of logs = 120-140GB disk per 47 hosts
 - **Agent deployment:** Manual install on 47 hosts took 4 hours (automation needed)
@@ -420,29 +420,29 @@ Some teams run Wazuh + Graylog together. Wazuh handles threat detection, Graylog
 
 ## Further Reading
 
-**SIEM comparisons and research:**
+SIEM comparisons and research:
 
 - [Comparative Analysis of Wazuh, Graylog, and ELK Stack](https://infonomics-society.org/icitst-2024/icitst-abstract-15/) - ICITST 2024 conference
 - [Wazuh vs Graylog: Which SIEM Tools Wins in 2025?](https://www.selecthub.com/siem-tools/wazuh-vs-graylog/) - SelectHub analysis
 
-**Official documentation:**
+Official documentation:
 
 - [Wazuh Documentation](https://documentation.wazuh.com/) - Deployment, configuration, rule reference
 - [Graylog Documentation](https://go2docs.graylog.org/) - Stream processing, extractors, alerts
 - [OpenSearch](https://opensearch.org/docs/latest/) - Wazuh backend (Elasticsearch fork)
 
-**Deployment guides:**
+Deployment guides:
 
 - [Wazuh Docker Deployment](https://documentation.wazuh.com/current/deployment-options/docker/index.html)
 - [Graylog Docker Deployment](https://go2docs.graylog.org/current/downloading_and_installing_graylog/docker_installation.htm)
 
-**Alternative SIEMs (not tested):**
+Alternative SIEMs (not tested):
 
 - [Elastic Security](https://www.elastic.co/security) - Commercial ELK Stack with security
 - [Splunk Free](https://help.splunk.com/en/data-management/splunk-enterprise-admin-manual/10.2/configure-splunk-licenses/about-splunk-free) - 500MB/day limit
 - [Security Onion](https://securityonionsolutions.com/) - Network security monitoring platform
 
-**Implementation references:**
+Implementation references:
 
 - **Deployment scripts:** https://gist.github.com/williamzujkowski/79146ef623363155e85d244a91c383cf
 - **Python automation:** https://gist.github.com/williamzujkowski/4df107e30a0d2e5f5156df1d9203ca13
@@ -450,6 +450,6 @@ Some teams run Wazuh + Graylog together. Wazuh handles threat detection, Graylog
 
 ---
 
-**Deploy centralized security monitoring.** Start with one SIEM, validate detection coverage, then optimize. Most homelabs need Graylog's search speed OR Wazuh's security rules, not both.
+Deploy centralized security monitoring. Start with one SIEM, validate detection coverage, then optimize. Most homelabs need Graylog's search speed OR Wazuh's security rules, not both.
 
 Run hybrid if resources allow. Alert fatigue comes from poor tuning, not too many tools. In my homelab, SIEM detected 3 actual security incidents in 8 months. Manual log review would have missed all three.

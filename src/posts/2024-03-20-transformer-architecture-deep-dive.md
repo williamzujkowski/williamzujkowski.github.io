@@ -92,11 +92,11 @@ Attention visualizations showed heads attending almost uniformly because they we
 
 The original Transformer's encoder-decoder structure enabled significant versatility:
 
-**Encoder Stack:** Multiple layers of self-attention and feed-forward networks that build increasingly sophisticated representations of input sequences. My translation model used 6 encoder layers, each with 512-dimensional embeddings and 2048-dimensional feed-forward inner layer, totaling roughly 37M parameters in the encoder alone.
+Encoder Stack: Multiple layers of self-attention and feed-forward networks that build increasingly sophisticated representations of input sequences. My translation model used 6 encoder layers, each with 512-dimensional embeddings and 2048-dimensional feed-forward inner layer, totaling roughly 37M parameters in the encoder alone.
 
-**Decoder Stack:** Similar architecture but with additional cross-attention layers that allow the decoder to attend to encoder outputs. The decoder had 6 layers matching the encoder structure, plus cross-attention adding another 6.3M parameters. With a shared embedding table that comes to roughly 65M parameters in total, matching the base configuration in the original paper.
+Decoder Stack: Similar architecture but with additional cross-attention layers that allow the decoder to attend to encoder outputs. The decoder had 6 layers matching the encoder structure, plus cross-attention adding another 6.3M parameters. With a shared embedding table that comes to roughly 65M parameters in total, matching the base configuration in the original paper.
 
-**Cross-Attention:** The mechanism that connects encoder and decoder, allowing the output generation process to focus on relevant parts of the input. Visualizing cross-attention revealed the model learned alignment patterns: when generating German word "Hund," it attended strongly to English "dog" (attention weight 0.87), weakly to "the" (0.09), and negligibly to other tokens.
+Cross-Attention: The mechanism that connects encoder and decoder, allowing the output generation process to focus on relevant parts of the input. Visualizing cross-attention revealed the model learned alignment patterns: when generating German word "Hund," it attended strongly to English "dog" (attention weight 0.87), weakly to "the" (0.09), and negligibly to other tokens.
 
 I've applied this architecture to machine translation, summarization and question answering. One caveat on any BLEU number from that era, mine included: hand-rolled scoring was almost always `multi-bleu.perl` on tokenized output, which runs a point or two above sacreBLEU, so era-crossing comparisons need care. The same fundamental design could handle vastly different tasks by learning task-specific attention patterns.
 
@@ -104,11 +104,11 @@ I've applied this architecture to machine translation, summarization and questio
 
 Watching Transformers evolve into BERT, GPT, T5, and other architectures has been like watching a family tree grow:
 
-**BERT (Encoder-Only):** Bidirectional training created powerful representations for classification tasks. In mid-2019, I fine-tuned BERT-base (110M parameters) for document classification. Starting from the pretrained model, I achieved 91.2% accuracy on a 10-class task with just 2 epochs of training on 8,000 labeled examples. For comparison, training a similar-sized BiLSTM from scratch on the same data yielded only 76.4% accuracy after 20 epochs. The pretrained representations captured context and nuance that would have required far more labeled data with earlier approaches. I estimate 50,000+ labeled examples to match BERT's performance from scratch. For more context, see [retrieval augmented generation (rag): enhancing llms with external knowledge](/posts/2024-04-04-retrieval-augmented-generation-rag).
+BERT (Encoder-Only): Bidirectional training created powerful representations for classification tasks. In mid-2019, I fine-tuned BERT-base (110M parameters) for document classification. Starting from the pretrained model, I achieved 91.2% accuracy on a 10-class task with just 2 epochs of training on 8,000 labeled examples. For comparison, training a similar-sized BiLSTM from scratch on the same data yielded only 76.4% accuracy after 20 epochs. The pretrained representations captured context and nuance that would have required far more labeled data with earlier approaches. I estimate 50,000+ labeled examples to match BERT's performance from scratch. For more context, see [retrieval augmented generation (rag): enhancing llms with external knowledge](/posts/2024-04-04-retrieval-augmented-generation-rag).
 
-**GPT Series (Decoder-Only):** Unidirectional generation models that became the foundation for modern language models. [Scaling these architectures appeared to unlock capabilities absent at smaller sizes](https://arxiv.org/abs/2206.07682) (Wei et al., 2022), though the mechanisms behind these emergent behaviors aren't fully understood.
+GPT Series (Decoder-Only): Unidirectional generation models that became the foundation for modern language models. [Scaling these architectures appeared to unlock capabilities absent at smaller sizes](https://arxiv.org/abs/2206.07682) (Wei et al., 2022), though the mechanisms behind these emergent behaviors aren't fully understood.
 
-**T5 (Text-to-Text Transfer):** Framing all NLP tasks as text generation problems showed the Transformer's flexibility across diverse problem types. For more context, see [open-source vs. proprietary llms: a battle of accessibility, customization, and community](/posts/2024-02-22-open-source-vs-proprietary-llms).
+T5 (Text-to-Text Transfer): Framing all NLP tasks as text generation problems showed the Transformer's flexibility across diverse problem types. For more context, see [open-source vs. proprietary llms: a battle of accessibility, customization, and community](/posts/2024-02-22-open-source-vs-proprietary-llms).
 
 Each variant taught lessons about the architecture's flexibility and the importance of training objectives in shaping model behavior. Though I suspect we've only scratched the surface of what's possible with different training approaches.
 
@@ -116,21 +116,21 @@ Each variant taught lessons about the architecture's flexibility and the importa
 
 Implementing Transformers from first principles revealed details that papers couldn't convey:
 
-**Computational Complexity:** [Self-attention's O(n²) complexity with sequence length](https://arxiv.org/abs/2209.04881) (Duman-Keles et al., 2022) becomes prohibitive for very long sequences. When I tried training on 512-token sequences in 2019, attention computation alone consumed 11GB of GPU memory on my RTX 2080 Ti (leaving only 1GB for gradients and activations on an 11GB card). Doubling the sequence length quadruples the attention term, which is what made longer contexts impractical on that card.
+Computational Complexity: [Self-attention's O(n²) complexity with sequence length](https://arxiv.org/abs/2209.04881) (Duman-Keles et al., 2022) becomes prohibitive for very long sequences. When I tried training on 512-token sequences in 2019, attention computation alone consumed 11GB of GPU memory on my RTX 2080 Ti (leaving only 1GB for gradients and activations on an 11GB card). Doubling the sequence length quadruples the attention term, which is what made longer contexts impractical on that card.
 
 This limitation drives research into efficient attention mechanisms.
 
-**Memory Requirements:** Storing attention matrices for long sequences requires substantial GPU memory. A 512-token sequence with batch size 32 generates attention matrices totaling roughly 0.25 GiB per layer (512×512×32×8 heads×4 bytes per float32), about 1.5 GiB across six layers. Gradient checkpointing and other optimization techniques become essential. I reduced memory usage by 35% (from 11GB to 7GB) by recomputing attention during backprop rather than caching it, though this increased training time by roughly 18%.
+Memory Requirements: Storing attention matrices for long sequences requires substantial GPU memory. A 512-token sequence with batch size 32 generates attention matrices totaling roughly 0.25 GiB per layer (512×512×32×8 heads×4 bytes per float32), about 1.5 GiB across six layers. Gradient checkpointing and other optimization techniques become essential. I reduced memory usage by 35% (from 11GB to 7GB) by recomputing attention during backprop rather than caching it, though this increased training time by roughly 18%.
 
-**Training Dynamics:** Transformer training is sensitive to learning rates, warmup schedules, and layer normalization placement. Small implementation details can dramatically affect convergence. I learned this the hard way when a missing layer normalization caused my first implementation to diverge after epoch 3.
+Training Dynamics: Transformer training is sensitive to learning rates, warmup schedules, and layer normalization placement. Small implementation details can dramatically affect convergence. I learned this the hard way when a missing layer normalization caused my first implementation to diverge after epoch 3.
 
 The validation loss went from 2.41 to 2.38 to 2.34 then exploded to 8.7 and NaN. After adding proper layer norm placement (before rather than after residual connections), I achieved stable convergence with validation loss reaching 1.83 by epoch 12.
 
-**Initialization Strategies:** Proper weight initialization is crucial for stable training. The interplay between attention weights and value projections requires careful consideration. In my 2019 implementation, switching from Xavier to scaled initialization (the paper multiplies embedding weights by √d_model) reduced training time by 40% and improved final performance by 1.3 BLEU points.
+Initialization Strategies: Proper weight initialization is crucial for stable training. The interplay between attention weights and value projections requires careful consideration. In my 2019 implementation, switching from Xavier to scaled initialization (the paper multiplies embedding weights by √d_model) reduced training time by 40% and improved final performance by 1.3 BLEU points.
 
 The difference was most pronounced in the first few epochs: Xavier init reached 2.9 validation loss after epoch 3, while scaled init reached 2.1. Convergence to 1.8 loss took 18 epochs with Xavier versus 11 with scaled initialization.
 
-**Learning Rate Schedules:** The original paper's warmup schedule proved essential. I initially tried a constant learning rate of 1e-4 and watched the model barely improve (validation loss stuck at 4.2 after 6 epochs). With the warmup schedule (linear increase from 0 to 1e-3 over 4,000 steps, then inverse square root decay), the same model achieved 1.83 validation loss by epoch 12.
+Learning Rate Schedules: The original paper's warmup schedule proved essential. I initially tried a constant learning rate of 1e-4 and watched the model barely improve (validation loss stuck at 4.2 after 6 epochs). With the warmup schedule (linear increase from 0 to 1e-3 over 4,000 steps, then inverse square root decay), the same model achieved 1.83 validation loss by epoch 12.
 
 The warmup prevents the model from settling into poor local minima during the critical early training phase.
 
@@ -138,11 +138,11 @@ The warmup prevents the model from settling into poor local minima during the cr
 
 Scaling Transformers to billions of parameters [revealed emergent behaviors that smaller models didn't exhibit](https://arxiv.org/abs/2206.07682) (Wei et al., 2022), though the exact scale thresholds where these behaviors emerge remain debated:
 
-**In-Context Learning:** Large models could learn new tasks from examples in the input without parameter updates. This capability appeared weakly in models around 1-10B parameters but became more reliable at larger scales.
+In-Context Learning: Large models could learn new tasks from examples in the input without parameter updates. This capability appeared weakly in models around 1-10B parameters but became more reliable at larger scales.
 
-**Chain-of-Thought Reasoning:** [Explicit reasoning steps emerged as a powerful capability in sufficiently large models](https://arxiv.org/abs/2201.11903) (Wei et al., 2022). In my testing with GPT-3.5 in early 2023, adding "Let's think step by step" — the zero-shot trigger from [Kojima et al. (2022)](https://arxiv.org/abs/2205.11916), distinct from the few-shot exemplar approach above — improved accuracy on multi-step math problems from 23% to 61%.
+Chain-of-Thought Reasoning: [Explicit reasoning steps emerged as a powerful capability in sufficiently large models](https://arxiv.org/abs/2201.11903) (Wei et al., 2022). In my testing with GPT-3.5 in early 2023, adding "Let's think step by step" — the zero-shot trigger from [Kojima et al. (2022)](https://arxiv.org/abs/2205.11916), distinct from the few-shot exemplar approach above — improved accuracy on multi-step math problems from 23% to 61%.
 
-**Few-Shot Generalization:** The ability to adapt to new tasks with minimal examples [improved dramatically with scale](https://arxiv.org/abs/2005.14165) (Brown et al., 2020). When I tested GPT-3 on a custom entity extraction task in 2021, it achieved 78% F1 score with just 5 examples, comparable to a BERT model I'd fine-tuned on 1,000 labeled examples.
+Few-Shot Generalization: The ability to adapt to new tasks with minimal examples [improved dramatically with scale](https://arxiv.org/abs/2005.14165) (Brown et al., 2020). When I tested GPT-3 on a custom entity extraction task in 2021, it achieved 78% F1 score with just 5 examples, comparable to a BERT model I'd fine-tuned on 1,000 labeled examples.
 
 These observations suggest the Transformer architecture can support capabilities beyond what the original paper envisioned, though we're still discovering the full extent and limits.
 
@@ -150,15 +150,15 @@ These observations suggest the Transformer architecture can support capabilities
 
 Years of working with Transformers also revealed their limitations:
 
-**Context Length:** [The quadratic attention complexity](https://arxiv.org/abs/1706.03762) (Vaswani et al., 2017) limits practical context windows, though recent research addresses this with sparse attention patterns and other innovations. Here's how it matters: a 4,096-token context needs 16x the attention memory of a 1,024-token one. That framing is now dated: [FlashAttention](https://arxiv.org/abs/2205.14135) never materializes the full attention matrix, so memory is linear in sequence length even though compute stays quadratic. By 2024 it was the default path in PyTorch, Hugging Face and vLLM, and million-token windows followed.
+Context Length: [The quadratic attention complexity](https://arxiv.org/abs/1706.03762) (Vaswani et al., 2017) limits practical context windows, though recent research addresses this with sparse attention patterns and other innovations. Here's how it matters: a 4,096-token context needs 16x the attention memory of a 1,024-token one. That framing is now dated: [FlashAttention](https://arxiv.org/abs/2205.14135) never materializes the full attention matrix, so memory is linear in sequence length even though compute stays quadratic. By 2024 it was the default path in PyTorch, Hugging Face and vLLM, and million-token windows followed.
 
 When I attempted 2,048-token contexts in 2020, training time jumped from 3.5 hours/epoch (512 tokens) to 23 hours/epoch, a 6.6x slowdown that made experimentation impractical.
 
-**Compositional Reasoning:** While impressive, Transformers sometimes struggle with systematic compositional reasoning that requires strict logical consistency. When I tested GPT-3 on nested logical statements in 2022, accuracy dropped from 87% on simple statements to 41% on three-level nesting. The drop-off pattern suggested the model was pattern-matching rather than truly reasoning, though I'm not certain that's the full story.
+Compositional Reasoning: While impressive, Transformers sometimes struggle with systematic compositional reasoning that requires strict logical consistency. When I tested GPT-3 on nested logical statements in 2022, accuracy dropped from 87% on simple statements to 41% on three-level nesting. The drop-off pattern suggested the model was pattern-matching rather than truly reasoning, though I'm not certain that's the full story.
 
-**Interpretability:** Understanding what large Transformer models have learned remains challenging, though attention visualization provides some insights. I've found that attention weights often don't fully explain model predictions. Even with clear attention patterns, the model sometimes makes decisions I can't explain, suggesting information flows through channels we haven't fully mapped.
+Interpretability: Understanding what large Transformer models have learned remains challenging, though attention visualization provides some insights. I've found that attention weights often don't fully explain model predictions. Even with clear attention patterns, the model sometimes makes decisions I can't explain, suggesting information flows through channels we haven't fully mapped.
 
-**Data Efficiency:** Transformers require enormous amounts of training data compared to human learning, suggesting fundamental differences in learning mechanisms. A child learns language from maybe 10-20 million words of input by age 6. GPT-3 trained on 300 billion tokens, roughly 15,000-30,000x more data.
+Data Efficiency: Transformers require enormous amounts of training data compared to human learning, suggesting fundamental differences in learning mechanisms. A child learns language from maybe 10-20 million words of input by age 6. GPT-3 trained on 300 billion tokens, roughly 15,000-30,000x more data.
 
 Even my small 65M parameter translation model required 4.5 million sentence pairs (roughly 100 million tokens) to reach 28.7 BLEU, whereas a human translator might become proficient with exposure to perhaps 1-2 million tokens of parallel text. The vast difference suggests we might be missing key principles about how to encode inductive biases efficiently.
 
@@ -188,42 +188,42 @@ The paper that first captured my imagination years ago continues to inspire new 
 
 ## Sources
 
-1. **[Attention Is All You Need](https://arxiv.org/abs/1706.03762)** (2017)
+1. [Attention Is All You Need](https://arxiv.org/abs/1706.03762) (2017)
    - Vaswani et al.
    - *NeurIPS 2017*
    - Original Transformer architecture paper
 
-2. **[GPT-4 Technical Report](https://arxiv.org/abs/2303.08774)** (2023)
+2. [GPT-4 Technical Report](https://arxiv.org/abs/2303.08774) (2023)
    - OpenAI
    - *arXiv preprint*
    - Demonstrates emergent capabilities at scale
 
-3. **[Emergent Abilities of Large Language Models](https://arxiv.org/abs/2206.07682)** (2022)
+3. [Emergent Abilities of Large Language Models](https://arxiv.org/abs/2206.07682) (2022)
    - Bubeck et al.
    - *arXiv preprint*
    - Analysis of emergent capabilities at scale
 
-4. **[Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/abs/2201.11903)** (2022)
+4. [Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/abs/2201.11903) (2022)
    - Wei et al.
    - *NeurIPS 2022*
    - Foundational work on chain-of-thought reasoning
 
-5. **[Emergent Abilities of Large Language Models](https://arxiv.org/abs/2206.07682)** (2022)
+5. [Emergent Abilities of Large Language Models](https://arxiv.org/abs/2206.07682) (2022)
    - Wei et al.
    - *TMLR 2022*
    - Comprehensive analysis of emergent behaviors
 
-6. **[Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165)** (2020)
+6. [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165) (2020)
    - Brown et al.
    - *NeurIPS 2020*
    - GPT-3 paper demonstrating few-shot learning
 
-7. **[On The Computational Complexity of Self-Attention](https://arxiv.org/abs/2209.04881)** (2022)
+7. [On The Computational Complexity of Self-Attention](https://arxiv.org/abs/2209.04881) (2022)
    - Duman-Keles et al.
    - *ALT 2023*
    - Theoretical analysis of quadratic complexity
 
-8. **[BERT: Pre-training of Deep Bidirectional Transformers](https://arxiv.org/abs/1810.04805)** (2018)
+8. [BERT: Pre-training of Deep Bidirectional Transformers](https://arxiv.org/abs/1810.04805) (2018)
    - Devlin et al.
    - *NAACL 2019*
    - Encoder-only architecture

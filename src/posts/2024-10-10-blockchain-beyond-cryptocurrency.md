@@ -5,8 +5,8 @@ description: "Deploy blockchain beyond cryptocurrency with Ethereum and smart co
 title: 'Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet'
 tags:
   - architecture
-  - blockchain
-  - programming
+  - cryptography
+  - software-engineering
   - security
 ---
 I deployed a private Ethereum test network on my homelab's Dell R910 server (see [secure homelab adventures](/posts/2025-04-24-building-secure-homelab-adventure)) to find out what this technology feels like from the inside rather than from a whitepaper. The first lesson arrived early: blockchain infrastructure is not lightweight, and a validator node is a machine you leave switched on.

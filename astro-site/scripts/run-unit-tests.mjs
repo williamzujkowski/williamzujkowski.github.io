@@ -25,10 +25,13 @@ import { spawnSync } from 'node:child_process';
 // as non-vacuity guards (post-structure's corpus>50, code-fence-content's
 // fenced-lines>1000, color-drift's luminance pin). A floor with slack is a
 // floor that lets you delete the thing measuring the slack.
-const MIN_TESTS = 62;
+const MIN_TESTS = 72;
 const GLOB = '../tests/unit/**/*.test.mjs';
 
-const result = spawnSync(process.execPath, ['--test', GLOB], {
+// Pin the reporter: the count below is parsed from TAP's `# tests N`.
+// Node 23+ defaults to the spec reporter (`ℹ tests N`) even when piped,
+// which this parser would read as 0 -- failing closed, but on every run.
+const result = spawnSync(process.execPath, ['--test', '--test-reporter=tap', GLOB], {
   encoding: 'utf8',
   stdio: ['ignore', 'pipe', 'pipe'],
 });

@@ -5,7 +5,6 @@ description: "Rewriting security controls for probabilistic agents. Static contr
 tags:
 - security
 - ai
-- oscal
 - compliance
 - ai-agents
 ---

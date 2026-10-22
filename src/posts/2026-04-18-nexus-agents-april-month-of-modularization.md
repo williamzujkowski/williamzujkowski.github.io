@@ -2,7 +2,7 @@
 title: "A Month of Modularization: nexus-agents in April 2026"
 date: 2026-04-18
 description: "Extracting benchmarks into a standalone package was the punchline. The setup was a month of governance, skills, security, and pipeline discipline that made the extraction possible in an afternoon."
-tags: [ai, software-engineering, open-source, monorepo, typescript]
+tags: [ai, software-engineering, open-source, typescript]
 author: William Zujkowski
 series: "Building AI Systems"
 seriesOrder: 4

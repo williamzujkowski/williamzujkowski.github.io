@@ -3,7 +3,7 @@ title: "Building a Homelab Security Dashboard with Grafana and Prometheus"
 date: "2025-12-10"
 description: "Real-world guide to monitoring security events in your homelab. Covers Prometheus configuration, Grafana dashboards, and alerting rules for threat detection."
 author: "William Zujkowski"
-tags: [security, monitoring, grafana, prometheus, homelab, observability, alerting, dashboard]
+tags: [security, monitoring, homelab]
 series: "Homelab Security"
 seriesOrder: 1
 readingTime: "8 min read"
@@ -24,7 +24,7 @@ Most homelab monitoring focuses on uptime and performance. CPU graphs, memory us
 
 Security gets ignored until something breaks.
 
-**The gap:** Your infrastructure might be healthy while attackers probe for weaknesses. Traditional monitoring won't show:
+The gap: Your infrastructure might be healthy while attackers probe for weaknesses. Traditional monitoring won't show:
 - Brute force attempts against SSH
 - Unusual DNS patterns (potential exfiltration)
 - Network scan activity
@@ -39,7 +39,7 @@ With proper dashboards? Real-time alerts caught similar attempts in under 2 minu
 
 ## My Security Dashboard Architecture
 
-**Core stack:**
+Core stack:
 - **Prometheus**: Metrics collection and storage
 - **Grafana**: Visualization and alerting
 - **Node Exporter**: System metrics
@@ -55,7 +55,7 @@ With proper dashboards? Real-time alerts caught similar attempts in under 2 minu
 <figcaption>Exporters feed Prometheus; Prometheus drives Grafana queries and Alertmanager notification paths.</figcaption>
 </figure>
 
-**Why this stack:**
+Why this stack:
 - Prometheus handles time-series data efficiently
 - Grafana provides flexible visualization
 - Both integrate with existing homelab tools
@@ -93,7 +93,7 @@ volumes:
   prometheus_data:
 ```
 
-**Why 90-day retention:** Security compromises often surface weeks later. Compliance requirements typically need 90+ days of logs. Storage is cheap - missing data isn't recoverable.
+Why 90-day retention: Security compromises often surface weeks later. Compliance requirements typically need 90+ days of logs. Storage is cheap - missing data isn't recoverable.
 
 ### Core Security Metrics Collection
 
@@ -127,13 +127,13 @@ scrape_configs:
       - targets: ['192.168.1.1:9455']
 ```
 
-**Key insight:** Security monitoring needs higher frequency collection. Authentication attempts happen rapidly - 30-second intervals miss attack patterns. I use 10-15 seconds for security metrics, 30 seconds for baseline monitoring.
+Key insight: Security monitoring needs higher frequency collection. Authentication attempts happen rapidly - 30-second intervals miss attack patterns. I use 10-15 seconds for security metrics, 30 seconds for baseline monitoring.
 
 ### Custom Security Exporters
 
 Node exporter provides system metrics but misses security events. I built custom exporters for:
 
-**SSH Authentication Monitor:**
+#### SSH Authentication Monitor
 ```python
 #!/usr/bin/env python3
 import re
@@ -161,11 +161,11 @@ if __name__ == '__main__':
         time.sleep(5)
 ```
 
-**Why custom exporters matter:** Generic monitoring tools miss context. SSH failed logins from 192.168.1.100 (my laptop) = normal. Same from 203.0.113.50 = potential threat.
+Why custom exporters matter: Generic monitoring tools miss context. SSH failed logins from 192.168.1.100 (my laptop) = normal. Same from 203.0.113.50 = potential threat.
 
 Context makes metrics actionable.
 
-**Firewall Drop Monitor:**
+#### Firewall Drop Monitor
 Uses iptables logging to track dropped packets:
 
 ```bash
@@ -208,11 +208,11 @@ My main security dashboard has 6 panels:
 5. **Alert Status** - Current warning/critical alerts
 6. **Response Metrics** - Time to detection/response
 
-**Panel arrangement philosophy:** Most critical information at the top. Eyes naturally scan left-to-right, top-to-bottom. Authentication failures deserve immediate attention - they get prime real estate.
+Panel arrangement philosophy: Most critical information at the top. Eyes naturally scan left-to-right, top-to-bottom. Authentication failures deserve immediate attention - they get prime real estate.
 
 ### Key Security Metrics to Track
 
-**Authentication Metrics:**
+#### Authentication Metrics
 ```promql
 # Failed SSH logins by source IP
 rate(ssh_auth_attempts_total{result="failed"}[5m])
@@ -225,7 +225,7 @@ increase(ssh_auth_attempts_total{result="success"}[5m]) > 0
 rate(ssh_auth_attempts_total{result="failed"}[5m]) > 0.033
 ```
 
-**Network Security Metrics:**
+#### Network Security Metrics
 ```promql
 # Port scan detection (multiple unique destination ports)
 count by (source_ip) (
@@ -240,7 +240,7 @@ histogram_quantile(0.95,
 rate(netstat_established_connections{direction="outbound"}[5m])
 ```
 
-**System Integrity Metrics:**
+#### System Integrity Metrics
 ```promql
 # Process monitoring (unexpected processes)
 node_processes_running - node_processes_baseline
@@ -254,18 +254,18 @@ rate(sudo_attempts_total{result="failed"}[5m])
 
 ### Visual Design Principles
 
-**Color coding:**
+#### Color coding
 - Green: Normal operations
 - Yellow: Attention needed
 - Red: Critical/immediate action
 - Gray: Unknown/no data
 
-**Time ranges:**
+#### Time ranges
 - Real-time panels: 5 minutes
 - Trend analysis: 24 hours
 - Historical context: 7 days
 
-**Why these choices:** Human attention spans are limited. Red should mean "drop everything, investigate now." Yellow means "check when convenient." Too many colors create decision paralysis.
+Why these choices: Human attention spans are limited. Red should mean "drop everything, investigate now." Yellow means "check when convenient." Too many colors create decision paralysis.
 
 I learned this during a real attack. My original dashboard had 7 color states. Took 40 seconds to interpret the display during an active brute force attack. Simplified version: 12 seconds to action.
 
@@ -297,7 +297,7 @@ groups:
           description: "Direct root login from {{ $labels.source_ip }}"
 ```
 
-**Alert thresholds explained:**
+Alert thresholds explained:
 - **0.1 failures/second = 6 per minute:** Aggressive but catches automated attacks
 - **2-minute duration:** Prevents false positives from typos
 - **Immediate root alerts:** Root SSH should never be enabled in production
@@ -324,7 +324,7 @@ groups:
           summary: "Unusually large DNS queries detected"
 ```
 
-**Detection logic:**
+Detection logic:
 - **Port scans:** 10+ unique ports in 5 minutes from single source
 - **DNS exfiltration:** tunnelling does not make queries *big* — it cannot, since RFC 1035 caps a domain name at 255 octets, which puts a hard ceiling of roughly 271 bytes on a query. It makes them *numerous* and *weird*. Alert on queries per second to one second-level domain, and on the ratio of unique labels to total queries
 
@@ -346,18 +346,18 @@ groups:
   <div class="flow-node">Deduplicate - 12h repeat interval</div>
 </div>
 
-**The problem:** too many alerts means ignored alerts. I started with far more rules than I could act on, and the response rate fell accordingly.
+The problem: too many alerts means ignored alerts. I started with far more rules than I could act on, and the response rate fell accordingly.
 
-**The solution:** ruthless prioritisation, down to a handful of rules I actually respond to.
+The solution: ruthless prioritisation, down to a handful of rules I actually respond to.
 
 Worth being honest about what that trade buys, though, because "response rate went up" is a flattering way to measure it. Cutting the rule set raises the percentage of alerts you act on partly by removing alerts. The metric that matters is incidents caught, not alerts clicked — and I do not have a clean way to measure the ones I no longer hear about. The case for pruning is that an alert stream nobody reads catches nothing at all, not that the percentage improved.
 
-**Rules for effective alerting:**
+#### Rules for effective alerting
 1. **Critical = actionable immediately** (SSH brute force, service outage)
 2. **Warning = investigate within 4 hours** (port scans, anomalies)
 3. **Info = log only** (baseline changes, maintenance events)
 
-**Alert routing:**
+#### Alert routing
 ```yaml
 # alertmanager.yml
 route:
@@ -390,54 +390,54 @@ receivers:
 
 ### Event 1: Cryptocurrency Mining Botnet
 
-**Timeline:** A few months ago
+Timeline: A few months ago
 
-**Detection:** CPU usage spike on web server (normal: 15%, observed: 87%)
+Detection: CPU usage spike on web server (normal: 15%, observed: 87%)
 
-**Root cause:** WordPress plugin vulnerability. Attacker installed XMRig miner.
+Root cause: WordPress plugin vulnerability. Attacker installed XMRig miner.
 
-**Dashboard evidence:**
+Dashboard evidence:
 - CPU utilization anomaly (red alert)
 - New process spawned (`xmrig` binary)
 - Outbound connections to mining pool (suspicious network activity)
 
-**Response time:** 4 minutes from initial alert to service isolation.
+Response time: 4 minutes from initial alert to service isolation.
 
-**Lesson learned:** Performance monitoring catches crypto mining faster than traditional security tools. CPU patterns are distinctive - legitimate workloads rarely sustain 80%+ utilization for hours.
+Lesson learned: Performance monitoring catches crypto mining faster than traditional security tools. CPU patterns are distinctive - legitimate workloads rarely sustain 80%+ utilization for hours.
 
 ### Event 2: DNS Tunneling Attempt
 
-**Timeline:** Several months ago
+Timeline: Several months ago
 
-**Detection:** an unusual volume of long, high-entropy subdomains under a single parent zone
+Detection: an unusual volume of long, high-entropy subdomains under a single parent zone
 
-**Root cause:** Compromised IoT device attempting data exfiltration via DNS queries
+Root cause: Compromised IoT device attempting data exfiltration via DNS queries
 
-**Dashboard evidence:**
+Dashboard evidence:
 - DNS query size anomaly (yellow warning → red critical)
 - Query frequency spike (300% above baseline)
 - Destination: suspicious domain with base64-encoded subdomains
 
-**Response time:** 18 minutes (investigated after hours)
+Response time: 18 minutes (investigated after hours)
 
-**Lesson learned:** DNS monitoring is essential. Most firewalls allow DNS traffic by default. Attackers know this - DNS tunneling is common exfiltration method.
+Lesson learned: DNS monitoring is essential. Most firewalls allow DNS traffic by default. Attackers know this - DNS tunneling is common exfiltration method.
 
 ### Event 3: SSH Key Compromise
 
-**Timeline:** Years ago
+Timeline: Years ago
 
-**Detection:** SSH login from unusual geographic location (VPN IP range)
+Detection: SSH login from unusual geographic location (VPN IP range)
 
-**Root cause:** Personal laptop compromise led to SSH private key theft
+Root cause: Personal laptop compromise led to SSH private key theft
 
-**Dashboard evidence:**
+Dashboard evidence:
 - Successful SSH login from unknown IP
 - Login time: 3:47 AM (outside normal hours)
 - No corresponding VPN connection logs
 
-**Response time:** 6 hours (overnight incident, morning discovery)
+Response time: 6 hours (overnight incident, morning discovery)
 
-**Lesson learned:** Time-based alerting matters. Legitimate SSH access follows predictable patterns. 3 AM logins deserve immediate investigation.
+Lesson learned: Time-based alerting matters. Legitimate SSH access follows predictable patterns. 3 AM logins deserve immediate investigation.
 
 ## Advanced Dashboard Features
 
@@ -470,7 +470,7 @@ threat_score = Gauge('ip_threat_confidence',
                     ['ip_address'])
 ```
 
-**Fail closed, not open.** The version of this I first wrote returned `0` on
+Fail closed, not open. The version of this I first wrote returned `0` on
 every non-200 response. That looks harmless and is not: AbuseIPDB's free tier
 caps at 1,000 checks a day, and a homelab under routine SSH scanning burns
 through that before lunch. From the first 429 onward, every attacker IP scored
@@ -479,9 +479,9 @@ same for a DNS blip. Let the exception propagate and alert on the gap; a threat
 feed that reports "benign" when it cannot answer is worse than no feed, because
 you will believe it.
 
-**Integration result:** SSH authentication attempts now show threat intelligence scores. 203.0.113.50 with 95% abuse confidence = immediate concern. 192.168.1.100 with 0% = likely legitimate.
+Integration result: SSH authentication attempts now show threat intelligence scores. 203.0.113.50 with 95% abuse confidence = immediate concern. 192.168.1.100 with 0% = likely legitimate.
 
-**Grafana panel:**
+#### Grafana panel
 ```promql
 rate(ssh_auth_attempts_total{result="failed"}[5m])
   * on(source_ip) group_left()
@@ -494,7 +494,7 @@ This multiplication highlights high-threat IPs with authentication activity.
 
 Added world map panel showing attack sources:
 
-**Data preparation:**
+#### Data preparation
 ```python
 # Geolocate IP addresses
 import geoip2.database
@@ -513,7 +513,7 @@ def geolocate_ip(ip_address):
         return None
 ```
 
-**Visualization impact:** Map shows attack clustering. 73% of SSH brute force attempts originate from 5 countries. Geographic patterns help identify campaigns vs opportunistic attacks.
+Visualization impact: Map shows attack clustering. 73% of SSH brute force attempts originate from 5 countries. Geographic patterns help identify campaigns vs opportunistic attacks.
 
 ### Correlation Dashboard
 
@@ -534,11 +534,11 @@ def geolocate_ip(ip_address):
 
 Built secondary dashboard correlating multiple data sources:
 
-**Panel 1:** Authentication failures + network scans from same source IP
-**Panel 2:** Service outages + unusual process activity
-**Panel 3:** DNS anomalies + outbound connection spikes
+Panel 1: Authentication failures + network scans from same source IP
+Panel 2: Service outages + unusual process activity
+Panel 3: DNS anomalies + outbound connection spikes
 
-**PromQL example:**
+PromQL example:
 ```promql
 # Correlate SSH failures with port scans
 (increase(ssh_auth_attempts_total{result="failed"}[10m]) > 5)
@@ -557,12 +557,12 @@ My homelab generates significant metrics:
 - **Storage space:** Prometheus compresses to roughly 1-2 bytes per sample, so the weekly figure follows directly from the sample rate — work it out from your own `rate(prometheus_tsdb_head_samples_appended_total[5m])` rather than trusting anyone's number, including mine
 - **Query latency:** P95 < 200ms
 
-**Optimization strategies:**
+Optimization strategies:
 1. **Recording rules** for expensive queries
 2. **Retention** — flat, and that is the only option. Prometheus has no downsampling and no tiered resolution; `--storage.tsdb.retention.time` is a single number. A high-res/low-res split needs Thanos or Mimir in front of it, which is more moving parts than most homelabs earn
 3. **Metric filtering** (drop irrelevant labels)
 
-**Recording rule example:**
+Recording rule example:
 ```yaml
 groups:
   - name: security_recording_rules
@@ -574,12 +574,12 @@ groups:
 
 ### Resource Requirements
 
-**Hardware specs:**
+Hardware specs:
 - **CPU:** 2 cores, 4GB RAM (Prometheus)
 - **Storage:** 500GB SSD (90-day retention)
 - **Network:** Minimal (internal monitoring only)
 
-**Why these specs:** Prometheus is CPU-intensive during queries but lightweight for collection. SSD storage essential for query performance - HDD creates 5-10x latency increase.
+Why these specs: Prometheus is CPU-intensive during queries but lightweight for collection. SSD storage essential for query performance - HDD creates 5-10x latency increase.
 
 I tested on various hardware configs:
 - **Raspberry Pi 4:** Works for <10 nodes
@@ -590,31 +590,31 @@ I tested on various hardware configs:
 
 ### Anti-Pattern 1: Alert Flooding
 
-**Problem:** Creating alerts for every possible condition
+Problem: Creating alerts for every possible condition
 
-**Example:** Alerting on individual failed SSH login attempts
+Example: Alerting on individual failed SSH login attempts
 
-**Result:** 50+ daily alerts, all ignored
+Result: 50+ daily alerts, all ignored
 
-**Solution:** Aggregate and threshold appropriately
+Solution: Aggregate and threshold appropriately
 
 ### Anti-Pattern 2: Vanity Metrics
 
-**Problem:** Tracking metrics because they're available, not because they're actionable
+Problem: Tracking metrics because they're available, not because they're actionable
 
-**Example:** "Total packets processed" without context
+Example: "Total packets processed" without context
 
-**Solution:** Focus on security-relevant metrics with clear remediation paths
+Solution: Focus on security-relevant metrics with clear remediation paths
 
 ### Anti-Pattern 3: Over-Engineering
 
-**Problem:** Building complex correlation engines for simple threats
+Problem: Building complex correlation engines for simple threats
 
-**Example:** Machine learning models to detect port scans
+Example: Machine learning models to detect port scans
 
-**Solution:** Start with statistical thresholds, add complexity only when justified
+Solution: Start with statistical thresholds, add complexity only when justified
 
-**Reality check:** 95% of homelab threats are:
+Reality check: 95% of homelab threats are:
 1. SSH brute force (rate limiting catches these)
 2. Service exploitation (vulnerability scanning detects this)
 3. Credential stuffing (authentication monitoring shows this)
@@ -625,61 +625,61 @@ Fancy ML models optimize for the 5% edge cases while missing the 95% basics.
 
 ### Monthly Security Review
 
-**Process:**
+#### Process
 1. Review alert accuracy (false positive rate)
 2. Analyze missed incidents (false negative rate)
 3. Update thresholds based on baseline changes
 4. Add new metrics for emerging threats
 
-**Metrics tracking:**
+#### Metrics tracking
 - **Alert accuracy:** Target >85% actionable alerts
 - **Detection coverage:** <30 minutes to discovery
 - **Response time:** <4 hours to containment
 
 ### Continuous Improvement
 
-**Quarter 1:** Basic monitoring (CPU, memory, network)
-**Quarter 2:** Security-specific metrics (auth, firewall)
-**Quarter 3:** Threat intelligence integration
-**Quarter 4:** Correlation and advanced analytics
+Quarter 1: Basic monitoring (CPU, memory, network)
+Quarter 2: Security-specific metrics (auth, firewall)
+Quarter 3: Threat intelligence integration
+Quarter 4: Correlation and advanced analytics
 
 Each quarter builds on previous foundation. Don't try to implement everything immediately - monitoring systems require operational maturity.
 
 ### Lessons From 6 Months of Operation
 
-**What succeeded:**
+#### What succeeded
 - Simple, focused alerts with clear thresholds
 - Visual dashboards for pattern recognition
 - Integration with existing infrastructure
 - Automated threat intelligence enrichment
 
-**What didn't work:**
+#### What didn't work
 - Complex correlation rules (too many false positives)
 - Machine learning anomaly detection (required constant tuning)
 - Real-time streaming (batch processing sufficient for homelab scale)
 
-**ROI validation:** 3 compromise attempts detected and contained. Damage prevented: honestly, pennies. A miner on a homelab VM earns cents a day, and this one ran for four minutes. The value was not the mining revenue denied — it was learning that a WordPress plugin had given someone code execution on a box that could see the rest of the VLAN + countless hours of remediation.
+ROI validation: 3 compromise attempts detected and contained. Damage prevented: honestly, pennies. A miner on a homelab VM earns cents a day, and this one ran for four minutes. The value was not the mining revenue denied — it was learning that a WordPress plugin had given someone code execution on a box that could see the rest of the VLAN + countless hours of remediation.
 
 Time investment: 20 hours setup, 2 hours monthly maintenance.
 
 ## Sources
 
-**Official documentation:**
+Official documentation:
 - [Prometheus Configuration](https://prometheus.io/docs/prometheus/latest/configuration/configuration/) - Complete reference
 - [Grafana Dashboard Best Practices](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/best-practices/) - Design guidelines
 - [Alertmanager Configuration](https://prometheus.io/docs/alerting/latest/configuration/) - Alert routing
 
-**Security monitoring guides:**
+Security monitoring guides:
 - [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework) - Monitoring requirements
 - [CIS Controls v8](https://www.cisecurity.org/controls/v8/) - Security monitoring baseline
 - [OWASP Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html) - What to monitor, including a "Which events to log" section
 
-**Threat intelligence sources:**
+Threat intelligence sources:
 - [AbuseIPDB](https://www.abuseipdb.com/) - IP reputation database
 - [MISP](https://www.misp-project.org/) - Threat intelligence sharing platform
 - [AlienVault OTX](https://otx.alienvault.com/) - Open threat exchange
 
-**Homelab security projects:**
+Homelab security projects:
 - [Security Onion](https://securityonionsolutions.com/) - Network security monitoring platform
 - [ELSA](https://github.com/mcholste/elsa) - Enterprise log search and archive
 - [Suricata](https://suricata.io/) - Network intrusion detection system

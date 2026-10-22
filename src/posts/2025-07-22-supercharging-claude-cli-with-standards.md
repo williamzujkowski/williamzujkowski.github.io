@@ -7,7 +7,7 @@ tags:
   - ai
   - compliance
   - professional-development
-  - programming
+  - software-engineering
 ---
 ## The problem: AI tools that forget everything
 

@@ -31,6 +31,10 @@
 
   let query = $state('');
   let ready = $state(false);
+  // Ctrl+K / Cmd+K is the only shortcut. A bare "/" used to open search
+  // too: a single-character shortcut with no way to turn it off fails WCAG
+  // 2.1.4, and speech-input users trigger it by accident (#698).
+  let shortcutHint = $state('Ctrl K');
   let results = $state<PagefindResult[]>([]);
   let isOpen = $state(false);
   let isLoading = $state(false);
@@ -237,15 +241,12 @@
         e.preventDefault();
         open();
       }
-      if (e.key === '/' && !isOpen && !['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement).tagName)) {
-        e.preventDefault();
-        open();
-      }
       if (e.key === 'Escape' && isOpen) {
         close();
       }
     }
     document.addEventListener('keydown', handleKeydown);
+    if (/Mac|iPhone|iPad/.test(navigator.platform)) shortcutHint = '⌘K';
     // SSR renders the trigger before its click handler is attached. Keep it
     // disabled until hydration completes so an early click cannot disappear.
     ready = true;
@@ -268,12 +269,16 @@
   onclick={open}
   disabled={!ready}
   class="search-trigger"
-  aria-label="Search site"
+  aria-label={`Search site, ${shortcutHint}`}
+  aria-keyshortcuts="Control+K Meta+K"
 >
   <svg class="search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
   </svg>
-  <kbd class="search-kbd">&sol;K</kbd>
+  <!-- The hint is the button's only visible text, so it must also be in the
+       accessible name (WCAG 2.5.3 Label in Name): a voice user says what they see.
+       Not in parentheses: axe 4.14 drops parentheticals before comparing. -->
+  <kbd class="search-kbd">{shortcutHint}</kbd>
 </button>
 
 <!-- Search dialog -->
@@ -308,7 +313,11 @@
           bind:value={query}
           oninput={(event) => { query = event.currentTarget.value; search(); }}
           type="text"
-          placeholder="Search site..."
+          enterkeyhint="search"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+          placeholder="Search site…"
           aria-label="Search site content"
           class="search-input"
         />
@@ -369,6 +378,12 @@
         <div class="search-actions">
           <button bind:this={moreEl} type="button" class="search-control" onclick={loadMore} aria-disabled={isLoading}>Show more results</button>
         </div>
+      {:else if !isLoading && results.length === 0 && query.trim().length >= 2}
+        <!-- No results used to be a dead end; offer the two ways to browse. -->
+        <div class="search-actions">
+          <a href="/posts/" onclick={close}>Browse all posts</a>
+          <a href="/tags/" onclick={close}>Browse tags</a>
+        </div>
       {/if}
     </div>
   </div>
@@ -417,7 +432,7 @@
   .search-overlay {
     position: fixed;
     inset: 0;
-    z-index: 100;
+    z-index: var(--z-modal);
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -433,7 +448,7 @@
     width: 100%;
     max-width: 32rem;
     margin: 0 1rem;
-    border-radius: 1rem;
+    border-radius: var(--radius-md);
     box-shadow: 0 25px 50px -12px var(--color-shadow);
     overflow: hidden;
     background-color: var(--color-surface);
@@ -441,6 +456,7 @@
   }
   .search-input-row {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0.75rem;
     padding: 1rem;
@@ -453,7 +469,9 @@
     color: var(--color-muted);
   }
   .search-input {
-    flex: 1 1 auto;
+    /* With Clear and Close kept whole, the input fell to 83px at 320px; below
+       ~10rem the buttons wrap to their own line instead. */
+    flex: 1 1 10rem;
     min-width: 0;
     background: transparent;
     border: none;
@@ -473,6 +491,11 @@
     border-radius: 2px;
   }
   .search-control {
+    /* A one-word label: since body gained overflow-wrap: break-word (#697),
+       a squeezed flex item broke "Clear" mid-word at 360px instead of
+       keeping its width. */
+    flex-shrink: 0;
+    white-space: nowrap;
     min-width: 44px;
     min-height: 44px;
     padding: 0.375rem 0.625rem;
@@ -501,6 +524,8 @@
     text-align: center;
   }
   .search-results {
+    /* Scrolling past the last result scrolled the page behind the dialog. */
+    overscroll-behavior: contain;
     max-height: min(20rem, 45dvh);
     overflow-y: auto;
     padding: 0.5rem;

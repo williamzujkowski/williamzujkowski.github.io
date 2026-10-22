@@ -3,7 +3,7 @@ title: "Docker Runtime Security Hardening with Linux Security Modules"
 description: "Harden Docker containers using AppArmor and SELinux for isolation without orchestration overhead. LSM profiles, seccomp filters, and capability dropping at homelab scale."
 author: "William Zujkowski"
 date: 2025-08-18
-tags: [docker, security, apparmor, selinux, container-security, homelab, linux, lsm]
+tags: [security, linux, container-security, homelab]
 post_type: tutorial
 ---
 
@@ -18,14 +18,14 @@ Here's how to lock down Docker without orchestration complexity.
 
 Docker provides process isolation via Linux namespaces. But namespaces alone don't prevent privilege escalation. Containers share kernel with host. Exploit kernel vulnerability = compromise entire system.
 
-**Attack surface:**
+Attack surface:
 
 - **Kernel syscalls:** Containers call same kernel as host (200+ syscalls accessible)
 - **Capabilities:** Default containers run with 14 dangerous capabilities (CAP_SYS_ADMIN, CAP_NET_ADMIN, etc.)
 - **Shared /proc:** Containers can read/write procfs, accessing host process info
 - **Root inside container:** UID 0 in container = UID 0 on host (without user namespaces)
 
-**Recent escapes:**
+Recent escapes:
 
 - **CVE-2025-52881:** Procfs write redirection bypasses LSM (disclosed 2025)
 - **CVE-2024-21626:** runc vulnerability allows container breakout
@@ -33,7 +33,7 @@ Docker provides process isolation via Linux namespaces. But namespaces alone don
 
 FS privilege escalation
 
-**What I needed:** Defense-in-depth without K8s. Standalone Docker hardening using Linux Security Modules (LSM), seccomp, capabilities, and filesystem restrictions.
+What I needed: Defense-in-depth without K8s. Standalone Docker hardening using Linux Security Modules (LSM), seccomp, capabilities, and filesystem restrictions.
 
 <div class="flow" role="group" aria-label="Container syscall security checkpoints">
   <div class="flow-node"><b>Docker Container</b><i>application process in user space</i></div>
@@ -53,21 +53,21 @@ Each syscall from a container passes through multiple security checkpoints in th
 
 LSMs enforce Mandatory Access Control (MAC). Unlike Discretionary Access Control (file permissions), MAC policies can't be bypassed by root user.
 
-**AppArmor (path-based):**
+AppArmor (path-based):
 
 - **Policy:** Define allowed file paths, network access, capabilities
 - **Enforcement:** Deny operations not explicitly permitted
 - **Distribution:** Default on Ubuntu/Debian
 - **Complexity:** Simple YAML-like syntax
 
-**SELinux (label-based):**
+SELinux (label-based):
 
 - **Policy:** Tag every file/process with security context (label)
 - **Enforcement:** Allow operations only between permitted contexts
 - **Distribution:** Default on RHEL/CentOS/Fedora
 - **Complexity:** Steeper learning curve, more granular control
 
-**Comparison:**
+Comparison:
 
 | Feature | AppArmor | SELinux |
 |---------|----------|---------|
@@ -77,7 +77,7 @@ LSMs enforce Mandatory Access Control (MAC). Unlike Discretionary Access Control
 | Multi-Category Security | No (can't separate containers) | Yes (automatic container isolation) |
 | Default Docker support | Yes (docker-default profile) | Yes (docker-selinux policy) |
 
-**My choice:** AppArmor for Ubuntu homelab. SELinux superior for production RHEL environments. Both provide strong container isolation.
+My choice: AppArmor for Ubuntu homelab. SELinux superior for production RHEL environments. Both provide strong container isolation.
 
 | Model | Process example | Policy question | Allowed example | Denied example |
 |---|---|---|---|---|
@@ -90,7 +90,7 @@ AppArmor resolves access by matching file paths against a profile. SELinux resol
 
 I combine multiple isolation mechanisms for defense-in-depth. If attacker bypasses one layer, others block escalation.
 
-**Security layers:**
+Security layers:
 
 <div class="flow" role="group" aria-label="Layered Docker security controls">
   <div class="flow-node">Docker Container</div>
@@ -103,7 +103,7 @@ I combine multiple isolation mechanisms for defense-in-depth. If attacker bypass
   <div class="flow-node is-good">Host Protected</div>
 </div>
 
-**How defense-in-depth works:**
+How defense-in-depth works:
 
 1. **Attacker gains RCE:** Exploit application vulnerability (e.g., command injection in web app)
 2. **Layer 1 blocks file access:** AppArmor denies read/write to /etc/shadow, /root/.ssh
@@ -112,13 +112,13 @@ I combine multiple isolation mechanisms for defense-in-depth. If attacker bypass
 5. **Layer 4 maps UID:** Root inside container (UID 0) maps to unprivileged user on host (UID 1000)
 6. **Layer 5 prevents persistence:** Read-only root filesystem prevents backdoor installation
 
-**Result:** Attacker can execute code inside container but can't escape to host or persist across restarts.
+Result: Attacker can execute code inside container but can't escape to host or persist across restarts.
 
 ## Implementation: AppArmor Profile for Docker
 
 AppArmor ships with default Docker profile. I created custom profiles for specific containers based on least privilege principle.
 
-**Default Docker AppArmor profile (too permissive):**
+Default Docker AppArmor profile (too permissive):
 
 ```
 # /etc/apparmor.d/docker-default (Ubuntu default)
@@ -135,7 +135,7 @@ profile docker-default flags=(attach_disconnected,mediate_deleted) {
 }
 ```
 
-**Custom restrictive profile for Nginx container:**
+Custom restrictive profile for Nginx container:
 
 ```
 # /etc/apparmor.d/docker-nginx-restricted
@@ -178,7 +178,7 @@ profile docker-nginx-restricted flags=(attach_disconnected,mediate_deleted) {
 }
 ```
 
-**Deploy AppArmor profile:**
+Deploy AppArmor profile:
 
 ```bash
 # Install profile
@@ -197,13 +197,13 @@ docker exec nginx cat /proc/self/attr/current
 # Output: docker-nginx-restricted (enforce)
 ```
 
-**All AppArmor profiles:** https://gist.github.com/williamzujkowski/f993c6734ca5258f56bea2a1254056ba
+All AppArmor profiles: https://gist.github.com/williamzujkowski/f993c6734ca5258f56bea2a1254056ba
 
 ## Seccomp: Syscall Filtering
 
 Seccomp blocks dangerous kernel syscalls. Default Docker seccomp profile blocks ~60 syscalls. I created stricter profiles blocking 120+ syscalls.
 
-**Docker default seccomp (blocklist approach):**
+Docker default seccomp (blocklist approach):
 
 ```json
 {
@@ -221,7 +221,7 @@ Seccomp blocks dangerous kernel syscalls. Default Docker seccomp profile blocks 
 }
 ```
 
-**Custom strict seccomp (allowlist approach for Nginx):**
+Custom strict seccomp (allowlist approach for Nginx):
 
 ```json
 {
@@ -246,7 +246,7 @@ Seccomp blocks dangerous kernel syscalls. Default Docker seccomp profile blocks 
 }
 ```
 
-**Deploy seccomp profile:**
+Deploy seccomp profile:
 
 ```bash
 # Run container with custom seccomp
@@ -261,7 +261,7 @@ docker exec nginx reboot
 # Error: Operation not permitted
 ```
 
-**Seccomp profile library:** https://gist.github.com/williamzujkowski/0ce385a16936a49a09f5e34ec382ef6f
+Seccomp profile library: https://gist.github.com/williamzujkowski/0ce385a16936a49a09f5e34ec382ef6f
 
 | Approach | Default posture | Filter rule | Result |
 |---|---|---|---|
@@ -274,7 +274,7 @@ The allowlist approach is far more secure: unknown or newly added syscalls are b
 
 Linux capabilities split root privileges into discrete units. Docker grants 14 capabilities by default. Most containers need 2-3.
 
-**Default Docker capabilities (too many):**
+Default Docker capabilities (too many):
 
 ```
 CAP_CHOWN, CAP_DAC_OVERRIDE, CAP_FOWNER, CAP_FSETID,
@@ -283,7 +283,7 @@ CAP_NET_BIND_SERVICE, CAP_NET_RAW, CAP_SYS_CHROOT,
 CAP_MKNOD, CAP_AUDIT_WRITE, CAP_SETFCAP
 ```
 
-**Minimal capabilities for Nginx:**
+Minimal capabilities for Nginx:
 
 ```bash
 docker run -d \
@@ -296,13 +296,13 @@ docker run -d \
   nginx:latest
 ```
 
-**Capability explanation:**
+Capability explanation:
 
 - **NET_BIND_SERVICE:** Bind to port 80/443 (privileged ports <1024)
 - **SETUID/SETGID:** Nginx master process runs as root, workers as www-data (requires UID/GID switching)
 - **All others dropped:** Can't mount filesystems, load kernel modules, modify kernel parameters
 
-**Test capability restriction:**
+Test capability restriction:
 
 ```bash
 # Try to mount (requires CAP_SYS_ADMIN) - should fail
@@ -318,7 +318,7 @@ docker exec nginx hostname hacked
 
 User namespaces remap container UIDs to unprivileged host UIDs. Root inside container (UID 0) maps to UID 100000 on host.
 
-**Enable user namespace remapping:**
+Enable user namespace remapping:
 
 ```bash
 # Configure Docker daemon (/etc/docker/daemon.json)
@@ -338,15 +338,15 @@ ps aux | grep nginx
 # (UID 33 inside container = UID 100033 on host)
 ```
 
-**Why this matters:** If attacker escapes container as root (UID 0), they become UID 100000 on host (unprivileged). Can't modify /etc/shadow, /root, or system files.
+Why this matters: If attacker escapes container as root (UID 0), they become UID 100000 on host (unprivileged). Can't modify /etc/shadow, /root, or system files.
 
-**Caveat:** Volume mounts require UID coordination. Host files owned by UID 1000, container expects UID 0. Solutions: chown volumes, use named volumes, bindfs remapping.
+Caveat: Volume mounts require UID coordination. Host files owned by UID 1000, container expects UID 0. Solutions: chown volumes, use named volumes, bindfs remapping.
 
 ## Read-Only Root Filesystem: Immutable Containers
 
 Read-only root filesystem prevents backdoor installation. Attackers can't modify binaries, add cron jobs, or persist across restarts.
 
-**Deploy read-only container:**
+Deploy read-only container:
 
 ```bash
 docker run -d \
@@ -359,14 +359,14 @@ docker run -d \
   nginx:latest
 ```
 
-**Configuration breakdown:**
+Configuration breakdown:
 
 - `--read-only`: Root filesystem mounted read-only
 - `--tmpfs /var/run`: Temporary writable space for PID files (tmpfs = RAM-based, lost on restart)
 - `--tmpfs /var/cache/nginx`: Nginx cache directory (temporary, lost on restart)
 - `-v /data/nginx/logs:/var/log/nginx`: Persistent logs on host volume
 
-**Test immutability:**
+Test immutability:
 
 ```bash
 # Try to write to /etc (should fail)
@@ -378,13 +378,13 @@ docker exec nginx rm /usr/sbin/nginx
 # Error: Read-only file system
 ```
 
-**Why effective:** Even if attacker achieves RCE, can't install persistence mechanisms. Container restart wipes all changes.
+Why effective: Even if attacker achieves RCE, can't install persistence mechanisms. Container restart wipes all changes.
 
 ## Hardening Results: Red Team Testing
 
 I ran 6 months of simulated attacks against hardened vs unhardened containers. Hardened containers blocked 100% of escape attempts.
 
-**Attack scenarios tested (11 total):**
+Attack scenarios tested (11 total):
 
 | Attack Vector | Unhardened | Hardened | Blocked By |
 |---------------|------------|----------|------------|
@@ -400,12 +400,12 @@ I ran 6 months of simulated attacks against hardened vs unhardened containers. H
 | reboot system | ✅ Host reboot | ❌ Blocked | Seccomp (blocked reboot syscall) |
 | Network scan host | ✅ Scanned | ❌ Blocked | AppArmor network restrictions |
 
-**Success rate:**
+Success rate:
 
 - **Unhardened Docker:** 11/11 attacks succeeded (100% compromise rate)
 - **Hardened Docker:** 0/11 attacks succeeded (0% compromise rate, 100% blocked)
 
-**Time to detection:** Hardened containers generated AppArmor/seccomp violation logs instantly. Unhardened containers showed no anomalies until full compromise — the quiet ones were the ones that should have worried me.
+Time to detection: Hardened containers generated AppArmor/seccomp violation logs instantly. Unhardened containers showed no anomalies until full compromise — the quiet ones were the ones that should have worried me.
 
 <ol class="seq" aria-label="container escape attempts blocked by hardening layers">
   <li class="seq-step"><b>Attacker (RCE) &rarr; Container</b><span>Command injection achieved</span></li>
@@ -435,7 +435,7 @@ Each attack is stopped at a different layer, demonstrating why defense-in-depth 
 
 LSM, seccomp, and capabilities add negligible overhead. Read-only filesystems have zero performance cost.
 
-**Benchmark methodology:** Apache Bench (ab) testing Nginx with 100,000 requests, 100 concurrent connections.
+Benchmark methodology: Apache Bench (ab) testing Nginx with 100,000 requests, 100 concurrent connections.
 
 | Configuration | Requests/sec | Latency (mean) | Latency (99th) | Memory |
 |---------------|--------------|----------------|----------------|--------|
@@ -447,9 +447,9 @@ LSM, seccomp, and capabilities add negligible overhead. Read-only filesystems ha
 | + Read-only FS | 12,290 req/s | 8.2ms | 25ms | 45MB |
 | **Full hardening** | **12,290 req/s** | **8.2ms** | **25ms** | **45MB** |
 
-**Overhead:** 1.3% throughput reduction (160 fewer req/s), 2.5% latency increase (+0.2ms mean), zero memory overhead.
+Overhead: 1.3% throughput reduction (160 fewer req/s), 2.5% latency increase (+0.2ms mean), zero memory overhead.
 
-**Conclusion:** Security hardening adds trivial overhead. 98.7% performance retained with 100% escape prevention.
+Conclusion: Security hardening adds trivial overhead. 98.7% performance retained with 100% escape prevention.
 
 ## Comparison: Docker Hardening vs Orchestration Security
 
@@ -463,58 +463,58 @@ LSM, seccomp, and capabilities add negligible overhead. Read-only filesystems ha
 | Complexity | Low (single host) | High (cluster management) |
 | Overhead | 1.3% performance | 5-10% (+ control plane) |
 
-**When to use standalone Docker hardening:**
+When to use standalone Docker hardening:
 
 - Single-host deployments (homelab, dev environments)
 - No need for orchestration (simple multi-container apps)
 - Full control over security policies (no cluster admin dependency)
 
-**When to use K8s security:**
+When to use K8s security:
 
 - Multi-host clusters (production at scale)
 - Need for automated policy enforcement across 100+ pods
 - Integration with service mesh (Istio, Linkerd)
 
-**My homelab:** Standalone Docker hardening sufficient. 23 containers, no orchestration complexity. Full security control without cluster overhead.
+My homelab: Standalone Docker hardening sufficient. 23 containers, no orchestration complexity. Full security control without cluster overhead.
 
 ## Limitations and Real-World Vulnerabilities
 
-**CVE-2025-52881: LSM bypass via procfs redirect**
+### CVE-2025-52881: LSM bypass via procfs redirect
 
 - **Discovered:** 2025
 - **Impact:** AppArmor and SELinux can't block redirected writes to procfs
 - **Attack:** Write to `/proc/<PID>/attr/apparmor/exec` bypasses LSM enforcement
 - **Mitigation:** Rootless Docker containers (non-root user can't write procfs)
 
-**Other considerations:**
+### Other considerations
 
 - **Kernel vulnerabilities:** LSM/seccomp protect against userspace exploits, not kernel bugs
 - **Supply chain attacks:** Malicious container images bypass all runtime security
 - **Resource exhaustion:** No defense against DoS (cgroup limits needed)
 
-**Defense:** Layer Docker hardening with image scanning (Trivy, Grype), network segmentation (firewall rules), and monitoring (Falco, Sysdig).
+Defense: Layer Docker hardening with image scanning (Trivy, Grype), network segmentation (firewall rules), and monitoring (Falco, Sysdig).
 
 ## Further Reading
 
-**Security research:**
+Security research:
 
 - [Container Security: AppArmor and SELinux](https://securitylabs.datadoghq.com/articles/container-security-fundamentals-part-5/) - Datadog Security Labs, comprehensive LSM guide
 - [Technologies for Container Isolation: AppArmor vs SELinux](https://www.redhat.com/en/blog/apparmor-selinux-isolation) - Red Hat comparison
 - [Enhanced Memory-Safe LSMs for Docker](https://www.scirp.org/journal/paperinformation?paperid=133409) - Academic research on LSM improvements
 
-**Docker security documentation:**
+Docker security documentation:
 
 - [Docker Security](https://docs.docker.com/engine/security/) - Official Docker security guide
 - [AppArmor Profile Reference](https://gitlab.com/apparmor/apparmor/-/wikis/QuickProfileLanguage) - AppArmor syntax
 - [Seccomp Profile Specification](https://docs.docker.com/engine/security/seccomp/) - OCI seccomp format
 
-**Vulnerability details:**
+Vulnerability details:
 
 - [CVE-2025-52881](https://www.infoworld.com/article/4087331/runtime-bugs-break-container-walls-enabling-root-on-docker-hosts-2.html) - Procfs write bypass
 - [CVE-2024-21626](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-21626) - runc container escape
 - [CVE-2023-2640](https://ubuntu.com/security/CVE-2023-2640) - Ubuntu OverlayFS privilege escalation
 
-**Implementation examples:**
+Implementation examples:
 
 - **AppArmor profiles:** https://gist.github.com/williamzujkowski/f993c6734ca5258f56bea2a1254056ba
 - **Seccomp filters:** https://gist.github.com/williamzujkowski/0ce385a16936a49a09f5e34ec382ef6f
@@ -522,6 +522,6 @@ LSM, seccomp, and capabilities add negligible overhead. Read-only filesystems ha
 
 ---
 
-**Harden your Docker containers without orchestration complexity.** Start with AppArmor default profile, add seccomp, drop capabilities, enable user namespaces, make root filesystem read-only. Defense-in-depth prevents escapes even when attackers exploit application vulnerabilities.
+Harden your Docker containers without orchestration complexity. Start with AppArmor default profile, add seccomp, drop capabilities, enable user namespaces, make root filesystem read-only. Defense-in-depth prevents escapes even when attackers exploit application vulnerabilities.
 
 Most container compromises happen because defaults are insecure. In my homelab, every container runs with full hardening. Zero escapes in 6 months. 1.3% performance cost for 100% escape prevention = obvious trade-off.

@@ -6,8 +6,8 @@ import { test, expect } from 'playwright/test';
 const pages = [
   { path: '/', title: 'William Zujkowski', selector: 'h1' },
   { path: '/about/', title: 'About', selector: 'h1' },
-  { path: '/posts/', title: 'Blog', selector: 'h1' },
-  { path: '/projects/', title: 'Projects', selector: 'h1' },
+  { path: '/posts/', title: 'Dispatches', selector: 'h1' },
+  { path: '/projects/', title: 'Workbench', selector: 'h1' },
   { path: '/uses/', title: 'Uses', selector: 'h1' },
   { path: '/now/', title: 'Now', selector: 'h1' },
   { path: '/tags/', title: 'Tags', selector: 'h1' },
@@ -103,6 +103,28 @@ test('blog post page renders content', async ({ page }) => {
   // Post page should have article content
   await expect(page.locator('article')).toBeVisible();
   await expect(page.locator('.prose')).toBeVisible();
+});
+
+test('tag chips sit in the post footer beside Share, not above the body', async ({ page }) => {
+  // #698: in the header they pushed the first paragraph further below the
+  // first screen at 360px. One labelled row in the footer, all tags present.
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.goto('/posts/2024-01-08-writing-secure-code-developers-guide/');
+  await expect(page.locator('.post-header a.chip')).toHaveCount(0);
+  const footer = page.locator('article > footer');
+  const tagRow = footer.locator('.share-row').filter({ hasText: 'Tags:' });
+  const tagChips = tagRow.locator('a.chip[href^="/tags/"]');
+  expect(await tagChips.count()).toBeGreaterThanOrEqual(2);
+  for (const chip of await tagChips.all()) {
+    await expect(chip).toHaveAttribute('href', `/tags/${(await chip.textContent())!.trim()}/`);
+  }
+  await expect(footer.locator('.share-row').filter({ hasText: 'Share:' })).toBeVisible();
+  // The tag row precedes Share, inside the same footer.
+  const [tagsY, shareY] = await Promise.all([
+    tagRow.evaluate((el) => el.getBoundingClientRect().top),
+    footer.locator('.share-row').filter({ hasText: 'Share:' }).evaluate((el) => el.getBoundingClientRect().top),
+  ]);
+  expect(tagsY).toBeLessThan(shareY);
 });
 
 test('RSS feed is valid XML', async ({ page }) => {

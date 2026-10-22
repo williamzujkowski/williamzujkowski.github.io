@@ -3,7 +3,7 @@ title: "PromSketch: What Sketch Algorithms Can and Cannot Do for Prometheus"
 description: "PromSketch accelerates *_over_time window aggregations by compiling into Prometheus as a library. What it covers, what it doesn't, and why the distinction matters."
 author: "William Zujkowski"
 date: 2025-11-19
-tags: [prometheus, monitoring, observability, performance, grafana, homelab, optimization]
+tags: [monitoring, homelab]
 post_type: tutorial
 ---
 

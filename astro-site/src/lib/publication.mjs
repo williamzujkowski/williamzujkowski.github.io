@@ -33,6 +33,25 @@ export function countPostTags(posts) {
   return counts;
 }
 
+/**
+ * The post's most specific tag: the one on the fewest published posts, ties
+ * broken by frontmatter order. The first tag was "Security" on 58 posts,
+ * which labelled nothing. A tag missing from `counts` has no page, so it
+ * never wins over one that does.
+ * @param {{ tags?: readonly string[] }} data
+ * @param {ReadonlyMap<string, number>} counts From countPostTags(published).
+ * @returns {string | undefined}
+ */
+export function kickerTag(data, counts) {
+  let best;
+  let bestCount = Infinity;
+  for (const tag of postTags(data)) {
+    const count = counts.get(tag) ?? Infinity;
+    if (best === undefined || count < bestCount) [best, bestCount] = [tag, count];
+  }
+  return best;
+}
+
 /** @param {readonly { id: string }[]} posts Newest first. */
 export function postPieceNumbers(posts) {
   return new Map(posts.map((post, index) => [post.id, posts.length - index]));

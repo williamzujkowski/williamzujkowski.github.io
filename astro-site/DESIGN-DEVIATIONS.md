@@ -1,7 +1,8 @@
 # Design Deviations
 
 This site consumes [`remarque-tokens`](https://www.npmjs.com/package/remarque-tokens)
-(v0.5.0) for the **core tier** — type scale, rhythm, spacing, content
+(`^0.26.0` in `package.json`, 0.26.0 installed; the sections below record each
+bump when it happened) for the **core tier** — type scale, rhythm, spacing, content
 widths, radius, motion, and base prose/typography machinery — via
 `@import "remarque-tokens/core";` in `src/styles/global.css`. The
 **palette tier** (fonts, colors, `--content-reading`) stays local, as
@@ -35,21 +36,26 @@ it, with no shadowing duplicate left behind to rot out of sync.
 These stay local by design — palette tier is meant to be overridden:
 
 - **Fonts**: Fraunces (display), Source Serif 4 (body), IBM Plex Mono
-  (mono) — registered via Astro 6's Fonts API in `astro.config.mjs` and
+  (mono) — registered via Astro's Fonts API in `astro.config.mjs` and
   injected onto the root element by `<Font>` in `BaseLayout.astro`, so
   they are intentionally *not* redeclared as CSS custom properties in
   `global.css` (see the comment at the top of that file).
 - **Colors**: "Palette B — Departure" (photosensitive ivory + ferric ink
   + radar green, light; CRT phosphor on black-green, dark) — both themes
   independently APCA/WCAG-audited (`pnpm audit`).
-- **`--content-reading: 40rem`** — **this is NOT a deviation.** It is the
-  sanctioned measure-compensation value for a Source Serif 4 body font,
-  which remarque's own docs (`REMARQUE.md`'s "Measure Compensation"
-  table) cite this site as the reference example for: core's palette
-  default of 46rem is tuned for Inter (~70ch/line); the same width in a
-  text serif runs ~86ch, well past comfortable, so this site measured its
-  actual rendered text and landed on 40rem (~71ch/line at 17px Source
-  Serif 4). Ratified alongside the rest of #274's measure/rhythm item.
+- **`--content-reading: 38rem`** — a palette-tier measure-compensation
+  value for a Source Serif 4 body font (core's 46rem default is tuned for
+  Inter; the same width in a text serif runs ~86 characters). It was
+  40rem until #698, documented here and in `REMARQUE.md`'s "Measure
+  Compensation" table as "~71ch/line". That figure was the width of the
+  digit 0 (1ch = 9px at 17px), not of text: rendered body lines at 40rem
+  ran a **median of 77 characters** (p90 82, n = 9,491 full lines over 99
+  posts at 1280px). At 38rem the median is **73** (p90 78, max 90), inside
+  the 60-75 range. 38rem is 67.6ch by the same `ch` yardstick, which is
+  why `ch` is not used to describe it. `tests/e2e/measure.spec.ts` counts
+  glyphs per rendered line on three long posts and fails outside 60-75.
+  Upstream's table still cites 40rem/~71ch from this site and needs the
+  same correction.
   Per remarque#47's ratification notes, this flagship adoption — palette-
   tier-only overrides — *is* the acceptance test for the upstream tiering
   epic.
@@ -69,7 +75,7 @@ Design-review ratified 7-0: hand-drawn geometry, masks, and scoped
 texture over the Remarque system — body typography untouched, every
 color still derives from theme tokens. Per the 2026-07-20 multi-agent
 review's governance disposition, this layer stays **site-local by
-design** (not a packaging candidate); `theme-deck.css` (14 terminal
+design** (not a packaging candidate); `theme-deck.css` (12 terminal
 palettes keyed on `[data-theme-deck]`) is slated to graduate into an
 official upstream module, with this site becoming its first consumer
 instead of its only home. Neither is adopted as a package dependency in
@@ -80,8 +86,9 @@ issue #274 ("Direction B," 7-0) unless noted:
 
 - **Share links in post footers** (`.share-row` / `.share-label` in
   `PostLayout.astro`) — not part of core Remarque's prose machinery.
-- **Zine border-radii** — `zine.css`'s squiggle-box radii (e.g.
-  `255px 15px 225px 15px / 15px 225px 15px 255px` on `.callout`) vary
+- **Zine border-radii** — `zine.css`'s squiggle-box radii on `.series-nav`,
+  `.deck-panel` and `pre[data-title]::before` (e.g.
+  `15px 225px 15px 255px / 255px 15px 225px 15px` on `.series-nav`) vary
   per component so the wobble never reads as a uniform theme pack;
   deliberately not the flat `--radius-sm`/`--radius-md` scale.
   Design-review ratified 7-0 (zine layer).
@@ -95,15 +102,19 @@ issue #274 ("Direction B," 7-0) unless noted:
   `@keyframes zine-wander`, scoped inside
   `@media (prefers-reduced-motion: no-preference)` in `zine.css`, so it's
   fully inert for anyone with a reduced-motion preference (WCAG 2.3.3).
-- **Pill tag chips** — `.chip` tag/filter chips (`PostCard.astro`,
-  `tags/index.astro`) with small-caps typography and a token-driven
-  border; a presentational choice layered on top of core's typography
+  It runs once, 4.8s, starting and ending at rest; it used to loop
+  forever. Automatic motion on this site (this, the PizzaOps status
+  pulse) stays at or under 5s total so WCAG 2.2.2 needs no pause control
+  (#698); `tests/e2e/motion.spec.ts` checks duration × iterations.
+- **Tag chips** — `.chip` tag/filter chips (`PostCard.astro`,
+  `tags/index.astro`) with uppercase `--text-micro` labels and a token-driven
+  border at `--radius-sm` (4px rectangles, not pills); a presentational choice layered on top of core's typography
   machinery, not part of it.
 
 ## 5. Theming attribute convention
 
 This site keys themes on `:root.dark` / `:root.light` classes plus
-`[data-theme-deck='<name>']` for the 12 terminal-theme deck (generated,
+`[data-theme-deck='<name>']` for the 12-theme terminal deck (generated,
 `theme-deck.css`). Upstream remarque-tokens keys on `[data-theme="dark"]`
 / `[data-theme="light"]` attributes (see `tokens-palette.css`'s "Manual
 dark mode toggle support" block) and a bare `@media
@@ -141,7 +152,7 @@ replaces the site's own former `scripts/contrast-audit.mjs`, which is
 `:root.dark` fg/bg pairs remarque-audit's `CHECKS` table now covers
 (confirmed line-for-line: `fg`, `fg-muted`, `muted`, `border-bold`,
 `accent`, `accent-hover` against `bg`, both themes), had no coverage of
-`theme-deck.css`'s 14 terminal palettes or anything else remarque-audit
+`theme-deck.css`'s 12 terminal palettes or anything else remarque-audit
 doesn't also see, so nothing was trimmed-and-kept — the whole file's
 job moved upstream. **Kept as-is**, not covered by remarque-audit and not
 duplicative of it: `scripts/apca-audit.mjs` (APCA/WCAG 3 draft — upstream
@@ -406,10 +417,10 @@ than re-forked locally:
 
 | Aspect | This site's former CSS | `essay.css` (adopted) |
 |---|---|---|
-| Sidenote column width / pull-out | `11.5rem` / `-13rem` (hand-measured) | `var(--space-10)` (8rem) / `-(space-10 + space-6)` (-10rem) — token-derived |
+| Sidenote column width / pull-out | `11.5rem` / `-13rem` (hand-measured) | `var(--space-10)` (8rem) / `-(space-10 + space-6)` (-10rem) — token-derived. **Re-overridden in `global.css`** to `var(--space-12)` / `-(space-12 + space-6)`: 8rem held ~14 characters a line, and this site's left track is 13rem wide |
 | TOC rail width | `minmax(12rem, 14rem)` | `minmax(var(--space-11), var(--space-12))` (10-12rem) — token-derived |
 | TOC disclosure marker | Inline `<svg>` chevron, rotates 180° | `content: "\25B8"` unicode triangle, rotates 90° |
-| TOC label case treatment | `text-transform: uppercase` | `font-variant-caps: all-small-caps` — REMARQUE.md's "Small Caps" rule; upstream's own CHANGELOG calls this out as a correction, not a stylistic swap |
+| TOC label case treatment | `text-transform: uppercase` | `font-variant-caps: all-small-caps` — REMARQUE.md's "Small Caps" rule. **Reverted locally** to `text-transform: uppercase` at `--text-micro`: none of this site's font subsets has `smcp`/`c2sc`, so the browser synthesized small caps at ~0.75x (14px rendered ~10.5px, under the 13px floor) |
 | Rail open/close mechanics | Inline `<script>` force-opens `<details>` on every `matchMedia('(min-width: 1280px)')` breakpoint crossing | `<details open>` no-JS baseline **plus** a tiny inline enhancement script (issue #438) that clears `open` below the 80rem rail breakpoint and restores it above, syncing on breakpoint crossings — collapsed on mobile, expanded rail on desktop. JS-disabled readers keep the static `<details open>`. This supersedes the #378 no-JS-only default, which left the TOC expanded (noisy) on phones; a CSS-only force-open was rejected because a closed `<details>` is not reliably re-openable via CSS on modern Chromium (`::details-content` content-visibility). |
 | Footnote numbering | Rehype plugin injects a literal `<span class="sidenote-number">` (GFM's own reference digit) | CSS counters (`counter-reset`/`counter-increment`/generated `::before`/`::after` content) scoped to `.remarque-prose` — the plugin now blanks the GFM digit instead of authoring one, so the two mechanisms never both render a number |
 
@@ -495,6 +506,39 @@ across decks to solve a palette problem, and because on a deck whose entire
 purpose is *higher contrast*, raising the text contrast is the more faithful
 fix. Worth revisiting if a future deck fails for a reason the palette cannot
 absorb.
+
+## 12. Font-slot roles: small Fraunces, mono navigation
+
+**Status:** recorded, CSS unchanged.
+
+`REMARQUE.md`'s font-slot table approves Fraunces for "display sizes only,
+≥2rem", and its font rules restrict the display face to text "at or above the
+section heading size" (`--text-section`, minimum 1.375rem). The site sets
+Fraunces below 2rem in nine places, five of them below 1.375rem:
+
+| Selector | File | Size |
+|---|---|---|
+| `.site-sections a[aria-current="page"]::before` (the `§` marker) | `global.css` | inherits `--text-meta` (0.875rem) |
+| `.site-nameplate-byline` | `global.css` | `clamp(0.85rem, 1.4vw, 1rem)` |
+| `a.post-card-title` | `global.css` | `--text-body-lg` (1.1875rem) |
+| `.uses-name` | `global.css` | `--text-body-lg` (1.1875rem); `--text-body` at ≤640px |
+| `.archive-link` | `global.css` | 1.25rem |
+| `.lede` | `src/pages/about.astro` | 1.25rem |
+| `.landing-tagline` | `global.css` | `clamp(1.25rem, 2.2vw, 1.625rem)` |
+| `.lead-lede` | `global.css` | 1.375rem |
+| `.entry-title` | `global.css` | `clamp(1.5rem, 2.5vw, 1.875rem)` |
+
+Each is an italic or title role where the display face is the point. The
+`clamp()` sizes are among the display sizes ratified under #274 (see §6's
+baseline notes); the fixed sizes were not recorded anywhere until now. h2 (`--text-section`) also starts below
+2rem; it satisfies the "section heading size" rule by definition, so the two
+spec lines disagree there rather than the site.
+
+The same table assigns navigation and UI labels to the body face. This site's
+two-voice system (#274, the `Voice: machine (mono)` block in `global.css`)
+puts navigation, breadcrumbs and every other machine surface in IBM Plex Mono
+instead (ratified 7-0). Deliberate, and the most recognisable trait of the
+design.
 
 ---
 

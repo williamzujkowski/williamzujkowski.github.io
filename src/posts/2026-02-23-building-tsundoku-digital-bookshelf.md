@@ -2,7 +2,7 @@
 title: "3,584 Books, and the Website I Built Instead of Reading Any of Them"
 date: 2026-02-23
 description: "Tsundoku is a static bookshelf for the 3,584 books I own and haven't read — Astro 7, Svelte islands, six primary sources plus a Wikidata backstop, no database. Plus a documentation bug I found while checking my own numbers."
-tags: [astro, svelte, python, projects, reading]
+tags: [web-development, python]
 author: William Zujkowski
 ---
 

@@ -37,7 +37,7 @@ pnpm run audit      # 5 design audits — NOTE the `run`; bare `pnpm audit` is
                     # pnpm's built-in CVE scanner and shadows this script
 pnpm check          # astro check (tsc)
 pnpm lint           # eslint
-pnpm test:unit      # node:test, floor of 62
+pnpm test:unit      # node:test, floor of 72
 npx playwright test tests/e2e/   # smoke + a11y + theme-deck + sidenotes
 cd .. && uv run --with ruff ruff check scripts/   # ratchet at zero
 uv run python scripts/link-validation/internal-link-check.py   # needs dist/
@@ -178,12 +178,15 @@ The old rule was right about precision and wrong to strip out the personality. K
 ### Content Standards
 
 - Blog posts require frontmatter: title, date, description, tags
+- Tags: reuse an existing tag (`/tags/` lists them); the kicker shows a post's
+  least-used tag. Retired tags live in `astro-site/src/lib/tag-taxonomy.mjs`
+  and fail the build if used; retiring one there also emits its redirect.
 - Citations required for technical claims (target 90%+ coverage; the
   advisory check in `scripts/compliance/content_check.py` warns below the
   same 90% — it used to say 70%, which contradicted this line. Actual
   coverage is 95.7%, counting only external, non-badge links.)
 - Social images are generated per post at build time (`/og/<slug>.png`) — no hero-image frontmatter
-- **Visuals:** follow `docs/content-visuals.md` — `.flow` for processes, `.arch` for layers/zones, Markdown tables for matrices, split dense diagrams; Mermaid is legacy for genuine node graphs. Zine doodles must carry the idea visually (a specific metaphor), never a stamped label. All authored visuals use `var(--color-*)` tokens (never hardcoded colors), stay ≥0.8125rem, and reflow on mobile.
+- **Visuals:** follow `docs/content-visuals.md` — `.flow` for processes, `.arch` for layers/zones, Markdown tables for matrices, split dense diagrams; Mermaid is legacy for genuine node graphs. Zine doodles must carry the idea visually (a specific metaphor), never a stamped label. All authored visuals use `var(--color-*)` tokens (never hardcoded colors), stay ≥0.8125rem, and reflow on mobile. Agents generating site UI or CSS read `docs/design/remarque/DESIGN.md` first (tokens, components, do/don't).
 - SEO: canonical URLs, Open Graph, Twitter Cards, structured data
 
 ---
@@ -363,7 +366,7 @@ Tooling families under `scripts/`, sharing helpers from `scripts/lib/`
 |-----------|------------|-------------|
 | `link-validation/` | 7 scripts + pytest suite — the link/citation pipeline | yes (`link-monitor.yml`, `citation-validation.yml`, `tests.yml`) |
 | `compliance/` | `content_check.py` — NDA patterns + citation coverage | yes (`compliance-monitor.yml`, advisory) |
-| `blog-audit/` | `batch.py`, `pages.py` — author-time audit helpers | regression tests only (`tests.yml`) |
+| `blog-audit/` | `batch.py`, `pages.py` — author-time audit helpers; `bold_density.py` (bold per 400 words, worst first) and `plaintext_gate.py` (fails if a markup-only post edit changed any words) for #698 | regression tests only (`tests.yml`) |
 | `skills/` | stdlib review-coverage report validator; checks evidence bookkeeping, not claim truth | regression tests only (`tests.yml`) |
 | `corpus-audit/` | `grim_check.py`, `provenance.py` — one-shot analyses; hardcode `/tmp/grim/` paths | no |
 | `theme-deck/` | `generate.py` — regenerates `theme-deck.css`/`.json`; needs an external themes repo | no |

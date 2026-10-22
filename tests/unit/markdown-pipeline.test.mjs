@@ -49,7 +49,7 @@ print("reviewed")
   assert.match(code, /“Measure twice,” she said/);
   assert.match(code, /she said – then checked/);
   assert.match(code, /checked…/);
-  assert.match(code, /<div class="scroll-wrap" tabindex="0">\s*<table>/);
+  assert.match(code, /<div class="scroll-wrap" tabindex="0" role="region" aria-label="Table 1: Control, State">\s*<table>/);
   assert.match(code, /<td>Database role<\/td>/);
   const noteLink = code.match(/<a[^>]*class="remarque-sidenote-ref"[^>]*>/)?.[0];
   assert.ok(noteLink, 'the configured sidenote transform must name the reference');
@@ -89,4 +89,19 @@ test('the configured sanitizer rejects scripts, event handlers and unsafe URL pr
   assert.match(code, /<svg viewBox="0 0 10 10">/);
   assert.match(code, /<use><\/use>/);
   assert.match(code, /<image><\/image>/);
+});
+
+test('table scroll regions get distinct names from their header rows', async () => {
+  const { code } = await renderer.render(`
+| Tool | Verdict |
+| --- | --- |
+| grype | passes |
+
+| Tool | Verdict |
+| --- | --- |
+| trivy | passes |
+`);
+  const labels = [...code.matchAll(/<div class="scroll-wrap" tabindex="0" role="region" aria-label="([^"]+)">/g)].map((m) => m[1]);
+  // Same columns twice: the number is what keeps axe's landmark-unique happy.
+  assert.deepEqual(labels, ['Table 1: Tool, Verdict', 'Table 2: Tool, Verdict']);
 });

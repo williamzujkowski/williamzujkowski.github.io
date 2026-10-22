@@ -2,7 +2,7 @@
 title: "Investigating the Trivy Supply Chain Compromise with AI Agents"
 date: 2026-03-21
 description: "How I used AI-assisted investigation to triage the trivy-action supply chain attack across my homelab repos — and some thoughts on weekend incident response and community notification gaps."
-tags: [security, supply-chain, homelab, ai, incident-response]
+tags: [security, supply-chain, homelab, ai, threat-detection]
 author: William Zujkowski
 ---
 
@@ -27,11 +27,11 @@ I maintain several personal repos that use `trivy-action` for security scanning 
 
 Rather than manually checking each repo, I used [nexus-agents](https://github.com/nexus-substrate/nexus-agents) — a multi-model AI orchestration tool I've been building — to help with the investigation. The AI agents:
 
-1. **Searched all local repos** for `trivy-action` references
-2. **Classified risk** by comparing each repo's pinned version against the known-compromised tag list
-3. **Checked CI run history** during the compromise window via `gh run list`
-4. **Verified IOCs** — checked for the `tpcp-docs` repository, suspicious local files (`sysmon.py`, `/tmp/pglog`), DNS indicators, and the malicious trivy v0.69.4 binary
-5. **Created GitHub issues** on each affected repo with findings and remediation steps
+1. Searched all local repos for `trivy-action` references
+2. Classified risk by comparing each repo's pinned version against the known-compromised tag list
+3. Checked CI run history during the compromise window via `gh run list`
+4. Verified IOCs — checked for the `tpcp-docs` repository, suspicious local files (`sysmon.py`, `/tmp/pglog`), DNS indicators, and the malicious trivy v0.69.4 binary
+5. Created GitHub issues on each affected repo with findings and remediation steps
 
 The whole triage took about 20 minutes, including fixes. Without the AI assist, it would have been an hour of tab-switching between repos, workflows, and run logs.
 
@@ -41,11 +41,11 @@ Five personal repos had `trivy-action` references:
 
 | Repo | Version | CI Runs During Window | Impact |
 |---|---|---|---|
-| **williamzujkowski.github.io** | `@master` (branch) | 28 runs | **Safe** — master branch wasn't affected |
-| **homelab** | `@0.33.1` (tag) | 0 runs | **Safe** — no runs since Feb 18 |
-| **mcp-standards-server** | `@0.32.0` (tag) | **1 run (Mar 20 03:50 UTC)** | **Potentially impacted** |
-| **machine-rites** | `@master` (branch) | N/A | **Safe** — master unaffected |
-| **standards** | SHA-pinned | N/A | **Safe** — pre-compromise commit |
+| **williamzujkowski.github.io** | `@master` (branch) | 28 runs | Safe — master branch wasn't affected |
+| **homelab** | `@0.33.1` (tag) | 0 runs | Safe — no runs since Feb 18 |
+| **mcp-standards-server** | `@0.32.0` (tag) | 1 run (Mar 20 03:50 UTC) | **Potentially impacted** |
+| **machine-rites** | `@master` (branch) | N/A | Safe — master unaffected |
+| **standards** | SHA-pinned | N/A | Safe — pre-compromise commit |
 
 The [mcp-standards-server](https://github.com/williamzujkowski/mcp-standards-server) nightly scan executed the compromised `@0.32.0` tag on March 20 at 03:50 UTC — solidly within the attack window. The trivy job completed successfully in 53 seconds, meaning the malicious entrypoint ran.
 
@@ -67,13 +67,13 @@ Tags can be force-pushed. Commit SHAs cannot. This is the single most important 
 
 ## What Frustrated Me
 
-**The notification gap.** The attack started Friday evening UTC. I learned about it Saturday morning from Twitter, not from GitHub, not from Aqua Security, and not from any automated alert. If I hadn't been casually reading security feeds on a weekend, I wouldn't have known until Monday.
+The notification gap. The attack started Friday evening UTC. I learned about it Saturday morning from Twitter, not from GitHub, not from Aqua Security, and not from any automated alert. If I hadn't been casually reading security feeds on a weekend, I wouldn't have known until Monday.
 
 GitHub Dependabot eventually created PRs on some repos, but only for the tag bump — not with any urgency indicator that this was a supply chain compromise, not a normal version update. The distinction matters enormously for triage priority.
 
-**Weekend timing is not a coincidence.** Attackers consistently choose Friday evenings and weekends because response teams are slower, fewer eyes are on dashboards, and the blast radius window is wider. Every security team knows this. We should plan for it better.
+Weekend timing is not a coincidence. Attackers consistently choose Friday evenings and weekends because response teams are slower, fewer eyes are on dashboards, and the blast radius window is wider. Every security team knows this. We should plan for it better.
 
-**Mutable tags are a design flaw.** Git tags being force-pushable by anyone with write access means the entire version-pinning model for GitHub Actions is built on mutable references. GitHub could fix this by making action tags immutable once published, or by defaulting `uses:` resolution to the commit SHA behind a tag at set-pipeline time. Neither exists today.
+Mutable tags are a design flaw. Git tags being force-pushable by anyone with write access means the entire version-pinning model for GitHub Actions is built on mutable references. GitHub could fix this by making action tags immutable once published, or by defaulting `uses:` resolution to the commit SHA behind a tag at set-pipeline time. Neither exists today.
 
 ## Empathy for the Responders
 

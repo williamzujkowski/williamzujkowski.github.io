@@ -3,7 +3,7 @@ title: "Hardening Docker Containers in Your Homelab: A Defense-in-Depth Approach
 description: "Eight security layers that stopped real attacks in homelab testing: minimal base images, user namespaces, seccomp profiles, network segmentation, and more. Defense-in-depth without Kubernetes overhead."
 author: "William Zujkowski"
 date: 2025-12-17
-tags: [security, docker, homelab, containers, defense-in-depth, hardening, network-security]
+tags: [security, homelab, container-security, networking]
 series: "Homelab Security"
 seriesOrder: 2
 post_type: experience
@@ -39,7 +39,7 @@ Container security isn't binary. You can't just "enable security" and assume you
   <div class="flow-node is-good">Protected Application</div>
 </div>
 
-**Why it matters:** Single-layer security is brittle. Attackers bypass one control and own your system. Multiple independent layers mean they need to break through all defenses.
+Why it matters: Single-layer security is brittle. Attackers bypass one control and own your system. Multiple independent layers mean they need to break through all defenses.
 
 ## Layer 1: Minimal Base Images
 
@@ -53,9 +53,9 @@ package manager.** An attacker with code execution in a distroless container has
 no `sh`, no `apt`, no `curl` to pull a second stage with. That is a real
 reduction in what a foothold is worth, and it has nothing to do with megabytes.
 
-**Attack stopped:** A recent supply chain backdoor didn't exist in my distroless containers because they lack package managers, shells, and unnecessary binaries.
+Attack stopped: A recent supply chain backdoor didn't exist in my distroless containers because they lack package managers, shells, and unnecessary binaries.
 
-**Base image comparison:**
+Base image comparison:
 
 ```dockerfile
 # Before: Full Ubuntu (72MB, 200+ packages)
@@ -65,7 +65,7 @@ FROM ubuntu:22.04
 FROM gcr.io/distroless/java17-debian12
 ```
 
-**Practical implementation:**
+Practical implementation:
 
 ```dockerfile
 # Multi-stage build for minimal production image
@@ -79,7 +79,7 @@ COPY --from=builder /app/target/app.jar /app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]
 ```
 
-**Vulnerability reduction:** Went from 43 known CVEs in base Ubuntu image to 2 in distroless. Scanning with Trivy:
+Vulnerability reduction: Went from 43 known CVEs in base Ubuntu image to 2 in distroless. Scanning with Trivy:
 
 ```bash
 # Ubuntu base: 43 vulnerabilities (12 HIGH, 31 MEDIUM)
@@ -89,7 +89,7 @@ trivy image ubuntu:22.04
 trivy image gcr.io/distroless/java17-debian12
 ```
 
-**Trade-off:** Debugging becomes harder. No shell access means container debugging requires `docker cp` or external tools. Acceptable trade-off for production workloads.
+Trade-off: Debugging becomes harder. No shell access means container debugging requires `docker cp` or external tools. Acceptable trade-off for production workloads.
 
 ## Layer 2: User Namespaces
 
@@ -103,7 +103,7 @@ What it costs: `userns-remap` is mutually exclusive with `--privileged`,
 `--network=host`, `--pid=host`, and most external volume plugins. If you need any
 of those for a given container, this layer is not available to it.
 
-**Enable user namespace remapping** in `/etc/docker/daemon.json`:
+Enable user namespace remapping in `/etc/docker/daemon.json`:
 
 ```json
 {
@@ -113,7 +113,7 @@ of those for a given container, this layer is not available to it.
 
 Restart Docker (`sudo systemctl restart docker`). Docker creates the `dockremap` user and maps container UID 0 to an unprivileged host UID, taken from whatever range `/etc/subuid` allocates it — commonly 165536 if 100000–165535 is already spoken for. Check your own `/etc/subuid` rather than assuming.
 
-**Validation:**
+Validation:
 
 ```bash
 # Container process runs as UID 0 inside container
@@ -125,7 +125,7 @@ ps aux | grep container-process
 # 165536    1234  0.1  0.5  java -jar app.jar
 ```
 
-**Gotcha:** Some containers break with user namespaces (bind mounts with wrong ownership). Test thoroughly before production deployment.
+Gotcha: Some containers break with user namespaces (bind mounts with wrong ownership). Test thoroughly before production deployment.
 
 ## Layer 3: Seccomp Profiles
 
@@ -140,7 +140,7 @@ with no kernel or daemon log entry, so a seccomp denial will not appear in
 
 For web applications, start from Docker's default profile and tighten it. Apply a custom profile with `--security-opt`, then generate the allowlist from a real syscall trace (both shown below).
 
-**Apply custom profile:**
+Apply custom profile:
 
 ```bash
 docker run \
@@ -148,7 +148,7 @@ docker run \
   nginx:alpine
 ```
 
-**Profile generation:** Use `strace` to trace syscalls your application actually uses:
+Profile generation: Use `strace` to trace syscalls your application actually uses:
 
 ```bash
 # Trace syscalls for 60 seconds
@@ -157,13 +157,13 @@ strace -c -f -p $(pgrep java) & sleep 60; kill %1
 # Generate allowlist from trace output
 ```
 
-**Warning:** Overly restrictive profiles break applications. Start with Docker's default profile and restrict incrementally.
+Warning: Overly restrictive profiles break applications. Start with Docker's default profile and restrict incrementally.
 
 ## Layer 4: AppArmor Mandatory Access Control
 
 AppArmor enforces file access policies that root cannot bypass. I use it to prevent containers from accessing sensitive host files.
 
-**Attack stopped:** Container attempting to read SSH host keys (`/etc/ssh/`) was blocked by AppArmor profile denying access to `/etc/` directory.
+Attack stopped: Container attempting to read SSH host keys (`/etc/ssh/`) was blocked by AppArmor profile denying access to `/etc/` directory.
 
 A minimal profile for an nginx container, saved to `/etc/apparmor.d/docker-nginx`:
 
@@ -194,7 +194,7 @@ profile docker-nginx flags=(attach_disconnected,mediate_deleted) {
 }
 ```
 
-**Load and enforce profile:**
+Load and enforce profile:
 
 ```bash
 # Load profile
@@ -207,14 +207,14 @@ docker run \
 ```
 
 A caution on scope, because it is easy to write a profile that does nothing you
-think it does: AppArmor resolves paths **in the container's mount namespace**.
+think it does: AppArmor resolves paths in the container's mount namespace.
 `/etc` inside the container is the image's `/etc`, not the host's. A rule denying
 `/etc/**` does not protect host SSH keys — those are not reachable from the
 container in the first place unless you bind-mounted them. Deny rules also
 override any allow, including the ones `abstractions/base` pulls in, which is why
 a blanket `deny /etc/**` stops nginx from starting rather than hardening it.
 
-**Profile testing:**
+Profile testing:
 
 ```bash
 # Confirm the profile is actually loaded and enforcing
@@ -229,7 +229,7 @@ Check `aa-status` first. A container with no profile loaded fails most casual
 tests identically to one that is fully protected, so a test that passes against
 both proves nothing.
 
-**Maintenance overhead:** AppArmor profiles require updates when applications change file access patterns. Plan for ongoing maintenance.
+Maintenance overhead: AppArmor profiles require updates when applications change file access patterns. Plan for ongoing maintenance.
 
 ## Layer 5: Capability Dropping
 
@@ -242,7 +242,7 @@ frightening in most write-ups are not among them. `CAP_NET_ADMIN` and
 ask for them with `--cap-add`. Dropping them achieves nothing, because you never
 had them.
 
-**The actual default set:**
+The actual default set:
 
 ```bash
 docker run --rm --cap-drop=ALL alpine grep Cap /proc/self/status
@@ -251,14 +251,14 @@ docker run --rm --cap-drop=ALL alpine grep Cap /proc/self/status
 AUDIT_WRITE, CHOWN, DAC_OVERRIDE, FOWNER, FSETID, KILL, MKNOD,
 NET_BIND_SERVICE, NET_RAW, SETFCAP, SETGID, SETPCAP, SETUID, SYS_CHROOT.
 
-The two worth caring about there are **`NET_RAW`**, which lets a compromised
+The two worth caring about there are `NET_RAW`, which lets a compromised
 container forge packets and spoof ARP or DNS for everything else on its network,
-and **`DAC_OVERRIDE`**, which lets container root ignore file permissions inside
+and `DAC_OVERRIDE`, which lets container root ignore file permissions inside
 the image. Those are real defaults and dropping them is a real change. Add
 `--security-opt no-new-privileges=true` at the same time — it is the cheapest
 hardening flag Docker has and it breaks almost nothing.
 
-**Minimal capability set for web applications:**
+Minimal capability set for web applications:
 
 ```bash
 docker run \
@@ -270,14 +270,14 @@ docker run \
   nginx:alpine
 ```
 
-**Capability audit process:**
+Capability audit process:
 
 1. Start with `--cap-drop=ALL`
 2. Add capabilities until application works
 3. Document why each capability is needed
 4. Regularly audit for capability creep
 
-**Common minimal sets:**
+Common minimal sets:
 
 - **Web server:** `CHOWN`, `SETUID`, `SETGID`, `NET_BIND_SERVICE`
 - **Database:** `CHOWN`, `SETUID`, `SETGID`, `DAC_OVERRIDE`
@@ -287,9 +287,9 @@ docker run \
 
 Immutable containers prevent malware persistence and configuration tampering. Mount root filesystem read-only with specific writable volumes.
 
-**Attack stopped:** Cryptominer attempting to write to `/tmp/` and `/var/tmp/` for persistence was blocked by read-only filesystem.
+Attack stopped: Cryptominer attempting to write to `/tmp/` and `/var/tmp/` for persistence was blocked by read-only filesystem.
 
-**Read-only implementation:**
+Read-only implementation:
 
 ```bash
 docker run \
@@ -300,13 +300,13 @@ docker run \
   nginx:alpine
 ```
 
-**tmpfs options:**
+tmpfs options:
 
 - `noexec`: Prevent executable files in temporary directories
 - `nosuid`: Ignore setuid bits
 - `size=XMb`: Limit memory usage for DoS protection
 
-**Gotcha:** Applications expecting to write configuration files will break. Use init containers or external configuration management.
+Gotcha: Applications expecting to write configuration files will break. Use init containers or external configuration management.
 
 ## Layer 7: Network Segmentation
 
@@ -321,9 +321,9 @@ docker run \
 
 Isolate containers using custom Docker networks. Default bridge network allows all containers to communicate, which creates risk for lateral movement.
 
-**Attack stopped:** Compromised web container trying to access database on port 5432 was blocked by network policy. Only authorized application containers could reach database.
+Attack stopped: Compromised web container trying to access database on port 5432 was blocked by network policy. Only authorized application containers could reach database.
 
-**Network topology:**
+Network topology:
 
 ```bash
 # Create isolated networks
@@ -355,7 +355,7 @@ iptables -I DOCKER-USER -i docker0 -d 10.0.0.0/8 -j DROP
 ```
 
 And immediately, the trap this post just warned about, in the other
-direction. An earlier version of this section put the container-to-**host**
+direction. An earlier version of this section put the container-to-host
 SSH block here:
 
 ```bash
@@ -378,21 +378,21 @@ iptables -I INPUT -i docker0 -p tcp --dport 22 -j DROP
 ```
 
 Note also what Docker networks can and cannot express. Containers on the same
-bridge network reach each other on **every** port; containers on different
+bridge network reach each other on every port; containers on different
 networks reach each other on none. There is no per-port policy between
 containers, so "allow the API to reach the database on 5432 and nothing else"
 is not something you can configure at this layer. Separate networks and
 `--internal` are the tools you actually have.
 
-**Monitoring:** Use `iftop` and `netstat` to verify expected traffic patterns between containers.
+Monitoring: Use `iftop` and `netstat` to verify expected traffic patterns between containers.
 
 ## Layer 8: Resource Limits
 
 Prevent resource exhaustion attacks using cgroups limits. Containers without limits can consume entire host memory/CPU.
 
-**Attack stopped:** Fork bomb attempting to spawn 10,000+ processes hit container limit at 100 processes, preventing host system impact.
+Attack stopped: Fork bomb attempting to spawn 10,000+ processes hit container limit at 100 processes, preventing host system impact.
 
-**Comprehensive resource limits:**
+Comprehensive resource limits:
 
 ```bash
 docker run \
@@ -406,9 +406,9 @@ docker run \
   nginx:alpine
 ```
 
-**Monitoring resource usage:** Use `docker stats` for real-time monitoring or check the cgroup files under `/sys/fs/cgroup/` for historical usage.
+Monitoring resource usage: Use `docker stats` for real-time monitoring or check the cgroup files under `/sys/fs/cgroup/` for historical usage.
 
-**Tuning guidelines:** Start with generous limits, monitor actual usage for 2 weeks, then set limits at 150% of observed maximum. This approach seems to work well, though you might need different ratios for your specific applications.
+Tuning guidelines: Start with generous limits, monitor actual usage for 2 weeks, then set limits at 150% of observed maximum. This approach seems to work well, though you might need different ratios for your specific applications.
 
 ## Implementation Strategy
 
@@ -422,13 +422,13 @@ docker run \
 
 Don't enable all layers simultaneously. Incremental hardening prevents breaking production workloads.
 
-**Week 1:** Minimal base images + resource limits
-**Week 2:** User namespaces (test thoroughly)
-**Week 3:** Capability dropping + read-only filesystems
-**Week 4:** Seccomp profiles + AppArmor
-**Week 5:** Network segmentation
+Week 1: Minimal base images + resource limits
+Week 2: User namespaces (test thoroughly)
+Week 3: Capability dropping + read-only filesystems
+Week 4: Seccomp profiles + AppArmor
+Week 5: Network segmentation
 
-**Testing approach:**
+Testing approach:
 
 1. Deploy hardened container in staging
 2. Run application functional tests
@@ -440,45 +440,45 @@ Don't enable all layers simultaneously. Incremental hardening prevents breaking 
 
 After implementing all eight layers across 47 containers:
 
-**Security improvements:**
+Security improvements:
 
 - **Attack surface reduction:** no shell and no package manager in the runtime image, so a foothold has nothing to pivot with
 - **Privilege escalation prevention:** 0 successful escapes in 8 months
 - **Lateral movement blocking:** Network segmentation stopped 12 attempted pivots
 - **Resource exhaustion prevention:** 3 DoS attempts contained within limits
 
-**Performance impact:**
+Performance impact:
 
 - **Memory overhead:** +15MB average per container (monitoring agents)
 - **CPU overhead:** +2-3% (AppArmor and seccomp filtering)
 - **Startup time:** +300ms average (profile loading)
 - **Network latency:** +0.5ms (iptables rules processing)
 
-**Operational complexity:**
+Operational complexity:
 
 - **Profile maintenance:** AppArmor and seccomp profiles need revisiting whenever the application's behaviour changes
 - **Image building:** +45% build time (multi-stage minimal images)
 - **Debugging difficulty:** Requires new toolchain (no shell access)
 
-**ROI:** Performance cost might be acceptable for security benefits, depending on your threat model. Zero successful container escapes vs 4 escapes in unprotected baseline. Your mileage may vary based on application types and attack patterns.
+ROI: Performance cost might be acceptable for security benefits, depending on your threat model. Zero successful container escapes vs 4 escapes in unprotected baseline. Your mileage may vary based on application types and attack patterns.
 
 ## Common Pitfalls
 
-**Overly restrictive profiles:** Started with minimal seccomp profile that blocked legitimate application syscalls. Applications failed mysteriously. Lesson: Test profiles thoroughly before production.
+Overly restrictive profiles: Started with minimal seccomp profile that blocked legitimate application syscalls. Applications failed mysteriously. Lesson: Test profiles thoroughly before production.
 
-**User namespace incompatibility:** Legacy applications with hardcoded UID assumptions broke with user namespace remapping. Required application refactoring or selective namespace disabling.
+User namespace incompatibility: Legacy applications with hardcoded UID assumptions broke with user namespace remapping. Required application refactoring or selective namespace disabling.
 
-**Read-only filesystem complexity:** Applications writing configuration files required architecture changes. Sometimes used init containers to generate configs into shared volumes.
+Read-only filesystem complexity: Applications writing configuration files required architecture changes. Sometimes used init containers to generate configs into shared volumes.
 
-**Network debugging challenges:** Container networking issues became harder to troubleshoot with multiple custom networks. Invested in monitoring and documentation.
+Network debugging challenges: Container networking issues became harder to troubleshoot with multiple custom networks. Invested in monitoring and documentation.
 
-**Profile maintenance overhead:** AppArmor profiles needed updates every application release. Automated profile generation helped but required careful review.
+Profile maintenance overhead: AppArmor profiles needed updates every application release. Automated profile generation helped but required careful review.
 
 ## Monitoring and Alerting
 
 Security hardening is useless without visibility. Monitor each defensive layer:
 
-**AppArmor violations:**
+AppArmor violations:
 
 ```bash
 # Monitor denials
@@ -487,14 +487,14 @@ sudo dmesg | grep DENIED | grep apparmor
 sudo aureport --avc
 ```
 
-**Seccomp violations:**
+Seccomp violations:
 
 ```bash
 # Check for blocked syscalls
 journalctl -u docker.service | grep "Operation not permitted"
 ```
 
-**Container escape attempts:**
+Container escape attempts:
 
 ```bash
 # Monitor privilege escalation attempts
@@ -502,7 +502,7 @@ sudo auditctl -w /usr/bin/docker -p wa -k docker_abuse
 sudo auditctl -w /var/run/docker.sock -p wa -k docker_socket_abuse
 ```
 
-**Resource limit violations:**
+Resource limit violations:
 
 ```bash
 # Alert on containers hitting memory limits
@@ -513,13 +513,13 @@ I use Prometheus + Grafana to visualize security metrics with alerts for any pol
 
 ## Trade-offs and Considerations
 
-**Security vs Usability:** Each layer adds operational complexity. Read-only filesystems make debugging harder. User namespaces break some legacy applications. AppArmor profiles require maintenance.
+Security vs Usability: Each layer adds operational complexity. Read-only filesystems make debugging harder. User namespaces break some legacy applications. AppArmor profiles require maintenance.
 
-**Performance vs Protection:** Resource limits prevent DoS attacks but may throttle legitimate traffic spikes. Network segmentation adds latency. Seccomp filtering adds CPU overhead.
+Performance vs Protection: Resource limits prevent DoS attacks but may throttle legitimate traffic spikes. Network segmentation adds latency. Seccomp filtering adds CPU overhead.
 
-**Simplicity vs Defense-in-Depth:** Single-layer security (just AppArmor) would be easier to manage but provides limited protection. Multiple layers create operational burden but prevent single points of failure.
+Simplicity vs Defense-in-Depth: Single-layer security (just AppArmor) would be easier to manage but provides limited protection. Multiple layers create operational burden but prevent single points of failure.
 
-**Cost vs coverage:** the profile-maintaining layers (seccomp, AppArmor) are where the ongoing time goes; the rest are set once and forgotten. If you only adopt four of the eight, take user namespaces, `--cap-drop=ALL`, read-only rootfs and resource limits — they are close to free.
+Cost vs coverage: the profile-maintaining layers (seccomp, AppArmor) are where the ongoing time goes; the rest are set once and forgotten. If you only adopt four of the eight, take user namespaces, `--cap-drop=ALL`, read-only rootfs and resource limits — they are close to free.
 
 ## Looking Forward
 

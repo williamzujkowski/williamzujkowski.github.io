@@ -5,8 +5,6 @@ date: 2025-07-01
 description: Implement eBPF security monitoring for real-time kernel visibility—track syscalls and network activity with production-ready patterns for threat detection.
 title: 'eBPF for Security Monitoring: A Practical Guide'
 tags:
-  - ebpf
-  - kernel
   - linux
   - monitoring
   - security
@@ -115,25 +113,25 @@ Key optimization patterns that work well in my environment (though your mileage 
 ### The Kernel Version Gotcha
 I once spent an entire weekend debugging why my eBPF program worked perfectly on Ubuntu 22.04 but crashed on CentOS 7. The culprit? Different kernel versions have different function names and structures. 
 
-**Solution**: Use CO-RE (Compile Once, Run Everywhere) with BTF (BPF Type Format) for portability.
+Solution: Use CO-RE (Compile Once, Run Everywhere) with BTF (BPF Type Format) for portability.
 
 ### BTF Availability Validation
 
-**One thing tracing eBPF cannot do:** a kprobe or tracepoint program observes, it does not block. The syscall has already run by the time your handler sees it. Enforcement needs BPF-LSM hooks returning `-EPERM` (5.7+, `CONFIG_BPF_LSM`), or `bpf_send_signal()` — which kills the process *after* the fact and loses a race an attacker can win. Treat everything below as detection unless you have wired up BPF-LSM.
+One thing tracing eBPF cannot do: a kprobe or tracepoint program observes, it does not block. The syscall has already run by the time your handler sees it. Enforcement needs BPF-LSM hooks returning `-EPERM` (5.7+, `CONFIG_BPF_LSM`), or `bpf_send_signal()` — which kills the process *after* the fact and loses a race an attacker can win. Treat everything below as detection unless you have wired up BPF-LSM.
 
-**Check kernel BTF support:** Before deploying CO-RE eBPF programs, verify your kernel exposes BTF information with `ls /sys/kernel/btf/vmlinux`. If missing, kernel was built without `CONFIG_DEBUG_INFO_BTF=y`. Ubuntu 20.10+ and RHEL 8.2+ enable BTF by default (Ubuntu's 20.04 / 5.4 kernel does not). For custom kernels, rebuild with BTF enabled or use non-CO-RE eBPF (requires recompilation per kernel version).
+Check kernel BTF support: Before deploying CO-RE eBPF programs, verify your kernel exposes BTF information with `ls /sys/kernel/btf/vmlinux`. If missing, kernel was built without `CONFIG_DEBUG_INFO_BTF=y`. Ubuntu 20.10+ and RHEL 8.2+ enable BTF by default (Ubuntu's 20.04 / 5.4 kernel does not). For custom kernels, rebuild with BTF enabled or use non-CO-RE eBPF (requires recompilation per kernel version).
 
-**Debug BTF issues:** If programs fail with "CO-RE relocation failed" errors, check BTF completeness with `bpftool btf dump file /sys/kernel/btf/vmlinux format c > vmlinux.h` and search for your target struct (e.g., `grep "struct task_struct" vmlinux.h`). Missing structs indicate incomplete BTF. Install `linux-headers-$(uname -r)` to populate module BTF at `/sys/kernel/btf/<module_name>`. Verify with `bpftool btf list` showing all available BTF objects. For production deployments, add BTF validation to startup scripts: `test -f /sys/kernel/btf/vmlinux || exit 1` prevents eBPF programs from loading on incompatible kernels.
+Debug BTF issues: If programs fail with "CO-RE relocation failed" errors, check BTF completeness with `bpftool btf dump file /sys/kernel/btf/vmlinux format c > vmlinux.h` and search for your target struct (e.g., `grep "struct task_struct" vmlinux.h`). Missing structs indicate incomplete BTF. Install `linux-headers-$(uname -r)` to populate module BTF at `/sys/kernel/btf/<module_name>`. Verify with `bpftool btf list` showing all available BTF objects. For production deployments, add BTF validation to startup scripts: `test -f /sys/kernel/btf/vmlinux || exit 1` prevents eBPF programs from loading on incompatible kernels.
 
 ### The Verifier Rejection Blues
 The BPF verifier is like a strict code reviewer who rejects anything slightly suspicious. Complex loops? Rejected. Stack usage over 512 bytes? Rejected. Too many instructions? Rejected.
 
-**Solution**: Keep programs simple and focused. One program, one purpose.
+Solution: Keep programs simple and focused. One program, one purpose.
 
 ### The Performance Paradox
 My first "comprehensive" eBPF monitor tracked everything – and consumed 40% CPU on an idle system. 
 
-**Solution**: Start minimal, add monitoring gradually, always measure impact.
+Solution: Start minimal, add monitoring gradually, always measure impact.
 
 ## Getting Started: Your First eBPF Security Monitor
 
@@ -151,23 +149,23 @@ After deploying eBPF across 12 homelab systems, I measured real-world overhead. 
 
 ### Overhead by Workload Type
 
-**Syscall Tracing (Baseline):**
+#### Syscall Tracing (Baseline)
 - **Light filtering** (10-50 syscalls monitored): 1-3% CPU overhead
 - **Heavy filtering** (200+ syscalls monitored): 5-8% CPU overhead
 - **Example**: Monitoring `execve`, `openat`, `connect` = 1.8% CPU (i9-9900K, 4.5GHz)
 
-**Network Packet Monitoring (XDP/TC):**
+#### Network Packet Monitoring (XDP/TC)
 - **Low traffic** (<1K packets/second): 2-4% CPU overhead
 - **Medium traffic** (10K-50K pps): 6-12% CPU overhead
 - **High traffic** (100K+ pps): 15-25% CPU overhead + potential packet drops >200K pps
 - **Example**: Home network (8K pps avg) = 7.3% CPU (Raspberry Pi 4)
 
-**Filesystem Monitoring (VFS hooks):**
+#### Filesystem Monitoring (VFS hooks)
 - **Read-only tracing**: 3-6% CPU + 8-15% I/O latency increase
 - **Read + write tracing**: 8-12% CPU + 20-35% I/O latency increase
 - **Example**: Docker build workload (heavy file I/O) = 11.2% CPU + 28% longer build time
 
-**Container/Process Monitoring (Falco-style):**
+#### Container/Process Monitoring (Falco-style)
 - **Minimal ruleset** (10-20 rules): 2-4% CPU overhead
 - **Production ruleset** (50-100 rules): 4-7% CPU overhead
 - **Paranoid ruleset** (200+ rules): 9-15% CPU overhead
@@ -175,7 +173,7 @@ After deploying eBPF across 12 homelab systems, I measured real-world overhead. 
 
 ### Event Volume Impact
 
-eBPF overhead scales **non-linearly** with event volume due to ring buffer contention:
+eBPF overhead scales non-linearly with event volume due to ring buffer contention:
 
 | Events/Second | CPU Overhead | Map Memory | Ring Buffer Pressure | Packet Loss Risk |
 |--------------|--------------|------------|---------------------|------------------|
@@ -185,31 +183,31 @@ eBPF overhead scales **non-linearly** with event volume due to ring buffer conte
 | **50K-100K** | 12-20% | 200-500MB | Very High | 1-5% |
 | **>100K** | 20-40%+ | >500MB | **Critical** | **5-20%+** |
 
-**My homelab baseline:**
+My homelab baseline:
 - Idle system: ~300 events/second (1.8% CPU, 8MB maps)
 - Docker build: ~45K events/second (11% CPU, 180MB maps, 0.3% loss)
-- Network scan (nmap): ~120K events/second (23% CPU, 420MB maps, **4.2% loss**)
+- Network scan (nmap): ~120K events/second (23% CPU, 420MB maps, 4.2% loss)
 
 ### Map Memory Consumption
 
 eBPF maps consume kernel memory proportional to event cardinality:
 
-**A note on which buffer you're sizing.** `BPF_MAP_TYPE_RINGBUF` (5.8+) is a *single shared* buffer across all CPUs — that was the point of replacing `BPF_MAP_TYPE_PERF_EVENT_ARRAY`, which is the per-CPU one. If you're on modern ringbuf, do not multiply by core count; the figures below are per-CPU perf-buffer sizing and will overshoot by your CPU count:
+A note on which buffer you're sizing. `BPF_MAP_TYPE_RINGBUF` (5.8+) is a *single shared* buffer across all CPUs — that was the point of replacing `BPF_MAP_TYPE_PERF_EVENT_ARRAY`, which is the per-CPU one. If you're on modern ringbuf, do not multiply by core count; the figures below are per-CPU perf-buffer sizing and will overshoot by your CPU count:
 ```
 Ring buffer size = (number of CPUs) × (per-CPU buffer size)
 Example: 8 CPUs × 64MB = 512MB total
 ```
 
-**Hash maps (connection tracking, process metadata):**
+#### Hash maps (connection tracking, process metadata)
 - **Small** (10K entries): 2-5MB
 - **Medium** (100K entries): 20-50MB
 - **Large** (1M entries): 200-500MB
 
-**LRU maps (bounded, self-evicting):**
+#### LRU maps (bounded, self-evicting)
 - Configured max entries (e.g., 100K connections = ~40MB)
 - Overhead stays constant (unlike unlimited hash maps)
 
-**My production config:**
+#### My production config
 - Syscall ring buffer: 8 CPUs × 32MB = 256MB
 - Connection tracking: LRU map, 50K entries = 22MB
 - Process metadata: Hash map, 10K entries = 4.8MB
@@ -217,7 +215,7 @@ Example: 8 CPUs × 64MB = 512MB total
 
 ### Ring Buffer Sizing Impact
 
-**Undersized buffers cause packet loss:**
+Undersized buffers cause packet loss:
 
 | Buffer Size (per-CPU) | Burst Capacity | Loss Rate (50K pps) | Loss Rate (100K pps) |
 |-----------------------|----------------|-------------------|---------------------|
@@ -226,9 +224,9 @@ Example: 8 CPUs × 64MB = 512MB total
 | **64MB** | ~1.6M events | <0.01% | 0.1-0.5% |
 | **128MB** | ~3.2M events | <0.001% | <0.01% |
 
-**Trade-off**: Larger buffers = lower loss but higher memory overhead. I use **32MB per-CPU** (256MB total on 8-core system) as sweet spot for homelabs.
+Trade-off: Larger buffers = lower loss but higher memory overhead. I use 32MB per-CPU (256MB total on 8-core system) as sweet spot for homelabs.
 
-**Check your loss rate:**
+Check your loss rate:
 ```bash
 # For ring buffer maps
 bpftool map show | grep -A5 ringbuf
@@ -239,22 +237,22 @@ cat /sys/kernel/debug/tracing/trace_pipe | grep -i "event"
 
 ### When Overhead Becomes Problematic
 
-**Acceptable overhead thresholds:**
+#### Acceptable overhead thresholds
 - **<5% CPU**: Negligible, deploy freely
 - **5-10% CPU**: Acceptable for security monitoring
 - **10-15% CPU**: Requires tuning, consider workload impact
-- **>15% CPU**: **Problematic**, reduce scope or optimize
+- **>15% CPU**: Problematic, reduce scope or optimize
 
-**I hit 23% CPU overhead** during heavy Docker builds with aggressive filesystem monitoring. My fix: disable VFS tracing during builds, enable only for production containers.
+I hit 23% CPU overhead during heavy Docker builds with aggressive filesystem monitoring. My fix: disable VFS tracing during builds, enable only for production containers.
 
-**I/O latency thresholds:**
+#### I/O latency thresholds
 - **<10% increase**: Imperceptible to users
 - **10-20% increase**: Acceptable for non-critical workloads
-- **>20% increase**: **Unacceptable**, disable filesystem tracing or optimize queries
+- **>20% increase**: Unacceptable, disable filesystem tracing or optimize queries
 
 ### Tuning Strategies for High-Throughput Environments
 
-**1. Filter events in-kernel (not userspace):**
+#### 1. Filter events in-kernel (not userspace)
 ```c
 // Bad: Send all events to userspace, filter there (massive overhead)
 bpf_perf_event_output(ctx, &events, BPF_F_CURRENT_CPU, event, sizeof(*event));
@@ -264,26 +262,26 @@ if (pid != target_pid) return 0;  // Early return
 bpf_perf_event_output(ctx, &events, BPF_F_CURRENT_CPU, event, sizeof(*event));
 ```
 
-**2. Use per-CPU data structures:**
+#### 2. Use per-CPU data structures
 ```c
 // Eliminates lock contention, reduces overhead 40-60%
 BPF_PERCPU_ARRAY(stats, struct metrics, 1);
 ```
 
-**3. Batch events before submission:**
+#### 3. Batch events before submission
 ```c
 // Instead of 1 event per syscall, batch 10-100 events
 // Reduces context switches, lowers overhead 20-30%
 ```
 
-**4. Tune ring buffer polling interval:**
+#### 4. Tune ring buffer polling interval
 ```python
 # Falco/Sysdig: Default 10ms polling
 # Increase to 50ms for lower CPU, higher latency
 polling_interval_ms: 50
 ```
 
-**5. Disable verbose logging in production:**
+#### 5. Disable verbose logging in production
 ```bash
 # Development: Full event logging
 bpftrace -e 'tracepoint:raw_syscalls:sys_enter { printf(...) }'
@@ -293,27 +291,27 @@ bpftrace -e 'tracepoint:raw_syscalls:sys_enter { printf(...) }'
 
 ### Real-World Performance Examples
 
-**My homelab systems (measured):**
+My homelab systems (measured):
 
-**System 1: i9-9900K Proxmox host (64GB RAM, 8 cores)**
+#### System 1: i9-9900K Proxmox host (64GB RAM, 8 cores)
 - Baseline CPU: 12%
 - +Syscall monitoring (47 rules): +5.1% → 17.1% total
 - +Network monitoring (XDP, 8K pps): +1.8% → 18.9% total
 - Impact: Negligible, VMs unaffected
 
-**System 2: Raspberry Pi 4 (4GB RAM, 4 cores)**
+#### System 2: Raspberry Pi 4 (4GB RAM, 4 cores)
 - Baseline CPU: 8%
 - +Syscall monitoring (20 rules): +3.2% → 11.2% total
 - +Network monitoring (XDP, 2K pps): +4.1% → 15.3% total
 - Impact: Acceptable, Pi-hole response time +12ms (48ms → 60ms)
 
-**System 3: Dell R910 (256GB RAM, 48 threads)**
+#### System 3: Dell R910 (256GB RAM, 48 threads)
 - Baseline CPU: 3%
 - +Container monitoring (Falco, 200 containers): +2.1% → 5.1% total
 - +Network monitoring (100K pps): +6.8% → 11.9% total
 - Impact: Negligible, absorbed by available core count
 
-**Years of performance tuning taught me:** eBPF overhead is workload-dependent and configuration-sensitive. Generic "2-5% overhead" claims are misleading—I've seen 1% (light syscall tracing) and 30%+ (aggressive filesystem monitoring under load). Measure your actual workload, tune ring buffers, filter in-kernel, and accept that some monitoring has real cost. Security visibility isn't free, but eBPF's overhead is 10-100x lower than equivalent userspace monitoring.
+Years of performance tuning taught me: eBPF overhead is workload-dependent and configuration-sensitive. Generic "2-5% overhead" claims are misleading—I've seen 1% (light syscall tracing) and 30%+ (aggressive filesystem monitoring under load). Measure your actual workload, tune ring buffers, filter in-kernel, and accept that some monitoring has real cost. Security visibility isn't free, but eBPF's overhead is 10-100x lower than equivalent userspace monitoring.
 
 
 
@@ -323,31 +321,31 @@ Recent academic research has significantly advanced our understanding of eBPF se
 
 ### Key Papers
 
-1. **[Understanding the Security of Linux eBPF Subsystem](https://dl.acm.org/doi/abs/10.1145/3609510.3609822)** (2023)
+1. [Understanding the Security of Linux eBPF Subsystem](https://dl.acm.org/doi/abs/10.1145/3609510.3609822) (2023)
    - Mohamed et al. analyze potential security issues in eBPF through CVE analysis and present a generation-based eBPF fuzzer
    - *ACM Asia-Pacific Workshop on Systems*
 
-2. **[Runtime Security Monitoring with eBPF](https://www.sstic.org/media/SSTIC2021/SSTIC-actes/runtime_security_with_ebpf/SSTIC2021-Article-runtime_security_with_ebpf-fournier_afchain_baubeau.pdf)** (2021)
+2. [Runtime Security Monitoring with eBPF](https://www.sstic.org/media/SSTIC2021/SSTIC-actes/runtime_security_with_ebpf/SSTIC2021-Article-runtime_security_with_ebpf-fournier_afchain_baubeau.pdf) (2021)
    - Fournier, Afchain, and Baubeau demonstrate how eBPF drastically improves legacy runtime security monitoring
    - *17th SSTIC Symposium sur la Sécurité*
 
-3. **[The Rise of eBPF for Non-Intrusive Performance Monitoring](https://cj.rs/paper/noms-2020/the-rise-of-eBPF-for-non-intrusive-performance-monitoring.pdf)** (2020)
+3. [The Rise of eBPF for Non-Intrusive Performance Monitoring](https://cj.rs/paper/noms-2020/the-rise-of-eBPF-for-non-intrusive-performance-monitoring.pdf) (2020)
    - Cassagnes et al. use eBPF to profile containerized Interledger connectors without modifying the applications
    - *IEEE Xplore*
 
-4. **[Efficient Network Monitoring Applications in the Kernel with eBPF and XDP](https://ieeexplore.ieee.org/abstract/document/9665095/)** (2021)
+4. [Efficient Network Monitoring Applications in the Kernel with eBPF and XDP](https://ieeexplore.ieee.org/abstract/document/9665095/) (2021)
    - Abranches, Michel, and Keller present novel network monitoring primitives using eBPF/XDP
    - *IEEE Conference on Network Function Virtualization*
 
-5. **[Container Instrumentation and Enforcement System for Runtime Security of Kubernetes Platform with eBPF](https://search.ebscohost.com/login.aspx?direct=true&profile=ehost&scope=site&authtype=crawler&jrnl=10798587&AN=164642663)** (2023)
+5. [Container Instrumentation and Enforcement System for Runtime Security of Kubernetes Platform with eBPF](https://search.ebscohost.com/login.aspx?direct=true&profile=ehost&scope=site&authtype=crawler&jrnl=10798587&AN=164642663) (2023)
    - Gwak, Doan, and Jung use LSM and eBPF for dynamic security policy enforcement in Kubernetes
    - *Intelligent Automation & Soft Computing*
 
 ### eBPF Verifier Security: Understanding Bypass Risks (MAJOR)
 
-**The Problem:** The eBPF verifier is security-critical infrastructure. It's the gatekeeper preventing malicious eBPF programs from exploiting kernel vulnerabilities. When the verifier itself has vulnerabilities, attackers can bypass all safety checks and execute arbitrary code at kernel privilege level.
+The Problem: The eBPF verifier is security-critical infrastructure. It's the gatekeeper preventing malicious eBPF programs from exploiting kernel vulnerabilities. When the verifier itself has vulnerabilities, attackers can bypass all safety checks and execute arbitrary code at kernel privilege level.
 
-**Why it matters:** Verifier bypasses convert eBPF from a sandboxed security tool into a kernel exploitation vector. These aren't theoretical risks—documented CVEs demonstrate real-world privilege escalation from unprivileged userspace to root.
+Why it matters: Verifier bypasses convert eBPF from a sandboxed security tool into a kernel exploitation vector. These aren't theoretical risks—documented CVEs demonstrate real-world privilege escalation from unprivileged userspace to root.
 
 #### Historical Verifier Bypass CVEs
 
@@ -358,13 +356,13 @@ Recent academic research has significantly advanced our understanding of eBPF se
 - **Exploitation:** Craft an eBPF program that passes verification but performs OOB access at runtime
 
 **CVE-2021-33624 (CVSS 4.7):** Speculative side channel after a mispredicted branch
-- **Impact:** An unprivileged BPF program can **read** arbitrary kernel memory. Read-only — the CVSS vector is `I:N`, so there is no write and no privilege escalation
+- **Impact:** An unprivileged BPF program can read arbitrary kernel memory. Read-only — the CVSS vector is `I:N`, so there is no write and no privilege escalation
 - **Affected:** Linux kernels before 5.12.13
 - **Root cause:** A branch can be mispredicted (e.g. through type confusion), and the speculative path leaks memory contents through a side channel
 - **Exploitation:** Spectre-class measurement, not a direct memory write
 
 **CVE-2023-2163 (CVSS 10.0):** Incorrect verifier pruning marks unsafe paths as safe
-- **Impact:** Arbitrary kernel read/write, lateral privilege escalation, and **container escape**. This is the one to care about — it is rated critical, and it is the reason the version check below matters
+- **Impact:** Arbitrary kernel read/write, lateral privilege escalation, and container escape. This is the one to care about — it is rated critical, and it is the reason the version check below matters
 - **Affected:** 5.4 and later, until 5.4.242 / 5.10.179 / 5.15.109 / 6.1.26 / 6.2.13
 - **Root cause:** The verifier's state-pruning optimization concluded that code paths were equivalent when they were not, so unsafe paths were never checked
 - **Exploitation:** Direct — the program simply does what the verifier wrongly believed it could not
@@ -373,7 +371,7 @@ A note on reading these: the two you would guess are equivalent from their names
 
 #### Mitigation Strategies
 
-**1. Kernel Version Requirements (Minimum):**
+1. Kernel Version Requirements (Minimum):
 
 ```bash
 # Production deployments: Use LTS kernels with backported fixes
@@ -387,7 +385,7 @@ uname -r
 grep -r "CVE-2021-31440\|CVE-2021-33624\|CVE-2023-2163" /boot/config-$(uname -r) /usr/share/doc/linux-*/changelog*
 ```
 
-**2. Unprivileged eBPF Restrictions:**
+2. Unprivileged eBPF Restrictions:
 
 ```bash
 # Disable unprivileged eBPF. Most distro kernels already ship this as 2 via
@@ -406,7 +404,7 @@ sysctl kernel.unprivileged_bpf_disabled
 # Should output: kernel.unprivileged_bpf_disabled = 1
 ```
 
-**3. Kernel Lockdown Mode:**
+3. Kernel Lockdown Mode:
 
 ```bash
 # Enable kernel lockdown to restrict eBPF and other kernel features
@@ -422,7 +420,7 @@ cat /sys/kernel/security/lockdown
 # Add to GRUB: lockdown=integrity
 ```
 
-**4. Namespace Restrictions:**
+4. Namespace Restrictions:
 
 ```bash
 # Restrict eBPF in containers (Kubernetes/Docker)
@@ -440,7 +438,7 @@ securityContext:
 
 #### Validation Commands
 
-**Check vulnerability status:**
+Check vulnerability status:
 
 ```bash
 # Comprehensive kernel vulnerability check
@@ -475,7 +473,7 @@ bpftool prog show
 # Review all loaded eBPF programs, verify legitimacy
 ```
 
-**Production hardening checklist:**
+Production hardening checklist:
 - [ ] Kernel ≥6.1 LTS with all CVE patches
 - [ ] `kernel.unprivileged_bpf_disabled=1` enforced
 - [ ] Kernel lockdown mode set to `integrity` (not `confidentiality`, which disables the tracing this relies on)
@@ -483,7 +481,7 @@ bpftool prog show
 - [ ] Container security contexts drop CAP_BPF/CAP_SYS_ADMIN
 - [ ] Regular `bpftool prog` audits for unauthorized programs
 
-**Senior engineer perspective:** Years of kernel security work taught me that "safe by default" features like eBPF verifiers are high-value attack targets. The verifier processes untrusted input (eBPF bytecode) and makes security decisions—classic attack surface. These CVEs aren't surprising; they're inevitable. Defense in depth matters: combine verifier trust with kernel hardening, capability restrictions, and runtime auditing. I've seen production environments running vulnerable kernels with unprivileged eBPF enabled—that's a local privilege escalation waiting to happen.
+Senior engineer perspective: Years of kernel security work taught me that "safe by default" features like eBPF verifiers are high-value attack targets. The verifier processes untrusted input (eBPF bytecode) and makes security decisions—classic attack surface. These CVEs aren't surprising; they're inevitable. Defense in depth matters: combine verifier trust with kernel hardening, capability restrictions, and runtime auditing. I've seen production environments running vulnerable kernels with unprivileged eBPF enabled—that's a local privilege escalation waiting to happen.
 
 ### Additional Security Research
 

@@ -24,11 +24,11 @@ The headline carbon numbers for AI are mostly about training, and mostly oversta
 
 I needed data. Not vendor claims or theoretical calculations, but actual measurements from my hardware running my workloads.
 
-**But here's the catch**: This data revealed uncomfortable truths. Home AI isn't sustainable by default. It requires intentional optimization, constant monitoring, and accepting trade-offs between convenience and cost.
+But here's the catch: This data revealed uncomfortable truths. Home AI isn't sustainable by default. It requires intentional optimization, constant monitoring, and accepting trade-offs between convenience and cost.
 
 ## The Experiment Setup
 
-**My homelab GPU rig:**
+My homelab GPU rig:
 - GPU: NVIDIA RTX 3090 (24GB VRAM)
 - CPU: Intel i9-9900K (8 cores, 16 threads)
 - RAM: 64GB DDR4-3200
@@ -36,7 +36,7 @@ I needed data. Not vendor claims or theoretical calculations, but actual measure
 - Power Supply: EVGA 850W 80+ Gold
 - OS: Proxmox VE 8.1 with Ubuntu 22.04 LXC container for ML
 
-**Power monitoring approach:**
+### Power monitoring approach
 
 Hardware Level:
 - Kill-A-Watt P4400 on wall outlet (total system power)
@@ -86,9 +86,9 @@ I ran each test for at least 30 minutes to capture steady-state behavior. Repeat
 
 I assumed Ollama's GPU would drop to near-zero power when not generating tokens. Completely wrong.
 
-Ollama running but idle (model loaded in VRAM, no active requests) drew 87W continuously. That's 2.09 kWh per day, or $7.51/month just to keep the model ready. The number that matters is the marginal one. Idle-with-GPU-present is 52W, so keeping a model resident costs about 35W on top — roughly **$37/year**.
+Ollama running but idle (model loaded in VRAM, no active requests) drew 87W continuously. That's 2.09 kWh per day, or $7.51/month just to keep the model ready. The number that matters is the marginal one. Idle-with-GPU-present is 52W, so keeping a model resident costs about 35W on top — roughly $37/year.
 
-And the cause was my own config, not Ollama's default. **Ollama unloads idle models after five minutes** unless you tell it otherwise; I'd set `keep_alive` to -1 months earlier chasing cold-start latency and forgotten. A week of instrumentation to rediscover a setting I'd changed myself is its own kind of lesson about measuring before theorising.
+And the cause was my own config, not Ollama's default. Ollama unloads idle models after five minutes unless you tell it otherwise; I'd set `keep_alive` to -1 months earlier chasing cold-start latency and forgotten. A week of instrumentation to rediscover a setting I'd changed myself is its own kind of lesson about measuring before theorising.
 
 The culprit: GPU memory doesn't sleep. Once you load a model into VRAM, the GPU maintains that state at significant power cost. I verified this by unloading models (`ollama stop`), which dropped system power to 52W (my baseline idle with GPU present but not loaded).
 
@@ -100,7 +100,7 @@ Example: "What's the capital of France?" takes 3.2 seconds to cold-start and res
 
 I expected Llama 3.1 70B to consume roughly 8-9x more power than Llama 3.1 8B, scaling with parameter count. Reality proved more nuanced.
 
-**Measurements during active inference:**
+Measurements during active inference:
 - Llama 3.1 8B: 312W average (294W-328W range)
 - Llama 3.1 70B (Q4 quantized): 347W average (331W-368W range)
 - Mistral 7B: 298W average (285W-314W range)
@@ -108,7 +108,7 @@ I expected Llama 3.1 70B to consume roughly 8-9x more power than Llama 3.1 8B, s
 
 The 70B model only consumed 11% more power than the 8B model despite being nearly 9x larger. Why? The quantized 70B model I ran (Q4_K_M quantization with CPU offloading) required less GPU computational intensity per token than the full-precision 8B model because most inference work happened in system RAM. Memory bandwidth between CPU and GPU became the bottleneck, not raw GPU compute.
 
-**Note:** RTX 3090 has 24GB VRAM, so 70B models (~40GB Q4) require offloading part of the model to system RAM. This explains the slower token generation (4.2 vs 18.7 tokens/second) and lower power consumption—less GPU utilization because the CPU is handling part of the workload.
+Note: RTX 3090 has 24GB VRAM, so 70B models (~40GB Q4) require offloading part of the model to system RAM. This explains the slower token generation (4.2 vs 18.7 tokens/second) and lower power consumption—less GPU utilization because the CPU is handling part of the workload.
 
 However, the catch is that the 70B model generated tokens at only 4.2 tokens/second compared to 18.7 tokens/second for the 8B model. When I calculated efficiency as tokens generated per watt-hour:
 
@@ -128,7 +128,7 @@ I tested three patterns:
 2. **Batch mode**: Submit 50 queries at once, collect all responses
 3. **Continuous generation**: Long-form generation (2000+ tokens)
 
-**Results over 1-hour test periods:**
+#### Results over 1-hour test periods
 
 Interactive mode:
 - Total tokens: 12,400
@@ -178,13 +178,13 @@ Then I checked my GPU temperature logs in Grafana. During extended runs, my RTX 
 
 The fix was embarrassingly simple: I improved case airflow by adding two 140mm intake fans ($28 on Amazon) and repositioning my GPU's orientation for better cooling. Post-modification, temperatures stayed below 74°C even during hour-long runs, and my benchmark variance dropped from ±23% to ±4%.
 
-**Lesson learned:** Environmental factors matter. Power consumption and performance are interlinked through thermal dynamics in ways that bench test specs don't capture.
+Lesson learned: Environmental factors matter. Power consumption and performance are interlinked through thermal dynamics in ways that bench test specs don't capture.
 
 ### 5. The "Set and Forget" Failure That Cost Me $17
 
 My most expensive mistake happened in late September. I started a batch processing job for 200 PDF documents using Llama 3.1 70B. I estimated it would take 4-5 hours based on my earlier benchmarks, kicked it off around 10 PM, and went to bed.
 
-I woke up at 7 AM to discover the job was still running. A bug in my script had caused it to re-process documents that failed extraction, creating an infinite retry loop. For 9 hours, my GPU churned at 347W, consuming 3.12 kWh and costing me roughly $0.37. Not catastrophic for one night, but I let it run for another day before noticing. Total damage: about 33 hours at 347W, so roughly **11.5 kWh and $1.38**. Less than a coffee, which is exactly why I hadn't built a guardrail for it — and why the job ran a day and a half before anything told me.
+I woke up at 7 AM to discover the job was still running. A bug in my script had caused it to re-process documents that failed extraction, creating an infinite retry loop. For 9 hours, my GPU churned at 347W, consuming 3.12 kWh and costing me roughly $0.37. Not catastrophic for one night, but I let it run for another day before noticing. Total damage: about 33 hours at 347W, so roughly 11.5 kWh and $1.38. Less than a coffee, which is exactly why I hadn't built a guardrail for it — and why the job ran a day and a half before anything told me.
 
 This failure taught me to add:
 - Timeout limits on all batch jobs
@@ -247,9 +247,9 @@ For queries under 100 tokens (yes/no questions, simple classifications), I route
 
 The trade-off: CPU inference is slower (2.3 tokens/second vs 18.7), but for tiny tasks, total time is comparable.
 - CPU: 100 tokens at 2.3 tok/s = 43 seconds, 1.15Wh energy
-- GPU: 100 tokens at 18.7 tok/s = 5.3 seconds, **0.46Wh** energy
+- GPU: 100 tokens at 18.7 tok/s = 5.3 seconds, 0.46Wh energy
 
-**This strategy doesn't work.** The GPU uses 0.46Wh against the CPU's 1.15Wh: the CPU burns 2.5x more energy *and* takes eight times as long. Drawing fewer watts for much longer isn't efficiency, it's a longer bill.
+This strategy doesn't work. The GPU uses 0.46Wh against the CPU's 1.15Wh: the CPU burns 2.5x more energy *and* takes eight times as long. Drawing fewer watts for much longer isn't efficiency, it's a longer bill.
 
 Energy is power multiplied by time. I spent a month watching only the first term, which is how a slower, hungrier path came to look like a saving.
 
@@ -277,24 +277,24 @@ Energy is power multiplied by time. I spent a month watching only the first term
 
 Let me be honest: for many people, running LLMs at home doesn't make financial sense.
 
-**My monthly costs with optimizations:**
+My monthly costs with optimizations:
 - GPU power: 25.2 kWh at $0.12/kWh = $3.02
 - Total system power (CPU, cooling, networking): 18.7 kWh = $2.24
 - Total: $5.26/month
 
-**Cloud alternatives:**
+Cloud alternatives:
 - ChatGPT Plus: $20/month (unlimited GPT-4, faster responses, no hardware maintenance)
 - Claude Pro: $20/month (similar capabilities)
 - Groq API: roughly $0.001/1k tokens (about $8-12/month for my usage)
 
-**Advantages of home AI:**
+Advantages of home AI:
 - Privacy: My queries never leave my network
 - Customization: I can fine-tune models for specific tasks
 - Learning: Deep understanding of how LLMs work
 - Data sovereignty: Complete control over my data
 - Fixed costs: No surprise bills for high-volume months
 
-**Disadvantages:**
+Disadvantages:
 - Upfront investment: RTX 3090 cost me $1,200 (used)
 - Maintenance: 3-4 hours monthly managing the setup
 - Capability ceiling: I can't run frontier models like GPT-4 or Claude 3.5 Sonnet
@@ -303,7 +303,7 @@ Let me be honest: for many people, running LLMs at home doesn't make financial s
 
 For me, privacy and learning justify the cost. If you're purely optimizing for dollars per token, cloud services win, especially if you don't own high-end GPU hardware.
 
-**But here's the reality**: Home AI is for enthusiasts who value control over convenience. If you just want to use AI, stick with ChatGPT. If you want to understand AI, run it yourself.
+But here's the reality: Home AI is for enthusiasts who value control over convenience. If you just want to use AI, stick with ChatGPT. If you want to understand AI, run it yourself.
 
 ## Environmental Impact: The Carbon Math
 
@@ -312,8 +312,8 @@ This part made me uncomfortable. I consider myself environmentally conscious, bu
 My calculations (approximate, using EPA averages):
 - 43.9 kWh/month GPU power
 - U.S. grid average: 0.92 lbs CO2/kWh ([EPA, 2023](https://www.epa.gov/energy/greenhouse-gases-equivalencies-calculator-calculations-and-references))
-- **Monthly emissions: 40.4 lbs CO2 (18.3 kg)**
-- **Annual emissions: 484 lbs CO2 (220 kg)**
+- Monthly emissions: 40.4 lbs CO2 (18.3 kg)
+- Annual emissions: 484 lbs CO2 (220 kg)
 
 To put this in perspective, 220 kg CO2 is roughly equivalent to:
 - Driving 550 miles in an average gasoline car
@@ -322,7 +322,7 @@ To put this in perspective, 220 kg CO2 is roughly equivalent to:
 
 These numbers are probably on the high side since I'm in a region with relatively clean grid power (mix of natural gas and renewables), but they're sobering nonetheless. Running AI at home isn't environmentally neutral.
 
-**Mitigation strategies I've added:**
+Mitigation strategies I've added:
 1. **Time-shifting**: I schedule batch jobs for 2-6 AM when grid demand is lowest and renewable energy percentage is typically higher
 2. **Efficiency optimization**: All the strategies above reduce total energy consumption
 3. **Carbon-aware computing**: I'm experimenting with [carbon intensity APIs](https://www.electricitymaps.com/) to run workloads when the grid is cleanest
@@ -373,9 +373,9 @@ If you're running AI at home or considering it, I'd encourage you to instrument 
 
 ## Further Reading
 
-- **[Energy and Policy Considerations for Deep Learning in NLP](https://arxiv.org/abs/1906.02243)** - Foundational paper on ML energy consumption
-- **[The Carbon Footprint of Machine Learning Training Will Plateau, Then Shrink](https://arxiv.org/abs/2204.05149)** - Optimistic take on future efficiency improvements
-- **[Electricity Maps](https://www.electricitymaps.com/)** - Real-time grid carbon intensity data
-- **[Ollama Documentation](https://github.com/ollama/ollama)** - Official docs for the inference server I used
-- **[NVIDIA DCGM Exporter](https://github.com/NVIDIA/dcgm-exporter)** - GPU monitoring for Prometheus
-- **[Reporting electricity consumption is essential for sustainable AI](https://www.nature.com/articles/s42256-023-00750-1)** - Debus, Piraud, Streit, Theis & Götz, *Nature Machine Intelligence* 5, 1176-1178 (2023). A Comment arguing that energy reporting should be standard practice for AI work
+- [Energy and Policy Considerations for Deep Learning in NLP](https://arxiv.org/abs/1906.02243) - Foundational paper on ML energy consumption
+- [The Carbon Footprint of Machine Learning Training Will Plateau, Then Shrink](https://arxiv.org/abs/2204.05149) - Optimistic take on future efficiency improvements
+- [Electricity Maps](https://www.electricitymaps.com/) - Real-time grid carbon intensity data
+- [Ollama Documentation](https://github.com/ollama/ollama) - Official docs for the inference server I used
+- [NVIDIA DCGM Exporter](https://github.com/NVIDIA/dcgm-exporter) - GPU monitoring for Prometheus
+- [Reporting electricity consumption is essential for sustainable AI](https://www.nature.com/articles/s42256-023-00750-1) - Debus, Piraud, Streit, Theis & Götz, *Nature Machine Intelligence* 5, 1176-1178 (2023). A Comment arguing that energy reporting should be standard practice for AI work
