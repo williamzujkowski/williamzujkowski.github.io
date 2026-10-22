@@ -326,12 +326,15 @@ function rehypeScrollWrap() {
 
 export default defineConfig({
   site: 'https://williamzujkowski.github.io',
-  // Off on purpose. Astro 7's compressor deletes a line break between text and
-  // an inline element on the next source line, so `via\n<a>` rendered as
-  // "via<a>" in the footer of every page and in 16 places on About/Now/Uses.
-  // Turning it off costs ~3.6% of gzipped HTML; tests/e2e/reflow.spec.ts fails
-  // if any word is glued to a link again.
-  compressHTML: false,
+  // `true`, not Astro 7's default 'jsx'. 'jsx' applies React's whitespace
+  // rules on purpose (withastro/astro#17310), so a line break between text and
+  // an inline element on the next source line is deleted: `via\n<a>` rendered
+  // as "via<a>" in the footer of every page and in 16 places on About/Now/Uses.
+  // `true` is the lossless HTML compressor: it keeps that break, and on this
+  // site changed no visible text. Gzipped HTML: false 2.91 MB, true 2.86 MB,
+  // 'jsx' 2.84 MB (Astro 7.4). tests/e2e/reflow.spec.ts fails if any word is
+  // glued to a link again.
+  compressHTML: true,
   // Retired tag pages (issue #698). Static output writes each as a
   // meta-refresh page with rel=canonical; tagRedirects() throws on a chain
   // or self-map, which fails the build.

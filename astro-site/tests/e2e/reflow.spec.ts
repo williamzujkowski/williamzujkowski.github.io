@@ -9,10 +9,11 @@ import { join } from 'node:path';
  * 1. Reflow (WCAG 1.4.10). A bare URL or long inline `code` span is one
  *    unbreakable word, and 26 of 100 posts scrolled the whole page sideways at
  *    320px. The only width assertion before this checked one page at 390px.
- * 2. Words glued to links. Astro 7's `compressHTML` deleted the line break
- *    between text and an inline `<a>` written on the next source line, so the
- *    footer on all 223 pages read "Terminal themes via<a…>". The page looked
- *    almost right, which is why nobody saw it.
+ * 2. Words glued to links. Astro 7's default `compressHTML: 'jsx'` follows
+ *    React's whitespace rules by design and deletes the line break between
+ *    text and an inline `<a>` on the next source line, so the footer on all
+ *    223 pages read "Terminal themes via<a…>". The page looked almost right,
+ *    which is why nobody saw it.
  *
  * Both read the built `dist/`. An empty or missing build fails loudly rather
  * than passing over zero pages (see a11y.spec.ts for why that matters here).

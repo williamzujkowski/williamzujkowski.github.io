@@ -126,7 +126,7 @@ Uppercase mono kickers track wider than the tokens: 0.12em (post, lead and entry
 - **Headings** get `text-wrap: balance`, `font-optical-sizing: auto`, `font-synthesis: none` and discretionary ligatures; prose gets `text-wrap: pretty` and `hanging-punctuation: first last` (`global.css:665-673`, `:685-692`).
 - **External links** in prose carry a small `↗` in `--color-muted` (`global.css:1552-1559`).
 - **Caps labels.** Chips, post-card meta, section eyebrows and the TOC summary use `text-transform: uppercase` at `--text-micro` with `--tracking-caps`. Never `font-variant-caps: all-small-caps`: no subset font ships `smcp`/`c2sc`, so browsers synthesize them at about 0.75× and land below the 13px floor while the computed font-size still reads 14px.
-- **Whitespace is literal.** `compressHTML` is off, because Astro's compressor deleted the line break between text and an inline element on the next line ("via<a>"). `tests/e2e/reflow.spec.ts` fails on any word glued to a link (`astro.config.mjs:308-313`).
+- **Line breaks are spaces.** `compressHTML` is `true` (lossless), not Astro 7's default `'jsx'`, which follows React's rules and deletes the line break between text and an inline element on the next line ("via<a>"). `tests/e2e/reflow.spec.ts` fails on any word glued to a link (`astro.config.mjs`, `compressHTML`).
 
 ## 4. Component Stylings
 
@@ -325,7 +325,7 @@ Paths are relative to the repository root at commit `00f96b9`. `G` = `astro-site
 | `theme-color` hex | `BaseLayout.astro:200-205` |
 | Sidenote / TOC breakpoint | `RT/essay.css:200`, `:411` |
 | 13px floor enforcement | `astro-site/scripts/typography-audit.mjs:7-10`, `:32` |
-| `compressHTML: false`, reflow test | `astro-site/astro.config.mjs:308-313`; `astro-site/tests/e2e/reflow.spec.ts` |
+| `compressHTML: true`, reflow test | `astro-site/astro.config.mjs` (`compressHTML`); `astro-site/tests/e2e/reflow.spec.ts` |
 | Font-slot rules and deviations | `RT/REMARQUE.md:152-158`; `astro-site/DESIGN-DEVIATIONS.md` §3, §12 |
 | Borders over shadows, cards, radius, images | `RT/REMARQUE.md:237`, `:246`, `:247`, `:267-270` |
 | Motion, stacking | `RT/REMARQUE.md:435-450`, `:454-470` |
