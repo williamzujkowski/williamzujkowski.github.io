@@ -1234,6 +1234,9 @@ article .prose > p:first-of-type:not(.no-drop-cap)::first-letter {
      of the identifier. */
   .prose :where(p, li) { hyphens: auto; }
   .prose :where(code) { hyphens: manual; }
+  /* Notes are mono small print; auto-hyphenating them split words
+     ("esti-/mating") inside a face that reads as code. */
+  .prose .remarque-sidenote :where(p) { hyphens: manual; }
   /* h3 (19px semibold) outweighed h2 (22px medium) here. */
   h3, .prose :where(h3) { font-weight: var(--weight-medium); }
   /* 24px of padding left ~34 columns of code. A 4px edge shadow marks the
@@ -1297,6 +1300,12 @@ div:has(> .post-card) {
     margin-inline-start: calc(-1 * (var(--space-12) + var(--space-6)));
   }
 }
+
+/* rehype-sidenotes wraps a footnote's content in <p>; essay.css's counter
+   numeral is an inline ::before on the aside, so the block <p> pushed the
+   text to the line below and left the numeral alone on its own line. */
+.remarque-sidenote > p:first-child { display: inline; }
+.remarque-sidenote > p:first-child + p { margin-top: var(--space-2); }
 
 /* TOC: essay.css leaves entries on the 17px body line (30px), so a wrapped
    entry's lines sat as far apart as separate entries. */
