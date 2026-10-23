@@ -13,6 +13,9 @@ import PizzaOps from '@components/PizzaOps.svelte';
   noindex={true}
 >
   <div class="po-page">
+    <nav aria-label="Breadcrumb" class="post-breadcrumb">
+      <a href="/">Front</a> <span aria-hidden="true">/</span> <a href="/projects/">Workbench</a> <span aria-hidden="true">/</span> <span aria-current="page">PizzaOps</span>
+    </nav>
     <header class="po-hero">
       <p class="po-hero-eyebrow">Enterprise Pizza Orchestration</p>
       <h1 class="po-hero-title">PizzaOps<span>™</span></h1>
@@ -53,7 +56,7 @@ import PizzaOps from '@components/PizzaOps.svelte';
   }
   .po-hero-title {
     font-family: var(--font-mono, monospace);
-    font-weight: 700;
+    font-weight: 500; /* the loaded mono cuts are 400/500 — 700 was synthesised */
     font-size: clamp(2.6rem, 8vw, 4.5rem);
     letter-spacing: -0.02em;
     line-height: 1;

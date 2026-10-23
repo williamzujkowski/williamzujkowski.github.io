@@ -1204,10 +1204,8 @@ article .prose > p:first-of-type:not(.no-drop-cap)::first-letter {
 /* ===== Focus (WCAG) ===== */
 *:focus { outline: none; }
 *:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; border-radius: 2px; }
-/* The TOC rail is a scroll container (remarque-tokens essay.css sets
-   overflow-y: auto), which clips anything drawn outside it: the links sit flush
-   with its edge, so their ring lost a side and the summary's lost three. */
-.remarque-toc-rail :focus-visible { outline-offset: -2px; }
+/* (The rail's inset-ring workaround is gone: remarque-tokens 0.27 pads the
+   scroll container past the ring's reach upstream — remarque#115.) */
 
 /* ===== Skip Link ===== */
 .skip-to-main {

@@ -135,6 +135,9 @@ function isActiveLink(linkHref: string): boolean {
   if (linkHref === '/') return path === '/';
   // Tag pages are a view of the dispatches, and their breadcrumb says so.
   if (linkHref === '/posts/' && path.startsWith('/tags/')) return true;
+  // PizzaOps is a Workbench project with its own page (design review 2026-10:
+  // a visitor landing there had no "you are here" marker at all).
+  if (linkHref === '/projects/' && path.startsWith('/pizza-ops/')) return true;
   return path.startsWith(linkHref);
 }
 ---
