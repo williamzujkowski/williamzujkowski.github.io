@@ -135,6 +135,9 @@ function isActiveLink(linkHref: string): boolean {
   if (linkHref === '/') return path === '/';
   // Tag pages are a view of the dispatches, and their breadcrumb says so.
   if (linkHref === '/posts/' && path.startsWith('/tags/')) return true;
+  // PizzaOps is a Workbench project with its own page (design review 2026-10:
+  // a visitor landing there had no "you are here" marker at all).
+  if (linkHref === '/projects/' && path.startsWith('/pizza-ops/')) return true;
   return path.startsWith(linkHref);
 }
 ---
@@ -269,7 +272,7 @@ function isActiveLink(linkHref: string): boolean {
     <a href="#main" class="skip-to-main">Skip to main content</a>
 
     <!-- Masthead -->
-    <header role="banner" aria-label="Site header" class="site-masthead zine-grain wobble-rule">
+    <header id="top" role="banner" aria-label="Site header" class="site-masthead zine-grain wobble-rule">
       <div class="site-masthead-inner">
         <div class="site-masthead-top">
           <div class="site-masthead-tools-left" aria-hidden="true">
@@ -318,15 +321,21 @@ function isActiveLink(linkHref: string): boolean {
 
     <!-- Footer -->
     <footer role="contentinfo" aria-label="Site footer" class="site-footer zine-grain">
-      <p>
-        &copy; {currentYear} William Zujkowski.
-        <a href={SITE_CONFIG.social.github}>GitHub</a> &middot;
-        <a href={SITE_CONFIG.social.linkedin}>LinkedIn</a> &middot;
-        <a href="/feed.xml">RSS</a>
+      {/* A way back from the bottom of a long page (design review 2026-10:
+          on mobile the TOC is not sticky, and a long post ends tens of
+          thousands of px below the masthead). */}
+      <nav class="footer-wayfinding" aria-label="Footer navigation">
+        <a href="#top">Back to top ↑</a>
+        <a href="/posts/">All dispatches</a>
+      </nav>
+      <p class="footer-links">
+        <span class="footer-nowrap">&copy; {currentYear} William Zujkowski.</span>
+        <span class="footer-nowrap"><a href={SITE_CONFIG.social.github}>GitHub</a></span>
+        <span class="footer-nowrap"><span aria-hidden="true">&middot;</span> <a href={SITE_CONFIG.social.linkedin}>LinkedIn</a></span>
+        <span class="footer-nowrap"><span aria-hidden="true">&middot;</span> <a href="/feed.xml">RSS</a></span>
       </p>
       <p class="footer-theme-credit">
-        Terminal themes via
-        <a href="https://github.com/williamzujkowski/oklch-terminal-themes">oklch&#8209;terminal&#8209;themes</a>
+        Terminal themes via <a href="https://github.com/williamzujkowski/oklch-terminal-themes">oklch&#8209;terminal&#8209;themes</a>
         (<a href="/about/#theme-credits">credits</a>) — picker lives in the masthead.
       </p>
     </footer>

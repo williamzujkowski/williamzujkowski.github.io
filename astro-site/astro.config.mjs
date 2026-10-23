@@ -11,6 +11,7 @@ import { writeFile } from 'node:fs/promises';
 import rehypeSidenotes from './src/lib/rehype-sidenotes.mjs';
 import rehypeTaskListLabels from './src/lib/rehype-task-list-labels.mjs';
 import rehypeDropCap from './src/lib/rehype-drop-cap.mjs';
+import rehypeSmartQuotes from './src/lib/rehype-smart-quotes.mjs';
 import { tagRedirects } from './src/lib/tag-taxonomy.mjs';
 
 /**
@@ -436,6 +437,8 @@ export default defineConfig({
         // Convert GFM footnote references and definitions into inline sidenotes.
         rehypeSidenotes,
         rehypeRaw,
+        // Raw-HTML captions and diagram labels that smartypants never saw.
+        rehypeSmartQuotes,
         rehypeTaskListLabels,
         [rehypeSanitize, sanitizeSchema],
         // Lowercase lead paragraphs skip the drop cap (global.css).

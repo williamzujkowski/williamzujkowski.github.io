@@ -36,7 +36,7 @@ const position = currentIndex + 1;
         <div class="series-progress-bar" style={`width: ${(position / total) * 100}%;`} />
       </div>
 
-      <ol class="series-list">
+      <ol class="series-list series-list--open">
         {sorted.map((post, i) => (
           <li>
             {post.id === currentId ? (
@@ -52,6 +52,28 @@ const position = currentIndex + 1;
           </li>
         ))}
       </ol>
+      {/* Phones: the open list put a series post's first paragraph ~1.5
+          screens down (design review 2026-10, H-05). Same list behind a
+          disclosure; Previous/Next below stay visible at every width. */}
+      <details class="series-all">
+        <summary>All {total} parts</summary>
+        <ol class="series-list">
+          {sorted.map((post, i) => (
+            <li>
+                {post.id === currentId ? (
+                  <span class="series-current">
+                    {i + 1}. {post.data.title}
+                    <span class="series-current-label">(current)</span>
+                  </span>
+                ) : (
+                  <a href={`/posts/${post.id}/`}>
+                    {i + 1}. {post.data.title}
+                  </a>
+                )}
+            </li>
+          ))}
+        </ol>
+      </details>
 
       <div class="series-nav-links">
         {prev ? (
@@ -74,6 +96,20 @@ const position = currentIndex + 1;
 }
 
 <style>
+  .series-all { display: none; }
+  @media (max-width: 640px) {
+    .series-list--open { display: none; }
+    .series-all { display: block; margin-block: var(--space-3); }
+    .series-all summary {
+      display: flex; align-items: center; min-height: 2.75rem;
+      cursor: pointer; font-size: var(--text-meta); color: var(--color-muted);
+    }
+    /* display:flex drops the native marker — draw one so it reads as a control. */
+    .series-all summary::-webkit-details-marker { display: none; }
+    .series-all summary { list-style: none; }
+    .series-all summary::before { content: '▸'; margin-inline-end: 0.5em; }
+    .series-all[open] summary::before { content: '▾'; }
+  }
   .series-nav {
     margin-block: var(--space-6);
     padding: var(--space-5);

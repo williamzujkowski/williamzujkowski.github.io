@@ -52,22 +52,20 @@ const section = primaryTag ? humanTag(primaryTag) : 'Essay';
 >
   <article class="post-article remarque-essay">
     <!-- Breadcrumbs -->
-    <nav aria-label="Breadcrumb" class="post-breadcrumb">
+    <nav aria-label="Breadcrumb" class="post-breadcrumb" data-pagefind-ignore>
       <a href="/">Front</a> / <a href="/posts/">Dispatches</a>
     </nav>
 
     <!-- Header -->
     <header class="post-header">
-      <p class="post-kicker">
+      <p class="post-kicker" data-pagefind-ignore>
         <span class="post-section">{section}</span>
         {readingTime && (
           <>
-            <span class="dot">·</span>
-            <span>{readingTime} min read</span>
+            <span class="kicker-pair"><span class="dot" aria-hidden="true">·</span><span>{readingTime} min read</span></span>
           </>
         )}
-        <span class="dot">·</span>
-        <time datetime={date.toISOString().split('T')[0]}>{formattedDate}</time>
+        <span class="kicker-pair"><span class="dot" aria-hidden="true">·</span><time datetime={date.toISOString().split('T')[0]}>{formattedDate}</time></span>
       </p>
 
       <h1>{title}</h1>

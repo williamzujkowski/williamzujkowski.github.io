@@ -1,5 +1,6 @@
 import { z } from 'astro/zod';
 import { RETIRED_TAGS, TAG_SLUG } from './tag-taxonomy.mjs';
+import { smartQuotes } from './smart-quotes.mjs';
 
 // A retired tag would rebuild a /tags/<old>/ page on top of its redirect and
 // re-split the archive it was merged out of; name the replacement instead.
@@ -15,9 +16,10 @@ const tag = z.string()
 // Keep legacy metadata such as reading_time and readingTime. Fields used by
 // publication are validated here; moving the schema must not tighten coercion.
 export const postSchema = z.looseObject({
-  title: z.string(),
+  // Curled here once, so every surface that renders them agrees.
+  title: z.string().transform(smartQuotes),
   date: z.coerce.date(),
-  description: z.string().optional(),
+  description: z.string().optional().transform(smartQuotes),
   tags: z.array(tag).optional().default([]),
   author: z.string().optional().default('William Zujkowski'),
   lastUpdate: z.coerce.date().optional(),

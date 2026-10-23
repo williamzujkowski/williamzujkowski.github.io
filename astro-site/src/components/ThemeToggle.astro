@@ -25,6 +25,7 @@
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
   </svg>
 </button>
+<span id="theme-toggle-deck-note" class="sr-only">Also resets to the default palette.</span>
 
 <style>
   .theme-toggle {
@@ -145,6 +146,12 @@
             'aria-label',
             root.classList.contains('dark') ? 'Switch to light theme' : 'Switch to dark theme',
           );
+          // The toggle exits the deck (see toggle()), so say so — the reset
+          // used to happen silently (design review 2026-10, J-04). The name
+          // stays exact (theme-deck.spec pins it); the consequence goes in
+          // a description and a tooltip.
+          btnDeck.setAttribute('title', 'Also resets to the default palette');
+          btnDeck.setAttribute('aria-describedby', 'theme-toggle-deck-note');
         }
         return;
       }
@@ -157,6 +164,8 @@
       const btn = document.getElementById('theme-toggle');
       if (btn) {
         btn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+        btn.setAttribute('title', 'Toggle theme');
+        btn.removeAttribute('aria-describedby');
       }
     }
 
