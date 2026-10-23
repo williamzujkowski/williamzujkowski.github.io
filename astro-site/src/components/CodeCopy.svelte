@@ -87,6 +87,21 @@
     opacity: 1;
   }
 
+  /* 44px hit area around the ~30px chip, without enlarging it. */
+  :global(.copy-btn::after) {
+    content: '';
+    position: absolute;
+    inset: -0.4375rem;
+  }
+
+  /* Phones: the chip sat on the first line of code (design review
+     2026-10) — reserve a band above the code for it. */
+  @media (max-width: 640px) {
+    :global(div:has(> .copy-btn) > pre) {
+      padding-top: 2.75rem;
+    }
+  }
+
   /* Touch screens have no hover, so the reveal above never fired and the
      button sat at opacity 0 on every phone. */
   @media (hover: none) {
