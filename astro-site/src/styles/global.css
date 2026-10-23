@@ -746,6 +746,15 @@ h1, h2, h3, h4, h5, h6,
   text-decoration-thickness: 1px;
 }
 .prose :where(a):hover { color: var(--color-accent-hover); }
+/* Visited links keep accent text and shift only the underline — the same
+   rule remarque-tokens 0.27 ships for .remarque-prose (this site styles
+   .prose), ratified 7-0 upstream. Color-only, which :visited permits. */
+.prose :where(a):visited { text-decoration-color: var(--color-fg-muted); }
+/* Standalone link rows (Workbench repo/write-up lines, About credits) are
+   targets, not links inside a sentence: 44px rows (DESIGN.md touch). */
+.prose .link-row a,
+.prose .link-list a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+
 .prose :where(strong) { font-weight: var(--weight-semibold); color: var(--color-fg); }
 .prose :where(em) { font-style: italic; }
 .prose :where(blockquote) {
@@ -1271,6 +1280,15 @@ div:has(> .post-card) {
      margins only shrink-wrap a short child (breadcrumb, share footer) and
      centre it, 270px and 150px right of the column's left edge. */
   .remarque-essay > :not(.remarque-toc-rail) { margin-inline: 0; }
+  /* essay.css's tracks are 1fr | reading | rail, so the reading column is
+     only centred when the left track happens to equal the rail — here it
+     sat 24px right of the masthead/footer axis. Symmetric outer tracks
+     centre it exactly; the rail keeps its 12rem cap (+ the 0.27 focus-ring
+     padding). Reported upstream. */
+  .remarque-essay {
+    grid-template-columns: minmax(0, 1fr) minmax(0, var(--content-reading)) minmax(0, 1fr);
+  }
+  .remarque-essay > .remarque-toc-rail { max-width: calc(var(--space-12) + var(--space-2)); }
   /* essay.css's 8rem note column held ~14 characters a line. The left track
      is 13rem at this width (body caps at 72rem, so it never grows), which
      fits 12rem plus the 2rem gap; the TOC rail is on the other side. */
@@ -1422,6 +1440,11 @@ div:has(> .post-card) {
 .entry-section {
   color: var(--color-accent);
   font-weight: 500;
+}
+/* Front-page kicker section links were 23px tall; on touch, give them the
+   44px floor (fine pointers keep the compact kicker line). */
+@media (pointer: coarse) {
+  a.lead-section, a.entry-section { display: inline-flex; align-items: center; min-height: 2.75rem; }
 }
 .lead-kicker .dot,
 .entry-kicker .dot { color: var(--color-border-bold); }
