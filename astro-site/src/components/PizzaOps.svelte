@@ -20,6 +20,8 @@
     !Number.isFinite(consumers) || consumers < 0 || consumers > 500 || !Number.isInteger(consumers)
   );
   const headcount = $derived(clampConsumers(consumers));
+  // Set when blur clamps a bad value, so the correction isn't silent either.
+  let clampedFrom = $state<string | null>(null);
   let intensity = $state(0.7); // 0 = grazing, 1 = this is the whole meal
   let mealClass = $state<'main' | 'side'>('main');
   let teenagers = $state(false);
@@ -252,16 +254,26 @@
           <button type="button" onclick={() => { consumers = Math.max(0, clampConsumers(consumers) - 1); invalidate(); }} aria-label="Decrease consumers">−</button>
           <input
             id="po-consumers" type="number" min="0" max="500" step="1"
-            bind:value={consumers} oninput={invalidate}
-            onblur={() => { if (consumersInvalid) { consumers = clampConsumers(consumers); invalidate(); } }}
+            bind:value={consumers} oninput={() => { clampedFrom = null; invalidate(); }}
+            onblur={() => {
+              if (consumersInvalid) {
+                clampedFrom = Number.isFinite(consumers) ? String(consumers) : 'blank';
+                consumers = clampConsumers(consumers);
+                invalidate();
+              }
+            }}
             aria-invalid={consumersInvalid ? 'true' : undefined}
-            aria-describedby={consumersInvalid ? 'po-consumers-error' : undefined}
+            aria-describedby={consumersInvalid || clampedFrom ? 'po-consumers-error' : undefined}
           />
           <button type="button" onclick={() => { consumers = Math.min(500, clampConsumers(consumers) + 1); invalidate(); }} aria-label="Increase consumers">+</button>
         </div>
         {#if consumersInvalid}
           <p id="po-consumers-error" class="po-field-error" role="alert">
             Consumers must be a whole number from 0 to 500. Hunger is bounded.
+          </p>
+        {:else if clampedFrom}
+          <p id="po-consumers-error" class="po-field-note" role="status">
+            Clamped {clampedFrom} to {headcount}. Hunger is bounded.
           </p>
         {/if}
       </div>
@@ -507,7 +519,11 @@
     border: 1px solid var(--color-border-bold); border-radius: 0.3rem;
   }
   .po-help-tip:empty { display: none; }
+  /* The loaded mono cuts are 400/500; a UA-default bold <strong> was
+     still browser-synthesised. */
+  .pizzaops :global(strong) { font-weight: 500; }
   .po-field-error { margin: 0.4rem 0 0; font-size: 0.8125rem; color: var(--color-error); }
+  .po-field-note { margin: 0.4rem 0 0; font-size: 0.8125rem; color: var(--color-fg-muted); }
 
   .po-stepper { display: flex; align-items: stretch; }
   .po-stepper button {

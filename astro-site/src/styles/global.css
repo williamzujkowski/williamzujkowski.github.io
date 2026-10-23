@@ -1314,8 +1314,10 @@ div:has(> .post-card) {
    entry's lines sat as far apart as separate entries. */
 .remarque-toc-rail li { font-size: var(--text-meta); line-height: var(--leading-meta); }
 /* No li + li margin: since remarque-tokens 0.27 each entry is a >=44px
-   flex row, which is the rhythm; an extra 8px made one-line entries sit
-   52px apart and two-line ones ~10px apart. */
+   flex row (an extra 8px made one-line entries sit 52px apart). Block
+   padding inside the row gives a wrapped entry air without changing a
+   one-line row, which the 44px floor still sizes. */
+.remarque-toc-rail a { padding-block: var(--space-1); }
 /* Real capitals, not essay.css's synthesized small caps (see "Caps labels"). */
 .remarque-toc-rail summary {
   font-size: var(--text-micro);
@@ -1648,9 +1650,25 @@ div:has(> .post-card) {
 }
 .post-kicker .post-section { color: var(--color-accent); font-weight: 500; }
 .post-kicker .dot { color: var(--color-border-bold); }
-/* A separator travels with the item after it, so a wrapped kicker never
-   ends a line on a stranded dot (design review 2026-10). */
+/* Kicker separators never strand at either end of a wrapped line (design
+   review 2026-10, H-06/G-09). Every item hangs in the same left margin,
+   the item's dot sits in that margin, and the container is pulled left by
+   the margin, then clipped back to the text edge — so the dot of
+   whichever item starts a line falls outside the clip. The left inset
+   leaves 4px for a focus ring; the negative insets leave rings above,
+   below and right untouched. */
+.post-kicker, .lead-kicker, .entry-kicker {
+  column-gap: 0;
+  margin-inline-start: -1.1em;
+  clip-path: inset(-0.5em -0.5em -0.5em calc(1.1em - 4px));
+}
+.post-kicker > *, .lead-kicker > *, .entry-kicker > * { margin-inline-start: 1.1em; }
 .kicker-pair { white-space: nowrap; }
+:is(.post-kicker, .lead-kicker, .entry-kicker) > .kicker-pair { position: relative; }
+:is(.post-kicker, .lead-kicker, .entry-kicker) > .kicker-pair > .dot {
+  position: absolute; inset-inline-start: -1.1em; width: 1.1em;
+  text-align: center; letter-spacing: 0;
+}
 
 @container (max-width: 640px) {
   .entry {
