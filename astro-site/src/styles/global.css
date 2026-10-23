@@ -752,8 +752,11 @@ h1, h2, h3, h4, h5, h6,
 .prose :where(a):visited { text-decoration-color: var(--color-fg-muted); }
 /* Standalone link rows (Workbench repo/write-up lines, About credits) are
    targets, not links inside a sentence: 44px rows (DESIGN.md touch). */
+/* Inline padding grows the hit area to 44px without changing line layout,
+   and the links stay breakable — inline-flex made the long github.com/…
+   URLs atomic and overflowed a 320px screen (reflow.spec). */
 .prose .link-row a,
-.prose .link-list a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+.prose .link-list a { padding-block: 0.625rem; }
 
 .prose :where(strong) { font-weight: var(--weight-semibold); color: var(--color-fg); }
 .prose :where(em) { font-style: italic; }
