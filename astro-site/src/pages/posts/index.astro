@@ -31,11 +31,9 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
 
   <div class="archive-intro">
     <p class="archive-stats">
-      {posts.length} pieces
-      <span class="dot">·</span>
-      {years.length} years
-      <span class="dot">·</span>
-      {tagCounts.size} tags
+      <span class="kicker-pair">{posts.length} pieces</span>
+      <span class="kicker-pair"><span class="dot">·</span> {years.length} years</span>
+      <span class="kicker-pair"><span class="dot">·</span> {tagCounts.size} tags</span>
     </p>
     {/* The archive runs to ~48 screens at phone width; the year headings
         below carry these ids so a reader can skip straight to one. */}
@@ -59,7 +57,7 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
     <ol>
       <li><a href="/posts/2026-07-02-agentic-ai-sandbox-secret-proxying-gap/">Sandboxing and credential proxying</a> — start with what the agent can reach and which secrets it can see.</li>
       <li><a href="/posts/2026-07-30-prove-the-gate-not-the-agent/">Prove the execution gate</a> — follow the boundary from permissions to properties you can check.</li>
-      <li><a href="/posts/2026-08-18-the-policy-is-the-part-that-moves/">When policy changes during a task</a> — examine what happens when yesterday's permission no longer applies.</li>
+      <li><a href="/posts/2026-08-18-the-policy-is-the-part-that-moves/">When policy changes during a task</a> — examine what happens when yesterday’s permission no longer applies.</li>
     </ol>
     <h3>Homelab security</h3>
     <p>Start with basic networking; the later articles assume familiarity with Linux services. These are dated field notes, so check current upstream documentation before applying commands.</p>

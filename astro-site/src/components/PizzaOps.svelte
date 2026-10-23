@@ -181,7 +181,7 @@
     { v: 'v3.1', text: 'Added support for teenagers. Regretted immediately.' },
     { v: 'v3.0', text: 'Migrated hunger estimation to a consensus quorum. Latency up, arguments down.' },
     { v: 'v2.5', text: 'Introduced the Anchovy Isolation Chamber after a Q3 incident we do not discuss.' },
-    { v: 'v2.2', text: 'Fixed a bug where "light eaters" were modeled honestly. Reverted to prior, more accurate skepticism.' },
+    { v: 'v2.2', text: 'Fixed a bug where “light eaters” were modeled honestly. Reverted to prior, more accurate skepticism.' },
     { v: 'v2.0', text: 'Introduced area-per-dollar optimization. The 18-inch has not lost since.' },
     { v: 'v1.0', text: 'Initial release. Promised a lot. Delivered pizza.' },
   ];
