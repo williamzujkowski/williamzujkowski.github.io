@@ -59,10 +59,8 @@ const dateStr = post.data.date.toLocaleDateString('en-US', {
   <article class="lead">
     <p class="lead-kicker">
       <SectionEl class="lead-section" href={sectionHref}>{section}</SectionEl>
-      <span class="dot">·</span>
-      <span>{rt} min read</span>
-      <span class="dot">·</span>
-      <time datetime={iso}>{dateStr}</time>
+      <span class="kicker-pair"><span class="dot">·</span> <span>{rt} min read</span></span>
+      <span class="kicker-pair"><span class="dot">·</span> <time datetime={iso}>{dateStr}</time></span>
     </p>
     <h2 class="lead-title">
       <a href={`/posts/${post.id}/`}>{post.data.title}</a>
@@ -75,10 +73,8 @@ const dateStr = post.data.date.toLocaleDateString('en-US', {
     <div class="entry-body">
       <p class="entry-kicker">
         <SectionEl class="entry-section" href={sectionHref}>{section}</SectionEl>
-        <span class="dot">·</span>
-        <span>{rt} min read</span>
-        <span class="dot">·</span>
-        <time datetime={iso}>{dateStr}</time>
+        <span class="kicker-pair"><span class="dot">·</span> <span>{rt} min read</span></span>
+        <span class="kicker-pair"><span class="dot">·</span> <time datetime={iso}>{dateStr}</time></span>
       </p>
       <EntryHeading class="entry-title">
         <a href={`/posts/${post.id}/`}>{post.data.title}</a>

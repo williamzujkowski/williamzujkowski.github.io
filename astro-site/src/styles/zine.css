@@ -86,6 +86,11 @@ article .prose blockquote::before {
   mask: var(--zine-quote-mask) no-repeat center / contain;
   opacity: 0.85;
 }
+/* The mark hangs 2.35rem into the margin; the phone gutter is 1rem, so
+   below 640px only a sliver showed at the screen edge. */
+@media (max-width: 640px) {
+  article .prose blockquote::before { display: none; }
+}
 
 /* ---------- scoped paper grain (chrome surfaces only) ------------------ */
 

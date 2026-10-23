@@ -458,6 +458,10 @@ a:hover { color: var(--color-accent-hover); }
 }
 .site-nameplate:hover { color: var(--color-accent); }
 .site-nameplate-byline {
+  /* Above the title box: under forced-colors the title paints an opaque
+     Canvas background that clipped the byline's lower half. */
+  position: relative;
+  z-index: var(--z-base, 0);
   font-family: var(--font-display);
   font-style: italic;
   font-size: clamp(0.85rem, 1.4vw, 1rem);
@@ -585,6 +589,9 @@ a:hover { color: var(--color-accent-hover); }
   letter-spacing: var(--tracking-meta);
   font-variant-numeric: tabular-nums;
   padding-top: 0.4em; /* optical baseline alignment with title */
+  /* Inside a centred parent (the 404's recent list) the meta inherited
+     text-align: center and its lines started at ragged x positions. */
+  text-align: start;
 }
 .post-card-readtime { color: var(--color-muted); }
 
@@ -641,6 +648,12 @@ a.post-card-title:hover { color: var(--color-accent); }
   transition: color var(--motion-fast) var(--motion-easing), border-color var(--motion-fast) var(--motion-easing);
 }
 .chip:hover { color: var(--color-fg); border-color: var(--color-border-bold); }
+/* Touch: tag chips are primary navigation on /tags/, /posts/, post footers
+   and the 404 — 31px tall at an 8px gap was under the 44px floor
+   (DESIGN.md touch targets). Fine pointers keep the compact chip. */
+@media (pointer: coarse) {
+  a.chip { min-height: 2.75rem; }
+}
 
 /* ===== Cards ===== */
 .card {
@@ -756,7 +769,30 @@ h1, h2, h3, h4, h5, h6,
 /* Table headers are a meta surface (mono voice, issue #274 sweep) — was
    silently inheriting the serif body face since .prose only sets it on
    figcaption/code/pre, not th. */
-.prose :where(th) { text-align: left; letter-spacing: var(--tracking-meta); font-weight: var(--weight-semibold); padding: var(--space-2); border-bottom: 2px solid var(--color-border); }
+.prose :where(th:not([align])) { text-align: left; }
+/* A Markdown column alignment (`|---:|`) arrives as align="…" on th AND
+   td; the left default above used to override it on the header only, so
+   numeric headers sat left of their right-aligned digits. */
+.prose :where(th[align="right"]) { text-align: right; }
+.prose :where(th[align="center"]) { text-align: center; }
+/* Cells are short lines, not paragraphs: body leading (1.75) made narrow
+   mobile columns 95–120px per row. */
+.prose :where(th, td) { line-height: var(--leading-meta); }
+/* Same 4px edge cue `pre` uses: a wide table scrolled inside its wrapper
+   with nothing marking the cut-off column. `local` layers cover the
+   shadow at either end. */
+.prose :where(.scroll-wrap) {
+  background-image:
+    linear-gradient(to right, var(--color-bg) 50%, transparent),
+    linear-gradient(to left, var(--color-bg) 50%, transparent),
+    linear-gradient(to right, var(--color-border-bold), transparent),
+    linear-gradient(to left, var(--color-border-bold), transparent);
+  background-position: left, right, left, right;
+  background-size: 1rem 100%, 1rem 100%, var(--space-1) 100%, var(--space-1) 100%;
+  background-repeat: no-repeat;
+  background-attachment: local, local, scroll, scroll;
+}
+.prose :where(th) { letter-spacing: var(--tracking-meta); font-weight: var(--weight-semibold); padding: var(--space-2); border-bottom: 2px solid var(--color-border); }
 .prose :where(td) { padding: var(--space-2); border-bottom: 1px solid var(--color-border); }
 /* Figures in a column should line up: tabular lining digits in every cell. */
 .prose :where(td, th) { font-variant-numeric: lining-nums tabular-nums; }
@@ -770,6 +806,9 @@ h1, h2, h3, h4, h5, h6,
   border-radius: var(--radius-sm);
   font-size: 0.9em;
   color: var(--color-code-fg);
+  /* A chip that wraps keeps its padding and radius on every fragment. */
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 .prose :where(code)::before, .prose :where(code)::after { content: ''; }
 .prose :where(pre) {
@@ -812,7 +851,9 @@ article .prose > p:first-of-type:not(.no-drop-cap)::first-letter {
   font-size: 3.5em;
   line-height: 0.85;
   float: left;
-  padding: 0.08em 0.12em 0 0;
+  /* 0.12em right padding plus the italic's own overhang read as a word
+     space ("P roxmox"); 0.05em keeps the initial attached. */
+  padding: 0.08em 0.05em 0 0;
   color: var(--color-fg);
   font-feature-settings: "liga" 1, "calt" 1;
 }
@@ -883,6 +924,8 @@ article .prose > p:first-of-type:not(.no-drop-cap)::first-letter {
   background: var(--color-surface); border: 1.5px solid var(--color-border-bold);
   border-radius: var(--radius-md); padding: 0.5rem 0.85rem;
   line-height: 1.3; font-size: 0.95rem; font-weight: 600;
+  /* A node stretched to a taller neighbour's height centres its text. */
+  display: flex; flex-direction: column; justify-content: center;
 }
 .prose .flow-node b { display: block; font-weight: 600; }
 .prose .flow-node i {
@@ -929,6 +972,11 @@ article .prose > p:first-of-type:not(.no-drop-cap)::first-letter {
   display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; width: 100%;
 }
 .prose .flow-parallel .flow-node { flex: 1 1 7rem; min-width: 6rem; margin-top: 0; }
+/* Three peers wrapping 2+1 made the third read as a following step;
+   narrow screens stack all of them at one width instead. */
+@media (max-width: 30rem) {
+  .prose .flow-parallel .flow-node { flex-basis: 100%; }
+}
 /* two-way branch — legs wrap/stack; each carries a labelled pill */
 .prose .flow-branch {
   display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; width: 100%;
@@ -1060,6 +1108,19 @@ article .prose > p:first-of-type:not(.no-drop-cap)::first-letter {
   padding-inline: var(--space-1);
 }
 .site-footer a:hover { color: var(--color-fg); }
+/* The link row and the wayfinding row are standalone targets (44x44);
+   the credit line is a sentence, so its links are ordinary inline links
+   (WCAG 2.5.8 inline exemption) — a 44px inline-flex box inside running
+   text broke the sentence into five ragged lines on mobile. */
+.site-footer .footer-links a,
+.site-footer .footer-wayfinding a { min-width: 2.75rem; justify-content: center; }
+.site-footer .footer-theme-credit a { display: inline; min-height: 0; padding-inline: 0; }
+.site-footer p { text-wrap: balance; }
+.footer-nowrap { white-space: nowrap; }
+.footer-wayfinding {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  column-gap: var(--space-4);
+}
 
 /* ===== Specimen Catalog — Uses/Tools Lists ===== */
 .uses-list {
@@ -1224,7 +1285,9 @@ div:has(> .post-card) {
 /* TOC: essay.css leaves entries on the 17px body line (30px), so a wrapped
    entry's lines sat as far apart as separate entries. */
 .remarque-toc-rail li { font-size: var(--text-meta); line-height: var(--leading-meta); }
-.remarque-toc-rail li + li { margin-top: var(--space-2); }
+/* No li + li margin: since remarque-tokens 0.27 each entry is a >=44px
+   flex row, which is the rhythm; an extra 8px made one-line entries sit
+   52px apart and two-line ones ~10px apart. */
 /* Real capitals, not essay.css's synthesized small caps (see "Caps labels"). */
 .remarque-toc-rail summary {
   font-size: var(--text-micro);
@@ -1552,6 +1615,9 @@ div:has(> .post-card) {
 }
 .post-kicker .post-section { color: var(--color-accent); font-weight: 500; }
 .post-kicker .dot { color: var(--color-border-bold); }
+/* A separator travels with the item after it, so a wrapped kicker never
+   ends a line on a stranded dot (design review 2026-10). */
+.kicker-pair { white-space: nowrap; }
 
 @container (max-width: 640px) {
   .entry {
@@ -1607,13 +1673,18 @@ div:has(> .post-card) {
 }
 
 /* ===== Polish Pass v3: external links, figures, abbr ===== */
-.prose a[href^="http"]:not([href*="williamzujkowski.github.io"])::after {
-  content: "↗";
-  font-size: 0.7em;
-  color: var(--color-muted);
-  margin-left: 0.15em;
-  vertical-align: super;
-  text-decoration: none;
+/* Screen only: this selector out-specifies zine.css's print rule
+   (`content: " (" attr(href) ")"`), so in print every external link
+   showed "↗" and the bibliography lost its URLs (DESIGN.md print). */
+@media screen {
+  .prose a[href^="http"]:not([href*="williamzujkowski.github.io"])::after {
+    content: "↗";
+    font-size: 0.7em;
+    color: var(--color-muted);
+    margin-left: 0.15em;
+    vertical-align: super;
+    text-decoration: none;
+  }
 }
 
 .prose figure { margin-block: var(--space-6); }
