@@ -50,6 +50,7 @@
   let previouslyFocused: HTMLElement | null = null;
   let dialogEl: HTMLDivElement;
   let resultsEl: HTMLUListElement;
+  let triggerEl: HTMLButtonElement;
   let moreEl: HTMLButtonElement;
   let retryEl: HTMLButtonElement;
   let overlayEl: HTMLDivElement;
@@ -197,8 +198,39 @@
     error = '';
     clearInert(inertedEls);
     inertedEls = [];
-    previouslyFocused?.focus();
+    // Opened by the Ctrl/⌘K shortcut, the "previous" element is <body>;
+    // land on the trigger instead of dropping focus to the document top.
+    const back = previouslyFocused && previouslyFocused !== document.body ? previouslyFocused : triggerEl;
+    back?.focus();
     previouslyFocused = null;
+  }
+
+  // Arrow keys move between the input and the results; Enter in the input
+  // opens the top hit (design review 2026-10: the first result was three
+  // Tabs away, behind Clear and Close).
+  function resultLinks(): HTMLAnchorElement[] {
+    return Array.from(resultsEl?.querySelectorAll<HTMLAnchorElement>('a.search-result-link') ?? []);
+  }
+  function onInputKeydown(e: KeyboardEvent) {
+    const links = resultLinks();
+    if (!links.length) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      links[0].focus();
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      links[0].click();
+    }
+  }
+  function onResultsKeydown(e: KeyboardEvent) {
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+    const links = resultLinks();
+    const i = links.indexOf(document.activeElement as HTMLAnchorElement);
+    if (i === -1) return;
+    e.preventDefault();
+    if (e.key === 'ArrowDown') links[Math.min(i + 1, links.length - 1)].focus();
+    else if (i === 0) inputEl?.focus();
+    else links[i - 1].focus();
   }
 
   async function open() {
@@ -265,6 +297,7 @@
 
 <!-- Search trigger button -->
 <button
+  bind:this={triggerEl}
   type="button"
   onclick={open}
   disabled={!ready}
@@ -312,6 +345,7 @@
           bind:this={inputEl}
           bind:value={query}
           oninput={(event) => { query = event.currentTarget.value; search(); }}
+          onkeydown={onInputKeydown}
           type="text"
           enterkeyhint="search"
           autocomplete="off"
@@ -328,7 +362,8 @@
       </div>
 
       {#if results.length > 0}
-        <ul bind:this={resultsEl} class="search-results">
+        <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+        <ul bind:this={resultsEl} class="search-results" onkeydown={onResultsKeydown}>
           {#each results as result (result.url)}
             <li>
               <a href={result.url} class="search-result-link" onclick={close}>
@@ -564,9 +599,11 @@
     color: var(--color-muted);
   }
 
-  /* Style Pagefind highlight marks */
-  :global(mark) {
-    background-color: var(--color-surface);
+  /* Pagefind highlight marks — scoped to excerpts (the old :global(mark)
+     restyled every <mark> on the site), and tinted from the accent: on the
+     surface-coloured dialog a surface-coloured mark was invisible. */
+  .search-result-excerpt :global(mark) {
+    background-color: color-mix(in oklch, var(--color-accent) 22%, transparent);
     color: var(--color-fg);
     border-radius: 2px;
     padding: 0 2px;
