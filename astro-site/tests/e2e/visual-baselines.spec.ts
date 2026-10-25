@@ -69,17 +69,19 @@ const STATES: Array<{ slug: string; init: () => void }> = [
     },
   },
   {
-    // Deck theme, dark family.
-    slug: 'deck-dracula',
+    // Deck palette, dark side.
+    slug: 'deck-tokyonight-dark',
     init: () => {
-      localStorage.setItem('themeDeck', 'dracula|dark');
+      localStorage.setItem('remarque-palette', 'tokyonight');
+      localStorage.setItem('theme', 'dark');
     },
   },
   {
-    // Deck theme, light family.
-    slug: 'deck-catppuccin-latte',
+    // Deck palette, light side.
+    slug: 'deck-catppuccin-light',
     init: () => {
-      localStorage.setItem('themeDeck', 'catppuccin-latte|light');
+      localStorage.setItem('remarque-palette', 'catppuccin');
+      localStorage.setItem('theme', 'light');
     },
   },
 ];

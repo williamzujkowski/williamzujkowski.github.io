@@ -1,74 +1,194 @@
 [
   {
-    "slug": "dracula",
-    "name": "Dracula",
+    "slug": "atom-one-light",
+    "name": "Atom One Light",
     "source": "iterm2-color-schemes",
-    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Dracula.json"
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Atom One Light.json"
   },
   {
-    "slug": "nord",
-    "name": "Nord",
+    "slug": "atom-one-dark",
+    "name": "Atom One Dark",
     "source": "iterm2-color-schemes",
-    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Nord.json"
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Atom One Dark.json"
   },
   {
-    "slug": "catppuccin-mocha",
-    "name": "Catppuccin Mocha",
+    "slug": "ayu-light",
+    "name": "Ayu Light",
     "source": "iterm2-color-schemes",
-    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Catppuccin%20Mocha.json"
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Ayu Light.json"
   },
   {
-    "slug": "tokyonight",
-    "name": "TokyoNight",
+    "slug": "ayu",
+    "name": "Ayu",
     "source": "iterm2-color-schemes",
-    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/TokyoNight.json"
-  },
-  {
-    "slug": "gruvbox-dark-hard",
-    "name": "Gruvbox Dark Hard",
-    "source": "iterm2-color-schemes",
-    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Gruvbox%20Dark%20Hard.json"
-  },
-  {
-    "slug": "kanagawa-wave",
-    "name": "Kanagawa Wave",
-    "source": "iterm2-color-schemes",
-    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Kanagawa%20Wave.json"
-  },
-  {
-    "slug": "rose-pine",
-    "name": "Rose Pine",
-    "source": "iterm2-color-schemes",
-    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Rose%20Pine.json"
-  },
-  {
-    "slug": "solarized-dark-higher-contrast",
-    "name": "Solarized Dark Higher Contrast",
-    "source": "iterm2-color-schemes",
-    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Solarized%20Dark%20Higher%20Contrast.json"
-  },
-  {
-    "slug": "github-light-default",
-    "name": "GitHub Light Default",
-    "source": "iterm2-color-schemes",
-    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/GitHub%20Light%20Default.json"
-  },
-  {
-    "slug": "gruvbox-light-hard",
-    "name": "Gruvbox Light Hard",
-    "source": "iterm2-color-schemes",
-    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Gruvbox%20Light%20Hard.json"
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Ayu.json"
   },
   {
     "slug": "catppuccin-latte",
     "name": "Catppuccin Latte",
     "source": "iterm2-color-schemes",
-    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Catppuccin%20Latte.json"
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Catppuccin Latte.json"
+  },
+  {
+    "slug": "catppuccin-mocha",
+    "name": "Catppuccin Mocha",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Catppuccin Mocha.json"
+  },
+  {
+    "slug": "github",
+    "name": "GitHub",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/GitHub.json"
+  },
+  {
+    "slug": "github-dark",
+    "name": "GitHub Dark",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/GitHub Dark.json"
+  },
+  {
+    "slug": "gruvbox-light",
+    "name": "Gruvbox Light",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Gruvbox Light.json"
+  },
+  {
+    "slug": "gruvbox-dark",
+    "name": "Gruvbox Dark",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Gruvbox Dark.json"
+  },
+  {
+    "slug": "gruvbox-material-light",
+    "name": "Gruvbox Material Light",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Gruvbox Material Light.json"
+  },
+  {
+    "slug": "gruvbox-material-dark",
+    "name": "Gruvbox Material Dark",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Gruvbox Material Dark.json"
+  },
+  {
+    "slug": "iceberg-light",
+    "name": "Iceberg Light",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Iceberg Light.json"
+  },
+  {
+    "slug": "iceberg-dark",
+    "name": "Iceberg Dark",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Iceberg Dark.json"
+  },
+  {
+    "slug": "material",
+    "name": "Material",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Material.json"
+  },
+  {
+    "slug": "material-dark",
+    "name": "Material Dark",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Material Dark.json"
+  },
+  {
+    "slug": "monokai-pro-light",
+    "name": "Monokai Pro Light",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Monokai Pro Light.json"
+  },
+  {
+    "slug": "monokai-pro",
+    "name": "Monokai Pro",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Monokai Pro.json"
   },
   {
     "slug": "nord-light",
     "name": "Nord Light",
     "source": "iterm2-color-schemes",
-    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Nord%20Light.json"
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Nord Light.json"
+  },
+  {
+    "slug": "nord",
+    "name": "Nord",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Nord.json"
+  },
+  {
+    "slug": "one-half-light",
+    "name": "One Half Light",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/One Half Light.json"
+  },
+  {
+    "slug": "one-half-dark",
+    "name": "One Half Dark",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/One Half Dark.json"
+  },
+  {
+    "slug": "rose-pine-dawn",
+    "name": "Rose Pine Dawn",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Rose Pine Dawn.json"
+  },
+  {
+    "slug": "rose-pine",
+    "name": "Rose Pine",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Rose Pine.json"
+  },
+  {
+    "slug": "iterm2-solarized-light",
+    "name": "iTerm2 Solarized Light",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/iTerm2 Solarized Light.json"
+  },
+  {
+    "slug": "iterm2-solarized-dark",
+    "name": "iTerm2 Solarized Dark",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/iTerm2 Solarized Dark.json"
+  },
+  {
+    "slug": "tokyonight-day",
+    "name": "TokyoNight Day",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/TokyoNight Day.json"
+  },
+  {
+    "slug": "tokyonight",
+    "name": "TokyoNight",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/TokyoNight.json"
+  },
+  {
+    "slug": "tomorrow",
+    "name": "Tomorrow",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Tomorrow.json"
+  },
+  {
+    "slug": "tomorrow-night",
+    "name": "Tomorrow Night",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Tomorrow Night.json"
+  },
+  {
+    "slug": "kanagawa-lotus",
+    "name": "Kanagawa Lotus",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Kanagawa Lotus.json"
+  },
+  {
+    "slug": "kanagawa-wave",
+    "name": "Kanagawa Wave",
+    "source": "iterm2-color-schemes",
+    "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/450b05ea0962456b424e5736aed0bec7fd147f28/windowsterminal/Kanagawa Wave.json"
   }
 ]

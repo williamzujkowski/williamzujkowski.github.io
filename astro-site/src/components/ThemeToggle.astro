@@ -25,7 +25,6 @@
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
   </svg>
 </button>
-<span id="theme-toggle-deck-note" class="sr-only">Also resets to the default palette.</span>
 
 <style>
   .theme-toggle {
@@ -91,8 +90,6 @@
     }
 
     function isDark() {
-      const root = document.documentElement;
-      if (root.hasAttribute('data-theme-deck')) return root.classList.contains('dark');
       const t = storedTheme();
       if (t === 'dark') return true;
       if (t === 'light') return false;
@@ -109,7 +106,14 @@
     function syncThemeColor() {
       const metas = document.querySelectorAll('meta[name="theme-color"]');
       if (!metas.length) return;
-      const bg = getComputedStyle(document.body).getPropertyValue('--color-bg').trim();
+      // Resolve through a probe, not the token text: a deck palette's
+      // --color-bg is light-dark(...), which only the cascade resolves (and
+      // a transition-free probe never reads a mid-crossfade value).
+      const probe = document.createElement('div');
+      probe.style.cssText = 'position:absolute;visibility:hidden;transition:none;background-color:var(--color-bg)';
+      document.body.appendChild(probe);
+      const bg = getComputedStyle(probe).backgroundColor;
+      probe.remove();
       const ctx = bg && document.createElement('canvas').getContext('2d');
       if (!ctx) return;
       const sentinel = '#010203';
@@ -132,30 +136,6 @@
       const dark = isDark();
       const t = storedTheme();
 
-      // When a deck theme is active it OWNS the mode class: BaseLayout's head
-      // script sets data-theme-deck plus dark/light from the stored
-      // "<slug>|<mode>" value, and applyDeck() never writes localStorage.theme.
-      // This script runs afterwards, so unconditionally rewriting the class
-      // from localStorage.theme wiped it — leaving the toggle showing the sun
-      // ("switch to dark") on a page rendering a dark palette, and silently
-      // breaking anything keyed on :root.dark. Issue #500.
-      if (root.hasAttribute('data-theme-deck')) {
-        const btnDeck = document.getElementById('theme-toggle');
-        if (btnDeck) {
-          btnDeck.setAttribute(
-            'aria-label',
-            root.classList.contains('dark') ? 'Switch to light theme' : 'Switch to dark theme',
-          );
-          // The toggle exits the deck (see toggle()), so say so — the reset
-          // used to happen silently (design review 2026-10, J-04). The name
-          // stays exact (theme-deck.spec pins it); the consequence goes in
-          // a description and a tooltip.
-          btnDeck.setAttribute('title', 'Also resets to the default palette');
-          btnDeck.setAttribute('aria-describedby', 'theme-toggle-deck-note');
-        }
-        return;
-      }
-
       root.classList.remove('dark', 'light');
       if (t === 'dark') root.classList.add('dark');
       else if (t === 'light') root.classList.add('light');
@@ -165,7 +145,6 @@
       if (btn) {
         btn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
         btn.setAttribute('title', 'Toggle theme');
-        btn.removeAttribute('aria-describedby');
       }
     }
 
@@ -186,17 +165,10 @@
     }
 
     function toggle(e) {
-      // Toggle the palette the reader sees, before clearing its deck state.
+      // A deck palette (data-palette) is paired: it follows this toggle
+      // through light-dark(), so toggling never has to exit it.
       const dark = isDark();
       triggerCrossfade();
-
-      // The base toggle always exits any active deck theme — the two systems
-      // never fight over the root classes.
-      if (document.documentElement.hasAttribute('data-theme-deck')) {
-        document.documentElement.removeAttribute('data-theme-deck');
-        try { localStorage.removeItem('themeDeck'); } catch { /* no persistence */ }
-        document.dispatchEvent(new CustomEvent('theme-deck-cleared'));
-      }
 
       // Shift+click resets to system/OS preference
       if (e.shiftKey) {
@@ -211,7 +183,8 @@
 
     function init() {
       applyTheme();
-      document.addEventListener('theme-deck-changed', applyTheme);
+      // A palette pick changes --color-bg: keep the theme-color metas in step.
+      document.addEventListener('remarque-palette-changed', applyTheme);
       // CSS follows OS changes immediately; keep the action label alongside it.
       const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
       if (systemTheme.addEventListener) systemTheme.addEventListener('change', applyTheme);

@@ -37,10 +37,11 @@
  *  1. Serve `dist/` with a throwaway static file server (no `astro preview`
  *     dependency — keeps this script self-contained and fast).
  *  2. For each theme scenario — default light, default dark, and the worst
- *     (lowest base fg/bg contrast) light + dark deck themes, computed live
- *     from src/data/theme-deck.json so this stays correct as themes are
- *     added/removed — force it via localStorage (same mechanism
- *     tests/e2e/theme-deck.spec.ts uses) and load the homepage.
+ *     (lowest base fg/bg contrast) deck palette in light and in dark mode,
+ *     computed live from public/palettes/deck.json (remarque-deck's
+ *     manifest; every palette is a light/dark pair) so this stays correct
+ *     as palettes are added/removed — force it via localStorage (same
+ *     mechanism tests/e2e/theme-deck.spec.ts uses) and load the homepage.
  *  3. Resolve the *theoretical* (token) fg/border colors for a few real
  *     grained-surface targets via getComputedStyle (including the
  *     `::after` wobble-rule pseudo) — this is exact, browser-resolved OKLCH
@@ -81,7 +82,7 @@ import { chromium } from 'playwright';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const distDir = resolve(here, '../dist');
-const themeDeckPath = resolve(here, '../src/data/theme-deck.json');
+const themeDeckPath = resolve(here, '../public/palettes/deck.json');
 
 const PORT = 4319;
 
@@ -98,16 +99,16 @@ function parseOklch(str) {
   return [parseFloat(m[1]), parseFloat(m[2]), parseFloat(m[3])];
 }
 
-function pickWorstDeckThemes(deckThemes) {
-  const ranked = deckThemes.map((t) => {
-    const bg = oklchToSrgb255(...parseOklch(t.tokens['--color-bg']));
-    const fg = oklchToSrgb255(...parseOklch(t.tokens['--color-fg']));
-    const ratio = contrastFromLum(relLum255(fg), relLum255(bg));
-    return { slug: t.slug, isDark: t.isDark, ratio };
-  });
-  const worstLight = ranked.filter((t) => !t.isDark).sort((a, b) => a.ratio - b.ratio)[0];
-  const worstDark = ranked.filter((t) => t.isDark).sort((a, b) => a.ratio - b.ratio)[0];
-  return { worstLight, worstDark };
+function pickWorstDeckThemes(manifest) {
+  const worst = (mode) =>
+    manifest.palettes
+      .map((p) => {
+        const bg = oklchToSrgb255(...parseOklch(p.swatches[mode].bg));
+        const fg = oklchToSrgb255(...parseOklch(p.swatches[mode].fg));
+        return { slug: p.name, ratio: contrastFromLum(relLum255(fg), relLum255(bg)) };
+      })
+      .sort((a, b) => a.ratio - b.ratio)[0];
+  return { worstLight: worst('light'), worstDark: worst('dark') };
 }
 
 // ---------------------------------------------------------------------------
@@ -327,8 +328,8 @@ async function measureTheme(page, theme) {
   await page.addInitScript(
     ({ mode, deck }) => {
       try {
-        if (deck) localStorage.setItem('themeDeck', `${deck}|${mode}`);
-        else localStorage.setItem('theme', mode);
+        if (deck) localStorage.setItem('remarque-palette', deck);
+        localStorage.setItem('theme', mode);
       } catch {
         /* storage blocked — theme falls back to CSS media query */
       }

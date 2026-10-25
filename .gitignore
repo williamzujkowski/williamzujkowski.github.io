@@ -82,3 +82,4 @@ docs/research/registry/
 !scripts/security-labs/memory-recovery/runs/
 scripts/security-labs/memory-recovery/runs/*
 !scripts/security-labs/memory-recovery/runs/2026-09-08/
+astro-site/public/palettes/
