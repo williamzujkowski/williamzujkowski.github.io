@@ -58,7 +58,11 @@ for (const width of RAIL_WIDTHS) {
         // applied rather than the narrow-viewport in-flow fallback
         // rendering by luck.
         const float = await sidenote.evaluate((el) => getComputedStyle(el).float);
-        expect(float, `sidenote #${i} should be float:left`).toBe('left');
+        // remarque-tokens 0.28+ floats sidenotes to the logical
+        // inline-start (so RTL mirrors them, remarque#123); in this LTR
+        // page that is the left margin, which the geometry checks below
+        // still pin down.
+        expect(['left', 'inline-start'], `sidenote #${i} should float to the inline-start (left) margin`).toContain(float);
 
         const noteBox = await sidenote.boundingBox();
         expect(noteBox, `sidenote #${i} should have a bounding box`).not.toBeNull();
