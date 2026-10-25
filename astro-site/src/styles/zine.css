@@ -2,8 +2,7 @@
  * Design-review ratified (7-0): geometry + masks + scoped texture only;
  * body typography untouched; every color derives from theme tokens so all
  * palettes keep working (the site's light/dark pair and every deck pair).
- * Load order: global.css -> zine.css; the theme deck (public/palettes/deck.css)
- * is a separate <link> whose [data-palette] scope outranks both.
+ * Load order: global.css -> zine.css; the deck (palettes/deck.css) outranks both.
  */
 
 /* ---------- shared ingredients ---------------------------------------- */
