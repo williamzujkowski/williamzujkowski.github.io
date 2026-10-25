@@ -36,8 +36,8 @@ importers:
         specifier: ^15.0.3
         version: 15.0.3
       remarque-tokens:
-        specifier: ^0.27.0
-        version: 0.27.0
+        specifier: ^0.31.1
+        version: 0.31.1
       sanitize-html:
         specifier: ^2.18.1
         version: 2.18.1
@@ -2637,9 +2637,9 @@ packages:
   remark-stringify@11.0.0:
     resolution: {integrity: sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw==}
 
-  remarque-tokens@0.27.0:
-    resolution: {integrity: sha512-xsvxRK9ulTzHFNrDa0JpshxoJpojRH2tq0SJhg5kW8Xii98RQY2JMPOvUysr3M4oivgzB3cpnjKtscXT6hTinQ==}
-    engines: {node: '>=18'}
+  remarque-tokens@0.31.1:
+    resolution: {integrity: sha512-8Udh5zq3IN9qBxXclQ/cBsC11++5CxmXVYrNdnDQIs1dULJpadjS4Zv14/BmvIOFZr4/HTezmtWPDOh9LeWK4A==}
+    engines: {node: '>=22'}
     hasBin: true
     peerDependencies:
       '@williamzujkowski/oklch-terminal-themes': '>=0.1.0 <1.0.0'
@@ -6119,7 +6119,7 @@ snapshots:
       mdast-util-to-markdown: 2.1.2
       unified: 11.0.5
 
-  remarque-tokens@0.27.0: {}
+  remarque-tokens@0.31.1: {}
 
   request-light@0.5.8: {}
 

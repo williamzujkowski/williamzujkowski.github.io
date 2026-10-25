@@ -2,7 +2,7 @@
   "name": "williamzujkowski-site",
   "type": "module",
   "version": "2.0.0",
-  "description": "Personal website of William Zujkowski \u2014 Astro 7 + Svelte 5",
+  "description": "Personal website of William Zujkowski — Astro 7 + Svelte 5",
   "author": "William Zujkowski",
   "license": "MIT",
   "scripts": {
@@ -34,7 +34,7 @@
     "astro": "^7.4.0",
     "cookie": "^2.0.1",
     "markdown-it": "^15.0.3",
-    "remarque-tokens": "^0.27.0",
+    "remarque-tokens": "^0.31.1",
     "sanitize-html": "^2.18.1",
     "satori": "^0.62.0",
     "svelte": "^5.57.2",

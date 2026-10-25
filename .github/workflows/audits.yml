@@ -126,7 +126,7 @@ jobs:
   token-drift:
     needs: changes
     if: needs.changes.outputs.site == 'true'
-    uses: williamzujkowski/remarque/.github/workflows/token-drift.yml@884097065893dfa2c755935cf85fe63660e18c69  # main @ 2026-07-24
+    uses: williamzujkowski/remarque/.github/workflows/token-drift.yml@cbfcbc59c084197a057a8467a2884cc5896a4b6e  # v0.31.1
     permissions:
       contents: read
     with:
