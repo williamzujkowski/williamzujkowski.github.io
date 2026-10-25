@@ -1,6 +1,5 @@
 ---
 import '@/styles/global.css';
-import '@/styles/theme-deck.css'; // must follow global.css: deck tokens override Remarque defaults
 import '@/styles/zine.css'; // zine marginalia layer — last, decorates both
 import { Font } from 'astro:assets';
 import { SECTIONS, SITE_CONFIG } from '@/lib/siteConfig';
@@ -247,19 +246,35 @@ function isActiveLink(linkHref: string): boolean {
     {/* eslint-disable-next-line astro/no-set-html-directive */}
     {jsonLdSchemas.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />)}
 
-    <!-- Theme: apply saved preference before first paint to prevent flash.
-         A saved deck theme ("slug|mode") wins over the plain dark/light pref. -->
+    <!-- Theme deck (remarque-tokens 0.31 + oklch-terminal-themes): every
+         palette in one stylesheet built by scripts/build-palette-deck.mjs.
+         Each is inert ([data-palette]-scoped) until chosen and follows the
+         light/dark toggle; :root:root[data-palette] outranks global.css. -->
+    <link rel="stylesheet" href="/palettes/deck.css" />
+
+    <!-- Theme + palette: apply saved preferences before first paint. The
+         light/dark mode and the deck palette are independent now (palettes
+         are paired), so both restore side by side. Readers of the old
+         12-theme deck ("themeDeck" = "slug|mode") are migrated once: the
+         slug maps to its paired palette (Dracula has no light theme in the
+         dataset, so it falls back to the default) and the mode it forced
+         becomes their light/dark preference, so nothing changes for them. -->
     <script is:inline>
       (function() {
         try {
           const root = document.documentElement;
-          const deck = localStorage.getItem('themeDeck');
-          if (deck && deck.indexOf('|') > 0) {
-            const parts = deck.split('|');
-            root.setAttribute('data-theme-deck', parts[0]);
-            root.classList.add(parts[1] === 'dark' ? 'dark' : 'light');
-            return;
+          const legacy = localStorage.getItem('themeDeck');
+          if (legacy) {
+            const parts = legacy.split('|');
+            const map = { nord: 'nord', 'nord-light': 'nord', 'catppuccin-mocha': 'catppuccin', 'catppuccin-latte': 'catppuccin',
+              tokyonight: 'tokyonight', 'gruvbox-dark-hard': 'gruvbox', 'gruvbox-light-hard': 'gruvbox', 'kanagawa-wave': 'kanagawa',
+              'rose-pine': 'rose-pine', 'solarized-dark-higher-contrast': 'solarized', 'github-light-default': 'github' };
+            if (map[parts[0]]) localStorage.setItem('remarque-palette', map[parts[0]]);
+            if ((parts[1] === 'dark' || parts[1] === 'light') && !localStorage.theme) localStorage.theme = parts[1];
+            localStorage.removeItem('themeDeck');
           }
+          const p = localStorage.getItem('remarque-palette');
+          if (p) root.setAttribute('data-palette', p);
           const t = localStorage.theme;
           if (t === 'dark') root.classList.add('dark');
           else if (t === 'light') root.classList.add('light');

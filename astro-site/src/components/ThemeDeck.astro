@@ -1,16 +1,20 @@
 ---
-// Theme deck — reader-selectable terminal color schemes for the whole site.
-// Powered by the curated subset of williamzujkowski/oklch-terminal-themes;
-// token values are generated + contrast-validated by scripts/theme-deck/.
-import themes from '@/data/theme-deck.json';
+// Theme deck: reader-selectable terminal palettes for the whole site, built
+// by remarque-deck (remarque-tokens 0.31+) from @williamzujkowski/oklch-
+// terminal-themes into public/palettes/ (scripts/build-palette-deck.mjs).
+// Every palette is a light/dark PAIR that follows the theme toggle; the
+// site's own palette ("Field Notes") stays the default. Native radio inputs
+// (remarque's deck-picker contract); remarque-tokens/deck applies the pick.
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 interface Props {
   variant?: 'footer' | 'header';
 }
 const { variant = 'footer' } = Astro.props;
 
-const darkThemes = themes.filter((t) => t.isDark);
-const lightThemes = themes.filter((t) => !t.isDark);
+const manifest = JSON.parse(readFileSync(join(process.cwd(), 'public', 'palettes', 'deck.json'), 'utf8'));
+const palettes: { name: string; label: string }[] = manifest.palettes;
 ---
 
 <details class={`theme-deck theme-deck--${variant}`} id="theme-deck">
@@ -26,61 +30,31 @@ const lightThemes = themes.filter((t) => !t.isDark);
       ) : (
         <>
           <span class="deck-label">Terminal theme</span>
-          <span class="deck-current" id="theme-deck-current">Remarque</span>
+          <span class="deck-current" data-deck-current>Field Notes</span>
         </>
       )
     }
   </summary>
 
-  <div class="deck-panel" role="radiogroup" aria-label="Site color theme">
-    <button type="button" class="deck-option" role="radio" aria-checked="true" data-deck-slug="">
-      {/* Literals, deliberately: this row depicts the Remarque palette itself,
-          which must not repaint when another deck theme is active. */}
-      <span class="deck-swatches" aria-hidden="true">
-        <span class="deck-chip" style="background: oklch(0.95 0.015 75) /* allow-raw-color */"></span>
-        <span class="deck-chip" style="background: oklch(0.48 0.15 140) /* allow-raw-color */"></span>
-        <span class="deck-chip" style="background: oklch(0.55 0.14 75) /* allow-raw-color */"></span>
-        <span class="deck-chip" style="background: oklch(0.18 0.04 25) /* allow-raw-color */"></span>
-      </span>
-      <span class="deck-name">Remarque <span class="deck-tag">default</span></span>
-    </button>
-
-    {
-      [
-        { group: 'Dark', list: darkThemes },
-        { group: 'Light', list: lightThemes },
-      ].map(({ group, list }) => (
-        <>
-          <p class="deck-group">{group}</p>
-          {list.map((t) => (
-            <button
-              type="button"
-              class="deck-option"
-              role="radio"
-              aria-checked="false"
-              data-deck-slug={t.slug}
-              data-deck-dark={t.isDark ? 'true' : 'false'}
-              data-deck-name={t.name}
-            >
-              <span class="deck-swatches" aria-hidden="true">
-                <span class="deck-chip" style={`background: ${t.swatches.bg}`} />
-                {t.swatches.ansi.slice(1, 7).map((c) => (
-                  <span class="deck-chip" style={`background: ${c}`} />
-                ))}
-                <span class="deck-chip" style={`background: ${t.swatches.fg}`} />
-              </span>
-              <span class="deck-name">{t.name}</span>
-            </button>
-          ))}
-        </>
-      ))
-    }
-
+  <fieldset class="deck-panel">
+    <legend class="sr-only">Site color theme</legend>
+    <label class="deck-option">
+      <input type="radio" name="remarque-palette" value="" checked />
+      <span class="deck-swatches" data-palette-swatch="default" aria-hidden="true"><span class="deck-chip"></span><span class="deck-chip"></span><span class="deck-chip"></span></span>
+      <span class="deck-name">Field Notes <span class="deck-tag">default</span></span>
+    </label>
+    {palettes.map((p) => (
+      <label class="deck-option">
+        <input type="radio" name="remarque-palette" value={p.name} />
+        <span class="deck-swatches" data-palette-swatch={p.name} aria-hidden="true"><span class="deck-chip"></span><span class="deck-chip"></span><span class="deck-chip"></span></span>
+        <span class="deck-name">{p.label}</span>
+      </label>
+    ))}
     <p class="deck-credit">
       Palettes from <a href="https://github.com/williamzujkowski/oklch-terminal-themes">oklch&#8209;terminal&#8209;themes</a>
-      (<a href="/about/#theme-credits">credits</a>)
+      (<a href="/about/#theme-credits">credits</a>) · each follows light/dark
     </p>
-  </div>
+  </fieldset>
 </details>
 
 <style>
@@ -107,6 +81,7 @@ const lightThemes = themes.filter((t) => !t.isDark);
   .deck-current { color: var(--color-accent); }
 
   .deck-panel {
+    min-inline-size: 0; /* a <fieldset> defaults to min-content width */
     margin-top: 0.5rem;
     margin-inline: auto; /* footer centers text; center the panel box too */
     border: 1px solid var(--color-border);
@@ -116,14 +91,9 @@ const lightThemes = themes.filter((t) => !t.isDark);
     text-align: left; /* ...but the rows themselves read left-to-right */
   }
 
-  .deck-group {
-    margin: 0.5rem 0 0.15rem;
-    color: var(--color-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
 
   .deck-option {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0.75ch;
@@ -141,13 +111,34 @@ const lightThemes = themes.filter((t) => !t.isDark);
     text-align: left;
   }
   .deck-option:hover { background: var(--color-bg-subtle); color: var(--color-fg); }
-  .deck-option[aria-checked='true'] { color: var(--color-fg); }
-  .deck-option[aria-checked='true'] .deck-name::after {
+  .deck-option:has(input:checked) { color: var(--color-fg); }
+  .deck-option:has(input:checked) .deck-name::after {
     content: ' ✓';
     color: var(--color-accent);
   }
 
+  /* The radio stays a real, focusable input (keyboard and screen readers
+     get native radio-group behavior); the ✓ and the row color show the
+     choice, so the dot itself is visually hidden. */
+  .deck-option input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .deck-option:has(input:focus-visible) {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: -2px;
+  }
+
   .deck-swatches { display: inline-flex; gap: 2px; flex: none; }
+  /* Colors come from deck.css ([data-palette-swatch], light-dark()), so a
+     row shows its own palette in the current mode and never repaints. */
+  .deck-swatches > :nth-child(1) { background: var(--swatch-bg); }
+  .deck-swatches > :nth-child(2) { background: var(--swatch-fg); }
+  .deck-swatches > :nth-child(3) { background: var(--swatch-accent); }
   .deck-chip {
     width: 0.7rem;
     height: 0.7rem;
@@ -222,148 +213,50 @@ const lightThemes = themes.filter((t) => !t.isDark);
   }
 </style>
 
-<script is:inline>
-  (function () {
-    const DECK_KEY = 'themeDeck';
+<script define:vars={{ names: palettes.map((p) => p.name), labels: Object.fromEntries(palettes.map((p) => [p.name, p.label])) }}>
+  window.__themeDeck = { names, labels };
+</script>
+<script>
+  import { createDeck, bindPicker } from 'remarque-tokens/deck';
 
-    // localStorage can throw (blocked cookies, some private modes) — the
-    // picker must keep working without persistence.
-    function storageGet(key) {
-      try { return localStorage.getItem(key); } catch { return null; }
-    }
-    function storageSet(key, value) {
-      try { localStorage.setItem(key, value); } catch { /* no persistence */ }
-    }
-    function storageRemove(key) {
-      try { localStorage.removeItem(key); } catch { /* no persistence */ }
-    }
+  const { names, labels } = (window as unknown as { __themeDeck: { names: string[]; labels: Record<string, string> } }).__themeDeck;
+  const picker = document.getElementById('theme-deck') as HTMLDetailsElement | null;
 
-    // Theme crossfade (issue #274 item 3) — armed ONLY on a deliberate deck
-    // pick, never at first paint or the localStorage-restore path (the head
-    // script in BaseLayout.astro never touches this class). Mirrors
-    // ThemeToggle.astro's helper of the same name; duplicated rather than
-    // shared because both scripts are `is:inline` (no module bundling).
-    function triggerCrossfade() {
-      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const root = document.documentElement;
-      // Single pending cleanup: rapid switches must not strip the class early.
-      if (window.__themeFadeT) clearTimeout(window.__themeFadeT);
-      root.classList.add('theme-transition');
-      void root.offsetHeight; // force reflow: arm the transition before classes below change color tokens
-      window.__themeFadeT = window.setTimeout(function () { root.classList.remove('theme-transition'); }, 250);
-    }
+  // Theme crossfade (issue #274 item 3): armed only on a deliberate pick,
+  // never at first paint (the head script never touches this class).
+  // Mirrors ThemeToggle.astro's helper of the same name.
+  function triggerCrossfade() {
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    const root = document.documentElement;
+    const w = window as unknown as { __themeFadeT?: number };
+    if (w.__themeFadeT) clearTimeout(w.__themeFadeT);
+    root.classList.add('theme-transition');
+    void root.offsetHeight;
+    w.__themeFadeT = window.setTimeout(() => root.classList.remove('theme-transition'), 250);
+  }
 
-    function applyDeck(slug, isDark) {
-      triggerCrossfade();
-      const root = document.documentElement;
-      if (slug) {
-        root.setAttribute('data-theme-deck', slug);
-        // A deck theme is a complete palette: pin the base mode to match so
-        // every mode-conditional style (icons, shiki, color-scheme) agrees.
-        root.classList.remove('dark', 'light');
-        root.classList.add(isDark ? 'dark' : 'light');
-        // Value is "slug|mode" so the before-paint head script can restore
-        // both without shipping any theme data.
-        storageSet(DECK_KEY, slug + '|' + (isDark ? 'dark' : 'light'));
-      } else {
-        root.removeAttribute('data-theme-deck');
-        storageRemove(DECK_KEY);
-      }
-      // Sync from the value just applied, not a storage round-trip — the UI
-      // must match the DOM even when persistence is unavailable.
-      syncUi(slug || '');
-      // Keep the base toggle's action label and restored mode in sync.
-      document.dispatchEvent(new CustomEvent('theme-deck-changed'));
-    }
-
-    function syncUi(active) {
-      if (active === undefined) {
-        active = (storageGet(DECK_KEY) || '').split('|')[0];
-      }
-      const current = document.getElementById('theme-deck-current');
-      let activeName = 'Remarque';
-      document.querySelectorAll('.deck-option').forEach(function (btn) {
-        const checked = (btn.getAttribute('data-deck-slug') || '') === active;
-        btn.setAttribute('aria-checked', checked ? 'true' : 'false');
-        // Roving tabindex per the ARIA radio-group pattern: one Tab stop.
-        btn.setAttribute('tabindex', checked ? '0' : '-1');
-        if (checked && btn.getAttribute('data-deck-name')) {
-          activeName = btn.getAttribute('data-deck-name');
-        }
-      });
-      if (current) current.textContent = activeName;
-    }
-
-    const options = Array.prototype.slice.call(document.querySelectorAll('.deck-option'));
-    options.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        applyDeck(
-          btn.getAttribute('data-deck-slug') || null,
-          btn.getAttribute('data-deck-dark') === 'true'
-        );
-      });
+  if (picker) {
+    const current = picker.querySelector('[data-deck-current]');
+    // Registered before bindPicker's own listeners, so the fade arms first.
+    picker.querySelectorAll('input[type="radio"]').forEach((r) => r.addEventListener('change', triggerCrossfade));
+    const deck = createDeck(names);
+    deck.restore();
+    bindPicker(deck, picker, {
+      onChange(name: string | null) {
+        if (current) current.textContent = name ? labels[name] : 'Field Notes';
+        document.dispatchEvent(new CustomEvent('remarque-palette-changed'));
+      },
     });
 
-    const panel = document.querySelector('.deck-panel');
-    if (panel) {
-      panel.addEventListener('keydown', function (e) {
-        const delta = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
-        if (!delta) return;
-        const i = options.indexOf(document.activeElement);
-        if (i === -1) return;
-        e.preventDefault();
-        const next = options[(i + delta + options.length) % options.length];
-        next.focus();
-        next.click(); // arrow moves selection, matching native radio behavior
-      });
-    }
-
     // Header popover manners: close on outside click or Escape.
-    const deck = document.getElementById('theme-deck');
-    if (deck) {
-      document.addEventListener('click', function (e) {
-        if (deck.open && !deck.contains(e.target)) deck.open = false;
-      });
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && deck.open) {
-          deck.open = false;
-          deck.querySelector('summary').focus();
-        }
-      });
-    }
-
-    // Validate the stored slug on startup. Nothing did this before, so a
-    // stale or hand-edited themeDeck value left data-theme-deck naming a deck
-    // that no CSS rule matches, WITH its mode class applied — a dark class
-    // over the default light palette.
-    //
-    // It stayed invisible only because ThemeToggle's applyTheme() used to
-    // strip the mode class unconditionally on every load, which is the bug
-    // fixed in #500 (it also wiped the class for VALID decks). With that
-    // fixed, the invalid-deck state has to be cleaned up at its source.
-    //
-    // Clearing restores the mode class from the base theme rather than just
-    // dropping the attribute — the old reset path left the class behind,
-    // which is why returning to Remarque gave a different mode before and
-    // after a reload.
-    (function validateStoredDeck() {
-      const root = document.documentElement;
-      const slug = (storageGet(DECK_KEY) || '').split('|')[0];
-      if (!slug) return;
-      const known = document.querySelector('.deck-option[data-deck-slug="' + slug + '"]');
-      if (known) return;
-
-      root.removeAttribute('data-theme-deck');
-      storageRemove(DECK_KEY);
-      root.classList.remove('dark', 'light');
-      let base = null;
-      try { base = localStorage.getItem('theme'); } catch { /* no persistence */ }
-      if (base === 'dark') root.classList.add('dark');
-      else if (base === 'light') root.classList.add('light');
-      // else: no stored preference — the CSS @media query decides.
-    })();
-
-    document.addEventListener('theme-deck-cleared', function () { syncUi(''); });
-    syncUi();
-  })();
+    document.addEventListener('click', (e) => {
+      if (picker.open && !picker.contains(e.target as Node)) picker.open = false;
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && picker.open) {
+        picker.open = false;
+        picker.querySelector('summary')?.focus();
+      }
+    });
+  }
 </script>

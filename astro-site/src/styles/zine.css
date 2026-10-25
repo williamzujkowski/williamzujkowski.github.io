@@ -1,8 +1,9 @@
 /* Zine marginalia layer — hand-drawn accents over the Remarque system.
  * Design-review ratified (7-0): geometry + masks + scoped texture only;
  * body typography untouched; every color derives from theme tokens so all
- * 14 palettes (light, dark, 12 terminal themes) keep working.
- * Load order: global.css -> theme-deck.css -> zine.css.
+ * palettes keep working (the site's light/dark pair and every deck pair).
+ * Load order: global.css -> zine.css; the theme deck (public/palettes/deck.css)
+ * is a separate <link> whose [data-palette] scope outranks both.
  */
 
 /* ---------- shared ingredients ---------------------------------------- */

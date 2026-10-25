@@ -1795,7 +1795,7 @@ h1, h2, h3, .post-card-title {
  * paint or a localStorage restore (the anti-FOUC script in
  * BaseLayout.astro's <head> must keep painting the stored theme
  * instantly, with no transition class involved). ThemeToggle.astro's
- * toggle() and ThemeDeck.astro's applyDeck() add `.theme-transition` to
+ * toggle() and ThemeDeck.astro's palette pick add `.theme-transition` to
  * <html> right before the token-consuming classes change, force a
  * reflow so the transition is armed first, then remove it ~250ms later.
  *

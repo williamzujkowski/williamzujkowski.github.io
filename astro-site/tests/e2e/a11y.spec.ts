@@ -94,18 +94,19 @@ for (const { path, name } of PAGES) {
 
 // The flow captions sit on surface, where Latte's muted text fell below 4.5:1.
 for (const [deck, mode, width] of [
-  ['catppuccin-latte', 'light', 1440],
-  ['dracula', 'dark', 390],
+  ['catppuccin', 'light', 1440],
+  ['tokyonight', 'dark', 390],
 ] as const) {
-  test(`DoH flow and checklist — ${deck}`, async ({ page }) => {
+  test(`DoH flow and checklist — ${deck} ${mode}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.addInitScript(({ deck, mode }) => {
-      localStorage.setItem('themeDeck', `${deck}|${mode}`);
+      localStorage.setItem('remarque-palette', deck);
+      localStorage.setItem('theme', mode);
     }, { deck, mode });
     const path = '/posts/2025-07-08-implementing-dns-over-https-home-networks/';
     const response = await page.goto(path);
     await assertPageIsLive(page, response, path);
-    await expect(page.locator('html')).toHaveAttribute('data-theme-deck', deck);
+    await expect(page.locator('html')).toHaveAttribute('data-palette', deck);
     await expect(page.getByRole('group', {
       name: 'Pi-hole upstream DNS path; HTTPS begins at the local proxy',
     })).toBeVisible();

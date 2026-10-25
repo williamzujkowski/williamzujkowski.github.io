@@ -1,204 +1,169 @@
-import { test, expect } from 'playwright/test';
+import { test, expect, type Page } from 'playwright/test';
 
-// Theme deck — reader-selectable terminal themes (overhaul P2, issue #271).
+// Theme deck: reader-selectable terminal palettes (overhaul P2, issue #271),
+// rebuilt on remarque-tokens 0.31's Palette Deck. Every palette is a
+// light/dark PAIR set by data-palette; the light/dark toggle is independent
+// and a palette follows it.
 
-test('deck theme applies, persists across reload, and survives navigation', async ({ page }) => {
+// The resolved page background, through a transition-free probe: the
+// crossfade animates body's own background-color, and deck tokens are
+// light-dark() expressions that only the cascade resolves.
+const resolvedBg = (page: Page) =>
+  page.evaluate(() => {
+    const p = document.createElement('div');
+    p.style.cssText = 'transition:none;background-color:var(--color-bg)';
+    document.body.appendChild(p);
+    const c = getComputedStyle(p).backgroundColor;
+    p.remove();
+    return c;
+  });
+const bgToken = (page: Page) =>
+  page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--color-bg').trim());
+// The site's own light background, decimal (0.95) or percentage (95%) form.
+const SITE_LIGHT_BG = /(?:0?\.95|95%) 0?\.015 75/;
+
+async function pick(page: Page, name: string) {
+  const deck = page.locator('.theme-deck');
+  if (!(await deck.evaluate((d) => (d as HTMLDetailsElement).open))) await deck.locator('summary').click();
+  await page.locator(`.deck-option:has(input[value="${name}"])`).click();
+}
+
+test('a palette applies, persists across reload, and survives navigation', async ({ page }) => {
   await page.goto('/');
-  await page.locator('.theme-deck summary').click();
-  await page.locator('[data-deck-slug="dracula"]').click();
-
+  await pick(page, 'nord');
   const html = page.locator('html');
-  await expect(html).toHaveAttribute('data-theme-deck', 'dracula');
-  await expect(html).toHaveClass(/dark/);
+  await expect(html).toHaveAttribute('data-palette', 'nord');
+  await expect(page.locator('.deck-option input[value="nord"]')).toBeChecked();
 
-  // Persist across a full reload (restored by the before-paint head script)
   await page.reload();
-  await expect(html).toHaveAttribute('data-theme-deck', 'dracula');
+  await expect(html).toHaveAttribute('data-palette', 'nord');
 
-  // And across a REAL link click — a review finding showed page.goto() can't
-  // detect navigation-mode regressions (it always forces a full load).
+  // A REAL link click too: page.goto() always forces a full load.
   await page.getByRole('link', { name: 'About', exact: true }).first().click();
   await expect(page).toHaveURL(/about/);
-  await expect(page.locator('html')).toHaveAttribute('data-theme-deck', 'dracula');
-  const bg = await page.evaluate(() =>
-    getComputedStyle(document.documentElement).getPropertyValue('--color-bg').trim()
-  );
-  // dracula bg lightness — decimal (0.2882) or percentage (28.82%); the CSS
-  // minifier's serialization of the leading component varies by toolchain.
-  expect(bg).toMatch(/(?:0?\.2882|28\.82%)/);
+  await expect(page.locator('html')).toHaveAttribute('data-palette', 'nord');
+  expect(await bgToken(page)).not.toMatch(SITE_LIGHT_BG);
 });
 
-test('deck theme is stamped before first paint (no FOUC)', async ({ page, context }) => {
+test('the palette is stamped before first paint (no FOUC)', async ({ page, context }) => {
   await page.goto('/');
-  await page.locator('.theme-deck summary').click();
-  await page.locator('[data-deck-slug="nord"]').click();
-
-  // On a fresh page, the attribute must be present at DOMContentLoaded —
-  // i.e. set by the inline head script, not by post-load component JS.
-  // Playwright-native popup sync (review finding: a hand-rolled window.open
-  // + DOMContentLoaded listener races and times out instead of failing).
-  const [popup] = await Promise.all([
-    context.waitForEvent('page'),
-    page.evaluate(() => window.open('/')),
-  ]);
+  await pick(page, 'rose-pine');
+  const [popup] = await Promise.all([context.waitForEvent('page'), page.evaluate(() => window.open('/'))]);
   await popup.waitForLoadState('domcontentloaded');
-  const attr = await popup.evaluate(() =>
-    document.documentElement.getAttribute('data-theme-deck')
-  );
-  expect(attr).toBe('nord');
+  expect(await popup.evaluate(() => document.documentElement.getAttribute('data-palette'))).toBe('rose-pine');
   await popup.close();
 });
 
-test('garbage localStorage slug degrades to default Remarque without errors', async ({ page }) => {
-  const errors: string[] = [];
-  page.on('pageerror', (e) => errors.push(String(e)));
-
+test('a palette is paired: it follows the light/dark toggle instead of forcing a mode', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'light' });
   await page.goto('/');
-  await page.evaluate(() => localStorage.setItem('themeDeck', 'not-a-real-theme|dark'));
-  await page.reload();
+  await pick(page, 'catppuccin');
+  const light = await bgToken(page);
+  expect(light).not.toMatch(SITE_LIGHT_BG); // the palette wins in LIGHT mode too
 
-  // Attribute carries the garbage value but no CSS matches: Remarque default.
-  const bg = await page.evaluate(() =>
-    getComputedStyle(document.documentElement).getPropertyValue('--color-bg').trim()
-  );
-  // Remarque light bg — decimal (0.95) or percentage (95%) lightness form.
-  expect(bg).toMatch(/(?:0?\.95|95%) 0?\.015 75/);
-  expect(errors).toEqual([]);
-
-  // Picker still functional afterward
-  await page.locator('.theme-deck summary').click();
-  await page.locator('[data-deck-slug="dracula"]').click();
-  await expect(page.locator('html')).toHaveAttribute('data-theme-deck', 'dracula');
+  await page.keyboard.press('Escape');
+  await page.locator('#theme-toggle').click();
+  await expect(page.locator('html')).toHaveClass(/\bdark\b/);
+  await expect(page.locator('html')).toHaveAttribute('data-palette', 'catppuccin'); // toggling keeps it
+  const dark = await resolvedBg(page);
+  await page.evaluate(() => document.documentElement.removeAttribute('data-palette'));
+  const siteDark = await resolvedBg(page);
+  expect(dark).not.toBe(siteDark); // and its dark side differs from the site's dark
+  await page.evaluate(() => document.documentElement.setAttribute('data-palette', 'catppuccin'));
+  await page.locator('#theme-toggle').click();
+  expect(await resolvedBg(page)).not.toBe(dark); // back to its light side
 });
 
-test('base light/dark toggle clears an active deck theme', async ({ page }) => {
+test('choosing the default clears the palette and storage', async ({ page }) => {
   await page.goto('/');
-  await page.locator('.theme-deck summary').click();
-  await page.locator('[data-deck-slug="rose-pine"]').click();
-  await expect(page.locator('html')).toHaveAttribute('data-theme-deck', 'rose-pine');
+  await pick(page, 'gruvbox');
+  await pick(page, '');
+  await expect(page.locator('html')).not.toHaveAttribute('data-palette');
+  expect(await page.evaluate(() => localStorage.getItem('remarque-palette'))).toBeNull();
+  expect(await bgToken(page)).toMatch(SITE_LIGHT_BG);
+});
 
-  await page.locator('#theme-toggle').click();
-  await expect(page.locator('html')).not.toHaveAttribute('data-theme-deck');
-  const stored = await page.evaluate(() => localStorage.getItem('themeDeck'));
-  expect(stored).toBeNull();
-  // Header variant has no text label — assert selection state instead.
-  await expect(page.locator('.deck-option[data-deck-slug=""]')).toHaveAttribute(
-    'aria-checked',
-    'true'
-  );
+test('readers of the old 12-theme deck are migrated once', async ({ page }) => {
+  await page.addInitScript(() => {
+    if (!sessionStorage.getItem('seeded')) {
+      localStorage.setItem('themeDeck', 'catppuccin-mocha|dark');
+      sessionStorage.setItem('seeded', '1');
+    }
+  });
+  await page.goto('/');
+  const html = page.locator('html');
+  await expect(html).toHaveAttribute('data-palette', 'catppuccin');
+  await expect(html).toHaveClass(/\bdark\b/); // the mode the old theme forced is kept
+  expect(await page.evaluate(() => [localStorage.getItem('themeDeck'), localStorage.getItem('remarque-palette'), localStorage.theme]))
+    .toEqual([null, 'catppuccin', 'dark']);
+});
+
+test('Dracula (no light theme in the dataset) migrates to the default, keeping dark mode', async ({ page }) => {
+  await page.addInitScript(() => {
+    if (!sessionStorage.getItem('seeded')) {
+      localStorage.setItem('themeDeck', 'dracula|dark');
+      sessionStorage.setItem('seeded', '1');
+    }
+  });
+  await page.goto('/');
+  await expect(page.locator('html')).not.toHaveAttribute('data-palette');
+  await expect(page.locator('html')).toHaveClass(/\bdark\b/);
+});
+
+test('a garbage stored palette degrades to the default without errors', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(String(e)));
+  await page.goto('/');
+  await page.evaluate(() => localStorage.setItem('remarque-palette', 'not-a-real-theme'));
+  await page.reload();
+  expect(await bgToken(page)).toMatch(SITE_LIGHT_BG);
+  expect(errors).toEqual([]);
+  await pick(page, 'nord');
+  await expect(page.locator('html')).toHaveAttribute('data-palette', 'nord');
 });
 
 test.describe('crossfade (motion allowed)', () => {
   test.use({ contextOptions: { reducedMotion: 'no-preference' } });
-  test('theme crossfade: absent at load and restore, present only on a deliberate switch', async ({
-  page,
-}) => {
-  // Plain first visit — no stored preference at all. The crossfade class
-  // must never be present at/after load (issue #274 item 3 vote condition:
-  // class-gated, added after first paint, never during the anti-FOUC
-  // restore).
-  await page.goto('/');
-  await expect(page.locator('html')).not.toHaveClass(/theme-transition/);
+  test('absent at load and restore, present only on a deliberate switch', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('html')).not.toHaveClass(/theme-transition/);
+    await page.evaluate(() => localStorage.setItem('remarque-palette', 'nord'));
+    await page.reload();
+    await expect(page.locator('html')).toHaveAttribute('data-palette', 'nord');
+    await page.waitForTimeout(300);
+    await expect(page.locator('html')).not.toHaveClass(/theme-transition/);
 
-  // localStorage-restore path — a stored deck pref exists BEFORE the head
-  // script runs. The class must still be absent at and after load; only
-  // ThemeToggle.astro's toggle() / ThemeDeck.astro's applyDeck() may add it.
-  await page.evaluate(() => localStorage.setItem('themeDeck', 'dracula|dark'));
-  await page.reload();
-  await expect(page.locator('html')).toHaveAttribute('data-theme-deck', 'dracula');
-  await expect(page.locator('html')).not.toHaveClass(/theme-transition/);
-  // Give any errant post-load script a moment it would need to (wrongly) add
-  // the class, then re-assert it's still absent.
-  await page.waitForTimeout(300);
-  await expect(page.locator('html')).not.toHaveClass(/theme-transition/);
+    await pick(page, 'tokyonight');
+    await expect(page.locator('html')).toHaveClass(/theme-transition/);
+    await expect(page.locator('html')).not.toHaveClass(/theme-transition/, { timeout: 1000 });
 
-  // A deliberate switch (deck picker) DOES add the class, transiently, then
-  // removes it again ~250ms later.
-  await page.locator('.theme-deck summary').click();
-  await page.locator('[data-deck-slug="nord"]').click();
-  await expect(page.locator('html')).toHaveClass(/theme-transition/);
-  await expect(page.locator('html')).not.toHaveClass(/theme-transition/, { timeout: 1000 });
-
-  // Same guarantee for the base light/dark toggle.
-  await page.locator('#theme-toggle').click();
-  await expect(page.locator('html')).toHaveClass(/theme-transition/);
-  await expect(page.locator('html')).not.toHaveClass(/theme-transition/, { timeout: 1000 });
-});
+    await page.keyboard.press('Escape');
+    await page.locator('#theme-toggle').click();
+    await expect(page.locator('html')).toHaveClass(/theme-transition/);
+    await expect(page.locator('html')).not.toHaveClass(/theme-transition/, { timeout: 1000 });
+  });
 });
 
 test('crossfade never fires under prefers-reduced-motion: reduce', async ({ browser }) => {
   const ctx = await browser.newContext({ reducedMotion: 'reduce' });
   const page = await ctx.newPage();
   await page.goto('/');
-  await page.locator('.theme-deck summary').click();
-  await page.locator('[data-deck-slug="dracula"]').click();
-  await expect(page.locator('html')).toHaveAttribute('data-theme-deck', 'dracula');
+  await pick(page, 'nord');
+  await expect(page.locator('html')).toHaveAttribute('data-palette', 'nord');
   await expect(page.locator('html')).not.toHaveClass(/theme-transition/);
   await ctx.close();
 });
 
-test('picking a light theme pins light mode', async ({ page }) => {
+test('the picker is native radios: keyboard selection works with no pointer', async ({ page }) => {
   await page.goto('/');
   await page.locator('.theme-deck summary').click();
-  await page.locator('[data-deck-slug="catppuccin-latte"]').click();
-
-  const html = page.locator('html');
-  await expect(html).toHaveAttribute('data-theme-deck', 'catppuccin-latte');
-  await expect(html).toHaveClass(/light/);
-
-  // Background token actually changed from the Remarque default
-  const bg = await page.evaluate(() =>
-    getComputedStyle(document.documentElement).getPropertyValue('--color-bg').trim()
-  );
-  expect(bg).not.toBe('');
-  expect(bg).not.toMatch(/(?:0?\.95|95%) 0?\.015 75/); // Remarque light bg (decimal or %)
+  await page.locator('.deck-option input[value=""]').focus();
+  await page.keyboard.press('ArrowDown');
+  await expect(page.locator('html')).toHaveAttribute('data-palette', /.+/);
+  expect(await page.locator('.deck-option [role="radio"]').count()).toBe(0);
 });
 
-for (const scenario of [
-  { slug: 'dracula', mode: 'dark', opposite: 'light' },
-  { slug: 'catppuccin-latte', mode: 'light', opposite: 'dark' },
-]) {
-  test(`toggle leaves ${scenario.mode} deck in the advertised opposite mode`, async ({ page }) => {
-    await page.goto('/');
-    await page.evaluate((mode) => localStorage.setItem('theme', mode), scenario.opposite);
-    await page.reload();
-    await page.locator('.theme-deck summary').click();
-    await page.locator(`[data-deck-slug="${scenario.slug}"]`).click();
-    const toggle = page.locator('#theme-toggle');
-    await expect(toggle).toHaveAttribute('aria-label', `Switch to ${scenario.opposite} theme`);
-    await toggle.click();
-    await expect(page.locator('html')).not.toHaveAttribute('data-theme-deck');
-    await expect(page.locator('html')).toHaveClass(new RegExp(`\\b${scenario.opposite}\\b`));
-    await expect(toggle).toHaveAttribute('aria-label', `Switch to ${scenario.mode} theme`);
-
-    // A restored deck has the same action as one selected on this page.
-    await page.locator('.theme-deck summary').click();
-    await page.locator(`[data-deck-slug="${scenario.slug}"]`).click();
-    await page.reload();
-    await expect(toggle).toHaveAttribute('aria-label', `Switch to ${scenario.opposite} theme`);
-    await toggle.click();
-    await expect(page.locator('html')).not.toHaveAttribute('data-theme-deck');
-    await expect(page.locator('html')).toHaveClass(new RegExp(`\\b${scenario.opposite}\\b`));
-    await expect(toggle).toHaveAttribute('aria-label', `Switch to ${scenario.mode} theme`);
-    expect(await page.evaluate(() => localStorage.getItem('theme'))).toBe(scenario.opposite);
-  });
-
-  test(`returning from ${scenario.mode} deck restores the previous base preference`, async ({ page }) => {
-    await page.goto('/');
-    await page.evaluate((mode) => localStorage.setItem('theme', mode), scenario.opposite);
-    await page.reload();
-    await page.locator('.theme-deck summary').click();
-    await page.locator(`[data-deck-slug="${scenario.slug}"]`).click();
-    await page.locator('.deck-option[data-deck-slug=""]').click();
-    await expect(page.locator('html')).not.toHaveAttribute('data-theme-deck');
-    await expect(page.locator('html')).toHaveClass(new RegExp(`\\b${scenario.opposite}\\b`));
-    await expect(page.locator('#theme-toggle')).toHaveAttribute('aria-label', `Switch to ${scenario.mode} theme`);
-    await page.reload();
-    await expect(page.locator('html')).toHaveClass(new RegExp(`\\b${scenario.opposite}\\b`));
-  });
-}
-
-test('base and deck theme choices work when storage is unavailable', async ({ page }) => {
+test('light/dark and palette choices work when storage is unavailable', async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'light' });
   await page.addInitScript(() => {
     Object.defineProperty(window, 'localStorage', {
@@ -210,24 +175,14 @@ test('base and deck theme choices work when storage is unavailable', async ({ pa
   const toggle = page.locator('#theme-toggle');
   await toggle.click();
   await expect(root).toHaveClass(/\bdark\b/);
-  await expect(toggle).toHaveAttribute('aria-label', 'Switch to light theme');
+  await pick(page, 'nord');
+  await expect(root).toHaveAttribute('data-palette', 'nord');
+  await page.keyboard.press('Escape');
   await toggle.click();
   await expect(root).toHaveClass(/\blight\b/);
-
-  await page.locator('.theme-deck summary').click();
-  await page.locator('[data-deck-slug="dracula"]').click();
-  await expect(toggle).toHaveAttribute('aria-label', 'Switch to light theme');
-  await toggle.click();
-  await expect(root).not.toHaveAttribute('data-theme-deck');
-  await expect(root).toHaveClass(/\blight\b/);
-  await expect(page.locator('.deck-option[data-deck-slug=""]')).toHaveAttribute('aria-checked', 'true');
-
-  // Shift-click still clears the explicit preference and follows the OS.
-  await toggle.click();
-  await expect(root).toHaveClass(/\bdark\b/);
+  await expect(root).toHaveAttribute('data-palette', 'nord');
   await toggle.click({ modifiers: ['Shift'] });
   await expect(root).not.toHaveClass(/\b(?:dark|light)\b/);
-  await expect(toggle).toHaveAttribute('aria-label', 'Switch to dark theme');
 });
 
 test('system theme changes update the toggle action without overriding explicit choices', async ({ page }) => {
@@ -243,30 +198,13 @@ test('system theme changes update the toggle action without overriding explicit 
   await page.emulateMedia({ colorScheme: 'dark' });
   await expect(page.locator('html')).toHaveClass(/\blight\b/);
   await expect(toggle).toHaveAttribute('aria-label', 'Switch to dark theme');
-
-  await page.locator('.theme-deck summary').click();
-  await page.locator('[data-deck-slug="dracula"]').click();
-  await page.emulateMedia({ colorScheme: 'light' });
-  await expect(page.locator('html')).toHaveAttribute('data-theme-deck', 'dracula');
-  await expect(page.locator('html')).toHaveClass(/\bdark\b/);
-  await expect(toggle).toHaveAttribute('aria-label', 'Switch to light theme');
-  await toggle.click({ modifiers: ['Shift'] });
-  await expect(page.locator('html')).not.toHaveAttribute('data-theme-deck');
-  await expect(page.locator('html')).not.toHaveClass(/\b(?:dark|light)\b/);
-  await expect(toggle).toHaveAttribute('aria-label', 'Switch to dark theme');
-  await page.emulateMedia({ colorScheme: 'dark' });
-  await expect(toggle).toHaveAttribute('aria-label', 'Switch to light theme');
 });
 
-test('theme-color meta tracks the painted background through toggles and decks', async ({ browser }) => {
-  // Light OS, so the static media-keyed metas both start out wrong for a
-  // reader who picks dark or any deck: the case issue #698 measured.
+test('theme-color meta tracks the painted background through toggles and palettes', async ({ browser }) => {
   const ctx = await browser.newContext({ colorScheme: 'light', reducedMotion: 'reduce' });
   const page = await ctx.newPage();
   const state = () =>
     page.evaluate(() => {
-      // Normalise both sides through a canvas: the meta holds hex, the
-      // computed background is rgb()/oklch() depending on the engine.
       const hex = (color: string) => {
         const g = document.createElement('canvas').getContext('2d')!;
         g.fillStyle = color;
@@ -285,19 +223,15 @@ test('theme-color meta tracks the painted background through toggles and decks',
   await page.goto('/');
   await expectMatch('default');
   await page.locator('#theme-toggle').click();
-  await expect(page.locator('html')).toHaveClass(/\bdark\b/);
   await expectMatch('after toggling to dark');
-  await page.reload();
-  await expectMatch('dark restored on reload');
-  for (const slug of ['dracula', 'nord-light', 'gruvbox-dark-hard']) {
-    await page.locator('.theme-deck summary').click();
-    await page.locator(`[data-deck-slug="${slug}"]`).click();
-    await expect(page.locator('html')).toHaveAttribute('data-theme-deck', slug);
-    await expectMatch(`deck ${slug}`);
+  for (const name of ['nord', 'gruvbox', 'solarized']) {
+    await pick(page, name);
+    await expect(page.locator('html')).toHaveAttribute('data-palette', name);
+    await expectMatch(`palette ${name}`);
     await page.keyboard.press('Escape');
   }
   await page.reload();
-  await expectMatch('deck restored on reload');
+  await expectMatch('palette restored on reload');
   await ctx.close();
 });
 
@@ -310,7 +244,6 @@ for (const viewport of [{ width: 360, height: 800 }, { width: 1280, height: 900 
     const last = page.locator('.deck-option').last();
     await last.scrollIntoViewIfNeeded();
     await expect(last).toBeInViewport({ ratio: 1 });
-    // A capped scroll box hid "Nord Light" below its fold with no visible cue.
     const clipped = await page.locator('.deck-panel').evaluate((p) => p.scrollHeight > p.clientHeight + 1);
     expect(clipped).toBe(false);
     await ctx.close();

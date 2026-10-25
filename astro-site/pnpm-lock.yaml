@@ -36,8 +36,8 @@ importers:
         specifier: ^15.0.3
         version: 15.0.3
       remarque-tokens:
-        specifier: ^0.31.1
-        version: 0.31.1
+        specifier: ^0.31.2
+        version: 0.31.2(@williamzujkowski/oklch-terminal-themes@0.9.0)
       sanitize-html:
         specifier: ^2.18.1
         version: 2.18.1
@@ -72,6 +72,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^8.71.2
         version: 8.71.2(eslint@10.13.0)(typescript@6.0.3)
+      '@williamzujkowski/oklch-terminal-themes':
+        specifier: 0.9.0
+        version: 0.9.0
       apca-w3:
         specifier: ^0.1.9
         version: 0.1.9
@@ -1301,6 +1304,10 @@ packages:
   '@vscode/l10n@0.0.18':
     resolution: {integrity: sha512-KYSIHVmslkaCDyw013pphY+d7x1qV8IZupYfeIfzNA+nsaWHbn5uPuQRvdRFsa9zFzGeudPuoGoZ1Op4jrJXIQ==}
 
+  '@williamzujkowski/oklch-terminal-themes@0.9.0':
+    resolution: {integrity: sha512-spRUbU0BPQeEEAGnQmMhv1k3wF34kR3U0rf4lQr1su/kniYrTfxatO6eAyABjlTACMKQupbRHzuSLAp39bY3lQ==}
+    engines: {node: '>=22'}
+
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
@@ -1533,6 +1540,10 @@ packages:
   csso@5.0.5:
     resolution: {integrity: sha512-0LrrStPOdJj+SPCCrGhzryycLjwcgUSHBtxNA8aIDxf0GLsRh1cKYhB00Gd1lDOS4yGH69+SNn13+TWbVHETFQ==}
     engines: {node: ^10 || ^12.20.0 || ^14.13.0 || >=15.0.0, npm: '>=7.0.0'}
+
+  culori@4.0.2:
+    resolution: {integrity: sha512-1+BhOB8ahCn4O0cep0Sh2l9KCOfOdY+BXJnKMHFFzDEouSr/el18QwXEMRlOj9UY5nCeA8UN3a/82rUWRBeyBw==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   dayjs@1.11.23:
     resolution: {integrity: sha512-QDTCU0M0MxR3hQfnlDJfwekQiaanm1ubOD231u73WBckQ/fsamwRLiE2GBz6D3a/xF1NgfiDLJjXBa1hYOYTtQ==}
@@ -2637,8 +2648,8 @@ packages:
   remark-stringify@11.0.0:
     resolution: {integrity: sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw==}
 
-  remarque-tokens@0.31.1:
-    resolution: {integrity: sha512-8Udh5zq3IN9qBxXclQ/cBsC11++5CxmXVYrNdnDQIs1dULJpadjS4Zv14/BmvIOFZr4/HTezmtWPDOh9LeWK4A==}
+  remarque-tokens@0.31.2:
+    resolution: {integrity: sha512-UdrHhYL+BwmOT3c7Oj+pBM5C7ksXOkA0M5shQYiXx2JVjIFP77AY/m53ldsViB9XNP7yRUzestzzJxSW5USh3A==}
     engines: {node: '>=22'}
     hasBin: true
     peerDependencies:
@@ -4339,6 +4350,12 @@ snapshots:
 
   '@vscode/l10n@0.0.18': {}
 
+  '@williamzujkowski/oklch-terminal-themes@0.9.0':
+    dependencies:
+      apca-w3: 0.1.9
+      culori: 4.0.2
+      zod: 4.6.7
+
   acorn-jsx@5.3.2(acorn@8.18.0):
     dependencies:
       acorn: 8.18.0
@@ -4629,6 +4646,8 @@ snapshots:
   csso@5.0.5:
     dependencies:
       css-tree: 2.2.1
+
+  culori@4.0.2: {}
 
   dayjs@1.11.23: {}
 
@@ -6119,7 +6138,9 @@ snapshots:
       mdast-util-to-markdown: 2.1.2
       unified: 11.0.5
 
-  remarque-tokens@0.31.1: {}
+  remarque-tokens@0.31.2(@williamzujkowski/oklch-terminal-themes@0.9.0):
+    optionalDependencies:
+      '@williamzujkowski/oklch-terminal-themes': 0.9.0
 
   request-light@0.5.8: {}
 
