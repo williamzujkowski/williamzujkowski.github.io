@@ -374,6 +374,8 @@ Container-to-host belongs in `INPUT`:
 
 ```bash
 # Block container-to-host SSH (INPUT, not DOCKER-USER)
+# docker0 is only the default bridge. Containers on user-defined or Compose
+# networks arrive on br-<id> (see `ip -br link`); match that interface instead.
 iptables -I INPUT -i docker0 -p tcp --dport 22 -j DROP
 ```
 

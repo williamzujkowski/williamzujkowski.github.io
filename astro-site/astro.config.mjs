@@ -31,6 +31,10 @@ const remarqueSyntaxTheme = createCssVariablesTheme({
   fontStyle: true,
 });
 
+// Must match the UNICODES in scripts/subset-fonts.sh; ranges outside it fall back as before.
+const LATIN_TRIMMED = ['U+0020-007E', 'U+00A0-00FF', 'U+0131', 'U+0152-0153', 'U+2010-2027', 'U+2030-203A', 'U+2122', 'U+2190-2193', 'U+2212', 'U+20AC'];
+const GREEK = ['U+0370-0377', 'U+037A-037F', 'U+0384-038A', 'U+038C', 'U+038E-03A1', 'U+03A3-03FF'];
+
 const svgTags = [
   'svg',
   'defs',
@@ -367,29 +371,40 @@ export default defineConfig({
   // itself, so the hardcoded font stacks were removed from global.css.
   fonts: [
     {
-      provider: fontProviders.fontsource(),
+      // Display face. Trimmed local files (issue #661): same Fraunces, minus
+      // the SOFT/WONK axes (pinned to the font's defaults) and unused glyphs.
+      // Regenerate: scripts/subset-fonts.sh (see src/fonts/README.md).
+      provider: fontProviders.local(),
       name: 'Fraunces',
       cssVariable: '--font-display',
       fallbacks: ['Georgia', 'Times New Roman', 'serif'],
-      weights: ['100 900'],
-      styles: ['normal', 'italic'],
-      subsets: ['latin'],
+      options: {
+        variants: [
+          { weight: '100 900', style: 'normal', src: ['./src/fonts/fraunces-normal.woff2'], unicodeRange: LATIN_TRIMMED },
+          { weight: '100 900', style: 'italic', src: ['./src/fonts/fraunces-italic.woff2'], unicodeRange: LATIN_TRIMMED },
+        ],
+      },
     },
     {
       // Body serif — Phosphor broadsheet (issue #274, 7-0 vote). Replaces
-      // Inter outright (font-count budget; not stacked). Source Serif 4 is
-      // the characterful text serif chosen to close the one genericness
-      // flag from the frontend-design calibration (Inter-as-body).
-      provider: fontProviders.fontsource(),
+      // Inter outright (font-count budget; not stacked). Local files (issue
+      // #661): wght trimmed, glyphs trimmed to LATIN_TRIMMED; opsz kept.
+      // Greek is REQUIRED (not optional): 5 posts use bare Greek letters in
+      // prose (π, ε, μ for math/privacy-budget notation) that the latin
+      // face would silently drop to tofu/fallback glyphs. Greek MUST share the
+      // latin weight ranges (Chrome groups faces by weight range; see the script).
+      provider: fontProviders.local(),
       name: 'Source Serif 4',
       cssVariable: '--font-body',
       fallbacks: ['Georgia', 'serif'],
-      weights: ['200 900'],
-      styles: ['normal', 'italic'],
-      // 'greek' REQUIRED (not optional): 5 posts use bare Greek letters in
-      // prose (π, ε, μ for math/privacy-budget notation) that the default
-      // subset would silently drop to tofu/fallback glyphs.
-      subsets: ['latin', 'greek'],
+      options: {
+        variants: [
+          { weight: '400 900', style: 'normal', src: ['./src/fonts/source-serif-4-normal.woff2'], unicodeRange: LATIN_TRIMMED },
+          { weight: '400 700', style: 'italic', src: ['./src/fonts/source-serif-4-italic.woff2'], unicodeRange: LATIN_TRIMMED },
+          { weight: '400 900', style: 'normal', src: ['./src/fonts/source-serif-4-greek-normal.woff2'], unicodeRange: GREEK },
+          { weight: '400 700', style: 'italic', src: ['./src/fonts/source-serif-4-greek-italic.woff2'], unicodeRange: GREEK },
+        ],
+      },
     },
     {
       provider: fontProviders.fontsource(),
@@ -403,14 +418,17 @@ export default defineConfig({
     {
       // Zine accent voice — hand-lettered marginalia ONLY. Approved usage
       // (design-review ratified): .hand-note, 404 page, doodle captions.
-      // Never body copy, never nav/meta.
-      provider: fontProviders.fontsource(),
+      // Never body copy, never nav/meta. Local static wght-400 instance
+      // (issue #661): Fontsource ships the whole variable axis (170 KB).
+      provider: fontProviders.local(),
       name: 'Shantell Sans',
       cssVariable: '--font-accent',
       fallbacks: ['Comic Sans MS', 'cursive'],
-      weights: ['400 500'],
-      styles: ['normal'],
-      subsets: ['latin'],
+      options: {
+        variants: [
+          { weight: 400, style: 'normal', src: ['./src/fonts/shantell-sans-400.woff2'], unicodeRange: LATIN_TRIMMED },
+        ],
+      },
     },
   ],
   vite: {

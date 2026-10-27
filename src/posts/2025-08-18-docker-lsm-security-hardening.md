@@ -29,9 +29,7 @@ Recent escapes:
 
 - **CVE-2025-52881:** Procfs write redirection bypasses LSM (disclosed 2025)
 - **CVE-2024-21626:** runc vulnerability allows container breakout
-- **CVE-2023-2640:** Ubuntu kernel overlay
-
-FS privilege escalation
+- **CVE-2023-2640:** Ubuntu kernel overlay FS privilege escalation
 
 What I needed: Defense-in-depth without K8s. Standalone Docker hardening using Linux Security Modules (LSM), seccomp, capabilities, and filesystem restrictions.
 
