@@ -357,7 +357,7 @@ My experiments in 2024 convinced me quantum computing works in principle. Whethe
 
 ### Further Reading:
 
-- [IBM Quantum Network](https://quantum-network.org/) - Access to quantum computers and education
+- [IBM Quantum Network](https://www.ibm.com/quantum/ibm-quantum-network) - Access to quantum computers and education
 - [Microsoft Quantum Development Kit](https://azure.microsoft.com/en-us/products/quantum) - Quantum programming tools
 - [NIST Post-Quantum Cryptography](https://csrc.nist.gov/projects/post-quantum-cryptography) - Standards for quantum-resistant security
 - [Quantum Computing: An Applied Approach](https://www.springer.com/gp/book/9783030239213) - Comprehensive quantum computing textbook

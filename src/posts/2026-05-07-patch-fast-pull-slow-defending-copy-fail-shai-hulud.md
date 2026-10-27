@@ -24,7 +24,7 @@ Copy Fail ([CVE-2026-31431](https://copy.fail/)) is a straight-line logic flaw i
 
 That last part matters. Watch the next two weeks.
 
-On May 7 — eight days after disclosure — [Copy_Fail2: Electric Boogaloo](https://github.com/0xdeadbeefnetwork/Copy_Fail2-Electric_Boogaloo) appears with the same primitive (page-cache write into any readable file) sourced from a different subsystem (XFRM/IPsec via `MSG_SPLICE_PAGES`). Brad Spengler's commentary tags it "copyfail-class." Nine minutes later, [dirtyfrag](https://github.com/V4bel/dirtyfrag) drops from Hyunwoo Kim, chaining `xfrm-ESP` with `RxRPC` so the same deterministic 4-byte STORE primitive lands whether or not unprivileged user namespaces are blocked that survives the first round of mitigations (algif_aead blacklisting). The dirtyfrag README is honest about the sequencing: Copy Fail "motivated this research." The embargo broke before patches existed.
+On May 7 — eight days after disclosure — [Copy_Fail2: Electric Boogaloo](https://web.archive.org/web/20260508191355/https://github.com/0xdeadbeefnetwork/Copy_Fail2-Electric_Boogaloo) appears with the same primitive (page-cache write into any readable file) sourced from a different subsystem (XFRM/IPsec via `MSG_SPLICE_PAGES`). Brad Spengler's commentary tags it "copyfail-class." Nine minutes later, [dirtyfrag](https://github.com/V4bel/dirtyfrag) drops from Hyunwoo Kim, chaining `xfrm-ESP` with `RxRPC` so the same deterministic 4-byte STORE primitive lands whether or not unprivileged user namespaces are blocked that survives the first round of mitigations (algif_aead blacklisting). The dirtyfrag README is honest about the sequencing: Copy Fail "motivated this research." The embargo broke before patches existed.
 
 This is the pile-on dynamic. One high-signal disclosure attracts a wave of researchers who go looking for the same shape of bug in adjacent subsystems, and they find them, because the shape was always there. VulnCheck's January 2026 exploitation report(https://www.vulncheck.com/blog/state-of-exploitation-2026) noted that **28.96% of known-exploited vulnerabilities in 2025 were exploited on or before the day their CVE was published**, up from 23.6% the year before. The Cloud Security Alliance has a name for what's happening: ["The Collapsing Exploit Window."](https://labs.cloudsecurityalliance.org/research/csa-whitepaper-collapsing-exploit-window-ai-speed-vulnerabil/) Mean time-to-exploit fell from roughly 32 days in 2022 to about 5 days by late 2023. CSA doesn't publish a newer average, but 32.1% of newly tracked exploits now appear on or before the disclosure date. AI systems generate working exploit code in 10-15 minutes for about a dollar a try.
 
@@ -147,7 +147,7 @@ Defenders are not getting more time or attention. Attackers know that, and they 
 ## Sources
 
 - [copy.fail (CVE-2026-31431)](https://copy.fail/)
-- [Copy_Fail2: Electric Boogaloo PoC](https://github.com/0xdeadbeefnetwork/Copy_Fail2-Electric_Boogaloo)
+- [Copy_Fail2: Electric Boogaloo PoC](https://web.archive.org/web/20260508191355/https://github.com/0xdeadbeefnetwork/Copy_Fail2-Electric_Boogaloo)
 - [dirtyfrag PoC (Hyunwoo Kim)](https://github.com/V4bel/dirtyfrag)
 - [VulnCheck: State of Exploitation 2026](https://www.vulncheck.com/blog/state-of-exploitation-2026)
 - [CSA: The Collapsing Exploit Window](https://labs.cloudsecurityalliance.org/research/csa-whitepaper-collapsing-exploit-window-ai-speed-vulnerabil/)
