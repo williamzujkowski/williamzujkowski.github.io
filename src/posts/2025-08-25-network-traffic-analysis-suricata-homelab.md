@@ -285,7 +285,7 @@ Public Disclosure Window (Day 30+):
 - **ET Open:** Rule released, now protected (better late than never)
 - **Impact:** Protection catches up, but missed initial attack wave
 
-Real-World Example: CVE-2024-X Critical RCE
+Hypothetical Example: CVE-2024-X Critical RCE
 
 ```
 Timeline:
