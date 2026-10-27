@@ -4,8 +4,8 @@ SCRIPT: scripts/blog-audit/plaintext_gate.py
 PURPOSE: Fail if a markup-only edit to a post changed any of its words.
 CATEGORY: blog_audit
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2026-10-21
+VERSION: 1.1.0
+UPDATED: 2026-10-27
 
 DESCRIPTION:
     Gate for the bold-density pass (issue #698), whose rule is that the plain
@@ -13,13 +13,22 @@ DESCRIPTION:
     differs between REF and the working tree:
 
     - the frontmatter must be byte-identical;
-    - outside fenced and inline code, `**x**` / `__x__` emphasis markers and
-      ATX heading markers (`#`..`######` plus a space) are removed, then
-      whitespace is collapsed;
+    - outside fenced and inline code, `**x**` / `__x__` emphasis markers,
+      ATX heading markers (`#`..`######` plus a space), HTML comments and HTML
+      tags (open, close, self-closing, with all their attributes, even across
+      lines) are removed and common entities are decoded, then whitespace is
+      collapsed;
     - the resulting word sequences must match exactly, with one allowed
       difference: a word that ended in ':' may lose the colon when it is now
       the last word of a heading (a `**Label:**` lead-in that became a
       heading).
+
+    The gate compares VISIBLE text. Text between tags still counts, so
+    re-wording is caught, but attribute text (`aria-label`, `data-branch`,
+    `alt`, `title`...) is outside its scope: changing it is not flagged here.
+    Tags are removed with no replacement, so `a<b>c</b>` reads "ac" on both
+    sides; wrapping text in `<code>`/`<span>` or splitting a block into two
+    does not count as a change, adding or dropping a visible word does.
 
     Code is compared verbatim, markers and all. Added, deleted or renamed
     posts fail: a markup pass does neither.
@@ -35,6 +44,7 @@ EXIT:
 
 import argparse
 import difflib
+import html
 import re
 import subprocess
 import sys
@@ -49,6 +59,36 @@ HEADING = re.compile(r"^(#{1,6})[ \t]+")
 # Same span rules as bold_density.py: no whitespace just inside the markers.
 BOLD_STAR = re.compile(r"\*\*(?=\S)(.+?)(?<=\S)\*\*")
 BOLD_UNDER = re.compile(r"(?<![\w])__(?=\S)(.+?)(?<=\S)__(?![\w])")
+
+
+# HTML comments, then tags. A tag is `<` (or `</`) + a letter, then any run of
+# non-`>` characters or quoted strings, so a `>` inside a quoted attribute
+# value does not end the tag early. Requiring a letter keeps prose such as
+# `a < b` or `<3` intact. Both patterns match across newlines.
+HTML_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
+HTML_TAG = re.compile(r"</?[A-Za-z][A-Za-z0-9:-]*(?:[^>\"']|\"[^\"]*\"|'[^']*')*>")
+
+
+def strip_html(text):
+    """Remove comments and tags (keeping the newlines they spanned), decode entities.
+
+    Inline code is parked first so `<div>` written as code stays verbatim, the
+    same trick strip_emphasis uses. Newlines inside a removed tag are kept so
+    line-start rules (headings) still see the original line structure.
+    """
+    codes = []
+
+    def park(m):
+        codes.append(m.group(0))
+        return f"\x00{len(codes) - 1}\x00"
+
+    def keep_newlines(m):
+        return "\n" * m.group(0).count("\n")
+
+    masked = "\n".join(INLINE_CODE.sub(park, line) for line in text.split("\n"))
+    masked = HTML_TAG.sub(keep_newlines, HTML_COMMENT.sub(keep_newlines, masked))
+    masked = html.unescape(masked)
+    return re.sub(r"\x00(\d+)\x00", lambda m: codes[int(m.group(1))], masked)
 
 
 def split_frontmatter(text):
@@ -75,25 +115,39 @@ def strip_emphasis(line):
 
 def normalise(body):
     """Return (words, heading_ends): heading_ends indexes each heading's last word."""
-    words, heading_ends, fence = [], set(), None
+    # Split into fenced blocks (kept verbatim) and prose runs (HTML-stripped as
+    # a whole, so tags that span lines are handled).
+    blocks, prose, fence = [], [], None
     for line in body.split("\n"):
         if fence is not None:
+            blocks[-1][1].append(line)
             if re.match(r"^\s*" + re.escape(fence[0]) + "{" + str(len(fence)) + r",}\s*$", line):
                 fence = None
-            words.extend(line.split())
             continue
         m = FENCE_OPEN.match(line)
         if m:
             fence = m.group(1)
-            words.extend(line.split())
+            blocks.append(("prose", prose))
+            prose = []
+            blocks.append(("fence", [line]))
             continue
-        heading = HEADING.match(line)
-        if heading:
-            line = line[heading.end():]
-        tokens = strip_emphasis(line).split()
-        words.extend(tokens)
-        if heading and tokens:
-            heading_ends.add(len(words) - 1)
+        prose.append(line)
+    blocks.append(("prose", prose))
+
+    words, heading_ends = [], set()
+    for kind, lines in blocks:
+        if kind == "fence":
+            for line in lines:
+                words.extend(line.split())
+            continue
+        for line in strip_html("\n".join(lines)).split("\n"):
+            heading = HEADING.match(line)
+            if heading:
+                line = line[heading.end():]
+            tokens = strip_emphasis(line).split()
+            words.extend(tokens)
+            if heading and tokens:
+                heading_ends.add(len(words) - 1)
     return words, heading_ends
 
 

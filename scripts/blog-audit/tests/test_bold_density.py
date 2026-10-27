@@ -119,3 +119,65 @@ def test_gate_compares_code_and_frontmatter_verbatim():
     assert gate.compare(OLD, OLD.replace("make **all**", "make all"))
     assert gate.compare(OLD, OLD.replace('"**kept**"', '"kept"'))
     assert gate.compare(OLD, OLD.replace("title: t", "title: u")) == ["frontmatter changed"]
+
+
+# --- HTML markup is not text (gate v1.1.0) ---
+
+HTML_OLD = """---
+title: t
+---
+
+## Routing
+
+<div class="flow" role="group" aria-label="Routing path">
+  <div class="flow-node">Query</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Yes"><div class="flow-node">Cache</div></div>
+    <div class="flow-leg" data-branch="No"><div class="flow-node">Model</div></div>
+  </div>
+</div>
+
+<span>open("/etc/shadow", O_RDONLY)</span> then a &amp; b.
+"""
+
+
+def test_gate_ignores_wrapping_text_in_inline_tags():
+    new = HTML_OLD.replace("<span>open", "<span><code>open").replace(
+        "O_RDONLY)</span>", "O_RDONLY)</code></span>"
+    )
+    assert gate.compare(HTML_OLD, new) == []
+
+
+def test_gate_allows_splitting_a_flow_with_only_new_tags():
+    new = HTML_OLD.replace(
+        '  <div class="flow-branch">',
+        '</div>\n<div class="flow" role="group" aria-label="Second view">\n  <div class="flow-branch">',
+    )
+    assert new != HTML_OLD and gate.compare(HTML_OLD, new) == []
+
+
+def test_gate_rejects_a_changed_word_inside_a_tag():
+    assert gate.compare(HTML_OLD, HTML_OLD.replace(">Cache<", ">Memo<"))
+
+
+def test_gate_rejects_an_added_visible_word():
+    assert gate.compare(HTML_OLD, HTML_OLD.replace(">Model<", ">Pick a Model<"))
+
+
+def test_gate_decodes_entities_and_strips_comments():
+    assert gate.compare(HTML_OLD, HTML_OLD.replace("&amp;", "&")) == []
+    assert gate.compare(HTML_OLD, HTML_OLD.replace("a &amp; b", "a &#38; b")) == []
+    assert gate.compare(HTML_OLD, HTML_OLD + "\n<!-- note\nspanning lines -->\n") == []
+
+
+def test_gate_handles_multiline_tags_and_quoted_gt():
+    new = HTML_OLD.replace(
+        '<div class="flow-node">Query</div>',
+        '<div\n    class="flow-node"\n    title="a > b">Query</div>',
+    )
+    assert gate.compare(HTML_OLD, new) == []
+
+
+def test_gate_still_compares_code_verbatim_and_forgives_heading_colon():
+    assert gate.compare("text `<b>x</b>` more\n", "text `x` more\n")
+    assert gate.compare("**Lead:** body\n", "#### Lead\n\nbody\n") == []
