@@ -392,7 +392,7 @@ Building private cloud infrastructure requires upfront investment. Here's my cos
 **Electricity:** $150/month average
 **Maintenance:** 4-6 hours/month
 
-Equivalent cloud costs: genuinely hard to state honestly. Matching 48 threads of 2010-era Westmere-EX against modern vCPU overcounts the homelab, matching the RAM undercounts it, and Savings Plans move the answer by another 40%. for similar compute capacity.
+Equivalent cloud costs: genuinely hard to state honestly. Matching 48 threads of 2010-era Westmere-EX against modern vCPU overcounts the homelab, matching the RAM undercounts it, and Savings Plans move the answer by another 40%.
 
 ROI: the software is free and the electricity is the recurring cost. The number that actually decides it is the 4-6 hours a month of maintenance, which nobody budgets for and which is the real reason to rent instead.
 

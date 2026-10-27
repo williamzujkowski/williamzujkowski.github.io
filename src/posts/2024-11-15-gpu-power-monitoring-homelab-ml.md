@@ -180,7 +180,7 @@ The fix was embarrassingly simple: I improved case airflow by adding two 140mm i
 
 Lesson learned: Environmental factors matter. Power consumption and performance are interlinked through thermal dynamics in ways that bench test specs don't capture.
 
-### 5. The "Set and Forget" Failure That Cost Me $17
+### 5. The "Set and Forget" Failure That Cost Me $1.38
 
 My most expensive mistake happened in late September. I started a batch processing job for 200 PDF documents using Llama 3.1 70B. I estimated it would take 4-5 hours based on my earlier benchmarks, kicked it off around 10 PM, and went to bed.
 
@@ -354,7 +354,7 @@ After three months of measurement and optimization, here's what I'd tell someone
 4. **Monitor temperatures**: Thermal throttling will skew your benchmarks (my variance dropped from ±23% to ±4% after adding $28 in fans)
 5. **Right-size model selection**: Bigger isn't always better (I cut power by 18% using smaller models for simple tasks)
 6. **Use batch processing**: 2x+ efficiency gains are possible (91.7 vs 41.6 tokens/Wh in my testing)
-7. **Set cost alerts**: Use monitoring to avoid runaway jobs (learned this the hard way at $17)
+7. **Set cost alerts**: Use monitoring to avoid runaway jobs (learned this the hard way at $1.38)
 8. **Consider hybrid approach**: Home for sensitive tasks, cloud for occasional heavy lifting
 
 ## Conclusion: A Balanced Perspective

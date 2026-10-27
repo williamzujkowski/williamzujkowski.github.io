@@ -99,7 +99,7 @@ According to research from NIST's PQC Conference,[^nist-pqc-conference] when cer
 
 ### Dilithium Variant Selection: Security vs Performance Trade-offs
 
-Three security levels available: ML-DSA comes in three variants with different security-performance characteristics. ML-DSA-44 (Dilithium2) provides NIST Security Level 2 (equivalent to AES-128), ML-DSA-65 (Dilithium3) provides Level 3 (AES-192), and ML-DSA-87 (Dilithium5) provides Level 5 (AES-256). Higher security levels increase signature and public key sizes: Dilithium2 signatures are 2,420 bytes, Dilithium3 are 3,309 bytes (+37%), Dilithium5 are 4,595 bytes (+90%). For most homelabs, Dilithium2 is sufficient—NIST Level 2 security exceeds classical RSA-2048. Use Dilithium3 for high-value assets (password managers, backup encryption) or Dilithium5 for long-term archival (20+ year confidentiality requirements).
+Three security levels available: ML-DSA comes in three variants with different security-performance characteristics. ML-DSA-44 (Dilithium2) provides NIST Security Level 2 (equivalent to SHA-256 collision search), ML-DSA-65 (Dilithium3) provides Level 3 (AES-192), and ML-DSA-87 (Dilithium5) provides Level 5 (AES-256). Higher security levels increase signature and public key sizes: Dilithium2 signatures are 2,420 bytes, Dilithium3 are 3,309 bytes (+37%), Dilithium5 are 4,595 bytes (+90%). For most homelabs, Dilithium2 is sufficient—NIST Level 2 security exceeds classical RSA-2048. Use Dilithium3 for high-value assets (password managers, backup encryption) or Dilithium5 for long-term archival (20+ year confidentiality requirements).
 
 Performance impact: Signing speed decreases with higher security levels. On my i9-9900K: Dilithium2 signs at ~24K operations/second, Dilithium3 at ~16K ops/sec (-33%), Dilithium5 at ~8K ops/sec (-67%). Verification speeds follow similar patterns. For certificate signing (infrequent operation), performance differences are negligible. For high-throughput signing workloads (code signing servers, timestamp authorities), Dilithium2's speed advantage matters. Raspberry Pi 4 performance degrades more severely: Dilithium5 drops to ~600 signatures/second, making it impractical for IoT edge devices. My recommendation: Dilithium2 (Level 2) for 99% of use cases, Dilithium3 (Level 3) for government/compliance requirements (FedRAMP High), Dilithium5 (Level 5) only for nuclear/defense applications requiring maximum security.
 
@@ -123,7 +123,7 @@ After implementing ML-DSA on my homelab, I hit the 16KB certificate chain thresh
 | **Verification Speed** | ~35,000 verifies/sec | ~28,000 verifies/sec | Falcon (25% faster) | Better for services that verify more than sign |
 | **Energy per Signature** | ~2.1 mJ | ~1.0 mJ | ML-DSA (52% lower) | Significant on battery-powered devices |
 | **FIPS Status** | Not standardized yet | FIPS 204 (approved) | ML-DSA (compliance-ready) | Critical for regulated environments |
-| **Security Level** | NIST Level 1 (AES-128) | NIST Level 2 (AES-192) | ML-DSA (higher security) | Falcon-1024 matches Level 5 if needed |
+| **Security Level** | NIST Level 1 (AES-128) | NIST Level 2 (SHA-256 collision search) | ML-DSA (higher security) | Falcon-1024 matches Level 5 if needed |
 
 *Benchmarks from [IACR ePrint: Post-Quantum Authentication in TLS 1.3](https://eprint.iacr.org/2020/071.pdf) and [MDPI Post-Quantum Cryptography Performance](https://www.mdpi.com/2410-387X/8/2/21), measured on x86_64 hardware.*
 

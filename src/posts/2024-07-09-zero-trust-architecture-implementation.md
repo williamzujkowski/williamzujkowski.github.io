@@ -396,7 +396,7 @@ Normalizing the idea that verification wasn't about distrust but about protectio
 ### Training and Communication
 
 Security Awareness:
-Regular training on new security procedures and the reasoning behind them. Regular training on new security procedures and the reasoning behind them.
+Regular training on new security procedures and the reasoning behind them.
 
 Incident Simulation:
 Regular exercises that helped employees practice security procedures.

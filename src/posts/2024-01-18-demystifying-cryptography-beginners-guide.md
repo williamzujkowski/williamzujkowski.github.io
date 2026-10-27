@@ -329,7 +329,7 @@ My personal algorithm deprecation timeline:
 - **2012**: SHA-1 still acceptable for Git commits
 - **2015**: TLS 1.0 required for legacy browser support
 - **2017**: MD5 banned from all systems (collision attacks practical)
-- **2019**: SHA-1 removed from Git (Google demonstrated collision)
+- **2017**: Google demonstrated a SHA-1 collision; Git moved to a collision-detecting SHA-1 (SHA-1 is still Git's default)
 - **2020**: TLS 1.0/1.1 deprecated by browsers
 - **2023**: RSA-1024 keys rejected by most CAs
 
