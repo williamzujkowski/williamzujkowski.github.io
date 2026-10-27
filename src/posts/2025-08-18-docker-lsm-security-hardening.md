@@ -410,7 +410,7 @@ Time to detection: Hardened containers generated AppArmor/seccomp violation logs
 <ol class="seq" aria-label="container escape attempts blocked by hardening layers">
   <li class="seq-step"><b>Attacker (RCE) &rarr; Container</b><span>Command injection achieved</span></li>
   <li class="seq-step"><b>Attacker (RCE) &rarr; Container</b><span>cat /etc/shadow</span></li>
-  <li class="seq-step"><b>Container &rarr; AppArmor</b><span>open("/etc/shadow", O_RDONLY)</span></li>
+  <li class="seq-step"><b>Container &rarr; AppArmor</b><span><code>open("/etc/shadow", O_RDONLY)</code></span></li>
   <li class="seq-step"><b>AppArmor &rarr; Container</b><span>DENIED: deny /etc/shadow r</span></li>
   <li class="seq-note">AppArmor logs the denial to audit.log</li>
   <li class="seq-step"><b>Attacker (RCE) &rarr; Container</b><span>mount -t tmpfs tmpfs /mnt</span></li>
@@ -424,7 +424,7 @@ Time to detection: Hardened containers generated AppArmor/seccomp violation logs
   <li class="seq-step"><b>Seccomp &rarr; Capabilities</b><span>Passed Seccomp</span></li>
   <li class="seq-step"><b>Capabilities &rarr; Container</b><span>DENIED: CAP_SYS_MODULE dropped</span></li>
   <li class="seq-step"><b>Attacker (RCE) &rarr; Container</b><span>Write backdoor to /usr/bin</span></li>
-  <li class="seq-step"><b>Container &rarr; Read-Only FS</b><span>open("/usr/bin/backdoor", O_WRONLY)</span></li>
+  <li class="seq-step"><b>Container &rarr; Read-Only FS</b><span><code>open("/usr/bin/backdoor", O_WRONLY)</code></span></li>
   <li class="seq-step"><b>Read-Only FS &rarr; Container</b><span>EROFS: read-only filesystem</span></li>
   <li class="seq-note">All escape attempts blocked. Host never reached.</li>
 </ol>
