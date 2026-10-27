@@ -1003,8 +1003,10 @@ article .prose > p:first-of-type:not(.no-drop-cap)::first-letter {
   border: 1px solid currentColor; border-radius: 999px;
   padding: 0.05rem 0.55rem; margin-bottom: 0.4rem;
 }
-.prose .flow-leg[data-branch]:has(.is-good)::before { color: var(--color-success); }
-.prose .flow-leg[data-branch]:has(.is-bad)::before  { color: var(--color-error); }
+/* Direct child only: a leg that nests another branch must not take its
+ * pill colour from an outcome node several levels down. */
+.prose .flow-leg[data-branch]:has(> .is-good)::before { color: var(--color-success); }
+.prose .flow-leg[data-branch]:has(> .is-bad)::before  { color: var(--color-error); }
 @media (prefers-reduced-motion: reduce) { .prose .flow * { transition: none; } }
 
 /* ===== Native architecture diagrams (issue #414) — sibling to .flow, for

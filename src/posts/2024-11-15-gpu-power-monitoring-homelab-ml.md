@@ -258,12 +258,13 @@ Energy is power multiplied by time. I spent a month watching only the first term
   <div class="flow-node is-gate">Token estimate?</div>
   <div class="flow-branch" role="group" aria-label="Branch outcomes">
     <div class="flow-leg" data-branch="&lt; 100 tokens" role="group" aria-label="&lt; 100 tokens"><div class="flow-node is-good"><b>Route to CPU</b><i>llama.cpp on i9-9900K; 95W / 2.3 tok/s</i></div></div>
-    <div class="flow-leg" data-branch="100+ tokens" role="group" aria-label="100+ tokens"><div class="flow-node is-gate">Task complexity?</div></div>
-  </div>
-  <div class="flow-branch" role="group" aria-label="Branch outcomes">
-    <div class="flow-leg" data-branch="Simple summarization, Q&amp;A" role="group" aria-label="Simple summarization, Q&amp;A"><div class="flow-node is-good"><b>Phi-3 Mini 3.8B</b><i>276W avg</i></div></div>
-    <div class="flow-leg" data-branch="General chat, writing" role="group" aria-label="General chat, writing"><div class="flow-node"><b>Llama 3.1 8B</b><i>312W avg</i></div></div>
-    <div class="flow-leg" data-branch="Complex code gen, analysis" role="group" aria-label="Complex code gen, analysis"><div class="flow-node is-bad"><b>Llama 3.1 70B Q4</b><i>347W avg</i></div></div>
+    <div class="flow-leg" data-branch="100+ tokens" role="group" aria-label="100+ tokens"><div class="flow-node is-gate">Task complexity?</div>
+      <div class="flow-branch" role="group" aria-label="Branch outcomes">
+        <div class="flow-leg" data-branch="Simple summarization, Q&amp;A" role="group" aria-label="Simple summarization, Q&amp;A"><div class="flow-node is-good"><b>Phi-3 Mini 3.8B</b><i>276W avg</i></div></div>
+        <div class="flow-leg" data-branch="General chat, writing" role="group" aria-label="General chat, writing"><div class="flow-node"><b>Llama 3.1 8B</b><i>312W avg</i></div></div>
+        <div class="flow-leg" data-branch="Complex code gen, analysis" role="group" aria-label="Complex code gen, analysis"><div class="flow-node is-bad"><b>Llama 3.1 70B Q4</b><i>347W avg</i></div></div>
+      </div>
+    </div>
   </div>
   <div class="flow-node">Return Response</div>
   <div class="flow-node is-gate">Idle &gt; 15 min?</div>
