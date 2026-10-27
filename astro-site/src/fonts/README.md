@@ -15,4 +15,4 @@ Glyph subset (`unicode-range` in `astro.config.mjs` must match): Basic Latin, La
 
 Two things that bite when changing this: Chrome groups `@font-face` rules by weight range, so Greek must declare the same range as latin or it shadows the latin face; and trimming Fraunces' `wght` axis shifted edge pixels in screenshots, so it is left whole.
 
-Licences: all three families are SIL OFL 1.1; texts in `licenses/`. Source Serif 4 reserves the font name "Source"; these files are only used as web-font subsets under their own CSS family names and are not redistributed as fonts.
+Licences: all three families are SIL OFL 1.1; texts in `licenses/`. None reserves a font name. Adobe's own Source Serif release reserves "Source", but these files derive from the Google Fonts build that Fontsource ships, whose OFL (copied here from google/fonts `ofl/sourceserif4/OFL.txt`) has no Reserved Font Name, so subsetting it is permitted as-is.
