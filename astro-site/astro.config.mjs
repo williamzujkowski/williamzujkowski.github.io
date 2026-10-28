@@ -9,6 +9,7 @@ import { visit } from 'unist-util-visit';
 import { createCssVariablesTheme } from 'shiki';
 import { writeFile } from 'node:fs/promises';
 import rehypeSidenotes from './src/lib/rehype-sidenotes.mjs';
+import rehypeSourceMarginalia from './src/lib/rehype-source-marginalia.mjs';
 import rehypeTaskListLabels from './src/lib/rehype-task-list-labels.mjs';
 import rehypeDropCap from './src/lib/rehype-drop-cap.mjs';
 import rehypeSmartQuotes from './src/lib/rehype-smart-quotes.mjs';
@@ -454,6 +455,8 @@ export default defineConfig({
         rehypeScrollWrap,
         // Convert GFM footnote references and definitions into inline sidenotes.
         rehypeSidenotes,
+        // Opt-in per post (`marginNotes: true`): Sources entries as margin notes.
+        rehypeSourceMarginalia,
         rehypeRaw,
         // Raw-HTML captions and diagram labels that smartypants never saw.
         rehypeSmartQuotes,
