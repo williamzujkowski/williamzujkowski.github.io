@@ -1,6 +1,12 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
 
+  // The dialog only. The trigger button and the Ctrl/Cmd+K listener live in
+  // SearchTrigger.astro as a tiny plain script, which imports and mounts this
+  // component on first use (#661). Nothing on this side loads, or pulls in the
+  // Svelte runtime, until a visitor actually opens search.
+  let { trigger = null }: { trigger?: HTMLElement | null } = $props();
+
   interface PagefindResult {
     // NOTE: no `id` here. Pagefind puts `id` on the search-result WRAPPER
     // (see PagefindResponse below), not on what its data() resolves to.
@@ -30,11 +36,6 @@
   }
 
   let query = $state('');
-  let ready = $state(false);
-  // Ctrl+K / Cmd+K is the only shortcut. A bare "/" used to open search
-  // too: a single-character shortcut with no way to turn it off fails WCAG
-  // 2.1.4, and speech-input users trigger it by accident (#698).
-  let shortcutHint = $state('Ctrl K');
   let results = $state<PagefindResult[]>([]);
   let isOpen = $state(false);
   let isLoading = $state(false);
@@ -50,7 +51,6 @@
   let previouslyFocused: HTMLElement | null = null;
   let dialogEl: HTMLDivElement;
   let resultsEl: HTMLUListElement;
-  let triggerEl: HTMLButtonElement;
   let moreEl: HTMLButtonElement;
   let retryEl: HTMLButtonElement;
   let overlayEl: HTMLDivElement;
@@ -200,7 +200,7 @@
     inertedEls = [];
     // Opened by the Ctrl/⌘K shortcut, the "previous" element is <body>;
     // land on the trigger instead of dropping focus to the document top.
-    const back = previouslyFocused && previouslyFocused !== document.body ? previouslyFocused : triggerEl;
+    const back = previouslyFocused && previouslyFocused !== document.body ? previouslyFocused : trigger;
     back?.focus();
     previouslyFocused = null;
   }
@@ -233,14 +233,17 @@
     else links[i - 1].focus();
   }
 
-  async function open() {
+  // Called by SearchTrigger.astro, which owns the Ctrl/Cmd+K shortcut and the
+  // trigger click. `from` is the element focused when the visitor asked to
+  // open: captured before the lazy import, so a slow chunk can't change it.
+  export async function open(from: HTMLElement | null = document.activeElement as HTMLElement | null) {
     // Repeated shortcuts must preserve the original inert ownership and focus
     // target. Otherwise close() leaves the rest of the page inert.
     if (isOpen) {
       inputEl?.focus();
       return;
     }
-    previouslyFocused = document.activeElement as HTMLElement | null;
+    previouslyFocused = from;
     const opening = generation;
     isOpen = true;
     await tick();
@@ -269,19 +272,11 @@
 
   onMount(() => {
     function handleKeydown(e: KeyboardEvent) {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        open();
-      }
       if (e.key === 'Escape' && isOpen) {
         close();
       }
     }
     document.addEventListener('keydown', handleKeydown);
-    if (/Mac|iPhone|iPad/.test(navigator.platform)) shortcutHint = '⌘K';
-    // SSR renders the trigger before its click handler is attached. Keep it
-    // disabled until hydration completes so an early click cannot disappear.
-    ready = true;
 
     // No astro:after-swap listener needed: without ClientRouter every
     // navigation is a full page load, which naturally tears this component
@@ -294,25 +289,6 @@
     };
   });
 </script>
-
-<!-- Search trigger button -->
-<button
-  bind:this={triggerEl}
-  type="button"
-  onclick={open}
-  disabled={!ready}
-  class="search-trigger"
-  aria-label={`Search site, ${shortcutHint}`}
-  aria-keyshortcuts="Control+K Meta+K"
->
-  <svg class="search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-  </svg>
-  <!-- The hint is the button's only visible text, so it must also be in the
-       accessible name (WCAG 2.5.3 Label in Name): a voice user says what they see.
-       Not in parentheses: axe 4.14 drops parentheticals before comparing. -->
-  <kbd class="search-kbd">{shortcutHint}</kbd>
-</button>
 
 <!-- Search dialog -->
 {#if isOpen}
@@ -425,44 +401,6 @@
 {/if}
 
 <style>
-  /* Search trigger — Remarque tokens, no Tailwind (which isn't installed) */
-  .search-trigger {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.375rem;
-    min-width: 44px;
-    min-height: 44px;
-    padding: 0 0.5rem;
-    background: transparent;
-    border: none;
-    border-radius: var(--radius-md, 0.5rem);
-    color: var(--color-muted);
-    cursor: pointer;
-    transition: color var(--motion-fast, 180ms) var(--motion-easing, ease);
-  }
-  .search-trigger:hover {
-    color: var(--color-fg);
-    background: var(--color-surface);
-  }
-  .search-icon {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-  .search-kbd {
-    display: none;
-    /* font-family: mono — shared machine-voice rule in global.css (#274) */
-    font-size: var(--text-micro);
-    padding: 0.125rem 0.375rem;
-    border: 1px solid var(--color-border);
-    border-radius: 0.25rem;
-    color: var(--color-muted);
-    line-height: 1;
-  }
-  @media (min-width: 1024px) {
-    .search-kbd { display: inline-block; }
-  }
-
   /* Search dialog — migrated off dead Tailwind utilities to Remarque tokens (#206) */
   .search-overlay {
     position: fixed;

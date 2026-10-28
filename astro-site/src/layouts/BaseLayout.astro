@@ -4,8 +4,8 @@ import '@/styles/zine.css'; // zine marginalia layer — last, decorates both
 import { Font } from 'astro:assets';
 import { SECTIONS, SITE_CONFIG } from '@/lib/siteConfig';
 import { humanTag } from '@/lib/utils';
-import Search from '@components/Search.svelte';
-import CodeCopy from '@components/CodeCopy.svelte';
+import SearchTrigger from '@components/SearchTrigger.astro';
+import CodeCopy from '@components/CodeCopy.astro';
 import ThemeToggle from '@components/ThemeToggle.astro';
 import ThemeDeck from '@components/ThemeDeck.astro';
 
@@ -303,7 +303,7 @@ function isActiveLink(linkHref: string): boolean {
             <span class="site-nameplate-title"><em>Field</em> Notes</span>
           </a>
           <div class="site-masthead-tools-right">
-            <Search client:load />
+            <SearchTrigger />
             <ThemeDeck variant="header" />
             <ThemeToggle />
           </div>
@@ -355,6 +355,6 @@ function isActiveLink(linkHref: string): boolean {
       </p>
     </footer>
 
-    <CodeCopy client:idle />
+    <CodeCopy />
   </body>
 </html>
