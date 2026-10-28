@@ -500,16 +500,18 @@
 
   .po-help {
     display: inline-grid; place-items: center;
-    width: 1.25rem; height: 1.25rem; border-radius: 50%;
+    width: 1.5rem; height: 1.5rem; border-radius: 50%;
     border: 1px solid var(--color-border-bold); color: var(--color-muted);
     font-size: 0.8125rem; cursor: help; user-select: none; flex: none;
     /* button reset: it was a span, and must still look like one */
     background: none; padding: 0; font-family: inherit; line-height: 1;
     position: relative;
   }
-  /* Hit area to 44px (AGENT_RULES forms: every control >= 44x44) without
-     growing the 20px circle. */
-  .po-help::after { content: ''; position: absolute; inset: -0.75rem; border-radius: 50%; }
+  /* 24x24 minimum everywhere (WCAG 2.5.8; it was 20px). Touch gets the full
+     44x44 (AGENT_RULES forms); the label rows have room for it. */
+  @media (pointer: coarse) {
+    .po-help { width: 2.75rem; height: 2.75rem; margin-block: -0.5rem; }
+  }
   .po-help:hover, .po-help[aria-expanded='true'] { color: var(--color-fg); border-color: var(--color-accent); }
   .po-label label { margin: 0; }
   .po-help-tip {

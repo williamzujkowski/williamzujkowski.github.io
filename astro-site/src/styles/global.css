@@ -542,15 +542,39 @@ a:hover { color: var(--color-accent-hover); }
   text-transform: none;
 }
 
-/* Mobile masthead: stack tools below nameplate */
+/* Mobile masthead: nameplate on the left, tools on its row's right, and the
+   nav on ONE line. Stacking the tools under the nameplate and letting six
+   links wrap took ~255px (32% of a 375x800 first screen) and orphaned
+   "WORKBENCH NOW" on a row of its own. The nav scrolls sideways instead (the
+   active link is scrolled into view by the inline script in BaseLayout); a
+   fade on the right edge says there is more. Targets stay 44px. */
 @media (max-width: 640px) {
-  .site-masthead-top { grid-template-columns: 1fr; }
+  .site-masthead-top { grid-template-columns: 1fr auto; gap: var(--space-2); }
   .site-masthead-tools-left { display: none; }
-  .site-masthead-tools-right { justify-self: center; }
+  .site-masthead-tools-right { justify-self: end; }
+  .site-nameplate { align-items: flex-start; text-align: start; padding-inline: 0; }
+  .site-nameplate-title { font-size: 2rem; white-space: nowrap; }
   /* Primary nav is not fine print — keep it at --text-meta (14px), the
      site's own floor for non-timestamp text, even on mobile. Tighten gap
      and letter-spacing instead of shrinking below --text-micro (#322). */
-  .site-sections { gap: 0.1rem 0.6rem; letter-spacing: 0.04em; }
+  .site-sections {
+    flex-wrap: nowrap;
+    justify-content: safe center;
+    gap: 0;
+    letter-spacing: 0.02em;
+    overflow-x: auto;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 1.5rem), transparent);
+    mask-image: linear-gradient(to right, black calc(100% - 1.5rem), transparent);
+  }
+  .site-sections::-webkit-scrollbar { display: none; }
+  .site-sections a { flex: none; padding-inline: 0.5rem; }
+}
+/* 320px: nameplate + three 44px tools need ~8px more than the row has. */
+@media (max-width: 360px) {
+  .site-nameplate-title { font-size: 1.75rem; }
+  .site-masthead-tools-right { gap: 0; }
 }
 
 /* ===== Post Article Header ===== */

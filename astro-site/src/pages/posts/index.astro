@@ -19,15 +19,18 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
   description="Security insights, AI experiments, homelab adventures, and lessons from the field."
   searchIndex={false}
 >
-  <h1 class="sr-only">Dispatches</h1>
-
-  {/* dispatch en route — decorative, recolors with the active theme */}
-  <div
-    class="zine-doodle"
-    aria-hidden="true"
-    style="--doodle: url('/assets/doodles/spot-packet.png'); width: 150px; aspect-ratio: 420/250; margin: 0.5rem auto -0.25rem;"
-  >
-  </div>
+  {/* Title first (Notebook archetype): the page opens on its name, in the
+      same --text-display rung as every other page title. The doodle stays as
+      a small decorative mark beside it. */}
+  <header class="archive-title">
+    <h1>Dispatches</h1>
+    <div
+      class="zine-doodle"
+      aria-hidden="true"
+      style="--doodle: url('/assets/doodles/spot-packet.png'); width: 110px; aspect-ratio: 420/250; flex: none;"
+    >
+    </div>
+  </header>
 
   <div class="archive-intro">
     <p class="archive-stats">
@@ -85,6 +88,23 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
 </BaseLayout>
 
 <style>
+  .archive-title {
+    max-width: var(--content-reading);
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+  .archive-title h1 { margin-block: 0; }
+  @media (max-width: 480px) {
+    .archive-title .zine-doodle { width: 72px !important; }
+  }
+  /* Left-aligned like every other page title, not centred under a doodle. */
+  .archive-intro {
+    align-items: flex-start;
+  }
+  .archive-years, .archive-filter { justify-content: flex-start; }
   .archive-years {
     /* Machine voice, like .archive-stats above it. Set here rather than in
        global.css's shared mono list so this page owns its own new row. */

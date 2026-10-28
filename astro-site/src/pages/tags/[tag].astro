@@ -30,9 +30,9 @@ const humanTagLabel = humanTag(tag);
 <BaseLayout searchIndex={false} title={`Posts tagged "${tag}"`} description={`All blog posts tagged with "${tag}".`}>
   <Breadcrumb items={[{ label: 'Front', href: '/' }, { label: 'Dispatches', href: '/posts/' }, { label: 'Tags', href: '/tags/' }, { label: tag }]} />
 
-  <header class="broadsheet-masthead" style="margin-block-start: var(--space-5);">
-    <p class="masthead-kicker">Filed under</p>
-    <h1 class="masthead-title" style="font-size: clamp(2.5rem, 6vw, 4.5rem);">
+  <header class="tag-header">
+    <p class="masthead-kicker tag-kicker">Filed under</p>
+    <h1 class="tag-title">
       <em>{humanTagLabel}</em>
     </h1>
     <p class="masthead-dateline">
@@ -46,3 +46,19 @@ const humanTagLabel = humanTag(tag);
     ))}
   </ol>
 </BaseLayout>
+
+<style>
+  /* One page-title rung (--text-display, as on every page), left-aligned in
+     the reading column. The tag name stays italic: the zine layer's accent,
+     and the only thing distinguishing a landing from a list. */
+  .tag-header {
+    max-width: var(--content-reading);
+    margin: var(--space-5) auto var(--space-6);
+  }
+  .tag-title {
+    margin-block: 0;
+  }
+  .tag-title em { font-style: italic; font-weight: 300; }
+  .tag-header .masthead-kicker,
+  .tag-header .masthead-dateline { justify-content: flex-start; }
+</style>

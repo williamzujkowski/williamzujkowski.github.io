@@ -116,13 +116,16 @@ import themeCredits from '@/data/theme-deck-attribution.json';
       and the upstream theme projects. Palettes offered here:
     </p>
 
-    <ul class="link-list">
-      {themeCredits.map((t) => (
-        <li>
-          {t.name} — <a href={t.sourceUrl}>upstream source</a>
-        </li>
-      ))}
-    </ul>
+    <details class="credits">
+      <summary>Show all {themeCredits.length} palettes and their upstream sources</summary>
+      <ul class="link-list">
+        {themeCredits.map((t) => (
+          <li>
+            {t.name} — <a href={t.sourceUrl}>upstream source</a>
+          </li>
+        ))}
+      </ul>
+    </details>
 
     <h2 id="contact">Connect</h2>
 
@@ -135,6 +138,38 @@ import themeCredits from '@/data/theme-deck-attribution.json';
 </BaseLayout>
 
 <style>
+  /* The 38-link palette list is reference, not reading: collapsed by default
+     so Connect is not 1000px down. Words and links are unchanged. */
+  .credits {
+    margin-block: var(--space-4);
+    border-block: 1px solid var(--color-border);
+  }
+  .credits summary {
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    letter-spacing: var(--tracking-meta);
+    color: var(--color-fg);
+    cursor: pointer;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    list-style: none;
+  }
+  .credits summary::-webkit-details-marker { display: none; }
+  .credits summary::before {
+    content: "▸";
+    color: var(--color-accent);
+    transition: transform var(--motion-fast) ease;
+  }
+  .credits[open] summary::before { transform: rotate(90deg); }
+  @media (prefers-reduced-motion: reduce) {
+    .credits summary::before { transition: none; }
+  }
+  .credits summary:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
   .lede {
     font-family: var(--font-display);
     font-size: 1.25rem;
