@@ -46,8 +46,11 @@ frontmatter. A post with GFM footnotes is excluded from margin notes: record the
 sub-check as not applicable with that reason in the stage evidence (the stage
 itself is never `not-applicable`). Run `node astro-site/scripts/margin-notes-review.mjs`,
 then record the post's note count, density against about one note per 150 words,
-and any note that adds nothing its sentence does not already give. Missing
-coverage or a missing flag means **HOLD**.
+and any note that adds nothing its sentence does not already give. A post with
+no `## Sources` list also gets a generated "Sources" list at the end (page and
+both feeds) from the same citation entries, so the end-of-post Sources
+requirement is met by full coverage: confirm the list renders every cited
+source, with no entry missing. Missing coverage or a missing flag means **HOLD**.
 
 ## Coverage and decision
 
