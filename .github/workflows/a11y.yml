@@ -24,6 +24,7 @@ jobs:
     timeout-minutes: 5
     outputs:
       site: ${{ steps.diff.outputs.site }}
+      rendertext: ${{ steps.rendertext.outputs.rendertext }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
         with:
@@ -32,6 +33,14 @@ jobs:
         env:
           BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
         run: python3 scripts/ci/select-inputs.py a11y >> "$GITHUB_OUTPUT"
+      # Does this PR touch anything that changes how a post RENDERS (a rehype
+      # plugin, the schema, the Astro config, or a post with `marginNotes:
+      # true`)? Only then is the base-vs-head text comparison below worth a
+      # second build.
+      - id: rendertext
+        env:
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: python3 scripts/ci/rendered-text-gate.py applicable >> "$GITHUB_OUTPUT"
 
   axe:
     needs: changes
@@ -62,8 +71,40 @@ jobs:
           key: astro-fonts-${{ hashFiles('astro-site/astro.config.mjs', 'astro-site/pnpm-lock.yaml') }}
           restore-keys: |
             astro-fonts-
+      # Astro keeps its content-layer store (render output of every post) in
+      # .astro/ and node_modules/.astro/. A rehype plugin or config change does
+      # not invalidate it, so a restored store would serve the OLD HTML for
+      # unchanged Markdown. Nothing restores them today (only the fonts
+      # subdirectory is cached above), but this keeps it true if a broader
+      # cache is ever added: everything except the fonts is dropped.
+      - name: Drop stale Astro content cache
+        run: |
+          rm -rf astro-site/.astro
+          find astro-site/node_modules/.astro -mindepth 1 -maxdepth 1 ! -name fonts -exec rm -rf {} + 2>/dev/null || true
       - name: Build site
         run: cd astro-site && pnpm build
+      # plaintext_gate.py reads post source, so it cannot see a plugin that
+      # changes the rendered words. Build the base branch too (only when the
+      # PR touches render inputs) and compare <main> text outside the margin
+      # notes, post by post. The head build above is reused as-is.
+      - name: Checkout base branch (rendered-text gate)
+        if: github.event_name == 'pull_request' && needs.changes.outputs.rendertext == 'true'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: base-tree
+      - name: Build base branch (rendered-text gate)
+        if: github.event_name == 'pull_request' && needs.changes.outputs.rendertext == 'true'
+        run: |
+          cd base-tree/astro-site
+          pnpm install --frozen-lockfile
+          pnpm build
+      - name: Rendered-text gate (text outside margin notes unchanged vs base)
+        if: github.event_name == 'pull_request' && needs.changes.outputs.rendertext == 'true'
+        run: >
+          python3 scripts/ci/rendered-text-gate.py compare
+          --base-dist base-tree/astro-site/dist --head-dist astro-site/dist
+          --base-tree base-tree --head-tree .
       - name: Run full Playwright suite (smoke + a11y + theme-deck)
         run: cd astro-site && npx playwright test tests/e2e/
       # Was advisory AND continue-on-error, while reporting four genuine WCAG
