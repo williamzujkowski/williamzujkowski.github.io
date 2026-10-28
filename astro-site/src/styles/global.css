@@ -1816,12 +1816,21 @@ div:has(> .post-card) {
 }
 /* /tags/: a grid so every row starts on the same edge (a flow of chips of
  * every length left a ragged right side). */
-.tag-index {
+.remarque-tags.tag-index {
+  /* `margin: 0` on .remarque-tags:has(.chip) above would otherwise cancel the
+     reading-column centring and push the grid left of the heading. */
+  margin-inline: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 11.5rem), 1fr));
+  /* Column floor 16rem = the longest label plus its count (measured 249px at 14px), so a name
+     never breaks and every cell is one line. */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
   gap: var(--space-2);
 }
-.tag-index a.chip { inline-size: 100%; }
+.tag-index a.chip {
+  inline-size: 100%;
+  white-space: nowrap;
+  justify-content: flex-start;
+}
 /* Prose pages: a text column of ~60ch (about 72 glyphs a line in this body
  * face), not the full 38rem. See DESIGN-DEVIATIONS.md "Archive measure". */
 .prose:not(.remarque-prose) :where(p, li, dd) { max-inline-size: 60ch; }

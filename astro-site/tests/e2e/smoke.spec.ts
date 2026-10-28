@@ -148,6 +148,11 @@ test('/tags/ lists every tag in a grid, most-used first, count inline', async ({
   const counts = await list.locator('.tag-count').evaluateAll((els) => els.map((el) => Number(el.firstChild?.textContent)));
   expect(counts.length).toBeGreaterThan(10);
   expect(counts).toEqual([...counts].sort((a, b) => b - a));
+  // No name breaks, every cell is one height and the count sits inline.
+  const cells = await list.locator('a.chip').evaluateAll((els) =>
+    els.map((el) => ({ h: Math.round(el.getBoundingClientRect().height), over: el.scrollWidth > el.clientWidth + 1 })));
+  expect(new Set(cells.map((c) => c.h)).size).toBe(1);
+  expect(cells.some((c) => c.over)).toBe(false);
 });
 
 test('off-site links carry rel=external and the screen-only arrow', async ({ page }) => {
