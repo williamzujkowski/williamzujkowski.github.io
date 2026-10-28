@@ -11,7 +11,7 @@ tags:
 ---
 ## Bottom Line Up Front
 
-I built a standards server that was supposed to be a simple wrapper around my documentation repository. Six weeks later I had written about 32,000 lines of Python across 65 modules, implementing Redis caching, vector search, six language analyzers, some 950 test functions, and a React UI.
+I built a standards server that was supposed to be a simple wrapper around my documentation repository. Several weeks later I had written about 32,000 lines of Python across 65 modules, implementing Redis caching, vector search, six language analyzers, some 950 test functions, and a React UI.
 
 For a read-only documentation server. That I'm the only user of.
 
@@ -19,7 +19,7 @@ This is a case study in scope creep, premature optimization, and what happens wh
 
 But here's the thing: personal projects are where we learn by overdoing it, by making every mistake in the book when the stakes are low. This post walks through the evolution from working prototype to over-engineered monstrosity, examining the classic developer pitfalls I hit along the way, including tool-driven architecture, the seduction of sophisticated patterns, and the massive gap between "it works" and "it's production ready."
 
-The Numbers: Version 1 (200 lines, 2 hours, functional) → Version 4 (about 32,000 lines, six weeks, questionably necessary). Redis cache with 30-minute TTL for documentation that changes once a month. Vector search implementation for 50 markdown files. Six language-specific analyzers for standards that are 90% YAML. This isn't a success story: it's a cautionary tale about knowing when good enough is perfect.
+The Numbers: Version 1 (200 lines, 2 hours, functional) → Version 4 (about 32,000 lines, several weeks, questionably necessary). Redis cache with 30-minute TTL for documentation that changes once a month. Vector search implementation for 50 markdown files. Six language-specific analyzers for standards that are 90% YAML. This isn't a success story: it's a cautionary tale about knowing when good enough is perfect.
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/mcp-server.png'); width: min(240px, 62%); aspect-ratio: 400/386; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">one server, many tools</p>
