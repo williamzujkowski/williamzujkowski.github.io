@@ -61,7 +61,7 @@ Published forecasts for AI infrastructure spend disagree by a quarter of a trill
 
 Current deployment across critical sectors:
 
-- **Healthcare**: Clinical decision support systems augment physician decisions in hospitals worldwide, though clinicians override somewhere between 46% and 96% of drug-safety alerts depending on the system studied — and those are rule-based alerts, before AI enters the picture
+- **Healthcare**: Clinical decision support systems augment physician decisions in hospitals worldwide, though clinicians routinely override drug-safety alerts — and those are rule-based alerts, before AI enters the picture
 - **Education**: AI tutoring systems show mixed-to-positive effects on student performance and engagement in early research
 - **Government**: Bloomberg Philanthropies found 96% of surveyed mayors interested in generative AI and 69% exploring or testing it — but only 2% actually implementing, which is the number worth sitting with
 - **Search**: AI processes 30% of internet searches, determining what billions of people discover and learn
@@ -131,7 +131,7 @@ This isn't conspiracy. It's architecture. The structure of AI-mediated informati
 
 AI cognitive infrastructure has significant limitations that we're discovering through painful failures:
 
-Healthcare alert fatigue: The 96% override rate means critical warnings get lost in noise, potentially causing patient harm. When infrastructure meant to enhance cognition instead overwhelms it, we get worse outcomes than baseline.
+Healthcare alert fatigue: When clinicians learn to click past alerts, critical warnings get lost in noise, potentially causing patient harm. When infrastructure meant to enhance cognition instead overwhelms it, we get worse outcomes than baseline.
 
 Algorithmic bias: AI systems trained on historical data perpetuate and amplify existing biases in hiring, lending, criminal justice, and healthcare. [NIST's 2019 vendor test found false-positive rates 10 to 100 times higher for Asian and African American faces](https://nvlpubs.nist.gov/nistpubs/ir/2019/nist.ir.8280.pdf) than for white faces, depending on the algorithm.
 
@@ -239,30 +239,21 @@ The answer depends on the choices we make now, while we still have the cognitive
    - One of the forecasts in the spread quoted above, included so the range has at least one
      inspectable endpoint rather than none
 
-### Healthcare Applications
-
-5. [Clinical Decision Support Systems: State of the Art](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8075456/)
-   - Review of AI in clinical settings
-
-6. [Alert Fatigue in Electronic Health Records](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7647168/)
-   - Source of the drug-safety alert override range quoted above
-   - *Applied Clinical Informatics*
-
 ### Government & Policy
 
-7. [UNESCO Recommendation on the Ethics of AI](https://www.unesco.org/en/artificial-intelligence/recommendation-ethics) (2021)
+5. [UNESCO Recommendation on the Ethics of AI](https://www.unesco.org/en/artificial-intelligence/recommendation-ethics) (2021)
    - Global ethical framework for AI development
 
-8. [The GovTech Maturity Index](https://www.worldbank.org/en/programs/govtech/gtmi)
+6. [The GovTech Maturity Index](https://www.worldbank.org/en/programs/govtech/gtmi)
    - World Bank analysis of government technology adoption
    - *World Bank Group*
 
 ### Cognitive Science
 
-9. [Cognitive Offloading](https://doi.org/10.1016/j.tics.2016.07.002) — Risko & Gilbert, *Trends in Cognitive Sciences* 20(9), 2016
+7. [Cognitive Offloading](https://doi.org/10.1016/j.tics.2016.07.002) — Risko & Gilbert, *Trends in Cognitive Sciences* 20(9), 2016
    - Theoretical framework for understanding cognitive delegation
 
-10. [The Extended Mind](https://www.jstor.org/stable/3328150) — Clark & Chalmers, *Analysis* 58(1), 1998
+8. [The Extended Mind](https://www.jstor.org/stable/3328150) — Clark & Chalmers, *Analysis* 58(1), 1998
     - The foundational argument this post is standing on
 
 ### Additional Resources
