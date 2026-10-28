@@ -10,7 +10,7 @@ import { createCssVariablesTheme } from 'shiki';
 import { writeFile } from 'node:fs/promises';
 import { readFileSync } from 'node:fs';
 import rehypeSidenotes from './src/lib/rehype-sidenotes.mjs';
-import rehypeSourceMarginalia from './src/lib/rehype-source-marginalia.mjs';
+import rehypeSourceNotesAndList from './src/lib/generatedSources.mjs';
 import rehypeTaskListLabels from './src/lib/rehype-task-list-labels.mjs';
 import rehypeDropCap from './src/lib/rehype-drop-cap.mjs';
 import rehypeExternalRel from './src/lib/rehype-external-rel.mjs';
@@ -470,8 +470,10 @@ export default defineConfig({
         rehypeScrollWrap,
         // Convert GFM footnote references and definitions into inline sidenotes.
         rehypeSidenotes,
-        // Opt-in per post (`marginNotes: true`): Sources entries as margin notes.
-        [rehypeSourceMarginalia, { citations: citationData }],
+        // Opt-in per post (`marginNotes: true`): Sources entries as margin notes
+        // (rehype-source-marginalia.mjs), then, for posts that cite inline with
+        // no Sources list, the cited sources as a generated list at the end.
+        [rehypeSourceNotesAndList, { citations: citationData }],
         rehypeRaw,
         // Raw-HTML captions and diagram labels that smartypants never saw.
         rehypeSmartQuotes,

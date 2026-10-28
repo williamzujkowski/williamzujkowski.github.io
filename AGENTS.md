@@ -54,7 +54,12 @@ the page by hand, then `pnpm citations:check -- <slug>` (no network; add
 `--strict` to fail on missing or unused entries). Own-domain links and GitHub
 file, commit, tree and compare links get no note. New posts are expected to
 carry `marginNotes: true` and either a Sources list or full citation coverage;
-`blog-factcheck` / `blog-pre-publish` check this. Posts with GFM footnotes are
+`blog-factcheck` / `blog-pre-publish` check this. Inline-citing posts (no
+Sources list, no footnotes) also get a generated "Sources" list at the end,
+on the page and in the RSS/JSON feeds, built from `citations.json`
+(`astro-site/src/lib/generatedSources.mjs`), so `citations:check` coverage also
+governs the bibliography; it lists every cited source, including those whose
+note was dropped as an echo. Posts with GFM footnotes are
 excluded (shared counter). Review what a post would get with
 `node astro-site/scripts/margin-notes-review.mjs`. A PR that touches the plugin,
 schema or config, or a flagged post, also runs `scripts/ci/rendered-text-gate.py`
