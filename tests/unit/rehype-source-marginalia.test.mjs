@@ -4,6 +4,8 @@ import assert from 'node:assert/strict';
 import rehypeSourceMarginalia, {
   transformSourceMarginalia,
   normalizeUrl,
+  isEcho,
+  ECHO_MAX_NEW_WORDS,
 } from '../../astro-site/src/lib/rehype-source-marginalia.mjs';
 
 const text = (value) => ({ type: 'text', value });
@@ -22,7 +24,9 @@ function sourcesList(entries) {
       'ol',
       {},
       entries.map(([href, title, rest]) =>
-        el('li', {}, [link(href, title), text(` ${rest || ''}`)])
+        // Every fixture entry carries an author and venue, so its note adds
+        // information and is not dropped as an echo of the link text.
+        el('li', {}, [link(href, title), text(` ${rest || ''} · Someone et al. · Test Journal`)])
       )
     ),
   ];
@@ -280,7 +284,7 @@ test('an entry whose content is not phrasing-only gets no note and consumes no n
     children: [
       el('p', {}, [link('https://example.com/a', 'a'), text(' '), link('https://example.com/b', 'b')]),
       el('h2', {}, [text('Sources')]),
-      el('ol', {}, [blocky, el('li', {}, [link('https://example.com/b', 'B')])]),
+      el('ol', {}, [blocky, el('li', {}, [link('https://example.com/b', 'B'), text(' (2020) · Someone et al. · Test Journal')])]),
     ],
   };
   transformSourceMarginalia(tree);
@@ -302,4 +306,33 @@ test('onMatch sees each hit before the tree changes', () => {
     onMatch: ({ host, serial }) => seen.push([serial, host.children.length]),
   });
   assert.deepEqual(seen, [[1, 3]]);
+});
+
+test('a note that only echoes its link text is dropped and consumes no number', () => {
+  const tree = {
+    type: 'root',
+    children: [
+      el('p', {}, [link('https://example.com/tool', 'nexus-agents'), text(' and '), link('https://example.com/paper', 'the paper'), text('.')]),
+      el('h2', { id: 'sources' }, [text('Sources')]),
+      el('ol', {}, [
+        el('li', {}, [link('https://example.com/tool', 'nexus-agents')]),
+        el('li', {}, [link('https://example.com/paper', 'The Paper'), text(' (2021) · Smith et al. · Nature Communications')]),
+      ]),
+    ],
+  };
+  transformSourceMarginalia(tree);
+  const notes = asides(tree);
+  assert.equal(notes.length, 1, 'only the informative note renders');
+  assert.match(textOutsideNotes({ type: 'root', children: [] }) + notes[0].children.map((c) => c.value || '').join(''), /Smith/);
+  const p = tree.children[0];
+  assert.deepEqual(kinds(p.children), ['a', 'text', 'a', 'ref', 'note', 'text']);
+  assert.equal(p.children[3].properties.ariaLabel, 'Note 1');
+});
+
+test('isEcho counts words the note adds beyond the link text', () => {
+  const content = (s) => [text(s)];
+  assert.equal(ECHO_MAX_NEW_WORDS, 2);
+  assert.equal(isEcho(link('u', 'USLM (United States Legislative Markup)'), content('USLM (United States Legislative Markup)')), true);
+  assert.equal(isEcho(link('u', 'Renovate'), content('Renovate: minimumReleaseAge configuration')), true);
+  assert.equal(isEcho(link('u', 'Harvard Kilobot'), content('Harvard Kilobot swarm research, Harvard DASH repository')), false);
 });
