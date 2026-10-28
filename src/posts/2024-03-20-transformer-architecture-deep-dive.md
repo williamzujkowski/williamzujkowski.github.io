@@ -200,7 +200,7 @@ The paper that first captured my imagination years ago continues to inspire new 
    - Demonstrates emergent capabilities at scale
 
 3. [Emergent Abilities of Large Language Models](https://arxiv.org/abs/2206.07682) (2022)
-   - Bubeck et al.
+   - Wei et al.
    - *arXiv preprint*
    - Analysis of emergent capabilities at scale
 
