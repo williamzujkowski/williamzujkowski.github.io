@@ -57,13 +57,13 @@ Modern HPC centers are employing AI-driven scheduling systems that fundamentally
 Intelligent job scheduling capabilities:
 - Real-time workload prediction using historical job data and user patterns
 - Dynamic resource allocation that adapts to changing computational demands
-- GPU utilization optimization achieving 85-95% efficiency (vs. traditional 60-70%)
-- Power-aware job placement reducing energy consumption by 15-30%
+- GPU utilization optimization that keeps expensive accelerators well used
+- Power-aware job placement that can reduce energy consumption
 - Predictive maintenance scheduling that minimizes downtime
 - Multi-objective optimization balancing throughput, fairness, and energy efficiency
 
 Advanced resource management techniques:
-- Machine learning models predict job runtime with 90%+ accuracy
+- Machine learning models predict job runtime well enough to improve scheduling
 - Adaptive mesh refinement guided by neural networks
 - Automatic detection and mitigation of resource bottlenecks
 - Intelligent data locality optimization reducing I/O overhead
@@ -342,15 +342,15 @@ The applications I've seen emerge from these HPC advances show substantial real-
 - **Carbon cycle accuracy**: Coupled ocean-atmosphere-land models track CO₂ absorption with 10× higher fidelity, supporting sustainable computing initiatives
 
 ### Materials Discovery
-- **Accelerated exploration**: AI-enhanced HPC is accelerating materials discovery by 50× compared to traditional approaches
+- **Accelerated exploration**: AI-enhanced HPC is substantially accelerating materials discovery compared to traditional approaches
 - **Battery breakthroughs**: Computational screening of 100,000+ solid electrolyte candidates in weeks instead of years
 - **Catalyst design**: Quantum mechanical simulations identify optimal catalysts for green hydrogen production
 - **Superconductor search**: High-throughput DFT calculations exploring millions of crystal structures for room-temperature superconductors
 - **Reduced experimental costs**: In silico screening eliminates 80% of failed lab experiments
-- **Novel compound discovery**: AI-guided chemical space exploration identifies 5,000+ new stable compounds annually
+- **Novel compound discovery**: AI-guided chemical space exploration identifies thousands of new candidate stable compounds
 
 ### Digital Twins
-- **Industrial predictive maintenance**: Real-time simulation of jet engines predicts failures 200 hours before occurrence
+- **Industrial predictive maintenance**: Real-time simulation of jet engines can flag developing failures well before they occur
 - **Urban infrastructure optimization**: City-scale traffic flow models reduce congestion by 25% through adaptive signal timing
 - **Healthcare precision**: Patient-specific organ models enable personalized surgical planning and drug dosing
 - **Real-time parameter tuning**: Manufacturing digital twins adjust production parameters every 10 milliseconds for quality control
