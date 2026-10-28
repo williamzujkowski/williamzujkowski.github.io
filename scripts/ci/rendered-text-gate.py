@@ -4,8 +4,9 @@
 scripts/blog-audit/plaintext_gate.py compares post SOURCE text, so it cannot
 see a rehype plugin that drops, duplicates or rewords words at render time.
 This gate compares what readers get: the text of <main>, outside the margin
-notes (.remarque-sidenote), for each post page, between a build of the
-base branch and a build of the PR.
+notes (.remarque-sidenote) and the layout chrome (breadcrumb, pager, end
+mark), for each post page, between a build of the base branch and a build of
+the PR.
 
 Scope. A PR that edits a post legitimately changes that post's page, and a
 PR that edits layouts changes every page. So only post pages whose Markdown
@@ -40,12 +41,19 @@ PLUGIN_INPUTS = (
     "scripts/ci/rendered-text-gate.py",
 )
 POSTS_DIR = "src/posts/"
+# Layout chrome that wraps a post but is not its text: the breadcrumb (which now
+# names the current page), the previous/next pager and the end mark. The layout,
+# not a render plugin, writes them, so a PR that adds or rewords them is not what
+# this gate guards. The post's own header and body stay in scope. The old
+# hand-rolled breadcrumb (.post-breadcrumb) is listed too: the base build still
+# renders it, and the two builds must be reduced the same way to compare.
+CHROME_CLASSES = {"remarque-breadcrumb", "post-breadcrumb", "remarque-pager", "remarque-endmark"}
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
 FLAG = re.compile(r"^marginNotes:\s*true\s*$", re.M)
 
 
 class MainText(HTMLParser):
-    """Text of <main>, skipping every .remarque-sidenote subtree (aside or span)."""
+    """Text of <main>, skipping every .remarque-sidenote subtree (aside or span) and layout chrome."""
 
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
@@ -60,8 +68,10 @@ class MainText(HTMLParser):
             self.main += 1
         if self.skip:
             self.skip += 1
-        elif "remarque-sidenote" in (dict(attrs).get("class") or "").split():
-            self.skip = 1
+        else:
+            classes = (dict(attrs).get("class") or "").split()
+            if "remarque-sidenote" in classes or CHROME_CLASSES.intersection(classes):
+                self.skip = 1
 
     def handle_startendtag(self, tag, attrs):
         pass  # <x/> never opens a subtree
