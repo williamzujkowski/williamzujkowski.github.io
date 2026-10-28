@@ -43,6 +43,15 @@ cd .. && uv run --with ruff ruff check scripts/   # ratchet at zero
 uv run python scripts/link-validation/internal-link-check.py   # needs dist/
 ```
 
+**Margin notes (opt-in).** Add `marginNotes: true` to a post's frontmatter to
+render each inline link that matches an entry in its `## Sources` list as a
+margin note (`astro-site/src/lib/rehype-source-marginalia.mjs`). Off by default;
+posts with GFM footnotes are excluded (shared counter). Review what a post
+would get with `node astro-site/scripts/margin-notes-review.mjs`. A PR that
+touches the plugin, schema or config, or a flagged post, also runs
+`scripts/ci/rendered-text-gate.py` in the a11y workflow: it builds the base
+branch and fails if the text outside the notes changed.
+
 **Prerequisites:** Node.js 22+, pnpm, Git. Python 3.11+ and [UV](https://docs.astral.sh/uv/) for link validation scripts only. The repo is pnpm-only (`astro-site/pnpm-lock.yaml`); CI and the pre-commit hook both run `pnpm`.
 
 ---

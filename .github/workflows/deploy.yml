@@ -48,6 +48,11 @@ jobs:
           key: astro-fonts-${{ hashFiles('astro-site/astro.config.mjs', 'astro-site/pnpm-lock.yaml') }}
           restore-keys: |
             astro-fonts-
+      # See a11y.yml: a restored Astro content store would outlive a plugin change.
+      - name: Drop stale Astro content cache
+        run: |
+          rm -rf astro-site/.astro
+          find astro-site/node_modules/.astro -mindepth 1 -maxdepth 1 ! -name fonts -exec rm -rf {} + 2>/dev/null || true
       - name: Build site
         run: cd astro-site && pnpm build
         env:

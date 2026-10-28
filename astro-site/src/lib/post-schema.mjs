@@ -27,4 +27,8 @@ export const postSchema = z.looseObject({
   post_type: z.string().optional(),
   series: z.string().optional(),
   seriesOrder: z.number().optional(),
+  // Opt in to margin notes built from the post's `## Sources` list
+  // (src/lib/rehype-source-marginalia.mjs). The plugin reads the raw
+  // frontmatter and only acts on a literal `true`.
+  marginNotes: z.boolean().optional().default(false),
 });
