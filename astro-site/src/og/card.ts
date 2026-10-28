@@ -19,6 +19,7 @@
  */
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
+import sharp from 'sharp';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
@@ -189,5 +190,18 @@ export async function renderOgCard({
     ],
   });
 
-  return Buffer.from(new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render().asPng());
+  const rgba = Buffer.from(new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render().asPng());
+
+  // resvg's PNG encoder writes ~390 KB per card; 100 cards were 38 MB of dist/
+  // that no browser fetches (#661). Re-encode, still PNG (social crawlers'
+  // WebP support varies, and og:image is read from this URL), still 1200x630:
+  //  - the card is fully opaque, so the alpha channel is dead weight: drop it;
+  //  - 8-bit palette at quality 100, no dithering: the near-lossless setting.
+  //    Measured on all 100 cards the largest per-channel error is under 20/255
+  //    on a few dozen grain pixels and the mean is ~0.01. Quality 90 smoothed
+  //    the paper grain visibly, so it is deliberately not used.
+  return sharp(rgba)
+    .removeAlpha()
+    .png({ palette: true, quality: 100, dither: 0, effort: 10, compressionLevel: 9 })
+    .toBuffer();
 }
