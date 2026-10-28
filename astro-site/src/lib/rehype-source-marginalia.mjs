@@ -108,6 +108,10 @@ import { visit } from 'unist-util-visit';
  *   - GitHub publisher wording (`owner/repo #N`, `GitHub Advisory Database`) is
  *     data in citations.json, written by collect.mjs.
  *
+ * GENERATED SOURCES LIST: the same eligibility (resolveSources, collectHits)
+ * drives generatedSources.mjs, which lists every cited source at the end of a
+ * fallback post, echo-suppressed notes included.
+ *
  * Plugin order: after rehypeSidenotes, before rehypeRaw (raw HTML is still
  * `raw` nodes here, never walked).
  */
@@ -157,18 +161,29 @@ export function isSkippedCitationKey(key) {
   return host === 'github.com' && GITHUB_SOURCE_PATH.test(path);
 }
 
-/** `Title · Publisher · Year` from one citations.json value; null without a title. */
-export function citationText(c) {
+/**
+ * `{ title, publisher, year }` from one citations.json value, or null without a
+ * title. The publisher is elided when every one of its words is already in the
+ * title; year is the date's first four digits. Missing parts are null.
+ */
+export function citationParts(c) {
   if (!c || typeof c.title !== 'string' || !c.title.trim()) return null;
   const year = typeof c.date === 'string' && /^\d{4}/.test(c.date) ? c.date.slice(0, 4) : null;
   // Publisher elision: every publisher word already in the title adds nothing.
   const pubWords = typeof c.publisher === 'string' ? words(c.publisher) : new Set();
   const titleWords = words(c.title);
   const publisher = pubWords.size && [...pubWords].every((w) => titleWords.has(w)) ? null : c.publisher;
-  return [c.title, publisher, year]
-    .filter((x) => typeof x === 'string' && x.trim())
-    .map((x) => x.trim())
-    .join(' · ');
+  return {
+    title: c.title.trim(),
+    publisher: typeof publisher === 'string' && publisher.trim() ? publisher.trim() : null,
+    year,
+  };
+}
+
+/** `Title · Publisher · Year` from one citations.json value; null without a title. */
+export function citationText(c) {
+  const p = citationParts(c);
+  return p ? [p.title, p.publisher, p.year].filter(Boolean).join(' · ') : null;
 }
 
 const citationCache = new WeakMap();
@@ -184,6 +199,7 @@ function citationEntries(citations) {
     entries.set(key, {
       type: 'element', tagName: 'li', properties: {}, children: [{ type: 'text', value: text }],
       citationTitle: value.title.trim().toLowerCase(),
+      parts: citationParts(value),
     });
   }
   citationCache.set(citations, entries);
@@ -443,31 +459,34 @@ function sentenceEndPoint(host, link) {
   return null;
 }
 
-/**
- * @param {object} tree hast root
- * @param {{ citations?: Record<string, object>, onMatch?: (m: { link: object, host: object, key: string, entry: object, serial: number }) => void }} [opts]
- *   onMatch runs for every hit BEFORE the tree is changed (used by the
- *   review generator, scripts/margin-notes-review.mjs).
- */
-export function transformSourceMarginalia(tree, opts = {}) {
-  if (!tree || !Array.isArray(tree.children)) return tree;
-  // Footnote posts are excluded (shared counter, see header).
-  let shared = tree.children.some((n) => isEl(n, 'section') && n.properties && 'dataFootnotes' in n.properties);
+/** The entries a tree can cite: its Sources list, else the citation file (null when excluded). */
+export function resolveSources(tree, opts = {}) {
+  if (!tree || !Array.isArray(tree.children)) return null;
+  // Footnote posts are excluded (shared counter, see header). A markdown-it
+  // footnote section (`section.footnotes`, the feed's tree) counts too.
+  let shared = tree.children.some((n) => isEl(n, 'section') && n.properties &&
+    ('dataFootnotes' in n.properties || (Array.isArray(n.properties.className) && n.properties.className.includes('footnotes'))));
   if (!shared) {
     visit(tree, (n) => isEl(n, 'a') && Array.isArray(n.properties?.className) && n.properties.className.includes('remarque-sidenote-ref'), () => {
       shared = true;
       return false;
     });
   }
-  if (shared) return tree;
+  if (shared) return null;
   let sources = readSources(tree);
   // Fallback only when the post has no Sources heading at all.
   if (!sources && opts.citations && typeof opts.citations === 'object') {
     sources = { idx: tree.children.length, entries: citationEntries(opts.citations), fallback: true };
   }
-  if (!sources) return tree;
+  return sources;
+}
 
-  // Phase 1: find hits in document order, without changing the tree.
+/**
+ * Phase 1: every link that matches an entry, in document order, without
+ * changing the tree: [{ link, key, li, chain, hostIdx }]. The first link per
+ * key wins; in fallback mode so does the first link per citation title.
+ */
+export function collectHits(tree, sources) {
   const used = new Set();
   const usedTitles = new Set(); // fallback only: one note per citation title per post
   const hits = [];
@@ -493,13 +512,28 @@ export function transformSourceMarginalia(tree, opts = {}) {
         if (hostIdx < 1) continue; // no host block (or host is the root)
         used.add(key);
         if (sources.fallback) usedTitles.add(li.citationTitle);
-        hits.push({ link: child, key, li, chain, hostIdx, content: noteContent(li) });
+        hits.push({ link: child, key, li, chain, hostIdx });
         continue;
       }
       walk(child, [...ancestors, node]);
     }
   };
   walk(tree, []);
+  return hits;
+}
+
+/**
+ * @param {object} tree hast root
+ * @param {{ citations?: Record<string, object>, onMatch?: (m: { link: object, host: object, key: string, entry: object, serial: number }) => void }} [opts]
+ *   onMatch runs for every hit BEFORE the tree is changed (used by the
+ *   review generator, scripts/margin-notes-review.mjs).
+ */
+export function transformSourceMarginalia(tree, opts = {}) {
+  if (!tree || !Array.isArray(tree.children)) return tree;
+  const sources = resolveSources(tree, opts);
+  if (!sources) return tree;
+
+  const hits = collectHits(tree, sources).map((h) => ({ ...h, content: noteContent(h.li) }));
 
   // Phase 2: ref and note go at the end of the link's sentence. A note that
   // only echoes its link text ("nexus-agents" beside the link "nexus-agents")

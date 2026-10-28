@@ -81,7 +81,7 @@ Different architectures, same convergence: vision-language-action integration wo
 - **Robot arm**: Used Lynxmotion AL5D ($500-800, I've been watching eBay listings)
 - **Vision**: Webcam or [RealSense D435](https://store.realsenseai.com/buy-realsense-depth-camera-d435.html) ($50-400). Note the line spun out of Intel: it is now RealSense AI, and `intelrealsense.com` no longer resolves
 - **Compute**: Existing gaming PC with NVIDIA RTX 3060+ (for reference, the OpenVLA authors measure their 7B model at about 6 Hz on a 4090, and note that's below the ~10 Hz floor for responsive closed-loop manipulation, though your mileage may vary with different model sizes)
-- **Software**: [ROS2 Humble](https://docs.ros.org/en/humble/), [OpenVLA](https://github.com/openvla/openvla), [MoveIt2](https://moveit.ros.org/)
+- **Software**: [ROS2 Humble](https://docs.ros.org/en/humble/), [OpenVLA](https://github.com/openvla/openvla), [MoveIt2](https://moveit.ai/)
 
 ### Mid-Range ($3,000-5,000)
 - Better robot arm with more degrees of freedom
@@ -284,6 +284,6 @@ The embodied AI results are real and the deployment gap is still wide. The quest
 - [ISO 10218: Robots and Robotic Devices](https://www.iso.org/standard/51330.html) - Safety standards
 - [NVIDIA Isaac Sim Documentation](https://docs.omniverse.nvidia.com/isaacsim/) - Robot simulation platform
 - [OpenVLA on GitHub](https://github.com/openvla/openvla) - 7B parameter VLA model
-- [MoveIt2 Motion Planning](https://moveit.ros.org/) - ROS2 manipulation framework
+- [MoveIt2 Motion Planning](https://moveit.ai/) - ROS2 manipulation framework
 - [RealSense Depth Cameras](https://store.realsenseai.com/buy-realsense-depth-camera-d435.html) - Depth sensing hardware (formerly Intel RealSense)
 - [Unitree Robotics](https://www.unitree.com/g1) - Humanoid robot platform

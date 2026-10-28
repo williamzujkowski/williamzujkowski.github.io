@@ -403,15 +403,15 @@ The HPC revolution isn't only changing how we compute. It's changing what we can
 
 6. [GROMACS Molecular Dynamics Software](https://onlinelibrary.wiley.com/doi/10.1002/jcc.70059) - Research on GROMACS scalability showing parallel efficiency above 0.9 (90%) on 65,536 cores for molecular dynamics simulations. A pure HPC scaling study, not a drug-discovery-timeline finding.
 
-7. [E3SM: A Decade of Progress](https://e3sm.org/e3sm-a-decade-of-progress-a-timeline/) - DOE's E3SM project timeline. SCREAMv1 (Simple Cloud-Resolving E3SM Atmosphere Model) ran on the GPU-enabled exascale machine Frontier, "breaking the 1 SYPD (Simulated Year Per Day) barrier" and earning the team a Gordon Bell Prize. For the model itself see Donahue et al., ["To Exascale and Beyond—SCREAM, a Performance Portable Global Atmosphere Model for Cloud-Resolving Scales"](https://doi.org/10.1029/2024ms004314), *JAMES* (2024).
+7. [E3SM: A Decade of Progress](https://e3sm.org/e3sm-a-decade-of-progress-a-timeline/) - DOE's E3SM project timeline. SCREAMv1 (Simple Cloud-Resolving E3SM Atmosphere Model) ran on the GPU-enabled exascale machine Frontier, "breaking the 1 SYPD (Simulated Year Per Day) barrier" and earning the team a Gordon Bell Prize. For the model itself see Donahue et al., ["To Exascale and Beyond—The Simple Cloud-Resolving E3SM Atmosphere Model (SCREAM), a Performance Portable Global Atmosphere Model for Cloud-Resolving Scales"](https://doi.org/10.1029/2024ms004314), *JAMES* (2024).
 
-8. [Full-Stack Quantum-Classical Integration](https://arxiv.org/abs/2510.20128) - arXiv preprint on unified programming models for quantum-classical hybrid workflows using platforms like IBM Qiskit Runtime, Amazon Braket, and Azure Quantum.
+8. [A Full Stack Framework for High Performance Quantum-Classical Computing](https://arxiv.org/abs/2510.20128) - arXiv preprint on an HPC-QC full-stack framework that invokes quantum kernels from commercial quantum SDKs within C/C++, Fortran and Python HPC programs.
 
-9. [HPC-Quantum Convergence in Supercomputing Centers](https://arxiv.org/abs/2503.01787) - Research on integrating quantum accelerators into traditional HPC infrastructure to create unified computational environments for hybrid workloads.
+9. [Bridging Paradigms: Designing for HPC-Quantum Convergence](https://arxiv.org/abs/2503.01787) - Research on integrating quantum accelerators into traditional HPC infrastructure to create unified computational environments for hybrid workloads.
 
-10. [Scalable Quantum Framework Architectures](https://arxiv.org/abs/2509.14470) - Framework for integrating multiple quantum backends under a single unified interface.
+10. [Scaling Hybrid Quantum-HPC Applications with the Quantum Framework](https://arxiv.org/abs/2509.14470) - Framework for integrating multiple quantum backends under a single unified interface.
 
-11. [Portable Quantum Abstraction Layers](https://arxiv.org/abs/2407.18527) - Framework for quantum algorithm portability across different quantum processing unit (QPU) architectures without code rewrites.
+11. [Integration of Quantum Accelerators into HPC: Toward a Unified Quantum Platform](https://arxiv.org/abs/2407.18527) - Unified quantum platform (runtime library, instruction set architecture and control-processor micro-architecture) that is platform and technology agnostic.
 
 12. [TOP500 Supercomputer List](https://www.top500.org/) - Authoritative ranking of the world's 500 most powerful supercomputers, updated biannually. Provides performance metrics, system configurations, and trends in HPC evolution.
 
