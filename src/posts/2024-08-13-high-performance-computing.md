@@ -16,7 +16,7 @@ This democratization coincides with humanity's most pressing computational chall
 
 The stakes have fundamentally shifted. We're no longer racing for raw speed. We're pursuing a delicate balance between computational power, energy efficiency, and practical accessibility. My work on [GPU power monitoring](/posts/2024-11-15-gpu-power-monitoring-homelab-ml/) revealed how even homelab-scale HPC can consume staggering amounts of energy—a single ML training run matching my entire house's daily consumption. The shift toward [quantum computing](/posts/2024-08-02-quantum-computing-leap-forward/) promises another magnitude leap in computational capability, though practical implementation remains years away. Meanwhile, edge computing architectures distribute HPC workloads closer to data sources, reducing both latency and datacenter energy demands. And for resource-constrained environments, efficient AI learning techniques demonstrate how to achieve HPC-like results without HPC-scale infrastructure.
 
-When the Department of Energy's Frontier system broke the exascale barrier in 2022, achieving 1.102 exaflops, it did so while consuming less power per calculation than systems from five years prior. Meanwhile, researchers are using these machines to compress drug discovery timelines from years to weeks, design materials that don't yet exist in nature, and run quantum chemistry simulations at scales previously confined to theory. The transformation isn't only technical. It's redefining what problems we can reasonably attempt to solve.
+When the Department of Energy's Frontier system broke the exascale barrier in 2022, achieving 1.102 exaflops, it did so while consuming less power per calculation than systems from five years prior. Meanwhile, researchers are using these machines to dramatically shorten drug discovery timelines, design materials that don't yet exist in nature, and run quantum chemistry simulations at scales previously confined to theory. The transformation isn't only technical. It's redefining what problems we can reasonably attempt to solve.
 
 The scale of change:
 - **Performance leap**: Frontier's 1.102 exaflops[3] was about a 430-fold increase over 2010's fastest system, enabling simulations with quintillions of calculations per second[1]
@@ -254,7 +254,7 @@ Purpose-built systems for drug discovery represent a revolution in computational
 - **Hardware-embedded physics**: Physical constraints implemented directly in silicon
 - **Anton 3 specifications**: A 512-node Anton 3 simulates a million-atom system at about 100 microseconds per day
 - **Custom ASIC design**: Purpose-built chips optimized for molecular force calculations
-- **Simulation acceleration**: Drug discovery processes reduced from years to weeks
+- **Simulation acceleration**: Drug discovery processes substantially shortened
 - **Energy efficiency**: Reduced computational requirements without sacrificing accuracy
 - **Physical realism**: Hardware ensures simulations maintain molecular physics constraints
 - **Protein folding applications**: Accurate modeling of complex protein interactions
@@ -336,7 +336,7 @@ The applications I've seen emerge from these HPC advances show substantial real-
 ### Climate Modeling
 - **Ultra-high resolution predictions**: We can now run global atmosphere models at kilometre-scale resolution, providing local-scale predictions for adaptation planning
 - **E3SM breakthrough**: The Energy Exascale Earth System Model achieves 3.25km resolution at 1+ simulation years per day (SYPD)[7]
-- **Regional flooding forecasts**: Sub-kilometer grids enable accurate prediction of local flooding events weeks in advance
+- **Regional flooding forecasts**: Sub-kilometer grids enable accurate prediction of local flooding events well in advance
 - **Extreme weather modeling**: Hurricane intensity and path predictions improved through fine-grained atmospheric dynamics
 - **Multi-decadal projections**: Multi-decadal climate scenarios now run far faster than before
 - **Carbon cycle accuracy**: Coupled ocean-atmosphere-land models track CO₂ absorption with much higher fidelity, supporting sustainable computing initiatives
