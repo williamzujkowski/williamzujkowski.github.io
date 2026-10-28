@@ -4,6 +4,7 @@ date: 2026-04-14
 description: "A UEFI-Secure-Boot-preserving rescue USB for any ISO, and the companion QEMU harness that validates it against 11 hardware personas without physical Frameworks, ThinkPads, or Dells on a lab bench."
 tags: [security, hardware, software-engineering, homelab]
 author: William Zujkowski
+marginNotes: true
 ---
 
 There's a specific pain in being the "family IT person" with Secure Boot enabled on every machine. You get a call, you need to boot a rescue distro, you want to keep Secure Boot enforcing, and your options are: (a) disable Secure Boot for 30 minutes and forget to re-enable it, (b) enroll a shared MOK that effectively trusts every kernel Ventoy ever boots, or (c) pick one specific ISO and dd it onto a stick. None of those are defensible positions.

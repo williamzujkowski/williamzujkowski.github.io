@@ -4,6 +4,7 @@ date: 2026-04-02
 description: "How I built an end-to-end pipeline that converts the United States Code from XML into a Git-versioned, searchable static site with 53,000+ sections and inline case law annotations."
 tags: [open-source, typescript, web-development, software-engineering]
 author: William Zujkowski
+marginNotes: true
 ---
 
 The [Office of the Law Revision Counsel](https://uscode.house.gov/) publishes the entire United States Code as XML. Release points go back to 2013, each tagged to a specific Public Law; this pipeline indexes 230 of the several hundred OLRC publishes. The data is open and the format is documented, and there is prior art worth knowing about: [nickvido/us-code](https://github.com/nickvido/us-code) does the Git-history framing, and [bundestag/gesetze](https://github.com/bundestag/gesetze) has done it for German federal law since 2012. What I couldn't find anywhere was the case-law layer on top.

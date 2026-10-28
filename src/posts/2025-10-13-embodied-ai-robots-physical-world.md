@@ -10,6 +10,7 @@ tags:
   - homelab
   - machine-learning
   - robotics
+marginNotes: true
 ---
 ## Bottom Line Up Front
 

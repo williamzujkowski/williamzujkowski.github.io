@@ -4,6 +4,7 @@ date: 2026-03-21
 description: "How I used AI-assisted investigation to triage the trivy-action supply chain attack across my homelab repos — and some thoughts on weekend incident response and community notification gaps."
 tags: [security, supply-chain, homelab, ai, threat-detection]
 author: William Zujkowski
+marginNotes: true
 ---
 
 On Friday March 19, someone force-pushed malicious code to 75 of 76 version tags in `aquasecurity/trivy-action`. If your CI pipeline pinned to any tag from `0.0.1` through `0.34.2`, you may have run code that exfiltrated your CI secrets, SSH keys, and environment variables to attacker-controlled infrastructure.

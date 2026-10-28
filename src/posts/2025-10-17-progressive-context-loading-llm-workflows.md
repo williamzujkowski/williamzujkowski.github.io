@@ -9,6 +9,7 @@ tags:
   - devops
   - llm
   - mcp
+marginNotes: true
 ---
 ## Bottom Line Up Front
 

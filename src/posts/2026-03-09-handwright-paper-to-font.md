@@ -4,6 +4,7 @@ date: 2026-03-09
 description: "How Handwright turns a scanned worksheet into a custom .ttf font — OpenCV glyph extraction, contour vectorization, and fonttools assembly. Local-first, no cloud required."
 tags: [python, design, privacy]
 author: William Zujkowski
+marginNotes: true
 ---
 
 I wanted to send a handwritten note to someone, but my actual handwriting is terrible. So I did what any reasonable person would do: I spent a weekend building a tool that digitizes handwriting into fonts.

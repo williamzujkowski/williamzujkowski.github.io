@@ -4,6 +4,7 @@ date: 2026-04-10
 description: "Most developer sites look like SaaS dashboards. Remarque is the antidote — a design system rooted in book typography, 17px body text, 46rem reading columns, and the OKLCH color space. Self-hosted fonts, AI-native tokens, zero CDN dependencies."
 tags: [design, open-source, web-development]
 author: William Zujkowski
+marginNotes: true
 ---
 
 Most developer sites look the same. Generic sans-serif at 16px. A sidebar with icon-heavy navigation. Gradient heroes. Syntax-highlighted code blocks with vaguely-too-dark backgrounds. The visual vocabulary of SaaS dashboards applied to every context, including ones that have nothing to do with SaaS.
