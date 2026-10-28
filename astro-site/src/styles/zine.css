@@ -27,13 +27,13 @@
   border-radius: 15px 225px 15px 255px / 255px 15px 225px 15px;
 }
 
-.deck-panel {
+.remarque-deck-picker--popover fieldset {
   border-radius: 225px 12px 245px 14px / 12px 245px 14px 225px;
 }
 
-pre[data-title]::before {
-  border-radius: 12px 4px 10px 5px / 4px 10px 5px 12px;
-}
+/* (the filled filename tab and its wobbly radius are gone: code blocks use
+   remarque-tokens/code-title's hairline filename line; this comment keeps
+   the line count so the audit baseline's line numbers stay valid) */
 
 /* ---------- wobbly rules (mask keeps color token-driven) --------------- */
 

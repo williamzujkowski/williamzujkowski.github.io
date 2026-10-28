@@ -49,7 +49,7 @@ print("reviewed")
   assert.match(code, /“Measure twice,” she said/);
   assert.match(code, /she said – then checked/);
   assert.match(code, /checked…/);
-  assert.match(code, /<div class="scroll-wrap" tabindex="0" role="region" aria-label="Table 1: Control, State">\s*<table>/);
+  assert.match(code, /<div class="remarque-table-wrap scroll-wrap" tabindex="0" role="region" aria-label="Table 1: Control, State">\s*<table>/);
   assert.match(code, /<td>Database role<\/td>/);
   const noteLink = code.match(/<a[^>]*class="remarque-sidenote-ref"[^>]*>/)?.[0];
   assert.ok(noteLink, 'the configured sidenote transform must name the reference');
@@ -101,7 +101,35 @@ test('table scroll regions get distinct names from their header rows', async () 
 | --- | --- |
 | trivy | passes |
 `);
-  const labels = [...code.matchAll(/<div class="scroll-wrap" tabindex="0" role="region" aria-label="([^"]+)">/g)].map((m) => m[1]);
+  const labels = [...code.matchAll(/<div class="remarque-table-wrap scroll-wrap" tabindex="0" role="region" aria-label="([^"]+)">/g)].map((m) => m[1]);
   // Same columns twice: the number is what keeps axe's landmark-unique happy.
   assert.deepEqual(labels, ['Table 1: Tool, Verdict', 'Table 2: Tool, Verdict']);
+});
+
+test('a table is named for the heading it sits under, with duplicates told apart', async () => {
+  const { code } = await renderer.render(`
+## Results
+
+| Tool | Verdict |
+| --- | --- |
+| grype | passes |
+
+| Tool | Verdict |
+| --- | --- |
+| trivy | passes |
+
+## Costs
+
+| Item | Price |
+| --- | --- |
+| disk | 10 |
+`);
+  const labels = [...code.matchAll(/class="remarque-table-wrap scroll-wrap" tabindex="0" role="region" aria-label="([^"]+)"/g)].map((m) => m[1]);
+  assert.deepEqual(labels, ['Table: Results', 'Table: Results (table 2)', 'Table: Costs']);
+});
+
+test('a code block title reaches data-title once-escaped', async () => {
+  const { code } = await renderer.render('```sh title="a & b <c>.sh"\nls\n```\n');
+  assert.match(code, /data-title="a &#x26; b <c>\.sh"/);
+  assert.doesNotMatch(code, /&#x26;amp;|&amp;amp;/);
 });

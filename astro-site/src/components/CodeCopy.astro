@@ -100,8 +100,28 @@
   /* Phones: the chip sat on the first line of code (design review
      2026-10) — reserve a band above the code for it. */
   @media (max-width: 640px) {
-    div:has(> .copy-btn) > pre {
+    div:has(> .copy-btn) > pre:not([data-title]) {
       padding-top: 2.75rem;
+    }
+  }
+
+  /* Touch: the button itself is 44x44, not a 30px chip with a 44px halo
+     (design review 2026-10, T9; WCAG 2.5.8 and the system's touch-target
+     rule). A titled block keeps its own filename line (code-title), and the
+     button sits in that line's band, so its padding is left alone; an
+     untitled one gets room above the code for the larger button. */
+  @media (pointer: coarse) {
+    .copy-btn {
+      min-width: 2.75rem;
+      min-height: 2.75rem;
+      top: 0.25rem;
+      right: 0.25rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    div:has(> .copy-btn) > pre:not([data-title]) {
+      padding-top: 3.25rem;
     }
   }
 

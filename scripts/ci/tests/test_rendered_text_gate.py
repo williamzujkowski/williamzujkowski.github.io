@@ -18,6 +18,17 @@ def test_text_ignores_notes_including_void_elements_inside_them():
     assert rtg.main_text(PAGE.format(extra=NOTE + "<p>after</p>")) == "See the paper.after"
 
 
+def test_layout_chrome_is_ignored_but_the_post_header_and_body_are_not():
+    chrome = (
+        '<nav class="post-breadcrumb"><a>Front</a> / <a>Dispatches</a></nav>'
+        '<nav class="remarque-breadcrumb"><ol><li><a>Front</a></li><li><span aria-current="page">Title</span></li></ol></nav>'
+        '<nav class="remarque-pager post-pager"><a rel="next"><span>Next</span><span>Another post</span></a></nav>'
+        '<div class="remarque-endmark"></div>'
+    )
+    assert rtg.main_text(PAGE.format(extra=chrome + "<p>after</p>")) == "See the paper.after"
+    assert rtg.main_text(PAGE.format(extra="<h1>Title</h1>")) == "See the paper.Title"
+
+
 def test_text_outside_main_is_ignored_and_whitespace_normalised():
     assert rtg.main_text(PAGE.format(extra="<p>a\n\n  b</p>")) == "See the paper.a b"
 

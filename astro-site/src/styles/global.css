@@ -22,6 +22,17 @@
  * deltas (module dimensions, true small caps, no-JS default-open). */
 @import "remarque-tokens/essay";
 
+/* Chrome Module (0.29+): breadcrumb, pager and the header palette-picker
+ * popover (0.32). Everything is class-scoped (.remarque-*), so importing it
+ * restyles nothing else. */
+@import "remarque-tokens/chrome";
+
+/* Drop cap, end mark and code-block filename line (0.33): each its own
+ * subpath, so the article body is not restyled the way prose.css would. */
+@import "remarque-tokens/dropcap";
+@import "remarque-tokens/endmark";
+@import "remarque-tokens/code-title";
+
 /* Fonts — Fraunces (display), Source Serif 4 (body), IBM Plex Mono (mono) are
  * registered via Astro 6's Fonts API in astro.config.mjs and preloaded
  * by <Font> in BaseLayout.astro. That component injects the --font-*
@@ -411,7 +422,6 @@ a:hover { color: var(--color-accent-hover); }
 .uses-meta, .section-eyebrow,
 .prose :where(figcaption), .prose :where(th),
 .prose :where(code):not(:where(pre *)), .prose :where(pre),
-.prose :where(pre[data-title])::before,
 .prose a[href^="http"]:not([href*="williamzujkowski.github.io"])::after,
 .related-posts h2, .related-meta,
 .series-label, .series-position, .series-current-label,
@@ -556,10 +566,18 @@ a:hover { color: var(--color-accent-hover); }
 .post-breadcrumb a:hover { color: var(--color-fg); }
 
 .post-header {
-  margin-block-end: var(--space-7);
+  /* Was --space-7 (48px) plus the paragraph's own margin: about 80px of
+     nothing between the deck and the first paragraph (design review 2026-10,
+     T3). A reader should see the first sentence within the first screen. */
+  margin-block-end: var(--space-5);
   max-width: var(--content-reading);
   margin-inline: auto;
 }
+/* The title fills the column. `balance` (the global heading rule) shrank the
+   lines to ~410px of a 608px column and broke a 3-line title at "Defending
+   in the"; `pretty` keeps the measure and still avoids a one-word last line. */
+.post-header h1 { text-wrap: pretty; }
+.post-article .prose > p:first-child { margin-block-start: var(--space-3); }
 
 .post-description {
   font-size: var(--text-body-lg);
@@ -788,14 +806,22 @@ h1, h2, h3, h4, h5, h6,
   background-image:
     linear-gradient(to right, var(--color-bg) 50%, transparent),
     linear-gradient(to left, var(--color-bg) 50%, transparent),
-    linear-gradient(to right, var(--color-border-bold), transparent),
-    linear-gradient(to left, var(--color-border-bold), transparent);
+    linear-gradient(to right, color-mix(in oklch, var(--color-fg) 24%, transparent), transparent),
+    linear-gradient(to left, color-mix(in oklch, var(--color-fg) 24%, transparent), transparent);
   background-position: left, right, left, right;
-  background-size: 1rem 100%, 1rem 100%, var(--space-1) 100%, var(--space-1) 100%;
+  background-size: 2.25rem 100%, 2.25rem 100%, 1.75rem 100%, 1.75rem 100%;
   background-repeat: no-repeat;
   background-attachment: local, local, scroll, scroll;
 }
-.prose :where(th) { letter-spacing: var(--tracking-meta); font-weight: var(--weight-semibold); padding: var(--space-2); border-bottom: 2px solid var(--color-border); }
+/* Phones: a column that cannot fit scrolls rather than squeezing a word into
+ * pieces ("questio|n"), and a scroll settles on a column edge instead of
+ * mid-word. The wider edge cue above says there is more (design review
+ * 2026-10, T10: columns 4 and 5 were cut at "Pr" and "Cri"). */
+@media (max-width: 40rem) {
+  .prose :where(.scroll-wrap) { scroll-snap-type: x proximity; }
+  .prose :where(th, td) { min-width: 6rem; scroll-snap-align: start; }
+}
+.prose :where(th) { letter-spacing: var(--tracking-meta); font-weight: var(--weight-medium); padding: var(--space-2); border-bottom: 2px solid var(--color-border); }
 .prose :where(td) { padding: var(--space-2); border-bottom: 1px solid var(--color-border); }
 /* Figures in a column should line up: tabular lining digits in every cell. */
 .prose :where(td, th) { font-variant-numeric: lining-nums tabular-nums; }
@@ -823,17 +849,7 @@ h1, h2, h3, h4, h5, h6,
   font-size: var(--text-meta);
   line-height: 1.6;
 }
-.prose :where(pre[data-title]) { padding-top: 2.25rem; position: relative; }
-.prose :where(pre[data-title])::before {
-  content: attr(data-title);
-  position: absolute; top: 0; left: 0;
-  padding: 0.25rem 0.75rem;
-  font-size: var(--text-micro);
-  color: var(--color-muted); background-color: var(--color-border);
-  border-radius: var(--radius-md) 0 var(--radius-md) 0;
-  border-bottom: 1px solid var(--color-border);
-  border-right: 1px solid var(--color-border);
-}
+/* pre[data-title]: the filename line comes from remarque-tokens/code-title. */
 .prose :where(pre code) { background: none; padding: 0; border-radius: 0; font-size: inherit; }
 
 /* Heading + first paragraph pairing (Wave 3) */
@@ -843,23 +859,13 @@ h1, h2, h3, h4, h5, h6,
   margin-top: calc(var(--space-3) * -0.4);
 }
 
-/* Drop cap on essay lead paragraph (Wave 3) */
-/* Only on blog posts — scoped to article.prose, not general .prose usage.
- * .no-drop-cap comes from rehype-drop-cap.mjs: a lead that opens on a
- * lowercase name ("npm", "gVisor") would otherwise lose its first letter
- * to a capital-sized initial. */
-article .prose > p:first-of-type:not(.no-drop-cap)::first-letter {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 3.5em;
-  line-height: 0.85;
-  float: left;
-  /* 0.12em right padding plus the italic's own overhang read as a word
-     space ("P roxmox"); 0.05em keeps the initial attached. */
-  padding: 0.08em 0.05em 0 0;
-  color: var(--color-fg);
-  font-feature-settings: "liga" 1, "calt" 1;
-}
+/* Drop cap on the essay lead: remarque-tokens/dropcap (0.33, imported at the
+ * top). PostLayout puts .remarque-prose--dropcap on the article body, and
+ * rehype-drop-cap.mjs sets the per-paragraph classes CSS cannot decide
+ * (.remarque-dropcap--short for a two-line lead, .no-drop-cap for a lowercase
+ * or digit opener or a one-line lead). The site's own ::first-letter rule is
+ * gone: it fitted by coincidence, and its 0.05em gap let the italic overhang
+ * touch the next letter. */
 
 /* Shiki syntax highlighting — Remarque CSS-variables bridge
  * (remarque-tokens 0.15.0, REMARQUE.md "Syntax Highlighting" / "Astro /
@@ -1194,7 +1200,7 @@ article .prose > p:first-of-type:not(.no-drop-cap)::first-letter {
 
 /* Section eyebrow — mono subtitle above section h2 */
 .section-eyebrow {
-  font-size: var(--text-micro);
+  font-size: var(--text-meta);
   letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
   color: var(--color-muted);
@@ -1313,7 +1319,7 @@ div:has(> .post-card) {
 .remarque-toc-rail a { padding-block: var(--space-1); }
 /* Real capitals, not essay.css's synthesized small caps (see "Caps labels"). */
 .remarque-toc-rail summary {
-  font-size: var(--text-micro);
+  font-size: var(--text-meta);
   font-variant-caps: normal;
   text-transform: uppercase;
 }
@@ -1327,7 +1333,7 @@ div:has(> .post-card) {
   text-align: center;
 }
 .masthead-kicker {
-  font-size: var(--text-micro);
+  font-size: var(--text-meta);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--color-muted);
@@ -1433,7 +1439,7 @@ div:has(> .post-card) {
 }
 .lead-kicker,
 .entry-kicker {
-  font-size: var(--text-micro);
+  font-size: var(--text-meta);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-muted);
@@ -1519,16 +1525,9 @@ div:has(> .post-card) {
   text-wrap: pretty;
   hanging-punctuation: first last;
 }
-.lead-lede::first-letter {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 3.25em;
-  line-height: 0.85;
-  float: left;
-  padding: 0.08em 0.12em 0 0;
-  color: var(--color-fg);
-}
+/* No drop cap on the front-page lede or the entry descriptions: the spec
+ * limits the drop cap to an essay's first paragraph (never Landing), and a
+ * 19px italic deck is not an essay opening (design review 2026-10, H1). */
 
 /* Hairline divider */
 .broadsheet-rule {
@@ -1631,7 +1630,7 @@ div:has(> .post-card) {
 
 /* Post-header kicker (individual posts) */
 .post-kicker {
-  font-size: var(--text-micro);
+  font-size: var(--text-meta);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-muted);
@@ -1767,10 +1766,10 @@ h1, h2, h3, .post-card-title {
   letter-spacing: var(--tracking-caps);
   color: var(--color-muted);
 }
-.chip { font-size: var(--text-micro); text-transform: uppercase; letter-spacing: var(--tracking-caps); }
+.chip { font-size: var(--text-meta); text-transform: uppercase; letter-spacing: var(--tracking-caps); }
 .chip sup {
-  /* Not 0.7em: on a 13px chip that is 9.1px, under the floor. */
-  font-size: var(--text-micro);
+  /* Not 0.7em: on a 14px chip that is 9.8px, under the floor. */
+  font-size: var(--text-meta);
   margin-left: 0.3em;
   color: var(--color-muted);
   font-variant-numeric: tabular-nums lining-nums;

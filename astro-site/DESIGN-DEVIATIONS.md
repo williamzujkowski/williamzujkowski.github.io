@@ -495,6 +495,30 @@ design.
 
 ---
 
+## 13. Post page and chrome on remarque 0.32/0.33 (flagship design pass, stage 3A)
+
+Adopted from the module, so no longer local: the header palette picker
+(`.remarque-deck-picker--popover` + `bindPicker(..., { dismissible: true })`),
+`.remarque-breadcrumb`, `.remarque-pager`, `.remarque-endmark`, the drop cap
+(`remarque-tokens/dropcap`) and the `pre[data-title]` filename line
+(`remarque-tokens/code-title`). What stays local, and why:
+
+- **Zine skin on the picker.** The wobbly radius (`zine.css`), the tilted live-token
+  mini swatch and the word "Theme" beside it at 40rem and up. Sanctioned zine layer.
+- **Drop cap classes come from `rehype-drop-cap.mjs`.** `.remarque-dropcap--short`
+  under 190 characters, `.no-drop-cap` under 100 characters or for a lowercase or
+  digit opener (the thresholds in remarque's docs and the 2026-10-28 study).
+  No drop cap on the home lead or entry descriptions (the spec limits it to an essay).
+- **Post h1 uses `text-wrap: pretty`**, not the global `balance`, so a title fills the
+  38rem column instead of shrinking to about 410px.
+- **Kickers, chips, section eyebrows and the TOC label are `--text-meta` (14px)**;
+  `--text-micro` stays on timestamps and counts.
+- **Tables** keep the local `.scroll-wrap` (layout and edge cue) beside
+  `.remarque-table-wrap`, which only forms.css styles and the site does not import.
+  `th` is weight 500 (only 400 and 500 of IBM Plex Mono are loaded).
+- **`.post-breadcrumb`** CSS is kept only for `/pizza-ops/`, which has not moved to
+  `Breadcrumb.astro` yet.
+
 ## References
 
 - Issue #324 (this migration)

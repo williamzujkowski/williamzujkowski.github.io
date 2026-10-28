@@ -6,6 +6,8 @@ import { getKickerTag } from '@/lib/posts';
 import TableOfContents from '@components/TableOfContents.astro';
 import RelatedPosts from '@components/RelatedPosts.astro';
 import SeriesNav from '@components/SeriesNav.astro';
+import Breadcrumb from '@components/Breadcrumb.astro';
+import PostPager from '@components/PostPager.astro';
 
 interface Heading {
   depth: number;
@@ -52,9 +54,7 @@ const section = primaryTag ? humanTag(primaryTag) : 'Essay';
 >
   <article class="post-article remarque-essay">
     <!-- Breadcrumbs -->
-    <nav aria-label="Breadcrumb" class="post-breadcrumb" data-pagefind-ignore>
-      <a href="/">Front</a> / <a href="/posts/">Dispatches</a>
-    </nav>
+    <Breadcrumb items={[{ label: 'Front', href: '/' }, { label: 'Dispatches', href: '/posts/' }, { label: title }]} />
 
     <!-- Header -->
     <header class="post-header">
@@ -80,8 +80,9 @@ const section = primaryTag ? humanTag(primaryTag) : 'Essay';
     <TableOfContents headings={headings} />
 
     <!-- Content -->
-    <div class="prose remarque-prose">
+    <div class="prose remarque-prose remarque-prose--dropcap">
       <slot />
+      <div class="remarque-endmark" aria-hidden="true"></div>
     </div>
 
     <!-- Tags + share. The tag chips used to sit in the header, where at 360px
@@ -130,6 +131,9 @@ const section = primaryTag ? humanTag(primaryTag) : 'Essay';
             </a>
           </div>
         </footer>
+
+    <!-- Previous / next in date order -->
+    <PostPager currentId={postId ?? currentId} series={series} />
 
     <!-- Related Posts -->
     <RelatedPosts currentId={currentId} tags={tags} />
