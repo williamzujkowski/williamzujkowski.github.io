@@ -99,8 +99,6 @@ Case Study: In January 2024, I developed a chemistry tutoring system using GPT-4
 **Educational Support:** Training medical students with interactive case studies combining images and text
 **Accessibility Tools:** Creating audio descriptions of medical imagery for visually impaired healthcare providers
 
-Implementation Challenge: In February 2024, I worked with a radiology department to develop an AI assistant using Gemini Pro Vision that could draft initial reports by analyzing X-rays and patient information. Early results showed it reduced report drafting time by an average of 4.2 minutes per case, though radiologists still needed to carefully review and edit approximately 30% of the AI-generated content for accuracy.
-
 ### Business and Enterprise Applications
 
 **Document Processing:** Analyzing complex business documents with mixed text, tables, and imagery
