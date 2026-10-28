@@ -65,7 +65,7 @@ I learned the hard way that progressive loading isn't just about speed. It's abo
 
 Four evolutionary stages, each solving problems from the previous generation:
 
-V1: Monolithic Era (Feb 2025)
+V1: Monolithic Era (Oct-Dec 2024)
 - One giant CLAUDE.md file
 - Every invocation loaded everything
 - Simple but catastrophic at scale
