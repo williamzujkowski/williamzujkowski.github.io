@@ -264,10 +264,11 @@ const sanitizeSchema = {
 
 /**
  * Shiki transformer: extract title="filename" from code fence meta
- * and render a filename tab inside the code block.
+ * and set it as data-title on the <pre>, which remarque-tokens/code-title
+ * draws as the block's filename line.
  *
  * Usage in markdown: ```python title="main.py"
- * Renders: <div class="code-block"><div class="code-title">main.py</div><pre>...</pre></div>
+ * Renders: <pre data-title="main.py">...</pre>
  */
 function transformerCodeTitle() {
   return {
@@ -277,12 +278,10 @@ function transformerCodeTitle() {
       if (!meta) return;
       const match = meta.match(/title="([^"]+)"/);
       if (!match) return;
-      const title = match[1]
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-      // Add a data attribute so CSS can render the title via ::before
-      node.properties['data-title'] = title;
+      // remarque-tokens/code-title renders data-title via ::before. The
+      // serializer escapes the attribute, so the raw text goes in here;
+      // escaping it too printed a literal "&amp;" in the filename line.
+      node.properties['data-title'] = match[1];
     },
   };
 }
@@ -293,36 +292,47 @@ function hastText(node) {
   return (node.children || []).map(hastText).join('');
 }
 
-/** Wrap <table> elements in a scrollable div */
+/**
+ * Wrap <table> elements in remarque's scroll region (.remarque-table-wrap,
+ * plus the site's own .scroll-wrap, which carries the layout and the edge
+ * cue): role="region", an accessible name and tabindex="0", so a table wider
+ * than the column can be scrolled from the keyboard.
+ *
+ * The name is the table's <caption>, else the heading it sits under. A GFM
+ * table has neither caption nor columns a reader would call a name, so the
+ * nearest preceding heading is what tells a screen-reader user which table
+ * this is; with no heading either it falls back to the header row. A name
+ * already given to an earlier table gets its number appended, which keeps
+ * axe's landmark-unique rule satisfied.
+ */
 function rehypeScrollWrap() {
   return (tree) => {
     let tableNumber = 0;
+    let heading = '';
+    const used = new Set();
     visit(tree, 'element', (node, index, parent) => {
+      if (/^h[1-6]$/.test(node.tagName)) {
+        heading = hastText(node).replace(/\s+/g, ' ').trim();
+        return;
+      }
       if (!parent || index == null) return;
-      const isTable = node.tagName === 'table';
-      if (!isTable) return;
-      // A focusable div with no role or name announces as an unnamed group,
-      // so the region pattern: role="region" plus a name. GFM tables have no
-      // <caption>, so the name comes from the header row. The number keeps
-      // two tables with the same columns distinct (axe landmark-unique).
+      if (node.tagName !== 'table') return;
       tableNumber += 1;
+      const caption = node.children.find((child) => child.tagName === 'caption');
+      const captionText = caption ? hastText(caption).replace(/\s+/g, ' ').trim() : '';
       const headerRow = [];
       const thead = node.children.find((child) => child.tagName === 'thead') ?? node;
       visit(thead, 'element', (cell) => {
         if (cell.tagName === 'th') headerRow.push(hastText(cell).trim());
       });
       const columns = headerRow.filter(Boolean).join(', ');
-      const ariaLabel = columns ? `Table ${tableNumber}: ${columns}` : `Table ${tableNumber}`;
+      let ariaLabel = captionText || (heading ? `Table: ${heading}` : columns ? `Table ${tableNumber}: ${columns}` : `Table ${tableNumber}`);
+      if (used.has(ariaLabel)) ariaLabel = `${ariaLabel} (table ${tableNumber})`;
+      used.add(ariaLabel);
       const wrapper = {
         type: 'element',
         tagName: 'div',
-        // tabIndex makes the scrollable region itself keyboard-focusable
-        // (WCAG 2.1.1 / axe "scrollable-region-focusable") — pre-existing
-        // gap, not introduced by sidenotes: no page in the a11y suite had
-        // content wide enough to actually overflow `.scroll-wrap` until
-        // the sidenotes pilot post's comparison table did. Fixed here
-        // since it's a one-line addition to the same wrapper.
-        properties: { className: ['scroll-wrap'], tabIndex: 0, role: 'region', ariaLabel },
+        properties: { className: ['remarque-table-wrap', 'scroll-wrap'], tabIndex: 0, role: 'region', ariaLabel },
         children: [node],
       };
       parent.children[index] = wrapper;
