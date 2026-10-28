@@ -7,11 +7,11 @@ tags:
 - open-source
 title: 'Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization, and Community'
 ---
-**Correction, October 27, 2026:** An earlier version of this post named models that were released after its February 22, 2024 publication date (Llama 3 in April 2024, Llama 3.1 in July 2024, Mistral 7B v0.3 in May 2024). Those references now name the models available at the time: Llama 2 (7B/13B/70B, 4K context) and Mistral 7B v0.2.
+**Correction, October 27, 2026:** An earlier version of this post named models that were released after its February 22, 2024 publication date (Llama 3 in April 2024, Llama 3.1 in July 2024, Mistral 7B v0.3 in May 2024). Those references now name the models available at the time: Llama 2 (7B/13B/70B, 4K context) and Mistral 7B v0.2. Measured figures that could not be attributed to a model available at publication (load time, tokens per second, the reasoning score and the download time) were removed.
 
-Recently, I spent three days trying to load Llama 2 70B onto my RTX 3090. The model files alone consumed 140GB of disk space, and my first attempt crashed with CUDA out-of-memory errors after 45 minutes of loading weights. I had 24GB of VRAM, but the unquantized model needed closer to 140GB just to initialize.
+Recently, I spent three days trying to load Llama 2 70B onto my RTX 3090. The model files alone consumed 140GB of disk space, and my first attempt crashed with CUDA out-of-memory errors while loading weights. I had 24GB of VRAM, but the unquantized model needed closer to 140GB just to initialize.
 
-After switching to a 4-bit quantized version and tweaking llama.cpp settings, I finally got it running at 15 tokens per second. Not bad, but GPT-4's API was processing the same prompts at 40 tokens per second, and I didn't have to babysit VRAM allocation or worry about thermal throttling on my i9-9900K.
+After switching to a 4-bit quantized version and tweaking llama.cpp settings, I finally got it running. Not bad, but GPT-4's API was processing the same prompts at 40 tokens per second, and I didn't have to babysit VRAM allocation or worry about thermal throttling on my i9-9900K.
 
 This experience taught me that choosing between open-source and proprietary LLMs isn't about ideology. It's about understanding trade-offs, accepting real hardware constraints, and matching solutions to specific needs. Sometimes the "free" model costs you three days of debugging. Sometimes the API bill is cheaper than your time.
 
@@ -40,7 +40,7 @@ The Proprietary Experience:
 
 Recently, I ran two experiments that highlighted these trade-offs perfectly:
 
-Experiment Alpha (Open-Source): I deployed Mistral 7B v0.2 for local code completion on my homelab. The 7B model fit comfortably in my RTX 3090's 24GB VRAM and ran at 45 tokens per second, which meant autocomplete suggestions appeared instantly without any perceptible lag.
+Experiment Alpha (Open-Source): I deployed Mistral 7B v0.2 for local code completion on my homelab. The 7B model fit comfortably in my RTX 3090's 24GB VRAM and autocomplete suggestions appeared instantly without any perceptible lag.
 
 This responsiveness makes it possible to integrate LLM suggestions directly into my coding workflow without disrupting my thought process. Total setup time was about 8 hours over two days, including downloading the 14GB model file and configuring vLLM for optimal batching. The electricity cost came to roughly $0.15 per day at my local rates.
 
@@ -94,7 +94,7 @@ Open-Source Economics (My RTX 3090 Setup):
 - **Electricity:** 350W × 8 hours/day × 30 days × $0.12/kWh = $10/month
 - **Storage:** 500GB NVMe for models = $60 one-time
 - **Time Investment:** 40 hours setup/debugging × my hourly rate = significant
-- **Model Updates:** Downloading Llama 2 70B (140GB) over my home internet took 8 hours
+- **Model Updates:** Downloading Llama 2 70B (140GB) over my home internet
 
 Proprietary Economics (GPT-4 API Usage):
 - **API Costs:** $47 for 1.5M tokens in my first month of testing
@@ -121,9 +121,9 @@ The trade-off is between trusting a professional service with your data versus t
 Honest performance comparisons reveal that proprietary models often maintain advantages in general capability, while open-source models can excel in specific domains. Here's what my testing in March 2024 showed:
 
 Benchmarking Results (My Test Suite):
-- **General Reasoning:** GPT-4 Turbo scored 87% on my multi-step reasoning tests, Llama 2 70B scored 76%, Mistral 7B scored 61%
+- **General Reasoning:** GPT-4 Turbo scored 87% on my multi-step reasoning tests, Mistral 7B scored 61%
 - **Code Generation:** GPT-4 produced working code 92% of the time, Code Llama 34B hit 84%, and Mistral 7B managed 68%
-- **Speed:** Local Mistral 7B ran at 45 tokens/sec on RTX 3090, GPT-4 API averaged 40 tokens/sec (with network latency), Llama 2 70B managed only 15 tokens/sec due to VRAM constraints forcing 4-bit quantization
+- **Speed:** Local Mistral 7B ran at 45 tokens/sec on RTX 3090, GPT-4 API averaged 40 tokens/sec (with network latency), Llama 2 70B was limited by VRAM constraints forcing 4-bit quantization
 - **Context Windows:** GPT-4 Turbo handled 128K tokens, Llama 2 was limited to 4K tokens
 
 The quality gap exists but is narrowing. For simple tasks like summarization or basic Q&A, I honestly can't tell the difference between Mistral 7B and GPT-4 in blind tests, which means I can save $40-50/month by routing these queries to local models. For complex reasoning or creative writing, GPT-4 still has a noticeable edge. This translates to about 10-15% better accuracy on multi-step reasoning tasks, which is significant for critical applications but may not matter for casual use.
