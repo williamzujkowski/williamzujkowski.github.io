@@ -186,31 +186,31 @@
     "checked": "2026-10-28"
   },
   "docs.npmjs.com/cli/v10/using-npm/config": {
-    "title": "config | npm Docs",
+    "title": "config",
     "publisher": "npm Docs",
     "date": null,
     "checked": "2026-10-28"
   },
   "docs.npmjs.com/cli/v10/using-npm/scripts": {
-    "title": "scripts | npm Docs",
+    "title": "scripts",
     "publisher": "npm Docs",
     "date": null,
     "checked": "2026-10-28"
   },
   "docs.npmjs.com/generating-provenance-statements": {
-    "title": "Generating provenance statements | npm Docs",
+    "title": "Generating provenance statements",
     "publisher": "npm Docs",
     "date": null,
     "checked": "2026-10-28"
   },
   "docs.npmjs.com/staged-publishing": {
-    "title": "Staged publishing for npm packages | npm Docs",
+    "title": "Staged publishing for npm packages",
     "publisher": "npm Docs",
     "date": null,
     "checked": "2026-10-28"
   },
   "docs.npmjs.com/trusted-publishers": {
-    "title": "Trusted publishing for npm packages | npm Docs",
+    "title": "Trusted publishing for npm packages",
     "publisher": "npm Docs",
     "date": null,
     "checked": "2026-10-28"
@@ -258,7 +258,7 @@
     "checked": "2026-10-28"
   },
   "endorlabs.com/learn/npm-malware-compromises-keyv-and-cacheable-with-500m-weekly-downloads-and-spreads-to-hundreds-of-packages": {
-    "title": "NPM Malware Compromises keyv and cacheable with 500M+ Weekly Downloads and Spreads to Hundreds of Packages | Endor Labs",
+    "title": "NPM Malware Compromises keyv and cacheable with 500M+ Weekly Downloads and Spreads to Hundreds of Packages",
     "publisher": "Endor Labs",
     "date": "2026-08-04",
     "checked": "2026-10-28"
@@ -570,7 +570,7 @@
     "checked": "2026-10-28"
   },
   "openpolicyagent.org/docs/latest/policy-language": {
-    "title": "Policy Language | Open Policy Agent",
+    "title": "Policy Language",
     "publisher": "Open Policy Agent",
     "date": null,
     "checked": "2026-10-28"
