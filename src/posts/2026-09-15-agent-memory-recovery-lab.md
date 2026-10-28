@@ -4,6 +4,7 @@ date: 2026-09-15
 description: "A synthetic memory-recovery drill shows why a correct task result and a clean derived state are separate checks."
 tags: [security, ai, homelab]
 author: William Zujkowski
+marginNotes: true
 ---
 
 Persistent memory lets an agent carry useful context between sessions: project decisions, contact details, the explanation you would prefer not to type for the eighth time. It also gives bad information somewhere to wait. The next session can start fresh and still retrieve yesterday's poisoned note.

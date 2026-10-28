@@ -8,6 +8,7 @@ tags:
   - security
   - software-engineering
   - homelab
+marginNotes: true
 ---
 
 The [ZIP lab](https://github.com/williamzujkowski/research-labs/tree/68874f0a840c063973f945f68560d7ecaec9e8a1) feeds six tiny archives to three reader APIs and records what each one sees. One archive contains an ordinary text entry followed by an extra entry holding a harmless marker. Both indexed readers miss the extra entry. The streaming reader finds it. All three finish successfully.

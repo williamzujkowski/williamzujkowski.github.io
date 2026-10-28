@@ -8,6 +8,7 @@ tags:
   - ai
   - storage
   - security
+marginNotes: true
 ---
 
 There is a familiar way to ask an AI system to build a filesystem: describe the feature, paste the error, and hope the next patch does not quietly remove the lock you needed in the first place. Filesystems are a poor place to rely on hope. A missed ordering rule becomes a race, and a race becomes a corrupted directory at the least convenient possible moment.

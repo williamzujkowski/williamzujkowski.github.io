@@ -8,6 +8,7 @@ tags:
   - software-engineering
   - devops
   - security
+marginNotes: true
 ---
 
 This site has four required checks. Branch protection will not merge a pull request until `remarque`, `axe`, `check-lint` and `pytest` report green on an up-to-date branch. One of the things `remarque` runs is a typography audit that enforces a 13px floor, and it announces which token it is guarding every time it starts:

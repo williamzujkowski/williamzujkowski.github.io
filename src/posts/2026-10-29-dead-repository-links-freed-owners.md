@@ -9,6 +9,7 @@ tags:
   - supply-chain
   - open-source
   - ethics
+marginNotes: true
 ---
 
 Most package registries let a publisher type in a source repository URL. npm calls it `repository`, PyPI files it under `project_urls`, RubyGems has `source_code_uri`. For most packages the registry stores it as typed, and a whole class of tooling reads it: OpenSSF Scorecard, deps.dev, and my own [dependency-risk-profiler](https://github.com/williamzujkowski/dependency-risk-profiler/tree/b3fe6e5fe1fba59d2c6d8f5ef92456f252d23fd2), which computes 41.51% of its score's declared weight from whatever repository the package names.

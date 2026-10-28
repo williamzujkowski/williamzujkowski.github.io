@@ -4,6 +4,7 @@ date: 2026-09-11
 description: "A disposable PostgreSQL lab tests what an agent-facing database role can actually do, including the SELECT that writes through a privileged function."
 tags: [security, ai, homelab, storage]
 author: William Zujkowski
+marginNotes: true
 ---
 
 The accompanying PostgreSQL lab gives a database role access to two pretend machines' names, then asks it to do things that job does not require. PostgreSQL declines direct writes. One carefully granted function makes it considerably more accommodating.

@@ -7,6 +7,7 @@ tags:
 - ai
 - compliance
 - ai-agents
+marginNotes: true
 ---
 
 Most writing about AI-agent risk is qualitative: prompt injection, excessive agency, tool misuse, the usual gallery. Separately, the compliance world has [OSCAL](https://pages.nist.gov/OSCAL/), a machine-readable format for expressing security controls. I haven't found the two connected in public writing. This is a post about what happens when you try — and about why the sharper question is which control *expressions* survive contact with a non-deterministic actor.

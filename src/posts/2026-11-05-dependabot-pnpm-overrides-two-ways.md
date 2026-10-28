@@ -8,6 +8,7 @@ tags:
   - security
   - supply-chain
   - devops
+marginNotes: true
 ---
 
 A pnpm override is one line in `package.json` that tells the package manager to ignore what a dependency asked for. This site has exactly one: `"satori>fflate": "0.7.5"`. Satori, the library that draws the social cards, pins `fflate` to exactly 0.7.3, and 0.7.3 is affected by [GHSA-px8p-9vwx-vf98](https://github.com/advisories/GHSA-px8p-9vwx-vf98). The override swaps in the patched release for satori and nobody else.
