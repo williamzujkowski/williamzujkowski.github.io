@@ -170,6 +170,20 @@ function noteContent(li) {
   return out;
 }
 
+/** The most words a note may add beyond its link text and still count as an echo. */
+export const ECHO_MAX_NEW_WORDS = 2;
+const words = (t) => new Set(t.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter(Boolean));
+
+/** True when the note adds at most ECHO_MAX_NEW_WORDS words beyond the link's own text. */
+export function isEcho(link, content) {
+  const linkWords = words(textOf(link));
+  let added = 0;
+  for (const w of words(textOf({ type: 'root', children: content }))) {
+    if (!linkWords.has(w) && ++added > ECHO_MAX_NEW_WORDS) return false;
+  }
+  return true;
+}
+
 const BLOCKED = new Set(['pre', 'code', 'table', 'svg', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'aside', 'figure', 'details', 'div']);
 const PHRASING = new Set(['a', 'abbr', 'b', 'bdi', 'bdo', 'cite', 'code', 'data', 'del', 'dfn', 'em', 'i', 'ins', 'kbd', 'mark', 'q', 's', 'samp', 'small', 'span', 'strong', 'sub', 'sup', 'time', 'u', 'var', 'wbr']);
 
@@ -228,7 +242,10 @@ export function transformSourceMarginalia(tree, opts = {}) {
   walk(tree, []);
 
   // Phase 2: ref and note go right after their link, in the link's own parent.
-  const phrasingOnly = hits.filter((h) => isPhrasing(h.content));
+  // A note that only echoes its link text ("nexus-agents" beside the link
+  // "nexus-agents") tells the reader nothing the sentence doesn't, so it is
+  // dropped: a note must add more than ECHO_MAX_NEW_WORDS words.
+  const phrasingOnly = hits.filter((h) => isPhrasing(h.content) && !isEcho(h.link, h.content));
   phrasingOnly.forEach((h, n) => {
     h.serial = n + 1;
   });
