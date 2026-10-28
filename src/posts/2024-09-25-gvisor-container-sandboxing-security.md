@@ -9,6 +9,7 @@ tags:
   - container-security
   - homelab
   - security
+marginNotes: true
 ---
 
 ## Bottom Line Up Front

@@ -8,6 +8,7 @@ tags:
   - mcp
   - open-source
   - software-engineering
+marginNotes: true
 ---
 ## Bottom Line Up Front
 

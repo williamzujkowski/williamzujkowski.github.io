@@ -10,6 +10,7 @@ tags:
   - python
   - security
   - threat-detection
+marginNotes: true
 ---
 Years ago, I learned the hard way that reading threat reports isn't enough. After missing critical indicators buried in vendor PDFs, I built my own threat intelligence dashboard. This guide shows you how to create one using the MITRE ATT&CK framework and open-source feeds, turning overwhelming data into actionable intelligence.
 

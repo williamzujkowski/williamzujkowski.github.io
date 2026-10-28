@@ -8,6 +8,7 @@ tags:
   - ai
   - automation
   - software-engineering
+marginNotes: true
 ---
 ## From solo coding to swarm intelligence
 
