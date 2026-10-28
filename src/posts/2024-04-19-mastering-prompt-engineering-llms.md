@@ -8,9 +8,11 @@ tags:
   - llm
 ---
 
+**Correction, October 27, 2026:** An earlier version of this post cited Llama 3.1, which was released in July 2024, after this post's April 19, 2024 publication date. Those references now say Llama 3 (released April 18, 2024). The temperature-test figures (prompt count, sweep range and the specific settings reported) were removed because they could not be attributed to a model available at the time of publication.
+
 ## BLUF
 
-Prompt engineering combines systematic optimization with practical techniques to improve LLM output quality by 40%. This guide covers core principles, advanced methods, and real-world trade-offs from homelab experimentation with Llama 3.1 70B.
+Prompt engineering combines systematic optimization with practical techniques to improve LLM output quality by 40%. This guide covers core principles, advanced methods, and real-world trade-offs from homelab experimentation with Llama 3 70B.
 
 What you'll learn:
 - Core techniques (few-shot learning, chain-of-thought, role-based prompting)
@@ -22,7 +24,7 @@ What you'll learn:
 Key findings from testing:
 - Few-shot learning: 0-shot (23% correct) → 3-shot (67% correct) → 5-shot (71% correct)
 - Chain-of-thought: 34% accuracy (direct) → 78% accuracy (CoT), but 3x token cost
-- Temperature sweet spot: 0.7 balances creativity and coherence
+- Temperature sweet spot: a moderate value balances creativity and coherence
 - System prompt optimization: 40% quality improvement after 47 iterations
 - RAG precision: Semantic ranking improved accuracy from 42% to 89%
 
@@ -136,7 +138,7 @@ Working within token limits required strategic thinking about information hierar
 **Summarization:** For lengthy background information, I learned to create concise summaries that preserved essential context
 **Chunking:** Breaking complex tasks into smaller, focused prompts often produced better results than trying to accomplish everything in one interaction
 
-Temperature experimentation taught me crucial lessons about token efficiency. I ran 100 prompts on Llama 3.1 70B at different temperatures (0.0 to 2.0 in 0.2 increments). At temp=0.0, responses were deterministic but boring and mechanical. At temp=1.5, output became creative yet frequently incoherent. At temp=2.0, I got complete gibberish. The sweet spot for my use case seems to be temp=0.7, balancing creativity with coherence. Though I suspect optimal temperature varies by task type. For more context, see [the transformer architecture: a deep dive](/posts/2024-03-20-transformer-architecture-deep-dive).
+Temperature experimentation taught me crucial lessons about token efficiency. I ran prompts on Llama 3 70B at different temperatures. At the lowest setting, responses were deterministic but boring and mechanical. At high settings, output became creative yet frequently incoherent. At the highest setting, I got complete gibberish. The sweet spot for my use case seems to be a moderate setting, balancing creativity with coherence. Though I suspect optimal temperature varies by task type. For more context, see [the transformer architecture: a deep dive](/posts/2024-03-20-transformer-architecture-deep-dive).
 
 [retrieval augmented generation (rag): enhancing llms with external knowledge](/posts/2024-04-04-retrieval-augmented-generation-rag)
 
@@ -285,7 +287,7 @@ Study Examples: Analyze successful prompts from others to understand effective p
 
 Understand Your Model: Different AI models respond differently to similar prompts. Learn the quirks and strengths of the models you use most frequently.
 
-Measure Everything: Track concrete metrics. Temperature settings, token consumption, accuracy rates, latency. My 100-prompt temperature test revealed patterns I never would have discovered through casual experimentation. Numbers don't lie, but interpreting them requires judgment and domain knowledge.
+Measure Everything: Track concrete metrics. Temperature settings, token consumption, accuracy rates, latency. My temperature test revealed patterns I never would have discovered through casual experimentation. Numbers don't lie, but interpreting them requires judgment and domain knowledge.
 
 ## Conclusion: The Art and Science of AI Communication
 
