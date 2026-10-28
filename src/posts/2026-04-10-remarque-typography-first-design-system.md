@@ -63,7 +63,7 @@ Remarque's fonts are self-hosted. No Google Fonts CDN call. No `fonts.googleapis
 
 This matters for three reasons:
 
-1. **Privacy.** Google Fonts' GDPR posture has been [litigated in the EU](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) and the privacy-preserving answer is self-hosting.
+1. **Privacy.** Google Fonts' GDPR posture has been [litigated in the EU](https://www.theregister.com/2022/01/31/website_fine_google_fonts_gdpr/) and the privacy-preserving answer is self-hosting.
 2. **Performance.** A cold-cache Google Fonts fetch adds ~200-400ms on typical connections. A self-hosted font served from the same origin is free after the first page load in a session.
 3. **Resilience.** When `fonts.googleapis.com` has an outage (it happens), your site's typography is unaffected. Self-hosting decouples your render path from someone else's infrastructure.
 
@@ -169,5 +169,5 @@ If you're building a technical site and the default Tailwind setup feels wrong b
 - [Inter](https://rsms.me/inter/)
 - [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
 - [Practical Typography](https://practicaltypography.com/)
-- [Google Fonts and GDPR litigation](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) — Wikipedia
+- [Website fined by German court for leaking visitor’s IP address via Google Fonts](https://www.theregister.com/2022/01/31/website_fine_google_fonts_gdpr/) — The Register, 2022
 - [REMARQUE.md](https://github.com/williamzujkowski/remarque/blob/main/REMARQUE.md) — design system documentation

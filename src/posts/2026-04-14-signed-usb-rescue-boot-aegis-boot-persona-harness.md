@@ -173,7 +173,7 @@ v1.0.0 for aegis-boot is gated on a multi-vendor physical shakedown per [aegis-b
 
 ## Try it
 
-- [aegis-boot v0.13.0](https://github.com/aegis-boot/aegis-boot/releases/latest) — signed prebuilt binaries. Install one-liner in the README.
+- [aegis-boot v0.13.0](https://github.com/aegis-boot/aegis-boot/releases/tag/v0.13.0) — signed prebuilt binaries. Install one-liner in the README.
 - [aegis-hwsim](https://github.com/williamzujkowski/aegis-hwsim) — clone, `cargo test`, add a persona.
 
 If you own a laptop that isn't in the persona library and aegis-boot passes its shakedown on it, I'd love the persona contribution. A YAML file with your DMI strings, Secure Boot posture, and TPM version is the minimum viable pull request.
@@ -189,4 +189,4 @@ Security hygiene is a running thread across everything I've shipped this month. 
 - [fwupd's QEMU CI](https://github.com/fwupd/fwupd)
 - [aegis-boot#132](https://github.com/aegis-boot/aegis-boot/issues/132)
 - [aegis-boot#109](https://github.com/aegis-boot/aegis-boot/issues/109)
-- [aegis-boot v0.13.0 release](https://github.com/aegis-boot/aegis-boot/releases/latest)
+- [aegis-boot v0.13.0 release](https://github.com/aegis-boot/aegis-boot/releases/tag/v0.13.0)

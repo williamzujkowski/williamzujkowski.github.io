@@ -262,7 +262,7 @@ Before diving into homelab implementation, I spent way too much time reading abo
 
 ### Google Chrome: Billions of Users with ML-KEM
 
-[Google enabled X25519Kyber768 by default in Chrome 124 (April 2024)](https://www.chromium.org/cecpq2/), protecting billions of users with hybrid post-quantum key exchange. In [November 2024, Chrome 131 switched to the standardized ML-KEM](https://thehackernews.com/2024/09/google-chrome-switches-to-ml-kem-for.html) instead of the experimental Kyber variant.
+[Google enabled X25519Kyber768 by default on desktop in Chrome 124 (April 2024)](https://groups.google.com/a/chromium.org/g/blink-dev/c/6xfaov3Z4yo), turning on hybrid post-quantum key exchange for Chrome's desktop users. In [November 2024, Chrome 131 switched to the standardized ML-KEM](https://thehackernews.com/2024/09/google-chrome-switches-to-ml-kem-for.html) instead of the experimental Kyber variant.
 
 The deployment wasn't smooth. Legacy middleboxes and firewalls failed to handle ClientHello messages larger than a single packet, causing connection failures. According to Google's engineering team:[^google-engineering]
 
@@ -779,7 +779,7 @@ The three things that matter most:
 
 2. Test with Caddy 2.10 first. Spend 30 minutes getting it working, learn what PQC feels like in practice, then migrate to your preferred web server if needed. The learning curve is drastically shorter.
 
-3. Don't wait for perfect standards. NIST finalized ML-KEM in August 2024. [AWS deployed it in May 2025](https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/). [Google deployed it to billions of users in Chrome 124/131](https://www.chromium.org/cecpq2/). The ecosystem has moved past the experimental phase. It's production-ready enough for homelabs.
+3. Don't wait for perfect standards. NIST finalized ML-KEM in August 2024. [AWS deployed it in May 2025](https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/). [Google switched Chrome to it in version 131](https://thehackernews.com/2024/09/google-chrome-switches-to-ml-kem-for.html). The ecosystem has moved past the experimental phase. It's production-ready enough for homelabs.
 
 My homelab now handles TLS with hybrid X25519+ML-KEM-768 for key exchange, classical RSA-2048 certificates (for now), and a documented migration plan for when ML-DSA certificates become widely available in 2026-2027. It took three weekends, multiple debugging sessions, and one embarrassing moment where I locked myself out of my own Bitwarden instance because the Caddy config had a typo.
 
@@ -843,8 +843,8 @@ The quantum future is coming. Your homelab can be ready for it.
 16. [Open Quantum Safe: oqs-provider for OpenSSL 3](https://github.com/open-quantum-safe/oqs-provider) (Ongoing)
     - OpenSSL 3 provider enabling post-quantum algorithms
 
-17. [Google Chrome: CECPQ2 Project (ML-KEM Deployment)](https://www.chromium.org/cecpq2/) (April 2024)
-    - Chrome 124 deployment to billions of users
+17. [Intent to Ship: X25519Kyber768 key encapsulation for TLS on Desktop](https://groups.google.com/a/chromium.org/g/blink-dev/c/6xfaov3Z4yo) (blink-dev, 2024)
+    - Chrome's plan to ship hybrid Kyber key exchange by default on desktop from Chrome 124
 
 18. [The Hacker News: Chrome Switches to ML-KEM](https://thehackernews.com/2024/09/google-chrome-switches-to-ml-kem-for.html) (November 2024)
     - Chrome 131 migration from experimental Kyber to standardized ML-KEM
