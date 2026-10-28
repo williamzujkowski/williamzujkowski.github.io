@@ -4,6 +4,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import { getPublishedPosts } from '@/lib/posts';
 import { countPostTags, postPieceNumbers } from '@/lib/publication.mjs';
 import BroadsheetEntry from '@components/BroadsheetEntry.astro';
+import Breadcrumb from '@components/Breadcrumb.astro';
 
 export async function getStaticPaths() {
   const sortedAll = await getPublishedPosts();
@@ -27,9 +28,7 @@ const humanTagLabel = humanTag(tag);
 ---
 
 <BaseLayout searchIndex={false} title={`Posts tagged "${tag}"`} description={`All blog posts tagged with "${tag}".`}>
-  <nav aria-label="Breadcrumb" class="post-breadcrumb">
-    <a href="/">Front</a> / <a href="/posts/">Dispatches</a> / <a href="/tags/">Tags</a> / {tag}
-  </nav>
+  <Breadcrumb items={[{ label: 'Front', href: '/' }, { label: 'Dispatches', href: '/posts/' }, { label: 'Tags', href: '/tags/' }, { label: tag }]} />
 
   <header class="broadsheet-masthead" style="margin-block-start: var(--space-5);">
     <p class="masthead-kicker">Filed under</p>
