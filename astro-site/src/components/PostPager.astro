@@ -1,0 +1,64 @@
+---
+// Previous/next between posts, in date order (remarque chrome module,
+// .remarque-pager; the Essay archetype's low-noise footer navigation).
+// getPublishedPosts() is newest first, so the OLDER neighbour is "previous"
+// and the NEWER one is "next". An endpoint with nothing beyond it is omitted,
+// never rendered as a disabled-looking link. A series post also gets the
+// pager's "Part N of M" row; the SeriesNav box at the top of the post is
+// unchanged and still carries its own part-order previous/next.
+import { getPublishedPosts } from '@/lib/posts';
+
+interface Props {
+  currentId: string;
+  series?: string;
+}
+const { currentId, series } = Astro.props;
+
+const all = await getPublishedPosts();
+const index = all.findIndex((p) => p.id === currentId);
+const prev = index >= 0 && index < all.length - 1 ? all[index + 1] : null;
+const next = index > 0 ? all[index - 1] : null;
+
+const parts = series
+  ? all
+      .filter((p) => p.data.series === series)
+      .sort(
+        (a, b) =>
+          (a.data.seriesOrder ?? Infinity) - (b.data.seriesOrder ?? Infinity) || a.data.date.getTime() - b.data.date.getTime(),
+      )
+  : [];
+const partIndex = parts.findIndex((p) => p.id === currentId);
+---
+
+{
+  (prev || next || parts.length > 1) && (
+    <nav class="remarque-pager post-pager" aria-label="More writing" data-pagefind-ignore>
+      {parts.length > 1 && partIndex >= 0 && (
+        <div class="remarque-pager-series">
+          <details>
+            <summary>
+              Part {partIndex + 1} of {parts.length} · {series}
+            </summary>
+            <ol>
+              {parts.map((p) => (
+                <li>{p.id === currentId ? <span aria-current="page">{p.data.title}</span> : <a href={`/posts/${p.id}/`}>{p.data.title}</a>}</li>
+              ))}
+            </ol>
+          </details>
+        </div>
+      )}
+      {prev && (
+        <a class="remarque-pager-prev" href={`/posts/${prev.id}/`} rel="prev">
+          <span class="remarque-pager-label">Previous</span>
+          <span class="remarque-pager-title">{prev.data.title}</span>
+        </a>
+      )}
+      {next && (
+        <a class="remarque-pager-next" href={`/posts/${next.id}/`} rel="next">
+          <span class="remarque-pager-label">Next</span>
+          <span class="remarque-pager-title">{next.data.title}</span>
+        </a>
+      )}
+    </nav>
+  )
+}
