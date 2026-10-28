@@ -30,6 +30,35 @@ def test_layout_chrome_is_ignored_but_the_post_header_and_body_are_not():
     assert rtg.main_text(PAGE.format(extra="<h1>Title</h1>")) == "See the paper.Title"
 
 
+GENERATED = (
+    '<div class="generated-sources" data-generated-sources="" data-pagefind-ignore="">'
+    '<h2 id="sources">Sources</h2><ul><li><a href="https://e.example/x">A title</a> · Pub · 2025</li></ul></div>'
+)
+
+
+def test_generated_sources_list_is_skipped_by_its_marker():
+    assert rtg.main_text(PAGE.format(extra="<p>after</p>" + GENERATED)) == "See the paper.after"
+    # Text after the block is still read; a hand-written Sources section is not skipped.
+    assert rtg.main_text(PAGE.format(extra=GENERATED + "<p>tail</p>")) == "See the paper.tail"
+    hand = '<h2 id="sources">Sources</h2><ul><li><a href="https://e.example/x">A title</a></li></ul>'
+    assert "Sources" in rtg.main_text(PAGE.format(extra=hand))
+
+
+def test_toc_rail_is_chrome_so_a_new_sources_entry_does_not_change_the_text():
+    toc = '<nav class="remarque-toc-rail"><details><summary>On this page</summary><ul><li><a href="#sources">Sources</a></li></ul></details><script>x()</script></nav>'
+    assert rtg.main_text(PAGE.format(extra=toc + "<p>after</p>")) == "See the paper.after"
+
+
+def test_a_page_with_a_generated_list_added_passes_and_a_changed_word_beside_it_fails(tmp_path, capsys):
+    assert run(tmp_path, PAGE.format(extra="<p>one</p>"), PAGE.format(extra="<p>one</p>" + GENERATED)) == 0
+    assert run(tmp_path / "b", PAGE.format(extra="<p>one</p>"), PAGE.format(extra="<p>two</p>" + GENERATED)) == 1
+    assert "differs on 1 page" in capsys.readouterr().err
+
+
+def test_generator_change_selects_the_gate():
+    assert rtg.applicable(["astro-site/src/lib/generatedSources.mjs"], Path("/nonexistent"))
+
+
 def test_text_outside_main_is_ignored_and_whitespace_normalised():
     assert rtg.main_text(PAGE.format(extra="<p>a\n\n  b</p>")) == "See the paper.a b"
 

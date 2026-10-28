@@ -2,6 +2,7 @@ import rss from '@astrojs/rss';
 import { getPublishedPosts } from '@/lib/posts';
 import type { APIContext } from 'astro';
 import { renderPostForFeed } from '@/lib/feedContent';
+import citations from '@/data/citations.json';
 import { SITE_CONFIG } from '@/lib/siteConfig';
 
 
@@ -18,7 +19,7 @@ export async function GET(context: APIContext) {
     },
     customData: `<atom:link href="${siteUrl}/feed.xml" rel="self" type="application/rss+xml"/><lastBuildDate>${new Date().toUTCString()}</lastBuildDate>`,
     items: sortedPosts.map((post) => {
-      const renderedContent = renderPostForFeed(post.body ?? '', siteUrl);
+      const renderedContent = renderPostForFeed(post.body ?? '', siteUrl, { marginNotes: post.data.marginNotes, citations });
 
       return {
         title: post.data.title,

@@ -1,6 +1,7 @@
 import { getPublishedPosts } from '@/lib/posts';
 import type { APIContext } from 'astro';
 import { renderPostForFeed } from '@/lib/feedContent';
+import citations from '@/data/citations.json';
 import { SITE_CONFIG } from '@/lib/siteConfig';
 
 // JSON Feed 1.1 — https://jsonfeed.org/version/1.1
@@ -11,7 +12,7 @@ export async function GET(context: APIContext) {
 
   const items = sortedPosts.map((post) => {
     const url = `${siteUrl}/posts/${post.id}/`;
-    const contentHtml = renderPostForFeed(post.body ?? '', siteUrl);
+    const contentHtml = renderPostForFeed(post.body ?? '', siteUrl, { marginNotes: post.data.marginNotes, citations });
 
     return {
       id: url,

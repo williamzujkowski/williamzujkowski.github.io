@@ -72,7 +72,12 @@ only when the page states one. Then, from `astro-site`:
    any note that adds nothing the sentence does not already say, such as a
    sentence that already names the title and publisher.
 
-A post with a `## Sources` list uses that list instead and needs no entries. A
+A post with a `## Sources` list uses that list instead and needs no entries. Run
+`pnpm citations:verify-sources -- <slug>` (from `astro-site`; fetches, `gh api` for
+GitHub) on any post with a Sources list: it reports dead links, title, author and
+year mismatches per entry, and bot-blocked pages as "unverifiable". Its flags are
+leads, not verdicts; confirm each against the primary page before editing an
+entry, and leave an entry alone when you cannot verify the fix. A
 post with GFM footnotes is excluded from margin notes (shared counter): record
 the citation sub-check as not applicable for that reason. Every other post needs
 `marginNotes: true` in its frontmatter, as the last line before the closing

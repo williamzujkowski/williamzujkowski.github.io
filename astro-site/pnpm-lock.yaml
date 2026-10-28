@@ -32,6 +32,12 @@ importers:
       cookie:
         specifier: ^2.0.1
         version: 2.0.1
+      hast-util-from-html:
+        specifier: 2.0.3
+        version: 2.0.3
+      hast-util-to-html:
+        specifier: 9.0.5
+        version: 9.0.5
       markdown-it:
         specifier: ^15.0.3
         version: 15.0.3

@@ -4,8 +4,8 @@
 scripts/blog-audit/plaintext_gate.py compares post SOURCE text, so it cannot
 see a rehype plugin that drops, duplicates or rewords words at render time.
 This gate compares what readers get: the text of <main>, outside the margin
-notes (.remarque-sidenote) and the layout chrome (breadcrumb, pager, end
-mark), for each post page, between a build of the base branch and a build of
+notes (.remarque-sidenote), the generated Sources list (.generated-sources)
+and the layout chrome (breadcrumb, pager, end mark), for each post page, between a build of the base branch and a build of
 the PR.
 
 Scope. A PR that edits a post legitimately changes that post's page, and a
@@ -35,6 +35,7 @@ from pathlib import Path
 # Files whose change can alter what a post renders.
 PLUGIN_INPUTS = (
     "astro-site/src/lib/rehype-",
+    "astro-site/src/lib/generatedSources.mjs",
     "astro-site/src/lib/post-schema.mjs",
     "astro-site/astro.config.mjs",
     "astro-site/pnpm-lock.yaml",
@@ -47,7 +48,15 @@ POSTS_DIR = "src/posts/"
 # this gate guards. The post's own header and body stay in scope. The old
 # hand-rolled breadcrumb (.post-breadcrumb) is listed too: the base build still
 # renders it, and the two builds must be reduced the same way to compare.
-CHROME_CLASSES = {"remarque-breadcrumb", "post-breadcrumb", "remarque-pager", "remarque-endmark"}
+#
+# The table of contents (.remarque-toc-rail) is the same kind of chrome: the layout
+# builds it from the body's headings, which are compared in the body itself, and
+# a generated Sources heading adds an entry to it.
+#
+# The generated Sources list (generatedSources.mjs, class `generated-sources`) is
+# added to inline-citing posts at render time from the citation file. It is new
+# text by design, not a change to the post's own, so it is skipped like the notes.
+CHROME_CLASSES = {"remarque-breadcrumb", "post-breadcrumb", "remarque-pager", "remarque-endmark", "remarque-toc-rail", "generated-sources"}
 # The post footer (tags + share links) is written by PostLayout, not by a render
 # plugin or the post body: design pass 3C turned "Share:" + three chips into a
 # "Share" disclosure, which is a layout edit. Matched by tag because the base
