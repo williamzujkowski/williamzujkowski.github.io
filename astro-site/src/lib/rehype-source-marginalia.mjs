@@ -59,7 +59,8 @@ import { visit } from 'unist-util-visit';
  * A sentence ends at terminal punctuation followed by whitespace and then an
  * uppercase letter, an opening quote or bracket, a digit, or the end of the
  * host block. Not an end: abbreviations (e.g., i.e., et al., vs., etc., Fig.,
- * Dr., single initials, U.S.-style dotted forms, "No." before a digit),
+ * Dr., single initials, U.S.-style dotted forms, and "No.", "Vol.", "pp.",
+ * "Ch.", "Sec.", "Eq." or "Art." before a digit),
  * decimals and versions (no whitespace follows the dot), and anything inside
  * code. With no end in the host block, the pair goes at the end of the
  * block's inline content. The scan runs over the host's flattened inline text
@@ -295,7 +296,7 @@ function sentenceEndAt(chars, k) {
   if (chars[k].ch === '.') {
     const head = chars.slice(Math.max(0, k - 12), k + 1).map((x) => x.ch).join('');
     if (/\b(?:[A-Za-z]\.)+[A-Za-z]\.$/.test(head) || SINGLE_INITIAL.test(head) || /(?:\b(?:e\.g|i\.e|et al|vs|etc|dr|mr|mrs|ms|st|fig|approx|ca|cf|inc))\.$/i.test(head)) return -1;
-    if (/\bno\.$/i.test(head) && j < chars.length && /\d/.test(chars[j].ch)) return -1;
+    if (/\b(?:no|vol|pp|ch|sec|eq|art)\.$/i.test(head) && j < chars.length && /\d/.test(chars[j].ch)) return -1;
   }
   return e;
 }
