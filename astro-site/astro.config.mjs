@@ -12,6 +12,7 @@ import rehypeSidenotes from './src/lib/rehype-sidenotes.mjs';
 import rehypeSourceMarginalia from './src/lib/rehype-source-marginalia.mjs';
 import rehypeTaskListLabels from './src/lib/rehype-task-list-labels.mjs';
 import rehypeDropCap from './src/lib/rehype-drop-cap.mjs';
+import rehypeExternalRel from './src/lib/rehype-external-rel.mjs';
 import rehypeSmartQuotes from './src/lib/rehype-smart-quotes.mjs';
 import { tagRedirects } from './src/lib/tag-taxonomy.mjs';
 
@@ -474,6 +475,8 @@ export default defineConfig({
         [rehypeSanitize, sanitizeSchema],
         // Lowercase lead paragraphs skip the drop cap (global.css).
         rehypeDropCap,
+        // rel="external" on off-site links, for .remarque-prose--external-marks.
+        rehypeExternalRel,
       ],
     }),
   },

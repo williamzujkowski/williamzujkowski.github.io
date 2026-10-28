@@ -48,6 +48,11 @@ POSTS_DIR = "src/posts/"
 # hand-rolled breadcrumb (.post-breadcrumb) is listed too: the base build still
 # renders it, and the two builds must be reduced the same way to compare.
 CHROME_CLASSES = {"remarque-breadcrumb", "post-breadcrumb", "remarque-pager", "remarque-endmark"}
+# The post footer (tags + share links) is written by PostLayout, not by a render
+# plugin or the post body: design pass 3C turned "Share:" + three chips into a
+# "Share" disclosure, which is a layout edit. Matched by tag because the base
+# build's footer carries no class, and both builds must be reduced the same way.
+CHROME_TAGS = {"footer"}
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
 FLAG = re.compile(r"^marginNotes:\s*true\s*$", re.M)
 
@@ -70,7 +75,7 @@ class MainText(HTMLParser):
             self.skip += 1
         else:
             classes = (dict(attrs).get("class") or "").split()
-            if "remarque-sidenote" in classes or CHROME_CLASSES.intersection(classes):
+            if "remarque-sidenote" in classes or CHROME_CLASSES.intersection(classes) or tag in CHROME_TAGS:
                 self.skip = 1
 
     def handle_startendtag(self, tag, attrs):

@@ -80,7 +80,7 @@ const section = primaryTag ? humanTag(primaryTag) : 'Essay';
     <TableOfContents headings={headings} />
 
     <!-- Content -->
-    <div class="prose remarque-prose remarque-prose--dropcap">
+    <div class="prose remarque-prose remarque-prose--dropcap remarque-prose--external-marks">
       <slot />
       <div class="remarque-endmark" aria-hidden="true"></div>
     </div>
@@ -88,49 +88,55 @@ const section = primaryTag ? humanTag(primaryTag) : 'Essay';
     <!-- Tags + share. The tag chips used to sit in the header, where at 360px
          they helped push every post's first paragraph off the first screen
          (#698); the kicker still names the primary tag up there. -->
-    <footer style="margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid var(--color-border);">
+    <footer class="post-footer">
       {
         tags.some((t) => t !== 'posts') && (
-          <div class="share-row" style="margin-block-end: var(--space-4);">
-            <span class="share-label">Tags:</span>
-            {tags
-              .filter((t) => t !== 'posts')
-              .map((tag) => (
-                <a href={`/tags/${tag}/`} class="chip">
-                  {tag}
-                </a>
-              ))}
+          <div class="post-footer-tags">
+            <span class="share-label" id="post-tags-label">Tags:</span>
+            <ul class="remarque-tags" aria-labelledby="post-tags-label">
+              {tags
+                .filter((t) => t !== 'posts')
+                .map((tag) => (
+                  <li>
+                    <a href={`/tags/${tag}/`} class="chip" rel="tag">
+                      {tag}
+                    </a>
+                  </li>
+                ))}
+            </ul>
           </div>
         )
       }
-      <div class="share-row">
-        <span class="share-label">Share:</span>
+      <details class="share-menu">
+        <summary class="chip">Share</summary>
+        <ul class="share-links">
+          <li>
             <a
               href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`${siteUrl}${Astro.url.pathname}`)}&title=${encodeURIComponent(title)}`}
               class="chip"
               target="_blank"
               rel="noopener noreferrer"
-            >
-              LinkedIn
-            </a>
+            >LinkedIn</a>
+          </li>
+          <li>
             <a
               href={`https://news.ycombinator.com/submitlink?u=${encodeURIComponent(`${siteUrl}${Astro.url.pathname}`)}&t=${encodeURIComponent(title)}`}
               class="chip"
               target="_blank"
               rel="noopener noreferrer"
-            >
-              Hacker News
-            </a>
+            >Hacker News</a>
+          </li>
+          <li>
             <a
               href={`https://www.reddit.com/submit?url=${encodeURIComponent(`${siteUrl}${Astro.url.pathname}`)}&title=${encodeURIComponent(title)}`}
               class="chip"
               target="_blank"
               rel="noopener noreferrer"
-            >
-              Reddit
-            </a>
-          </div>
-        </footer>
+            >Reddit</a>
+          </li>
+        </ul>
+      </details>
+    </footer>
 
     <!-- Previous / next in date order -->
     <PostPager currentId={postId ?? currentId} series={series} />

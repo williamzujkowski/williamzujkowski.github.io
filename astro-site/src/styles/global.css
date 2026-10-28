@@ -415,14 +415,13 @@ a:hover { color: var(--color-accent-hover); }
 
 .site-sections,
 .post-breadcrumb, .post-card-meta, .post-kicker,
-.chip, .chip sup,
+.chip,
 .site-footer, .share-label,
 .masthead-kicker, .masthead-dateline, .landing-issue-label,
 .lead-kicker, .entry-kicker, .archive-count, .archive-stats,
 .uses-meta, .section-eyebrow,
 .prose :where(figcaption), .prose :where(th),
 .prose :where(code):not(:where(pre *)), .prose :where(pre),
-.prose a[href^="http"]:not([href*="williamzujkowski.github.io"])::after,
 .related-posts h2, .related-meta,
 .series-label, .series-position, .series-current-label,
 .theme-deck,
@@ -1292,6 +1291,7 @@ article > details,
 article > section,
 article > div,
 .chip-row,
+.tag-index,
 .related-posts {
   max-width: var(--content-reading);
   margin-inline: auto;
@@ -1726,30 +1726,131 @@ div:has(> .post-card) {
   max-width: var(--content-reading);
 }
 
-/* ===== PostLayout share row ===== */
-.share-row {
+/* ===== Post footer: tags + share on one rhythm =====
+ * Every gap inside a group is --space-2 in BOTH directions (a wrapped chip
+ * row used to be 8px across and ~30px down); the two groups sit --space-4
+ * apart. Tags use remarque's .remarque-tags list; the outlined chip look is
+ * the documented chip deviation. Share is a native <details> (no JS): on a
+ * phone four chips plus a label wrapped "REDDIT" onto its own line. */
+.post-footer {
+  margin-block-start: var(--space-7);
+  padding-block-start: var(--space-5);
+  border-block-start: 1px solid var(--color-border);
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-4);
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4) var(--space-5);
+}
+.post-footer-tags {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2) var(--space-3);
+  flex: 1 1 18rem;
+  min-inline-size: 0;
 }
 .share-label {
   font-size: var(--text-meta);
   letter-spacing: var(--tracking-meta);
   color: var(--color-muted);
+  /* Centre on the first chip row. */
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.1rem;
+}
+@media (pointer: coarse) {
+  .share-label { min-block-size: 2.75rem; }
+}
+.share-menu summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+.share-menu summary::-webkit-details-marker { display: none; }
+.share-menu summary::after {
+  content: "+" / "";
+  color: var(--color-muted);
+}
+.share-menu[open] summary::after { content: "\2212" / ""; }
+@media (pointer: coarse) {
+  .share-menu summary { min-block-size: 2.75rem; }
+}
+.share-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+/* Phones: the open menu is a column of full-width targets, not a ragged wrap. */
+@media (max-width: 40rem) {
+  .share-menu { inline-size: 100%; }
+  .share-links { flex-direction: column; align-items: stretch; }
+  .share-links a { inline-size: 100%; }
 }
 
+/* In-page jump targets (the /uses/ jump-nav, TOC links): the masthead is not
+ * sticky, so nothing covers a target, but a heading flush with the viewport
+ * edge hides the eyebrow line above it. Leave that line in view. */
+.prose :where(h2[id], h3[id]) { scroll-margin-block-start: var(--space-7); }
+
+/* ===== Tag lists (remarque-tokens/chrome .remarque-tags, 0.29) =====
+ * remarque ships tags as plain mono links at --text-meta; the outlined chip
+ * is the documented deviation (DESIGN-DEVIATIONS.md, "Tag chips"). The chip
+ * look comes from .chip; list semantics, wrap and the 44px coarse-pointer
+ * floor come from .remarque-tags. The count sits inline, muted. */
+.remarque-tags:has(.chip) {
+  gap: var(--space-2);
+  margin: 0;
+}
+.remarque-tags a.chip { color: var(--color-muted); }
+.remarque-tags a.chip:hover { color: var(--color-fg); text-decoration: none; }
+.tag-count {
+  margin-inline-start: 0.5em;
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+/* /tags/: a grid so every row starts on the same edge (a flow of chips of
+ * every length left a ragged right side). */
+.remarque-tags.tag-index {
+  /* `margin: 0` on .remarque-tags:has(.chip) above would otherwise cancel the
+     reading-column centring and push the grid left of the heading. */
+  margin-inline: auto;
+  display: grid;
+  /* Column floor 16rem = the longest label plus its count (measured 249px at 14px), so a name
+     never breaks and every cell is one line. */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  gap: var(--space-2);
+}
+.tag-index a.chip {
+  inline-size: 100%;
+  white-space: nowrap;
+  justify-content: flex-start;
+}
+/* Prose pages: a text column of ~60ch (about 72 glyphs a line in this body
+ * face), not the full 38rem. See DESIGN-DEVIATIONS.md "Archive measure". */
+.prose:not(.remarque-prose) :where(p, li, dd) { max-inline-size: 60ch; }
+.entry-excerpt { max-inline-size: 60ch; }
+
 /* ===== Polish Pass v3: external links, figures, abbr ===== */
-/* Screen only: this selector out-specifies zine.css's print rule
-   (`content: " (" attr(href) ")"`), so in print every external link
-   showed "↗" and the bibliography lost its URLs (DESIGN.md print). */
+/* External-link mark: remarque-tokens' opt-in contract
+   (.remarque-prose--external-marks + rel="external", prose.css "External-link
+   marks"), same declarations, screen only, empty alt text so the arrow is
+   not announced, and no ::after clash with print.css's printed URLs. The
+   site does not import prose.css (it would restyle every post body: see
+   DESIGN-DEVIATIONS.md), so the one rule is mirrored here.
+   rehype-external-rel.mjs (posts) and the static pages supply rel="external",
+   replacing the old href-keyed hand-rolled mark. */
 @media screen {
-  .prose a[href^="http"]:not([href*="williamzujkowski.github.io"])::after {
-    content: "↗";
-    font-size: 0.7em;
+  .remarque-prose--external-marks a[rel~="external"]::after {
+    content: "\00a0\2197";
+    content: "\00a0\2197" / "";
+    display: inline-block;
     color: var(--color-muted);
-    margin-left: 0.15em;
-    vertical-align: super;
     text-decoration: none;
   }
 }
@@ -1791,15 +1892,6 @@ h1, h2, h3, .post-card-title {
   color: var(--color-muted);
 }
 .chip { font-size: var(--text-meta); text-transform: uppercase; letter-spacing: var(--tracking-caps); }
-.chip sup {
-  /* Not 0.7em: on a 14px chip that is 9.8px, under the floor. */
-  font-size: var(--text-meta);
-  margin-left: 0.3em;
-  color: var(--color-muted);
-  font-variant-numeric: tabular-nums lining-nums;
-  top: -0.25em;
-  position: relative;
-}
 
 /* Smart-quote character set for <q> elements */
 .prose { quotes: "\201C" "\201D" "\2018" "\2019"; }

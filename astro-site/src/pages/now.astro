@@ -12,11 +12,11 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString('en-US', {
 ---
 
 <BaseLayout title="Now" description="What I'm currently working on, learning, and thinking about.">
-  <div class="prose">
+  <div class="prose remarque-prose--external-marks">
     <h1>What I’m Doing Now</h1>
 
     <p>
-      This is a <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer">now page</a> —
+      This is a <a href="https://nownownow.com/about" target="_blank" rel="external noopener noreferrer">now page</a> —
       what I’m actually focused on right now instead of my entire life story.
       Page last edited <time datetime={lastUpdatedISO}>{lastUpdatedStr}</time>.
     </p>
@@ -33,7 +33,7 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString('en-US', {
 
     <p>
       Also maintaining my <strong>live-coding music MCP</strong>, which gives Claude direct control over
-      <a href="https://strudel.cc" target="_blank" rel="noopener noreferrer">Strudel.cc</a> for AI-assisted
+      <a href="https://strudel.cc" target="_blank" rel="external noopener noreferrer">Strudel.cc</a> for AI-assisted
       live music coding. Watching an AI compose algorithmic music in real time never gets old.
     </p>
 
@@ -71,14 +71,14 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString('en-US', {
 
     <p>
       The Dell R910 is still humming along (256GB RAM, 48 threads). Running
-      <a href="https://linuxcontainers.org/incus/">Incus</a> on Ubuntu 24.04 with BOSH-managed Cloud Foundry
+      <a href="https://linuxcontainers.org/incus/" rel="external">Incus</a> on Ubuntu 24.04 with BOSH-managed Cloud Foundry
       and Concourse CI workloads. Raspberry Pi 5s and a Pi 4 handle DNS (dual Pi-hole) and SSO (Authentik).
       Monitoring via Prometheus, Grafana, Loki, and Alertmanager with push alerts to ntfy.
       Power bill is still ~$150/month.
     </p>
 
     <p>
-      Inspired by <a href="https://sive.rs/nowff" target="_blank" rel="noopener noreferrer">Derek Sivers</a>.
+      Inspired by <a href="https://sive.rs/nowff" target="_blank" rel="external noopener noreferrer">Derek Sivers</a>.
       Full setup on the <a href="/uses/">uses page</a>.
       Background on the <a href="/about/">about page</a>.
     </p>

@@ -11,7 +11,7 @@ test('tight GFM tasks retain their states and gain visible-text names', async ()
   assert.match(code, /<input type="checkbox" disabled aria-label="Review kernel.lockdown and docs">/);
   assert.match(code, /<input type="checkbox" checked disabled aria-label="Done">/);
   assert.match(code, /<code>kernel.lockdown<\/code>/);
-  assert.match(code, /<a href="https:\/\/example.com">docs<\/a>/);
+  assert.match(code, /<a href="https:\/\/example.com" rel="external">docs<\/a>/);
 });
 
 test('loose and nested tasks receive their own names', async () => {

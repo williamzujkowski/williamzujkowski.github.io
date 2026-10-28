@@ -12,7 +12,7 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString('en-US', {
 ---
 
 <BaseLayout title="Uses" description="Hardware, software, and services I use.">
-  <div class="prose">
+  <div class="prose remarque-prose--external-marks">
     <h1>Uses</h1>
 
     <p>
@@ -45,7 +45,7 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString('en-US', {
           </dt>
           <dd>
             Intel i9-9900K, 64 GB RAM,
-            <a href="https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3090/" rel="noopener noreferrer">RTX 3090</a>,
+            <a href="https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3090/" rel="external noopener noreferrer">RTX 3090</a>,
             1TB NVMe + 8TB HDD. The 24GB VRAM handles 7B–34B LLMs comfortably.
             Killed a 2080 Ti overclocking for inference in 2020 — taught me to respect thermal limits.
           </dd>
@@ -170,7 +170,7 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString('en-US', {
           </dt>
           <dd>
             Main hypervisor. 4× Xeon E7540 (48 threads), 256 GB RAM, ~400 GB ZFS pool.
-            Runs <a href="https://linuxcontainers.org/incus/" rel="noopener noreferrer">Incus</a>
+            Runs <a href="https://linuxcontainers.org/incus/" rel="external noopener noreferrer">Incus</a>
             on Ubuntu 24.04 with BOSH-managed Cloud Foundry and Concourse CI. Sounds like
             a jet engine at full throttle. ~$150/month at idle — cheaper than equivalent cloud.
           </dd>
@@ -332,7 +332,7 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString('en-US', {
           </dt>
           <dd>
             Metrics, dashboards, and log aggregation. Alertmanager pushes to
-            <a href="https://ntfy.sh" rel="noopener noreferrer">ntfy</a> for mobile notifications.
+            <a href="https://ntfy.sh" rel="external noopener noreferrer">ntfy</a> for mobile notifications.
           </dd>
         </div>
       </dl>

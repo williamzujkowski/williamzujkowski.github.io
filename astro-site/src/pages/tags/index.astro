@@ -8,8 +8,9 @@ const posts = await getPublishedPosts();
 
 const tagCounts = countPostTags(posts);
 
-// Sort by count descending
-const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
+// Most-used first; equal counts fall back to alphabetical so the order is
+// stable and the rows read as a ranked list, not a shuffle.
+const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 ---
 
 <BaseLayout searchIndex={false} title="Tags" description="Browse all blog post tags.">
@@ -19,13 +20,15 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
     <p>{sortedTags.length} tags across {posts.length} posts.</p>
   </div>
 
-  <div class="chip-row">
+  <ul class="remarque-tags tag-index" aria-label="All tags">
     {
       sortedTags.map(([tag, count]) => (
-        <a href={`/tags/${tag}/`} class="chip">
-          {tag}<sup>{count}</sup>
-        </a>
+        <li>
+          <a href={`/tags/${tag}/`} class="chip" rel="tag">
+            {tag}<span class="tag-count">{count}<span class="sr-only"> posts</span></span>
+          </a>
+        </li>
       ))
     }
-  </div>
+  </ul>
 </BaseLayout>
