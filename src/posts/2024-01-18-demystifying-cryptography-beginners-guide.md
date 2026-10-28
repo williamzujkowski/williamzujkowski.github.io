@@ -40,7 +40,7 @@ I used to think of encryption like placing letters in sealed envelopes, but my r
 
 <figure>
 <div class="flow" role="group" aria-label="Symmetric encryption path">
-  <div class="flow-node"><b>🔑 Shared Secret Key</b><i>used to encrypt and decrypt</i></div>
+  <div class="flow-node"><b>Shared Secret Key</b><i>used to encrypt and decrypt</i></div>
   <div class="flow-node">Plaintext</div>
   <div class="flow-node">Encrypt</div>
   <div class="flow-node">Ciphertext</div>
@@ -228,8 +228,8 @@ If hashing creates fingerprints, digital signatures are like notarizing those fi
   </div>
   <div class="flow-node is-gate">Match?</div>
   <div class="flow-branch" role="group" aria-label="Branch outcomes">
-    <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good">✅ Authentic &amp; Unaltered</div></div>
-    <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node is-bad">❌ Tampered or Forged</div></div>
+    <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good">Authentic &amp; Unaltered</div></div>
+    <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node is-bad">Tampered or Forged</div></div>
   </div>
 </div>
 
