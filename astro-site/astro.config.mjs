@@ -8,6 +8,7 @@ import remarkSmartypants from 'remark-smartypants';
 import { visit } from 'unist-util-visit';
 import { createCssVariablesTheme } from 'shiki';
 import { writeFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import rehypeSidenotes from './src/lib/rehype-sidenotes.mjs';
 import rehypeSourceMarginalia from './src/lib/rehype-source-marginalia.mjs';
 import rehypeTaskListLabels from './src/lib/rehype-task-list-labels.mjs';
@@ -15,6 +16,9 @@ import rehypeDropCap from './src/lib/rehype-drop-cap.mjs';
 import rehypeExternalRel from './src/lib/rehype-external-rel.mjs';
 import rehypeSmartQuotes from './src/lib/rehype-smart-quotes.mjs';
 import { tagRedirects } from './src/lib/tag-taxonomy.mjs';
+
+// Verified citation entries for posts without a Sources list (never fetched at build).
+const citationData = JSON.parse(readFileSync(new URL('./src/data/citations.json', import.meta.url), 'utf8'));
 
 /**
  * Remarque syntax-highlighting theme (remarque-tokens 0.15.0, REMARQUE.md
@@ -467,7 +471,7 @@ export default defineConfig({
         // Convert GFM footnote references and definitions into inline sidenotes.
         rehypeSidenotes,
         // Opt-in per post (`marginNotes: true`): Sources entries as margin notes.
-        rehypeSourceMarginalia,
+        [rehypeSourceMarginalia, { citations: citationData }],
         rehypeRaw,
         // Raw-HTML captions and diagram labels that smartypants never saw.
         rehypeSmartQuotes,

@@ -16,6 +16,8 @@
     "test:e2e": "npx playwright test",
     "test:e2e:headed": "npx playwright test --headed",
     "test:unit": "node scripts/run-unit-tests.mjs",
+    "citations:collect": "node scripts/citations/collect.mjs",
+    "citations:check": "node scripts/citations/check.mjs",
     "audit:remarque": "node scripts/run-remarque-audit.mjs",
     "audit:typography": "node scripts/typography-audit.mjs",
     "audit:colors": "node scripts/color-token-audit.mjs",

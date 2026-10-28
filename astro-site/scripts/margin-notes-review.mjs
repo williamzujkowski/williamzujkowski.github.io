@@ -25,6 +25,7 @@ import rehypeSourceMarginalia from '../src/lib/rehype-source-marginalia.mjs';
 import rehypeSmartQuotes from '../src/lib/rehype-smart-quotes.mjs';
 
 const POSTS = fileURLToPath(new URL('../../src/posts/', import.meta.url));
+const CITATIONS = JSON.parse(readFileSync(fileURLToPath(new URL('../src/data/citations.json', import.meta.url)), 'utf8'));
 const OPEN = '⟦';
 const CLOSE = '⟧';
 
@@ -133,7 +134,8 @@ for (const f of files) {
     rehypePlugins: [
       rehypeSidenotes,
       [rehypeSourceMarginalia, {
-        onMatch: ({ link, host, serial, entry }) => {
+        citations: CITATIONS,
+        onMatch: ({ link, host, serial, entry, key }) => {
           const { sentence, linkText } = sentenceAround(marked(host, link));
           let entryUrl = null;
           const find = (n) => {
@@ -142,6 +144,7 @@ for (const f of files) {
             else (n.children || []).forEach(find);
           };
           find(entry);
+          if (!entryUrl) entryUrl = `https://${key}`; // citation-file entry: no link of its own
           hits.push({ serial, sentence, linkText, linkUrl: link.properties.href, sourceUrl: entryUrl });
         },
       }],

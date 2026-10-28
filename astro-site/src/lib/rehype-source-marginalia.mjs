@@ -84,6 +84,17 @@ import { visit } from 'unist-util-visit';
  * The Sources list itself is untouched. Feeds do not run this plugin
  * (feedContent.ts renders raw markdown with markdown-it).
  *
+ * CITATION-FILE FALLBACK: posts that cite inline and have NO `## Sources`
+ * heading get their notes from `options.citations` instead (the astro config
+ * passes src/data/citations.json; tests inject fixtures). That file maps a
+ * normalised URL to `{ title, publisher, date, checked }`, filled by
+ * scripts/citations/collect.mjs and verified by hand; the build never fetches
+ * the network. Note text is `Title · Publisher · Year`, missing parts omitted.
+ * A post WITH a Sources heading ignores the file entirely. Links to the site's
+ * own domain and to GitHub source files, commits, trees and compares get no
+ * note (a file title adds nothing); repos, issues, PRs and advisories do.
+ * Every other rule above applies unchanged.
+ *
  * Plugin order: after rehypeSidenotes, before rehypeRaw (raw HTML is still
  * `raw` nodes here, never walked).
  */
@@ -117,6 +128,46 @@ export function normalizeUrl(href) {
   const host = u.hostname.toLowerCase().replace(/^www\./, '');
   const path = u.pathname.replace(/\/+$/, '');
   return host + path + (params ? `?${params}` : '');
+}
+
+// ---- Citation-file fallback -------------------------------------------------
+
+const OWN_HOSTS = ['williamzujkowski.github.io'];
+const GITHUB_SOURCE_PATH = /^\/[^/]+\/[^/]+\/(?:blob|commit|commits|tree|compare|raw|blame)(?:\/|$)/;
+
+/** Normalised keys that never get a fallback note: own domain, GitHub source views. */
+export function isSkippedCitationKey(key) {
+  const slash = key.indexOf('/');
+  const host = slash === -1 ? key : key.slice(0, slash);
+  const path = slash === -1 ? '' : key.slice(slash).replace(/\?.*$/, '');
+  if (OWN_HOSTS.some((h) => host === h || host.endsWith(`.${h}`))) return true;
+  return host === 'github.com' && GITHUB_SOURCE_PATH.test(path);
+}
+
+/** `Title · Publisher · Year` from one citations.json value; null without a title. */
+export function citationText(c) {
+  if (!c || typeof c.title !== 'string' || !c.title.trim()) return null;
+  const year = typeof c.date === 'string' && /^\d{4}/.test(c.date) ? c.date.slice(0, 4) : null;
+  return [c.title, c.publisher, year]
+    .filter((x) => typeof x === 'string' && x.trim())
+    .map((x) => x.trim())
+    .join(' · ');
+}
+
+const citationCache = new WeakMap();
+
+/** Map<normalisedUrl, synthetic li> from citations.json data. */
+function citationEntries(citations) {
+  if (citationCache.has(citations)) return citationCache.get(citations);
+  const entries = new Map();
+  for (const [rawKey, value] of Object.entries(citations)) {
+    const key = normalizeUrl(`https://${rawKey}`);
+    const text = citationText(value);
+    if (!key || !text || isSkippedCitationKey(key)) continue;
+    entries.set(key, { type: 'element', tagName: 'li', properties: {}, children: [{ type: 'text', value: text }] });
+  }
+  citationCache.set(citations, entries);
+  return entries;
 }
 
 /** Entries after the Sources heading: Map<normalisedUrl, li | null(ambiguous)>. */
@@ -334,7 +385,7 @@ function sentenceEndPoint(host, link) {
 
 /**
  * @param {object} tree hast root
- * @param {{ onMatch?: (m: { link: object, host: object, key: string, entry: object, serial: number }) => void }} [opts]
+ * @param {{ citations?: Record<string, object>, onMatch?: (m: { link: object, host: object, key: string, entry: object, serial: number }) => void }} [opts]
  *   onMatch runs for every hit BEFORE the tree is changed (used by the
  *   review generator, scripts/margin-notes-review.mjs).
  */
@@ -349,7 +400,11 @@ export function transformSourceMarginalia(tree, opts = {}) {
     });
   }
   if (shared) return tree;
-  const sources = readSources(tree);
+  let sources = readSources(tree);
+  // Fallback only when the post has no Sources heading at all.
+  if (!sources && opts.citations && typeof opts.citations === 'object') {
+    sources = { idx: tree.children.length, entries: citationEntries(opts.citations) };
+  }
   if (!sources) return tree;
 
   // Phase 1: find hits in document order, without changing the tree.
