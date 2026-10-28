@@ -55,6 +55,11 @@ def test_a_page_with_a_generated_list_added_passes_and_a_changed_word_beside_it_
     assert "differs on 1 page" in capsys.readouterr().err
 
 
+def test_related_posts_are_chrome_so_another_posts_reading_time_does_not_change_the_text():
+    related = '<section class="related-posts"><h2>Related</h2><a href="/posts/x/">X</a><span class="related-meta">Aug 9, 2025 · 10 min</span></section>'
+    assert rtg.main_text(PAGE.format(extra=related + "<p>after</p>")) == "See the paper.after"
+
+
 def test_generator_change_selects_the_gate():
     assert rtg.applicable(["astro-site/src/lib/generatedSources.mjs"], Path("/nonexistent"))
 
