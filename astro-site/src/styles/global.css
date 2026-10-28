@@ -1823,4 +1823,13 @@ h1, h2, h3, .post-card-title {
     animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important; scroll-behavior: auto !important;
   }
+  /* `*` does not match view-transition pseudo-elements. The @view-transition
+   * opt-in at the top of this file is already gated on no-preference, so no
+   * transition starts under reduce today; this keeps it that way if a
+   * transition is ever started from script or the opt-in moves (#661). */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }
