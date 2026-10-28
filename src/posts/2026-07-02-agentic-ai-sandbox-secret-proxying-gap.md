@@ -4,6 +4,7 @@ date: 2026-07-02
 description: "MicroVMs and namespace sandboxes give AI coding agents mature filesystem and process isolation. Most open-source ones still hand credentials to the agent directly. Here's the proxy-injection pattern that fixes that, and what it doesn't fix."
 tags: [security, ai, homelab, devops]
 author: William Zujkowski
+marginNotes: true
 ---
 
 Run an AI coding agent against a real repo for a week and you'll eventually give it a GitHub token, a cloud API key, or both. By mid-2026, some form of sandboxing ships with most mainstream agent tooling, but the boundary strength and defaults vary a lot. Claude Code's own sandbox is opt-in via the `/sandbox` command, with configurable filesystem and network rules rather than one fixed default-deny wall ([Anthropic engineering blog](https://www.anthropic.com/engineering/claude-code-sandboxing)). So "is the agent sandboxed" is the wrong first question. The one that matters is: **when the agent makes an outbound HTTPS request, does the plaintext credential ever pass through the same process that's reading a prompt-injected web page?**

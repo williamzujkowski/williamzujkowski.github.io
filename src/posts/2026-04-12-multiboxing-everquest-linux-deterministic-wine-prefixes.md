@@ -4,6 +4,7 @@ date: 2026-04-12
 description: "I left Windows behind for good. Norrath-Native is an IaC-style toolkit that deploys EverQuest on Ubuntu 24.04 with Wine and DXVK, and a growing exploration into what you can actually do with programmatic window management on Linux."
 tags: [linux, homelab, devops, automation]
 author: William Zujkowski
+marginNotes: true
 ---
 
 I don't run Windows anywhere anymore. Every machine in the house is on some flavor of Linux. That was fine for everything except the one hobby I refuse to give up — running three EverQuest clients at once to play a multibox group through the old zones that built the memory.

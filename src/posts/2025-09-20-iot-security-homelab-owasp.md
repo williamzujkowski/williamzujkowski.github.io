@@ -10,6 +10,7 @@ tags:
   - networking
   - security
   - vulnerability-management
+marginNotes: true
 ---
 **BLUF:** When I set up my first smart home devices years ago, I naively trusted that manufacturers had security figured out. Then I started packet capturing my IoT traffic.
 

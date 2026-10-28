@@ -4,6 +4,7 @@ date: 2026-05-07
 description: "AI is finding bugs faster, researchers pile on the moment one drops, and registries ship malware by the hundred-thousand. Defenders are caught between two contradictory imperatives. The fix is architectural, not temporal."
 tags: [security, supply-chain, vulnerability-management, linux, homelab]
 author: William Zujkowski
+marginNotes: true
 ---
 
 A week ago I had two browser tabs open on my second monitor. The left one was [copy.fail](https://copy.fail/) — a fresh Linux kernel privilege escalation, nine-year exposure window, 732-byte exploit. The right one was [Sonatype's Q4 2025 malware index](https://www.sonatype.com/blog/open-source-malware-index-q4-2025-automation-overwhelms-ecosystems): 394,877 new malicious npm packages in a single quarter, a 476% jump.

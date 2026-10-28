@@ -8,6 +8,7 @@ tags:
   - software-engineering
   - robotics
   - sustainability
+marginNotes: true
 ---
 ## Bottom Line Up Front
 

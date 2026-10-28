@@ -8,6 +8,7 @@ tags: [ai, machine-learning, open-source, ai-agents, research]
 series: "Building AI Systems"
 seriesOrder: 1
 readingTime: "10 min read"
+marginNotes: true
 ---
 
 I spent three months building model routers that didn't work before I started reading the papers. Round-robin was unfair. Random selection was wasteful. Static scoring was brittle. Every approach I tried had a failure mode that became obvious only after I deployed it against real tasks in my homelab.
