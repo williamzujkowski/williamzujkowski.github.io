@@ -56,7 +56,11 @@ POSTS_DIR = "src/posts/"
 # The generated Sources list (generatedSources.mjs, class `generated-sources`) is
 # added to inline-citing posts at render time from the citation file. It is new
 # text by design, not a change to the post's own, so it is skipped like the notes.
-CHROME_CLASSES = {"remarque-breadcrumb", "post-breadcrumb", "remarque-pager", "remarque-endmark", "remarque-toc-rail", "generated-sources"}
+#
+# The related-posts list (.related-posts) shows other posts' titles and reading
+# times. Editing one post's body changes its reading time on every page that
+# lists it, which is not a change to those pages' own text.
+CHROME_CLASSES = {"remarque-breadcrumb", "post-breadcrumb", "remarque-pager", "remarque-endmark", "remarque-toc-rail", "generated-sources", "related-posts"}
 # The post footer (tags + share links) is written by PostLayout, not by a render
 # plugin or the post body: design pass 3C turned "Share:" + three chips into a
 # "Share" disclosure, which is a layout edit. Matched by tag because the base
