@@ -1,6 +1,9 @@
 import sanitizeHtml from 'sanitize-html';
 import MarkdownIt from 'markdown-it';
 import footnote from 'markdown-it-footnote';
+import { fromHtml } from 'hast-util-from-html';
+import { toHtml } from 'hast-util-to-html';
+import { generatedSourceItems, sourcesListNodes } from './generatedSources.mjs';
 
 // Both feeds share this renderer. Authored HTML must reach the sanitizer as
 // markup; escaping it first exposes diagram source in feed readers (#581).
@@ -31,7 +34,31 @@ const feedPolicy: sanitizeHtml.IOptions = {
   nonTextTags: ['script', 'style', 'textarea', 'option', 'iframe', 'object', 'embed', 'svg', 'math', 'template'],
 };
 
-export function renderPostForFeed(body: string, siteUrl: string): string {
+export interface FeedSourcesOptions {
+  /** The post's `marginNotes` flag: only these posts get a generated Sources list. */
+  marginNotes?: boolean;
+  /** src/data/citations.json (the page build passes the same data). */
+  citations?: Record<string, object>;
+}
+
+// Link detection only: a second parser that also autolinks bare URLs, as the
+// page's GFM does. The feed's own parser above is left as it was.
+const linkParser = new MarkdownIt({ html: true, linkify: true }).use(footnote);
+
+/**
+ * The generated Sources list (h2 + ul) for a `marginNotes` post with no
+ * hand-written Sources list and no footnotes; '' otherwise. Same function as
+ * the page (generatedSources.mjs), run on the body's rendered HTML.
+ */
+export function renderGeneratedSources(body: string, options: FeedSourcesOptions = {}): string {
+  if (!options.marginNotes || !options.citations) return '';
+  const tree = fromHtml(linkParser.render(body ?? ''), { fragment: true });
+  const items = generatedSourceItems(tree, options.citations);
+  // sourcesListNodes is JS-typed; its nodes are valid hast.
+  return items.length ? toHtml(sourcesListNodes(items) as never) : '';
+}
+
+export function renderPostForFeed(body: string, siteUrl: string, sources: FeedSourcesOptions = {}): string {
   const base = siteUrl.replace(/\/$/, '');
   const diagramNodes: boolean[] = [];
   const normalized = sanitizeHtml(parser.render(body ?? ''), {
@@ -83,5 +110,5 @@ export function renderPostForFeed(body: string, siteUrl: string): string {
   const readable = normalized
     .replace(/<div data-feed-label="([^"]*)">/g, '<div><p><strong>$1</strong></p>')
     .replace(/<(i|span) data-feed-detail="true">/g, ' <$1>');
-  return sanitizeHtml(readable, feedPolicy);
+  return sanitizeHtml(readable + renderGeneratedSources(body, sources), feedPolicy);
 }
