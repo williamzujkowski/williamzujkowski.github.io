@@ -185,6 +185,12 @@ concerns cannot become an unqualified READY. Deeply review
 load-bearing claims for prior art, fairness, security, accuracy and overclaiming.
 Check vestiges too: abandoned claims, stale dates, placeholders and unused assets.
 
+Citations and margin notes belong to the factcheck review: record each cited
+URL's title, publisher and stated date in `astro-site/src/data/citations.json`
+(`pnpm citations:collect`, verify by hand, `pnpm citations:check`) unless the post
+has a `## Sources` list, and set `marginNotes: true` (skip for footnote posts).
+Details are in the factcheck skill.
+
 Fix supported findings and rerun affected reviews. Run repository checks
 appropriate to changed content/code, render new visuals at mobile/desktop sizes
 and in light/dark themes, and verify feed readability when visual markup changes.

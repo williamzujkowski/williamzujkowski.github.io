@@ -63,6 +63,12 @@ for the actual tested versions, prompts, outcomes, and limitations.
 6. `blog-visuals`
 7. `blog-artifact-check`
 
+The factcheck stage also owns the citation sub-check: a post needs a `## Sources`
+list or full citation-file coverage, plus `marginNotes: true` (GFM-footnote posts
+are excluded and record the sub-check as not applicable in the stage evidence; the
+stage itself is never `not-applicable`). Missing coverage keeps the stage from
+`completed` and the decision at `HOLD`. See the factcheck skill for the commands.
+
 `blog-deep-review` is a separate adversarial review for posts whose argument needs
 it. Running one stage or the separate deep review does not imply that the seven
 pre-publish stages ran.
