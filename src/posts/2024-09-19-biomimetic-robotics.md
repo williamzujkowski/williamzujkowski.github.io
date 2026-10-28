@@ -339,7 +339,6 @@ Skepticism warranted: Many technical challenges remain unsolved. Energy density 
 
 ## Sources
 
-- [MIT Cheetah 3: Design and Control of a Robust, Dynamic Quadruped Robot](https://journals.sagepub.com/doi/10.1177/0278364917694244) — legged robot mechanics and control
 - [MIT Cheetah robot documentation](https://ieeexplore.ieee.org/document/8593885/) — IEEE
 - [Morphological intelligence: how a robot's body shapes its cognition](https://www.nature.com/articles/s41467-021-25874-z) — Nature Communications
 - [Neuromorphic computing for robotic vision](https://www.nature.com/articles/s44172-025-00492-5) — Communications Engineering, 2025
