@@ -11,7 +11,7 @@ tags:
 ---
 ## Bottom Line Up Front
 
-I built a standards server that was supposed to be a simple wrapper around my documentation repository. Six weeks later I had written about 32,000 lines of Python across 65 modules, implementing Redis caching, vector search, six language analyzers, some 950 test functions, and a React UI.
+I built a standards server that was supposed to be a simple wrapper around my documentation repository. Several weeks later I had written about 32,000 lines of Python across 65 modules, implementing Redis caching, vector search, six language analyzers, some 950 test functions, and a React UI.
 
 For a read-only documentation server. That I'm the only user of.
 
@@ -19,7 +19,7 @@ This is a case study in scope creep, premature optimization, and what happens wh
 
 But here's the thing: personal projects are where we learn by overdoing it, by making every mistake in the book when the stakes are low. This post walks through the evolution from working prototype to over-engineered monstrosity, examining the classic developer pitfalls I hit along the way, including tool-driven architecture, the seduction of sophisticated patterns, and the massive gap between "it works" and "it's production ready."
 
-The Numbers: Version 1 (200 lines, 2 hours, functional) → Version 4 (about 32,000 lines, six weeks, questionably necessary). Redis cache with 30-minute TTL for documentation that changes once a month. Vector search implementation for 50 markdown files. Six language-specific analyzers for standards that are 90% YAML. This isn't a success story: it's a cautionary tale about knowing when good enough is perfect.
+The Numbers: Version 1 (200 lines, 2 hours, functional) → Version 4 (about 32,000 lines, several weeks, questionably necessary). Redis cache with 30-minute TTL for documentation that changes once a month. Vector search implementation for 50 markdown files. Six language-specific analyzers for standards that are 90% YAML. This isn't a success story: it's a cautionary tale about knowing when good enough is perfect.
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/mcp-server.png'); width: min(240px, 62%); aspect-ratio: 400/386; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">one server, many tools</p>
@@ -30,7 +30,7 @@ Remember when I was all excited about my standards repository? Well, I made the 
 
 Enter the [Model Context Protocol (MCP)](https://docs.claude.com/en/docs/mcp) – Anthropic's new way for LLMs to interact with external tools. The idea was simple: instead of copying CLAUDE.md into every project, why not serve the standards directly to Claude through MCP?
 
-Three weeks and several rewrites later, I have [github.com/williamzujkowski/mcp-standards-server](https://github.com/williamzujkowski/mcp-standards-server). It works! Mostly. When Redis is happy. And the moon is in the right phase.
+Several weeks and several rewrites later, I have [github.com/williamzujkowski/mcp-standards-server](https://github.com/williamzujkowski/mcp-standards-server). It works! Mostly. When Redis is happy. And the moon is in the right phase.
 
 ## The Original Vision vs Reality
 
@@ -49,7 +49,7 @@ class StandardsServer:
         return self.standards[name]  # Done!
 ```
 
-### The Reality (Week 3)
+### The Reality
 
 ⚠️ **Warning:** This code illustrates over-engineering patterns for educational purposes. Implement security controls and proper authentication for production MCP servers with external access.
 
@@ -122,8 +122,8 @@ The architecture grew from a simple pipe to a multi-layered system across four v
 
 <div class="flow" role="group" aria-label="MCP standards server architecture evolution">
   <div class="flow-node"><b>Version 1: Simple</b><i>stdio in/out, load standards, return to Claude; 200 lines</i></div>
-  <div class="flow-node"><b>Version 2: + Redis</b><i>stdio, Redis L1/L2 cache, load standards, return; 1,200 lines</i></div>
-  <div class="flow-node"><b>Version 3: + Vector Search</b><i>stdio, Redis cache, ChromaDB vector search, standards; 3,800 lines</i></div>
+  <div class="flow-node"><b>Version 2: + Redis</b><i>stdio, Redis L1/L2 cache, load standards, return; a few thousand lines</i></div>
+  <div class="flow-node"><b>Version 3: + Vector Search</b><i>stdio, Redis cache, ChromaDB vector search, standards; several thousand lines</i></div>
   <div class="flow-node is-bad"><b>Version 4: Kitchen Sink</b><i>stdio / HTTP / WebSocket, Redis, ChromaDB, rule engine, analyzers, NIST compliance, React web UI; about 32,000 lines</i></div>
 </div>
 
@@ -365,17 +365,17 @@ Version value versus complexity:
 | Week | Scope creep timeline | Actual value added |
 |---|---|---|
 | Week 1 | 200 lines, 1 file | High |
-| Week 2 | Add caching; 1,200 lines, 8 files | Marginal |
-| Week 3 | Add vector search; 3,800 lines, 23 files | Negative |
-| Week 4 | Add web UI; about 32,000 lines, 47 files | Mixed |
+| Week 2 | Add caching; a few thousand lines, a handful of files | Marginal |
+| Week 3 | Add vector search; several thousand lines, dozens of files | Negative |
+| Week 4 | Add web UI; about 32,000 lines, dozens of files | Mixed |
 
 ### Start Smaller Than You Think
 
 The Evolution:
 - Week 1: "Simple wrapper" (200 lines, 1 file)
-- Week 2: Added caching (1,200 lines, 8 files)
-- Week 3: Added vector search (3,800 lines, 23 files, 4GB RAM)
-- Week 4: Added web UI (about 2,000 lines of React across 16 files)
+- Week 2: Added caching (a few thousand lines, a handful of files)
+- Week 3: Added vector search (several thousand lines, dozens of files, 4GB RAM)
+- Week 4: Added web UI (a few thousand lines of React)
 
 What I Should Have Done:
 - Ship Version 1
@@ -389,8 +389,8 @@ The Reality: Built for an audience of one (me). Over-engineered for problems I d
 
 Version Comparison:
 - **Version 1**: 200 lines, works, deployed, useful
-- **Version 2**: 1,200 lines, faster caching, zero users noticed
-- **Version 3**: 3,800 lines, semantic search, solves no real problems
+- **Version 2**: a few thousand lines, faster caching, zero users noticed
+- **Version 3**: several thousand lines, semantic search, solves no real problems
 - **Version 4**: ~32,000 lines, full UI, impressive demos, occasional Redis crashes
 
 Value Added Per Version:
@@ -398,7 +398,7 @@ Value Added Per Version:
 - V2 → V3: Negative (added complexity, solved nothing)
 - V3 → V4: Mixed (UI is useful, but could have been separate project)
 
-Lesson: Should have shipped V1 three weeks ago. Iterated based on real feedback.
+Lesson: Should have shipped V1 weeks ago. Iterated based on real feedback.
 
 ### Tools Shape Solutions
 
