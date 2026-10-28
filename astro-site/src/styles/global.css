@@ -416,7 +416,7 @@ a:hover { color: var(--color-accent-hover); }
 .related-posts h2, .related-meta,
 .series-label, .series-position, .series-current-label,
 .theme-deck,
-.search-kbd, .search-esc,
+.search-kbd,
 .year-count,
 .disclaimer {
   font-family: var(--font-mono);
@@ -654,15 +654,6 @@ a.post-card-title:hover { color: var(--color-accent); }
 @media (pointer: coarse) {
   a.chip { min-height: 2.75rem; }
 }
-
-/* ===== Cards ===== */
-.card {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--space-5);
-  transition: border-color var(--motion-fast) var(--motion-easing);
-}
-.card:hover { border-color: var(--color-border-bold); }
 
 /* ===== Layout Utilities ===== */
 .chip-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
