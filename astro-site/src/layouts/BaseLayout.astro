@@ -8,7 +8,9 @@ import SearchTrigger from '@components/SearchTrigger.astro';
 import CodeCopy from '@components/CodeCopy.astro';
 import ThemeToggle from '@components/ThemeToggle.astro';
 import ThemeDeck from '@components/ThemeDeck.astro';
-// @ts-ignore-error dev-time-only virtual module, the same one <Font> reads
+// dev-time-only virtual module, the same one <Font> reads; no types ship for it.
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import { componentDataByCssVariable } from 'virtual:astro:assets/fonts/internal';
 
 interface Props {
@@ -380,6 +382,17 @@ function isActiveLink(linkHref: string): boolean {
       </p>
     </footer>
 
+    <script is:inline>
+      // The mobile nav is a single scrolling line: bring the current section
+      // into view without scrolling the page itself.
+      (function () {
+        const nav = document.querySelector('.site-sections');
+        const cur = nav && nav.querySelector('[aria-current="page"]');
+        if (cur && nav.scrollWidth > nav.clientWidth) {
+          nav.scrollLeft = cur.offsetLeft - (nav.clientWidth - cur.offsetWidth) / 2;
+        }
+      })();
+    </script>
     <CodeCopy />
   </body>
 </html>
