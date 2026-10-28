@@ -23,22 +23,28 @@ export const decode = (s) =>
     name ? (ENT[name.toLowerCase()] ?? m) : String.fromCodePoint(hex ? parseInt(hex, 16) : Number(dec)))
    .replace(/\s+/g, ' ').trim();
 
-function metas(html) {
-  const map = {};
+/** Every <meta> as [name, content] pairs, in page order (repeated names kept, e.g. citation_author). */
+export function metaList(html) {
+  const out = [];
   for (const m of html.matchAll(/<meta\b[^>]*>/gi)) {
     const tag = m[0];
     const k = /(?:property|name|itemprop)\s*=\s*["']([^"']+)["']/i.exec(tag)?.[1];
     const v = /content\s*=\s*"([^"]*)"|content\s*=\s*'([^']*)'/i.exec(tag);
-    if (k && v && !(k.toLowerCase() in map)) map[k.toLowerCase()] = decode(v[1] ?? v[2] ?? '');
+    if (k && v) out.push([k.toLowerCase(), decode(v[1] ?? v[2] ?? '')]);
   }
+  return out;
+}
+function metas(html) {
+  const map = {};
+  for (const [k, v] of metaList(html)) if (!(k in map)) map[k] = v;
   return map;
 }
-const tagText = (html, tag) => {
+export const tagText = (html, tag) => {
   const m = new RegExp(`<${tag}\\b[^>]*>([\\s\\S]*?)</${tag}>`, 'i').exec(html);
   return m ? decode(m[1].replace(/<[^>]+>/g, '')) : null;
 };
 
-const isoDate = (s) => {
+export const isoDate = (s) => {
   if (!s) return null;
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s.trim());
   if (m) return `${m[1]}-${m[2]}-${m[3]}`;
