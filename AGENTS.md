@@ -66,6 +66,11 @@ schema or config, or a flagged post, also runs `scripts/ci/rendered-text-gate.py
 in the a11y workflow: it builds the base branch and fails if the text outside
 the notes changed.
 
+For a post with a Sources list, `pnpm citations:verify-sources -- <slug>` (from
+`astro-site`; network; never in the build) checks each entry against the page it
+links and flags dead links, title, author and year mismatches. Flags are leads:
+read the page before editing an entry.
+
 **Prerequisites:** Node.js 22+, pnpm, Git. Python 3.11+ and [UV](https://docs.astral.sh/uv/) for link validation scripts only. The repo is pnpm-only (`astro-site/pnpm-lock.yaml`); CI and the pre-commit hook both run `pnpm`.
 
 ---
