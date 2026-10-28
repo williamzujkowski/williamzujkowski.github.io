@@ -26,28 +26,28 @@
     "test:a11y": "playwright test tests/e2e/a11y.spec.ts"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^7.3.3",
+    "@astrojs/markdown-remark": "^7.3.4",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
-    "@astrojs/svelte": "^9.1.0",
+    "@astrojs/svelte": "^9.1.1",
     "@resvg/resvg-js": "^2.6.2",
-    "astro": "^7.4.0",
+    "astro": "^7.4.2",
     "cookie": "^2.0.1",
     "markdown-it": "^15.0.3",
     "remarque-tokens": "^0.31.2",
     "sanitize-html": "^2.18.1",
-    "satori": "^0.62.0",
+    "satori": "^0.63.2",
     "svelte": "^5.57.2",
     "typescript": "^6.0.3",
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
+    "@astrojs/check": "^0.9.12",
     "@axe-core/playwright": "^4.14.0",
     "@eslint/js": "^10.0.1",
     "@types/markdown-it": "^14.2.0",
     "@types/sanitize-html": "^2.16.2",
-    "@typescript-eslint/parser": "^8.71.2",
+    "@typescript-eslint/parser": "^8.72.0",
     "@williamzujkowski/oklch-terminal-themes": "0.9.0",
     "apca-w3": "^0.1.9",
     "eslint": "^10.13.0",
@@ -61,7 +61,7 @@
     "rehype-sanitize": "^6.0.0",
     "remark-smartypants": "^3.0.3",
     "shiki": "^4.5.0",
-    "typescript-eslint": "^8.71.2"
+    "typescript-eslint": "^8.72.0"
   },
   "pnpm": {
     "overrides": {

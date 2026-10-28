@@ -108,7 +108,7 @@ Uncertainty Expression: Training models to express confidence levels and acknowl
 
 Source Attribution: Implementing systems that could trace claims back to source materials.
 
-Fact-Checking Integration: Combining AI generation with real-time fact-checking services. When I integrated FactCheck.org APIs in May 2023, false claim detection improved, but response latency increased from 800ms to 2.3 seconds on average.
+Fact-Checking Integration: Combining AI generation with real-time fact-checking services. Google's [Fact Check Tools API](https://developers.google.com/fact-check/tools/api) is one real option: its Claim Search endpoint queries the ClaimReview markup that fact-checking organizations publish, so a generated claim can be matched against fact-checks that already exist. The limit is coverage. It surfaces claims someone has already reviewed rather than verifying new ones, and every lookup adds a network call to the response path.
 
 Watermarking Research: Exploring technical approaches to identify AI-generated content.
 

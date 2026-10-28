@@ -370,14 +370,97 @@ still connected to a host listener, and the `FORWARD -> DOCKER-USER` counter
 did not move. It is exactly the failure described two paragraphs above —
 a rule that reads as a control and is not one — and I shipped it anyway.
 
-Container-to-host belongs in `INPUT`:
+Container-to-host belongs in `INPUT`. The version of this rule I first wrote
+here matched `-i docker0`, and that is where it went wrong a second time.
+`docker0` is only the default bridge. A user-defined network, which includes
+every Compose project, gets its own bridge named `br-<id>`, and traffic from
+those containers never arrives on `docker0`. The rule loads, exits 0, and
+matches nothing.
+
+I ran it instead of arguing about it. Homelab host, Docker 29.9.0, iptables
+in nft mode, two Alpine containers, and a throwaway HTTP listener on each
+bridge's gateway address (port 18672, standing in for a host-bound service
+like SSH). One container sits on the default bridge, the other on a network
+made with `docker network create wzg672-net`. Without any rules, both reach
+the host:
+
+```text
+$ ip -4 -br addr show | grep -E 'docker0|br-3f50afed1714'
+docker0          UP             172.17.0.1/16
+br-3f50afed1714  UP             172.18.0.1/16
+$ docker exec wzg672-default wget -q -T 3 -O- http://172.17.0.1:18672/
+hello-from-host
+$ docker exec wzg672-user wget -q -T 3 -O- http://172.18.0.1:18672/
+hello-from-host
+```
+
+Now the `docker0` rule, inserted at the top of `INPUT` and scoped to one port
+so it cannot touch anything else on the machine:
+
+```text
+$ iptables -I INPUT 1 -i docker0 -p tcp --dport 18672 -m comment --comment wzg672 -j DROP
+$ docker exec wzg672-default wget -q -T 3 -O- http://172.17.0.1:18672/
+wget: download timed out
+$ iptables -L INPUT -v -n -x --line-numbers | sed -n '3,4p'
+num      pkts      bytes target     prot opt in     out     source  destination
+1           3      180 DROP       tcp  --  docker0 *       0.0.0.0/0  0.0.0.0/0  tcp dpt:18672 /* wzg672 */
+```
+
+Three packets, 180 bytes: the SYN and its two retries, all dropped. The
+default-bridge container is blocked. Same rule still in place, now the
+container on the user-defined network:
+
+```text
+$ docker exec wzg672-user wget -q -T 3 -O- http://172.18.0.1:18672/
+hello-from-host
+$ iptables -L INPUT -v -n -x --line-numbers | sed -n '3,4p'
+1           3      180 DROP       tcp  --  docker0 *       0.0.0.0/0  0.0.0.0/0  tcp dpt:18672 /* wzg672 */
+```
+
+The page loads and the counter stays at 3. The rule is not broken; it is
+guarding a door that this container never uses. The fix is to match the
+interface the traffic arrives on, either the specific bridge or the `br-+`
+wildcard if you want every user-defined network:
+
+```text
+$ iptables -I INPUT 1 -i br-3f50afed1714 -p tcp --dport 18672 -m comment --comment wzg672 -j DROP
+$ docker exec wzg672-user wget -q -T 3 -O- http://172.18.0.1:18672/
+wget: download timed out
+$ iptables -L INPUT -v -n -x --line-numbers | sed -n '3,5p'
+1           3      180 DROP       tcp  --  br-3f50afed1714 *  0.0.0.0/0  0.0.0.0/0  tcp dpt:18672 /* wzg672 */
+2           3      180 DROP       tcp  --  docker0 *          0.0.0.0/0  0.0.0.0/0  tcp dpt:18672 /* wzg672 */
+```
+
+The new rule counted the three dropped packets and the `docker0` rule did not
+move. I repeated the run with `-i br-+` in place of the specific bridge and got
+the same result: timeout, three packets counted on the wildcard rule.
+
+One more check, since this is the second wrong place I have put this rule. The
+same `br-<id>` rule inserted in `DOCKER-USER` instead of `INPUT`:
+
+```text
+$ iptables -I DOCKER-USER 1 -i br-3f50afed1714 -p tcp --dport 18672 -m comment --comment wzg672 -j DROP
+$ docker exec wzg672-user wget -q -T 3 -O- http://172.18.0.1:18672/
+hello-from-host
+$ iptables -L DOCKER-USER -v -n -x --line-numbers | sed -n '3,4p'
+1           0        0 DROP       tcp  --  br-3f50afed1714 *  0.0.0.0/0  0.0.0.0/0  tcp dpt:18672 /* wzg672 */
+```
+
+Reachable, counter at zero. Right interface, wrong chain: still not a control.
+Final form, with the interface you actually have (`ip -br link` lists them):
 
 ```bash
-# Block container-to-host SSH (INPUT, not DOCKER-USER)
-# docker0 is only the default bridge. Containers on user-defined or Compose
-# networks arrive on br-<id> (see `ip -br link`); match that interface instead.
+# Block container-to-host SSH from user-defined/Compose networks (INPUT, not DOCKER-USER)
+iptables -I INPUT -i br-+ -p tcp --dport 22 -j DROP
+# ...and from the default bridge
 iptables -I INPUT -i docker0 -p tcp --dport 22 -j DROP
 ```
+
+Both rules are needed if you run both kinds of network. The wildcard is blunt:
+it also covers any non-Docker bridge whose name starts with `br-`, so check
+`ip -br link` before you trust it. I ran the measurements with the rules
+scoped to a spare port, then deleted every rule, container and network and
+diffed the firewall before and after. Only counters had changed.
 
 Note also what Docker networks can and cannot express. Containers on the same
 bridge network reach each other on every port; containers on different
