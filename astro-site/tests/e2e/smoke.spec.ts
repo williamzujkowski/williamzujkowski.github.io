@@ -72,7 +72,7 @@ test('search dialog opens and closes', async ({ page }) => {
   // Dialog should be visible
   const dialog = page.locator('[role="dialog"], dialog');
   await expect(dialog.first()).toBeVisible();
-  // Search.svelte focuses the input on a 50ms timer after mount. Waiting for
+  // Search.svelte focuses the input after the lazy mount. Waiting for
   // that settles the open before the Escape below, and is itself the modal's
   // focus-management contract.
   await expect(dialog.locator('input').first()).toBeFocused();

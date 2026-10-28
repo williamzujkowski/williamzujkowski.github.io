@@ -1,6 +1,10 @@
-<script lang="ts">
-  import { onMount } from 'svelte';
+---
+// "Copy code" buttons on <pre> blocks. Plain DOM work with no reactive state,
+// so it is a script rather than a Svelte island: as `client:idle` it dragged
+// the Svelte runtime onto every page, code or not (#661).
+---
 
+<script>
   const COPY_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>`;
   const CHECK_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`;
 
@@ -59,16 +63,15 @@
     });
   }
 
-  onMount(() => {
-    // No astro:after-swap listener needed: without ClientRouter every
-    // navigation is a full page load, which re-mounts this component and
-    // re-runs injectCopyButtons() on its own.
-    injectCopyButtons();
-  });
+  // No astro:after-swap listener needed: without ClientRouter every
+  // navigation is a full page load, which re-runs this script. Idle-deferred
+  // like the old `client:idle` island.
+  if ('requestIdleCallback' in window) requestIdleCallback(injectCopyButtons);
+  else setTimeout(injectCopyButtons, 200);
 </script>
 
-<style>
-  :global(.copy-btn) {
+<style is:global>
+  .copy-btn {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
@@ -83,12 +86,12 @@
     z-index: 1;
   }
 
-  :global(div:hover > .copy-btn) {
+  div:hover > .copy-btn {
     opacity: 1;
   }
 
   /* 44px hit area around the ~30px chip, without enlarging it. */
-  :global(.copy-btn::after) {
+  .copy-btn::after {
     content: '';
     position: absolute;
     inset: -0.4375rem;
@@ -97,7 +100,7 @@
   /* Phones: the chip sat on the first line of code (design review
      2026-10) — reserve a band above the code for it. */
   @media (max-width: 640px) {
-    :global(div:has(> .copy-btn) > pre) {
+    div:has(> .copy-btn) > pre {
       padding-top: 2.75rem;
     }
   }
@@ -105,7 +108,7 @@
   /* Touch screens have no hover, so the reveal above never fired and the
      button sat at opacity 0 on every phone. */
   @media (hover: none) {
-    :global(.copy-btn) {
+    .copy-btn {
       opacity: 1;
     }
   }
@@ -114,11 +117,11 @@
      opacity: 0 — a WCAG 2.4.7 failure and a dead tab stop per code block
      (some posts have 15+). axe never simulates focus, so the suite was
      green. Issue #500. */
-  :global(.copy-btn:focus-visible) {
+  .copy-btn:focus-visible {
     opacity: 1;
   }
 
-  :global(.copy-btn:hover) {
+  .copy-btn:hover {
     background-color: var(--color-surface);
   }
 </style>

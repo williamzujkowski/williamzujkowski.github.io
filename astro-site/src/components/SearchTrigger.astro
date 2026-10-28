@@ -1,0 +1,131 @@
+---
+// Search entry point: the trigger button and the Ctrl/Cmd+K shortcut.
+//
+// This used to be one Svelte island with `client:load`, so every page shipped
+// and hydrated the Svelte runtime plus the whole dialog for a feature most
+// visitors never open (#661). Now only this button and a ~1 KB script load
+// up front; the dialog (Search.svelte, the Svelte runtime, its CSS) is
+// imported on the first click or shortcut. Pagefind itself was already lazy.
+//
+// No-JS: the button renders `disabled` (as it did before) and stays that way,
+// because there is nothing to open without script. The script enables it as
+// soon as its listeners are attached, which is earlier than the old
+// hydration: no wait for the island to load.
+---
+
+<button
+  type="button"
+  class="search-trigger"
+  data-search-trigger
+  disabled
+  aria-label="Search site, Ctrl K"
+  aria-keyshortcuts="Control+K Meta+K"
+>
+  <svg class="search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+  </svg>
+  <!-- The hint is the button's only visible text, so it must also be in the
+       accessible name (WCAG 2.5.3 Label in Name): a voice user says what they see.
+       Not in parentheses: axe 4.14 drops parentheticals before comparing. -->
+  <kbd class="search-kbd" data-search-hint>Ctrl K</kbd>
+</button>
+<!-- The dialog mounts here. display:contents so this wrapper adds no flex item
+     (and no gap) to the masthead tools row; the dialog stays inside <header>. -->
+<span class="search-root" data-search-root></span>
+
+<script>
+  const trigger = document.querySelector<HTMLButtonElement>('[data-search-trigger]');
+  const root = document.querySelector<HTMLElement>('[data-search-root]');
+  const hint = document.querySelector<HTMLElement>('[data-search-hint]');
+
+  if (trigger && root) {
+    type SearchDialog = import('./search-mount').SearchDialog;
+    let dialog: Promise<SearchDialog> | null = null;
+
+    // First use fetches the chunk; a failed fetch (offline, deploy in
+    // flight) is dropped so the next click or shortcut tries again.
+    const load = (): Promise<SearchDialog> => {
+      dialog ??= import('./search-mount')
+        .then((m) => m.mountSearch(root, trigger))
+        .catch((err) => {
+          dialog = null;
+          throw err;
+        });
+      return dialog as Promise<SearchDialog>;
+    };
+
+    const openSearch = () => {
+      const from = document.activeElement as HTMLElement | null;
+      load().then((d) => d.open(from)).catch(() => {});
+    };
+
+    // Ctrl/Cmd+K is the only shortcut. A bare "/" used to open search too: a
+    // single-character shortcut with no way to turn it off fails WCAG 2.1.4,
+    // and speech-input users trigger it by accident (#698).
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Control' || e.key === 'Meta') {
+        // The modifier lands before the K: start the fetch now so the
+        // dialog is usually ready by the time the chord completes.
+        load().catch(() => {});
+      } else if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        openSearch();
+      }
+    });
+
+    // Warm the chunk on intent, so the click that follows is not slower.
+    const warm = () => void load().catch(() => {});
+    trigger.addEventListener('pointerenter', warm, { once: true });
+    trigger.addEventListener('focus', warm, { once: true });
+    trigger.addEventListener('click', openSearch);
+
+    if (/Mac|iPhone|iPad/.test(navigator.platform)) {
+      if (hint) hint.textContent = '⌘K';
+      trigger.setAttribute('aria-label', 'Search site, ⌘K');
+    }
+    trigger.disabled = false;
+  }
+</script>
+
+<style>
+  .search-root {
+    display: contents;
+  }
+  /* Search trigger — Remarque tokens, no Tailwind (which isn't installed) */
+  .search-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 0.5rem;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-md, 0.5rem);
+    color: var(--color-muted);
+    cursor: pointer;
+    transition: color var(--motion-fast, 180ms) var(--motion-easing, ease);
+  }
+  .search-trigger:hover {
+    color: var(--color-fg);
+    background: var(--color-surface);
+  }
+  .search-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  .search-kbd {
+    display: none;
+    /* font-family: mono — shared machine-voice rule in global.css (#274) */
+    font-size: var(--text-micro);
+    padding: 0.125rem 0.375rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.25rem;
+    color: var(--color-muted);
+    line-height: 1;
+  }
+  @media (min-width: 1024px) {
+    .search-kbd { display: inline-block; }
+  }
+</style>

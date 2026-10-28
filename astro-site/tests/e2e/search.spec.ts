@@ -48,29 +48,57 @@ async function mockIndex(page: Page, searchBody: string, initBody = '') {
   }));
 }
 
-test('search cannot accept a click before its island has hydrated', async ({ page }) => {
-  let releaseModule!: () => void;
-  const moduleGate = new Promise<void>((resolve) => { releaseModule = resolve; });
-  await page.route('**/_astro/Search.*.js', async (route) => {
-    await moduleGate;
+test('search cannot accept a click before the trigger script has attached its listeners', async ({ page }) => {
+  let releaseScript!: () => void;
+  const scriptGate = new Promise<void>((resolve) => { releaseScript = resolve; });
+  await page.route('**/_astro/SearchTrigger.*.js', async (route) => {
+    await scriptGate;
     await route.continue();
   });
-  const moduleRequested = page.waitForRequest(/\/_astro\/Search\.[^/]+\.js(?:\?|$)/);
+  const scriptRequested = page.waitForRequest(/\/_astro\/SearchTrigger\.[^/]+\.js(?:\?|$)/);
   try {
-    await page.goto('/', { waitUntil: 'domcontentloaded' });
-    await moduleRequested;
+    // Module scripts defer DOMContentLoaded, so wait for the response only.
+    await page.goto('/', { waitUntil: 'commit' });
+    await scriptRequested;
     const trigger = page.getByRole('button', { name: /^Search site, (Ctrl K|⌘K)$/ });
     await expect(trigger).toBeVisible();
     await expect(trigger).toBeDisabled();
     await expect(page.getByRole('dialog')).toHaveCount(0);
 
-    releaseModule();
+    releaseScript();
     await expect(trigger).toBeEnabled();
     await trigger.click();
     await expect(page.getByRole('textbox', { name: 'Search site content' })).toBeFocused();
   } finally {
-    releaseModule();
+    releaseScript();
   }
+});
+
+test('the dialog chunk and Svelte runtime load on first use, not with the page (#661)', async ({ page }) => {
+  const scripts: string[] = [];
+  page.on('request', (req) => {
+    if (/\/_astro\/.*\.js(?:\?|$)/.test(req.url())) scripts.push(req.url());
+  });
+  await page.goto('/', { waitUntil: 'networkidle' });
+  expect(scripts.filter((u) => /search-mount|client\.|Search\./.test(u))).toEqual([]);
+
+  // First press of the chord, nothing preloaded by hover or focus.
+  await page.keyboard.press('Control+k');
+  await expect(page.getByRole('textbox', { name: 'Search site content' })).toBeFocused();
+  expect(scripts.some((u) => /search-mount/.test(u))).toBe(true);
+});
+
+test('a slow dialog chunk still opens on the first shortcut press', async ({ page }) => {
+  await page.route('**/_astro/search-mount.*.js', async (route) => {
+    await new Promise((r) => setTimeout(r, 400));
+    await route.continue();
+  });
+  await page.goto('/', { waitUntil: 'networkidle' });
+  await page.keyboard.press('Control+k');
+  await expect(page.getByRole('textbox', { name: 'Search site content' })).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(page.getByRole('button', { name: /^Search site, / })).toBeFocused();
 });
 
 test('repeated shortcuts preserve inert cleanup, external inert state and original focus', async ({ page }) => {
