@@ -22,7 +22,7 @@ BLUF: Generic threat feeds are like drinking from a fire hose. Lots of volume, l
 
 Threat intelligence works best when integrated with [vulnerability prioritization](/posts/2025-09-20-vulnerability-prioritization-epss-kev) and complementary security monitoring tools.
 
-According to [research from the Cyber Threat Alliance (2024)](https://www.cyberthreatalliance.org/resources/), organizations receive 10,000 threat indicators daily, but only 3% are relevant to their specific environment. The [MITRE ATT&CK framework](https://attack.mitre.org/) changes this by providing a common language for threat behaviors (see [Suricata network monitoring](/posts/2025-08-25-network-traffic-analysis-suricata-homelab) for detection patterns). Instead of tracking millions of IoCs, we focus on techniques that matter to our environment.
+Threat feeds deliver far more indicators daily than any one environment can act on, and most of them have nothing to do with it. The [MITRE ATT&CK framework](https://attack.mitre.org/) changes this by providing a common language for threat behaviors (see [Suricata network monitoring](/posts/2025-08-25-network-traffic-analysis-suricata-homelab) for detection patterns). Instead of tracking millions of IoCs, we focus on techniques that matter to our environment.
 
 
 ## Understanding MITRE ATT&CK
@@ -161,8 +161,3 @@ Threat intelligence is only valuable if it drives action.
 1. [MITRE ATT&CK Framework](https://attack.mitre.org/) (2024)
    - MITRE Corporation
    - *Adversarial Tactics, Techniques, and Common Knowledge*
-
-2. [Cyber Threat Intelligence Sharing Standards](https://www.cyberthreatalliance.org/resources/) (2024)
-   - Cyber Threat Alliance
-   - *Industry Threat Sharing Guidelines*
-
