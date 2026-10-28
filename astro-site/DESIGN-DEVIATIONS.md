@@ -118,6 +118,46 @@ issue #274 ("Direction B," 7-0) unless noted:
   border at `--radius-sm` (4px rectangles, not pills); a presentational choice layered on top of core's typography
   machinery, not part of it.
 
+### Page titles (design pass 3B, 2026-10)
+
+Every page title is the global `h1` rung, `--text-display` (this site's
+36-56px override, §1): Notebook/Essay/Dossier titles, `/posts/`
+(visible again; it was `sr-only` under a doodle), `/tags/`, the tag
+landings (were an inline 40-72px italic) and PizzaOps (was 41-72px). One
+rung, one reading-column left edge. Deliberate exceptions:
+
+- **PizzaOps** keeps its centred hero block and its mono face: it is a
+  joke product dashboard, a sanctioned zine/workbench exception. Only its
+  size follows the rung.
+- **Tag landings** keep the italic tag name (`em`, weight 300) under a
+  "Filed under" kicker: the zine accent that separates a landing from a
+  list. Size and alignment follow the rung.
+- **Home** keeps its landing masthead (Landing archetype, not a page title).
+
+### Mobile masthead
+
+At 640px and below the nameplate sits left and the tools right on one row,
+and the six-link nav is one horizontally scrolling line (right-edge fade,
+current section scrolled into view by a small inline script, 44px targets).
+It replaces a stacked tools row plus a two-line nav with an orphaned
+"WORKBENCH NOW" (~255px of a 375x800 first screen, now ~150px).
+
+### Font preloads (CLS)
+
+`BaseLayout.astro` preloads the Latin upright faces of the body serif and
+the mono. Without them the web font swapped in after first paint and the
+text re-wrapped on phones (CLS 0.09-0.10 on `/now/`, `/uses/`,
+`/pizza-ops/`). Greek stays fetch-on-demand (issue #506's decision stands:
+only the files whose `unicode-range` is Latin are preloaded). The preload
+is a hand-written link because `<Font preload>` cannot select by
+unicode-range.
+
+### `/about/` credits
+
+The palette credits list is inside a closed `<details class="credits">`.
+Credit text and links are unchanged; the heading and intro stay visible and
+`/about/#theme-credits` still lands on them.
+
 ## 5. Theming attribute convention
 
 This site keys themes on `:root.dark` / `:root.light` classes plus
