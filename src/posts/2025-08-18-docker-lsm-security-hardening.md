@@ -386,17 +386,17 @@ Attack scenarios tested (11 total):
 
 | Attack Vector | Unhardened | Hardened | Blocked By |
 |---------------|------------|----------|------------|
-| Procfs write (CVE-2025-52881) | ✅ Escaped | ❌ Blocked | AppArmor deny /proc/sys/** w |
-| Kernel module loading | ✅ Succeeded | ❌ Blocked | Capability drop (CAP_SYS_MODULE) |
-| Mount tmpfs over /etc | ✅ Succeeded | ❌ Blocked | Seccomp (blocked mount syscall) |
-| Privilege escalation via SUID | ✅ Root shell | ❌ Blocked | User namespace (UID 0 → UID 100000) |
-| Backdoor in /usr/bin | ✅ Persisted | ❌ Blocked | Read-only root filesystem |
-| Access /root/.ssh | ✅ Read keys | ❌ Blocked | AppArmor deny /root/** |
-| Bind to privileged port | ✅ Success | ❌ Blocked | Capability drop (NET_BIND_SERVICE removed) |
-| Modify /etc/passwd | ✅ Added user | ❌ Blocked | Read-only filesystem |
-| ptrace host process | ✅ Attached | ❌ Blocked | Seccomp (blocked ptrace) |
-| reboot system | ✅ Host reboot | ❌ Blocked | Seccomp (blocked reboot syscall) |
-| Network scan host | ✅ Scanned | ❌ Blocked | AppArmor network restrictions |
+| Procfs write (CVE-2025-52881) | Escaped | Blocked | AppArmor deny /proc/sys/** w |
+| Kernel module loading | Succeeded | Blocked | Capability drop (CAP_SYS_MODULE) |
+| Mount tmpfs over /etc | Succeeded | Blocked | Seccomp (blocked mount syscall) |
+| Privilege escalation via SUID | Root shell | Blocked | User namespace (UID 0 → UID 100000) |
+| Backdoor in /usr/bin | Persisted | Blocked | Read-only root filesystem |
+| Access /root/.ssh | Read keys | Blocked | AppArmor deny /root/** |
+| Bind to privileged port | Success | Blocked | Capability drop (NET_BIND_SERVICE removed) |
+| Modify /etc/passwd | Added user | Blocked | Read-only filesystem |
+| ptrace host process | Attached | Blocked | Seccomp (blocked ptrace) |
+| reboot system | Host reboot | Blocked | Seccomp (blocked reboot syscall) |
+| Network scan host | Scanned | Blocked | AppArmor network restrictions |
 
 Success rate:
 
