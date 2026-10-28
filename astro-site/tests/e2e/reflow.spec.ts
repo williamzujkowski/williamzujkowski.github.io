@@ -60,8 +60,10 @@ test('no word is glued to the start or end of a link', () => {
   const offenders: string[] = [];
   for (const file of files) {
     const html = readFileSync(file, 'utf8');
-    // Footnote references legitimately sit flush against the word they mark.
-    const before = [...html.matchAll(/(.{0,30}[A-Za-z0-9,.;:])<a\s(?![^>]*href="#user-content-fn)/g)];
+    // Footnote references and margin-note refs (rehype-source-marginalia puts
+    // them flush after the sentence's closing punctuation) legitimately sit
+    // against the text they mark.
+    const before = [...html.matchAll(/(.{0,30}[A-Za-z0-9,.;:])<a\s(?![^>]*href="#(?:user-content-fn|src-note-))/g)];
     const after = [...html.matchAll(/<\/a>([A-Za-z0-9(].{0,30})/g)];
     for (const m of [...before, ...after]) {
       offenders.push(`${file.slice(DIST.length)}: …${m[0].replace(/href="[^"]*"/, 'href=…')}`);

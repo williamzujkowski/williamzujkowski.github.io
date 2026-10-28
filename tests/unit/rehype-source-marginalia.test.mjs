@@ -32,6 +32,7 @@ function sourcesList(entries) {
   ];
 }
 
+const textOf = (n) => (n.type === 'text' ? n.value : (n.children || []).map(textOf).join(' '));
 const hasNoteClass = (n) => Array.isArray(n.properties?.className) && n.properties.className.includes('remarque-sidenote');
 const asides = (tree) => {
   const out = [];
@@ -77,7 +78,7 @@ test('normalizeUrl ignores scheme, www, trailing slash, fragment and utm_*', () 
   assert.equal(normalizeUrl('mailto:a@b.c'), null);
 });
 
-test('an inline link matching a Sources entry gets a ref and, right after it, a note', () => {
+test('an inline link matching a Sources entry gets a ref and a note at the end of its sentence', () => {
   const tree = {
     type: 'root',
     children: [
@@ -88,8 +89,8 @@ test('an inline link matching a Sources entry gets a ref and, right after it, a 
   };
   transformSourceMarginalia(tree);
   const p = tree.children[0];
-  assert.deepEqual(kinds(p.children), ['text', 'a', 'ref', 'note', 'text']);
-  const [, , ref, note] = p.children;
+  assert.deepEqual(kinds(p.children), ['text', 'a', 'text', 'ref', 'note']);
+  const [, , , ref, note] = p.children;
   assert.equal(ref.properties.className[0], 'remarque-sidenote-ref');
   assert.equal(ref.properties.ariaLabel, 'Note 1');
   assert.equal(note.properties.role, 'note');
@@ -176,7 +177,7 @@ test('a tight list item gets its note inside the item, before any nested list', 
     children: [el('ul', {}, [li]), ...sourcesList([['https://example.com/a', 'A']])],
   };
   transformSourceMarginalia(tree);
-  assert.deepEqual(kinds(li.children), ['a', 'ref', 'note', 'text', 'ul']);
+  assert.deepEqual(kinds(li.children), ['a', 'text', 'ref', 'note', 'ul']);
 });
 
 test('flag off, missing or not literally true: the tree is not touched', () => {
@@ -217,7 +218,7 @@ test('only http: and https: URLs can match', () => {
   assert.equal(asides(tree).length, 0);
 });
 
-test('several refs in one paragraph alternate strictly: ref, note, ref, note', () => {
+test('three links in one sentence share one ref and one combined note, in link order', () => {
   const tree = {
     type: 'root',
     children: [
@@ -225,23 +226,25 @@ test('several refs in one paragraph alternate strictly: ref, note, ref, note', (
         text('One '), link('https://example.com/a', 'a'), text(' two '),
         link('https://example.com/b', 'b'), text(' three '), link('https://example.com/c', 'c'), text(' end.'),
       ]),
-      ...sourcesList([['https://example.com/a', 'A'], ['https://example.com/b', 'B'], ['https://example.com/c', 'C']]),
+      ...sourcesList([['https://example.com/a', 'Alpha'], ['https://example.com/b', 'Bravo'], ['https://example.com/c', 'Charlie']]),
     ],
   };
   const before = textOutsideNotes(tree.children[0]);
   transformSourceMarginalia(tree);
   const p = tree.children[0];
-  assert.deepEqual(kinds(p.children), ['text', 'a', 'ref', 'note', 'text', 'a', 'ref', 'note', 'text', 'a', 'ref', 'note', 'text']);
-  // each ref is described by the note right after it and labelled in DOM order
-  [2, 6, 10].forEach((i, n) => {
-    assert.equal(p.children[i].properties.ariaLabel, `Note ${n + 1}`);
-    assert.equal(p.children[i].properties.ariaDescribedBy[0], p.children[i + 1].properties.id);
-  });
-  // no counter-set workaround, no paragraph split, no styling hooks
+  assert.deepEqual(kinds(p.children), ['text', 'a', 'text', 'a', 'text', 'a', 'text', 'ref', 'note']);
+  const [ref, note] = p.children.slice(-2);
+  assert.equal(ref.properties.ariaLabel, 'Note 1');
+  assert.equal(ref.properties.ariaDescribedBy[0], note.properties.id);
+  assert.equal(note.tagName, 'span');
+  assert.equal(note.properties.role, 'note');
+  // all three entries, in link order, one per line, phrasing content only
+  assert.equal(note.children.filter((c) => c.tagName === 'br').length, 2);
+  const t = textOf(note);
+  assert.ok(t.indexOf('Alpha') < t.indexOf('Bravo') && t.indexOf('Bravo') < t.indexOf('Charlie'));
+  assert.equal(asides(tree).length, 1);
   assert.equal(asides(tree).some((a) => a.properties.style), false);
   assert.equal(tree.children.length, 3);
-  assert.equal(p.properties.style, undefined);
-  // reading text outside the notes is untouched
   assert.equal(textOutsideNotes(p), before);
 });
 
@@ -264,17 +267,19 @@ test('refs alternate in document order across paragraphs and list items', () => 
   };
   walk(tree.children[0]);
   walk(tree.children[1]);
-  assert.deepEqual(flat, ['ref:Note 1', 'note:src-note-1', 'ref:Note 2', 'note:src-note-2', 'ref:Note 3', 'note:src-note-3']);
-  assert.deepEqual(kinds(li.children), ['a', 'ref', 'note', 'text', 'a', 'ref', 'note', 'text']);
+  // b and c share the list item's (unterminated) sentence: one combined note, so two numbers in all.
+  assert.deepEqual(flat, ['ref:Note 1', 'note:src-note-1', 'ref:Note 2', 'note:src-note-2']);
+  assert.deepEqual(kinds(li.children), ['a', 'text', 'a', 'text', 'ref', 'note']);
 });
 
-test('a ref inside inline emphasis keeps the note next to it', () => {
+test('a link inside inline emphasis: the pair goes after the emphasis, at the sentence end', () => {
   const tree = {
     type: 'root',
     children: [el('p', {}, [el('em', {}, [text('see '), link('https://example.com/a', 'a')]), text(' ok')]), ...sourcesList([['https://example.com/a', 'A']])],
   };
   transformSourceMarginalia(tree);
-  assert.deepEqual(kinds(tree.children[0].children[0].children), ['text', 'a', 'ref', 'note']);
+  assert.deepEqual(kinds(tree.children[0].children[0].children), ['text', 'a']);
+  assert.deepEqual(kinds(tree.children[0].children), ['em', 'text', 'ref', 'note']);
 });
 
 test('an entry whose content is not phrasing-only gets no note and consumes no number', () => {
@@ -325,8 +330,8 @@ test('a note that only echoes its link text is dropped and consumes no number', 
   assert.equal(notes.length, 1, 'only the informative note renders');
   assert.match(textOutsideNotes({ type: 'root', children: [] }) + notes[0].children.map((c) => c.value || '').join(''), /Smith/);
   const p = tree.children[0];
-  assert.deepEqual(kinds(p.children), ['a', 'text', 'a', 'ref', 'note', 'text']);
-  assert.equal(p.children[3].properties.ariaLabel, 'Note 1');
+  assert.deepEqual(kinds(p.children), ['a', 'text', 'a', 'text', 'ref', 'note']);
+  assert.equal(p.children[4].properties.ariaLabel, 'Note 1');
 });
 
 test('isEcho counts words the note adds beyond the link text', () => {
@@ -335,4 +340,170 @@ test('isEcho counts words the note adds beyond the link text', () => {
   assert.equal(isEcho(link('u', 'USLM (United States Legislative Markup)'), content('USLM (United States Legislative Markup)')), true);
   assert.equal(isEcho(link('u', 'Renovate'), content('Renovate: minimumReleaseAge configuration')), true);
   assert.equal(isEcho(link('u', 'Harvard Kilobot'), content('Harvard Kilobot swarm research, Harvard DASH repository')), false);
+});
+
+// ---- Sentence-end placement ---------------------------------------------------
+
+// One paragraph, one matching link, then check where the pair lands and that
+// the visible words outside the notes are unchanged.
+function place(children, extra = []) {
+  const tree = {
+    type: 'root',
+    children: [el('p', {}, children), ...sourcesList([['https://example.com/a', 'A'], ['https://example.com/b', 'B'], ...extra])],
+  };
+  const before = textOutsideNotes(tree.children[0]);
+  transformSourceMarginalia(tree);
+  const p = tree.children[0];
+  assert.equal(textOutsideNotes(p), before, 'text outside the notes is unchanged');
+  return p;
+}
+// The words before the first ref, and after the last note.
+function around(p) {
+  const out = { before: '', after: '' };
+  let seen = 0;
+  const walk = (n) => {
+    if (n.type === 'text') out[seen ? 'after' : 'before'] += n.value;
+    else if (n.tagName === 'a' && n.properties.className) seen = 1;
+    else if (hasNoteClass(n)) return;
+    else (n.children || []).forEach(walk);
+  };
+  walk(p);
+  return out;
+}
+
+test('placement: the pair follows the terminal period, before the next sentence', () => {
+  const p = place([text('Models route '), link('https://example.com/a', 'badly'), text(' at first. Then they learn.')]);
+  const { before, after } = around(p);
+  assert.equal(before, 'Models route badly at first.');
+  assert.equal(after, ' Then they learn.');
+});
+
+test('placement: ? and ! end a sentence; closing quotes and brackets stay before the pair', () => {
+  let p = place([text('Why '), link('https://example.com/a', 'this'), text(' (really?) He said "no!" Next.')]);
+  // "(really?)" is followed by a space and an uppercase H: the sentence ends after ")".
+  assert.equal(around(p).before, 'Why this (really?)');
+  p = place([text('He said "see '), link('https://example.com/a', 'it'), text('!" Then left.')]);
+  assert.equal(around(p).before, 'He said "see it!"');
+});
+
+test('placement: abbreviations do not end the sentence', () => {
+  for (const abbr of ['e.g.', 'i.e.', 'et al.', 'vs.', 'etc.', 'Fig.', 'Dr.', 'U.S.', 'J.']) {
+    const p = place([text('Use '), link('https://example.com/a', 'x'), text(` ${abbr} Then more text. Next one.`)]);
+    assert.equal(around(p).before, `Use x ${abbr} Then more text.`, abbr);
+  }
+});
+
+test('placement: "No." ends a sentence unless a number follows', () => {
+  let p = place([link('https://example.com/a', 'x'), text(' Answer: no. Then more.')]);
+  assert.equal(around(p).before, 'x Answer: no.');
+  p = place([link('https://example.com/a', 'x'), text(' see No. 5 for more. Then more.')]);
+  assert.equal(around(p).before, 'x see No. 5 for more.');
+});
+
+test('placement: decimals and version numbers do not end the sentence', () => {
+  const p = place([text('GPT '), link('https://example.com/a', 'tool'), text(' 3.5 and v0.33 are old. Newer ones exist.')]);
+  assert.equal(around(p).before, 'GPT tool 3.5 and v0.33 are old.');
+});
+
+test('placement: a period inside code is not a sentence end', () => {
+  const p = place([link('https://example.com/a', 'tool'), text(' calls '), el('code', {}, [text('a. B')]), text(' then stops. Next.')]);
+  assert.equal(around(p).before, 'tool calls a. B then stops.');
+});
+
+test('placement: no sentence end falls back to the end of the host block', () => {
+  const p = place([text('A fragment with '), link('https://example.com/a', 'a link'), text(' and no stop')]);
+  assert.deepEqual(kinds(p.children), ['text', 'a', 'text', 'ref', 'note']);
+});
+
+test('placement: a link whose parent closes before the sentence end continues in the parent', () => {
+  const p = place([el('em', {}, [text('see '), link('https://example.com/a', 'a')]), text(' and more words. Next.')]);
+  assert.deepEqual(kinds(p.children), ['em', 'text', 'ref', 'note', 'text']);
+  assert.equal(p.children[1].value, ' and more words.');
+  assert.equal(p.children[4].value, ' Next.');
+});
+
+test('placement: a sentence ending inside inline emphasis lifts the pair out of the emphasis', () => {
+  const p = place([el('em', {}, [link('https://example.com/a', 'a'), text(' is *the* point.')]), text(' Next.')]);
+  assert.deepEqual(kinds(p.children), ['em', 'ref', 'note', 'text']);
+});
+
+test('placement: two links in one sentence get one ref and one combined note at the sentence end', () => {
+  const p = place([
+    text('From '), link('https://example.com/a', 'a'), text(' to '), link('https://example.com/b', 'b'),
+    text(' adaptive learning. Second sentence.'),
+  ]);
+  assert.deepEqual(kinds(p.children), ['text', 'a', 'text', 'a', 'text', 'ref', 'note', 'text']);
+  assert.equal(p.children[5].properties.ariaLabel, 'Note 1');
+  assert.equal(p.children[5].properties.ariaDescribedBy[0], p.children[6].properties.id);
+  assert.deepEqual(kinds(p.children[6].children).filter((k) => k === 'br'), ['br']);
+  assert.equal(around(p).before, 'From a to b adaptive learning.');
+});
+
+test('placement: numbering continues in document order after a combined note', () => {
+  const tree = {
+    type: 'root',
+    children: [
+      el('p', {}, [link('https://example.com/a', 'a'), text(' and '), link('https://example.com/b', 'b'), text(' agree. Then '), link('https://example.com/c', 'c'), text(' too.')]),
+      el('p', {}, [link('https://example.com/d', 'd'), text(' last.')]),
+      ...sourcesList([['https://example.com/a', 'A'], ['https://example.com/b', 'B'], ['https://example.com/c', 'C'], ['https://example.com/d', 'D']]),
+    ],
+  };
+  transformSourceMarginalia(tree);
+  const labels = [];
+  const walk = (n) => {
+    if (n.tagName === 'a' && n.properties.className) labels.push(n.properties.ariaLabel);
+    (n.children || []).forEach(walk);
+  };
+  walk(tree.children[0]);
+  walk(tree.children[1]);
+  assert.deepEqual(labels, ['Note 1', 'Note 2', 'Note 3']);
+  assert.equal(asides(tree).length, 3);
+});
+
+test('placement: the block-end fallback also combines links into one note', () => {
+  const p = place([link('https://example.com/a', 'a'), text(' and '), link('https://example.com/b', 'b'), text(' no stop')]);
+  assert.deepEqual(kinds(p.children), ['a', 'text', 'a', 'text', 'ref', 'note']);
+});
+
+test('onMatch reports every hit of a combined note with the same serial', () => {
+  const tree = {
+    type: 'root',
+    children: [el('p', {}, [link('https://example.com/a', 'a'), text(' and '), link('https://example.com/b', 'b'), text('.')]), ...sourcesList([['https://example.com/a', 'A'], ['https://example.com/b', 'B']])],
+  };
+  const seen = [];
+  transformSourceMarginalia(tree, { onMatch: ({ serial }) => seen.push(serial) });
+  assert.deepEqual(seen, [1, 1]);
+});
+
+test('placement: links in different sentences each get their own sentence end', () => {
+  const p = place([
+    link('https://example.com/a', 'a'), text(' one. Then '), link('https://example.com/b', 'b'), text(' two. Last.'),
+  ]);
+  assert.deepEqual(kinds(p.children), ['a', 'text', 'ref', 'note', 'text', 'a', 'text', 'ref', 'note', 'text']);
+  assert.equal(p.children[2].properties.ariaLabel, 'Note 1');
+  assert.equal(p.children[7].properties.ariaLabel, 'Note 2');
+});
+
+test('placement: a link that is itself the whole sentence ends it there', () => {
+  const p = place([link('https://example.com/a', 'A whole sentence.'), text(' Next one here.')]);
+  assert.deepEqual(kinds(p.children), ['a', 'ref', 'note', 'text']);
+});
+
+test('placement: a note never lands inside another link', () => {
+  const p = place([
+    link('https://example.com/a', 'a'), text(' then '), link('https://other.example/x', 'Foo. Bar'), text(' baz.'),
+  ]);
+  const inLink = (n) => n.tagName === 'a' && !n.properties.className && (n.children || []).some(hasNoteClass);
+  assert.equal(p.children.some(inLink), false);
+  assert.equal(around(p).before, 'a then Foo. Bar baz.');
+});
+
+test('onMatch still reports the host block with its full sentence text', () => {
+  const tree = {
+    type: 'root',
+    children: [el('p', {}, [text('See '), link('https://example.com/a', 'a'), text(' now. Done.')]), ...sourcesList([['https://example.com/a', 'A']])],
+  };
+  let seen = null;
+  transformSourceMarginalia(tree, { onMatch: ({ host, serial }) => (seen = { text: textOutsideNotes(host), serial }) });
+  assert.deepEqual(seen, { text: 'See a now. Done.', serial: 1 });
 });
