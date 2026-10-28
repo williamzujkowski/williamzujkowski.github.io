@@ -290,6 +290,12 @@
   });
 </script>
 
+<!-- The dialog's styles ship inside this lazily loaded component and are
+     injected when it mounts. Left external, Astro hoisted them into an inline
+     <style> in the head of every page (2.6 KB x 149 pages, uncacheable) even
+     though the dialog loads on first use (#661). -->
+<svelte:options css="injected" />
+
 <!-- Search dialog -->
 {#if isOpen}
   <!-- svelte-ignore a11y_no_static_element_interactions -->

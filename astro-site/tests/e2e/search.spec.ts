@@ -82,8 +82,18 @@ test('the dialog chunk and Svelte runtime load on first use, not with the page (
   await page.goto('/', { waitUntil: 'networkidle' });
   expect(scripts.filter((u) => /search-mount|client\.|Search\./.test(u))).toEqual([]);
 
+  // The dialog's CSS is lazy too: it used to be hoisted into an inline
+  // <style> in every page's head.
+  const dialogCssInHead = await page.evaluate(() =>
+    Array.from(document.querySelectorAll('style')).some((s) => s.textContent?.includes('.search-overlay')));
+  expect(dialogCssInHead).toBe(false);
+
   // First press of the chord, nothing preloaded by hover or focus.
   await page.keyboard.press('Control+k');
+  await expect(page.getByRole('dialog')).toBeVisible();
+  const dialogCssAfterOpen = await page.evaluate(() =>
+    Array.from(document.querySelectorAll('style')).some((s) => s.textContent?.includes('.search-overlay')));
+  expect(dialogCssAfterOpen).toBe(true);
   await expect(page.getByRole('textbox', { name: 'Search site content' })).toBeFocused();
   expect(scripts.some((u) => /search-mount/.test(u))).toBe(true);
 });
