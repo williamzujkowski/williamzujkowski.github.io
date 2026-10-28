@@ -262,7 +262,7 @@ Before diving into homelab implementation, I spent way too much time reading abo
 
 ### Google Chrome: Billions of Users with ML-KEM
 
-[Google has shipped hybrid post-quantum key exchange in Chrome](https://www.chromium.org/cecpq2/). In [November 2024, Chrome 131 switched to the standardized ML-KEM](https://thehackernews.com/2024/09/google-chrome-switches-to-ml-kem-for.html) instead of the experimental Kyber variant.
+[Google enabled X25519Kyber768 by default on desktop in Chrome 124 (April 2024)](https://groups.google.com/a/chromium.org/g/blink-dev/c/6xfaov3Z4yo), turning on hybrid post-quantum key exchange for Chrome's desktop users. In [November 2024, Chrome 131 switched to the standardized ML-KEM](https://thehackernews.com/2024/09/google-chrome-switches-to-ml-kem-for.html) instead of the experimental Kyber variant.
 
 The deployment wasn't smooth. Legacy middleboxes and firewalls failed to handle ClientHello messages larger than a single packet, causing connection failures. According to Google's engineering team:[^google-engineering]
 
@@ -843,8 +843,8 @@ The quantum future is coming. Your homelab can be ready for it.
 16. [Open Quantum Safe: oqs-provider for OpenSSL 3](https://github.com/open-quantum-safe/oqs-provider) (Ongoing)
     - OpenSSL 3 provider enabling post-quantum algorithms
 
-17. [CECPQ2](https://www.chromium.org/cecpq2/) (Chromium Projects)
-    - Chrome's experimental hybrid X25519 plus NTRU-HRSS-KEM post-quantum key agreement, with rollout notes
+17. [Intent to Ship: X25519Kyber768 key encapsulation for TLS on Desktop](https://groups.google.com/a/chromium.org/g/blink-dev/c/6xfaov3Z4yo) (blink-dev, 2024)
+    - Chrome's plan to ship hybrid Kyber key exchange by default on desktop from Chrome 124
 
 18. [The Hacker News: Chrome Switches to ML-KEM](https://thehackernews.com/2024/09/google-chrome-switches-to-ml-kem-for.html) (November 2024)
     - Chrome 131 migration from experimental Kyber to standardized ML-KEM
