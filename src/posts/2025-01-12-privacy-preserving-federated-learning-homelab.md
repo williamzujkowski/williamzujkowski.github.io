@@ -321,7 +321,7 @@ Variance threshold too high (0.1): My first training run shared only 23% of clus
 
 Raspberry Pi thermal throttling: During the second round, all 3 Pis hit thermal limits and throttled CPUs to 600 MHz. Training time jumped from 14 minutes to 38 minutes per round. I added heatsinks and case fans. Now they run at 1.8 GHz consistently.
 
-Network congestion during aggregation: I initially ran all 3 Pis on WiFi. Bad idea. Network transfer took 17 minutes instead of 3 minutes due to WiFi contention. Switched to Ethernet, problem solved.
+Network congestion during aggregation: I initially ran all 3 Pis on WiFi. Bad idea. The network phase took far longer than the roughly 3 minutes it takes on Ethernet, due to WiFi contention. Switched to Ethernet, problem solved.
 
 Server aggregation bottleneck: The Dell R910 has 24 cores but the aggregation code is single-threaded. Only one core was pegged at 100% while the other 23 sat idle. I didn't fix this, but parallelizing cluster merging would probably cut aggregation time by 80%.
 
