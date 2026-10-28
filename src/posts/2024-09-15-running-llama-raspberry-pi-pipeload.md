@@ -461,31 +461,27 @@ Edge AI is no longer a research curiosity. It's a practical deployment option fo
 4. [Raspberry Pi 4 Technical Specifications](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/specifications/) (2024)
    - ARM Cortex-A72, 8GB RAM variant
 
-5. [Edge Computing for AI: A Survey](https://ieeexplore.ieee.org/document/9261019) (2020)
-   - Xu et al., *IEEE Internet of Things Journal*
-   - Comprehensive edge AI deployment patterns
-
-6. [LLaMA 2 Model Card](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) (2024)
+5. [LLaMA 2 Model Card](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) (2024)
    - Meta AI, *Hugging Face*
    - 7B parameter instruction-tuned model specifications
 
-7. [Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism](https://arxiv.org/abs/1909.08053) (2019)
+6. [Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism](https://arxiv.org/abs/1909.08053) (2019)
    - Shoeybi et al., *NVIDIA*
    - Tensor/intra-layer model parallelism; explicitly orthogonal to pipeline parallelism, not a source for interconnect requirements
 
-8. [Megablocks: Efficient Sparse Training with Mixture-of-Experts](https://arxiv.org/abs/2211.15841) (2022)
+7. [Megablocks: Efficient Sparse Training with Mixture-of-Experts](https://arxiv.org/abs/2211.15841) (2022)
    - Gale et al., *Stanford University*
    - Block-sparse kernels for MoE training, not inference-time expert loading
 
-9. [ONNX Runtime: Cross-platform Inference Optimization](https://onnxruntime.ai/) (2024)
+8. [ONNX Runtime: Cross-platform Inference Optimization](https://onnxruntime.ai/) (2024)
    - Microsoft, *ONNX Runtime Project*
    - Alternative inference optimization framework
 
-10. [TensorFlow Lite: On-Device ML for Mobile and Edge](https://www.tensorflow.org/lite) (2024)
+9. [TensorFlow Lite: On-Device ML for Mobile and Edge](https://www.tensorflow.org/lite) (2024)
     - Google, *TensorFlow Project*
     - Edge deployment toolkit comparison
 
-11. [IEEE Edge Computing Conference 2024 Proceedings](https://ieeexplore.ieee.org/xpl/conhome/1000016/all-proceedings) (2024)
+10. [IEEE Edge Computing Conference 2024 Proceedings](https://ieeexplore.ieee.org/xpl/conhome/1000016/all-proceedings) (2024)
     - Latest edge AI research trends
 
 12. [HumanEval Benchmark for Code Generation](https://github.com/openai/human-eval) (2021)
