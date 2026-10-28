@@ -379,7 +379,7 @@ The path forward requires:
 
 - **2010** — Petascale Era: ~1 PFlop peak, air-cooled clusters, general-purpose CPUs.
 - **2018** — Pre-Exascale: ~200 PFlops, GPU acceleration, early AI integration.
-- **2022** — Exascale Achieved: 1.35 EFlops with Frontier, hybrid CPU+GPU nodes, liquid cooling standard.
+- **2022** — Exascale Achieved: 1.102 EFlops with Frontier, hybrid CPU+GPU nodes, liquid cooling standard.
 - **2026** — Exascale Maturity: multiple exascale systems, quantum co-processors, AI-driven scheduling.
 - **2030+** — Zettascale Target: 1000x exascale, neuromorphic + quantum + photonic systems, novel semiconductor materials.
 
