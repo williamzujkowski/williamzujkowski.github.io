@@ -8,6 +8,8 @@ import SearchTrigger from '@components/SearchTrigger.astro';
 import CodeCopy from '@components/CodeCopy.astro';
 import ThemeToggle from '@components/ThemeToggle.astro';
 import ThemeDeck from '@components/ThemeDeck.astro';
+// @ts-ignore-error dev-time-only virtual module, the same one <Font> reads
+import { componentDataByCssVariable } from 'virtual:astro:assets/fonts/internal';
 
 interface Props {
   title: string;
@@ -45,6 +47,28 @@ const pageTitle = title === 'Home' || title === siteTitle ? siteTitle : `${title
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 const ogImageUrl = new URL(ogImage ?? image, siteUrl).href;
 const currentYear = new Date().getFullYear();
+
+// Preload the Latin upright face of the body serif and of the mono, and only
+// those. <Font preload> preloads every face in a family, Greek included (issue
+// #506). Without these two the text swaps from the metric-matched fallback
+// after first paint on a cold cache, and on a phone the paragraphs, the nav
+// and the PizzaOps window bar re-wrap: CLS up to 0.10 on /now/, /uses/ and
+// /pizza-ops/. Picking the file by its unicode-range keeps the Greek subset
+// fetch-on-demand, as #506 decided.
+function latinFaceUrl(cssVariable: string, unicodeRangeStart: string, weight: string): string | undefined {
+  const css: string | undefined = componentDataByCssVariable.get(cssVariable)?.css;
+  for (const face of css?.match(/@font-face\{[^}]*\}/g) ?? []) {
+    if (!face.includes(`unicode-range:${unicodeRangeStart}`)) continue;
+    if (!face.includes('font-style:normal')) continue;
+    if (!new RegExp(`font-weight:${weight};`).test(face)) continue;
+    return face.match(/src:url\("([^"]+)"\)/)?.[1];
+  }
+}
+const preloadUrls = [
+  latinFaceUrl('--font-body', 'U+0020', '400 900'),
+  latinFaceUrl('--font-mono', 'U+0000', '400'),
+].filter((u): u is string => !!u);
+
 
 // Build breadcrumb items from URL path. Top-level segments take their
 // masthead label (/posts/ is "Dispatches", not "Posts"), so the schema names
@@ -190,6 +214,7 @@ function isActiveLink(linkHref: string): boolean {
         Greek glyphs. */}
     <Font cssVariable="--font-display" preload />
     <Font cssVariable="--font-body" />
+    {preloadUrls.map((href) => <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />)}
     <Font cssVariable="--font-mono" />
     <Font cssVariable="--font-accent" /><!-- zine accent voice; deliberately not preloaded -->
 
