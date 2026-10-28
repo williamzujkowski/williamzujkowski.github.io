@@ -235,17 +235,40 @@ test('theme-color meta tracks the painted background through toggles and palette
   await ctx.close();
 });
 
-for (const viewport of [{ width: 360, height: 800 }, { width: 1280, height: 900 }]) {
-  test(`deck panel shows its last option without an inner scroll at ${viewport.width}px`, async ({ browser }) => {
+// remarque 0.32's popover: the panel is height-capped (it scrolls inside
+// itself) instead of running off the page, and under 40rem it is a bottom
+// sheet. Regression for the 844px-tall panel at 375px (design review G1).
+for (const viewport of [{ width: 375, height: 800 }, { width: 1280, height: 900 }]) {
+  test(`deck panel stays on screen and its last option is reachable at ${viewport.width}px`, async ({ browser }) => {
     const ctx = await browser.newContext({ viewport });
     const page = await ctx.newPage();
     await page.goto('/');
     await page.locator('.theme-deck summary').click();
+    const panel = page.locator('.theme-deck fieldset');
+    const box = (await panel.boundingBox())!;
+    expect(box.y).toBeGreaterThanOrEqual(0);
+    expect(box.y + box.height).toBeLessThanOrEqual(viewport.height);
+    expect(box.x).toBeGreaterThanOrEqual(0);
+    expect(box.x + box.width).toBeLessThanOrEqual(viewport.width);
     const last = page.locator('.deck-option').last();
     await last.scrollIntoViewIfNeeded();
     await expect(last).toBeInViewport({ ratio: 1 });
-    const clipped = await page.locator('.deck-panel').evaluate((p) => p.scrollHeight > p.clientHeight + 1);
-    expect(clipped).toBe(false);
+    if (viewport.width < 640) expect(await panel.evaluate((p) => getComputedStyle(p).position)).toBe('fixed');
     await ctx.close();
   });
 }
+
+test('the trigger is findable: a name and a tooltip, and the panel closes on Escape and outside click', async ({ page }) => {
+  await page.goto('/');
+  const summary = page.locator('.theme-deck summary');
+  await expect(summary).toHaveAttribute('aria-label', /theme/i);
+  await expect(summary).toHaveAttribute('title', /theme/i);
+  const deck = page.locator('.theme-deck');
+  await summary.click();
+  await expect(deck).toHaveJSProperty('open', true);
+  await page.keyboard.press('Escape');
+  await expect(deck).toHaveJSProperty('open', false);
+  await summary.click();
+  await page.locator('main').click({ position: { x: 2, y: 400 } });
+  await expect(deck).toHaveJSProperty('open', false);
+});

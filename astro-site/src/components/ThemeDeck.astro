@@ -3,50 +3,39 @@
 // by remarque-deck (remarque-tokens 0.31+) from @williamzujkowski/oklch-
 // terminal-themes into public/palettes/ (scripts/build-palette-deck.mjs).
 // Every palette is a light/dark PAIR that follows the theme toggle; the
-// site's own palette ("Field Notes") stays the default. Native radio inputs
-// (remarque's deck-picker contract); remarque-tokens/deck applies the pick.
+// site's own palette ("Field Notes") stays the default. This is remarque's
+// popover picker (.remarque-deck-picker--popover, 0.32): native radios,
+// a height-capped panel, a bottom sheet under 40rem; remarque-tokens/deck
+// applies the pick and, with dismissible, closes it on Escape / outside click.
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-
-interface Props {
-  variant?: 'footer' | 'header';
-}
-const { variant = 'footer' } = Astro.props;
 
 const manifest = JSON.parse(readFileSync(join(process.cwd(), 'public', 'palettes', 'deck.json'), 'utf8'));
 const palettes: { name: string; label: string }[] = manifest.palettes;
 ---
 
-<details class={`theme-deck theme-deck--${variant}`} id="theme-deck">
-  <summary aria-label="Terminal theme picker" title="Terminal theme">
-    {
-      variant === 'header' ? (
-        <span class="deck-mini" aria-hidden="true">
-          {/* Live tokens, deliberately: the mini swatch previews the ACTIVE palette. */}
-          <span class="deck-mini-chip" style="background: var(--color-accent)" />
-          <span class="deck-mini-chip" style="background: var(--color-fg)" />
-          <span class="deck-mini-chip" style="background: var(--color-bg-subtle)" />
-        </span>
-      ) : (
-        <>
-          <span class="deck-label">Terminal theme</span>
-          <span class="deck-current" data-deck-current>Field Notes</span>
-        </>
-      )
-    }
+<details class="remarque-deck-picker remarque-deck-picker--popover theme-deck" id="theme-deck">
+  <summary aria-label="Theme: choose a terminal color palette" title="Theme: choose a terminal color palette">
+    <span class="deck-mini" aria-hidden="true">
+      {/* Live tokens, deliberately: the mini swatch previews the ACTIVE palette. */}
+      <span class="deck-mini-chip" style="background: var(--color-accent)"></span>
+      <span class="deck-mini-chip" style="background: var(--color-fg)"></span>
+      <span class="deck-mini-chip" style="background: var(--color-bg-subtle)"></span>
+    </span>
+    <span class="deck-label" aria-hidden="true">Theme</span>
   </summary>
 
-  <fieldset class="deck-panel">
+  <fieldset>
     <legend class="sr-only">Site color theme</legend>
-    <label class="deck-option">
+    <label class="remarque-deck-option deck-option">
       <input type="radio" name="remarque-palette" value="" checked />
-      <span class="deck-swatches" data-palette-swatch="default" aria-hidden="true"><span class="deck-chip"></span><span class="deck-chip"></span><span class="deck-chip"></span></span>
+      <span class="remarque-deck-swatches" data-palette-swatch="default" aria-hidden="true"><span></span><span></span><span></span></span>
       <span class="deck-name">Field Notes <span class="deck-tag">default</span></span>
     </label>
     {palettes.map((p) => (
-      <label class="deck-option">
+      <label class="remarque-deck-option deck-option">
         <input type="radio" name="remarque-palette" value={p.name} />
-        <span class="deck-swatches" data-palette-swatch={p.name} aria-hidden="true"><span class="deck-chip"></span><span class="deck-chip"></span><span class="deck-chip"></span></span>
+        <span class="remarque-deck-swatches" data-palette-swatch={p.name} aria-hidden="true"><span></span><span></span><span></span></span>
         <span class="deck-name">{p.label}</span>
       </label>
     ))}
@@ -58,118 +47,17 @@ const palettes: { name: string; label: string }[] = manifest.palettes;
 </details>
 
 <style>
-  .theme-deck {
-    /* font-family: mono — shared machine-voice rule in global.css (#274) */
-    font-size: var(--text-micro);
-    margin-top: 0.75rem;
-  }
+  /* The panel, the options, the swatches, the bottom sheet under 40rem and
+     the height cap all come from remarque-tokens/chrome
+     (.remarque-deck-picker--popover, 0.32). What is left here is the zine
+     skin: the tilted live-token mini swatch, a surface and a shadow. The
+     wobbly radius lives in zine.css. */
+  .theme-deck { font-size: var(--text-meta); }
 
   .theme-deck summary {
-    cursor: pointer;
-    color: var(--color-muted);
-    list-style: none;
-    display: inline-flex;
-    gap: 0.5ch;
-    align-items: baseline;
-    padding: 0.25rem 0;
-  }
-  .theme-deck summary::-webkit-details-marker { display: none; }
-  .theme-deck summary::before { content: '❯ '; color: var(--color-accent); }
-  .theme-deck[open] summary::before { content: '▾ '; }
-  .theme-deck summary:hover .deck-label { color: var(--color-fg); }
-
-  .deck-current { color: var(--color-accent); }
-
-  .deck-panel {
-    min-inline-size: 0; /* a <fieldset> defaults to min-content width */
-    margin-top: 0.5rem;
-    margin-inline: auto; /* footer centers text; center the panel box too */
-    border: 1px solid var(--color-border);
-    padding: 0.5rem;
-    max-width: 22rem;
-    background: var(--color-surface);
-    text-align: left; /* ...but the rows themselves read left-to-right */
-  }
-
-
-  .deck-option {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 0.75ch;
-    width: 100%;
-    /* 44px, the same target as the header buttons that open this panel.
-       WCAG 2.5.8 only asks for 24px, which the old 32px rows met; but these
-       rows are the panel's whole purpose and are mostly tapped on phones. */
-    min-height: 2.75rem;
-    padding: 0.3rem 0.4rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--color-fg-muted);
-    font: inherit;
-    text-align: left;
-  }
-  .deck-option:hover { background: var(--color-bg-subtle); color: var(--color-fg); }
-  .deck-option:has(input:checked) { color: var(--color-fg); }
-  .deck-option:has(input:checked) .deck-name::after {
-    content: ' ✓';
-    color: var(--color-accent);
-  }
-
-  /* The radio stays a real, focusable input (keyboard and screen readers
-     get native radio-group behavior); the ✓ and the row color show the
-     choice, so the dot itself is visually hidden. */
-  .deck-option input {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-  }
-  .deck-option:has(input:focus-visible) {
-    outline: 2px solid var(--color-focus-ring);
-    outline-offset: -2px;
-  }
-
-  .deck-swatches { display: inline-flex; gap: 2px; flex: none; }
-  /* Colors come from deck.css ([data-palette-swatch], light-dark()), so a
-     row shows its own palette in the current mode and never repaints. */
-  .deck-swatches > :nth-child(1) { background: var(--swatch-bg); }
-  .deck-swatches > :nth-child(2) { background: var(--swatch-fg); }
-  .deck-swatches > :nth-child(3) { background: var(--swatch-accent); }
-  .deck-chip {
-    width: 0.7rem;
-    height: 0.7rem;
-    border-radius: 2px;
-    border: 1px solid var(--color-border);
-  }
-
-  .deck-tag { color: var(--color-muted); }
-
-  .deck-credit {
-    margin: 0.6rem 0 0;
-    color: var(--color-muted);
-  }
-
-  /* Header variant: compact swatch button, panel drops down right-aligned */
-  .theme-deck--header {
-    position: relative;
-    margin-top: 0;
-  }
-  .theme-deck--header summary {
-    padding: 0.35rem;
-    width: 2.75rem; /* match the toggle's 44px touch target */
-    height: 2.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    gap: var(--space-2);
+    padding-inline: 0.35rem;
     border-radius: 0.25rem;
-  }
-  .theme-deck--header summary::before,
-  .theme-deck--header[open] summary::before {
-    content: '';
   }
   .deck-mini {
     display: inline-flex;
@@ -182,44 +70,37 @@ const palettes: { name: string; label: string }[] = manifest.palettes;
     border-radius: 2px 1px 3px 1px / 1px 3px 1px 2px;
     border: 1px solid var(--color-border-bold);
   }
-  .theme-deck--header .deck-panel {
-    position: absolute;
-    right: 0;
-    top: calc(100% + 0.4rem);
-    width: min(22rem, calc(100vw - 2rem));
-    /* No max-height: a 30rem cap clipped "Nord Light" inside a scroll box
-       with no visible cue, on every viewport. The masthead is not sticky,
-       so a tall panel simply extends the page and an ordinary page scroll
-       reaches the last option. */
-    background: var(--color-bg);
-    z-index: var(--z-dropdown);
-    box-shadow: 0 4px 16px var(--color-shadow);
+  /* A word beside the chips so the control reads as "themes" (design review
+     2026-10, G2). Dropped on phones, where the masthead row is full. */
+  .deck-label { display: none; }
+  @media (min-width: 40.0625rem) {
+    .deck-label { display: inline; }
   }
 
-  /* On narrow viewports the swatch button sits mid-masthead, so a
-     button-anchored dropdown (right: 0) runs off the left edge. Drop the
-     button as the anchor and position the panel against the masthead
-     instead, spanning the width with even margins so it always fits. */
-  @media (max-width: 700px) {
-    .theme-deck--header {
-      position: static;
-    }
-    .theme-deck--header .deck-panel {
-      left: 1rem;
-      right: 1rem;
-      width: auto;
-      max-width: none;
-    }
+  .theme-deck fieldset {
+    min-inline-size: 0; /* a <fieldset> defaults to min-content width */
+    background: var(--color-bg);
+    box-shadow: 0 4px 16px var(--color-shadow);
+  }
+  .deck-tag { color: var(--color-muted); }
+  .deck-credit {
+    grid-column: 1 / -1;
+    margin: var(--space-2) 0 0;
+    color: var(--color-muted);
+    font-size: var(--text-meta);
+  }
+  @media (max-width: 40rem) {
+    .theme-deck fieldset { box-shadow: 0 -4px 24px var(--color-shadow); }
   }
 </style>
 
-<script define:vars={{ names: palettes.map((p) => p.name), labels: Object.fromEntries(palettes.map((p) => [p.name, p.label])) }}>
-  window.__themeDeck = { names, labels };
+<script define:vars={{ names: palettes.map((p) => p.name) }}>
+  window.__themeDeck = { names };
 </script>
 <script>
   import { createDeck, bindPicker } from 'remarque-tokens/deck';
 
-  const { names, labels } = (window as unknown as { __themeDeck: { names: string[]; labels: Record<string, string> } }).__themeDeck;
+  const { names } = (window as unknown as { __themeDeck: { names: string[] } }).__themeDeck;
   const picker = document.getElementById('theme-deck') as HTMLDetailsElement | null;
 
   // Theme crossfade (issue #274 item 3): armed only on a deliberate pick,
@@ -236,27 +117,17 @@ const palettes: { name: string; label: string }[] = manifest.palettes;
   }
 
   if (picker) {
-    const current = picker.querySelector('[data-deck-current]');
     // Registered before bindPicker's own listeners, so the fade arms first.
     picker.querySelectorAll('input[type="radio"]').forEach((r) => r.addEventListener('change', triggerCrossfade));
     const deck = createDeck(names);
     deck.restore();
+    // dismissible: Escape (focus returns to the summary) and an outside
+    // click close the popover. remarque 0.32 owns that now.
     bindPicker(deck, picker, {
-      onChange(name: string | null) {
-        if (current) current.textContent = name ? labels[name] : 'Field Notes';
+      dismissible: true,
+      onChange() {
         document.dispatchEvent(new CustomEvent('remarque-palette-changed'));
       },
-    });
-
-    // Header popover manners: close on outside click or Escape.
-    document.addEventListener('click', (e) => {
-      if (picker.open && !picker.contains(e.target as Node)) picker.open = false;
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && picker.open) {
-        picker.open = false;
-        picker.querySelector('summary')?.focus();
-      }
     });
   }
 </script>
