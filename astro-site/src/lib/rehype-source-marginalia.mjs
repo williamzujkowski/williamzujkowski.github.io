@@ -65,9 +65,10 @@ import { visit } from 'unist-util-visit';
  * block's inline content. The scan runs over the host's flattened inline text
  * (nested lists excluded), so it crosses em/strong/links; an insertion point
  * at the end of an inline element is lifted out to the parent, and never
- * lands inside another link. Several links in one sentence keep strict
- * alternation at the sentence end (ref 1, note 1, ref 2, note 2), in link
- * order. Only a text node may be split (its words stay in order), so the text
+ * lands inside another link. Several links in one sentence share ONE ref and
+ * ONE note (one number): the note carries each matched entry in link order,
+ * separated by <br>. (Two refs at one spot read as a stray digit on its own
+ * line at narrow widths and touch each other, failing target-size, at wide.) Only a text node may be split (its words stay in order), so the text
  * outside the notes is unchanged.
  *
  * Entries whose content is not phrasing-only get no note.
@@ -381,24 +382,38 @@ export function transformSourceMarginalia(tree, opts = {}) {
   };
   walk(tree, []);
 
-  // Phase 2: ref and note go right after their link, in the link's own parent.
-  // A note that only echoes its link text ("nexus-agents" beside the link
-  // "nexus-agents") tells the reader nothing the sentence doesn't, so it is
-  // dropped: a note must add more than ECHO_MAX_NEW_WORDS words.
+  // Phase 2: ref and note go at the end of the link's sentence. A note that
+  // only echoes its link text ("nexus-agents" beside the link "nexus-agents")
+  // tells the reader nothing the sentence doesn't, so it is dropped: a note
+  // must add more than ECHO_MAX_NEW_WORDS words.
   const phrasingOnly = hits.filter((h) => isPhrasing(h.content) && !isEcho(h.link, h.content));
-  phrasingOnly.forEach((h, n) => {
-    h.serial = n + 1;
+  // Locate every sentence end on the untouched tree. Hits that share an end
+  // (same host and char) form ONE group: one ref, one note, one number.
+  const groups = [];
+  for (const h of phrasingOnly) {
+    const host = h.chain[h.hostIdx];
+    const pt = sentenceEndPoint(host, h.link);
+    if (!pt) {
+      // No usable point (should not happen): keep the old placement, right after the link.
+      groups.push({ host, idx: -1, parent: h.chain[h.chain.length - 1], after: h.link, split: null, hits: [h] });
+      continue;
+    }
+    const g = groups.find((x) => x.host === host && x.idx === pt.idx);
+    if (g) g.hits.push(h);
+    else groups.push({ host, ...pt, hits: [h] });
+  }
+  groups.forEach((g, n) => {
+    g.serial = n + 1;
+    for (const h of g.hits) h.serial = g.serial;
   });
   // Report every hit before the first insertion, while host text is untouched.
   if (opts.onMatch) {
     for (const h of phrasingOnly) opts.onMatch({ link: h.link, host: h.chain[h.hostIdx], key: h.key, entry: h.li, serial: h.serial });
   }
-  // Locate every sentence end on the untouched tree, then insert. Hits that
-  // share an end (same host and char) go in together, in link order, so refs
-  // and notes alternate. Inserting later ends first keeps earlier text-node
-  // offsets valid.
-  const makePair = (h) => {
-    const id = `${NOTE_PREFIX}${h.serial}`;
+  // The note holds every entry of its sentence in link order, one per line
+  // (<br> keeps the content phrasing-only and the entries distinct).
+  const makePair = (g) => {
+    const id = `${NOTE_PREFIX}${g.serial}`;
     const ref = {
       type: 'element',
       tagName: 'a',
@@ -406,46 +421,35 @@ export function transformSourceMarginalia(tree, opts = {}) {
         href: `#${id}`,
         id: `${id}-ref`,
         className: ['remarque-sidenote-ref'],
-        ariaLabel: `Note ${h.serial}`,
+        ariaLabel: `Note ${g.serial}`,
         ariaDescribedBy: [id],
       },
       children: [],
     };
+    const children = g.hits.flatMap((h, i) =>
+      i === 0 ? h.content : [{ type: 'element', tagName: 'br', properties: {}, children: [] }, ...h.content]
+    );
     const note = {
       type: 'element',
       tagName: 'span',
       properties: { className: ['remarque-sidenote'], id, role: 'note' },
-      children: h.content,
+      children,
     };
     return [ref, note];
   };
-  const groups = [];
-  for (const h of phrasingOnly) {
-    const host = h.chain[h.hostIdx];
-    const pt = sentenceEndPoint(host, h.link);
-    if (!pt) {
-      // No usable point (should not happen): keep the old placement, right after the link.
-      const parent = h.chain[h.chain.length - 1];
-      groups.push({ host, idx: -1, parent, after: h.link, split: null, hits: [h] });
-      continue;
-    }
-    const g = groups.find((x) => x.host === host && x.idx === pt.idx);
-    if (g) g.hits.push(h);
-    else groups.push({ host, ...pt, hits: [h] });
-  }
+  // Inserting later ends first keeps earlier text-node offsets valid.
   const hostOrder = new Map();
   for (const g of groups) if (!hostOrder.has(g.host)) hostOrder.set(g.host, hostOrder.size);
   const pos = (g) => (g.idx === -1 ? Infinity : g.idx);
   [...groups].sort((x, y) => hostOrder.get(x.host) - hostOrder.get(y.host) || pos(y) - pos(x)).forEach((g) => {
-    let { parent, after } = g;
+    const { parent, after } = g;
     if (g.split) {
       const t = g.split.node;
       const rest = { type: 'text', value: t.value.slice(g.split.off) };
       t.value = t.value.slice(0, g.split.off);
       parent.children.splice(parent.children.indexOf(t) + 1, 0, rest);
     }
-    const at = parent.children.indexOf(after) + 1;
-    parent.children.splice(at, 0, ...g.hits.flatMap(makePair));
+    parent.children.splice(parent.children.indexOf(after) + 1, 0, ...makePair(g));
   });
   return tree;
 }
