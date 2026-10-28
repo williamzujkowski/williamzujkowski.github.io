@@ -444,9 +444,9 @@ Your turn: Burning through tokens? Hitting rate limits? Progressive loading migh
 
 3. [LazyLLM: Dynamic Token Pruning for Efficient Long Context LLM Inference](https://arxiv.org/html/2407.14057v1) (2024) - Lazy loading with minimal accuracy loss
 4. [LongRoPE: Extending LLM Context Window Beyond 2 Million Tokens](https://arxiv.org/abs/2402.13753) (2024) - Extended rope techniques for 1M+ token windows
-6. [ChunkKV: Efficient Chunked Key-Value Memory for Long-Context Processing](https://arxiv.org/html/2502.00299v1) (2025) - Chunked context loading with cross-chunk attention
+6. [ChunkKV: Semantic-Preserving KV Cache Compression for Efficient Long-Context LLM Inference](https://arxiv.org/html/2502.00299v1) (2025) - KV cache compression that treats semantic chunks as the compression unit
 8. [From Tokens to Thoughts: How LLMs and Humans Trade Compression for Meaning](https://arxiv.org/html/2505.17117) (2025) - Information-bottleneck comparison of human and LLM categorisation
-9. [Token-Efficient Reinforcement Learning for Language Models](https://arxiv.org/abs/2504.20834) (2025) - RL techniques for token optimization
+9. [Token-Efficient RL for LLM Reasoning](https://arxiv.org/abs/2504.20834) (2025) - RL techniques for token optimization
 10. [Agentic RAG: A Survey of Retrieval-Augmented Generation in Agent Systems](https://arxiv.org/abs/2501.09136) (2025) - Multi-layer architecture for agent design
 12. [Sufficient Context: A New Lens on Retrieval Augmented Generation Systems](https://arxiv.org/abs/2411.06037) (2024) - Automatic context size prediction
 13. [Anthropic Skills Announcement](https://www.anthropic.com/news/skills) (2025) - Official Skills feature announcement
