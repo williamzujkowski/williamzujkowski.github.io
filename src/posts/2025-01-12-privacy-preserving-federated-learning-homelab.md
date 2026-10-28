@@ -12,7 +12,7 @@ tags:
   - raspberry-pi
 ---
 
-In early 2025 I spent three weeks training an image classifier across 4 devices in my homelab without sharing a single raw image between them. The Dell R910 acted as the aggregation server while 3 Raspberry Pi 5s trained on local data. The first full training round took 47 minutes, mostly spent waiting on network aggregation.
+In early 2025 I spent three weeks training an image classifier across 4 devices in my homelab without sharing a single raw image between them. The Dell R910 acted as the aggregation server while 3 Raspberry Pi 5s trained on local data. The first full training round took 47 minutes, mostly spent in server aggregation and local training, with the network a small share.
 
 What surprised me most was how little went over the wire. Shipping coarse cluster statistics instead of model gradients cut per-round transfer from roughly 281MB to a few megabytes — the gradients for a ResNet-18 move 11.7M parameters in both directions every round, and a hundred cluster centers simply don't.
 
@@ -237,7 +237,7 @@ Training round time breakdown, using the measured 47.3 minutes:
 |---|---:|---:|
 | Local Training | 14.2 | 30.0% |
 | Clustering (k-means) | 8.7 | 18.4% |
-| Network Transfer | 3.1 | 6.6% |
+| Network phase (incl. synchronization waits) | 3.1 | 6.6% |
 | Server Aggregation | 21.3 | 45.0% |
 
 Bottleneck: Server aggregation was surprisingly slow. The Dell R910 spent most of its time merging overlapping clusters from 3 Pis. Probably a CPU-bound operation that doesn't parallelize well. I didn't optimize this part, so there's likely room for improvement.
@@ -321,7 +321,7 @@ Variance threshold too high (0.1): My first training run shared only 23% of clus
 
 Raspberry Pi thermal throttling: During the second round, all 3 Pis hit thermal limits and throttled CPUs to 600 MHz. Training time jumped from 14 minutes to 38 minutes per round. I added heatsinks and case fans. Now they run at 1.8 GHz consistently.
 
-Network congestion during aggregation: I initially ran all 3 Pis on WiFi. Bad idea. Network transfer took 17 minutes instead of 3 minutes due to WiFi contention. Switched to Ethernet, problem solved.
+Network congestion during aggregation: I initially ran all 3 Pis on WiFi. Bad idea. The network phase took far longer than the roughly 3 minutes it takes on Ethernet, due to WiFi contention. Switched to Ethernet, problem solved.
 
 Server aggregation bottleneck: The Dell R910 has 24 cores but the aggregation code is single-threaded. Only one core was pegged at 100% while the other 23 sat idle. I didn't fix this, but parallelizing cluster merging would probably cut aggregation time by 80%.
 
@@ -339,12 +339,12 @@ TensorBoard for tracking: Logging training metrics to TensorBoard made it easy t
 
 ## Conclusion
 
-In November 2024, I set out to train an image classifier across 4 devices without sharing raw data. Three weeks and 12 failed training runs later, I have a working privacy-preserving federated learning setup.
+In early 2025, I set out to train an image classifier across 4 devices without sharing raw data. Three weeks and 12 failed training runs later, I have a working privacy-preserving federated learning setup.
 
 Key findings:
 - Granular-ball segmentation cuts per-round network transfer by roughly two orders of magnitude compared to shipping gradients
 - Balanced variance threshold (0.03) achieves 92.1% accuracy, within 2.4% of centralized training
-- Training time per round: 47 minutes (14 min local, 9 min clustering, 3 min network, 21 min aggregation)
+- Training time per round: 47 minutes (14 min local, 9 min clustering, 3 min network phase incl. synchronization waits, 21 min aggregation)
 - Privacy guarantees here are weaker than differential privacy, not stronger: this approach gives no formal bound at all
 
 I'm still figuring out optimal cluster counts and variance thresholds for different datasets. The 100 clusters and 0.03 threshold worked for CIFAR-10, but probably not universal. Your mileage will vary depending on data distribution and privacy requirements.
