@@ -21,7 +21,8 @@ authorize publishing, external writes, or merging.
 Read each sibling `SKILL.md` directly if native skill discovery is unavailable:
 
 1. [blog-overlap](../blog-overlap/SKILL.md): archive overlap and distinct contribution.
-2. [blog-factcheck](../blog-factcheck/SKILL.md): claim/source support and dates.
+2. [blog-factcheck](../blog-factcheck/SKILL.md): claim/source support and dates, plus the
+   citation sub-check (below).
 3. [blog-llm-tells](../blog-llm-tells/SKILL.md): voice and prose quality.
 4. [blog-nda-check](../blog-nda-check/SKILL.md): contextual attribution and disclosure.
 5. [blog-argument-shape](../blog-argument-shape/SKILL.md): purpose, evidence, conclusion.
@@ -34,6 +35,19 @@ duplicate traffic. Reviewers report findings without concurrent edits to the sam
 file. When edits are authorized, consolidate first, apply fixes, then rerun stages
 whose evidence or conclusions changed. Defer costly illustration work until the
 argument and evidence are stable. Do not report old-revision reviews as current.
+
+## Citation sub-check (part of stage 2)
+
+Margin citations are not a separate stage, so the stage count stays seven. The
+factcheck stage is not `completed` until the post has either a `## Sources` list
+or full `astro-site/src/data/citations.json` coverage (`pnpm citations:check --
+<slug>` from `astro-site` lists nothing missing), and `marginNotes: true` in its
+frontmatter. A post with GFM footnotes is excluded from margin notes: record the
+sub-check as not applicable with that reason in the stage evidence (the stage
+itself is never `not-applicable`). Run `node astro-site/scripts/margin-notes-review.mjs`,
+then record the post's note count, density against about one note per 150 words,
+and any note that adds nothing its sentence does not already give. Missing
+coverage or a missing flag means **HOLD**.
 
 ## Coverage and decision
 

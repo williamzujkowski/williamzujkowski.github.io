@@ -48,6 +48,37 @@ absence alone is not proof of fabrication. Homelab attribution does not exempt a
 number from verification. Never invent an experiment or relabel a workplace
 incident as a homelab event to repair a citation or attribution problem.
 
+## Citation entries and margin notes
+
+While verifying each cited URL, record or confirm its entry in
+`astro-site/src/data/citations.json`: the page's real title as published (not the
+site-name suffix of the `<title>` tag), the publisher, and the publication date
+only when the page states one. Then, from `astro-site`:
+
+1. `pnpm citations:collect -- <slug>` drafts entries for the post's
+   note-eligible links (it fetches; GitHub URLs go through `gh api`) and lists
+   what it could not resolve. It never overwrites an existing entry without
+   `--refresh`.
+2. Verify every drafted entry yourself against the fetched page: title spelling,
+   publisher, date. A date taken from a docs-build timestamp, an
+   `og:updated_time` or a revision stamp is not a publication date; use `null`.
+   Fix bad extractions by hand. Leave a dead or ambiguous URL out of the file;
+   it then gets no note.
+3. `pnpm citations:check -- <slug>` must list nothing missing (add `--strict` to
+   fail on it). Links to the site's own domain and to GitHub source files,
+   commits, trees and compares need no entry.
+4. `node scripts/margin-notes-review.mjs` shows each note beside its sentence.
+   Record density (more than about one note per 150 words is worth flagging) and
+   any note that adds nothing the sentence does not already say, such as a
+   sentence that already names the title and publisher.
+
+A post with a `## Sources` list uses that list instead and needs no entries. A
+post with GFM footnotes is excluded from margin notes (shared counter): record
+the citation sub-check as not applicable for that reason. Every other post needs
+`marginNotes: true` in its frontmatter, as the last line before the closing
+`---`. Missing entries or a missing flag are findings; the stage cannot pass
+with them unresolved.
+
 ## Result
 
 Return line-numbered findings with exact claim, evidence location, verification
