@@ -111,7 +111,6 @@ The deepfake that unsettled me would look primitive now. The lesson it taught ha
 - [The spread of true and false news online](https://mitsloan.mit.edu/ideas-made-to-matter/study-false-news-spreads-faster-truth) - Vosoughi, Roy & Aral, *Science* 2018, summarised by MIT Sloan
 - [Deepfake Detection by Human Crowds, Machines, and Machine-informed Crowds](https://arxiv.org/abs/2105.06496) - Groh, Epstein, Firestone & Picard
 - [Deepfakes and international conflict](https://www.brookings.edu/articles/deepfakes-and-international-conflict/) - Brookings
-- [Deepfakes and Disinformation](https://www.cfr.org/backgrounder/deepfakes-and-disinformation) - Council on Foreign Relations
 - [Deepfakes Are Becoming the Hot New Corporate Security Threat](https://www.wired.com/story/covid-drives-real-businesses-deepfake-technology/) - WIRED
 
 ### Get Involved:
