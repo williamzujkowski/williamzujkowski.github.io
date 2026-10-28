@@ -36,8 +36,8 @@ importers:
         specifier: ^15.0.3
         version: 15.0.3
       remarque-tokens:
-        specifier: ^0.31.2
-        version: 0.31.2(@williamzujkowski/oklch-terminal-themes@0.9.0)
+        specifier: ^0.33.0
+        version: 0.33.0(@williamzujkowski/oklch-terminal-themes@0.9.0)
       sanitize-html:
         specifier: ^2.18.1
         version: 2.18.1
@@ -2651,8 +2651,8 @@ packages:
   remark-stringify@11.0.0:
     resolution: {integrity: sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw==}
 
-  remarque-tokens@0.31.2:
-    resolution: {integrity: sha512-UdrHhYL+BwmOT3c7Oj+pBM5C7ksXOkA0M5shQYiXx2JVjIFP77AY/m53ldsViB9XNP7yRUzestzzJxSW5USh3A==}
+  remarque-tokens@0.33.0:
+    resolution: {integrity: sha512-jjz0B22w/zXyxIQJDavS7Pj/jMdtmDM9ETh6+oRSuTVH4wDDMYHr/9ZssYxAVLAIQ2C9deI5OlMOVgvXlOLccA==}
     engines: {node: '>=22'}
     hasBin: true
     peerDependencies:
@@ -6141,7 +6141,7 @@ snapshots:
       mdast-util-to-markdown: 2.1.2
       unified: 11.0.5
 
-  remarque-tokens@0.31.2(@williamzujkowski/oklch-terminal-themes@0.9.0):
+  remarque-tokens@0.33.0(@williamzujkowski/oklch-terminal-themes@0.9.0):
     optionalDependencies:
       '@williamzujkowski/oklch-terminal-themes': 0.9.0
 

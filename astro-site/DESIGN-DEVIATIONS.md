@@ -1,7 +1,7 @@
 # Design Deviations
 
 This site consumes [`remarque-tokens`](https://www.npmjs.com/package/remarque-tokens)
-(`^0.31.0` in `package.json`, 0.31.1 installed; the sections below record each
+(`^0.33.0` in `package.json`, 0.33.0 installed; the sections below record each
 bump when it happened) for the **core tier** — type scale, rhythm, spacing, content
 widths, radius, motion, and base prose/typography machinery — via
 `@import "remarque-tokens/core";` in `src/styles/global.css`. The

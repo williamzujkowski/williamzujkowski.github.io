@@ -34,7 +34,7 @@
     "astro": "^7.4.2",
     "cookie": "^2.0.1",
     "markdown-it": "^15.0.3",
-    "remarque-tokens": "^0.31.2",
+    "remarque-tokens": "^0.33.0",
     "sanitize-html": "^2.18.1",
     "satori": "^0.63.2",
     "sharp": "0.35.5",
