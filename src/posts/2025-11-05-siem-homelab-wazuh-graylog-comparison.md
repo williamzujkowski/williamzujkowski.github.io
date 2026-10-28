@@ -23,7 +23,7 @@ What SIEM solves:
 - **Centralized visibility:** All logs in one place (firewall, IDS, application, system)
 - **Correlation:** "SSH brute force + successful login + sudo su" = potential compromise
 - **Alerting:** Real-time notifications for security events
-- **Investigation:** Query logs from last 30 days in seconds
+- **Investigation:** Query logs from the last 30 days quickly
 
 Why homelab SIEMs different from enterprise: Resource constraints (8-64GB RAM vs enterprise 256GB+), complexity tolerance (manual setup OK), cost sensitivity (free open source only).
 
@@ -180,8 +180,10 @@ Why Wazuh faster: Built-in correlation rules trigger on pattern match. Graylog r
 
 Alert accuracy:
 
-- **Wazuh false positive rate:** 7.2% (flagged legitimate SSH retries as brute force)
-- **Graylog false positive rate:** 12.4% (stream rules less sophisticated)
+- **Wazuh false positives:** fewer, though it flagged legitimate SSH retries as brute force
+- **Graylog false positives:** more (stream rules less sophisticated)
+
+I did not retain the false-positive counts, so I won't quote rates.
 
 Winner (detection): Wazuh excels at security-specific use cases with minimal configuration.
 
@@ -199,7 +201,7 @@ Test queries:
 
 Query speed results: Graylog (Elasticsearch) was faster than Wazuh (OpenSearch) across the query types I tried. I did not retain the per-query timings, so I won't quote seconds.
 
-Data volume: 2.4 million events indexed (7 days retention, 47 hosts logging).
+Data volume: a week of retention across 47 hosts logging.
 
 Why Graylog faster: Elasticsearch-first design optimizes for search speed. Wazuh adds security processing overhead (rule evaluation, enrichment).
 
@@ -209,32 +211,17 @@ Winner (search): Graylog delivers clearly faster queries for log investigation w
 
 Both SIEMs consume significant resources. Graylog lighter footprint.
 
-Memory usage (steady state):
+Memory: the Wazuh stack used more RAM at steady state than Graylog. In both, the storage layer (Wazuh indexer, Elasticsearch) took the largest share, and Graylog adds a small MongoDB footprint on top.
 
-| Component | Wazuh | Graylog |
-|-----------|-------|---------|
-| Server/Manager | 1.8 GB | 1.2 GB |
-| Storage (Indexer/ES) | 3.2 GB | 2.4 GB |
-| Database (N/A/MongoDB) | N/A | 0.6 GB |
-| **Total** | **5.0 GB** | **4.2 GB** |
+CPU: during log ingestion the Wazuh manager used more CPU than the Graylog server.
 
-CPU usage (during log ingestion - 10K events/second):
+Disk I/O: the Wazuh indexer sustained heavier writes than Elasticsearch under Graylog. MongoDB's writes were small (metadata only).
 
-- **Wazuh Manager:** 24% CPU (4 cores)
-- **Graylog Server:** 18% CPU (4 cores)
+Storage growth: Wazuh grew faster per day than Graylog across the 47 hosts.
 
-Disk I/O (write performance):
+I did not retain the measurements behind these comparisons, so I won't quote numbers.
 
-- **Wazuh Indexer:** 45 MB/s sustained writes
-- **Elasticsearch (Graylog):** 38 MB/s sustained writes
-- **MongoDB (Graylog):** 12 MB/s (metadata only)
-
-Storage growth rate (47 hosts):
-
-- **Wazuh:** 4.7 GB/day (compressed logs + indices)
-- **Graylog:** 3.9 GB/day (Elasticsearch indices only)
-
-Winner (resources): Graylog uses 16% less memory and 17% less disk space.
+Winner (resources): Graylog uses less memory and less disk space.
 
 ## Integration: Custom Python Automation
 
@@ -391,7 +378,7 @@ My homelab choice: Started with Graylog (easier setup, faster search). Added Waz
 
 Wazuh challenges:
 
-1. **Resource usage:** 5GB RAM minimum for production (Indexer memory hungry)
+1. **Resource usage:** Plan for a lot of RAM in production (Indexer memory hungry)
 2. **Learning curve:** Dashboard overwhelming (100+ pre-built visualizations)
 3. **Alert noise:** Default rules generate high false positive rate (tuning required)
 
@@ -403,11 +390,11 @@ Graylog challenges:
 
 Common challenges (both):
 
-- **Retention costs:** Storing 30 days of logs = 120-140GB disk per 47 hosts
+- **Retention costs:** Storing 30 days of logs for 47 hosts takes substantial disk
 - **Agent deployment:** Manual install on 47 hosts took 4 hours (automation needed)
 - **Tune
 
- vs alert fatigue:** First week: 847 alerts/day. After tuning: 12 alerts/day.
+ vs alert fatigue:** The first week was far noisier than after tuning.
 
 ## Further Reading
 
