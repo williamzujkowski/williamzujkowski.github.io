@@ -4,6 +4,7 @@ date: 2026-09-21
 draft: false
 description: "A small Linux experiment separates shared file identity from identical bytes, with a failed tmpfs control and a careful look at a July 2026 VM-isolation preprint."
 tags: [linux, security, virtualization, storage, homelab]
+marginNotes: true
 ---
 
 Two programs can have separate address spaces and still benefit from the same cached file. For this post, the accompanying lab tested that ordinary Linux behavior with synthetic data: one child process read a page, and another read it afterward. Sharing the file made a clear difference. Giving the processes separate files containing identical bytes did not produce the same cache-residency change.

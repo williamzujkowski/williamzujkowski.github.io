@@ -9,6 +9,7 @@ tags:
   - linux
   - homelab
   - devops
+marginNotes: true
 ---
 
 On September 24 I merged [a pull request](https://github.com/williamzujkowski/williamzujkowski.github.io/pull/658) that corrected eight defects across six posts on this site. Four of the eight share a shape. You copy the command, run it, and get exit status 0 and no error. Then you move on, because nothing told you not to, and whatever the command was meant to do has not happened. A fifth command of the same kind, in the Wazuh post, did not make it into that pull request. It is corrected alongside this one.

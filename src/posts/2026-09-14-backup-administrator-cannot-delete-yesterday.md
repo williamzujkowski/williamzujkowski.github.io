@@ -4,6 +4,7 @@ date: 2026-09-14
 description: "Timelock Drive puts retention below a compromised host. An offline model shows why unfreezing a backup must start a countdown, not erase its protection."
 tags: [security, storage, research, homelab]
 draft: false
+marginNotes: true
 ---
 
 Timelock Drive is a storage design that makes yesterday's data harder to destroy even after an attacker takes over the machine managing it. Its useful question is blunt: who can overrule retention? The [OSDI 2026 paper](https://www.usenix.org/conference/osdi26/presentation/rosenblum) places that decision in an isolated checker beneath the host. The administrator can request a change. The checker can decline.
