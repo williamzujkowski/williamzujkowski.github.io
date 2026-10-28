@@ -7,6 +7,7 @@ tags:
   - computational-science
   - cryptography
   - security
+marginNotes: true
 ---
 Years ago, I attended a briefing where a researcher demonstrated factoring large numbers on a small quantum processor. The numbers were tiny compared to what secures our communications today, but watching those quantum gates methodically break down what would take classical computers millennia was a sobering moment. It made the theoretical threat of quantum computing suddenly feel very real.
 

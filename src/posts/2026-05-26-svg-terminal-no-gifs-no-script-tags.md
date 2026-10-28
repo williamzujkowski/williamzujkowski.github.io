@@ -4,6 +4,7 @@ date: 2026-05-26
 description: "svg-terminal is an experiment in how much you can make one self-contained SVG do: type, blink, phone an API for live stats, and survive a renderer that assumes every SVG is hostile. 48 blocks, zero JavaScript, one wry aside about trusting my own config file."
 tags: [web-development, typescript, open-source, security]
 author: William Zujkowski
+marginNotes: true
 ---
 
 svg-terminal is what happens when you take the profile-README GIF genre personally and ask how much of it you could do without a GIF at all. Concretely: it's a CLI and GitHub Action that reads a YAML config and hands back one self-contained SVG — typing animation, blinking cursor, 48 pre-built blocks running from neofetch to a fake `rm -rf /` panic — that renders inside GitHub's `<img>` tag with no JavaScript anywhere in the file.

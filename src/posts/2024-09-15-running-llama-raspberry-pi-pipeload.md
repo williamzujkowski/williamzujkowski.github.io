@@ -11,6 +11,7 @@ tags:
   - llm
   - machine-learning
   - raspberry-pi
+marginNotes: true
 ---
 
 ## Bottom Line Up Front

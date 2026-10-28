@@ -7,6 +7,7 @@ tags:
   - ai
   - infrastructure
   - ethics
+marginNotes: true
 ---
 ## Bottom Line Up Front
 

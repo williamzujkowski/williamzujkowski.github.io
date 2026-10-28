@@ -6,6 +6,7 @@ tags: [ai, software-engineering, open-source, typescript]
 author: William Zujkowski
 series: "Building AI Systems"
 seriesOrder: 4
+marginNotes: true
 ---
 
 The visible work today was extracting SWE-bench out of nexus-agents into its own standalone package with a shared `BenchmarkAdapter` contract. The whole arc took about six hours across three npm releases. That speed wasn't an accident — it was possible because of three weeks of invisible work that preceded it.

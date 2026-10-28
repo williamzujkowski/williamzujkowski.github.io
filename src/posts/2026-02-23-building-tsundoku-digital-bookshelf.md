@@ -4,6 +4,7 @@ date: 2026-02-23
 description: "Tsundoku is a static bookshelf for the 3,584 books I own and haven't read — Astro 7, Svelte islands, six primary sources plus a Wikidata backstop, no database. Plus a documentation bug I found while checking my own numbers."
 tags: [web-development, python]
 author: William Zujkowski
+marginNotes: true
 ---
 
 The Japanese word *tsundoku* (積ん読) describes the specific habit of buying books and letting them stack up unread. I have this problem badly enough that the fix, apparently, was to build software. [Tsundoku](https://github.com/williamzujkowski/tsundoku) is a curated digital bookshelf — 3,584 books across 28 categories, 1,649 authors — enriched from six primary sources plus a Wikidata backstop, and served as a static site with no database behind it. The README states the project's mission more honestly than I could: "because buying books and not reading them is a lifestyle." I'm not going to try to improve on that line. I'm just going to explain what I built.

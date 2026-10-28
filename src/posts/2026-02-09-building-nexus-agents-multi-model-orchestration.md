@@ -8,6 +8,7 @@ tags: [ai, software-engineering, open-source, ai-agents, typescript]
 series: "Building AI Systems"
 seriesOrder: 3
 readingTime: "12 min read"
+marginNotes: true
 ---
 
 About a year ago, I started building a routing script in my homelab because I was tired of switching between AI models manually. Claude produced better architecture docs. Gemini handled broad research faster. Codex was solid for focused code generation. I wanted one system that could pick the right model for each task automatically.

@@ -4,6 +4,7 @@ date: 2026-04-16
 description: "A static-analysis tool that grades any GitHub repo across security, testing, docs, architecture, devops, and maintenance. The methodology is still WIP, but the findings are consistent: most repos are skipping the basics."
 tags: [open-source, security, devops, typescript]
 author: William Zujkowski
+marginNotes: true
 ---
 
 I wrote a tool called [repo-health-report](https://github.com/williamzujkowski/repo-health-report) that pulls a GitHub repo's metadata through the API and grades it across six dimensions. No cloning, no secrets, no runtime. Just a sustained `gh api` session and ~100 checks that fit in a terminal scroll.

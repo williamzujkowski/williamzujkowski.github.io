@@ -8,6 +8,7 @@ tags: [ai, software-engineering, open-source, ai-agents, security]
 series: "Building AI Systems"
 seriesOrder: 2
 readingTime: "9 min read"
+marginNotes: true
 ---
 
 I built single-model decision making first. It was fast and simple and wrong in ways I didn't notice until the mistakes piled up. One model approved an API change that broke three downstream consumers. Another greenlit a security configuration that left a port exposed. Each model was confident. Each model was individually reasonable. Each model missed something the others would have caught.

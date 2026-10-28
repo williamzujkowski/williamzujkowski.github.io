@@ -7,6 +7,7 @@ tags:
   - ai
   - ethics
   - llm
+marginNotes: true
 ---
 Whenever I interact with a Large Language Model, there's a moment of awe, like stepping into a vast library filled with the echoes of human knowledge. But that wonder is tempered by experience, by the mistakes I've witnessed and the biases I've seen amplified.
 

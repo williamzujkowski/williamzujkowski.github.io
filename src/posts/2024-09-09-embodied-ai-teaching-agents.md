@@ -7,6 +7,7 @@ tags:
   - ai
   - llm
   - robotics
+marginNotes: true
 ---
 Ask a household robot to "pick up the small container" when three containers are on the table and it will pick one. Not the right one, particularly — just one. It will not ask which you meant, because nothing in how it was trained rewards asking.
 

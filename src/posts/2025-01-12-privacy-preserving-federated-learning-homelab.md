@@ -10,6 +10,7 @@ tags:
   - machine-learning
   - privacy
   - raspberry-pi
+marginNotes: true
 ---
 
 In early 2025 I spent three weeks training an image classifier across 4 devices in my homelab without sharing a single raw image between them. The Dell R910 acted as the aggregation server while 3 Raspberry Pi 5s trained on local data. The first full training round took 47 minutes, mostly spent in server aggregation and local training, with the network a small share.
