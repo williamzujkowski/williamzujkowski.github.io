@@ -372,7 +372,7 @@ Choose Graylog if:
 - Custom log parsing and enrichment critical
 - Resource constrained (Graylog lighter footprint)
 
-My homelab choice: Started with Graylog (easier setup, faster search). Added Wazuh 6 months later for security-specific rules. Now run hybrid deployment.
+My homelab choice: Started with Graylog (easier setup, faster search). Added Wazuh later for security-specific rules. Now run hybrid deployment.
 
 ## Limitations and Trade-Offs
 
@@ -384,14 +384,14 @@ Wazuh challenges:
 
 Graylog challenges:
 
-1. **Security rules:** Manual creation time-consuming (spent 8 hours building 23 streams)
+1. **Security rules:** Manual creation time-consuming (building the streams took hours)
 2. **No FIM:** File integrity monitoring requires external tools (OSSEC, AIDE)
 3. **Correlation limits:** Stream-based correlation less powerful than Wazuh event engine
 
 Common challenges (both):
 
 - **Retention costs:** Storing 30 days of logs for 47 hosts takes substantial disk
-- **Agent deployment:** Manual install on 47 hosts took 4 hours (automation needed)
+- **Agent deployment:** Manual install on 47 hosts took hours (automation needed)
 - **Tune
 
  vs alert fatigue:** The first week was far noisier than after tuning.
@@ -430,4 +430,4 @@ Implementation references:
 
 Deploy centralized security monitoring. Start with one SIEM, validate detection coverage, then optimize. Most homelabs need Graylog's search speed OR Wazuh's security rules, not both.
 
-Run hybrid if resources allow. Alert fatigue comes from poor tuning, not too many tools. In my homelab, SIEM detected 3 actual security incidents in 8 months. Manual log review would have missed all three.
+Run hybrid if resources allow. Alert fatigue comes from poor tuning, not too many tools. In my homelab, SIEM caught a handful of real security incidents. Manual log review would have missed them.
