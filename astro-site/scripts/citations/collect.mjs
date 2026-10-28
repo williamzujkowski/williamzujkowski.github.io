@@ -63,6 +63,10 @@ export function parseHtml(html, host) {
   return { title: title || null, publisher: publisher || host, date, notes };
 }
 
+const OWN_REPO = 'williamzujkowski/williamzujkowski.github.io';
+/** Publisher wording for a GitHub issue or PR: `owner/repo #N` (`this site's repo #N` for this repo). */
+export const githubPublisher = (repo, id) => `${repo === OWN_REPO ? "this site's repo" : repo}${id ? ` #${id}` : ''}`;
+
 const gh = (p) => JSON.parse(execFileSync('gh', ['api', p], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }));
 
 /** key -> { title, publisher, date } for GitHub repos/issues/PRs/releases/advisories, or null when not GitHub. */
@@ -82,19 +86,19 @@ export function githubResolve(key) {
   }
   if (kind === 'issues' && id) {
     const d = gh(`repos/${repo}/issues/${id}`);
-    return { title: d.title, publisher: `GitHub (${repo})`, date: isoDate(d.created_at) };
+    return { title: d.title, publisher: githubPublisher(repo, id), date: isoDate(d.created_at) };
   }
   if (kind === 'pull' && id) {
     const d = gh(`repos/${repo}/pulls/${id}`);
-    return { title: d.title, publisher: `GitHub (${repo})`, date: isoDate(d.created_at) };
+    return { title: d.title, publisher: githubPublisher(repo, id), date: isoDate(d.created_at) };
   }
   if (kind === 'releases' && id === 'tag' && id2) {
     const d = gh(`repos/${repo}/releases/tags/${id2}`);
-    return { title: d.name || d.tag_name, publisher: `GitHub (${repo})`, date: isoDate(d.published_at) };
+    return { title: d.name || d.tag_name, publisher: githubPublisher(repo), date: isoDate(d.published_at) };
   }
   if (kind === 'security' && id === 'advisories' && id2) {
     const a = gh(`repos/${repo}/security-advisories/${id2}`);
-    return { title: a.summary, publisher: `GitHub (${repo})`, date: isoDate(a.published_at) };
+    return { title: a.summary, publisher: 'GitHub Advisory Database', date: isoDate(a.published_at) };
   }
   return null;
 }

@@ -519,7 +519,7 @@ test('onMatch still reports the host block with its full sentence text', () => {
 
 // ---- Citation-file fallback ---------------------------------------------------
 
-import { isSkippedCitationKey, citationText } from '../../astro-site/src/lib/rehype-source-marginalia.mjs';
+import { isSkippedCitationKey, citationText, isSentenceEcho, SENTENCE_ECHO_MAX_NEW_WORDS } from '../../astro-site/src/lib/rehype-source-marginalia.mjs';
 
 const CITES = {
   'docs.example.com/provenance': { title: 'Generating provenance statements', publisher: 'Example Docs', date: '2025-03-04', checked: '2026-10-28' },
@@ -528,7 +528,7 @@ const CITES = {
   'github.com/o/r/issues/7': { title: 'Cache eviction regression', publisher: 'GitHub (o/r)', date: '2026-01-02', checked: '2026-10-28' },
   'williamzujkowski.github.io/posts/x': { title: 'Own post', publisher: 'Me', date: null, checked: '2026-10-28' },
   'untitled.example/x': { title: '', publisher: 'P', date: '2020', checked: '2026-10-28' },
-  'nopub.example/x': { title: 'Only a title', date: null, checked: '2026-10-28' },
+  'nopub.example/x': { title: 'Only a title for notes', date: null, checked: '2026-10-28' },
 };
 const inlineTree = (...inline) => ({ type: 'root', children: [el('p', {}, inline)] });
 const noteTexts = (tree) => asides(tree).map((n) => textOf(n).replace(/\s+/g, ' ').trim());
@@ -552,7 +552,7 @@ test('fallback: missing fields are omitted, an entry without a title gets no not
   assert.deepEqual(noteTexts(a), ['A long post about caches · Example Blog']);
   const b = inlineTree(link('https://nopub.example/x', 'it'), text(' says so.'));
   transformSourceMarginalia(b, { citations: CITES });
-  assert.deepEqual(noteTexts(b), ['Only a title']);
+  assert.deepEqual(noteTexts(b), ['Only a title for notes']);
   const c = inlineTree(link('https://untitled.example/x', 'it'), text(' says so.'));
   transformSourceMarginalia(c, { citations: CITES });
   assert.equal(asides(c).length, 0);
@@ -647,4 +647,74 @@ test('fallback: onMatch reports the citation entry and key', () => {
   let seen = null;
   transformSourceMarginalia(tree, { citations: CITES, onMatch: ({ key, serial }) => (seen = { key, serial }) });
   assert.deepEqual(seen, { key: 'docs.example.com/provenance', serial: 1 });
+});
+
+test('dedupe: a later link to the same citation gets no note; same title (any case) is one citation', () => {
+  const citations = {
+    'p.example/paper.pdf': { title: 'Sharpen the Spec, Cut the Code', publisher: 'USENIX', date: '2026' },
+    'p.example/paper': { title: 'sharpen the spec, cut the code', publisher: 'USENIX', date: '2026' },
+    'other.example/x': { title: 'A different thing entirely here', publisher: 'Other', date: null },
+  };
+  const tree = {
+    type: 'root',
+    children: [
+      el('p', {}, [text('First '), link('https://p.example/paper.pdf', 'pdf'), text(' says so.')]),
+      el('p', {}, [text('Then '), link('https://p.example/paper', 'page'), text(' again. And '), link('https://other.example/x', 'other'), text(' too.')]),
+    ],
+  };
+  transformSourceMarginalia(tree, { citations });
+  assert.deepEqual(noteTexts(tree), ['Sharpen the Spec, Cut the Code · USENIX · 2026', 'A different thing entirely here · Other']);
+  assert.equal(tree.children[1].children.filter((c) => c.properties?.className).length, 2); // 'other' only
+});
+
+test('dedupe applies to fallback notes only: a Sources post still notes both same-title entries', () => {
+  const tree = {
+    type: 'root',
+    children: [
+      el('p', {}, [link('https://a.example/1', 'one'), text(' first.')]),
+      el('p', {}, [link('https://a.example/2', 'two'), text(' second.')]),
+      ...sourcesList([['https://a.example/1', 'Same Title'], ['https://a.example/2', 'Same Title']]),
+    ],
+  };
+  transformSourceMarginalia(tree, { citations: {} });
+  assert.equal(asides(tree).length, 2);
+});
+
+test('sentence echo: a note that adds at most SENTENCE_ECHO_MAX_NEW_WORDS words the sentence lacks is dropped', () => {
+  assert.equal(SENTENCE_ECHO_MAX_NEW_WORDS, 2);
+  const citations = { 's.example/x': { title: 'Taxonomy of Attacks on Supply Chains', publisher: 'arXiv', date: '2022' } };
+  const echo = inlineTree(text('The Taxonomy of Attacks on '), link('https://s.example/x', 'supply chains'), text(' is on arXiv, from 2022.'));
+  transformSourceMarginalia(echo, { citations });
+  assert.equal(asides(echo).length, 0);
+  const adds = inlineTree(text('The '), link('https://s.example/x', 'taxonomy'), text(' lists attacks.'));
+  transformSourceMarginalia(adds, { citations });
+  assert.equal(asides(adds).length, 1);
+});
+
+test('sentence echo: stop words and separators are ignored, other sentences do not count', () => {
+  const content = [text('Guide to the Thing of a Kind · With By At From In On And For')];
+  assert.equal(isSentenceEcho('The guide thing kind', content), true);
+  // the only sentence words that count are the ones in the link's own sentence
+  const citations = { 's.example/y': { title: 'Alpha beta gamma delta', publisher: null, date: null } };
+  const tree = inlineTree(text('Alpha beta gamma delta came earlier. See '), link('https://s.example/y', 'this'), text(' now.'));
+  transformSourceMarginalia(tree, { citations });
+  assert.equal(asides(tree).length, 1);
+});
+
+test('sentence echo does not apply to a Sources post (link-text echo only)', () => {
+  const tree = {
+    type: 'root',
+    children: [
+      el('p', {}, [text('The Paper by Someone et al. in Test Journal is '), link('https://example.com/paper', 'here'), text('.')]),
+      ...sourcesList([['https://example.com/paper', 'The Paper']]),
+    ],
+  };
+  transformSourceMarginalia(tree, { citations: {} });
+  assert.equal(asides(tree).length, 1);
+});
+
+test('publisher elision: a publisher fully inside the title is omitted', () => {
+  assert.equal(citationText({ title: 'The Dafny Programming and Verification Language', publisher: 'Dafny', date: null }), 'The Dafny Programming and Verification Language');
+  assert.equal(citationText({ title: 'Packagist: The PHP Package Repository', publisher: 'Packagist', date: '2020' }), 'Packagist: The PHP Package Repository · 2020');
+  assert.equal(citationText({ title: 'Thing', publisher: 'Thing Docs', date: null }), 'Thing · Thing Docs');
 });

@@ -301,7 +301,7 @@
   },
   "github.com/cline/cline/security/advisories/GHSA-9ppg-jx86-fqw7": {
     "title": "Unauthorized npm publish of Cline CLI cline@2.3.0 with modified postinstall script to install openclaw",
-    "publisher": "GitHub (cline/cline)",
+    "publisher": "GitHub Advisory Database",
     "date": "2026-02-17",
     "checked": "2026-10-28"
   },
@@ -313,43 +313,43 @@
   },
   "github.com/dependabot/dependabot-core/issues/13036": {
     "title": "Dependabot updates pnpm lockfile and changes settings, de-synchronizing from pnpm-workspace.yaml",
-    "publisher": "GitHub (dependabot/dependabot-core)",
+    "publisher": "dependabot/dependabot-core #13036",
     "date": "2025-09-08",
     "checked": "2026-10-28"
   },
   "github.com/dependabot/dependabot-core/issues/16232": {
     "title": "pnpm update drops existing overrides metadata and reverts parent-scoped dependency resolution",
-    "publisher": "GitHub (dependabot/dependabot-core)",
+    "publisher": "dependabot/dependabot-core #16232",
     "date": "2026-09-09",
     "checked": "2026-10-28"
   },
   "github.com/nexus-substrate/nexus-agents/issues/5022": {
     "title": "p1(security): ClawGuard is behaviorally identical to 'off' in every mode — the policy is never in scope at dispatch, and allowedTools is always empty",
-    "publisher": "GitHub (nexus-substrate/nexus-agents)",
+    "publisher": "nexus-substrate/nexus-agents #5022",
     "date": "2026-08-26",
     "checked": "2026-10-28"
   },
   "github.com/nexus-substrate/nexus-agents/issues/6107": {
     "title": "Consensus review misclassifies consuming repositories as out of scope",
-    "publisher": "GitHub (nexus-substrate/nexus-agents)",
+    "publisher": "nexus-substrate/nexus-agents #6107",
     "date": "2026-09-13",
     "checked": "2026-10-28"
   },
   "github.com/nexus-substrate/nexus-agents/pull/5109": {
     "title": "fix(security): demote the ClawGuard access-policy middleware to advisory",
-    "publisher": "GitHub (nexus-substrate/nexus-agents)",
+    "publisher": "nexus-substrate/nexus-agents #5109",
     "date": "2026-08-27",
     "checked": "2026-10-28"
   },
   "github.com/pi-hole/pi-hole/releases/tag/v6.0": {
     "title": "v6.0",
-    "publisher": "GitHub (pi-hole/pi-hole)",
+    "publisher": "pi-hole/pi-hole",
     "date": "2025-02-18",
     "checked": "2026-10-28"
   },
   "github.com/pnpm/pnpm/releases/tag/v10.0.0": {
     "title": "pnpm 10",
-    "publisher": "GitHub (pnpm/pnpm)",
+    "publisher": "pnpm/pnpm",
     "date": "2025-01-07",
     "checked": "2026-10-28"
   },
@@ -361,7 +361,7 @@
   },
   "github.com/williamzujkowski/dependency-risk-profiler/issues/335": {
     "title": "Provenance attests the pipeline, not the intent: worms published malicious versions through victims' own CI (demonstrated, n=3)",
-    "publisher": "GitHub (williamzujkowski/dependency-risk-profiler)",
+    "publisher": "williamzujkowski/dependency-risk-profiler #335",
     "date": "2026-08-11",
     "checked": "2026-10-28"
   },
@@ -379,133 +379,133 @@
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/issues/492": {
     "title": "The only required status check fails open when its audit tool doesn't run",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #492",
     "date": "2026-08-23",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/issues/511": {
     "title": "Checkers that pass for the wrong reason: axe is green against an empty dist",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #511",
     "date": "2026-08-23",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/issues/540": {
     "title": "Dependabot npm PRs always fail: it drops the lockfile's `overrides:` header",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #540",
     "date": "2026-09-04",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/issues/563": {
     "title": "Dependencies: patch Satori’s pinned fflate ZIP64 denial-of-service dependency",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #563",
     "date": "2026-09-08",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/issues/595": {
     "title": "Nexus integration: external-repository review context and quick-vote diagnostics need investigation",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #595",
     "date": "2026-09-11",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/issues/644": {
     "title": "Three of the four required checks have no floor on what they ran",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #644",
     "date": "2026-09-24",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/issues/645": {
     "title": "The link pipeline can report a clean run over zero links",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #645",
     "date": "2026-09-24",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/issues/660": {
     "title": "Mutation testing: 24 real coverage holes, and the design audits' enforcement path is untested",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #660",
     "date": "2026-09-24",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/issues/673": {
     "title": "Blog proposal: approving the command approves what it runs",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #673",
     "date": "2026-10-02",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/pull/470": {
     "title": "posts: correct container-hardening and AI-security posts",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #470",
     "date": "2026-08-17",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/pull/516": {
     "title": "fix(audits): make the checkers able to fail",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #516",
     "date": "2026-08-23",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/pull/523": {
     "title": "chore(deps): Bump the minor-and-patch group in /astro-site with 2 updates",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #523",
     "date": "2026-08-23",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/pull/524": {
     "title": "chore(deps): Bump markdown-it from 14.3.0 to 15.0.0 in /astro-site",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #524",
     "date": "2026-08-23",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/pull/530": {
     "title": "chore(deps): Bump the minor-and-patch group in /astro-site with 4 updates",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #530",
     "date": "2026-08-25",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/pull/533": {
     "title": "fix(deps): regenerate the lockfile Dependabot wrote without the overrides (#532)",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #533",
     "date": "2026-09-04",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/pull/537": {
     "title": "chore(deps): Bump the minor-and-patch group across 1 directory with 4 updates",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #537",
     "date": "2026-09-04",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/pull/538": {
     "title": "fix(content): remove a fabricated GPG procedure from the Suricata post",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #538",
     "date": "2026-09-04",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/pull/544": {
     "title": "fix(content): Pi-hole blocklists — wrong directory, wrong names, one invented",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #544",
     "date": "2026-09-04",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/pull/564": {
     "title": "chore(deps): Bump the minor-and-patch group in /astro-site with 3 updates",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #564",
     "date": "2026-09-08",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/pull/638": {
     "title": "chore(deps): Bump the minor-and-patch group across 1 directory with 7 updates",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #638",
     "date": "2026-09-22",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/pull/652": {
     "title": "fix(audits): close two regex holes that let the design gates pass mutations",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #652",
     "date": "2026-09-24",
     "checked": "2026-10-28"
   },
   "github.com/williamzujkowski/williamzujkowski.github.io/pull/658": {
     "title": "fix(content): correct security advice that made readers less safe",
-    "publisher": "GitHub (williamzujkowski/williamzujkowski.github.io)",
+    "publisher": "this site's repo #658",
     "date": "2026-09-24",
     "checked": "2026-10-28"
   },

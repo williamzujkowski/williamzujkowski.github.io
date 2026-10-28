@@ -5,7 +5,7 @@ import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { checkCitations } from '../../astro-site/scripts/citations/check.mjs';
-import { parseHtml, decode } from '../../astro-site/scripts/citations/collect.mjs';
+import { parseHtml, decode, githubPublisher } from '../../astro-site/scripts/citations/collect.mjs';
 
 const dir = mkdtempSync(path.join(tmpdir(), 'cite-'));
 const post = (slug, body) => writeFileSync(path.join(dir, `${slug}.md`), `---\ntitle: T\n---\n\n${body}\n`);
@@ -41,4 +41,10 @@ test('collect: parseHtml prefers citation_title, strips the site suffix, reads t
   assert.equal(bare.date, null);
   assert.equal(bare.notes.length, 1);
   assert.equal(decode('a &#8212; b&nbsp;&amp;c'), 'a — b &c');
+});
+
+test('collect: GitHub publisher wording (owner/repo #N, own repo spelled out)', () => {
+  assert.equal(githubPublisher('dependabot/dependabot-core', '13036'), 'dependabot/dependabot-core #13036');
+  assert.equal(githubPublisher('williamzujkowski/williamzujkowski.github.io', '492'), "this site's repo #492");
+  assert.equal(githubPublisher('pnpm/pnpm'), 'pnpm/pnpm');
 });
