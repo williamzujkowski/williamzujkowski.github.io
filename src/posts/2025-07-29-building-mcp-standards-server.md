@@ -248,7 +248,7 @@ Lesson learned: TTLs exist for a reason. Use them.
 ### Vector Databases Are Hungry
 
 The Absurdity:
-- [ChromaDB](https://docs.trychroma.com) plus a sentence-transformer model is a few hundred MB of runtime before you index anything
+- [ChromaDB](https://docs.trychroma.com) plus a sentence-transformer model is a sizeable runtime before you index anything
 - That cost is fixed, not per document — adding a 26th file costs nothing
 - Index generation: 47 seconds
 - Query latency: 89ms average
@@ -299,7 +299,7 @@ What Started as a 2-Hour Debug Tool:
 - Syntax highlighting for code examples
 - Mobile-responsive design (because of course)
 - Dark mode toggle (essential)
-- 50+ components, 3,000 lines of [React](https://react.dev/reference/react/hooks)
+- A few thousand lines of [React](https://react.dev/reference/react/hooks)
 
 The Irony: I use this more than the CLI now. Sometimes procrastination produces useful things.
 
@@ -490,12 +490,12 @@ Sometimes that's enough.
 
 ## Sources
 
-- [Model Context Protocol (MCP)](https://docs.claude.com/en/docs/mcp)
+- [Model Context Protocol (MCP)](https://docs.claude.com/en/docs/mcp) — Anthropic's documentation of the protocol; the page now redirects to modelcontextprotocol.io
 - [github.com/williamzujkowski/mcp-standards-server](https://github.com/williamzujkowski/mcp-standards-server) — the project this post is about
-- [Redis LRU eviction policy](https://redis.io/docs/latest/develop/reference/eviction/)
-- [ChromaDB documentation](https://docs.trychroma.com)
-- [WebSocket API — MDN](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
-- [React hooks reference](https://react.dev/reference/react/hooks)
-- [msgpack](https://msgpack.org) — binary serialization format
-- [Python asyncio](https://docs.python.org/3/library/asyncio.html)
-- [Top Five Causes of Scope Creep](https://www.pmi.org/learning/library/top-five-causes-scope-creep-6675) — PMI
+- [Redis LRU eviction policy](https://redis.io/docs/latest/develop/reference/eviction/) — Redis's key-eviction documentation: `maxmemory`, the `noeviction` policy and the LRU policies. The 64MB limit and 30-minute TTL are my own settings
+- [ChromaDB documentation](https://docs.trychroma.com) — Chroma's introduction to the database; general documentation, not a measure of its resource use
+- [WebSocket API — MDN](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) — MDN's reference for the browser WebSocket API
+- [React hooks reference](https://react.dev/reference/react/hooks) — React's reference for its built-in hooks. A general API reference; the UI's code is in the repo's `web/` directory
+- [msgpack](https://msgpack.org) — home page of the MessagePack binary format. It gives no benchmark for this server; the timings in that list are my own measurements
+- [Python asyncio](https://docs.python.org/3/library/asyncio.html) — the standard library's documentation for asynchronous I/O
+- [Top five causes of scope creep ... and what to do about them](https://www.pmi.org/learning/library/top-five-causes-scope-creep-6675) — Richard Larson and Elizabeth Larson, PMI Global Congress 2009. General project-management background on scope creep, not about this project
