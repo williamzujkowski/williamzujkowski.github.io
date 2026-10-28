@@ -400,6 +400,15 @@ test('placement: "No." ends a sentence unless a number follows', () => {
   assert.equal(around(p).before, 'x see No. 5 for more.');
 });
 
+test('placement: citation abbreviations before a number do not end the sentence', () => {
+  for (const abbr of ['Vol.', 'vol.', 'pp.', 'Ch.', 'Sec.', 'Eq.', 'Art.']) {
+    const p = place([text('See '), link('https://example.com/a', 'x'), text(` (IEEE TDSC ${abbr} 21, 2024). Then more.`)]);
+    assert.equal(around(p).before, `See x (IEEE TDSC ${abbr} 21, 2024).`, abbr);
+  }
+  const p = place([link('https://example.com/a', 'x'), text(' filled the vol. Then more.')]);
+  assert.equal(around(p).before, 'x filled the vol.');
+});
+
 test('placement: decimals and version numbers do not end the sentence', () => {
   const p = place([text('GPT '), link('https://example.com/a', 'tool'), text(' 3.5 and v0.33 are old. Newer ones exist.')]);
   assert.equal(around(p).before, 'GPT tool 3.5 and v0.33 are old.');
