@@ -571,6 +571,11 @@ a:hover { color: var(--color-accent-hover); }
   .site-sections::-webkit-scrollbar { display: none; }
   .site-sections a { flex: none; padding-inline: 0.5rem; }
 }
+/* 320px: nameplate + three 44px tools need ~8px more than the row has. */
+@media (max-width: 360px) {
+  .site-nameplate-title { font-size: 1.75rem; }
+  .site-masthead-tools-right { gap: 0; }
+}
 
 /* ===== Post Article Header ===== */
 .post-breadcrumb {
