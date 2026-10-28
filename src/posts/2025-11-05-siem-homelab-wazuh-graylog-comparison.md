@@ -7,7 +7,7 @@ tags: [threat-detection, security, monitoring, homelab, python]
 post_type: tutorial
 ---
 
-Security monitoring needs centralized log analysis. I deployed both Wazuh and Graylog in my homelab to compare performance, resource usage, and detection capabilities. Wazuh excelled at threat detection (9.0 seconds mean across all five scenarios; on the two attacks both tools caught, 5.7 seconds against Graylog's 14.0), Graylog dominated log search speed (1.4 seconds vs 4.2 seconds).
+Security monitoring needs centralized log analysis. I deployed both Wazuh and Graylog in my homelab to compare performance, resource usage, and detection capabilities. Wazuh excelled at threat detection (it caught all five test scenarios out of the box, and was quicker than Graylog on the two attacks both tools caught), Graylog dominated log search speed.
 
 Here's how to choose and deploy the right SIEM for your homelab.
 
@@ -23,7 +23,7 @@ What SIEM solves:
 - **Centralized visibility:** All logs in one place (firewall, IDS, application, system)
 - **Correlation:** "SSH brute force + successful login + sudo su" = potential compromise
 - **Alerting:** Real-time notifications for security events
-- **Investigation:** Query logs from last 30 days in seconds
+- **Investigation:** Query logs from the last 30 days quickly
 
 Why homelab SIEMs different from enterprise: Resource constraints (8-64GB RAM vs enterprise 256GB+), complexity tolerance (manual setup OK), cost sensitivity (free open source only).
 
@@ -149,7 +149,7 @@ Complete deployment scripts: https://gist.github.com/williamzujkowski/79146ef623
 - **Wazuh agents:** Installed via package manager (`apt-get install wazuh-agent`)
 - **Filebeat agents:** Configured for Graylog syslog input
 
-Deployment time: Wazuh 32 minutes (manager + indexer + dashboard + 47 agents), Graylog 18 minutes (server + MongoDB + Elasticsearch + 47 Filebeat agents).
+Deployment time: Wazuh took longer (manager + indexer + dashboard + 47 agents) than Graylog (server + MongoDB + Elasticsearch + 47 Filebeat agents). I did not keep the timings, so I won't quote minutes.
 
 ## Performance Benchmark: Detection Speed
 
@@ -163,16 +163,16 @@ Test scenarios:
 4. **Privilege escalation:** Unauthorized sudo command
 5. **File integrity:** Modify /etc/passwd
 
-Detection speed results:
+Detection results (I did not retain the per-scenario timings from these runs, so the table shows coverage rather than seconds):
 
-| Attack Type | Wazuh Detection Time | Graylog Detection Time* |
-|-------------|---------------------|------------------------|
-| SSH brute force | 8.2 seconds | 15.3 seconds |
-| Port scan | 12.7 seconds | N/A (no built-in rule) |
-| SQL injection | 18.4 seconds | N/A (requires custom rule) |
-| Privilege escalation | 3.1 seconds | 12.7 seconds |
-| File integrity | 2.8 seconds | N/A (no FIM capability) |
-| **Mean detection time** | **9.0 seconds** (5 of 5 scenarios) | **14.0 seconds** (2 of 5) |
+| Attack Type | Wazuh | Graylog* |
+|-------------|-------|----------|
+| SSH brute force | Detected | Detected, slower than Wazuh |
+| Port scan | Detected | N/A (no built-in rule) |
+| SQL injection | Detected | N/A (requires custom rule) |
+| Privilege escalation | Detected | Detected, slower than Wazuh |
+| File integrity | Detected | N/A (no FIM capability) |
+| **Scenarios caught** | **5 of 5** | **2 of 5** |
 
 *Graylog detection via custom stream rules. No packaged security detection content in Graylog Open — the aggregation event processor does correlation, but curated rules and the Correlation Engine sit behind Enterprise.
 
@@ -180,8 +180,10 @@ Why Wazuh faster: Built-in correlation rules trigger on pattern match. Graylog r
 
 Alert accuracy:
 
-- **Wazuh false positive rate:** 7.2% (flagged legitimate SSH retries as brute force)
-- **Graylog false positive rate:** 12.4% (stream rules less sophisticated)
+- **Wazuh false positives:** fewer, though it flagged legitimate SSH retries as brute force
+- **Graylog false positives:** more (stream rules less sophisticated)
+
+I did not retain the false-positive counts, so I won't quote rates.
 
 Winner (detection): Wazuh excels at security-specific use cases with minimal configuration.
 
@@ -197,53 +199,29 @@ Test queries:
 4. **Aggregation:** Count events by source IP, last 30 days
 5. **Complex:** Multi-field correlation (source IP + failed auth + 10 minute window)
 
-Query speed results:
+Query speed results: Graylog (Elasticsearch) was faster than Wazuh (OpenSearch) across the query types I tried. I did not retain the per-query timings, so I won't quote seconds.
 
-| Query Type | Wazuh (OpenSearch) | Graylog (Elasticsearch) |
-|------------|-------------------|------------------------|
-| Simple keyword | 2.7 seconds | 0.6 seconds |
-| Field filter | 3.8 seconds | 0.9 seconds |
-| Time range | 1.2 seconds | 0.4 seconds |
-| Aggregation | 5.1 seconds | 1.8 seconds |
-| Complex correlation | 8.4 seconds | 3.2 seconds |
-| **Mean query time** | **4.2 seconds** | **1.4 seconds** |
-
-Data volume: 2.4 million events indexed (7 days retention, 47 hosts logging).
+Data volume: a week of retention across 47 hosts logging.
 
 Why Graylog faster: Elasticsearch-first design optimizes for search speed. Wazuh adds security processing overhead (rule evaluation, enrichment).
 
-Winner (search): Graylog delivers 3x faster queries for log investigation workflows.
+Winner (search): Graylog delivers clearly faster queries for log investigation workflows.
 
 ## Resource Usage Comparison
 
 Both SIEMs consume significant resources. Graylog lighter footprint.
 
-Memory usage (steady state):
+Memory: the Wazuh stack used more RAM at steady state than Graylog. In both, the storage layer (Wazuh indexer, Elasticsearch) took the largest share, and Graylog adds a small MongoDB footprint on top.
 
-| Component | Wazuh | Graylog |
-|-----------|-------|---------|
-| Server/Manager | 1.8 GB | 1.2 GB |
-| Storage (Indexer/ES) | 3.2 GB | 2.4 GB |
-| Database (N/A/MongoDB) | N/A | 0.6 GB |
-| **Total** | **5.0 GB** | **4.2 GB** |
+CPU: during log ingestion the Wazuh manager used more CPU than the Graylog server.
 
-CPU usage (during log ingestion - 10K events/second):
+Disk I/O: the Wazuh indexer sustained heavier writes than Elasticsearch under Graylog. MongoDB's writes were small (metadata only).
 
-- **Wazuh Manager:** 24% CPU (4 cores)
-- **Graylog Server:** 18% CPU (4 cores)
+Storage growth: Wazuh grew faster per day than Graylog across the 47 hosts.
 
-Disk I/O (write performance):
+I did not retain the measurements behind these comparisons, so I won't quote numbers.
 
-- **Wazuh Indexer:** 45 MB/s sustained writes
-- **Elasticsearch (Graylog):** 38 MB/s sustained writes
-- **MongoDB (Graylog):** 12 MB/s (metadata only)
-
-Storage growth rate (47 hosts):
-
-- **Wazuh:** 4.7 GB/day (compressed logs + indices)
-- **Graylog:** 3.9 GB/day (Elasticsearch indices only)
-
-Winner (resources): Graylog uses 16% less memory and 17% less disk space.
+Winner (resources): Graylog uses less memory and less disk space.
 
 ## Integration: Custom Python Automation
 
@@ -394,29 +372,29 @@ Choose Graylog if:
 - Custom log parsing and enrichment critical
 - Resource constrained (Graylog lighter footprint)
 
-My homelab choice: Started with Graylog (easier setup, faster search). Added Wazuh 6 months later for security-specific rules. Now run hybrid deployment.
+My homelab choice: Started with Graylog (easier setup, faster search). Added Wazuh later for security-specific rules. Now run hybrid deployment.
 
 ## Limitations and Trade-Offs
 
 Wazuh challenges:
 
-1. **Resource usage:** 5GB RAM minimum for production (Indexer memory hungry)
+1. **Resource usage:** Plan for a lot of RAM in production (Indexer memory hungry)
 2. **Learning curve:** Dashboard overwhelming (100+ pre-built visualizations)
 3. **Alert noise:** Default rules generate high false positive rate (tuning required)
 
 Graylog challenges:
 
-1. **Security rules:** Manual creation time-consuming (spent 8 hours building 23 streams)
+1. **Security rules:** Manual creation time-consuming (building the streams took hours)
 2. **No FIM:** File integrity monitoring requires external tools (OSSEC, AIDE)
 3. **Correlation limits:** Stream-based correlation less powerful than Wazuh event engine
 
 Common challenges (both):
 
-- **Retention costs:** Storing 30 days of logs = 120-140GB disk per 47 hosts
-- **Agent deployment:** Manual install on 47 hosts took 4 hours (automation needed)
+- **Retention costs:** Storing 30 days of logs for 47 hosts takes substantial disk
+- **Agent deployment:** Manual install on 47 hosts took hours (automation needed)
 - **Tune
 
- vs alert fatigue:** First week: 847 alerts/day. After tuning: 12 alerts/day.
+ vs alert fatigue:** The first week was far noisier than after tuning.
 
 ## Further Reading
 
@@ -452,4 +430,4 @@ Implementation references:
 
 Deploy centralized security monitoring. Start with one SIEM, validate detection coverage, then optimize. Most homelabs need Graylog's search speed OR Wazuh's security rules, not both.
 
-Run hybrid if resources allow. Alert fatigue comes from poor tuning, not too many tools. In my homelab, SIEM detected 3 actual security incidents in 8 months. Manual log review would have missed all three.
+Run hybrid if resources allow. Alert fatigue comes from poor tuning, not too many tools. In my homelab, SIEM caught a handful of real security incidents. Manual log review would have missed them.

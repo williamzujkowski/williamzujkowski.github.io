@@ -65,7 +65,7 @@ I learned the hard way that progressive loading isn't just about speed. It's abo
 
 Four evolutionary stages, each solving problems from the previous generation:
 
-V1: Monolithic Era (Feb 2025)
+V1: Monolithic Era (Oct-Dec 2024)
 - One giant CLAUDE.md file
 - Every invocation loaded everything
 - Simple but catastrophic at scale
@@ -251,7 +251,7 @@ Results:
 
 ### My Multi-Repo Routing Failure
 
-In November 2024, I tried to use progressive loading across three different repositories simultaneously. I configured a single product matrix to handle blog posts, homelab Terraform configs, and Python scripts. The routing logic worked **but** I didn't account for context bleed between repos.
+Once V3 landed, I tried to use progressive loading across three different repositories simultaneously. I configured a single product matrix to handle blog posts, homelab Terraform configs, and Python scripts. The routing logic worked **but** I didn't account for context bleed between repos.
 
 What went wrong: When validating a Python script in my homelab-automation repo, the system accidentally loaded blog citation standards because both repos had similar directory structures (both had `/scripts/` folders). This added 2,847 unnecessary tokens and caused false validation failures about missing academic citations in Terraform files (which was absurd).
 
@@ -272,7 +272,7 @@ Failure modes I've encountered:
 
 ### My "Everything at Once" Mistake
 
-In December 2024, I was debugging a race condition in my homelab Docker Compose setup. Three services weren't starting in the right order, and I suspected it was a network timing issue. I tried using progressive loading to isolate the problem. **Bad idea**.
+Once V2 landed, I was debugging a race condition in my homelab Docker Compose setup. Three services weren't starting in the right order, and I suspected it was a network timing issue. I tried using progressive loading to isolate the problem. **Bad idea**.
 
 Progressive loading loaded the Docker Compose skill (2.1K tokens), then the networking skill (1.8K tokens), then the systemd service ordering skill (2.3K tokens). Total: 6.2K tokens loaded sequentially over three round trips. Each round trip took 1.5-2 seconds, so I waited 5+ seconds just for context loading.
 
