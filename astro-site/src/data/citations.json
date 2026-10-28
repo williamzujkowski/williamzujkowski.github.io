@@ -1,0 +1,740 @@
+{
+  "amazon.science/blog/how-we-built-cedar-with-automated-reasoning-and-differential-testing": {
+    "title": "How we built Cedar with automated reasoning and differential testing",
+    "publisher": "Amazon Science",
+    "date": "2023-05-10",
+    "checked": "2026-10-28"
+  },
+  "aquasec.com/blog/github-dataset-research-reveals-millions-potentially-vulnerable-to-repojacking": {
+    "title": "GitHub Dataset Research Reveals Millions Potentially Vulnerable to RepoJacking",
+    "publisher": "Aqua",
+    "date": "2023-06-21",
+    "checked": "2026-10-28"
+  },
+  "arxiv.org/abs/2204.04008": {
+    "title": "Taxonomy of Attacks on Open-Source Software Supply Chains",
+    "publisher": "arXiv",
+    "date": "2022-04-08",
+    "checked": "2026-10-28"
+  },
+  "arxiv.org/abs/2306.05685": {
+    "title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+    "publisher": "arXiv",
+    "date": "2023-06-09",
+    "checked": "2026-10-28"
+  },
+  "arxiv.org/abs/2512.13047v4": {
+    "title": "Sharpen the Spec, Cut the Code: A Case for Generative File System with SYSSPEC",
+    "publisher": "arXiv",
+    "date": "2025-12-15",
+    "checked": "2026-10-28"
+  },
+  "arxiv.org/abs/2607.14166v3": {
+    "title": "Stop Means Stop: Measuring and Repairing the Enforcement Gap in Agent-Framework Control Primitives",
+    "publisher": "arXiv",
+    "date": "2026-07-15",
+    "checked": "2026-10-28"
+  },
+  "arxiv.org/abs/2607.17518": {
+    "title": "Isolation Failure From Shared Storage: Characterizing and Exploiting Page-Cache SCA Leakage Across Containers and VMs",
+    "publisher": "arXiv",
+    "date": "2026-07-20",
+    "checked": "2026-10-28"
+  },
+  "arxiv.org/abs/2608.09567": {
+    "title": "From Runnable to Verifiable: An Independent Reproducibility Study of LLM/Agent-Driven Vulnerability Validation Artifacts",
+    "publisher": "arXiv",
+    "date": "2026-08-10",
+    "checked": "2026-10-28"
+  },
+  "arxiv.org/abs/2608.12880v1": {
+    "title": "Labels Are Not Endpoints: Treatment Leakage and Construct Validity in MCP Agent Security Evaluation",
+    "publisher": "arXiv",
+    "date": "2026-08-13",
+    "checked": "2026-10-28"
+  },
+  "arxiv.org/abs/2609.32691v1": {
+    "title": "Silent Failures in Agentic Security Evaluation: A Validated Harness for Tool-Call Mediation Under Indirect Prompt Injection",
+    "publisher": "arXiv",
+    "date": "2026-09-26",
+    "checked": "2026-10-28"
+  },
+  "arxiv.org/html/2607.06595v1": {
+    "title": "When Agents Remember Too Much: Memory Poisoning Attacks on Large Language Model Agents",
+    "publisher": "arXiv",
+    "date": "2026-07-06",
+    "checked": "2026-10-28"
+  },
+  "arxiv.org/html/2607.17518v2": {
+    "title": "Isolation Failure From Shared Storage: Characterizing and Exploiting Page-Cache SCA Leakage Across Containers and VMs",
+    "publisher": "arXiv",
+    "date": "2026-07-20",
+    "checked": "2026-10-28"
+  },
+  "arxiv.org/html/2607.27080v1": {
+    "title": "MemSecBench: Tracking Agent Memory Poisoning from Persistence to Consequence and Repair",
+    "publisher": "arXiv",
+    "date": "2026-07-29",
+    "checked": "2026-10-28"
+  },
+  "arxiv.org/html/2609.28586v1": {
+    "title": "Agent Approval Laundering: Transitive Effects Beyond the Approved Invocation",
+    "publisher": "arXiv",
+    "date": "2026-09-23",
+    "checked": "2026-10-28"
+  },
+  "aws.amazon.com/security/security-bulletins/2026-101-aws": {
+    "title": "CVE-2026-85787 - An incomplete list of disallowed inputs in the SQL validation component in Amazon awslabs postgres-mcp-server to modify data beyond the read-only scope",
+    "publisher": "Amazon Web Services",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "aws.amazon.com/security/security-bulletins/2026-104-aws": {
+    "title": "CVE-2026-87911 - Read-only enforcement bypass enabling operating system command execution in the SQL validation component of Amazon awslabs postgres-mcp-server",
+    "publisher": "Amazon Web Services",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "blogs.cisco.com/ai/identifying-and-remediating-a-persistent-memory-compromise-in-claude-code": {
+    "title": "Identifying and remediating a persistent memory compromise in Claude Code",
+    "publisher": "Cisco Blogs",
+    "date": "2026-04-01",
+    "checked": "2026-10-28"
+  },
+  "checkmarx.com/blog/persistent-threat-new-exploit-puts-thousands-of-github-repositories-and-millions-of-users-at-risk": {
+    "title": "Persistent Threat: New Exploit Puts Thousands of GitHub Repositories and Millions of Users at Risk",
+    "publisher": "Checkmarx",
+    "date": "2023-09-12",
+    "checked": "2026-10-28"
+  },
+  "code.claude.com/docs/en/permissions": {
+    "title": "Configure permissions",
+    "publisher": "Claude Code Docs",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "code.claude.com/docs/en/sandboxing": {
+    "title": "Configure the sandboxed Bash tool",
+    "publisher": "Claude Code Docs",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "corgea.com/research/redhat-cloud-services-npm-miasma-shai-hulud-worm": {
+    "title": "Miasma poisoned Red Hat Cloud Services npm packages through trusted publishing",
+    "publisher": "Corgea",
+    "date": "2026-06-02",
+    "checked": "2026-10-28"
+  },
+  "csrc.nist.gov/projects/cosais": {
+    "title": "SP 800-53 Control Overlays for Super Intelligence Systems",
+    "publisher": "NIST CSRC",
+    "date": "2025-07-10",
+    "checked": "2026-10-28"
+  },
+  "curl.se/docs/manpage.html": {
+    "title": "curl man page",
+    "publisher": "curl",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "dafny.org": {
+    "title": "The Dafny Programming and Verification Language",
+    "publisher": "Dafny",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html": {
+    "title": "Locking objects with Object Lock",
+    "publisher": "Amazon Web Services",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "docs.deps.dev/api/v3": {
+    "title": "deps.dev API",
+    "publisher": "Open Source Insights",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "docs.docker.com/engine/network/firewall-iptables": {
+    "title": "Docker with iptables",
+    "publisher": "Docker Docs",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "docs.github.com/en/account-and-profile/concepts/username-changes": {
+    "title": "Username changes",
+    "publisher": "GitHub Docs",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "docs.github.com/en/account-and-profile/reference/personal-account-reference": {
+    "title": "Personal account reference",
+    "publisher": "GitHub Docs",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments": {
+    "title": "Deployments and environments",
+    "publisher": "GitHub Docs",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "docs.github.com/en/pull-requests/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/troubleshooting-required-status-checks": {
+    "title": "Troubleshooting required status checks",
+    "publisher": "GitHub Docs",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "docs.npmjs.com/cli/v10/using-npm/config": {
+    "title": "config",
+    "publisher": "npm Docs",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "docs.npmjs.com/cli/v10/using-npm/scripts": {
+    "title": "scripts",
+    "publisher": "npm Docs",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "docs.npmjs.com/generating-provenance-statements": {
+    "title": "Generating provenance statements",
+    "publisher": "npm Docs",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "docs.npmjs.com/staged-publishing": {
+    "title": "Staged publishing for npm packages",
+    "publisher": "npm Docs",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "docs.npmjs.com/trusted-publishers": {
+    "title": "Trusted publishing for npm packages",
+    "publisher": "npm Docs",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/zip/ZipInputStream.html": {
+    "title": "ZipInputStream (Java SE 21 & JDK 21)",
+    "publisher": "Oracle",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "docs.pypi.org/project_metadata": {
+    "title": "Project Metadata",
+    "publisher": "PyPI User Documentation",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "docs.python.org/3.12/library/zipfile.html": {
+    "title": "zipfile — Work with ZIP archives",
+    "publisher": "Python documentation",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "doi.org/10.1109/C-M.1978.218136": {
+    "title": "Hints on Test Data Selection: Help for the Practicing Programmer",
+    "publisher": "IEEE Computer",
+    "date": "1978",
+    "checked": "2026-10-28"
+  },
+  "doi.org/10.1109/TSE.2010.62": {
+    "title": "An Analysis and Survey of the Development of Mutation Testing",
+    "publisher": "IEEE Transactions on Software Engineering",
+    "date": "2011",
+    "checked": "2026-10-28"
+  },
+  "doi.org/10.1145/3183519.3183521": {
+    "title": "State of mutation testing at google",
+    "publisher": "ICSE-SEIP 2018, ACM",
+    "date": "2018",
+    "checked": "2026-10-28"
+  },
+  "eicar.org/download-anti-malware-testfile": {
+    "title": "Download Anti Malware Testfile",
+    "publisher": "EICAR",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "endorlabs.com/learn/npm-malware-compromises-keyv-and-cacheable-with-500m-weekly-downloads-and-spreads-to-hundreds-of-packages": {
+    "title": "NPM Malware Compromises keyv and cacheable with 500M+ Weekly Downloads and Spreads to Hundreds of Packages",
+    "publisher": "Endor Labs",
+    "date": "2026-08-04",
+    "checked": "2026-10-28"
+  },
+  "genai.owasp.org/llmrisk/llm062025-excessive-agency": {
+    "title": "LLM06:2025 Excessive Agency",
+    "publisher": "OWASP Gen AI Security Project",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "git-scm.com/docs/githooks": {
+    "title": "githooks Documentation",
+    "publisher": "Git",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "github.blog/open-source/maintainers/new-tools-for-open-source-maintainers": {
+    "title": "New tools for open source maintainers",
+    "publisher": "The GitHub Blog",
+    "date": "2018-04-18",
+    "checked": "2026-10-28"
+  },
+  "github.com/advisories/GHSA-px8p-9vwx-vf98": {
+    "title": "fflate unzipSync can enter an infinite loop when parsing malformed ZIP64 archives",
+    "publisher": "GitHub Advisory Database",
+    "date": "2026-07-22",
+    "checked": "2026-10-28"
+  },
+  "github.com/anthropics/sandbox-runtime": {
+    "title": "anthropics/sandbox-runtime",
+    "publisher": "GitHub",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "github.com/cedar-policy/cedar-spec": {
+    "title": "cedar-policy/cedar-spec",
+    "publisher": "GitHub",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "github.com/cline/cline/security/advisories/GHSA-9ppg-jx86-fqw7": {
+    "title": "Unauthorized npm publish of Cline CLI cline@2.3.0 with modified postinstall script to install openclaw",
+    "publisher": "GitHub Advisory Database",
+    "date": "2026-02-17",
+    "checked": "2026-10-28"
+  },
+  "github.com/DataDog/malicious-software-packages-dataset": {
+    "title": "DataDog/malicious-software-packages-dataset",
+    "publisher": "GitHub",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "github.com/dependabot/dependabot-core/issues/13036": {
+    "title": "Dependabot updates pnpm lockfile and changes settings, de-synchronizing from pnpm-workspace.yaml",
+    "publisher": "dependabot/dependabot-core #13036",
+    "date": "2025-09-08",
+    "checked": "2026-10-28"
+  },
+  "github.com/dependabot/dependabot-core/issues/16232": {
+    "title": "pnpm update drops existing overrides metadata and reverts parent-scoped dependency resolution",
+    "publisher": "dependabot/dependabot-core #16232",
+    "date": "2026-09-09",
+    "checked": "2026-10-28"
+  },
+  "github.com/nexus-substrate/nexus-agents/issues/5022": {
+    "title": "p1(security): ClawGuard is behaviorally identical to 'off' in every mode — the policy is never in scope at dispatch, and allowedTools is always empty",
+    "publisher": "nexus-substrate/nexus-agents #5022",
+    "date": "2026-08-26",
+    "checked": "2026-10-28"
+  },
+  "github.com/nexus-substrate/nexus-agents/issues/6107": {
+    "title": "Consensus review misclassifies consuming repositories as out of scope",
+    "publisher": "nexus-substrate/nexus-agents #6107",
+    "date": "2026-09-13",
+    "checked": "2026-10-28"
+  },
+  "github.com/nexus-substrate/nexus-agents/pull/5109": {
+    "title": "fix(security): demote the ClawGuard access-policy middleware to advisory",
+    "publisher": "nexus-substrate/nexus-agents #5109",
+    "date": "2026-08-27",
+    "checked": "2026-10-28"
+  },
+  "github.com/pi-hole/pi-hole/releases/tag/v6.0": {
+    "title": "v6.0",
+    "publisher": "pi-hole/pi-hole",
+    "date": "2025-02-18",
+    "checked": "2026-10-28"
+  },
+  "github.com/pnpm/pnpm/releases/tag/v10.0.0": {
+    "title": "pnpm 10",
+    "publisher": "pnpm/pnpm",
+    "date": "2025-01-07",
+    "checked": "2026-10-28"
+  },
+  "github.com/sajjadanwar0/soundgate-paper": {
+    "title": "sajjadanwar0/soundgate-paper",
+    "publisher": "GitHub",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/dependency-risk-profiler/issues/335": {
+    "title": "Provenance attests the pipeline, not the intent: worms published malicious versions through victims' own CI (demonstrated, n=3)",
+    "publisher": "williamzujkowski/dependency-risk-profiler #335",
+    "date": "2026-08-11",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/oscal-agent-controls": {
+    "title": "williamzujkowski/oscal-agent-controls",
+    "publisher": "GitHub",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/standards": {
+    "title": "williamzujkowski/standards",
+    "publisher": "GitHub",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/issues/492": {
+    "title": "The only required status check fails open when its audit tool doesn't run",
+    "publisher": "this site's repo #492",
+    "date": "2026-08-23",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/issues/511": {
+    "title": "Checkers that pass for the wrong reason: axe is green against an empty dist",
+    "publisher": "this site's repo #511",
+    "date": "2026-08-23",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/issues/540": {
+    "title": "Dependabot npm PRs always fail: it drops the lockfile's `overrides:` header",
+    "publisher": "this site's repo #540",
+    "date": "2026-09-04",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/issues/563": {
+    "title": "Dependencies: patch Satori’s pinned fflate ZIP64 denial-of-service dependency",
+    "publisher": "this site's repo #563",
+    "date": "2026-09-08",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/issues/595": {
+    "title": "Nexus integration: external-repository review context and quick-vote diagnostics need investigation",
+    "publisher": "this site's repo #595",
+    "date": "2026-09-11",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/issues/644": {
+    "title": "Three of the four required checks have no floor on what they ran",
+    "publisher": "this site's repo #644",
+    "date": "2026-09-24",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/issues/645": {
+    "title": "The link pipeline can report a clean run over zero links",
+    "publisher": "this site's repo #645",
+    "date": "2026-09-24",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/issues/660": {
+    "title": "Mutation testing: 24 real coverage holes, and the design audits' enforcement path is untested",
+    "publisher": "this site's repo #660",
+    "date": "2026-09-24",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/issues/673": {
+    "title": "Blog proposal: approving the command approves what it runs",
+    "publisher": "this site's repo #673",
+    "date": "2026-10-02",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/pull/470": {
+    "title": "posts: correct container-hardening and AI-security posts",
+    "publisher": "this site's repo #470",
+    "date": "2026-08-17",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/pull/516": {
+    "title": "fix(audits): make the checkers able to fail",
+    "publisher": "this site's repo #516",
+    "date": "2026-08-23",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/pull/523": {
+    "title": "chore(deps): Bump the minor-and-patch group in /astro-site with 2 updates",
+    "publisher": "this site's repo #523",
+    "date": "2026-08-23",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/pull/524": {
+    "title": "chore(deps): Bump markdown-it from 14.3.0 to 15.0.0 in /astro-site",
+    "publisher": "this site's repo #524",
+    "date": "2026-08-23",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/pull/530": {
+    "title": "chore(deps): Bump the minor-and-patch group in /astro-site with 4 updates",
+    "publisher": "this site's repo #530",
+    "date": "2026-08-25",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/pull/533": {
+    "title": "fix(deps): regenerate the lockfile Dependabot wrote without the overrides (#532)",
+    "publisher": "this site's repo #533",
+    "date": "2026-09-04",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/pull/537": {
+    "title": "chore(deps): Bump the minor-and-patch group across 1 directory with 4 updates",
+    "publisher": "this site's repo #537",
+    "date": "2026-09-04",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/pull/538": {
+    "title": "fix(content): remove a fabricated GPG procedure from the Suricata post",
+    "publisher": "this site's repo #538",
+    "date": "2026-09-04",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/pull/544": {
+    "title": "fix(content): Pi-hole blocklists — wrong directory, wrong names, one invented",
+    "publisher": "this site's repo #544",
+    "date": "2026-09-04",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/pull/564": {
+    "title": "chore(deps): Bump the minor-and-patch group in /astro-site with 3 updates",
+    "publisher": "this site's repo #564",
+    "date": "2026-09-08",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/pull/638": {
+    "title": "chore(deps): Bump the minor-and-patch group across 1 directory with 7 updates",
+    "publisher": "this site's repo #638",
+    "date": "2026-09-22",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/pull/652": {
+    "title": "fix(audits): close two regex holes that let the design gates pass mutations",
+    "publisher": "this site's repo #652",
+    "date": "2026-09-24",
+    "checked": "2026-10-28"
+  },
+  "github.com/williamzujkowski/williamzujkowski.github.io/pull/658": {
+    "title": "fix(content): correct security advice that made readers less safe",
+    "publisher": "this site's repo #658",
+    "date": "2026-09-24",
+    "checked": "2026-10-28"
+  },
+  "gnu.org/software/bash/manual/html_node/Pipelines.html": {
+    "title": "Pipelines (Bash Reference Manual)",
+    "publisher": "GNU",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "gruss.cc/files/pagecacheattacks.pdf": {
+    "title": "Page Cache Attacks",
+    "publisher": "ACM CCS",
+    "date": "2019",
+    "checked": "2026-10-28"
+  },
+  "ipset.netfilter.org/iptables.man.html": {
+    "title": "Man page of IPTABLES",
+    "publisher": "Netfilter",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "makrushin.com/repojacking-github": {
+    "title": "More than 1,000 GitHub repositories at risk: how to detect RepoJacking vulnerabilities",
+    "publisher": "Denis Makrushin",
+    "date": "2025-01-29",
+    "checked": "2026-10-28"
+  },
+  "man7.org/linux/man-pages/man2/mincore.2.html": {
+    "title": "mincore(2) — Linux manual page",
+    "publisher": "man7.org",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "man7.org/linux/man-pages/man2/posix_fadvise.2.html": {
+    "title": "posix_fadvise(2) — Linux manual page",
+    "publisher": "man7.org",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "mutmut.readthedocs.io": {
+    "title": "mutmut - python mutation tester",
+    "publisher": "mutmut documentation",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "mywiki.wooledge.org/BashFAQ/105": {
+    "title": "BashFAQ/105",
+    "publisher": "Greg's Wiki",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "nist.gov/itl/ai-risk-management-framework": {
+    "title": "AI Risk Management Framework",
+    "publisher": "NIST",
+    "date": "2021-07-12",
+    "checked": "2026-10-28"
+  },
+  "openpolicyagent.org": {
+    "title": "Open Policy Agent",
+    "publisher": "Open Policy Agent",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "openpolicyagent.org/docs/latest/policy-language": {
+    "title": "Policy Language",
+    "publisher": "Open Policy Agent",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "packagist.org/about": {
+    "title": "Packagist: The PHP Package Repository",
+    "publisher": "Packagist",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "pages.nist.gov/OSCAL": {
+    "title": "OSCAL - Open Security Controls Assessment Language",
+    "publisher": "NIST",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT": {
+    "title": "APPNOTE.TXT - .ZIP File Format Specification",
+    "publisher": "PKWARE",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "pnpm.io/10.x/cli/dedupe": {
+    "title": "pnpm dedupe",
+    "publisher": "pnpm",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "pnpm.io/10.x/cli/install": {
+    "title": "pnpm install",
+    "publisher": "pnpm",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "pnpm.io/10.x/settings": {
+    "title": "Settings (pnpm-workspace.yaml)",
+    "publisher": "pnpm",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "postgresql.org/docs/18/ddl-priv.html": {
+    "title": "5.8. Privileges",
+    "publisher": "PostgreSQL Documentation",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "postgresql.org/docs/18/ddl-schemas.html": {
+    "title": "5.10. Schemas",
+    "publisher": "PostgreSQL Documentation",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "postgresql.org/docs/18/runtime-config-client.html": {
+    "title": "19.11. Client Connection Defaults",
+    "publisher": "PostgreSQL Documentation",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "postgresql.org/docs/18/sql-alterdefaultprivileges.html": {
+    "title": "ALTER DEFAULT PRIVILEGES",
+    "publisher": "PostgreSQL Documentation",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "postgresql.org/docs/18/sql-createfunction.html": {
+    "title": "CREATE FUNCTION",
+    "publisher": "PostgreSQL Documentation",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "postgresql.org/docs/18/sql-set-transaction.html": {
+    "title": "SET TRANSACTION",
+    "publisher": "PostgreSQL Documentation",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "shellcheck.net": {
+    "title": "ShellCheck – shell script analysis tool",
+    "publisher": "ShellCheck",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "slsa.dev/spec/v1.0/threats": {
+    "title": "Threats & mitigations",
+    "publisher": "SLSA",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "slsa.dev/spec/v1.2/threats": {
+    "title": "Threats & mitigations",
+    "publisher": "SLSA",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "snee.la/pdf/pubs/eviction-notice.pdf": {
+    "title": "Eviction Notice: Reviving and Advancing Page Cache Attacks",
+    "publisher": "NDSS Symposium",
+    "date": "2026",
+    "checked": "2026-10-28"
+  },
+  "snyk.io/blog/inside-keyv-npm-compromise-preinstall-malware-trusted-provenance-ide-hooks": {
+    "title": "Inside the keyv npm Compromise: preinstall Malware, Trusted Provenance, and IDE Hooks",
+    "publisher": "Snyk",
+    "date": "2026-08-04",
+    "checked": "2026-10-28"
+  },
+  "socket.dev/blog/popular-npm-packages-in-the-keyv-and-cacheable-namespaces-compromised-in-active-supply-chain": {
+    "title": "Popular npm Packages in the keyv and Cacheable Namespaces Compromised in Active Supply Chain Attack",
+    "publisher": "Socket",
+    "date": "2026-08-04",
+    "checked": "2026-10-28"
+  },
+  "stepsecurity.io/blog/binding-gyp-npm-supply-chain-attack-spreads-like-worm": {
+    "title": "Miasma npm Supply Chain Attack: Self-Spreading Worm via Phantom Gyp",
+    "publisher": "StepSecurity",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "stepsecurity.io/blog/injective-npm-supply-chain-attack-18-packages-backdoored-to-steal-crypto-wallet-keys": {
+    "title": "Injective npm Supply Chain Attack: 18 Packages Backdoored to Steal Crypto Wallet Keys",
+    "publisher": "StepSecurity",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "stryker-mutator.io/docs": {
+    "title": "What is mutation testing?",
+    "publisher": "Stryker Mutator",
+    "date": null,
+    "checked": "2026-10-28"
+  },
+  "ubuntu.com/blog/ubuntu-23-10-restricted-unprivileged-user-namespaces": {
+    "title": "Restricted unprivileged user namespaces are coming to Ubuntu 23.10",
+    "publisher": "Ubuntu",
+    "date": "2023-10-09",
+    "checked": "2026-10-28"
+  },
+  "usenix.org/conference/fast26/presentation/liu-qingyuan": {
+    "title": "Sharpen the Spec, Cut the Code: A Case for Generative File System with SYSSPEC",
+    "publisher": "USENIX",
+    "date": "2026",
+    "checked": "2026-10-28"
+  },
+  "usenix.org/conference/nsdi26/presentation/li-zhenyu": {
+    "title": "Pilot Execution: Simulating Failure Recovery In Situ for Production Distributed Systems",
+    "publisher": "USENIX",
+    "date": "2026",
+    "checked": "2026-10-28"
+  },
+  "usenix.org/conference/osdi26/presentation/rosenblum": {
+    "title": "Timelock Drive: Isolated Time-Based Defense for Storage Systems",
+    "publisher": "USENIX",
+    "date": "2026",
+    "checked": "2026-10-28"
+  },
+  "usenix.org/system/files/osdi26-rosenblum.pdf": {
+    "title": "Timelock Drive: Isolated Time-Based Defense for Storage Systems",
+    "publisher": "USENIX",
+    "date": "2026",
+    "checked": "2026-10-28"
+  },
+  "usenix.org/system/files/usenixsecurity25-you.pdf": {
+    "title": "My ZIP isn’t your ZIP: Identifying and Exploiting Semantic Gaps Between ZIP Parsers",
+    "publisher": "USENIX",
+    "date": "2025",
+    "checked": "2026-10-28"
+  }
+}

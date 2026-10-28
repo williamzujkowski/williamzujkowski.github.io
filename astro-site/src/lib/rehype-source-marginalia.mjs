@@ -84,6 +84,30 @@ import { visit } from 'unist-util-visit';
  * The Sources list itself is untouched. Feeds do not run this plugin
  * (feedContent.ts renders raw markdown with markdown-it).
  *
+ * CITATION-FILE FALLBACK: posts that cite inline and have NO `## Sources`
+ * heading get their notes from `options.citations` instead (the astro config
+ * passes src/data/citations.json; tests inject fixtures). That file maps a
+ * normalised URL to `{ title, publisher, date, checked }`, filled by
+ * scripts/citations/collect.mjs and verified by hand; the build never fetches
+ * the network. Note text is `Title · Publisher · Year`, missing parts omitted.
+ * A post WITH a Sources heading ignores the file entirely. Links to the site's
+ * own domain and to GitHub source files, commits, trees and compares get no
+ * note (a file title adds nothing); repos, issues, PRs and advisories do.
+ * Every other rule above applies unchanged, except four that apply to
+ * fallback notes ONLY (a Sources post is byte-identical):
+ *
+ *   - per-post dedupe: a citation gets a note the first time a post links it;
+ *     entries with the same title (case-insensitive) are one citation, so a PDF
+ *     link and a page link to one paper give one note;
+ *   - sentence-level echo: the note is compared with the whole sentence that
+ *     holds the link, not only the link text, and dropped when it adds at most
+ *     SENTENCE_ECHO_MAX_NEW_WORDS words the sentence lacks (a small stop-word
+ *     list is ignored);
+ *   - publisher elision: a publisher whose words all appear in the title is
+ *     omitted ("The Dafny Programming and Verification Language", not "... · Dafny");
+ *   - GitHub publisher wording (`owner/repo #N`, `GitHub Advisory Database`) is
+ *     data in citations.json, written by collect.mjs.
+ *
  * Plugin order: after rehypeSidenotes, before rehypeRaw (raw HTML is still
  * `raw` nodes here, never walked).
  */
@@ -117,6 +141,53 @@ export function normalizeUrl(href) {
   const host = u.hostname.toLowerCase().replace(/^www\./, '');
   const path = u.pathname.replace(/\/+$/, '');
   return host + path + (params ? `?${params}` : '');
+}
+
+// ---- Citation-file fallback -------------------------------------------------
+
+const OWN_HOSTS = ['williamzujkowski.github.io'];
+const GITHUB_SOURCE_PATH = /^\/[^/]+\/[^/]+\/(?:blob|commit|commits|tree|compare|raw|blame)(?:\/|$)/;
+
+/** Normalised keys that never get a fallback note: own domain, GitHub source views. */
+export function isSkippedCitationKey(key) {
+  const slash = key.indexOf('/');
+  const host = slash === -1 ? key : key.slice(0, slash);
+  const path = slash === -1 ? '' : key.slice(slash).replace(/\?.*$/, '');
+  if (OWN_HOSTS.some((h) => host === h || host.endsWith(`.${h}`))) return true;
+  return host === 'github.com' && GITHUB_SOURCE_PATH.test(path);
+}
+
+/** `Title · Publisher · Year` from one citations.json value; null without a title. */
+export function citationText(c) {
+  if (!c || typeof c.title !== 'string' || !c.title.trim()) return null;
+  const year = typeof c.date === 'string' && /^\d{4}/.test(c.date) ? c.date.slice(0, 4) : null;
+  // Publisher elision: every publisher word already in the title adds nothing.
+  const pubWords = typeof c.publisher === 'string' ? words(c.publisher) : new Set();
+  const titleWords = words(c.title);
+  const publisher = pubWords.size && [...pubWords].every((w) => titleWords.has(w)) ? null : c.publisher;
+  return [c.title, publisher, year]
+    .filter((x) => typeof x === 'string' && x.trim())
+    .map((x) => x.trim())
+    .join(' · ');
+}
+
+const citationCache = new WeakMap();
+
+/** Map<normalisedUrl, synthetic li> from citations.json data. */
+function citationEntries(citations) {
+  if (citationCache.has(citations)) return citationCache.get(citations);
+  const entries = new Map();
+  for (const [rawKey, value] of Object.entries(citations)) {
+    const key = normalizeUrl(`https://${rawKey}`);
+    const text = citationText(value);
+    if (!key || !text || isSkippedCitationKey(key)) continue;
+    entries.set(key, {
+      type: 'element', tagName: 'li', properties: {}, children: [{ type: 'text', value: text }],
+      citationTitle: value.title.trim().toLowerCase(),
+    });
+  }
+  citationCache.set(citations, entries);
+  return entries;
 }
 
 /** Entries after the Sources heading: Map<normalisedUrl, li | null(ambiguous)>. */
@@ -201,6 +272,20 @@ export function isEcho(link, content) {
   let added = 0;
   for (const w of words(textOf({ type: 'root', children: content }))) {
     if (!linkWords.has(w) && ++added > ECHO_MAX_NEW_WORDS) return false;
+  }
+  return true;
+}
+
+/** Fallback notes: the most words a note may add beyond its whole sentence and still count as an echo. */
+export const SENTENCE_ECHO_MAX_NEW_WORDS = 2;
+const STOP_WORDS = new Set(['a', 'an', 'the', 'of', 'for', 'and', 'to', 'in', 'on', 'with', 'by', 'at', 'from']);
+
+/** True when the note adds at most SENTENCE_ECHO_MAX_NEW_WORDS words (stop words ignored) the sentence lacks. */
+export function isSentenceEcho(sentence, content) {
+  const have = words(sentence);
+  let added = 0;
+  for (const w of words(textOf({ type: 'root', children: content }))) {
+    if (!have.has(w) && !STOP_WORDS.has(w) && ++added > SENTENCE_ECHO_MAX_NEW_WORDS) return false;
   }
   return true;
 }
@@ -301,6 +386,32 @@ function sentenceEndAt(chars, k) {
   return e;
 }
 
+/** The full text of the sentence holding `link` inside `host` (code kept as its own text). */
+function sentenceText(host, link) {
+  const { chars, linkStart, linkEnd } = flattenHost(host, link);
+  if (!chars.length || linkStart < 0) return textOf(host);
+  let start = 0;
+  for (let k = linkStart - 1; k >= 0; k--) {
+    const e = sentenceEndAt(chars, k);
+    if (e !== -1) {
+      start = e + 1;
+      break;
+    }
+  }
+  let end = chars.length - 1;
+  for (let k = Math.max(linkEnd - 1, linkStart); k < chars.length; k++) {
+    const e = sentenceEndAt(chars, k);
+    if (e !== -1) {
+      end = e;
+      break;
+    }
+  }
+  return chars
+    .slice(start, end + 1)
+    .map((c) => (c.off < 0 && c.ch === '\u0000' ? ` ${textOf(c.node)} ` : c.ch))
+    .join('');
+}
+
 /** Insertion point for a note whose link is `link` inside `host`: end of its sentence. */
 function sentenceEndPoint(host, link) {
   const { chars, linkStart, linkEnd } = flattenHost(host, link);
@@ -334,7 +445,7 @@ function sentenceEndPoint(host, link) {
 
 /**
  * @param {object} tree hast root
- * @param {{ onMatch?: (m: { link: object, host: object, key: string, entry: object, serial: number }) => void }} [opts]
+ * @param {{ citations?: Record<string, object>, onMatch?: (m: { link: object, host: object, key: string, entry: object, serial: number }) => void }} [opts]
  *   onMatch runs for every hit BEFORE the tree is changed (used by the
  *   review generator, scripts/margin-notes-review.mjs).
  */
@@ -349,11 +460,16 @@ export function transformSourceMarginalia(tree, opts = {}) {
     });
   }
   if (shared) return tree;
-  const sources = readSources(tree);
+  let sources = readSources(tree);
+  // Fallback only when the post has no Sources heading at all.
+  if (!sources && opts.citations && typeof opts.citations === 'object') {
+    sources = { idx: tree.children.length, entries: citationEntries(opts.citations), fallback: true };
+  }
   if (!sources) return tree;
 
   // Phase 1: find hits in document order, without changing the tree.
   const used = new Set();
+  const usedTitles = new Set(); // fallback only: one note per citation title per post
   const hits = [];
   const walk = (node, ancestors) => {
     if (!node.children) return;
@@ -365,6 +481,7 @@ export function transformSourceMarginalia(tree, opts = {}) {
         const key = normalizeUrl(child.properties && child.properties.href);
         const li = key && sources.entries.get(key);
         if (!li || used.has(key)) continue;
+        if (sources.fallback && usedTitles.has(li.citationTitle)) continue;
         const chain = [...ancestors, node];
         let hostIdx = -1;
         for (let k = chain.length - 1; k >= 0; k--) {
@@ -375,6 +492,7 @@ export function transformSourceMarginalia(tree, opts = {}) {
         }
         if (hostIdx < 1) continue; // no host block (or host is the root)
         used.add(key);
+        if (sources.fallback) usedTitles.add(li.citationTitle);
         hits.push({ link: child, key, li, chain, hostIdx, content: noteContent(li) });
         continue;
       }
@@ -387,7 +505,11 @@ export function transformSourceMarginalia(tree, opts = {}) {
   // only echoes its link text ("nexus-agents" beside the link "nexus-agents")
   // tells the reader nothing the sentence doesn't, so it is dropped: a note
   // must add more than ECHO_MAX_NEW_WORDS words.
-  const phrasingOnly = hits.filter((h) => isPhrasing(h.content) && !isEcho(h.link, h.content));
+  const phrasingOnly = hits.filter((h) => isPhrasing(h.content) && !(
+    sources.fallback
+      ? isSentenceEcho(sentenceText(h.chain[h.hostIdx], h.link), h.content)
+      : isEcho(h.link, h.content)
+  ));
   // Locate every sentence end on the untouched tree. Hits that share an end
   // (same host and char) form ONE group: one ref, one note, one number.
   const groups = [];

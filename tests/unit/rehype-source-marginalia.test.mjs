@@ -516,3 +516,205 @@ test('onMatch still reports the host block with its full sentence text', () => {
   transformSourceMarginalia(tree, { onMatch: ({ host, serial }) => (seen = { text: textOutsideNotes(host), serial }) });
   assert.deepEqual(seen, { text: 'See a now. Done.', serial: 1 });
 });
+
+// ---- Citation-file fallback ---------------------------------------------------
+
+import { isSkippedCitationKey, citationText, isSentenceEcho, SENTENCE_ECHO_MAX_NEW_WORDS } from '../../astro-site/src/lib/rehype-source-marginalia.mjs';
+
+const CITES = {
+  'docs.example.com/provenance': { title: 'Generating provenance statements', publisher: 'Example Docs', date: '2025-03-04', checked: '2026-10-28' },
+  'blog.example.org/post': { title: 'A long post about caches', publisher: 'Example Blog', date: null, checked: '2026-10-28' },
+  'github.com/o/r/blob/main/file.mjs': { title: 'file.mjs', publisher: 'GitHub', date: null, checked: '2026-10-28' },
+  'github.com/o/r/issues/7': { title: 'Cache eviction regression', publisher: 'GitHub (o/r)', date: '2026-01-02', checked: '2026-10-28' },
+  'williamzujkowski.github.io/posts/x': { title: 'Own post', publisher: 'Me', date: null, checked: '2026-10-28' },
+  'untitled.example/x': { title: '', publisher: 'P', date: '2020', checked: '2026-10-28' },
+  'nopub.example/x': { title: 'Only a title for notes', date: null, checked: '2026-10-28' },
+};
+const inlineTree = (...inline) => ({ type: 'root', children: [el('p', {}, inline)] });
+const noteTexts = (tree) => asides(tree).map((n) => textOf(n).replace(/\s+/g, ' ').trim());
+
+test('fallback: a post with no Sources heading takes its notes from the citation file', () => {
+  const tree = inlineTree(text("npm's "), link('https://docs.example.com/provenance', 'docs'), text(' say so. Next.'));
+  transformSourceMarginalia(tree, { citations: CITES });
+  assert.deepEqual(noteTexts(tree), ['Generating provenance statements · Example Docs · 2025']);
+  assert.deepEqual(kinds(tree.children[0].children), ['text', 'a', 'text', 'ref', 'note', 'text']);
+});
+
+test('fallback: normalised URL matching (www, scheme, trailing slash, utm) works against file keys', () => {
+  const tree = inlineTree(link('http://www.docs.example.com/provenance/?utm_source=x#frag', 'docs'), text(' says so.'));
+  transformSourceMarginalia(tree, { citations: CITES });
+  assert.equal(asides(tree).length, 1);
+});
+
+test('fallback: missing fields are omitted, an entry without a title gets no note', () => {
+  const a = inlineTree(link('https://blog.example.org/post', 'a post'), text(' says so.'));
+  transformSourceMarginalia(a, { citations: CITES });
+  assert.deepEqual(noteTexts(a), ['A long post about caches · Example Blog']);
+  const b = inlineTree(link('https://nopub.example/x', 'it'), text(' says so.'));
+  transformSourceMarginalia(b, { citations: CITES });
+  assert.deepEqual(noteTexts(b), ['Only a title for notes']);
+  const c = inlineTree(link('https://untitled.example/x', 'it'), text(' says so.'));
+  transformSourceMarginalia(c, { citations: CITES });
+  assert.equal(asides(c).length, 0);
+  assert.equal(citationText({ title: 'T', publisher: 'P', date: '2024-05-06' }), 'T · P · 2024');
+  assert.equal(citationText({ publisher: 'P' }), null);
+});
+
+test('fallback: a Sources list wins; the citation file is ignored for that post', () => {
+  const tree = {
+    type: 'root',
+    children: [
+      el('p', {}, [link('https://docs.example.com/provenance', 'docs'), text(' say so. '), link('https://blog.example.org/post', 'a post'), text(' too.')]),
+      ...sourcesList([['https://docs.example.com/provenance', 'From the list']]),
+    ],
+  };
+  transformSourceMarginalia(tree, { citations: CITES });
+  const notes = noteTexts(tree);
+  assert.equal(notes.length, 1); // the blog link is in the file but the post has a Sources list
+  assert.match(notes[0], /From the list/);
+  assert.doesNotMatch(notes[0], /Generating provenance/);
+});
+
+test('fallback skip rules: own domain, relative links, GitHub files/commits/trees/compares, non-http', () => {
+  for (const k of [
+    'williamzujkowski.github.io/posts/x',
+    'github.com/o/r/blob/main/a.js',
+    'github.com/o/r/commit/abc123',
+    'github.com/o/r/tree/main/src',
+    'github.com/o/r/compare/a...b',
+  ]) assert.equal(isSkippedCitationKey(k), true, k);
+  for (const k of ['github.com/o/r', 'github.com/o/r/issues/7', 'github.com/o/r/pull/9', 'github.com/advisories/GHSA-aaaa-bbbb-cccc', 'github.com/o/r/releases/tag/v1']) {
+    assert.equal(isSkippedCitationKey(k), false, k);
+  }
+  const tree = inlineTree(
+    link('https://williamzujkowski.github.io/posts/x', 'my post'), text(' one. '),
+    link('/posts/x', 'relative'), text(' two. '),
+    link('https://github.com/o/r/blob/main/file.mjs', 'the file'), text(' three. '),
+    link('https://github.com/o/r/issues/7', 'the issue'), text(' four.')
+  );
+  transformSourceMarginalia(tree, { citations: CITES });
+  assert.deepEqual(noteTexts(tree), ['Cache eviction regression · GitHub (o/r) · 2026']);
+});
+
+test('fallback: echo suppression applies against the title', () => {
+  const citations = { 'e.example/x': { title: 'Cache eviction', publisher: 'Example', date: null } };
+  const echo = inlineTree(text('See '), link('https://e.example/x', 'cache eviction example'), text(' here.'));
+  transformSourceMarginalia(echo, { citations });
+  assert.equal(asides(echo).length, 0); // one new word (Example), at most ECHO_MAX_NEW_WORDS
+  const adds = inlineTree(text('See '), link('https://e.example/x', 'this'), text(' here.'));
+  transformSourceMarginalia(adds, { citations });
+  assert.equal(asides(adds).length, 1);
+});
+
+test('fallback: sentence-end placement, one combined note per sentence, only first link per URL', () => {
+  const tree = inlineTree(
+    text('Both '), link('https://docs.example.com/provenance', 'docs'), text(' and '),
+    link('https://blog.example.org/post', 'a post'), text(' agree. Then '),
+    link('https://docs.example.com/provenance', 'docs again'), text(' returns.')
+  );
+  transformSourceMarginalia(tree, { citations: CITES });
+  assert.equal(asides(tree).length, 1);
+  assert.deepEqual(noteTexts(tree), ['Generating provenance statements · Example Docs · 2025 A long post about caches · Example Blog']);
+  assert.equal(textOutsideNotes(tree.children[0]), 'Both docs and a post agree. Then docs again returns.');
+});
+
+test('fallback: no citations option, empty file, or footnote posts leave the tree untouched', () => {
+  const mk = () => inlineTree(text('See '), link('https://docs.example.com/provenance', 'docs'), text('.'));
+  const before = JSON.stringify(mk());
+  const a = mk();
+  transformSourceMarginalia(a);
+  assert.equal(JSON.stringify(a), before);
+  const b = mk();
+  transformSourceMarginalia(b, { citations: {} });
+  assert.equal(JSON.stringify(b), before);
+  const c = mk();
+  c.children.push(el('section', { dataFootnotes: true }, []));
+  transformSourceMarginalia(c, { citations: CITES });
+  assert.equal(asides(c).length, 0);
+});
+
+test('fallback: no marginNotes flag means byte-identical output even with a citation file', () => {
+  const tree = inlineTree(text('See '), link('https://docs.example.com/provenance', 'docs'), text('.'));
+  const before = JSON.stringify(tree);
+  rehypeSourceMarginalia({ citations: CITES })(tree, { data: { astro: { frontmatter: {} } } });
+  assert.equal(JSON.stringify(tree), before);
+  rehypeSourceMarginalia({ citations: CITES })(tree, { data: { astro: { frontmatter: { marginNotes: true } } } });
+  assert.equal(asides(tree).length, 1);
+});
+
+test('fallback: onMatch reports the citation entry and key', () => {
+  const tree = inlineTree(text('See '), link('https://docs.example.com/provenance', 'docs'), text('.'));
+  let seen = null;
+  transformSourceMarginalia(tree, { citations: CITES, onMatch: ({ key, serial }) => (seen = { key, serial }) });
+  assert.deepEqual(seen, { key: 'docs.example.com/provenance', serial: 1 });
+});
+
+test('dedupe: a later link to the same citation gets no note; same title (any case) is one citation', () => {
+  const citations = {
+    'p.example/paper.pdf': { title: 'Sharpen the Spec, Cut the Code', publisher: 'USENIX', date: '2026' },
+    'p.example/paper': { title: 'sharpen the spec, cut the code', publisher: 'USENIX', date: '2026' },
+    'other.example/x': { title: 'A different thing entirely here', publisher: 'Other', date: null },
+  };
+  const tree = {
+    type: 'root',
+    children: [
+      el('p', {}, [text('First '), link('https://p.example/paper.pdf', 'pdf'), text(' says so.')]),
+      el('p', {}, [text('Then '), link('https://p.example/paper', 'page'), text(' again. And '), link('https://other.example/x', 'other'), text(' too.')]),
+    ],
+  };
+  transformSourceMarginalia(tree, { citations });
+  assert.deepEqual(noteTexts(tree), ['Sharpen the Spec, Cut the Code · USENIX · 2026', 'A different thing entirely here · Other']);
+  assert.equal(tree.children[1].children.filter((c) => c.properties?.className).length, 2); // 'other' only
+});
+
+test('dedupe applies to fallback notes only: a Sources post still notes both same-title entries', () => {
+  const tree = {
+    type: 'root',
+    children: [
+      el('p', {}, [link('https://a.example/1', 'one'), text(' first.')]),
+      el('p', {}, [link('https://a.example/2', 'two'), text(' second.')]),
+      ...sourcesList([['https://a.example/1', 'Same Title'], ['https://a.example/2', 'Same Title']]),
+    ],
+  };
+  transformSourceMarginalia(tree, { citations: {} });
+  assert.equal(asides(tree).length, 2);
+});
+
+test('sentence echo: a note that adds at most SENTENCE_ECHO_MAX_NEW_WORDS words the sentence lacks is dropped', () => {
+  assert.equal(SENTENCE_ECHO_MAX_NEW_WORDS, 2);
+  const citations = { 's.example/x': { title: 'Taxonomy of Attacks on Supply Chains', publisher: 'arXiv', date: '2022' } };
+  const echo = inlineTree(text('The Taxonomy of Attacks on '), link('https://s.example/x', 'supply chains'), text(' is on arXiv, from 2022.'));
+  transformSourceMarginalia(echo, { citations });
+  assert.equal(asides(echo).length, 0);
+  const adds = inlineTree(text('The '), link('https://s.example/x', 'taxonomy'), text(' lists attacks.'));
+  transformSourceMarginalia(adds, { citations });
+  assert.equal(asides(adds).length, 1);
+});
+
+test('sentence echo: stop words and separators are ignored, other sentences do not count', () => {
+  const content = [text('Guide to the Thing of a Kind · With By At From In On And For')];
+  assert.equal(isSentenceEcho('The guide thing kind', content), true);
+  // the only sentence words that count are the ones in the link's own sentence
+  const citations = { 's.example/y': { title: 'Alpha beta gamma delta', publisher: null, date: null } };
+  const tree = inlineTree(text('Alpha beta gamma delta came earlier. See '), link('https://s.example/y', 'this'), text(' now.'));
+  transformSourceMarginalia(tree, { citations });
+  assert.equal(asides(tree).length, 1);
+});
+
+test('sentence echo does not apply to a Sources post (link-text echo only)', () => {
+  const tree = {
+    type: 'root',
+    children: [
+      el('p', {}, [text('The Paper by Someone et al. in Test Journal is '), link('https://example.com/paper', 'here'), text('.')]),
+      ...sourcesList([['https://example.com/paper', 'The Paper']]),
+    ],
+  };
+  transformSourceMarginalia(tree, { citations: {} });
+  assert.equal(asides(tree).length, 1);
+});
+
+test('publisher elision: a publisher fully inside the title is omitted', () => {
+  assert.equal(citationText({ title: 'The Dafny Programming and Verification Language', publisher: 'Dafny', date: null }), 'The Dafny Programming and Verification Language');
+  assert.equal(citationText({ title: 'Packagist: The PHP Package Repository', publisher: 'Packagist', date: '2020' }), 'Packagist: The PHP Package Repository · 2020');
+  assert.equal(citationText({ title: 'Thing', publisher: 'Thing Docs', date: null }), 'Thing · Thing Docs');
+});
