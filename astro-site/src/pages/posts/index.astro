@@ -44,12 +44,12 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
       <span class="archive-years-label">Jump to year</span>
       {years.map((year) => <a href={`#y${year}`}>{year}</a>)}
     </nav>
-    <div class="archive-filter">
+    <ul class="remarque-tags archive-filter" aria-label="Most used tags">
       {topTags.map(([tag, count]) => (
-        <a href={`/tags/${tag}/`} class="chip">{tag}<sup>{count}</sup></a>
+        <li><a href={`/tags/${tag}/`} class="chip" rel="tag">{tag}<span class="tag-count">{count}<span class="sr-only"> posts</span></span></a></li>
       ))}
-      <a href="/tags/" class="chip">all tags</a>
-    </div>
+      <li><a href="/tags/" class="chip">all tags</a></li>
+    </ul>
   </div>
 
   <section id="start-here" class="reading-paths prose" aria-labelledby="start-here-title">

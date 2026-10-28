@@ -117,6 +117,44 @@ issue #274 ("Direction B," 7-0) unless noted:
   `tags/index.astro`) with uppercase `--text-micro` labels and a token-driven
   border at `--radius-sm` (4px rectangles, not pills); a presentational choice layered on top of core's typography
   machinery, not part of it.
+  As of design pass 3C every tag list (post footer, `/tags/`, `/posts/`
+  filter row, post cards) is a `.remarque-tags` `<ul>` with `rel="tag"` links,
+  so list semantics, wrap and the 44px coarse-pointer floor are remarque's;
+  `.chip` only adds the outline. Text is `--text-meta` (14px), the count is
+  inline in `--color-muted`, and `/tags/` is a grid sorted by count then name.
+
+### Design pass 3C (2026-10)
+
+- **Post footer** (`.post-footer`, `PostLayout.astro`): tags and share share one
+  rhythm (`--space-2` inside a group, `--space-4` between groups). Share is a
+  native `<details class="share-menu">` (no JS; `Share +` chip, full-width
+  stacked 44px links on phones). It replaces the always-open "Share:" row,
+  where "REDDIT" wrapped alone at 375. Still a site-local deviation, not core.
+- **External-link marks**: the hand-rolled href-keyed `↗` is replaced by
+  remarque 0.30's `.remarque-prose--external-marks` + `rel="external"`
+  (`src/lib/rehype-external-rel.mjs` for posts, hand-written `rel` on the four
+  static pages). The site does not import `remarque-tokens/prose` (it would
+  restyle every post body), so the single contract rule is **mirrored** in
+  `global.css`, declaration for declaration. Delta: the arrow now sits on the
+  baseline after a no-break space instead of superscript at 0.7em.
+- **Archive measure**: on non-post `.prose` pages (`/projects/`, `/uses/`,
+  `/now/`, `/about/`, `/tags/`) paragraphs, list items and definitions, and the
+  archive/tag-landing `.entry-excerpt`, are capped at `60ch` (540px). The 38rem
+  reading column is tuned for posts (median 73 chars/line); description-style
+  copy measured up to 79-81 at 1280. After: max 70-73 on /posts/, /tags/<tag>/,
+  /projects/, /uses/. Posts are untouched. Text size was not the cause: these
+  blocks are 17px like body copy.
+- **Wide tables stay scrollable.** A stacked-card layout at 375 was evaluated
+  and declined: remarque specifies scroll for wide tables
+  (`.remarque-table-wrap`, REMARQUE.md reflow rules; WCAG 1.4.10 exempts data
+  tables), the site's region wrapper is keyboard-reachable and named, and
+  `display: block` on table parts drops table semantics in Safari/VoiceOver
+  unless every part is re-roled. 36 tables with 5+ columns across 24 posts
+  would depend on that. Mitigation already in place: scroll-snap to column
+  edges and the edge-shadow cue.
+- **/uses/ jump-nav**: anchors verified (all 7 land at the viewport top). The
+  masthead is not sticky, so no header offset is needed; headings get
+  `scroll-margin-block-start: var(--space-7)` so the eyebrow above stays visible.
 
 ### Page titles (design pass 3B, 2026-10)
 

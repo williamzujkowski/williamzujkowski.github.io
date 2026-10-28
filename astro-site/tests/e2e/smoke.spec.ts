@@ -107,24 +107,55 @@ test('blog post page renders content', async ({ page }) => {
 
 test('tag chips sit in the post footer beside Share, not above the body', async ({ page }) => {
   // #698: in the header they pushed the first paragraph further below the
-  // first screen at 360px. One labelled row in the footer, all tags present.
+  // first screen at 360px. 3C: tags are remarque's .remarque-tags list and
+  // Share is a native <details>, both in one footer.
   await page.setViewportSize({ width: 360, height: 800 });
   await page.goto('/posts/2024-01-08-writing-secure-code-developers-guide/');
   await expect(page.locator('.post-header a.chip')).toHaveCount(0);
   const footer = page.locator('article > footer');
-  const tagRow = footer.locator('.share-row').filter({ hasText: 'Tags:' });
-  const tagChips = tagRow.locator('a.chip[href^="/tags/"]');
+  const tagList = footer.locator('ul.remarque-tags');
+  await expect(tagList).toHaveAccessibleName('Tags:');
+  const tagChips = tagList.locator('a.chip[href^="/tags/"]');
   expect(await tagChips.count()).toBeGreaterThanOrEqual(2);
   for (const chip of await tagChips.all()) {
     await expect(chip).toHaveAttribute('href', `/tags/${(await chip.textContent())!.trim()}/`);
+    await expect(chip).toHaveAttribute('rel', 'tag');
+    expect(await chip.evaluate((el) => getComputedStyle(el).fontSize)).toBe('14px');
   }
-  await expect(footer.locator('.share-row').filter({ hasText: 'Share:' })).toBeVisible();
+  const share = footer.locator('details.share-menu');
+  await expect(share.locator('summary')).toBeVisible();
+  // Collapsed until asked: no Share link is visible, none wraps onto a lone line.
+  await expect(share.locator('a')).toHaveCount(3);
+  await expect(share.locator('a').first()).toBeHidden();
+  await share.locator('summary').click();
+  for (const link of await share.locator('a').all()) {
+    await expect(link).toBeVisible();
+    const box = (await link.boundingBox())!;
+    expect(box.height).toBeGreaterThanOrEqual(24);
+  }
   // The tag row precedes Share, inside the same footer.
   const [tagsY, shareY] = await Promise.all([
-    tagRow.evaluate((el) => el.getBoundingClientRect().top),
-    footer.locator('.share-row').filter({ hasText: 'Share:' }).evaluate((el) => el.getBoundingClientRect().top),
+    tagList.evaluate((el) => el.getBoundingClientRect().top),
+    share.evaluate((el) => el.getBoundingClientRect().top),
   ]);
   expect(tagsY).toBeLessThan(shareY);
+});
+
+test('/tags/ lists every tag in a grid, most-used first, count inline', async ({ page }) => {
+  await page.goto('/tags/');
+  const list = page.locator('ul.remarque-tags.tag-index');
+  await expect(list).toHaveAccessibleName('All tags');
+  const counts = await list.locator('.tag-count').evaluateAll((els) => els.map((el) => Number(el.firstChild?.textContent)));
+  expect(counts.length).toBeGreaterThan(10);
+  expect(counts).toEqual([...counts].sort((a, b) => b - a));
+});
+
+test('off-site links carry rel=external and the screen-only arrow', async ({ page }) => {
+  await page.goto('/projects/');
+  const link = page.locator('.prose a[href^="https://github.com/"]').first();
+  await expect(link).toHaveAttribute('rel', /\bexternal\b/);
+  const after = await link.evaluate((el) => getComputedStyle(el, '::after').content);
+  expect(after).toContain('\u2197');
 });
 
 test('RSS feed is valid XML', async ({ page }) => {

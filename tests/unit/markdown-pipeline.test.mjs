@@ -84,7 +84,7 @@ test('the configured sanitizer rejects scripts, event handlers and unsafe URL pr
   assert.doesNotMatch(code, /\son\w+=/i);
   assert.doesNotMatch(code, /untrusted|javascript:|data:text\/html/i);
   assert.match(code, /<a>Unsafe link<\/a>/);
-  assert.match(code, /<a href="https:\/\/example\.com\/research">Research<\/a>/);
+  assert.match(code, /<a href="https:\/\/example\.com\/research" rel="external">Research<\/a>/);
   assert.match(code, /<img src="https:\/\/example\.com\/chart\.png" alt="Chart">/);
   assert.match(code, /<svg viewBox="0 0 10 10">/);
   assert.match(code, /<use><\/use>/);

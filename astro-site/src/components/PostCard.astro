@@ -42,11 +42,11 @@ const isoDate = post.data.date.toISOString().split('T')[0];
       <p class="post-card-excerpt">{post.data.description}</p>
     )}
     {showTags && displayTags.length > 0 && (
-      <div class="chip-row">
+      <ul class="remarque-tags" aria-label="Tags">
         {displayTags.map((tag) => (
-          <a href={`/tags/${tag}/`} class="chip">{tag}</a>
+          <li><a href={`/tags/${tag}/`} class="chip" rel="tag">{tag}</a></li>
         ))}
-      </div>
+      </ul>
     )}
   </div>
 </article>

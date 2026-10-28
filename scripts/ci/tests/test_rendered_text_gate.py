@@ -24,6 +24,7 @@ def test_layout_chrome_is_ignored_but_the_post_header_and_body_are_not():
         '<nav class="remarque-breadcrumb"><ol><li><a>Front</a></li><li><span aria-current="page">Title</span></li></ol></nav>'
         '<nav class="remarque-pager post-pager"><a rel="next"><span>Next</span><span>Another post</span></a></nav>'
         '<div class="remarque-endmark"></div>'
+        '<footer class="post-footer"><span>Tags:</span><details><summary>Share</summary><a>Reddit</a></details></footer>'
     )
     assert rtg.main_text(PAGE.format(extra=chrome + "<p>after</p>")) == "See the paper.after"
     assert rtg.main_text(PAGE.format(extra="<h1>Title</h1>")) == "See the paper.Title"
