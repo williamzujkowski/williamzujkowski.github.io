@@ -135,7 +135,7 @@ The durable idea is the one worth keeping. Multiple agents with distinct roles a
 
 ## Sources
 
-- [ruvnet/ruflo](https://github.com/ruvnet/ruflo) — the project, formerly claude-flow. The 84.8% / 2.8–4.4x / 32.3% figures are its own README's
+- [ruvnet/ruflo](https://github.com/ruvnet/ruflo) — the project, formerly claude-flow. Its README as of 7 August 2025 reported 84.8% SWE-Bench, 2.8–4.4x speed and 32.3% token reduction. These are project-reported figures, not independently reproduced
 - [SWE-bench](https://www.swebench.com/) — note the distinction between full, Verified and Lite
 - [Model Context Protocol](https://modelcontextprotocol.io/) — the tool interface claude-flow exposes its coordination through
 - Bonabeau, Dorigo & Theraulaz, *Swarm Intelligence: From Natural to Artificial Systems*, Oxford University Press / SFI Studies, 1999 (ISBN 0-19-513159-2) — where the biological metaphor comes from
