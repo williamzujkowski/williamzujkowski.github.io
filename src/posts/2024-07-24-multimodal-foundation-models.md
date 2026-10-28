@@ -161,7 +161,6 @@ Lesson Learned: Testing a multimodal system across diverse user populations reve
 **Strengths:** Customizable, can be fine-tuned for specific domains, cost-effective for large-scale deployment
 **Applications:** Specialized industry applications, research and development
 **Limitations:** Generally less capable than commercial alternatives out of the box, require more technical expertise and fine-tuning effort
-**Project:** In July 2024, I fine-tuned LLaVA 1.5 (13B parameters) for medical imaging analysis using 5,000 labeled chest X-rays. After 3 epochs of training, it achieved 81% accuracy on the validation set, improving from the base model's 68%, though it still lagged behind GPT-4V's 87% on the same task. My guide on [LLM fine-tuning in the homelab](/posts/2025-05-10-llm-fine-tuning-homelab-guide/) covers the detailed process I used, including hardware requirements and training optimization techniques. For those deploying similar models, securing AI/ML experiments is essential given the sensitive nature of medical data.
 
 ## What's Coming Next in Multimodal AI
 
