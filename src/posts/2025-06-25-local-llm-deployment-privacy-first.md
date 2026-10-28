@@ -332,6 +332,6 @@ Drop me a line – I'd love to hear about your setup or help troubleshoot if you
 
 ### Performance Benchmarks
 
-- **Inference speed comparisons**: Based on [LLM Performance Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
+- **Model quality**: [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) - accuracy benchmarks (IFEval, BBH, MATH Level 5, GPQA, MuSR, MMLU-Pro); it does not measure inference speed
 - **Memory requirements**: Measured using standard profiling tools
 - **Quantization impact**: Research from GPTQ and bitsandbytes papers

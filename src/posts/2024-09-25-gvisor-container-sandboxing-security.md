@@ -445,7 +445,7 @@ No silver bullet. Security is understanding your threat model and layering contr
 ## Sources
 
 1. [G-Fuzz: A Directed Fuzzing Framework for gVisor](https://arxiv.org/abs/2409.13139) (2024)
-   - J. Zhang et al.
+   - Yuwei Li et al. (Zhejiang University and Ant Group)
    - *IEEE Transactions on Dependable and Secure Computing*
 
 2. [Docker Security Advisory: Multiple Vulnerabilities in runc, BuildKit, and Moby](https://www.docker.com/blog/docker-security-advisory-multiple-vulnerabilities-in-runc-buildkit-and-moby/) (2024)

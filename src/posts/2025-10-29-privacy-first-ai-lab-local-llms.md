@@ -372,7 +372,7 @@ Week 1: Foundation
 4. Test network isolation thoroughly before adding complexity
 
 Week 2: Gradual Capability Growth
-1. Add LM Studio for user-friendly interface (zero telemetry)
+1. Add LM Studio for user-friendly interface (no telemetry per its policy, though update checks still go out)
 2. Implement basic content filtering
 3. Set up encrypted Docker volumes
 4. Document everything in runbooks
@@ -486,23 +486,23 @@ If you're not willing to properly secure your deployment, use a reputable cloud 
 
 Research Papers:
 - [MPC-Minimized Secure LLM Inference](https://arxiv.org/abs/2408.03561) - Secure multi-party computation techniques
-- [A First Look At Efficient And Secure On-Device LLM Inference Against KV Leakage](https://arxiv.org/abs/2409.04040) - GPU memory protection
-- [CMIF Framework: Differential Privacy in LLM Inference](https://arxiv.org/html/2509.09091) - Performance overhead measurements
+- [A First Look At Efficient And Secure On-Device LLM Inference Against KV Leakage](https://arxiv.org/abs/2409.04040) - Yang et al., 2024. Describes how GPU inference can leak KV pairs and proposes KV-Shield, a defence for on-device inference that permutes the weights and runs the permutation steps inside a TEE
+- [Towards Confidential and Efficient LLM Inference with Dual Privacy Protection](https://arxiv.org/html/2509.09091) - Yu et al. (DASFAA 2025). Proposes CMIF, which combines a client-side SGX2 enclave with differential privacy. Reports 28.78% and 38.12% extra inference time on Llama2-7B and Llama3-8B over a CPU+GPU baseline, mostly from SGX2 encryption
 
 AI Safety Frameworks:
 - [Constitutional AI: Harmlessness from AI Feedback](https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback) - Anthropic's alignment approach
 - [DeepMind Frontier Safety Framework](https://deepmind.google/discover/blog/introducing-the-frontier-safety-framework/) - Capability-based controls
-- [OpenAI's Approach to External Red Teaming](https://cdn.openai.com/papers/openais-approach-to-external-red-teaming.pdf) - Testing methodologies
+- [OpenAI's Approach to External Red Teaming for AI Models and Systems](https://cdn.openai.com/papers/openais-approach-to-external-red-teaming.pdf) - OpenAI's paper on its external red-teaming methodology
 
 Tools and Security Guides:
-- [LM Studio Privacy Policy](https://lmstudio.ai/app-privacy) - Zero telemetry example
-- [Ollama Security Guide](https://github.com/tarunboricha/ollama-security-guide) - Hardening instructions
-- [vLLM Security Documentation](https://docs.vllm.ai/en/latest/usage/security/) - Production deployment
-- [Wazuh AI Workload Monitoring](https://documentation.wazuh.com/) - Security monitoring
+- [LM Studio Privacy Policy](https://lmstudio.ai/app-privacy) - States the app "does not include telemetry or user-specific tracking" and that local chats and documents are not transmitted. It also lists app version, build, OS and IP address sent on update checks, and anonymised search queries
+- [Ollama Security Guide](https://github.com/tarunboricha/ollama-security-guide) - A third-party README overview of Ollama security risks and mitigations, not official Ollama documentation
+- [vLLM Security Documentation](https://docs.vllm.ai/en/latest/usage/security/) - Security guidance for vLLM deployments, including network isolation and protecting exposed servers
+- [Wazuh documentation](https://documentation.wazuh.com/) - Wazuh's general documentation. It has no page on AI workloads; the custom rules in this post are my own
 
 Community Resources:
 - [r/LocalLLaMA](https://www.reddit.com/r/LocalLLaMA/) - Practical deployment discussions
-- [Cisco: Detecting Exposed LLM Servers](https://blogs.cisco.com/security/detecting-exposed-llm-servers-shodan-case-study-on-ollama) - Security research
+- [Detecting Exposed LLM Servers: A Shodan Case Study on Ollama](https://blogs.cisco.com/security/detecting-exposed-llm-servers-shodan-case-study-on-ollama) - Cisco's Shodan scan, which identified 1,139 vulnerable Ollama instances
 
 ---
 
