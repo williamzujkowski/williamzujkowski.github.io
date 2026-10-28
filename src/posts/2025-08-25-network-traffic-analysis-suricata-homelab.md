@@ -515,10 +515,7 @@ Regularly test that your rules actually fire. A rule that never alerts might be 
 
 ### IDS/IPS Technology
 
-1. [Snort vs Suricata Performance](https://ieeexplore.ieee.org/document/8726695) (2019)
-   - IEEE - Comparative analysis of IDS performance
-
-2. [Suricata Official Documentation](https://docs.suricata.io/) - Comprehensive configuration guide
+1. [Suricata Official Documentation](https://docs.suricata.io/) - Comprehensive configuration guide
 
 ### Threat Detection Research
 

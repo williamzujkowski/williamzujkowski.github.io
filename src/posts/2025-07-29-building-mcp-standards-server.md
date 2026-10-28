@@ -19,7 +19,7 @@ This is a case study in scope creep, premature optimization, and what happens wh
 
 But here's the thing: personal projects are where we learn by overdoing it, by making every mistake in the book when the stakes are low. This post walks through the evolution from working prototype to over-engineered monstrosity, examining the classic developer pitfalls I hit along the way, including tool-driven architecture, the seduction of sophisticated patterns, and the massive gap between "it works" and "it's production ready."
 
-The Numbers: Version 1 (200 lines, 2 hours, functional) → Version 4 (6,000+ lines, 3 weeks, questionably necessary). Redis cache with 30-minute TTL for documentation that changes once a month. Vector search implementation for 50 markdown files. Six language-specific analyzers for standards that are 90% YAML. This isn't a success story: it's a cautionary tale about knowing when good enough is perfect.
+The Numbers: Version 1 (200 lines, 2 hours, functional) → Version 4 (about 32,000 lines, six weeks, questionably necessary). Redis cache with 30-minute TTL for documentation that changes once a month. Vector search implementation for 50 markdown files. Six language-specific analyzers for standards that are 90% YAML. This isn't a success story: it's a cautionary tale about knowing when good enough is perfect.
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/mcp-server.png'); width: min(240px, 62%); aspect-ratio: 400/386; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">one server, many tools</p>
@@ -55,7 +55,7 @@ class StandardsServer:
 
 Pseudocode - Simplified Current Architecture:
 ```python
-# Current reality - 6000+ lines of code later
+# Current reality - 32,000 lines of code later
 # Simplified representation showing core components
 class MCPStandardsServer:
     def __init__(self):
@@ -124,7 +124,7 @@ The architecture grew from a simple pipe to a multi-layered system across four v
   <div class="flow-node"><b>Version 1: Simple</b><i>stdio in/out, load standards, return to Claude; 200 lines</i></div>
   <div class="flow-node"><b>Version 2: + Redis</b><i>stdio, Redis L1/L2 cache, load standards, return; 1,200 lines</i></div>
   <div class="flow-node"><b>Version 3: + Vector Search</b><i>stdio, Redis cache, ChromaDB vector search, standards; 3,800 lines</i></div>
-  <div class="flow-node is-bad"><b>Version 4: Kitchen Sink</b><i>stdio / HTTP / WebSocket, Redis, ChromaDB, rule engine, analyzers, NIST compliance, React web UI; 6,000+ lines</i></div>
+  <div class="flow-node is-bad"><b>Version 4: Kitchen Sink</b><i>stdio / HTTP / WebSocket, Redis, ChromaDB, rule engine, analyzers, NIST compliance, React web UI; about 32,000 lines</i></div>
 </div>
 
 ## What Actually Works (The Good Parts)
@@ -367,7 +367,7 @@ Version value versus complexity:
 | Week 1 | 200 lines, 1 file | High |
 | Week 2 | Add caching; 1,200 lines, 8 files | Marginal |
 | Week 3 | Add vector search; 3,800 lines, 23 files | Negative |
-| Week 4 | Add web UI; 6,000+ lines, 47 files | Mixed |
+| Week 4 | Add web UI; about 32,000 lines, 47 files | Mixed |
 
 ### Start Smaller Than You Think
 
@@ -460,7 +460,7 @@ Fair warning: This is a work in progress. It works, but "works" is doing some he
 
 This project taught me something important: The gap between "working prototype" and "production ready" is vast. My standards repository was immediately useful. This MCP server is technically superior and practically inferior. It's harder to install, easier to break, and solves problems that don't exist.
 
-The honest assessment: This is over-engineering as a learning exercise. The first version (200 lines) worked fine. The current version (6,000+ lines) is more impressive and less useful. Sometimes the best code is the code you don't write.
+The honest assessment: This is over-engineering as a learning exercise. The first version (200 lines) worked fine. The current version (about 32,000 lines) is more impressive and less useful. Sometimes the best code is the code you don't write.
 
 But I learned a ton:
 - How MCP works (and doesn't)

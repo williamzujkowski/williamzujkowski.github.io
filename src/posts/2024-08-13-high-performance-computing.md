@@ -62,8 +62,6 @@ Intelligent job scheduling capabilities:
 - Predictive maintenance scheduling that minimizes downtime
 - Multi-objective optimization balancing throughput, fairness, and energy efficiency
 
-AI-driven scheduling systems fundamentally change how computational resources are allocated. I remember when job scheduling was a manual art form, with administrators constantly tweaking parameters.
-
 Advanced resource management techniques:
 - Machine learning models predict job runtime with 90%+ accuracy
 - Adaptive mesh refinement guided by neural networks
@@ -104,8 +102,6 @@ This creates feedback loops: AI improves scheduling efficiency, which enables mo
 ### Physics-Informed Neural Networks (PINNs)
 
 PINNs represent a paradigm shift in scientific computing by embedding physical laws directly into neural network architectures:
-
-PINNs embed physical laws directly into neural network architectures. This creates a paradigm shift in scientific computing.
 
 PINN methodology and architecture:
 - Incorporate partial differential equations (PDEs) as soft constraints in loss functions
