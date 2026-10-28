@@ -10,6 +10,7 @@ tags:
   - machine-learning
   - privacy
   - security
+marginNotes: true
 ---
 
 I spent six months believing my homelab AI setup was perfectly private. The RTX 3090 hummed away in my server rack running Llama models locally, no cloud API calls, no data leaving my network. Or so I thought.
