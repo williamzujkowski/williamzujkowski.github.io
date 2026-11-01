@@ -1,0 +1,135 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import TerminalArcade from '@components/TerminalArcade.svelte';
+---
+
+<BaseLayout
+  title="Terminal Arcade"
+  description="Playable retro terminal games: turn-based boss battle against the Legacy Monolith, text adventure dungeon crawler, and interactive shell with OKLCH themes and 8-bit sound."
+>
+  <div class="arcade-page">
+    <nav aria-label="Breadcrumb" class="post-breadcrumb">
+      <a href="/">Front</a> <span aria-hidden="true">/</span> <a href="/projects/">Workbench</a> <span aria-hidden="true">/</span> <span aria-current="page">Terminal Arcade</span>
+    </nav>
+
+    <header class="arcade-hero">
+      <p class="arcade-eyebrow">Playable Retro Computing</p>
+      <h1 class="arcade-title">Terminal Arcade</h1>
+      <p class="arcade-tagline">
+        The animated terminal blocks from <a href="https://github.com/williamzujkowski/svg-terminal"><code>svg-terminal</code></a> — but now you hold the keyboard.
+      </p>
+      <p class="arcade-sub">
+        Zero runtime scripts in SVG; 100% interactive in web browsers. Featuring turn-based RPG boss battles against <em>The Legacy Monolith</em>, a classic dungeon text adventure, 8-bit Web Audio synthesizer, CRT scanlines, and 6 retro OKLCH color palettes.
+      </p>
+    </header>
+
+    <TerminalArcade client:load />
+
+    <section class="arcade-footer-notes">
+      <h2>Under the Hood</h2>
+      <ul>
+        <li>
+          <strong>Static SVG vs Interactive Canvas:</strong> The GitHub profile showcases zero-JS animated SVGs rendered using pure SMIL and CSS. This arcade brings the same scene states into an interactive Svelte playground using Web Audio oscillators and monospace ANSI layouts.
+        </li>
+        <li>
+          <strong>OKLCH Palettes:</strong> Themes are generated with perceptual chroma matching from <a href="https://github.com/williamzujkowski/oklch-terminal-themes"><code>oklch-terminal-themes</code></a>. Read the design principles in <a href="/posts/2026-07-19-oklch-terminal-themes/">OKLCH Terminal Themes</a>.
+        </li>
+        <li>
+          <strong>Engine Deep Dive:</strong> Read <a href="/posts/2026-05-26-svg-terminal-no-gifs-no-script-tags/">SVG Terminal: No GIFs. No script tags.</a> to see how the deterministic terminal SVG renderer works.
+        </li>
+      </ul>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .arcade-page {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: clamp(1.5rem, 4vw, 3.5rem) 1rem 4rem;
+  }
+
+  .post-breadcrumb {
+    font-size: var(--text-micro, 0.8125rem);
+    color: var(--color-muted);
+    margin-bottom: 2rem;
+  }
+
+  .post-breadcrumb a {
+    color: var(--color-muted);
+    text-decoration: none;
+  }
+
+  .post-breadcrumb a:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  .arcade-hero {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .arcade-eyebrow {
+    font-family: var(--font-mono, monospace);
+    font-size: var(--text-micro, 0.8125rem);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .arcade-title {
+    font-family: var(--font-display, serif);
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    line-height: 1.1;
+    margin: 0 0 1rem;
+    font-weight: 700;
+    color: var(--color-fg);
+  }
+
+  .arcade-tagline {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--color-fg);
+    margin: 0 auto 0.75rem;
+    max-width: 44rem;
+  }
+
+  .arcade-sub {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-fg-muted);
+    max-width: 46rem;
+    margin: 0 auto;
+  }
+
+  .arcade-footer-notes {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .arcade-footer-notes h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-display, serif);
+    color: var(--color-fg);
+  }
+
+  .arcade-footer-notes ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-fg-muted);
+  }
+
+  .arcade-footer-notes a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+</style>
