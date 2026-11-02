@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { tick } from 'svelte';
+
   type GameMode = 'battle' | 'adventure' | 'terminal';
 
   interface ThemeOption {
@@ -73,6 +75,38 @@
   let scanlines = true;
   let textGlow = true;
   let audioEnabled = true;
+
+  let adventureContainer: HTMLElement | null = null;
+  let terminalContainer: HTMLElement | null = null;
+  let battleLogContainer: HTMLElement | null = null;
+  let adventureInputEl: HTMLInputElement | null = null;
+  let terminalInputEl: HTMLInputElement | null = null;
+
+  async function scrollToBottom(el: HTMLElement | null, formSelector?: string) {
+    await tick();
+    if (el) {
+      el.scrollTop = el.scrollHeight;
+    }
+    if (formSelector && typeof document !== 'undefined') {
+      const form = document.querySelector(formSelector);
+      form?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  async function switchMode(mode: GameMode) {
+    currentMode = mode;
+    playBleep(mode === 'battle' ? 440 : mode === 'adventure' ? 520 : 600);
+    await tick();
+    if (mode === 'adventure') {
+      await scrollToBottom(adventureContainer);
+      adventureInputEl?.focus();
+    } else if (mode === 'terminal') {
+      await scrollToBottom(terminalContainer);
+      terminalInputEl?.focus();
+    } else if (mode === 'battle') {
+      await scrollToBottom(battleLogContainer);
+    }
+  }
 
   // Web Audio 8-bit sound generator
   let audioCtx: AudioContext | null = null;
@@ -212,6 +246,8 @@
       playBleep(600, 'sine', 0.2);
     }
 
+    scrollToBottom(battleLogContainer);
+
     // Check boss defeat
     if (battle.bossHp <= 0) {
       battle.isOver = true;
@@ -221,6 +257,7 @@
         `🎉 ${battle.bossName} WAS DEFEATED!`,
         '🏆 VICTORY! 3,500 EXP gained. Dad joke buffer overflowing.',
       ];
+      scrollToBottom(battleLogContainer);
       playFanfare();
       return;
     }
@@ -245,6 +282,7 @@
         battle.logs = [...battle.logs, '💀 GAME OVER. Hero was deallocated.'];
         playBleep(100, 'sawtooth', 0.4);
       }
+      scrollToBottom(battleLogContainer);
     }, 400);
   }
 
@@ -291,6 +329,7 @@
 
     adventureHistory = newHistory;
     adventureInput = '';
+    scrollToBottom(adventureContainer, '.adventure-form');
   }
 
   // Interactive Terminal REPL State
@@ -386,6 +425,7 @@
 
     terminalLines = [...terminalLines, ...output, ""];
     terminalInput = '';
+    scrollToBottom(terminalContainer, '.terminal-form');
   }
 
   function makeGauge(current: number, max: number, width = 12): string {
@@ -411,19 +451,19 @@
     <div class="mode-tabs">
       <button
         class:active={currentMode === 'battle'}
-        on:click={() => { currentMode = 'battle'; playBleep(440); }}
+        on:click={() => switchMode('battle')}
       >
         ⚔️ RPG Boss Battle
       </button>
       <button
         class:active={currentMode === 'adventure'}
-        on:click={() => { currentMode = 'adventure'; playBleep(520); }}
+        on:click={() => switchMode('adventure')}
       >
         📜 Zork Adventure
       </button>
       <button
         class:active={currentMode === 'terminal'}
-        on:click={() => { currentMode = 'terminal'; playBleep(600); }}
+        on:click={() => switchMode('terminal')}
       >
         ⌨️ Live REPL
       </button>
@@ -486,7 +526,7 @@
           </pre>
         </div>
 
-        <div class="battle-log">
+        <div class="battle-log" bind:this={battleLogContainer}>
           {#each battle.logs.slice(-5) as log, i (i)}
             <div class="log-line">{log}</div>
           {/each}
@@ -517,7 +557,7 @@
     <!-- Mode 2: Zork Adventure -->
     {#if currentMode === 'adventure'}
       <div class="mode-content adventure-mode">
-        <div class="adventure-history">
+        <div class="adventure-history" bind:this={adventureContainer}>
           {#each adventureHistory as line, i (i)}
             <div class="adv-line">{line}</div>
           {/each}
@@ -525,6 +565,7 @@
         <form class="adventure-form" on:submit|preventDefault={handleAdventureCommand}>
           <span class="prompt-text">&gt;</span>
           <input
+            bind:this={adventureInputEl}
             type="text"
             bind:value={adventureInput}
             placeholder="e.g. open small mailbox, look, go north"
@@ -539,7 +580,7 @@
     <!-- Mode 3: Live Terminal REPL -->
     {#if currentMode === 'terminal'}
       <div class="mode-content terminal-mode">
-        <div class="terminal-history">
+        <div class="terminal-history" bind:this={terminalContainer}>
           {#each terminalLines as line, i (i)}
             <div class="term-line">{line}</div>
           {/each}
@@ -547,6 +588,7 @@
         <form class="terminal-form" on:submit|preventDefault={runTerminalCommand}>
           <span class="prompt-text">william@homelab:~$</span>
           <input
+            bind:this={terminalInputEl}
             type="text"
             bind:value={terminalInput}
             placeholder="type 'help', 'dad-joke', 'neofetch', 'konami'..."
@@ -720,6 +762,10 @@
     padding: 0.75rem 1rem;
     border-radius: 6px;
     min-height: 110px;
+    max-height: 130px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
     margin-bottom: 1rem;
     font-size: 0.88rem;
     display: flex;
@@ -810,6 +856,8 @@
     gap: 0.25rem;
     max-height: 440px;
     overflow-y: auto;
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
   }
 
   .adventure-form, .terminal-form {
