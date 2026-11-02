@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-
   type GameMode = 'battle' | 'adventure' | 'terminal';
 
   interface ThemeOption {
@@ -91,7 +89,7 @@
     }
   }
 
-  function playBleep(freq = 440, type: OscillatorType = 'square', duration = 0.08) {
+  function playBleep(freq = 440, type: 'sine' | 'square' | 'sawtooth' | 'triangle' = 'square', duration = 0.08) {
     if (!audioEnabled) return;
     try {
       initAudio();
@@ -171,10 +169,9 @@
     if (battle.isOver) return;
 
     battle.defending = false;
-    let heroDmg = 0;
 
     if (action === 'attack') {
-      heroDmg = Math.floor(Math.random() * 80) + 70;
+      let heroDmg = Math.floor(Math.random() * 80) + 70;
       const isCrit = Math.random() > 0.75;
       if (isCrit) heroDmg = Math.floor(heroDmg * 1.6);
       battle.bossHp = Math.max(0, battle.bossHp - heroDmg);
@@ -190,7 +187,7 @@
         return;
       }
       battle.heroMp -= 20;
-      heroDmg = Math.floor(Math.random() * 120) + 110;
+      const heroDmg = Math.floor(Math.random() * 120) + 110;
       battle.bossHp = Math.max(0, battle.bossHp - heroDmg);
       battle.logs = [
         ...battle.logs,
@@ -439,7 +436,7 @@
         bind:value={currentTheme}
         on:change={() => playBleep(700)}
       >
-        {#each THEMES as t}
+        {#each THEMES as t (t.id)}
           <option value={t}>{t.name}</option>
         {/each}
       </select>
@@ -490,7 +487,7 @@
         </div>
 
         <div class="battle-log">
-          {#each battle.logs.slice(-5) as log}
+          {#each battle.logs.slice(-5) as log, i (i)}
             <div class="log-line">{log}</div>
           {/each}
         </div>
@@ -521,7 +518,7 @@
     {#if currentMode === 'adventure'}
       <div class="mode-content adventure-mode">
         <div class="adventure-history">
-          {#each adventureHistory as line}
+          {#each adventureHistory as line, i (i)}
             <div class="adv-line">{line}</div>
           {/each}
         </div>
@@ -543,7 +540,7 @@
     {#if currentMode === 'terminal'}
       <div class="mode-content terminal-mode">
         <div class="terminal-history">
-          {#each terminalLines as line}
+          {#each terminalLines as line, i (i)}
             <div class="term-line">{line}</div>
           {/each}
         </div>
